@@ -1,0 +1,10 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "changeset-release/main": false
+    }
+  },
+  "github": {
+    "silent": true
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "automerge": true,
+  "automergeType": "branch",
+  "docker": {
+    "major": {
+      "enabled": true
+    },
+    "pinDigests": true
+  },
+  "extends": [
+    ":semanticPrefixFixDepsChoreOthers",
+    ":autodetectPinVersions",
+    ":assignee(DerYeger)",
+    ":dependencyDashboard",
+    ":disableRateLimiting",
+    ":enableVulnerabilityAlertsWithLabel(vulnerability)",
+    ":labels(dependencies,renovate)",
+    ":semanticCommits",
+    "group:allNonMajor",
+    "workarounds:all"
+  ],
+  "major": {
+    "automerge": false
+  },
+  "packageRules": [],
+  "schedule": ["after 12am and before 7am on Saturday"],
+  "timezone": "Europe/Vienna"
+}

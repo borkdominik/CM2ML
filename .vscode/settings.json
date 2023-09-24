@@ -1,0 +1,19 @@
+{
+  "eslint.packageManager": "pnpm",
+  "eslint.probe": [
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "markdown",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "yaml"
+  ],
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "markdownlint.config": {
+    "MD033": false
+  },
+  "vitest.commandLine": "pnpm test --run"
+}

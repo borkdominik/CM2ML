@@ -1,0 +1,31 @@
+name: CI
+
+on: [pull_request, push, workflow_dispatch]
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+    steps:
+      - name: Setup
+        uses: DerYeger/pnpm-setup-action@master
+        with:
+          node-version-file: .node-version
+      - name: Lint package versions
+        run: pnpm run syncpack:lint
+      - name: Build, Lint, Test, and Typecheck
+        run: pnpm run ci
+      - name: Release
+        uses: changesets/action@v1
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        with:
+          version: pnpm run version
+          publish: pnpm exec changeset publish
+          commit: 'chore: release'
+          title: 'chore: release'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,9 @@
+{
+  "dependencyTypes": [
+    "dev",
+    "overrides",
+    "prod",
+    "resolutions"
+  ],
+  "versionGroups": []
+}

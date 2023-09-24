@@ -1,0 +1,63 @@
+{
+  "name": "cm2ml",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@8.7.5",
+  "repository": {
+    "url": "https://github.com/borkdominik/CM2ML"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "build": "nr turbo run build",
+    "bundlesize": "nr turbo run bundlesize",
+    "changeset": "changeset",
+    "ci": "cross-env COVERAGE=true nr turbo run build bundlesize generate lint test check:publish check:tsc check:vue",
+    "clean": "rimraf -g **/tsconfig.tsbuildinfo",
+    "cm2ml": "nr turbo build --filter=cli... && cm2ml",
+    "create-package": "nr turbo generate lib && ni",
+    "dev": "nr turbo run dev --parallel",
+    "fix": "nr turbo run lint lint:root -- --fix",
+    "generate": "nr turbo run generate",
+    "graph": "nr turbo build --filter=turbo-graph... && turbo-graph --open",
+    "install-hooks": "is-ci || husky install",
+    "lint": "nr turbo run lint lint:root",
+    "lint:root": "eslint \"{.changeset,.github,.husky,.vscode}/**/*.{astro,html,js,jsx,json,md,ts,tsx,vue,yaml,yml}\" \"./*.{astro,html,js,jsx,json,md,ts,tsx,vue,yaml,yml}\"",
+    "preview": "nr turbo run preview",
+    "syncpack": "syncpack",
+    "syncpack:fix": "syncpack fix",
+    "syncpack:lint": "syncpack list-mismatches",
+    "test": "cross-env COVERAGE=true nr turbo run test",
+    "turbo": "cross-env CI=true FORCE_COLOR=1 turbo --output-logs=new-only",
+    "typecheck": "nr turbo run check:tsc check:vue",
+    "vercel": "vercel",
+    "version": "changeset version && pnpm install --no-frozen-lockfile"
+  },
+  "devDependencies": {
+    "@antfu/ni": "0.21.8",
+    "@changesets/cli": "2.26.2",
+    "@cm2ml/cli": "workspace:*",
+    "@commitlint/cli": "17.7.1",
+    "@commitlint/config-conventional": "17.7.0",
+    "@turbo/gen": "1.10.14",
+    "@types/node": "18.17.17",
+    "@vitest/coverage-v8": "0.34.4",
+    "@vitest/ui": "0.34.4",
+    "@yeger/eslint-config": "1.9.1",
+    "@yeger/turbo-graph": "1.0.2",
+    "cross-env": "7.0.3",
+    "eslint": "8.49.0",
+    "husky": "8.0.3",
+    "lint-staged": "14.0.1",
+    "publint": "0.2.2",
+    "rimraf": "5.0.1",
+    "syncpack": "11.2.1",
+    "turbo": "1.10.14",
+    "vercel": "32.2.4",
+    "vitest": "0.34.4"
+  },
+  "lint-staged": {
+    "*.{astro,html,js,jsx,json,md,ts,tsx,vue,yaml,yml}": "eslint --rule 'import/no-unresolved: off' --rule 'import/default: off' --fix"
+  }
+}

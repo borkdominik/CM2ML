@@ -1,0 +1,57 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["CI"],
+  "pipeline": {
+    "check:publish": {
+      "dependsOn": ["build", "generate"]
+    },
+    "check:tsc": {
+      "dependsOn": ["^build", "codegen"]
+    },
+    "check:vue": {
+      "dependsOn": ["^build", "codegen"]
+    },
+    "build": {
+      "dependsOn": ["^build", "codegen"],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "generate": {
+      "dependsOn": ["build"],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "codegen": {},
+    "bundlesize": {
+      "dependsOn": ["build"],
+      "inputs": ["dist/**"]
+    },
+    "preview": {
+      "dependsOn": ["build", "generate"],
+      "cache": false
+    },
+    "bench": {
+      "dependsOn": ["^build", "codegen"],
+      "cache": false
+    },
+    "test": {
+      "dependsOn": ["^build", "codegen"],
+      "outputs": ["coverage/**"],
+      "env": ["COVERAGE"]
+    },
+    "dev": {
+      "dependsOn": ["codegen"],
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": ["^build", "build"]
+    },
+    "//#lint:root": {
+      "inputs": [
+        "./*",
+        ".vscode/**",
+        ".husky/**",
+        ".github/**",
+        ".changeset/**"
+      ]
+    }
+  }
+}

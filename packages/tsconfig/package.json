@@ -1,0 +1,18 @@
+{
+  "name": "@cm2ml/tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "files": [
+    "base.json",
+    "cli.json",
+    "lib.json",
+    "next.json",
+    "vite.json",
+    "web.json"
+  ],
+  "scripts": {
+    "check:publish": "publint run --strict",
+    "lint": "yeger-lint"
+  }
+}
