@@ -95,3 +95,14 @@ export function definePlugin<Out, Parameters extends ParameterMetadata>(
   }
   return { ...plugin, validate }
 }
+
+export function getTypeConstructor(parameterType: ParameterType) {
+  switch (parameterType) {
+    case 'number':
+      return Number
+    case 'string':
+      return String
+    case 'boolean':
+      return Boolean
+  }
+}

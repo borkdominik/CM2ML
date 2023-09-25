@@ -1,7 +1,8 @@
 import fs from 'node:fs'
 import process from 'node:process'
 
-import type { ParameterMetadata, ParameterType, Plugin } from '@cm2ml/plugin'
+import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
+import { getTypeConstructor } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 import { cac } from 'cac'
 
@@ -25,7 +26,7 @@ class CLI {
     Stream.fromObject(plugin.parameters).forEach(([name, parameter]) => {
       command.option(`--${name} <${name}>`, parameter.description, {
         default: parameter.defaultValue,
-        type: [getCacTypeHint(parameter.type)],
+        type: [getTypeConstructor(parameter.type)],
       })
     })
     command.action((inputFile: string, options: Record<string, unknown>) => {
@@ -70,21 +71,11 @@ class CLI {
   }
 
   public start() {
+    // TODO: Prevent duplicate start
     this.cli.help().parse()
   }
 }
 
-function getCacTypeHint(parameterType: ParameterType) {
-  switch (parameterType) {
-    case 'number':
-      return Number
-    case 'string':
-      return String
-    case 'boolean':
-      return Boolean
-  }
-}
-
-export function cm2mlCLI() {
+export function createCLI() {
   return new CLI()
 }
