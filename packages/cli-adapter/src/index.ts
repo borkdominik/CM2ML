@@ -7,7 +7,7 @@ import { cac } from 'cac'
 
 class CLI {
   private readonly cli = cac('cm2ml').option(
-    '--out-file <file>',
+    '--out <file>',
     'Name of output file'
   )
 
@@ -21,45 +21,50 @@ class CLI {
   public apply<Out, Parameters extends ParameterMetadata>(
     plugin: Plugin<Out, Parameters>
   ) {
-    const command = this.cli.command(plugin.name)
+    const command = this.cli.command(`${plugin.name} <in-file>`)
     Stream.fromObject(plugin.parameters).forEach(([name, parameter]) => {
       command.option(`--${name} <${name}>`, parameter.description, {
         default: parameter.defaultValue,
         type: [getCacTypeHint(parameter.type)],
       })
     })
-    command.action((options) => {
-      const normalizedOptions: Record<string, unknown> & { outFile?: string } =
-        Stream.fromObject(options)
-          .map(([name, parameter]) => {
-            if (Array.isArray(parameter)) {
-              return [name, parameter[0]]
-            } else return [name, parameter]
-          })
-          .toRecord(
-            ([name]) => name,
-            ([_name, value]) => value
-          )
+    command.action((inputFile: string, options: Record<string, unknown>) => {
+      try {
+        const normalizedOptions: Record<string, unknown> & { out?: string } =
+          Stream.fromObject(options)
+            .map(([name, parameter]) => {
+              if (Array.isArray(parameter)) {
+                return [name, parameter[0]]
+              } else return [name, parameter]
+            })
+            .toRecord(
+              ([name]) => name,
+              ([_name, value]) => value
+            )
 
-      const validationResult = plugin.validate(normalizedOptions)
-      if (!validationResult.success) {
-        console.error(validationResult.error)
+        const validationResult = plugin.validate(normalizedOptions)
+        if (!validationResult.success) {
+          console.error(validationResult.error.message)
+          process.exit(1)
+        }
+
+        const input = fs.readFileSync(inputFile, 'utf8')
+        const result = plugin.invoke(input, validationResult.data)
+        const resultText =
+          typeof result === 'string' ? result : JSON.stringify(result)
+
+        const outFile = normalizedOptions.out
+        if (!outFile) {
+          // eslint-disable-next-line no-console
+          console.log(resultText)
+          return
+        }
+
+        fs.writeFileSync(outFile, resultText)
+      } catch (error) {
+        console.error(error)
         process.exit(1)
       }
-
-      // TODO: Get input text
-      const result = plugin.invoke('TODO', validationResult.data)
-      const resultText =
-        typeof result === 'string' ? result : JSON.stringify(result)
-
-      const outFile = normalizedOptions.outFile
-      if (!outFile) {
-        // eslint-disable-next-line no-console
-        console.log(resultText)
-        return
-      }
-
-      fs.writeFileSync(outFile, resultText)
     })
     return this
   }
