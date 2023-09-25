@@ -1,3 +1,4 @@
+import fs from 'node:fs'
 import process from 'node:process'
 
 import type { ParameterMetadata, ParameterType, Plugin } from '@cm2ml/plugin'
@@ -5,7 +6,10 @@ import { Stream } from '@yeger/streams'
 import { cac } from 'cac'
 
 class CLI {
-  private readonly cli = cac('cm2ml')
+  private readonly cli = cac('cm2ml').option(
+    '--out-file <file>',
+    'Name of output file'
+  )
 
   public applyAll<Out, Parameters extends ParameterMetadata>(
     plugins: Plugin<Out, Parameters>[]
@@ -25,13 +29,19 @@ class CLI {
       })
     })
     command.action((options) => {
-      for (const [name, parameter] of Stream.fromObject(options)) {
-        if (Array.isArray(parameter)) {
-          options[name] = parameter[0]
-        }
-      }
+      const normalizedOptions: Record<string, unknown> & { outFile?: string } =
+        Stream.fromObject(options)
+          .map(([name, parameter]) => {
+            if (Array.isArray(parameter)) {
+              return [name, parameter[0]]
+            } else return [name, parameter]
+          })
+          .toRecord(
+            ([name]) => name,
+            ([_name, value]) => value
+          )
 
-      const validationResult = plugin.validate(options)
+      const validationResult = plugin.validate(normalizedOptions)
       if (!validationResult.success) {
         console.error(validationResult.error)
         process.exit(1)
@@ -39,8 +49,17 @@ class CLI {
 
       // TODO: Get input text
       const result = plugin.invoke('TODO', validationResult.data)
-      // eslint-disable-next-line no-console
-      console.log(result)
+      const resultText =
+        typeof result === 'string' ? result : JSON.stringify(result)
+
+      const outFile = normalizedOptions.outFile
+      if (!outFile) {
+        // eslint-disable-next-line no-console
+        console.log(resultText)
+        return
+      }
+
+      fs.writeFileSync(outFile, resultText)
     })
     return this
   }
