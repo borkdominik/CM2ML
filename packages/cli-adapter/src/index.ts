@@ -20,10 +20,17 @@ class CLI {
     const command = this.cli.command(plugin.name)
     Stream.fromObject(plugin.parameters).forEach(([name, parameter]) => {
       command.option(`--${name} <${name}>`, parameter.description, {
+        default: parameter.defaultValue,
         type: [getCacTypeHint(parameter.type)],
       })
     })
     command.action((options) => {
+      for (const [name, parameter] of Stream.fromObject(options)) {
+        if (Array.isArray(parameter)) {
+          options[name] = parameter[0]
+        }
+      }
+
       const validationResult = plugin.validate(options)
       if (!validationResult.success) {
         console.error(validationResult.error)

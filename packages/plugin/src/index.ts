@@ -3,9 +3,10 @@ import { z } from 'zod'
 
 export type ParameterType = 'number' | 'string' | 'boolean'
 
-export interface Parameter {
-  type: ParameterType
+export interface Parameter<Type extends ParameterType> {
+  type: Type
   description: string
+  defaultValue?: ResolveParameterType<Type>
 }
 
 function getZodValidator(type: ParameterType) {
@@ -19,30 +20,31 @@ function getZodValidator(type: ParameterType) {
   }
 }
 
-export type ParameterMetadata = Record<string, Parameter>
+export type ParameterMetadata = Record<string, Parameter<ParameterType>>
 
 export type ResolveParameters<Ps extends ParameterMetadata> = {
-  [P in keyof Ps]: ResolveParameterType<Ps[P]>
+  [P in keyof Ps]: ResolveParameterType<Ps[P]['type']>
 }
 
 export type ResolveZodSchema<Ps extends ParameterMetadata> = {
   [P in keyof Ps]: ResolveZodType<Ps[P]>
 }
 
-export type ResolveZodType<P extends Parameter> = P['type'] extends 'number'
-  ? z.ZodNumber
-  : P['type'] extends 'string'
-  ? z.ZodString
-  : P['type'] extends 'boolean'
-  ? z.ZodBoolean
-  : never
-
-export type ResolveParameterType<P extends Parameter> =
+export type ResolveZodType<P extends Parameter<ParameterType>> =
   P['type'] extends 'number'
-    ? number
+    ? z.ZodNumber
     : P['type'] extends 'string'
-    ? string
+    ? z.ZodString
     : P['type'] extends 'boolean'
+    ? z.ZodBoolean
+    : never
+
+export type ResolveParameterType<Type extends ParameterType> =
+  Type extends 'number'
+    ? number
+    : Type extends 'string'
+    ? string
+    : Type extends 'boolean'
     ? boolean
     : never
 
