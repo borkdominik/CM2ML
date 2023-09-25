@@ -21,6 +21,9 @@
     }
   },
   "types": "dist/types/index.d.mts",
+  "bin": {
+    "cm2ml-server": "bin/cm2ml-server.mjs"
+  },
   "files": [
     "bin/*",
     "dist/*"
@@ -31,9 +34,6 @@
     "check:tsc": "tsc",
     "dev": "vite build --watch",
     "lint": "yeger-lint"
-  },
-  "bin": {
-    "cm2ml-server": "bin/cm2ml-server.mjs"
   },
   "dependencies": {
     "@cm2ml/encoders": "workspace:*",

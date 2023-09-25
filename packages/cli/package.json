@@ -21,13 +21,13 @@
     }
   },
   "types": "dist/types/index.d.mts",
+  "bin": {
+    "cm2ml": "bin/cm2ml.mjs"
+  },
   "files": [
     "bin/*",
     "dist/*"
   ],
-  "bin": {
-    "cm2ml": "bin/cm2ml.mjs"
-  },
   "scripts": {
     "build": "vite build",
     "check:publish": "publint run --strict",

@@ -85,7 +85,7 @@ class Server {
 function validateRequestBody(
   body: unknown
 ): body is Record<string, string> & { input: string } {
-  if (typeof body !== 'object' || !body || 'input' in body === false) {
+  if (typeof body !== 'object' || !body || !('input' in body)) {
     return false
   }
   const input = body.input
