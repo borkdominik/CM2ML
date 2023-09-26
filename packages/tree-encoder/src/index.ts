@@ -13,6 +13,11 @@ export const TreeEncoder = definePlugin({
       description: 'The maximum number of children per node',
       defaultValue: 4,
     },
+    abortOnCycle: {
+      type: 'boolean',
+      description: 'Abort on first cycle',
+      defaultValue: true,
+    },
   },
   invoke(input, parameters) {
     // TODO
