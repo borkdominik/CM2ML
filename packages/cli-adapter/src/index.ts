@@ -56,7 +56,9 @@ class CLI extends PluginSink {
 
   protected onStart() {
     try {
-      this.cli.help().parse()
+      this.cli.help()
+      this.cli.command('').action(() => this.cli.outputHelp())
+      this.cli.parse()
     } catch (error) {
       console.error(error)
       process.exit(1)
