@@ -15,7 +15,7 @@ class CLI extends PluginSink {
   protected onApply<Out, Parameters extends ParameterMetadata>(
     plugin: Plugin<Out, Parameters>
   ) {
-    const command = this.cli.command(`${plugin.name} <in-file>`)
+    const command = this.cli.command(`${plugin.name} <inputFile>`)
     Stream.fromObject(plugin.parameters).forEach(([name, parameter]) => {
       if (parameter.type !== 'boolean') {
         command.option(
