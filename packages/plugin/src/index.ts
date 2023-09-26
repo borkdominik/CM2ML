@@ -106,3 +106,45 @@ export function getTypeConstructor(parameterType: ParameterType) {
       return Boolean
   }
 }
+
+export abstract class PluginSink {
+  protected plugins = new Map<string, Plugin<unknown, ParameterMetadata>>()
+
+  private started = false
+
+  public applyAll<Out, Parameters extends ParameterMetadata>(
+    plugins: Plugin<Out, Parameters>[]
+  ) {
+    Stream.from(plugins).forEach((plugin) => this.apply(plugin))
+    return this
+  }
+
+  public apply<Out, Parameters extends ParameterMetadata>(
+    plugin: Plugin<Out, Parameters>
+  ): PluginSink {
+    this.requireNotStarted()
+    if (this.plugins.has(plugin.name)) {
+      throw new Error(`Plugin ${plugin.name} already applied.`)
+    }
+    this.plugins.set(plugin.name, plugin)
+    this.onApply(plugin)
+    return this
+  }
+
+  protected abstract onApply<Out, Parameters extends ParameterMetadata>(
+    plugin: Plugin<Out, Parameters>
+  ): PluginSink
+
+  public start() {
+    this.started = true
+    this.onStart()
+  }
+
+  protected abstract onStart(): void
+
+  private requireNotStarted() {
+    if (this.started) {
+      throw new Error('PluginSink has already been started.')
+    }
+  }
+}
