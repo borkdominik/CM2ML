@@ -1,84 +1,52 @@
+import process from 'node:process'
+
 import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
-import { getTypeConstructor } from '@cm2ml/plugin'
+import { PluginSink, getTypeConstructor } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
+import type { FastifyReply, FastifyRequest } from 'fastify'
 import { fastify } from 'fastify'
 
-class Server {
+class Server extends PluginSink {
   private readonly server = fastify()
 
-  private readonly plugins: Plugin<unknown, ParameterMetadata>[] = []
-
-  public applyAll<Out, Parameters extends ParameterMetadata>(
-    plugins: Plugin<Out, Parameters>[]
-  ) {
-    Stream.from(plugins).forEach((plugin) => this.apply(plugin))
-    return this
-  }
-
-  public apply<Out, Parameters extends ParameterMetadata>(
+  protected onApply<Out, Parameters extends ParameterMetadata>(
     plugin: Plugin<Out, Parameters>
   ) {
-    this.plugins.push(plugin)
-    this.server.post(`/encoders/${plugin.name}`, async (request, _reply) => {
-      // TODO: Status codes
-      const body = request.body
-      if (!validateRequestBody(body)) {
-        return {
-          error: {
-            message: 'Invalid request body',
-          },
-        }
-      }
-
-      const options = Stream.fromObject(plugin.parameters)
-        .map(([key, { defaultValue, type }]) => {
-          const typeConstructor = getTypeConstructor(type)
-          const provided = body[key]
-          const value =
-            provided !== undefined ? typeConstructor(provided) : defaultValue
-          return {
-            key,
-            value,
-          }
-        })
-        .toRecord(
-          ({ key }) => key,
-          ({ value }) => value
-        )
-
-      const validationResult = plugin.validate(options)
-      if (!validationResult.success) {
-        return {
-          error: {
-            message: validationResult.error.message,
-          },
-        }
-      }
-      const result = plugin.invoke(body.input, validationResult.data)
-      return {
-        result,
-      }
-    })
+    this.server.post(`/encoders/${plugin.name}`, async (request, reply) =>
+      pluginRequestHandler(plugin, request, reply)
+    )
     return this
   }
 
-  public start() {
-    // TODO: Prevent duplicate start
-    this.server.get('/encoders', async (_request, _reply) => {
-      return this.plugins.map((plugin) => ({
+  protected onStart() {
+    const plugins = Stream.from(this.plugins.values())
+      .map((plugin) => ({
         name: plugin.name,
         parameters: plugin.parameters,
       }))
+      .toArray()
+
+    this.server.get('/encoders', async (_request, reply) => {
+      reply.statusCode = 200
+      return plugins
     })
 
-    this.server.listen({ port: 8080 }, (err, address) => {
-      if (err) {
-        console.error(err)
-        process.exit(1)
-      }
-      // eslint-disable-next-line no-console
-      console.log(`Server listening at ${address}`)
+    this.server.get('/health', (_request, reply) => {
+      reply.statusCode = 200
+      return { appliedPlugins: plugins.length }
     })
+
+    this.server.listen(
+      { port: +(process.env.PORT ?? 8080) },
+      (err, address) => {
+        if (err) {
+          console.error(err)
+          process.exit(1)
+        }
+        // eslint-disable-next-line no-console
+        console.log(`Server listening at ${address}`)
+      }
+    )
   }
 }
 
@@ -94,6 +62,61 @@ function validateRequestBody(
   }
   return true
 }
+
+function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
+  plugin: Plugin<Out, Parameters>,
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  try {
+    const body = request.body
+    if (!validateRequestBody(body)) {
+      reply.statusCode = 422
+      return {
+        error: {
+          message: 'Invalid request body',
+        },
+      }
+    }
+
+    const options = Stream.fromObject(plugin.parameters)
+      .map(([key, { defaultValue, type }]) => {
+        const typeConstructor = getTypeConstructor(type)
+        const provided = body[key]
+        const value =
+          provided !== undefined ? typeConstructor(provided) : defaultValue
+        return {
+          key,
+          value,
+        }
+      })
+      .toRecord(
+        ({ key }) => key,
+        ({ value }) => value
+      )
+
+    const validationResult = plugin.validate(options)
+    if (!validationResult.success) {
+      reply.statusCode = 422
+      return {
+        error: {
+          message: validationResult.error,
+        },
+      }
+    }
+    const result = plugin.invoke(body.input, validationResult.data)
+    reply.statusCode = 200
+    return {
+      result,
+    }
+  } catch (error) {
+    reply.statusCode = 500
+    return {
+      error,
+    }
+  }
+}
+
 export function createServer() {
   return new Server()
 }
