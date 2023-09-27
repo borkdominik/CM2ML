@@ -3,11 +3,22 @@ import { z } from 'zod'
 
 export type ParameterType = 'number' | 'string' | 'boolean'
 
-export interface Parameter<Type extends ParameterType> {
-  type: Type
-  description: string
-  defaultValue?: ResolveParameterType<Type>
-}
+export type Parameter = Readonly<
+  { readonly type: ParameterType; readonly description: string } & (
+    | {
+        readonly type: 'number'
+        readonly defaultValue: number
+      }
+    | {
+        readonly type: 'string'
+        readonly defaultValue: string
+      }
+    | {
+        readonly type: 'boolean'
+        readonly defaultValue: boolean
+      }
+  )
+>
 
 function getZodValidator(type: ParameterType) {
   switch (type) {
@@ -20,77 +31,72 @@ function getZodValidator(type: ParameterType) {
   }
 }
 
-export type ParameterMetadata = Record<string, Parameter<ParameterType>>
+export type ParameterMetadata = Readonly<Record<string, Parameter>>
 
-export type ResolveParameters<Ps extends ParameterMetadata> = {
-  [P in keyof Ps]: ResolveParameterType<Ps[P]['type']>
+export type ResolveParameters<Parameters extends ParameterMetadata> = Expand<
+  z.infer<z.ZodObject<ResolveZodSchema<Parameters>>>
+>
+
+export type ResolveZodSchema<Parameters extends ParameterMetadata> = {
+  readonly [Parameter in keyof Parameters]: ResolveZodParameterType<
+    Parameters[Parameter]['type']
+  >
 }
 
-export type ResolveZodSchema<Ps extends ParameterMetadata> = {
-  [P in keyof Ps]: ResolveZodType<Ps[P]>
-}
-
-export type ResolveZodType<P extends Parameter<ParameterType>> =
-  P['type'] extends 'number'
-    ? z.ZodNumber
-    : P['type'] extends 'string'
-    ? z.ZodString
-    : P['type'] extends 'boolean'
-    ? z.ZodBoolean
-    : never
-
-export type ResolveParameterType<Type extends ParameterType> =
+export type ResolveZodParameterType<Type extends ParameterType> =
   Type extends 'number'
-    ? number
+    ? z.ZodNumber
     : Type extends 'string'
-    ? string
+    ? z.ZodString
     : Type extends 'boolean'
-    ? boolean
-    : never
+    ? z.ZodBoolean
+    : z.ZodAny
 
 // From: https://stackoverflow.com/a/57683652
-export type ExpandRecursively<T> = T extends object
+export type Expand<T> = T extends object
   ? T extends infer O
-    ? { [K in keyof O]: ExpandRecursively<O[K]> }
+    ? { readonly [K in keyof O]: Expand<O[K]> }
     : never
   : T
 
 function deriveValidator<Parameters extends ParameterMetadata>(
   parameterMetadata: Parameters
 ) {
-  return z.object(
-    Object.fromEntries(
-      Stream.fromObject(parameterMetadata)
-        .map(
-          ([name, metadata]) => [name, getZodValidator(metadata.type)] as const
-        )
-        .toArray()
-    )
-  ) as z.ZodObject<ExpandRecursively<ResolveZodSchema<Parameters>>>
+  const parameterSchemas = Stream.fromObject(parameterMetadata)
+    .map(([name, metadata]) => ({
+      name,
+      schema: getZodValidator(metadata.type),
+    }))
+    .toRecord(
+      ({ name }) => name,
+      ({ schema }) => schema
+    ) as ResolveZodSchema<Parameters>
+  return z.object(parameterSchemas)
 }
 
-export type ValidationResult<Parameters extends ParameterMetadata> =
-  z.SafeParseReturnType<
-    unknown,
-    ExpandRecursively<ResolveParameters<Parameters>>
-  >
+export type ValidationResult<Parameters extends ParameterMetadata> = Readonly<
+  z.SafeParseReturnType<unknown, ResolveParameters<Parameters>>
+>
 
-export interface Plugin<Out, Parameters extends ParameterMetadata> {
+export interface PluginData<Out, Parameters extends ParameterMetadata> {
   readonly name: string
   readonly parameters: Parameters
   invoke(
     input: string,
-    parameters: ExpandRecursively<ResolveParameters<Parameters>>
+    parameters: Readonly<ResolveParameters<Parameters>>
   ): Out
+}
+export interface Plugin<Out, Parameters extends ParameterMetadata>
+  extends PluginData<Out, Parameters> {
   validate(parameters: unknown): ValidationResult<Parameters>
 }
 
 export function definePlugin<Out, Parameters extends ParameterMetadata>(
-  plugin: Omit<Plugin<Out, Parameters>, 'validate'>
-) {
+  plugin: PluginData<Out, Parameters>
+): Plugin<Out, Parameters> {
   const validator = deriveValidator(plugin.parameters)
   function validate(parameters: unknown): ValidationResult<Parameters> {
-    // @ts-expect-error Types are good enough
+    // @ts-expect-error TS can't handle the expansion of the validation result, even though the types would match
     return validator.safeParse(parameters)
   }
   return { ...plugin, validate }

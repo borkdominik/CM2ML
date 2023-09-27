@@ -20,10 +20,6 @@
       "outputs": ["dist/**", ".next/**"]
     },
     "codegen": {},
-    "bundlesize": {
-      "dependsOn": ["build"],
-      "inputs": ["dist/**"]
-    },
     "preview": {
       "dependsOn": ["build", "generate"],
       "cache": false

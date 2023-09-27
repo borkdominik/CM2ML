@@ -9,7 +9,7 @@ import { cac } from 'cac'
 class CLI extends PluginSink {
   private readonly cli = cac('cm2ml').option(
     '--out <file>',
-    'Name of output file'
+    'Path to output file'
   )
 
   protected onApply<Out, Parameters extends ParameterMetadata>(
