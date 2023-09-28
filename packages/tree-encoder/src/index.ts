@@ -1,4 +1,5 @@
 import { definePlugin } from '@cm2ml/plugin'
+import { parse } from '@cm2ml/xmi-parser'
 
 export const TreeEncoder = definePlugin({
   name: 'tree',
@@ -19,8 +20,9 @@ export const TreeEncoder = definePlugin({
       defaultValue: true,
     },
   },
-  invoke(input, parameters) {
+  invoke(input, _parameters) {
     // TODO
-    return JSON.stringify({ input, parameters })
+    const xmi = parse(input)
+    return xmi
   },
 })

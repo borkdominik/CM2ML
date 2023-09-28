@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/tree-encoder",
+  "name": "@cm2ml/xmi-model",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -30,10 +30,6 @@
     "check:tsc": "tsc",
     "dev": "vite build --watch",
     "lint": "yeger-lint"
-  },
-  "dependencies": {
-    "@cm2ml/plugin": "workspace:*",
-    "@cm2ml/xmi-parser": "workspace:*"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
