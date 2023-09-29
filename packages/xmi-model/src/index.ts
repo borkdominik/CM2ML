@@ -9,15 +9,19 @@ export class XmiModel implements Show {
   ) {}
 
   public show(): string {
-    return `Elements:\n
-    ${this.elements.map((element) => element.show()).join('\n')}
-    Relationships:\n
-    ${this.relationships.map((relationship) => relationship.show()).join('\n')}`
+    return `
+Elements:\n
+  - ${this.elements.map((element) => element.show()).join('\n  - ')}
+
+Relationships:\n
+  - ${this.relationships
+    .map((relationship) => relationship.show())
+    .join('\n  - ')}`
   }
 }
 
 export class XmiElement implements Show {
-  public parent: XmiElement | null = null
+  #parent: XmiElement | null = null
 
   public constructor(
     public readonly tag: string,
@@ -25,15 +29,19 @@ export class XmiElement implements Show {
     public readonly children: Readonly<XmiElement[]>
   ) {}
 
-  public getAttribute(name: XmiAttributeName): XmiAttribute | undefined {
-    return this.attributes[name]
+  public get parent(): XmiElement | null {
+    return this.#parent
   }
 
-  /** Do not call this outside the parser.
-   * TODO: Move mapping to static internal method in order to make this private.
+  /**
+   * Do not set the parent outside the parser.
    */
-  public setParent(parent: XmiElement) {
-    this.parent = parent
+  public set parent(parent: XmiElement | null) {
+    this.#parent = parent
+  }
+
+  public getAttribute(name: XmiAttributeName): XmiAttribute | undefined {
+    return this.attributes[name]
   }
 
   public show(): string {

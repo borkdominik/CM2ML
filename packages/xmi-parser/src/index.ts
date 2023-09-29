@@ -6,27 +6,19 @@ import type { Document, Node } from 'domhandler'
 import { parseDocument } from 'htmlparser2'
 
 export function parse(xmi: string) {
-  // const document = new DOMParser().parseFromString(xmi, 'text/xml')
-  const document = parseDocument(xmi)
-  const { elements, relationships } = getModel(document)
-  return new XmiModel(elements, relationships)
+  const document = parseDocument(xmi, {
+    xmlMode: true,
+  })
+  return getModel(document)
 }
 
-const emptyStream = Stream.from([])
-
-function getModel(document: Document): {
-  elements: XmiElement[]
-  relationships: XmiRelationship[]
-} {
+function getModel(document: Document): XmiModel {
   const elementMap = new Map<string, XmiElement>()
 
-  function toXmiModel(document: Document): XmiModel {
-    const elements = Stream.from(document.childNodes)
-      .map((child) => (isElement(child) ? toXmiElement(child) : null))
+  function mapDocument(document: Document) {
+    return Stream.from(document.childNodes)
+      .map((child) => (isElement(child) ? mapElement(child) : null))
       .filterNonNull()
-      .toArray()
-    const relationships = emptyStream.toArray()
-    return new XmiModel(elements, relationships)
   }
 
   function mapAttributes(
@@ -57,10 +49,10 @@ function getModel(document: Document): {
     return { literal: rest.join(':'), namespace }
   }
 
-  function toXmiElement(element: Element): XmiElement | null {
+  function mapElement(element: Element): XmiElement | null {
     const attributes = mapAttributes(element.attribs)
     const children = Stream.from(element.childNodes)
-      .map((child) => (isElement(child) ? toXmiElement(child) : null))
+      .map((child) => (isElement(child) ? mapElement(child) : null))
       .filterNonNull()
       .toArray()
     const xmiElement = new XmiElement(element.tagName, attributes, children)
@@ -103,17 +95,14 @@ function getModel(document: Document): {
     return new XmiRelationship(element.tag, source, target)
   }
 
-  const root = toXmiModel(document)
-  const elements = Stream.from(root.elements)
-    .flatMap(collectAllElements)
-    .toArray()
+  const elements = mapDocument(document).flatMap(collectAllElements).toArray()
 
   const relationships = Stream.from(elements)
     .map(getRelationship)
     .filterNonNull()
     .toArray()
 
-  return { elements, relationships }
+  return new XmiModel(elements, relationships)
 }
 
 function getId(element: XmiElement): string | undefined {
