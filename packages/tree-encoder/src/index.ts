@@ -1,7 +1,6 @@
-import { definePlugin } from '@cm2ml/plugin'
-import { parse } from '@cm2ml/xmi-parser'
+import { defineXmiPlugin } from '@cm2ml/xmi-plugin'
 
-export const TreeEncoder = definePlugin({
+export const TreeEncoder = defineXmiPlugin({
   name: 'tree',
   parameters: {
     maxDepth: {
@@ -20,9 +19,8 @@ export const TreeEncoder = definePlugin({
       defaultValue: true,
     },
   },
-  invoke(input, _parameters) {
+  onInvoke(input, _parameters) {
     // TODO
-    const xmi = parse(input)
-    return xmi
+    return input.show()
   },
 })

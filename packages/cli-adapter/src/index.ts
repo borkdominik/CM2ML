@@ -91,14 +91,8 @@ function pluginActionHandler<Out, Parameters extends ParameterMetadata>(
           ([_name, value]) => value
         )
 
-    const validationResult = plugin.validate(normalizedOptions)
-    if (!validationResult.success) {
-      console.error(validationResult.error.message)
-      process.exit(1)
-    }
-
     const input = fs.readFileSync(inputFile, 'utf8')
-    const result = plugin.invoke(input, validationResult.data)
+    const result = plugin.invoke(input, normalizedOptions)
     const resultText =
       typeof result === 'string' ? result : JSON.stringify(result)
 

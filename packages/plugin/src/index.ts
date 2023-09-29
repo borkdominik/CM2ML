@@ -78,28 +78,45 @@ export type ValidationResult<Parameters extends ParameterMetadata> = Readonly<
   z.SafeParseReturnType<unknown, ResolveParameters<Parameters>>
 >
 
-export interface PluginData<Out, Parameters extends ParameterMetadata> {
-  readonly name: string
-  readonly parameters: Parameters
-  invoke(
-    input: string,
-    parameters: Readonly<ResolveParameters<Parameters>>
-  ): Out
-}
-export interface Plugin<Out, Parameters extends ParameterMetadata>
-  extends PluginData<Out, Parameters> {
-  validate(parameters: unknown): ValidationResult<Parameters>
+export class Plugin<Out, Parameters extends ParameterMetadata> {
+  private readonly validator: ReturnType<typeof deriveValidator>
+
+  public constructor(
+    public readonly name: string,
+    public readonly parameters: Parameters,
+    private readonly onInvoke: (
+      input: string,
+      parameters: Readonly<ResolveParameters<Parameters>>
+    ) => Out
+  ) {
+    this.validator = deriveValidator(parameters)
+  }
+
+  public invoke(input: string, parameters: unknown): Out {
+    const validationResult = this.validate(parameters)
+    if (validationResult.success) {
+      return this.onInvoke(input, validationResult.data)
+    } else {
+      // TODO: transform error
+      throw validationResult.error
+    }
+  }
+
+  private validate(parameters: unknown): ValidationResult<Parameters> {
+    // @ts-expect-error TS can't handle the expansion of the validation result, even though the types would match
+    return this.validator.safeParse(parameters)
+  }
 }
 
 export function definePlugin<Out, Parameters extends ParameterMetadata>(
-  plugin: PluginData<Out, Parameters>
-): Plugin<Out, Parameters> {
-  const validator = deriveValidator(plugin.parameters)
-  function validate(parameters: unknown): ValidationResult<Parameters> {
-    // @ts-expect-error TS can't handle the expansion of the validation result, even though the types would match
-    return validator.safeParse(parameters)
+  data: Omit<Plugin<Out, Parameters>, 'invoke'> & {
+    onInvoke: (
+      input: string,
+      parameters: Readonly<ResolveParameters<Parameters>>
+    ) => Out
   }
-  return { ...plugin, validate }
+): Plugin<Out, Parameters> {
+  return new Plugin<Out, Parameters>(data.name, data.parameters, data.onInvoke)
 }
 
 export function getTypeConstructor(parameterType: ParameterType) {
@@ -114,7 +131,7 @@ export function getTypeConstructor(parameterType: ParameterType) {
 }
 
 export abstract class PluginSink {
-  protected plugins = new Map<string, Plugin<unknown, ParameterMetadata>>()
+  protected plugins = new Map<string, Plugin<unknown, any>>()
 
   private started = false
 

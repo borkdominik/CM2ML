@@ -32,7 +32,8 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
-    "@cm2ml/plugin": "workspace:*"
+    "@cm2ml/xmi-model": "workspace:*",
+    "@cm2ml/xmi-plugin": "workspace:*"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

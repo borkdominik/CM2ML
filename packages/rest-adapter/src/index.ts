@@ -95,22 +95,18 @@ function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
         ({ value }) => value
       )
 
-    const validationResult = plugin.validate(options)
-    if (!validationResult.success) {
-      reply.statusCode = 422
-      return {
-        error: {
-          message: validationResult.error,
-        },
-      }
-    }
-    const result = plugin.invoke(body.input, validationResult.data)
+    const result = plugin.invoke(body.input, options)
     reply.statusCode = 200
     return {
       result,
     }
   } catch (error) {
-    reply.statusCode = 500
+    // TODO
+    // if (error instanceof ValidationError) {
+    //   reply.statusCode = 422
+    // } else {
+    //   reply.statusCode = 500
+    // }
     return {
       error,
     }

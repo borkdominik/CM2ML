@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/tree-encoder",
+  "name": "@cm2ml/xmi-plugin",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -32,8 +32,9 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
+    "@cm2ml/plugin": "workspace:*",
     "@cm2ml/xmi-model": "workspace:*",
-    "@cm2ml/xmi-plugin": "workspace:*"
+    "@cm2ml/xmi-parser": "workspace:*"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

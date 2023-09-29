@@ -1,10 +1,10 @@
-import { definePlugin } from '@cm2ml/plugin'
+import { defineXmiPlugin } from '@cm2ml/xmi-plugin'
 
-export const GraphEncoder = definePlugin({
+export const GraphEncoder = defineXmiPlugin({
   name: 'raw-graph',
   parameters: {},
-  invoke(input, parameters) {
+  onInvoke(input, _parameters) {
     // TODO
-    return JSON.stringify({ input, parameters })
+    return input.show()
   },
 })
