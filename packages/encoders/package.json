@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@cm2ml/graph-encoder": "workspace:*",
+    "@cm2ml/plugin": "workspace:*",
     "@cm2ml/tree-encoder": "workspace:*"
   },
   "devDependencies": {

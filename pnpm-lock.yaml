@@ -176,6 +176,9 @@ importers:
       '@cm2ml/graph-encoder':
         specifier: workspace:*
         version: link:../graph-encoder
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../plugin
       '@cm2ml/tree-encoder':
         specifier: workspace:*
         version: link:../tree-encoder

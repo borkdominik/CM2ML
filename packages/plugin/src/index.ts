@@ -50,7 +50,7 @@ export type ResolveZodParameterType<Type extends ParameterType> =
     ? z.ZodString
     : Type extends 'boolean'
     ? z.ZodBoolean
-    : z.ZodAny
+    : never
 
 // From: https://stackoverflow.com/a/57683652
 export type Expand<T> = T extends object
