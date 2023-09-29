@@ -146,7 +146,15 @@ export function getTypeConstructor(parameterType: ParameterType) {
     case 'string':
       return String
     case 'boolean':
-      return Boolean
+      return (input: unknown) => {
+        if (input === 'true') {
+          return true
+        }
+        if (input === 'false') {
+          return false
+        }
+        return Boolean(input)
+      }
   }
 }
 

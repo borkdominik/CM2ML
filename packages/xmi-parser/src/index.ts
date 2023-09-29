@@ -36,6 +36,7 @@ function getModel(document: Document): XmiModel {
     if (target === undefined) {
       throw new Error(`Missing target element with id ${idref.value.literal}`)
     }
+    target.referencedBy.add(source)
     return new XmiReference(element, source, target)
   }
 

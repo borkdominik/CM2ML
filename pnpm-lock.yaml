@@ -204,6 +204,9 @@ importers:
       '@cm2ml/xmi-plugin':
         specifier: workspace:*
         version: link:../xmi-plugin
+      '@yeger/streams':
+        specifier: 1.0.1
+        version: 1.0.1
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -267,6 +270,9 @@ importers:
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
+      '@cm2ml/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@yeger/streams':
         specifier: 1.0.1
         version: 1.0.1

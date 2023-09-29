@@ -33,7 +33,8 @@
   },
   "dependencies": {
     "@cm2ml/xmi-model": "workspace:*",
-    "@cm2ml/xmi-plugin": "workspace:*"
+    "@cm2ml/xmi-plugin": "workspace:*",
+    "@yeger/streams": "1.0.1"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

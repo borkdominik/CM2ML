@@ -17,6 +17,8 @@ export class XmiModel implements Show {
 export class XmiElement implements Show {
   #parent: XmiElement | null = null
 
+  public readonly referencedBy = new Set<XmiElement>()
+
   public constructor(
     public readonly tag: string,
     public readonly attributes: Record<XmiAttributeName, XmiAttribute>,

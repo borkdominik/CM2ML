@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@cm2ml/plugin": "workspace:*",
+    "@cm2ml/utils": "workspace:*",
     "@yeger/streams": "1.0.1",
     "fastify": "4.23.2"
   },

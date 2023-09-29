@@ -2,6 +2,7 @@ import process from 'node:process'
 
 import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
 import { PluginSink, ValidationError, getTypeConstructor } from '@cm2ml/plugin'
+import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { fastify } from 'fastify'
@@ -73,9 +74,7 @@ function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
     if (!isValidRequestBody(body)) {
       reply.statusCode = 422
       return {
-        error: {
-          message: 'Invalid request body',
-        },
+        error: 'Invalid request body',
       }
     }
 
@@ -109,7 +108,7 @@ function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
     }
     reply.statusCode = 500
     return {
-      error,
+      error: getMessage(error),
     }
   }
 }
