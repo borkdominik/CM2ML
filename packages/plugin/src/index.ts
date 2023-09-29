@@ -1,5 +1,5 @@
 import { Stream } from '@yeger/streams'
-import { z } from 'zod'
+import { ZodError, z } from 'zod'
 
 export type ParameterType = 'number' | 'string' | 'boolean'
 
@@ -71,7 +71,23 @@ function deriveValidator<Parameters extends ParameterMetadata>(
       ({ name }) => name,
       ({ schema }) => schema
     ) as ResolveZodSchema<Parameters>
-  return z.object(parameterSchemas)
+  return z.object(parameterSchemas).readonly()
+}
+
+export class ValidationError extends Error {
+  private constructor(message: string) {
+    super(message)
+  }
+
+  public static fromZodError(error: z.ZodError): ValidationError {
+    const issueMessages = Stream.from(error.issues)
+      .map((issue) => {
+        return `  - ${issue.path.join('.')}: ${issue.message} (${issue.code})`
+      })
+      .join('\n')
+    const message = `Parameter validation failed:${issueMessages}`
+    return new ValidationError(message)
+  }
 }
 
 export type ValidationResult<Parameters extends ParameterMetadata> = Readonly<
@@ -93,18 +109,22 @@ export class Plugin<Out, Parameters extends ParameterMetadata> {
   }
 
   public invoke(input: string, parameters: unknown): Out {
-    const validationResult = this.validate(parameters)
-    if (validationResult.success) {
-      return this.onInvoke(input, validationResult.data)
-    } else {
-      // TODO: transform error
-      throw validationResult.error
-    }
+    const validatedParameters = this.validate(parameters)
+    return this.onInvoke(input, validatedParameters)
   }
 
-  private validate(parameters: unknown): ValidationResult<Parameters> {
-    // @ts-expect-error TS can't handle the expansion of the validation result, even though the types would match
-    return this.validator.safeParse(parameters)
+  private validate(
+    parameters: unknown
+  ): Readonly<ResolveParameters<Parameters>> {
+    try {
+      // @ts-expect-error TS can't handle the expansion of the validation result, even though the types would match
+      return this.validator.parse(parameters)
+    } catch (error) {
+      if (error instanceof ZodError) {
+        throw ValidationError.fromZodError(error)
+      }
+      throw error
+    }
   }
 }
 

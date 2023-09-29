@@ -3,6 +3,7 @@ import process from 'node:process'
 
 import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
 import { PluginSink, getTypeConstructor } from '@cm2ml/plugin'
+import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 import { cac } from 'cac'
 
@@ -105,7 +106,7 @@ function pluginActionHandler<Out, Parameters extends ParameterMetadata>(
 
     fs.writeFileSync(outFile, resultText)
   } catch (error) {
-    console.error(error)
+    console.error(getMessage(error))
     process.exit(1)
   }
 }

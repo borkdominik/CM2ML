@@ -1,7 +1,7 @@
 import process from 'node:process'
 
 import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
-import { PluginSink, getTypeConstructor } from '@cm2ml/plugin'
+import { PluginSink, ValidationError, getTypeConstructor } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { fastify } from 'fastify'
@@ -50,7 +50,7 @@ class Server extends PluginSink {
   }
 }
 
-function validateRequestBody(
+function isValidRequestBody(
   body: unknown
 ): body is Record<string, string> & { input: string } {
   if (typeof body !== 'object' || !body || !('input' in body)) {
@@ -70,7 +70,7 @@ function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
 ) {
   try {
     const body = request.body
-    if (!validateRequestBody(body)) {
+    if (!isValidRequestBody(body)) {
       reply.statusCode = 422
       return {
         error: {
@@ -101,12 +101,11 @@ function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
       result,
     }
   } catch (error) {
-    // TODO
-    // if (error instanceof ValidationError) {
-    //   reply.statusCode = 422
-    // } else {
-    //   reply.statusCode = 500
-    // }
+    if (error instanceof ValidationError) {
+      reply.statusCode = 422
+    } else {
+      reply.statusCode = 500
+    }
     return {
       error,
     }

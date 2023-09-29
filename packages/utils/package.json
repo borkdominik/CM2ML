@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/cli-adapter",
+  "name": "@cm2ml/utils",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -30,12 +30,6 @@
     "check:tsc": "tsc",
     "dev": "vite build --watch",
     "lint": "yeger-lint"
-  },
-  "dependencies": {
-    "@cm2ml/plugin": "workspace:*",
-    "@cm2ml/utils": "workspace:*",
-    "@yeger/streams": "1.0.1",
-    "cac": "6.7.14"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

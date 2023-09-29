@@ -102,6 +102,9 @@ importers:
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
+      '@cm2ml/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@yeger/streams':
         specifier: 1.0.1
         version: 1.0.1
@@ -258,6 +261,21 @@ importers:
         version: 2.0.2(@types/node@18.17.17)(typescript@5.1.3)(vite@4.3.9)
 
   packages/tsconfig: {}
+
+  packages/utils:
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: 5.1.3
+        version: 5.1.3
+      vite:
+        specifier: 4.3.9
+        version: 4.3.9(@types/node@18.17.17)
+      vite-plugin-lib:
+        specifier: 2.0.2
+        version: 2.0.2(@types/node@18.17.17)(typescript@5.1.3)(vite@4.3.9)
 
   packages/xmi-model:
     devDependencies:
