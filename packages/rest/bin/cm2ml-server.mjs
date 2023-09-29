@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import { run } from '@cm2ml/rest'
+import { startPreConfiguredServer } from '@cm2ml/rest'
 
-run()
+startPreConfiguredServer()

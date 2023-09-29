@@ -125,6 +125,52 @@ importers:
         specifier: 2.0.2
         version: 2.0.2(@types/node@18.17.17)(typescript@5.1.3)(vite@4.3.9)
 
+  packages/cm2ml:
+    dependencies:
+      '@cm2ml/cli':
+        specifier: workspace:*
+        version: link:../cli
+      '@cm2ml/cli-adapter':
+        specifier: workspace:*
+        version: link:../cli-adapter
+      '@cm2ml/encoders':
+        specifier: workspace:*
+        version: link:../encoders
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../plugin
+      '@cm2ml/rest':
+        specifier: workspace:*
+        version: link:../rest
+      '@cm2ml/rest-adapter':
+        specifier: workspace:*
+        version: link:../rest-adapter
+      '@cm2ml/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@cm2ml/xmi-model':
+        specifier: workspace:*
+        version: link:../xmi-model
+      '@cm2ml/xmi-parser':
+        specifier: workspace:*
+        version: link:../xmi-parser
+      '@cm2ml/xmi-plugin':
+        specifier: workspace:*
+        version: link:../xmi-plugin
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: 5.1.3
+        version: 5.1.3
+      vite:
+        specifier: 4.3.9
+        version: 4.3.9(@types/node@18.17.17)
+      vite-plugin-lib:
+        specifier: 2.0.2
+        version: 2.0.2(@types/node@18.17.17)(typescript@5.1.3)(vite@4.3.9)
+
   packages/encoders:
     dependencies:
       '@cm2ml/graph-encoder':

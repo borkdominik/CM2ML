@@ -103,9 +103,11 @@ function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
   } catch (error) {
     if (error instanceof ValidationError) {
       reply.statusCode = 422
-    } else {
-      reply.statusCode = 500
+      return {
+        error: error.message,
+      }
     }
+    reply.statusCode = 500
     return {
       error,
     }

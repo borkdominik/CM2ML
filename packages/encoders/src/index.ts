@@ -1,4 +1,9 @@
-import { GraphEncoder } from '@cm2ml/graph-encoder'
-import { TreeEncoder } from '@cm2ml/tree-encoder'
+import { structuralEncoders } from '~/structural'
 
-export const encoders = [GraphEncoder, TreeEncoder]
+export * from '~/structural'
+
+export const encoders = [...Object.values(structuralEncoders)]
+
+export const encoderRegistry = {
+  ...structuralEncoders,
+}

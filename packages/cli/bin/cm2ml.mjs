@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import { run } from '@cm2ml/cli'
+import { startPreConfiguredCli } from '@cm2ml/cli'
 
-run()
+startPreConfiguredCli()
