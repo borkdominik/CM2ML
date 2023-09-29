@@ -1,22 +1,16 @@
 export interface Show {
-  show(): string
+  show(indent?: number): string
 }
 
 export class XmiModel implements Show {
   public constructor(
+    public readonly root: XmiElement,
     public readonly elements: Readonly<XmiElement[]>,
-    public readonly relationships: Readonly<XmiRelationship[]>
+    public readonly references: Readonly<XmiReference[]>
   ) {}
 
   public show(): string {
-    return `
-Elements:\n
-  - ${this.elements.map((element) => element.show()).join('\n  - ')}
-
-Relationships:\n
-  - ${this.relationships
-    .map((relationship) => relationship.show())
-    .join('\n  - ')}`
+    return this.root.show(0)
   }
 }
 
@@ -44,13 +38,24 @@ export class XmiElement implements Show {
     return this.attributes[name]
   }
 
-  public show(): string {
-    const tag = `<${this.tag}`
+  public show(indent: number): string {
     const name = this.showAttribute('name')
     const id = this.showAttribute('id')
     const idref = this.showAttribute('idref')
 
-    return `${tag}${name}${id}${idref} />`
+    const attributes = `${name}${id}${idref}`
+
+    if (this.children.length === 0) {
+      return `${createIndent(indent)}<${this.tag}${attributes} />`
+    }
+
+    const children = this.children
+      .map((child) => child.show(indent + 2))
+      .join('\n')
+
+    return `${createIndent(indent)}<${
+      this.tag
+    }${attributes}>\n${children}\n${createIndent(indent)}</${this.tag}>`
   }
 
   private showAttribute(name: XmiAttributeName) {
@@ -80,14 +85,14 @@ export interface XmiValue {
   readonly namespace?: string
 }
 
-export class XmiRelationship implements Show {
+export class XmiReference {
   public constructor(
-    public readonly type: string,
+    public readonly element: XmiElement,
     public readonly source: XmiElement,
     public readonly target: XmiElement
   ) {}
+}
 
-  public show(): string {
-    return `${this.source.show()} ${this.type} ${this.target.show()}`
-  }
+function createIndent(indent: number): string {
+  return ' '.repeat(indent)
 }

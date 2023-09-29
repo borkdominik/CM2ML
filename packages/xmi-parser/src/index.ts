@@ -1,5 +1,5 @@
 import type { XmiAttribute, XmiAttributeName, XmiValue } from '@cm2ml/xmi-model'
-import { XmiElement, XmiModel, XmiRelationship } from '@cm2ml/xmi-model'
+import { XmiElement, XmiModel, XmiReference } from '@cm2ml/xmi-model'
 import { Stream } from '@yeger/streams'
 import { Element } from 'domhandler'
 import type { Document, Node } from 'domhandler'
@@ -23,7 +23,7 @@ function getModel(document: Document): XmiModel {
     elementMap.set(id.value.literal, element)
   }
 
-  function getRelationship(element: XmiElement) {
+  function getReference(element: XmiElement) {
     const source = getNearestIdentifiableElement(element)
     if (source === null) {
       return
@@ -36,28 +36,32 @@ function getModel(document: Document): XmiModel {
     if (target === undefined) {
       throw new Error(`Missing target element with id ${idref.value.literal}`)
     }
-    return new XmiRelationship(element.tag, source, target)
+    return new XmiReference(element, source, target)
   }
 
-  const elements = mapDocument(document)
-    .flatMap(collectAllElements)
-    .forEach(registerElement)
-    .toArray()
+  const root = mapDocument(document)
+  const elements = collectAllElements(root).forEach(registerElement).toArray()
 
-  const relationships = Stream.from(elements)
-    .map(getRelationship)
+  const references = Stream.from(elements)
+    .map(getReference)
     .filterNonNull()
     .toArray()
 
-  return new XmiModel(elements, relationships)
+  return new XmiModel(root, elements, references)
 }
 
 function mapDocument(document: Document) {
-  return Stream.from(document.childNodes)
-    .map((child) => (isElement(child) ? mapElement(child) : null))
+  const elementChildren = Stream.from(document.childNodes)
+    .map((node) => (isElement(node) ? node : null))
     .filterNonNull()
+    .toArray()
+  const root = elementChildren[0]
+  if (elementChildren.length !== 1 || !root) {
+    throw new Error('Expected exactly one root element')
+  }
+  return mapElement(root)
 }
-function mapElement(element: Element): XmiElement | null {
+function mapElement(element: Element): XmiElement {
   const attributes = mapAttributes(element.attribs)
   const children = Stream.from(element.childNodes)
     .map((child) => (isElement(child) ? mapElement(child) : null))
