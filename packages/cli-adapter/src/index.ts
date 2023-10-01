@@ -61,7 +61,7 @@ class CLI extends PluginSink {
       this.cli.command('').action(() => this.cli.outputHelp())
       this.cli.parse()
     } catch (error) {
-      console.error(error)
+      console.error(getMessage(error))
       process.exit(1)
     }
   }
@@ -79,36 +79,31 @@ function pluginActionHandler<Out, Parameters extends ParameterMetadata>(
   inputFile: string,
   options: Record<string, unknown>
 ) {
-  try {
-    const normalizedOptions: Record<string, unknown> & { out?: string } =
-      Stream.fromObject(options)
-        .map(([name, parameter]) => {
-          if (Array.isArray(parameter)) {
-            return [name, parameter[0]]
-          } else return [name, parameter]
-        })
-        .toRecord(
-          ([name]) => name,
-          ([_name, value]) => value
-        )
+  const normalizedOptions: Record<string, unknown> & { out?: string } =
+    Stream.fromObject(options)
+      .map(([name, parameter]) => {
+        if (Array.isArray(parameter)) {
+          return [name, parameter[0]]
+        } else return [name, parameter]
+      })
+      .toRecord(
+        ([name]) => name,
+        ([_name, value]) => value
+      )
 
-    const input = fs.readFileSync(inputFile, 'utf8')
-    const result = plugin.invoke(input, normalizedOptions)
-    const resultText =
-      typeof result === 'string' ? result : JSON.stringify(result)
+  const input = fs.readFileSync(inputFile, 'utf8')
+  const result = plugin.invoke(input, normalizedOptions)
+  const resultText =
+    typeof result === 'string' ? result : JSON.stringify(result)
 
-    const outFile = normalizedOptions.out
-    if (!outFile) {
-      // eslint-disable-next-line no-console
-      console.log(resultText)
-      return
-    }
-
-    fs.writeFileSync(outFile, resultText)
-  } catch (error) {
-    console.error(getMessage(error))
-    process.exit(1)
+  const outFile = normalizedOptions.out
+  if (!outFile) {
+    // eslint-disable-next-line no-console
+    console.log(resultText)
+    return
   }
+
+  fs.writeFileSync(outFile, resultText)
 }
 
 export function createCLI() {
