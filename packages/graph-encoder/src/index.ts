@@ -37,7 +37,7 @@ function getSortedIds(model: XmiModel) {
 }
 
 function encodeAsSparseList(model: XmiModel, sortedIds: string[]) {
-  const list = new Array<[number, number]>()
+  const list = new Array<readonly [number, number]>()
   model.references.forEach((reference) => {
     const source = reference.source.getAttribute('id')?.value.literal
     const target = reference.target.getAttribute('id')?.value.literal
