@@ -18,7 +18,7 @@ export const GraphEncoder = defineXmiPlugin({
   },
   onInvoke(input, { sparse, weighted }) {
     if (sparse && weighted) {
-      throw new Error('Sparse and weighted encoding are mutually exclusive.')
+      throw new Error('Sparse and weighted options are mutually exclusive.')
     }
     const sortedIds = getSortedIds(input)
     if (sparse) {
@@ -51,7 +51,7 @@ function encodeAsSparseList(model: XmiModel, sortedIds: string[]) {
     const targetIndex = sortedIds.indexOf(target)
     list.push([sourceIndex, targetIndex] as const)
   })
-  return list
+  return { list, nodes: sortedIds }
 }
 
 type AdjacencyMatrix = number[][]
@@ -63,7 +63,7 @@ function encodeAsAdjacencyMatrix(
 ) {
   const matrix = createAdjacencyMatrix(sortedIds.length)
   fillAdjacencyMatrix(matrix, model, sortedIds, weighted)
-  return matrix
+  return { matrix, nodes: sortedIds }
 }
 
 function createAdjacencyMatrix(size: number): AdjacencyMatrix {
