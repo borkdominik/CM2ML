@@ -20,6 +20,9 @@ function getModel(document: Document): XmiModel {
     if (id === undefined) {
       return
     }
+    if (elementMap.has(id.value.literal)) {
+      throw new Error(`Duplicate element with id ${id.value.literal}`)
+    }
     elementMap.set(id.value.literal, element)
   }
 
@@ -62,6 +65,7 @@ function mapDocument(document: Document) {
   }
   return mapElement(root)
 }
+
 function mapElement(element: Element): XmiElement {
   const attributes = mapAttributes(element.attribs)
   const children = Stream.from(element.childNodes)
