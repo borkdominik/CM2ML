@@ -16,7 +16,7 @@ export const GraphEncoder = defineXmiPlugin({
       defaultValue: false,
     },
   },
-  onInvoke(input, { sparse, weighted }) {
+  invoke(input, { sparse, weighted }) {
     if (sparse && weighted) {
       throw new Error('Sparse and weighted options are mutually exclusive.')
     }

@@ -1,13 +1,17 @@
 import process from 'node:process'
 
 import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
-import { PluginSink, ValidationError, getTypeConstructor } from '@cm2ml/plugin'
+import {
+  PluginAdapter,
+  ValidationError,
+  getTypeConstructor,
+} from '@cm2ml/plugin'
 import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { fastify } from 'fastify'
 
-class Server extends PluginSink {
+class Server extends PluginAdapter {
   private readonly server = fastify()
 
   protected onApply<Out, Parameters extends ParameterMetadata>(
@@ -94,7 +98,7 @@ function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
         ({ value }) => value
       )
 
-    const result = plugin.invoke(body.input, options)
+    const result = plugin.validateAndInvoke(body.input, options)
     reply.statusCode = 200
     return {
       result,

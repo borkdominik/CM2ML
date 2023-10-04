@@ -19,7 +19,7 @@ export const TreeEncoder = defineXmiPlugin({
       defaultValue: true,
     },
   },
-  onInvoke(input, _parameters) {
+  invoke(input, _parameters) {
     // TODO
     return input.show()
   },

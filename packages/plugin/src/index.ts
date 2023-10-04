@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/brace-style, brace-style */
 import { Stream } from '@yeger/streams'
 import { ZodError, z } from 'zod'
 
@@ -94,26 +95,44 @@ export type ValidationResult<Parameters extends ParameterMetadata> = Readonly<
   z.SafeParseReturnType<unknown, ResolveParameters<Parameters>>
 >
 
-export class Plugin<Out, Parameters extends ParameterMetadata> {
+export type PluginMetadata<Parameters extends ParameterMetadata> = Readonly<{
+  readonly name: string
+  readonly parameters: Parameters
+}>
+
+export type PluginInvoke<In, Out, Parameters extends ParameterMetadata> = (
+  input: In,
+  parameters: Readonly<ResolveParameters<Parameters>>
+) => Out
+
+export interface Plugin<Out, Parameters extends ParameterMetadata>
+  extends PluginMetadata<Parameters> {
+  readonly validate: (
+    parameters: unknown
+  ) => Readonly<ResolveParameters<Parameters>>
+  readonly validateAndInvoke: (input: string, parameters: unknown) => Out
+}
+
+export class BasePlugin<Out, Parameters extends ParameterMetadata>
+  implements Plugin<Out, Parameters>
+{
   private readonly validator: ReturnType<typeof deriveValidator>
 
   public constructor(
     public readonly name: string,
     public readonly parameters: Parameters,
-    private readonly onInvoke: (
-      input: string,
-      parameters: Readonly<ResolveParameters<Parameters>>
-    ) => Out
+    public readonly invoke: PluginInvoke<string, Out, Parameters>
   ) {
     this.validator = deriveValidator(parameters)
   }
 
-  public invoke(input: string, parameters: unknown): Out {
+  /** Validate the passed parameters and invoke the plugin if successful */
+  public validateAndInvoke(input: string, parameters: unknown): Out {
     const validatedParameters = this.validate(parameters)
-    return this.onInvoke(input, validatedParameters)
+    return this.invoke(input, validatedParameters)
   }
 
-  private validate(
+  public validate(
     parameters: unknown
   ): Readonly<ResolveParameters<Parameters>> {
     try {
@@ -129,14 +148,15 @@ export class Plugin<Out, Parameters extends ParameterMetadata> {
 }
 
 export function definePlugin<Out, Parameters extends ParameterMetadata>(
-  data: Omit<Plugin<Out, Parameters>, 'invoke'> & {
-    onInvoke: (
-      input: string,
-      parameters: Readonly<ResolveParameters<Parameters>>
-    ) => Out
+  data: PluginMetadata<Parameters> & {
+    invoke: PluginInvoke<string, Out, Parameters>
   }
-): Plugin<Out, Parameters> {
-  return new Plugin<Out, Parameters>(data.name, data.parameters, data.onInvoke)
+) {
+  return new BasePlugin<Out, Parameters>(
+    data.name,
+    data.parameters,
+    data.invoke
+  )
 }
 
 export function getTypeConstructor(parameterType: ParameterType) {
@@ -158,21 +178,17 @@ export function getTypeConstructor(parameterType: ParameterType) {
   }
 }
 
-export abstract class PluginSink {
+export abstract class PluginAdapter {
   protected plugins = new Map<string, Plugin<unknown, any>>()
 
   private started = false
 
-  public applyAll<Out, Parameters extends ParameterMetadata>(
-    plugins: Plugin<Out, Parameters>[]
-  ) {
+  public applyAll(plugins: Plugin<unknown, ParameterMetadata>[]) {
     Stream.from(plugins).forEach((plugin) => this.apply(plugin))
     return this
   }
 
-  public apply<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<Out, Parameters>
-  ): PluginSink {
+  public apply(plugin: Plugin<unknown, ParameterMetadata>): PluginAdapter {
     this.requireNotStarted()
     if (this.plugins.has(plugin.name)) {
       throw new Error(`Plugin ${plugin.name} already applied.`)
@@ -184,7 +200,7 @@ export abstract class PluginSink {
 
   protected abstract onApply<Out, Parameters extends ParameterMetadata>(
     plugin: Plugin<Out, Parameters>
-  ): PluginSink
+  ): PluginAdapter
 
   public start() {
     this.started = true
@@ -195,7 +211,7 @@ export abstract class PluginSink {
 
   private requireNotStarted() {
     if (this.started) {
-      throw new Error('PluginSink has already been started.')
+      throw new Error('PluginAdapter has already been started.')
     }
   }
 }

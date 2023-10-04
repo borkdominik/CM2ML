@@ -2,12 +2,12 @@ import fs from 'node:fs'
 import process from 'node:process'
 
 import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
-import { PluginSink, getTypeConstructor } from '@cm2ml/plugin'
+import { PluginAdapter, getTypeConstructor } from '@cm2ml/plugin'
 import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 import { cac } from 'cac'
 
-class CLI extends PluginSink {
+class CLI extends PluginAdapter {
   private readonly cli = cac('cm2ml').option(
     '--out <file>',
     'Path to output file'
@@ -92,7 +92,7 @@ function pluginActionHandler<Out, Parameters extends ParameterMetadata>(
       )
 
   const input = fs.readFileSync(inputFile, 'utf8')
-  const result = plugin.invoke(input, normalizedOptions)
+  const result = plugin.validateAndInvoke(input, normalizedOptions)
   const resultText =
     typeof result === 'string' ? result : JSON.stringify(result)
 
