@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import process from 'node:process'
 
-import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
+import type { Parameter, ParameterMetadata, Plugin } from '@cm2ml/plugin'
 import { PluginAdapter, getTypeConstructor } from '@cm2ml/plugin'
 import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
@@ -21,7 +21,7 @@ class CLI extends PluginAdapter {
       if (parameter.type !== 'boolean') {
         command.option(
           `--${createOptionName(name)} <${name}>`,
-          parameter.description,
+          createOptionDescription(parameter),
           {
             default: parameter.defaultValue,
             type: [getTypeConstructor(parameter.type)],
@@ -30,10 +30,14 @@ class CLI extends PluginAdapter {
         return
       }
       if (parameter.defaultValue !== true) {
-        command.option(`--${createOptionName(name)}`, parameter.description, {
-          default: parameter.defaultValue,
-          type: [getTypeConstructor(parameter.type)],
-        })
+        command.option(
+          `--${createOptionName(name)}`,
+          createOptionDescription(parameter),
+          {
+            default: parameter.defaultValue,
+            type: [getTypeConstructor(parameter.type)],
+          }
+        )
       }
       if (parameter.defaultValue !== false) {
         const alteredDescription =
@@ -72,6 +76,17 @@ function createOptionName(parameterName: string) {
     .split(/\.?(?=[A-Z])/)
     .join('-')
     .toLowerCase()
+}
+
+function createOptionDescription(parameter: Parameter) {
+  if (parameter.type !== 'string') {
+    return parameter.description
+  }
+  const allowedValues = parameter.allowedValues
+  if (!allowedValues || allowedValues.length === 0) {
+    return parameter.description
+  }
+  return `${parameter.description} (options: ${allowedValues.join(', ')})`
 }
 
 function pluginActionHandler<Out, Parameters extends ParameterMetadata>(

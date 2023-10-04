@@ -13,6 +13,7 @@ export type Parameter = Readonly<
     | {
         readonly type: 'string'
         readonly defaultValue: string
+        readonly allowedValues?: readonly string[]
       }
     | {
         readonly type: 'boolean'
@@ -21,11 +22,14 @@ export type Parameter = Readonly<
   )
 >
 
-function getZodValidator(type: ParameterType) {
-  switch (type) {
+function getZodValidator(parameter: Parameter) {
+  switch (parameter.type) {
     case 'number':
       return z.number()
     case 'string':
+      if (parameter.allowedValues && parameter.allowedValues.length > 0) {
+        return z.enum(parameter.allowedValues as [string, ...string[]])
+      }
       return z.string()
     case 'boolean':
       return z.boolean()
@@ -66,7 +70,7 @@ function deriveValidator<Parameters extends ParameterMetadata>(
   const parameterSchemas = Stream.fromObject(parameterMetadata)
     .map(([name, metadata]) => ({
       name,
-      schema: getZodValidator(metadata.type),
+      schema: getZodValidator(metadata),
     }))
     .toRecord(
       ({ name }) => name,
