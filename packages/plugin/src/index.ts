@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/brace-style, brace-style */
 import { Stream } from '@yeger/streams'
 import { ZodError, z } from 'zod'
 
@@ -109,17 +108,7 @@ export type PluginInvoke<In, Out, Parameters extends ParameterMetadata> = (
   parameters: Readonly<ResolveParameters<Parameters>>
 ) => Out
 
-export interface Plugin<In, Out, Parameters extends ParameterMetadata>
-  extends PluginMetadata<Parameters> {
-  readonly validate: (
-    parameters: unknown
-  ) => Readonly<ResolveParameters<Parameters>>
-  readonly validateAndInvoke: (input: In, parameters: unknown) => Out
-}
-
-export class BasePlugin<In, Out, Parameters extends ParameterMetadata>
-  implements Plugin<In, Out, Parameters>
-{
+export class Plugin<In, Out, Parameters extends ParameterMetadata> {
   private readonly validator: ReturnType<typeof deriveValidator>
 
   public constructor(
@@ -156,7 +145,7 @@ export function definePlugin<In, Out, Parameters extends ParameterMetadata>(
     invoke: PluginInvoke<In, Out, Parameters>
   }
 ) {
-  return new BasePlugin<In, Out, Parameters>(
+  return new Plugin<In, Out, Parameters>(
     data.name,
     data.parameters,
     data.invoke
@@ -229,7 +218,7 @@ export function compose<
   Out,
   P2 extends ParameterMetadata
 >(
-  ...plugins: [BasePlugin<In, I1, P1>, BasePlugin<I1, Out, P2>]
+  ...plugins: [Plugin<In, I1, P1>, Plugin<I1, Out, P2>]
 ): Plugin<In, Out, P1 & P2>
 export function compose<
   In,
@@ -240,15 +229,11 @@ export function compose<
   Out,
   P3 extends ParameterMetadata
 >(
-  ...plugins: [
-    BasePlugin<In, I1, P1>,
-    BasePlugin<I1, I2, P2>,
-    BasePlugin<I2, Out, P3>
-  ]
+  ...plugins: [Plugin<In, I1, P1>, Plugin<I1, I2, P2>, Plugin<I2, Out, P3>]
 ): Plugin<In, Out, P1 & P2>
 export function compose<In, Out, P extends ParameterMetadata>(
-  ...plugins: BasePlugin<In, Out, P>[]
-): BasePlugin<In, Out, P> {
+  ...plugins: Plugin<In, Out, P>[]
+): Plugin<In, Out, P> {
   return definePlugin({
     name: plugins[plugins.length - 1]!.name,
     parameters: joinParameters(plugins),
@@ -262,7 +247,7 @@ function joinParameters(plugins: PluginMetadata<ParameterMetadata>[]) {
     .reduce((a, b) => ({ ...a, ...b }), {})
 }
 
-function createInvocationChain<In, Out>(plugins: BasePlugin<any, any, any>[]) {
+function createInvocationChain<In, Out>(plugins: Plugin<any, any, any>[]) {
   if (plugins.length === 0) {
     throw new Error('Cannot create invocation chain without plugins.')
   }
