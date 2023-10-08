@@ -109,29 +109,29 @@ export type PluginInvoke<In, Out, Parameters extends ParameterMetadata> = (
   parameters: Readonly<ResolveParameters<Parameters>>
 ) => Out
 
-export interface Plugin<Out, Parameters extends ParameterMetadata>
+export interface Plugin<In, Out, Parameters extends ParameterMetadata>
   extends PluginMetadata<Parameters> {
   readonly validate: (
     parameters: unknown
   ) => Readonly<ResolveParameters<Parameters>>
-  readonly validateAndInvoke: (input: string, parameters: unknown) => Out
+  readonly validateAndInvoke: (input: In, parameters: unknown) => Out
 }
 
-export class BasePlugin<Out, Parameters extends ParameterMetadata>
-  implements Plugin<Out, Parameters>
+export class BasePlugin<In, Out, Parameters extends ParameterMetadata>
+  implements Plugin<In, Out, Parameters>
 {
   private readonly validator: ReturnType<typeof deriveValidator>
 
   public constructor(
     public readonly name: string,
     public readonly parameters: Parameters,
-    public readonly invoke: PluginInvoke<string, Out, Parameters>
+    public readonly invoke: PluginInvoke<In, Out, Parameters>
   ) {
     this.validator = deriveValidator(parameters)
   }
 
   /** Validate the passed parameters and invoke the plugin if successful */
-  public validateAndInvoke(input: string, parameters: unknown): Out {
+  public validateAndInvoke(input: In, parameters: unknown): Out {
     const validatedParameters = this.validate(parameters)
     return this.invoke(input, validatedParameters)
   }
@@ -151,12 +151,12 @@ export class BasePlugin<Out, Parameters extends ParameterMetadata>
   }
 }
 
-export function definePlugin<Out, Parameters extends ParameterMetadata>(
+export function definePlugin<In, Out, Parameters extends ParameterMetadata>(
   data: PluginMetadata<Parameters> & {
-    invoke: PluginInvoke<string, Out, Parameters>
+    invoke: PluginInvoke<In, Out, Parameters>
   }
 ) {
-  return new BasePlugin<Out, Parameters>(
+  return new BasePlugin<In, Out, Parameters>(
     data.name,
     data.parameters,
     data.invoke
@@ -182,17 +182,19 @@ export function getTypeConstructor(parameterType: ParameterType) {
   }
 }
 
-export abstract class PluginAdapter {
-  protected plugins = new Map<string, Plugin<unknown, any>>()
+export abstract class PluginAdapter<In> {
+  protected plugins = new Map<string, Plugin<In, unknown, any>>()
 
   private started = false
 
-  public applyAll(plugins: Plugin<unknown, ParameterMetadata>[]) {
+  public applyAll(plugins: Plugin<In, unknown, ParameterMetadata>[]) {
     Stream.from(plugins).forEach((plugin) => this.apply(plugin))
     return this
   }
 
-  public apply(plugin: Plugin<unknown, ParameterMetadata>): PluginAdapter {
+  public apply(
+    plugin: Plugin<In, unknown, ParameterMetadata>
+  ): PluginAdapter<In> {
     this.requireNotStarted()
     if (this.plugins.has(plugin.name)) {
       throw new Error(`Plugin ${plugin.name} already applied.`)
@@ -203,8 +205,8 @@ export abstract class PluginAdapter {
   }
 
   protected abstract onApply<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<Out, Parameters>
-  ): PluginAdapter
+    plugin: Plugin<In, Out, Parameters>
+  ): void
 
   public start() {
     this.started = true
@@ -218,4 +220,62 @@ export abstract class PluginAdapter {
       throw new Error('PluginAdapter has already been started.')
     }
   }
+}
+
+export function compose<
+  In,
+  I1,
+  P1 extends ParameterMetadata,
+  Out,
+  P2 extends ParameterMetadata
+>(
+  ...plugins: [BasePlugin<In, I1, P1>, BasePlugin<I1, Out, P2>]
+): Plugin<In, Out, P1 & P2>
+export function compose<
+  In,
+  I1,
+  P1 extends ParameterMetadata,
+  I2,
+  P2 extends ParameterMetadata,
+  Out,
+  P3 extends ParameterMetadata
+>(
+  ...plugins: [
+    BasePlugin<In, I1, P1>,
+    BasePlugin<I1, I2, P2>,
+    BasePlugin<I2, Out, P3>
+  ]
+): Plugin<In, Out, P1 & P2>
+export function compose<In, Out, P extends ParameterMetadata>(
+  ...plugins: BasePlugin<In, Out, P>[]
+): BasePlugin<In, Out, P> {
+  return definePlugin({
+    name: plugins[plugins.length - 1]!.name,
+    parameters: joinParameters(plugins),
+    invoke: createInvocationChain<In, Out>(plugins),
+  }) as unknown as any
+}
+
+function joinParameters(plugins: PluginMetadata<ParameterMetadata>[]) {
+  return Stream.from(plugins)
+    .map((plugin) => plugin.parameters)
+    .reduce((a, b) => ({ ...a, ...b }), {})
+}
+
+function createInvocationChain<In, Out>(plugins: BasePlugin<any, any, any>[]) {
+  if (plugins.length === 0) {
+    throw new Error('Cannot create invocation chain without plugins.')
+  }
+  return (
+    input: unknown,
+    parameters: Record<string, number | string | boolean>
+  ) =>
+    Stream.from(plugins).reduce(
+      (intermediateResult, plugin) =>
+        plugin.invoke(intermediateResult, parameters),
+      input
+    ) as (
+      input: In,
+      parameters: Record<string, number | string | boolean>
+    ) => Out
 }

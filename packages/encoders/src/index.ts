@@ -4,7 +4,7 @@ import { structuralEncoders } from '~/structural'
 
 export * from '~/structural'
 
-export const encoders: Plugin<unknown, ParameterMetadata>[] = [
+export const encoders: Plugin<string, unknown, ParameterMetadata>[] = [
   ...Object.values(structuralEncoders),
 ]
 

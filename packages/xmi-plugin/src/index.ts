@@ -3,30 +3,21 @@ import type {
   PluginInvoke,
   PluginMetadata,
 } from '@cm2ml/plugin'
-import { BasePlugin } from '@cm2ml/plugin'
+import { compose, definePlugin } from '@cm2ml/plugin'
 import type { XmiModel } from '@cm2ml/xmi-model'
 import { parse } from '@cm2ml/xmi-parser'
 
-export class XmiPlugin<
-  Out,
-  Parameters extends ParameterMetadata
-> extends BasePlugin<Out, Parameters> {
-  public constructor(
-    name: string,
-    parameters: Parameters,
-    public readonly invokeWithModel: PluginInvoke<XmiModel, Out, Parameters>
-  ) {
-    super(name, parameters, (input, parameters) => {
-      const model = parse(input)
-      return invokeWithModel(model, parameters)
-    })
-  }
-}
+export const XmiTransformer = definePlugin({
+  name: 'xmi-transformer',
+  parameters: {},
+  invoke: (input: string) => parse(input),
+})
 
 export function defineXmiPlugin<Out, Parameters extends ParameterMetadata>(
   data: PluginMetadata<Parameters> & {
     invoke: PluginInvoke<XmiModel, Out, Parameters>
   }
 ) {
-  return new XmiPlugin(data.name, data.parameters, data.invoke)
+  const plugin = definePlugin(data)
+  return compose(XmiTransformer, plugin)
 }

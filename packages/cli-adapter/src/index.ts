@@ -7,14 +7,14 @@ import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 import { cac } from 'cac'
 
-class CLI extends PluginAdapter {
+class CLI extends PluginAdapter<string> {
   private readonly cli = cac('cm2ml').option(
     '--out <file>',
     'Path to output file'
   )
 
   protected onApply<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<Out, Parameters>
+    plugin: Plugin<string, Out, Parameters>
   ) {
     const command = this.cli.command(`${plugin.name} <inputFile>`)
     Stream.fromObject(plugin.parameters).forEach(([name, parameter]) => {
@@ -56,7 +56,6 @@ class CLI extends PluginAdapter {
     command.action((inputFile: string, options: Record<string, unknown>) =>
       pluginActionHandler(plugin, inputFile, options)
     )
-    return this
   }
 
   protected onStart() {
@@ -90,7 +89,7 @@ function createOptionDescription(parameter: Parameter) {
 }
 
 function pluginActionHandler<Out, Parameters extends ParameterMetadata>(
-  plugin: Plugin<Out, Parameters>,
+  plugin: Plugin<string, Out, Parameters>,
   inputFile: string,
   options: Record<string, unknown>
 ) {

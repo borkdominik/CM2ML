@@ -11,16 +11,15 @@ import { Stream } from '@yeger/streams'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { fastify } from 'fastify'
 
-class Server extends PluginAdapter {
+class Server extends PluginAdapter<string> {
   private readonly server = fastify()
 
   protected onApply<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<Out, Parameters>
+    plugin: Plugin<string, Out, Parameters>
   ) {
     this.server.post(`/encoders/${plugin.name}`, async (request, reply) =>
       pluginRequestHandler(plugin, request, reply)
     )
-    return this
   }
 
   protected onStart() {
@@ -69,7 +68,7 @@ function isValidRequestBody(
 }
 
 function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
-  plugin: Plugin<Out, Parameters>,
+  plugin: Plugin<string, Out, Parameters>,
   request: FastifyRequest,
   reply: FastifyReply
 ) {
