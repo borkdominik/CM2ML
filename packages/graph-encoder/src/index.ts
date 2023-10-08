@@ -1,8 +1,8 @@
+import { definePlugin } from '@cm2ml/plugin'
 import type { XmiModel } from '@cm2ml/xmi-model'
-import { defineXmiPlugin } from '@cm2ml/xmi-plugin'
 import { Stream } from '@yeger/streams'
 
-export const GraphEncoder = defineXmiPlugin({
+export const GraphEncoder = definePlugin({
   name: 'raw-graph',
   parameters: {
     weighted: {
@@ -16,7 +16,7 @@ export const GraphEncoder = defineXmiPlugin({
       defaultValue: false,
     },
   },
-  invoke(input, { sparse, weighted }) {
+  invoke(input: XmiModel, { sparse, weighted }) {
     if (sparse && weighted) {
       throw new Error('Sparse and weighted options are mutually exclusive.')
     }

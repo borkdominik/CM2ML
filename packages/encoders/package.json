@@ -34,7 +34,8 @@
   "dependencies": {
     "@cm2ml/graph-encoder": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
-    "@cm2ml/tree-encoder": "workspace:*"
+    "@cm2ml/tree-encoder": "workspace:*",
+    "@cm2ml/xmi-plugin": "workspace:*"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
