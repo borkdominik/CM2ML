@@ -223,6 +223,9 @@ importers:
 
   packages/plugin:
     dependencies:
+      '@cm2ml/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@yeger/streams':
         specifier: 1.0.1
         version: 1.0.1

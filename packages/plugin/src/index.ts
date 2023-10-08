@@ -1,3 +1,4 @@
+import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 import { ZodError, z } from 'zod'
 
@@ -234,17 +235,36 @@ export function compose<
 export function compose<In, Out, P extends ParameterMetadata>(
   ...plugins: Plugin<In, Out, P>[]
 ): Plugin<In, Out, P> {
-  return definePlugin({
-    name: plugins[plugins.length - 1]!.name,
-    parameters: joinParameters(plugins),
-    invoke: createInvocationChain<In, Out>(plugins),
-  }) as unknown as any
+  try {
+    return definePlugin({
+      name: plugins[plugins.length - 1]!.name,
+      parameters: joinParameters(plugins),
+      invoke: createInvocationChain<In, Out>(plugins),
+    }) as unknown as any
+  } catch (error) {
+    console.error(getMessage(error))
+    process.exit(1)
+  }
 }
 
 function joinParameters(plugins: PluginMetadata<ParameterMetadata>[]) {
-  return Stream.from(plugins)
+  const parameters: Record<string, Parameter> = {}
+
+  Stream.from(plugins)
     .map((plugin) => plugin.parameters)
-    .reduce((a, b) => ({ ...a, ...b }), {})
+    .forEach((pluginParameters) => {
+      Stream.fromObject(pluginParameters).forEach(([name, parameter]) => {
+        const existingParameter = parameters[name]
+        if (existingParameter && existingParameter.type !== parameter.type) {
+          throw new Error(
+            `Parameter ${name} is defined multiple times in the plugin composition with different types.`
+          )
+        }
+        parameters[name] = parameter
+      })
+    })
+
+  return parameters
 }
 
 function createInvocationChain<In, Out>(plugins: Plugin<any, any, any>[]) {
