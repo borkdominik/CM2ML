@@ -1,11 +1,8 @@
 import process from 'node:process'
 
 import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
-import {
-  PluginAdapter,
-  ValidationError,
-  getTypeConstructor,
-} from '@cm2ml/plugin'
+import { ValidationError, getTypeConstructor } from '@cm2ml/plugin'
+import { PluginAdapter } from '@cm2ml/plugin-adapter'
 import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 import type { FastifyReply, FastifyRequest } from 'fastify'

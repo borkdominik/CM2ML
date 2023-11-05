@@ -75,14 +75,51 @@ importers:
         specifier: 0.34.4
         version: 0.34.4(@vitest/ui@0.34.4)
 
+  packages/builtin:
+    dependencies:
+      '@cm2ml/ecore-parser':
+        specifier: workspace:*
+        version: link:../ecore-parser
+      '@cm2ml/graph-encoder':
+        specifier: workspace:*
+        version: link:../graph-encoder
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../plugin
+      '@cm2ml/tree-encoder':
+        specifier: workspace:*
+        version: link:../tree-encoder
+      '@cm2ml/uml-parser':
+        specifier: workspace:*
+        version: link:../uml-parser
+      '@cm2ml/xmi-parser':
+        specifier: workspace:*
+        version: link:../xmi-parser
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: 5.1.3
+        version: 5.1.3
+      vite:
+        specifier: 4.3.9
+        version: 4.3.9(@types/node@18.17.17)
+      vite-plugin-lib:
+        specifier: 2.0.2
+        version: 2.0.2(@types/node@18.17.17)(typescript@5.1.3)(vite@4.3.9)
+
   packages/cli:
     dependencies:
+      '@cm2ml/builtin':
+        specifier: workspace:*
+        version: link:../builtin
       '@cm2ml/cli-adapter':
         specifier: workspace:*
         version: link:../cli-adapter
-      '@cm2ml/encoders':
-        specifier: workspace:*
-        version: link:../encoders
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -102,6 +139,9 @@ importers:
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
+      '@cm2ml/plugin-adapter':
+        specifier: workspace:*
+        version: link:../plugin-adapter
       '@cm2ml/utils':
         specifier: workspace:*
         version: link:../utils
@@ -127,36 +167,42 @@ importers:
 
   packages/cm2ml:
     dependencies:
+      '@cm2ml/builtin':
+        specifier: workspace:*
+        version: link:../builtin
       '@cm2ml/cli':
         specifier: workspace:*
         version: link:../cli
       '@cm2ml/cli-adapter':
         specifier: workspace:*
         version: link:../cli-adapter
-      '@cm2ml/encoders':
+      '@cm2ml/ecore-parser':
         specifier: workspace:*
-        version: link:../encoders
+        version: link:../ecore-parser
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../ir
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
+      '@cm2ml/plugin-adapter':
+        specifier: workspace:*
+        version: link:../plugin-adapter
       '@cm2ml/rest':
         specifier: workspace:*
         version: link:../rest
       '@cm2ml/rest-adapter':
         specifier: workspace:*
         version: link:../rest-adapter
+      '@cm2ml/uml-parser':
+        specifier: workspace:*
+        version: link:../uml-parser
       '@cm2ml/utils':
         specifier: workspace:*
         version: link:../utils
-      '@cm2ml/xmi-model':
-        specifier: workspace:*
-        version: link:../xmi-model
       '@cm2ml/xmi-parser':
         specifier: workspace:*
         version: link:../xmi-parser
-      '@cm2ml/xmi-plugin':
-        specifier: workspace:*
-        version: link:../xmi-plugin
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -171,20 +217,23 @@ importers:
         specifier: 2.0.2
         version: 2.0.2(@types/node@18.17.17)(typescript@5.1.3)(vite@4.3.9)
 
-  packages/encoders:
+  packages/ecore-parser:
     dependencies:
-      '@cm2ml/graph-encoder':
+      '@cm2ml/ir':
         specifier: workspace:*
-        version: link:../graph-encoder
+        version: link:../ir
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
-      '@cm2ml/tree-encoder':
-        specifier: workspace:*
-        version: link:../tree-encoder
-      '@cm2ml/xmi-plugin':
-        specifier: workspace:*
-        version: link:../xmi-plugin
+      '@yeger/streams':
+        specifier: 1.0.1
+        version: 1.0.1
+      domhandler:
+        specifier: 5.0.3
+        version: 5.0.3
+      htmlparser2:
+        specifier: 9.0.0
+        version: 9.0.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -201,15 +250,30 @@ importers:
 
   packages/graph-encoder:
     dependencies:
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../ir
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
-      '@cm2ml/xmi-model':
-        specifier: workspace:*
-        version: link:../xmi-model
       '@yeger/streams':
         specifier: 1.0.1
         version: 1.0.1
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: 5.1.3
+        version: 5.1.3
+      vite:
+        specifier: 4.3.9
+        version: 4.3.9(@types/node@18.17.17)
+      vite-plugin-lib:
+        specifier: 2.0.2
+        version: 2.0.2(@types/node@18.17.17)(typescript@5.1.3)(vite@4.3.9)
+
+  packages/ir:
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -249,11 +313,33 @@ importers:
         specifier: 2.0.2
         version: 2.0.2(@types/node@18.17.17)(typescript@5.1.3)(vite@4.3.9)
 
+  packages/plugin-adapter:
+    dependencies:
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../plugin
+      '@yeger/streams':
+        specifier: 1.0.1
+        version: 1.0.1
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: 5.1.3
+        version: 5.1.3
+      vite:
+        specifier: 4.3.9
+        version: 4.3.9(@types/node@18.17.17)
+      vite-plugin-lib:
+        specifier: 2.0.2
+        version: 2.0.2(@types/node@18.17.17)(typescript@5.1.3)(vite@4.3.9)
+
   packages/rest:
     dependencies:
-      '@cm2ml/encoders':
+      '@cm2ml/builtin':
         specifier: workspace:*
-        version: link:../encoders
+        version: link:../builtin
       '@cm2ml/rest-adapter':
         specifier: workspace:*
         version: link:../rest-adapter
@@ -276,6 +362,9 @@ importers:
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
+      '@cm2ml/plugin-adapter':
+        specifier: workspace:*
+        version: link:../plugin-adapter
       '@cm2ml/utils':
         specifier: workspace:*
         version: link:../utils
@@ -301,12 +390,12 @@ importers:
 
   packages/tree-encoder:
     dependencies:
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../ir
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
-      '@cm2ml/xmi-model':
-        specifier: workspace:*
-        version: link:../xmi-model
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -323,7 +412,23 @@ importers:
 
   packages/tsconfig: {}
 
-  packages/utils:
+  packages/uml-parser:
+    dependencies:
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../plugin
+      '@yeger/streams':
+        specifier: 1.0.1
+        version: 1.0.1
+      domhandler:
+        specifier: 5.0.3
+        version: 5.0.3
+      htmlparser2:
+        specifier: 9.0.0
+        version: 9.0.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -338,7 +443,7 @@ importers:
         specifier: 2.0.2
         version: 2.0.2(@types/node@18.17.17)(typescript@5.1.3)(vite@4.3.9)
 
-  packages/xmi-model:
+  packages/utils:
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -355,9 +460,12 @@ importers:
 
   packages/xmi-parser:
     dependencies:
-      '@cm2ml/xmi-model':
+      '@cm2ml/ir':
         specifier: workspace:*
-        version: link:../xmi-model
+        version: link:../ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../plugin
       '@yeger/streams':
         specifier: 1.0.1
         version: 1.0.1
@@ -374,31 +482,6 @@ importers:
       '@types/jsdom':
         specifier: 21.1.3
         version: 21.1.3
-      typescript:
-        specifier: 5.1.3
-        version: 5.1.3
-      vite:
-        specifier: 4.3.9
-        version: 4.3.9(@types/node@18.17.17)
-      vite-plugin-lib:
-        specifier: 2.0.2
-        version: 2.0.2(@types/node@18.17.17)(typescript@5.1.3)(vite@4.3.9)
-
-  packages/xmi-plugin:
-    dependencies:
-      '@cm2ml/plugin':
-        specifier: workspace:*
-        version: link:../plugin
-      '@cm2ml/xmi-model':
-        specifier: workspace:*
-        version: link:../xmi-model
-      '@cm2ml/xmi-parser':
-        specifier: workspace:*
-        version: link:../xmi-parser
-    devDependencies:
-      '@cm2ml/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       typescript:
         specifier: 5.1.3
         version: 5.1.3

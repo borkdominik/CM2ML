@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/encoders",
+  "name": "@cm2ml/ir",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -30,12 +30,6 @@
     "check:tsc": "tsc",
     "dev": "vite build --watch",
     "lint": "yeger-lint"
-  },
-  "dependencies": {
-    "@cm2ml/graph-encoder": "workspace:*",
-    "@cm2ml/plugin": "workspace:*",
-    "@cm2ml/tree-encoder": "workspace:*",
-    "@cm2ml/xmi-plugin": "workspace:*"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

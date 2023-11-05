@@ -37,16 +37,18 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
+    "@cm2ml/builtin": "workspace:*",
     "@cm2ml/cli": "workspace:*",
     "@cm2ml/cli-adapter": "workspace:*",
-    "@cm2ml/encoders": "workspace:*",
+    "@cm2ml/ecore-parser": "workspace:*",
+    "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
+    "@cm2ml/plugin-adapter": "workspace:*",
     "@cm2ml/rest": "workspace:*",
     "@cm2ml/rest-adapter": "workspace:*",
+    "@cm2ml/uml-parser": "workspace:*",
     "@cm2ml/utils": "workspace:*",
-    "@cm2ml/xmi-model": "workspace:*",
-    "@cm2ml/xmi-parser": "workspace:*",
-    "@cm2ml/xmi-plugin": "workspace:*"
+    "@cm2ml/xmi-parser": "workspace:*"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

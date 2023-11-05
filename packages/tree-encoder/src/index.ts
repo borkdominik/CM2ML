@@ -1,5 +1,5 @@
+import type { GraphModel } from '@cm2ml/ir'
 import { definePlugin } from '@cm2ml/plugin'
-import type { XmiModel } from '@cm2ml/xmi-model'
 
 export const TreeEncoder = definePlugin({
   name: 'tree',
@@ -20,7 +20,7 @@ export const TreeEncoder = definePlugin({
       defaultValue: true,
     },
   },
-  invoke(input: XmiModel, _parameters) {
+  invoke(input: GraphModel, _parameters) {
     // TODO
     return input.show()
   },

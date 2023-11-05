@@ -172,46 +172,6 @@ export function getTypeConstructor(parameterType: ParameterType) {
   }
 }
 
-export abstract class PluginAdapter<In> {
-  protected plugins = new Map<string, Plugin<In, unknown, any>>()
-
-  private started = false
-
-  public applyAll(plugins: Plugin<In, unknown, ParameterMetadata>[]) {
-    Stream.from(plugins).forEach((plugin) => this.apply(plugin))
-    return this
-  }
-
-  public apply(
-    plugin: Plugin<In, unknown, ParameterMetadata>
-  ): PluginAdapter<In> {
-    this.requireNotStarted()
-    if (this.plugins.has(plugin.name)) {
-      throw new Error(`Plugin ${plugin.name} already applied.`)
-    }
-    this.plugins.set(plugin.name, plugin)
-    this.onApply(plugin)
-    return this
-  }
-
-  protected abstract onApply<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<In, Out, Parameters>
-  ): void
-
-  public start() {
-    this.started = true
-    this.onStart()
-  }
-
-  protected abstract onStart(): void
-
-  private requireNotStarted() {
-    if (this.started) {
-      throw new Error('PluginAdapter has already been started.')
-    }
-  }
-}
-
 export function compose<
   In,
   I1,
@@ -219,25 +179,14 @@ export function compose<
   Out,
   P2 extends ParameterMetadata
 >(
-  ...plugins: [Plugin<In, I1, P1>, Plugin<I1, Out, P2>]
-): Plugin<In, Out, P1 & P2>
-export function compose<
-  In,
-  I1,
-  P1 extends ParameterMetadata,
-  I2,
-  P2 extends ParameterMetadata,
-  Out,
-  P3 extends ParameterMetadata
->(
-  ...plugins: [Plugin<In, I1, P1>, Plugin<I1, I2, P2>, Plugin<I2, Out, P3>]
-): Plugin<In, Out, P1 & P2>
-export function compose<In, Out, P extends ParameterMetadata>(
-  ...plugins: Plugin<In, Out, P>[]
-): Plugin<In, Out, P> {
+  first: Plugin<In, I1, P1>,
+  second: Plugin<I1, Out, P2>,
+  name = `${first.name}-${second.name}`
+): Plugin<In, Out, P1 & P2> {
   try {
+    const plugins = [first, second]
     return definePlugin({
-      name: plugins[plugins.length - 1]!.name,
+      name,
       parameters: joinParameters(plugins),
       invoke: createInvocationChain<In, Out>(plugins),
     }) as unknown as any

@@ -2,12 +2,12 @@ import fs from 'node:fs'
 
 import { describe, expect, it } from 'vitest'
 
-import { parse } from '~/index'
+import { XmiParser } from '~/index'
 
-describe('xmi-parser', () => {
+describe('XMI Parser', () => {
   it('should work', () => {
     const input = fs.readFileSync('../../xmi-model.xmi', 'utf-8')
-    const output = parse(input)
+    const output = XmiParser.invoke(input, {})
     expect(output).toBeDefined()
     // console.log(output.show())
   })

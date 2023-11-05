@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/rest",
+  "name": "@cm2ml/uml-parser",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -21,11 +21,7 @@
     }
   },
   "types": "dist/types/index.d.mts",
-  "bin": {
-    "cm2ml-server": "bin/cm2ml-server.mjs"
-  },
   "files": [
-    "bin/*",
     "dist/*"
   ],
   "scripts": {
@@ -36,8 +32,11 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
-    "@cm2ml/builtin": "workspace:*",
-    "@cm2ml/rest-adapter": "workspace:*"
+    "@cm2ml/ir": "workspace:*",
+    "@cm2ml/plugin": "workspace:*",
+    "@yeger/streams": "1.0.1",
+    "domhandler": "5.0.3",
+    "htmlparser2": "9.0.0"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

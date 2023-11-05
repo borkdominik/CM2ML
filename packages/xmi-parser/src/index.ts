@@ -1,21 +1,28 @@
-import type { XmiAttribute, XmiAttributeName, XmiValue } from '@cm2ml/xmi-model'
-import { XmiElement, XmiModel, XmiReference } from '@cm2ml/xmi-model'
+import type { Attribute, AttributeName, Value } from '@cm2ml/ir'
+import { GraphEdge, GraphModel, GraphNode } from '@cm2ml/ir'
+import { definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 import { Element } from 'domhandler'
 import type { Document, Node } from 'domhandler'
 import { parseDocument } from 'htmlparser2'
 
-export function parse(xmi: string) {
+export const XmiParser = definePlugin({
+  name: 'xmi',
+  parameters: {},
+  invoke: (input: string) => parse(input),
+})
+
+function parse(xmi: string) {
   const document = parseDocument(xmi, {
     xmlMode: true,
   })
-  return getModel(document)
+  return getGraphModel(document)
 }
 
-function getModel(document: Document): XmiModel {
-  const elementMap = new Map<string, XmiElement>()
+function getGraphModel(document: Document): GraphModel {
+  const elementMap = new Map<string, GraphNode>()
 
-  function registerElement(element: XmiElement) {
+  function registerElement(element: GraphNode) {
     const id = element.getAttribute('id')
     if (id === undefined) {
       return
@@ -26,7 +33,7 @@ function getModel(document: Document): XmiModel {
     elementMap.set(id.value.literal, element)
   }
 
-  function getReference(element: XmiElement) {
+  function getReference(element: GraphNode) {
     const source = getNearestIdentifiableElement(element)
     if (source === null) {
       return
@@ -40,7 +47,7 @@ function getModel(document: Document): XmiModel {
       throw new Error(`Missing target element with id ${idref.value.literal}`)
     }
     target.referencedBy.add(source)
-    return new XmiReference(element, source, target)
+    return new GraphEdge(element, source, target)
   }
 
   const root = mapDocument(document)
@@ -51,7 +58,7 @@ function getModel(document: Document): XmiModel {
     .filterNonNull()
     .toArray()
 
-  return new XmiModel(root, elements, references)
+  return new GraphModel(root, elements, references)
 }
 
 function mapDocument(document: Document) {
@@ -66,20 +73,20 @@ function mapDocument(document: Document) {
   return mapElement(root)
 }
 
-function mapElement(element: Element): XmiElement {
+function mapElement(element: Element): GraphNode {
   const attributes = mapAttributes(element.attribs)
   const children = Stream.from(element.childNodes)
     .map((child) => (isElement(child) ? mapElement(child) : null))
     .filterNonNull()
     .toArray()
-  const xmiElement = new XmiElement(element.tagName, attributes, children)
+  const xmiElement = new GraphNode(element.tagName, attributes, children)
   children.forEach((child) => (child.parent = xmiElement))
   return xmiElement
 }
 
 function mapAttributes(
   attributes: Record<string, string>
-): Record<XmiAttributeName, XmiAttribute> {
+): Record<AttributeName, Attribute> {
   return Stream.fromObject(attributes)
     .map(mapAttribute)
     .toRecord(
@@ -88,7 +95,7 @@ function mapAttributes(
     )
 }
 
-function mapAttribute([name, value]: [string, string]): XmiAttribute {
+function mapAttribute([name, value]: [string, string]): Attribute {
   const xmiValue = mapValue(value)
   if (!name.includes(':')) {
     return { name, value: xmiValue }
@@ -97,7 +104,7 @@ function mapAttribute([name, value]: [string, string]): XmiAttribute {
   return { name: rest.join(':'), value: xmiValue, namespace }
 }
 
-function mapValue(value: string): XmiValue {
+function mapValue(value: string): Value {
   if (!value.includes(':')) {
     return { literal: value }
   }
@@ -109,13 +116,13 @@ function isElement(node: Node): node is Element {
   return node.type === 'tag' || node instanceof Element
 }
 
-function collectAllElements(element: XmiElement): Stream<XmiElement> {
+function collectAllElements(element: GraphNode): Stream<GraphNode> {
   return Stream.from(element.children)
     .flatMap(collectAllElements)
     .append(element)
 }
 
-function getNearestIdentifiableElement(element: XmiElement) {
+function getNearestIdentifiableElement(element: GraphNode) {
   if (getId(element) !== undefined) {
     return element
   }
@@ -126,6 +133,6 @@ function getNearestIdentifiableElement(element: XmiElement) {
   return target
 }
 
-function getId(element: XmiElement): string | undefined {
+function getId(element: GraphNode): string | undefined {
   return element.getAttribute('id')?.value.literal
 }

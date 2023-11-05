@@ -2,11 +2,11 @@ export interface Show {
   show(indent?: number): string
 }
 
-export class XmiModel implements Show {
+export class GraphModel implements Show {
   public constructor(
-    public readonly root: XmiElement,
-    public readonly elements: Readonly<XmiElement[]>,
-    public readonly references: Readonly<XmiReference[]>
+    public readonly root: GraphNode,
+    public readonly elements: Readonly<GraphNode[]>,
+    public readonly references: Readonly<GraphEdge[]>
   ) {}
 
   public show(): string {
@@ -14,29 +14,29 @@ export class XmiModel implements Show {
   }
 }
 
-export class XmiElement implements Show {
-  #parent: XmiElement | null = null
+export class GraphNode implements Show {
+  #parent: GraphNode | null = null
 
-  public readonly referencedBy = new Set<XmiElement>()
+  public readonly referencedBy = new Set<GraphNode>()
 
   public constructor(
     public readonly tag: string,
-    public readonly attributes: Record<XmiAttributeName, XmiAttribute>,
-    public readonly children: Readonly<XmiElement[]>
+    public readonly attributes: Record<AttributeName, Attribute>,
+    public readonly children: Readonly<GraphNode[]>
   ) {}
 
-  public get parent(): XmiElement | null {
+  public get parent(): GraphNode | null {
     return this.#parent
   }
 
   /**
    * Do not set the parent outside the parser.
    */
-  public set parent(parent: XmiElement | null) {
+  public set parent(parent: GraphNode | null) {
     this.#parent = parent
   }
 
-  public getAttribute(name: XmiAttributeName): XmiAttribute | undefined {
+  public getAttribute(name: AttributeName): Attribute | undefined {
     return this.attributes[name]
   }
 
@@ -60,7 +60,7 @@ export class XmiElement implements Show {
     }${attributes}>\n${children}\n${createIndent(indent)}</${this.tag}>`
   }
 
-  private showAttribute(name: XmiAttributeName) {
+  private showAttribute(name: AttributeName) {
     const attribute = this.getAttribute(name)
     if (attribute === undefined) {
       return ''
@@ -69,29 +69,29 @@ export class XmiElement implements Show {
   }
 }
 
-export type XmiAttributeName =
+export type AttributeName =
   | 'id'
   | 'idref'
   | 'name'
   | 'type'
   | (string & Record<never, never>)
 
-export interface XmiAttribute {
-  readonly name: XmiAttributeName
+export interface Attribute {
+  readonly name: AttributeName
   readonly namespace?: string
-  readonly value: XmiValue
+  readonly value: Value
 }
 
-export interface XmiValue {
+export interface Value {
   readonly literal: string
   readonly namespace?: string
 }
 
-export class XmiReference {
+export class GraphEdge {
   public constructor(
-    public readonly element: XmiElement,
-    public readonly source: XmiElement,
-    public readonly target: XmiElement
+    public readonly element: GraphNode,
+    public readonly source: GraphNode,
+    public readonly target: GraphNode
   ) {}
 }
 

@@ -33,7 +33,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@cm2ml/xmi-model": "workspace:*",
+    "@cm2ml/ir": "workspace:*",
+    "@cm2ml/plugin": "workspace:*",
     "@yeger/streams": "1.0.1",
     "domhandler": "5.0.3",
     "htmlparser2": "9.0.0"

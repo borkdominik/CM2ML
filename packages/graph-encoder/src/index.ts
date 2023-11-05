@@ -1,5 +1,5 @@
+import type { GraphModel } from '@cm2ml/ir'
 import { definePlugin } from '@cm2ml/plugin'
-import type { XmiModel } from '@cm2ml/xmi-model'
 import { Stream } from '@yeger/streams'
 
 export const GraphEncoder = definePlugin({
@@ -16,7 +16,7 @@ export const GraphEncoder = definePlugin({
       defaultValue: false,
     },
   },
-  invoke(input: XmiModel, { sparse, weighted }) {
+  invoke(input: GraphModel, { sparse, weighted }) {
     if (sparse && weighted) {
       throw new Error('Sparse and weighted options are mutually exclusive.')
     }
@@ -28,7 +28,7 @@ export const GraphEncoder = definePlugin({
   },
 })
 
-function getSortedIds(model: XmiModel) {
+function getSortedIds(model: GraphModel) {
   return Stream.from(model.elements)
     .map((element) => element.getAttribute('id')?.value.literal)
     .filterNonNull()
@@ -36,7 +36,7 @@ function getSortedIds(model: XmiModel) {
     .sort((a, b) => a.localeCompare(b))
 }
 
-function encodeAsSparseList(model: XmiModel, sortedIds: string[]) {
+function encodeAsSparseList(model: GraphModel, sortedIds: string[]) {
   const list = new Array<readonly [number, number]>()
   model.references.forEach((reference) => {
     const source = reference.source.getAttribute('id')?.value.literal
@@ -57,7 +57,7 @@ function encodeAsSparseList(model: XmiModel, sortedIds: string[]) {
 type AdjacencyMatrix = number[][]
 
 function encodeAsAdjacencyMatrix(
-  model: XmiModel,
+  model: GraphModel,
   sortedIds: string[],
   weighted: boolean
 ) {
@@ -76,7 +76,7 @@ function createAdjacencyMatrix(size: number): AdjacencyMatrix {
 
 function fillAdjacencyMatrix(
   matrix: AdjacencyMatrix,
-  model: XmiModel,
+  model: GraphModel,
   sortedIds: string[],
   weighted: boolean
 ) {

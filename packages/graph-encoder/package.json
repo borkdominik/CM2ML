@@ -32,8 +32,8 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
+    "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
-    "@cm2ml/xmi-model": "workspace:*",
     "@yeger/streams": "1.0.1"
   },
   "devDependencies": {

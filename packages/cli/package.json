@@ -36,8 +36,8 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
-    "@cm2ml/cli-adapter": "workspace:*",
-    "@cm2ml/encoders": "workspace:*"
+    "@cm2ml/builtin": "workspace:*",
+    "@cm2ml/cli-adapter": "workspace:*"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
