@@ -2,7 +2,7 @@
   "name": "cm2ml",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@8.9.0",
+  "packageManager": "pnpm@8.11.0+sha256.5858806c3b292cbec89b5533662168a957358e2bbd86431516d441dc1aface89",
   "repository": {
     "url": "https://github.com/borkdominik/CM2ML"
   },
