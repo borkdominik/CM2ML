@@ -5,9 +5,19 @@ export interface Show {
 export class GraphModel implements Show {
   public constructor(
     public readonly root: GraphNode,
-    public readonly elements: Readonly<GraphNode[]>,
-    public readonly references: Readonly<GraphEdge[]>
+    public readonly nodes: Readonly<GraphNode[]>,
+    public readonly edges: Readonly<GraphEdge[]>,
+    public readonly idAttribute: string,
+    private readonly nodeMap: Map<string, GraphNode>
   ) {}
+
+  public getNodeById(id: string): GraphNode | undefined {
+    return this.nodeMap.get(id)
+  }
+
+  public getNodeId(node: GraphNode): string | undefined {
+    return node.getAttribute(this.idAttribute)?.value.literal
+  }
 
   public show(): string {
     return this.root.show(0)
@@ -41,11 +51,9 @@ export class GraphNode implements Show {
   }
 
   public show(indent: number): string {
-    const name = this.showAttribute('name')
-    const id = this.showAttribute('id')
-    const idref = this.showAttribute('idref')
-
-    const attributes = `${name}${id}${idref}`
+    const attributes = Object.keys(this.attributes)
+      .map((attribute) => this.showAttribute(attribute))
+      .join('')
 
     if (this.children.length === 0) {
       return `${createIndent(indent)}<${this.tag}${attributes} />`
@@ -69,6 +77,7 @@ export class GraphNode implements Show {
   }
 }
 
+// Include strings here for autocomplete.
 export type AttributeName =
   | 'id'
   | 'idref'
@@ -76,16 +85,28 @@ export type AttributeName =
   | 'type'
   | (string & Record<never, never>)
 
-export interface Attribute {
+export interface SimpleAttribute {
   readonly name: AttributeName
-  readonly namespace?: string
   readonly value: Value
 }
 
-export interface Value {
-  readonly literal: string
-  readonly namespace?: string
+export interface NamespacedAttribute {
+  readonly fullName: AttributeName
+  readonly name: AttributeName
+  readonly namespace: string
+  readonly value: Value
 }
+
+export type Attribute = SimpleAttribute | NamespacedAttribute
+
+export interface SimpleValue {
+  readonly literal: string
+}
+
+export interface NamespacedValue extends SimpleValue {
+  readonly namespace: string
+}
+export type Value = SimpleValue | NamespacedValue
 
 export class GraphEdge {
   public constructor(

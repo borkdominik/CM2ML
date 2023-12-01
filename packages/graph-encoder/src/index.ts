@@ -29,8 +29,8 @@ export const GraphEncoder = definePlugin({
 })
 
 function getSortedIds(model: GraphModel) {
-  return Stream.from(model.elements)
-    .map((element) => element.getAttribute('id')?.value.literal)
+  return Stream.from(model.nodes)
+    .map((node) => model.getNodeId(node))
     .filterNonNull()
     .toArray()
     .sort((a, b) => a.localeCompare(b))
@@ -38,9 +38,9 @@ function getSortedIds(model: GraphModel) {
 
 function encodeAsSparseList(model: GraphModel, sortedIds: string[]) {
   const list = new Array<readonly [number, number]>()
-  model.references.forEach((reference) => {
-    const source = reference.source.getAttribute('id')?.value.literal
-    const target = reference.target.getAttribute('id')?.value.literal
+  model.edges.forEach((edge) => {
+    const source = model.getNodeId(edge.source)
+    const target = model.getNodeId(edge.target)
     if (source === undefined) {
       throw new Error('Missing id attribute in source element.')
     }
@@ -80,9 +80,9 @@ function fillAdjacencyMatrix(
   sortedIds: string[],
   weighted: boolean
 ) {
-  model.references.forEach((reference) => {
-    const source = reference.source.getAttribute('id')?.value.literal
-    const target = reference.target.getAttribute('id')?.value.literal
+  model.edges.forEach((edge) => {
+    const source = model.getNodeId(edge.source)
+    const target = model.getNodeId(edge.target)
     if (source === undefined) {
       throw new Error('Missing id attribute in source element.')
     }
@@ -91,7 +91,7 @@ function fillAdjacencyMatrix(
     }
     const sourceIndex = sortedIds.indexOf(source)
     const targetIndex = sortedIds.indexOf(target)
-    const value = weighted ? 1 / reference.target.referencedBy.size : 1
+    const value = weighted ? 1 / edge.target.referencedBy.size : 1
     matrix[sourceIndex]![targetIndex] = value
   })
 }
