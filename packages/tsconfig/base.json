@@ -20,10 +20,7 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "paths": {
-      "~/*": ["src/*"],
-      "~test/*": ["test/*"]
-    },
+    "paths": {},
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,

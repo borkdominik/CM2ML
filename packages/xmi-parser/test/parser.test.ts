@@ -2,7 +2,7 @@ import fs from 'node:fs'
 
 import { describe, expect, it } from 'vitest'
 
-import { XmiParser } from '~/index'
+import { XmiParser } from '../src/index'
 
 describe('XMI Parser', () => {
   it('should work', () => {
