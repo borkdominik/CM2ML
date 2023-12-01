@@ -1,16 +1,15 @@
 import type { GraphModel } from '@cm2ml/ir'
-import { definePlugin } from '@cm2ml/plugin'
+import { compose, definePlugin } from '@cm2ml/plugin'
+import { XmiParser } from '@cm2ml/xmi-parser'
 
-export const EcoreParser = definePlugin({
+export const EcoreRefiner = definePlugin({
   name: 'ecore',
   parameters: {},
-  invoke: (input: string) => parse(input),
+  invoke: (input: GraphModel) => refine(input),
 })
 
-function parse(_ecore: string): GraphModel {
-  // const document = parseDocument(uml, {
-  //   xmlMode: true,
-  // })
-  throw new Error('Not yet implemented')
-  // return new GraphModel(new GraphNode('TODO', {}, []), [], [])
+function refine(model: GraphModel): GraphModel {
+  return model
 }
+
+export const EcoreParser = compose(XmiParser, EcoreRefiner, 'ecore')

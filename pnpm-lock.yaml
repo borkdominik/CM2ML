@@ -225,15 +225,12 @@ importers:
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
+      '@cm2ml/xmi-parser':
+        specifier: workspace:*
+        version: link:../xmi-parser
       '@yeger/streams':
         specifier: 1.0.1
         version: 1.0.1
-      domhandler:
-        specifier: 5.0.3
-        version: 5.0.3
-      htmlparser2:
-        specifier: 9.0.0
-        version: 9.0.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -420,15 +417,12 @@ importers:
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
+      '@cm2ml/xmi-parser':
+        specifier: workspace:*
+        version: link:../xmi-parser
       '@yeger/streams':
         specifier: 1.0.1
         version: 1.0.1
-      domhandler:
-        specifier: 5.0.3
-        version: 5.0.3
-      htmlparser2:
-        specifier: 9.0.0
-        version: 9.0.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
