@@ -27,23 +27,10 @@ function parse(xmi: string, idAttribute: string): GraphModel {
 }
 
 function getGraphModel(document: Document, idAttribute: string): GraphModel {
-  const nodeMap = new Map<string, GraphNode>()
-
-  function registerElement(element: GraphNode) {
-    const id = element.getAttribute('id')?.value.literal
-    if (id === undefined) {
-      return
-    }
-    if (nodeMap.has(id)) {
-      throw new Error(`Duplicate element with id ${id}`)
-    }
-    nodeMap.set(id, element)
-  }
-
   const root = mapDocument(document)
-  const nodes = collectAllElements(root).forEach(registerElement).toArray()
-
-  return new GraphModel(root, nodes, [], idAttribute, nodeMap)
+  const model = new GraphModel(root, idAttribute)
+  collectAllElements(root).forEach((node) => model.addNode(node))
+  return model
 }
 
 function mapDocument(document: Document) {

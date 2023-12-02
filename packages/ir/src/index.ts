@@ -3,20 +3,41 @@ export interface Show {
 }
 
 export class GraphModel implements Show {
+  readonly #nodes: GraphNode[] = []
+  readonly #nodeMap: Map<string, GraphNode> = new Map()
+  readonly #edges: GraphEdge[] = []
+
   public constructor(
     public readonly root: GraphNode,
-    public readonly nodes: Readonly<GraphNode[]>,
-    public readonly edges: Readonly<GraphEdge[]>,
-    public readonly idAttribute: string,
-    private readonly nodeMap: Map<string, GraphNode>
+    public readonly idAttribute: string
   ) {}
 
+  public get nodes(): Readonly<GraphNode[]> {
+    return this.#nodes
+  }
+
+  public get edges(): Readonly<GraphEdge[]> {
+    return this.#edges
+  }
+
   public getNodeById(id: string): GraphNode | undefined {
-    return this.nodeMap.get(id)
+    return this.#nodeMap.get(id)
   }
 
   public getNodeId(node: GraphNode): string | undefined {
     return node.getAttribute(this.idAttribute)?.value.literal
+  }
+
+  public addNode(node: GraphNode) {
+    this.#nodes.push(node)
+    const id = this.getNodeId(node)
+    if (id !== undefined) {
+      this.#nodeMap.set(id, node)
+    }
+  }
+
+  public addEdge(edge: GraphEdge) {
+    this.#edges.push(edge)
   }
 
   public show(): string {
@@ -27,7 +48,8 @@ export class GraphModel implements Show {
 export class GraphNode implements Show {
   #parent: GraphNode | null = null
 
-  public readonly referencedBy = new Set<GraphNode>()
+  public readonly outgoingEdges = new Set<GraphEdge>()
+  public readonly incomingEdges = new Set<GraphEdge>()
 
   public constructor(
     public readonly tag: string,
@@ -113,7 +135,10 @@ export class GraphEdge {
     public readonly element: GraphNode,
     public readonly source: GraphNode,
     public readonly target: GraphNode
-  ) {}
+  ) {
+    source.outgoingEdges.add(this)
+    target.incomingEdges.add(this)
+  }
 }
 
 function createIndent(indent: number): string {
