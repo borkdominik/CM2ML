@@ -28,6 +28,20 @@ export class GraphModel implements Show {
     return node.getAttribute(this.idAttribute)?.value.literal
   }
 
+  public getNearestIdentifiableNode(node: GraphNode): GraphNode | null {
+    if (this.getNodeId(node) !== undefined) {
+      return node
+    }
+    const parent = node.parent
+    if (parent === null) {
+      return null
+    }
+    if (this.getNodeId(parent) !== undefined) {
+      return parent
+    }
+    return this.getNearestIdentifiableNode(parent)
+  }
+
   public addNode(node: GraphNode) {
     this.#nodes.push(node)
     const id = this.getNodeId(node)
@@ -132,7 +146,7 @@ export type Value = SimpleValue | NamespacedValue
 
 export class GraphEdge {
   public constructor(
-    public readonly element: GraphNode,
+    public readonly tag: string,
     public readonly source: GraphNode,
     public readonly target: GraphNode
   ) {

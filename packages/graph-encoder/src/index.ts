@@ -91,7 +91,7 @@ function fillAdjacencyMatrix(
     }
     const sourceIndex = sortedIds.indexOf(source)
     const targetIndex = sortedIds.indexOf(target)
-    const value = weighted ? 1 / edge.target.referencedBy.size : 1
+    const value = weighted ? 1 / edge.target.incomingEdges.size : 1
     matrix[sourceIndex]![targetIndex] = value
   })
 }
