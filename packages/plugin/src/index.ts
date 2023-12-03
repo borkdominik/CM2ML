@@ -206,7 +206,7 @@ function joinParameters(plugins: PluginMetadata<ParameterMetadata>[]) {
         const existingParameter = parameters[name]
         if (existingParameter && existingParameter.type !== parameter.type) {
           throw new Error(
-            `Parameter ${name} is defined multiple times in the plugin composition with different types.`
+            `Parameter ${name} is defined multiple times with different types in the plugin composition.`
           )
         }
         parameters[name] = parameter

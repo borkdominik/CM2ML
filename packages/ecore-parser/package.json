@@ -35,7 +35,7 @@
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/xmi-parser": "workspace:*",
-    "@yeger/streams": "1.0.1"
+    "@yeger/streams": "1.1.0"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

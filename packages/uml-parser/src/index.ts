@@ -54,18 +54,18 @@ function createEdges(
     return createGreedyEdges(node, model)
   }
   if (ignoredTags.includes(node.tag)) {
-    return Stream.from([])
+    return Stream.empty()
   }
   switch (node.tag) {
     case 'generalization':
       return createGeneralizationEdges(node, model, strict)
     case 'packagedElement':
-      return Stream.from([])
+      return Stream.empty()
     default:
       if (strict) {
         throw new Error(`Unhandled tag: ${node.tag}`)
       }
-      return Stream.from([])
+      return Stream.empty()
   }
 }
 
@@ -101,28 +101,28 @@ function createGeneralizationEdges(
     if (strict) {
       throw new Error('Expected parent of <generalization />')
     }
-    return Stream.from([])
+    return Stream.empty()
   }
   const general = generalization.findChild((child) => child.tag === 'general')
   if (!general) {
     if (strict) {
       throw new Error('Expected <general /> child')
     }
-    return Stream.from([])
+    return Stream.empty()
   }
   const targetId = general.getAttribute('idref')?.value.literal
   if (!targetId) {
     if (strict) {
       throw new Error('Expected idref attribute on <general />')
     }
-    return Stream.from([])
+    return Stream.empty()
   }
   const target = model.getNodeById(targetId)
   if (!target) {
     if (strict) {
       throw new Error(`Expected node with id ${targetId}`)
     }
-    return Stream.from([])
+    return Stream.empty()
   }
-  return Stream.from([new GraphEdge('generalization', source, target)])
+  return Stream.fromSingle(new GraphEdge('generalization', source, target))
 }

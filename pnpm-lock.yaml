@@ -146,8 +146,8 @@ importers:
         specifier: workspace:*
         version: link:../utils
       '@yeger/streams':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: 1.1.0
+        version: 1.1.0
       cac:
         specifier: 6.7.14
         version: 6.7.14
@@ -229,8 +229,8 @@ importers:
         specifier: workspace:*
         version: link:../xmi-parser
       '@yeger/streams':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: 1.1.0
+        version: 1.1.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -254,8 +254,8 @@ importers:
         specifier: workspace:*
         version: link:../plugin
       '@yeger/streams':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: 1.1.0
+        version: 1.1.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -291,8 +291,8 @@ importers:
         specifier: workspace:*
         version: link:../utils
       '@yeger/streams':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: 1.1.0
+        version: 1.1.0
       zod:
         specifier: 3.22.2
         version: 3.22.2
@@ -316,8 +316,8 @@ importers:
         specifier: workspace:*
         version: link:../plugin
       '@yeger/streams':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: 1.1.0
+        version: 1.1.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -366,8 +366,8 @@ importers:
         specifier: workspace:*
         version: link:../utils
       '@yeger/streams':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: 1.1.0
+        version: 1.1.0
       fastify:
         specifier: 4.23.2
         version: 4.23.2
@@ -421,8 +421,8 @@ importers:
         specifier: workspace:*
         version: link:../xmi-parser
       '@yeger/streams':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: 1.1.0
+        version: 1.1.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -461,8 +461,8 @@ importers:
         specifier: workspace:*
         version: link:../plugin
       '@yeger/streams':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: 1.1.0
+        version: 1.1.0
       domhandler:
         specifier: 5.0.3
         version: 5.0.3
@@ -2676,6 +2676,11 @@ packages:
 
   /@yeger/streams@1.0.1:
     resolution: {integrity: sha512-pro3UnzHcIYnrdYXJ+xm2ELXB9Vb2GcbEEdmYmcbeOiMeiYgLpVKFIs4S9nizcTVcfGaxicknRhWWxLBUvilmw==}
+    dev: true
+
+  /@yeger/streams@1.1.0:
+    resolution: {integrity: sha512-LFx0FVsIOOctg6nQ6Ul9KcFjFAXbRS+XHDb+AlZbp7NH5pS/gb059Jif4l+0W8Hz8vJqjbreJT53m2bUvJT7BA==}
+    dev: false
 
   /@yeger/turbo-graph-ui@1.0.2(tailwindcss@3.3.3)(turbo@1.10.14):
     resolution: {integrity: sha512-e+gyg+MApcl5R9rQow5PIQy22T+IboSVO05nnj+zn9mrCh0i0Dzp+ANQVM4O4jNOSRDZXaqLNJZjWnz5tUy51A==}

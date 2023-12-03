@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@cm2ml/utils": "workspace:*",
-    "@yeger/streams": "1.0.1",
+    "@yeger/streams": "1.1.0",
     "zod": "3.22.2"
   },
   "devDependencies": {
