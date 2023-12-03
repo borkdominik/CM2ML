@@ -1,4 +1,4 @@
-import type { Attribute, AttributeName, Value } from '@cm2ml/ir'
+import type { Attribute, Value } from '@cm2ml/ir'
 import { GraphModel, GraphNode } from '@cm2ml/ir'
 import { definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
@@ -46,27 +46,16 @@ function mapDocument(document: Document) {
 }
 
 function mapElement(element: Element): GraphNode {
-  const attributes = mapAttributes(element.attribs)
-  const children = Stream.from(element.childNodes)
+  const xmiElement = new GraphNode(element.tagName)
+  Stream.fromObject(element.attribs)
+    .map(mapAttribute)
+    .forEach((attribute) => xmiElement.addAttribute(attribute, true))
+  Stream.from(element.childNodes)
     .map((child) => (isElement(child) ? mapElement(child) : null))
     .filterNonNull()
-    .toArray()
-  const xmiElement = new GraphNode(element.tagName, attributes, children)
-  children.forEach((child) => (child.parent = xmiElement))
+    .forEach((child) => xmiElement.addChild(child))
   return xmiElement
 }
-
-function mapAttributes(
-  attributes: Record<string, string>
-): Record<AttributeName, Attribute> {
-  return Stream.fromObject(attributes)
-    .map(mapAttribute)
-    .toRecord(
-      ({ name }) => name,
-      (attribute) => attribute
-    )
-}
-
 function mapAttribute([name, value]: [string, string]): Attribute {
   const xmiValue = mapValue(value)
   if (!name.includes(':')) {

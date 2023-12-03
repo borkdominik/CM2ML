@@ -73,8 +73,8 @@ function createGreedyEdges(
   node: GraphNode,
   model: GraphModel
 ): Stream<GraphEdge> {
-  return Stream.fromObject(node.attributes)
-    .filter(([name]) => name !== model.idAttribute)
+  return Stream.from(node.attributes)
+    .filter(([, { name }]) => name !== model.idAttribute)
     .map(([_name, attribute]) => {
       const source = model.getNearestIdentifiableNode(node)
       if (!source) {
@@ -103,9 +103,7 @@ function createGeneralizationEdges(
     }
     return Stream.from([])
   }
-  const general = generalization.children.find(
-    (child) => child.tag === 'general'
-  )
+  const general = generalization.findChild((child) => child.tag === 'general')
   if (!general) {
     if (strict) {
       throw new Error('Expected <general /> child')

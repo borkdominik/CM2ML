@@ -28,13 +28,13 @@ export class GraphModel implements Show {
     return node.getAttribute(this.idAttribute)?.value.literal
   }
 
-  public getNearestIdentifiableNode(node: GraphNode): GraphNode | null {
+  public getNearestIdentifiableNode(node: GraphNode): GraphNode | undefined {
     if (this.getNodeId(node) !== undefined) {
       return node
     }
     const parent = node.parent
-    if (parent === null) {
-      return null
+    if (parent === undefined) {
+      return undefined
     }
     if (this.getNodeId(parent) !== undefined) {
       return parent
@@ -60,42 +60,112 @@ export class GraphModel implements Show {
 }
 
 export class GraphNode implements Show {
-  #parent: GraphNode | null = null
+  #parent: GraphNode | undefined = undefined
 
-  public readonly outgoingEdges = new Set<GraphEdge>()
-  public readonly incomingEdges = new Set<GraphEdge>()
+  readonly #children = new Set<GraphNode>()
 
-  public constructor(
-    public readonly tag: string,
-    public readonly attributes: Record<AttributeName, Attribute>,
-    public readonly children: Readonly<GraphNode[]>
-  ) {}
+  readonly #attributes = new Map<AttributeName, Attribute>()
 
-  public get parent(): GraphNode | null {
+  readonly #outgoingEdges = new Set<GraphEdge>()
+  readonly #incomingEdges = new Set<GraphEdge>()
+
+  public constructor(public readonly tag: string) {}
+
+  public get parent(): GraphNode | undefined {
     return this.#parent
   }
 
   /**
    * Do not set the parent outside the parser.
    */
-  public set parent(parent: GraphNode | null) {
+  public set parent(parent: GraphNode | undefined) {
     this.#parent = parent
   }
 
+  public get children(): ReadonlySet<GraphNode> {
+    return this.#children
+  }
+
+  public get attributes(): ReadonlyMap<AttributeName, Attribute> {
+    return this.#attributes
+  }
+
+  public get outgoingEdges(): ReadonlySet<GraphEdge> {
+    return this.#outgoingEdges
+  }
+
+  public get incomingEdges(): ReadonlySet<GraphEdge> {
+    return this.#incomingEdges
+  }
+
+  /**
+   * Also sets this node as the parent of the child.
+   */
+  public addChild(child: GraphNode) {
+    this.#children.add(child)
+    child.parent = this
+  }
+
+  public findChild(
+    predicate: (child: GraphNode) => boolean
+  ): GraphNode | undefined {
+    for (const child of this.children) {
+      if (predicate(child)) {
+        return child
+      }
+    }
+    return undefined
+  }
+
+  /**
+   * Also sets the parent of the child to null.
+   */
+  public removeChild(child: GraphNode) {
+    this.#children.delete(child)
+    child.parent = undefined
+  }
+
   public getAttribute(name: AttributeName): Attribute | undefined {
-    return this.attributes[name]
+    return this.#attributes.get(name)
+  }
+
+  public addAttribute(attribute: Attribute, preventOverwrite = false) {
+    if (preventOverwrite && this.#attributes.has(attribute.name)) {
+      throw new Error(`Attribute ${attribute.name} already exists`)
+    }
+    this.#attributes.set(attribute.name, attribute)
+  }
+
+  public removeAttribute(name: AttributeName) {
+    this.#attributes.delete(name)
+  }
+
+  public addIncomingEdge(edge: GraphEdge) {
+    this.#incomingEdges.add(edge)
+  }
+
+  public removeIncomingEdge(edge: GraphEdge) {
+    this.#incomingEdges.delete(edge)
+  }
+
+  public addOutgoingEdge(edge: GraphEdge) {
+    this.#outgoingEdges.add(edge)
+  }
+
+  public removeOutgoingEdge(edge: GraphEdge) {
+    this.#outgoingEdges.delete(edge)
   }
 
   public show(indent: number): string {
-    const attributes = Object.keys(this.attributes)
+    const attributes = [...this.#attributes.values()]
       .map((attribute) => this.showAttribute(attribute))
       .join('')
 
-    if (this.children.length === 0) {
+    if (this.children.size === 0) {
       return `${createIndent(indent)}<${this.tag}${attributes} />`
     }
 
-    const children = this.children
+    const children = [...this.children.values()]
       .map((child) => child.show(indent + 2))
       .join('\n')
 
@@ -104,12 +174,8 @@ export class GraphNode implements Show {
     }${attributes}>\n${children}\n${createIndent(indent)}</${this.tag}>`
   }
 
-  private showAttribute(name: AttributeName) {
-    const attribute = this.getAttribute(name)
-    if (attribute === undefined) {
-      return ''
-    }
-    return ` ${name}="${attribute.value.literal}"`
+  private showAttribute(attribute: Attribute) {
+    return ` ${attribute.name}="${attribute.value.literal}"`
   }
 }
 
@@ -150,8 +216,8 @@ export class GraphEdge {
     public readonly source: GraphNode,
     public readonly target: GraphNode
   ) {
-    source.outgoingEdges.add(this)
-    target.incomingEdges.add(this)
+    source.addOutgoingEdge(this)
+    target.addIncomingEdge(this)
   }
 }
 
