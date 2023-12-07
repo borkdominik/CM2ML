@@ -2,21 +2,38 @@ export interface Show {
   show(indent?: number): string
 }
 
+export interface ModelMember {
+  readonly model: GraphModel
+}
+
+function requireSameModel(
+  first: ModelMember | GraphModel,
+  second: ModelMember | GraphModel
+) {
+  const firstModel = first instanceof GraphModel ? first : first.model
+  const secondModel = second instanceof GraphModel ? second : second.model
+  if (firstModel !== secondModel) {
+    throw new Error('Both entities must be members of the same model')
+  }
+}
+
 export class GraphModel implements Show {
-  readonly #nodes: GraphNode[] = []
+  // TODO: Use sets instead of arrays
+  readonly #nodes = new Set<GraphNode>()
   readonly #nodeMap: Map<string, GraphNode> = new Map()
-  readonly #edges: GraphEdge[] = []
+  readonly #edges = new Set<GraphEdge>()
 
-  public constructor(
-    public readonly root: GraphNode,
-    public readonly idAttribute: string
-  ) {}
+  public readonly root: GraphNode
 
-  public get nodes(): Readonly<GraphNode[]> {
+  public constructor(public readonly idAttribute: string, rootTag: string) {
+    this.root = this.addNode(rootTag)
+  }
+
+  public get nodes(): ReadonlySet<GraphNode> {
     return this.#nodes
   }
 
-  public get edges(): Readonly<GraphEdge[]> {
+  public get edges(): ReadonlySet<GraphEdge> {
     return this.#edges
   }
 
@@ -24,34 +41,61 @@ export class GraphModel implements Show {
     return this.#nodeMap.get(id)
   }
 
-  public getNodeId(node: GraphNode): string | undefined {
-    return node.getAttribute(this.idAttribute)?.value.literal
-  }
-
-  public getNearestIdentifiableNode(node: GraphNode): GraphNode | undefined {
-    if (this.getNodeId(node) !== undefined) {
-      return node
+  /**
+   * Do not call this manually.
+   * This should only be called by GraphNode when the id attribute is changed.
+   */
+  public updateNodeMap(
+    node: GraphNode,
+    previousId: string | undefined = undefined
+  ) {
+    requireSameModel(this, node)
+    if (previousId !== undefined) {
+      this.#nodeMap.delete(previousId)
     }
-    const parent = node.parent
-    if (parent === undefined) {
-      return undefined
-    }
-    if (this.getNodeId(parent) !== undefined) {
-      return parent
-    }
-    return this.getNearestIdentifiableNode(parent)
-  }
-
-  public addNode(node: GraphNode) {
-    this.#nodes.push(node)
-    const id = this.getNodeId(node)
+    const id = node.id
     if (id !== undefined) {
+      if (this.#nodeMap.has(id)) {
+        throw new Error(`Id ${id} already registered`)
+      }
       this.#nodeMap.set(id, node)
     }
   }
 
-  public addEdge(edge: GraphEdge) {
-    this.#edges.push(edge)
+  public addNode(tag: string) {
+    const node = new GraphNode(this, tag)
+    this.#nodes.add(node)
+    return node
+  }
+
+  public removeNode(node: GraphNode) {
+    requireSameModel(this, node)
+    node.incomingEdges.forEach((edge) => this.removeEdge(edge))
+    node.outgoingEdges.forEach((edge) => this.removeEdge(edge))
+    const id = node.id
+    if (id !== undefined) {
+      this.#nodeMap.delete(id)
+    }
+    node.children.forEach((child) => this.removeNode(child))
+    node.parent?.removeChild(node)
+    this.#nodes.delete(node)
+  }
+
+  public addEdge(tag: string, source: GraphNode, target: GraphNode) {
+    requireSameModel(this, source)
+    requireSameModel(this, target)
+    const edge = new GraphEdge(this, tag, source, target)
+    source.addOutgoingEdge(edge)
+    target.addIncomingEdge(edge)
+    this.#edges.add(edge)
+    return edge
+  }
+
+  public removeEdge(edge: GraphEdge) {
+    requireSameModel(this, edge)
+    edge.source.removeOutgoingEdge(edge)
+    edge.target.removeIncomingEdge(edge)
+    this.#edges.delete(edge)
   }
 
   public show(): string {
@@ -59,7 +103,7 @@ export class GraphModel implements Show {
   }
 }
 
-export class GraphNode implements Show {
+export class GraphNode implements ModelMember, Show {
   #parent: GraphNode | undefined = undefined
 
   readonly #children = new Set<GraphNode>()
@@ -69,7 +113,14 @@ export class GraphNode implements Show {
   readonly #outgoingEdges = new Set<GraphEdge>()
   readonly #incomingEdges = new Set<GraphEdge>()
 
-  public constructor(public readonly tag: string) {}
+  public constructor(
+    public readonly model: GraphModel,
+    public readonly tag: string
+  ) {}
+
+  public get id(): string | undefined {
+    return this.getAttribute(this.model.idAttribute)?.value.literal
+  }
 
   public get parent(): GraphNode | undefined {
     return this.#parent
@@ -79,6 +130,9 @@ export class GraphNode implements Show {
    * Do not set the parent outside the parser.
    */
   public set parent(parent: GraphNode | undefined) {
+    if (parent !== undefined) {
+      requireSameModel(this, parent)
+    }
     this.#parent = parent
   }
 
@@ -98,10 +152,28 @@ export class GraphNode implements Show {
     return this.#incomingEdges
   }
 
+  public getNearestIdentifiableNode(): GraphNode | undefined {
+    if (this.id !== undefined) {
+      return this
+    }
+    const parent = this.parent
+    if (parent === undefined) {
+      return undefined
+    }
+    if (parent.id !== undefined) {
+      return parent
+    }
+    return parent.getNearestIdentifiableNode()
+  }
+
   /**
    * Also sets this node as the parent of the child.
    */
   public addChild(child: GraphNode) {
+    requireSameModel(this, child)
+    if (child.parent !== undefined) {
+      throw new Error('Child already has a parent')
+    }
     this.#children.add(child)
     child.parent = this
   }
@@ -121,6 +193,10 @@ export class GraphNode implements Show {
    * Also sets the parent of the child to null.
    */
   public removeChild(child: GraphNode) {
+    requireSameModel(this, child)
+    if (!this.#children.has(child)) {
+      throw new Error('Child not found')
+    }
     this.#children.delete(child)
     child.parent = undefined
   }
@@ -130,10 +206,14 @@ export class GraphNode implements Show {
   }
 
   public addAttribute(attribute: Attribute, preventOverwrite = false) {
-    if (preventOverwrite && this.#attributes.has(attribute.name)) {
+    const previousValue = this.#attributes.get(attribute.name)
+    if (preventOverwrite && previousValue !== undefined) {
       throw new Error(`Attribute ${attribute.name} already exists`)
     }
     this.#attributes.set(attribute.name, attribute)
+    if (attribute.name === this.model.idAttribute) {
+      this.model.updateNodeMap(this, previousValue?.value.literal)
+    }
   }
 
   public removeAttribute(name: AttributeName) {
@@ -141,18 +221,22 @@ export class GraphNode implements Show {
   }
 
   public addIncomingEdge(edge: GraphEdge) {
+    requireSameModel(this, edge)
     this.#incomingEdges.add(edge)
   }
 
   public removeIncomingEdge(edge: GraphEdge) {
+    requireSameModel(this, edge)
     this.#incomingEdges.delete(edge)
   }
 
   public addOutgoingEdge(edge: GraphEdge) {
+    requireSameModel(this, edge)
     this.#outgoingEdges.add(edge)
   }
 
   public removeOutgoingEdge(edge: GraphEdge) {
+    requireSameModel(this, edge)
     this.#outgoingEdges.delete(edge)
   }
 
@@ -210,15 +294,14 @@ export interface NamespacedValue extends SimpleValue {
 }
 export type Value = SimpleValue | NamespacedValue
 
-export class GraphEdge {
+// TODO: Add attributes to graph edge via delegate
+export class GraphEdge implements ModelMember {
   public constructor(
+    public readonly model: GraphModel,
     public readonly tag: string,
     public readonly source: GraphNode,
     public readonly target: GraphNode
-  ) {
-    source.addOutgoingEdge(this)
-    target.addIncomingEdge(this)
-  }
+  ) {}
 }
 
 function createIndent(indent: number): string {

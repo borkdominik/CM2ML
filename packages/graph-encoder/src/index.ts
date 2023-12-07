@@ -30,7 +30,7 @@ export const GraphEncoder = definePlugin({
 
 function getSortedIds(model: GraphModel) {
   return Stream.from(model.nodes)
-    .map((node) => model.getNodeId(node))
+    .map((node) => node.id)
     .filterNonNull()
     .toArray()
     .sort((a, b) => a.localeCompare(b))
@@ -39,16 +39,16 @@ function getSortedIds(model: GraphModel) {
 function encodeAsSparseList(model: GraphModel, sortedIds: string[]) {
   const list = new Array<readonly [number, number]>()
   model.edges.forEach((edge) => {
-    const source = model.getNodeId(edge.source)
-    const target = model.getNodeId(edge.target)
-    if (source === undefined) {
+    const sourceId = edge.source.id
+    const targetId = edge.target.id
+    if (sourceId === undefined) {
       throw new Error('Missing id attribute in source element.')
     }
-    if (target === undefined) {
+    if (targetId === undefined) {
       throw new Error('Missing id attribute in target element.')
     }
-    const sourceIndex = sortedIds.indexOf(source)
-    const targetIndex = sortedIds.indexOf(target)
+    const sourceIndex = sortedIds.indexOf(sourceId)
+    const targetIndex = sortedIds.indexOf(targetId)
     list.push([sourceIndex, targetIndex] as const)
   })
   return { list, nodes: sortedIds }
@@ -81,16 +81,16 @@ function fillAdjacencyMatrix(
   weighted: boolean
 ) {
   model.edges.forEach((edge) => {
-    const source = model.getNodeId(edge.source)
-    const target = model.getNodeId(edge.target)
-    if (source === undefined) {
+    const sourceId = edge.source.id
+    const targetId = edge.target.id
+    if (sourceId === undefined) {
       throw new Error('Missing id attribute in source element.')
     }
-    if (target === undefined) {
+    if (targetId === undefined) {
       throw new Error('Missing id attribute in target element.')
     }
-    const sourceIndex = sortedIds.indexOf(source)
-    const targetIndex = sortedIds.indexOf(target)
+    const sourceIndex = sortedIds.indexOf(sourceId)
+    const targetIndex = sortedIds.indexOf(targetId)
     const value = weighted ? 1 / edge.target.incomingEdges.size : 1
     matrix[sourceIndex]![targetIndex] = value
   })

@@ -1,5 +1,5 @@
-import type { Attribute, Value } from '@cm2ml/ir'
-import { GraphModel, GraphNode } from '@cm2ml/ir'
+import type { Attribute, GraphNode, Value } from '@cm2ml/ir'
+import { GraphModel } from '@cm2ml/ir'
 import { definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 import { Element } from 'domhandler'
@@ -23,17 +23,10 @@ function parse(xmi: string, idAttribute: string): GraphModel {
   const document = parseDocument(xmi, {
     xmlMode: true,
   })
-  return getGraphModel(document, idAttribute)
+  return mapDocument(document, idAttribute)
 }
 
-function getGraphModel(document: Document, idAttribute: string): GraphModel {
-  const root = mapDocument(document)
-  const model = new GraphModel(root, idAttribute)
-  collectAllElements(root).forEach((node) => model.addNode(node))
-  return model
-}
-
-function mapDocument(document: Document) {
+function mapDocument(document: Document, idAttribute: string) {
   const elementChildren = Stream.from(document.childNodes)
     .map((node) => (isElement(node) ? node : null))
     .filterNonNull()
@@ -42,20 +35,29 @@ function mapDocument(document: Document) {
   if (elementChildren.length !== 1 || !root) {
     throw new Error('Expected exactly one root element')
   }
-  return mapElement(root)
+  const model = new GraphModel(idAttribute, root.tagName)
+  initNodeFromElement(model.root, root)
+  return model
 }
 
-function mapElement(element: Element): GraphNode {
-  const xmiElement = new GraphNode(element.tagName)
+function createNodeFromElement(model: GraphModel, element: Element): GraphNode {
+  const node = model.addNode(element.tagName)
+  initNodeFromElement(node, element)
+  return node
+}
+
+function initNodeFromElement(node: GraphNode, element: Element) {
   Stream.fromObject(element.attribs)
     .map(mapAttribute)
-    .forEach((attribute) => xmiElement.addAttribute(attribute, true))
+    .forEach((attribute) => node.addAttribute(attribute, true))
   Stream.from(element.childNodes)
-    .map((child) => (isElement(child) ? mapElement(child) : null))
+    .map((child) =>
+      isElement(child) ? createNodeFromElement(node.model, child) : null
+    )
     .filterNonNull()
-    .forEach((child) => xmiElement.addChild(child))
-  return xmiElement
+    .forEach((child) => node.addChild(child))
 }
+
 function mapAttribute([name, value]: [string, string]): Attribute {
   const xmiValue = mapValue(value)
   if (!name.includes(':')) {
@@ -75,10 +77,4 @@ function mapValue(value: string): Value {
 
 function isElement(node: Node): node is Element {
   return node.type === 'tag' || node instanceof Element
-}
-
-function collectAllElements(element: GraphNode): Stream<GraphNode> {
-  return Stream.from(element.children)
-    .flatMap(collectAllElements)
-    .append(element)
 }

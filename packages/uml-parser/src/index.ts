@@ -1,4 +1,3 @@
-import { GraphEdge } from '@cm2ml/ir'
 import type { GraphModel, GraphNode } from '@cm2ml/ir'
 import { compose, definePlugin } from '@cm2ml/plugin'
 import { XmiParser } from '@cm2ml/xmi-parser'
@@ -31,9 +30,9 @@ function refine(
   strict: boolean,
   greedyEdges: boolean
 ): GraphModel {
-  Stream.from(model.nodes)
-    .flatMap((node) => createEdges(node, model, strict, greedyEdges))
-    .forEach((edge) => model.addEdge(edge))
+  Stream.from(model.nodes).forEach((node) =>
+    createEdges(node, strict, greedyEdges)
+  )
   // console.log(
   //   model.edges
   //     .map((edge) => `${edge.source.tag} --${edge.tag}-> ${edge.target.tag}`)
@@ -44,85 +43,73 @@ function refine(
 
 const ignoredTags: Readonly<string[]> = ['general']
 
-function createEdges(
-  node: GraphNode,
-  model: GraphModel,
-  strict: boolean,
-  greedyEdges: boolean
-): Stream<GraphEdge> {
+function createEdges(node: GraphNode, strict: boolean, greedyEdges: boolean) {
   if (greedyEdges) {
-    return createGreedyEdges(node, model)
+    createGreedyEdges(node)
+    return
   }
   if (ignoredTags.includes(node.tag)) {
-    return Stream.empty()
+    return
   }
   switch (node.tag) {
     case 'generalization':
-      return createGeneralizationEdges(node, model, strict)
+      createGeneralizationEdges(node, strict)
+      return
     case 'packagedElement':
-      return Stream.empty()
+      return
     default:
       if (strict) {
         throw new Error(`Unhandled tag: ${node.tag}`)
       }
-      return Stream.empty()
   }
 }
 
-function createGreedyEdges(
-  node: GraphNode,
-  model: GraphModel
-): Stream<GraphEdge> {
-  return Stream.from(node.attributes)
-    .filter(([, { name }]) => name !== model.idAttribute)
-    .map(([_name, attribute]) => {
-      const source = model.getNearestIdentifiableNode(node)
+function createGreedyEdges(node: GraphNode) {
+  Stream.from(node.attributes)
+    .filter(([, { name }]) => name !== node.model.idAttribute)
+    .forEach(([_name, attribute]) => {
+      const source = node.getNearestIdentifiableNode()
       if (!source) {
-        return null
+        return
       }
       const attributeValue = attribute.value.literal
-      const target = model.getNodeById(attributeValue)
+      const target = node.model.getNodeById(attributeValue)
       if (!target) {
-        return null
+        return
       }
       const tag = attribute.name === 'idref' ? node.tag : attribute.name
-      return new GraphEdge(tag, source, target)
+      node.model.addEdge(tag, source, target)
     })
-    .filterNonNull()
 }
 
-function createGeneralizationEdges(
-  generalization: GraphNode,
-  model: GraphModel,
-  strict: boolean
-): Stream<GraphEdge> {
+function createGeneralizationEdges(generalization: GraphNode, strict: boolean) {
   const source = generalization.parent
   if (!source) {
     if (strict) {
       throw new Error('Expected parent of <generalization />')
     }
-    return Stream.empty()
+    return
   }
   const general = generalization.findChild((child) => child.tag === 'general')
   if (!general) {
     if (strict) {
       throw new Error('Expected <general /> child')
     }
-    return Stream.empty()
+    return
   }
   const targetId = general.getAttribute('idref')?.value.literal
   if (!targetId) {
     if (strict) {
       throw new Error('Expected idref attribute on <general />')
     }
-    return Stream.empty()
+    return
   }
-  const target = model.getNodeById(targetId)
+  const target = generalization.model.getNodeById(targetId)
   if (!target) {
     if (strict) {
       throw new Error(`Expected node with id ${targetId}`)
     }
-    return Stream.empty()
+    return
   }
-  return Stream.fromSingle(new GraphEdge('generalization', source, target))
+  generalization.model.addEdge('generalization', source, target)
 }
