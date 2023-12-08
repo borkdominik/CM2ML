@@ -1,3 +1,8 @@
+import type { Attributable, Attribute, AttributeName } from './attributes'
+import { AttributeDelegate } from './attributes'
+
+export * from './attributes'
+
 export interface Show {
   show(indent?: number): string
 }
@@ -6,19 +11,7 @@ export interface ModelMember {
   readonly model: GraphModel
 }
 
-function requireSameModel(
-  first: ModelMember | GraphModel,
-  second: ModelMember | GraphModel
-) {
-  const firstModel = first instanceof GraphModel ? first : first.model
-  const secondModel = second instanceof GraphModel ? second : second.model
-  if (firstModel !== secondModel) {
-    throw new Error('Both entities must be members of the same model')
-  }
-}
-
 export class GraphModel implements Show {
-  // TODO: Use sets instead of arrays
   readonly #nodes = new Set<GraphNode>()
   readonly #nodeMap: Map<string, GraphNode> = new Map()
   readonly #edges = new Set<GraphEdge>()
@@ -45,10 +38,7 @@ export class GraphModel implements Show {
    * Do not call this manually.
    * This should only be called by GraphNode when the id attribute is changed.
    */
-  public updateNodeMap(
-    node: GraphNode,
-    previousId: string | undefined = undefined
-  ) {
+  public updateNodeMap(node: GraphNode, previousId: string | undefined) {
     requireSameModel(this, node)
     if (previousId !== undefined) {
       this.#nodeMap.delete(previousId)
@@ -103,12 +93,20 @@ export class GraphModel implements Show {
   }
 }
 
-export class GraphNode implements ModelMember, Show {
+export class GraphNode implements Attributable, ModelMember, Show {
   #parent: GraphNode | undefined = undefined
 
   readonly #children = new Set<GraphNode>()
 
-  readonly #attributes = new Map<AttributeName, Attribute>()
+  readonly #attributeDelegate = new AttributeDelegate(
+    (attributeName, previousValue) => {
+      if (attributeName === this.model.idAttribute) {
+        this.model.updateNodeMap(this, previousValue?.literal)
+      }
+    }
+  )
+
+  public readonly attributes = this.#attributeDelegate.attributes
 
   readonly #outgoingEdges = new Set<GraphEdge>()
   readonly #incomingEdges = new Set<GraphEdge>()
@@ -127,9 +125,12 @@ export class GraphNode implements ModelMember, Show {
   }
 
   /**
-   * Do not set the parent outside the parser.
+   * Do not call this manually.
    */
   public set parent(parent: GraphNode | undefined) {
+    if (this.parent !== undefined) {
+      throw new Error('Parent already set')
+    }
     if (parent !== undefined) {
       requireSameModel(this, parent)
     }
@@ -138,10 +139,6 @@ export class GraphNode implements ModelMember, Show {
 
   public get children(): ReadonlySet<GraphNode> {
     return this.#children
-  }
-
-  public get attributes(): ReadonlyMap<AttributeName, Attribute> {
-    return this.#attributes
   }
 
   public get outgoingEdges(): ReadonlySet<GraphEdge> {
@@ -174,8 +171,8 @@ export class GraphNode implements ModelMember, Show {
     if (child.parent !== undefined) {
       throw new Error('Child already has a parent')
     }
-    this.#children.add(child)
     child.parent = this
+    this.#children.add(child)
   }
 
   public findChild(
@@ -197,51 +194,59 @@ export class GraphNode implements ModelMember, Show {
     if (!this.#children.has(child)) {
       throw new Error('Child not found')
     }
-    this.#children.delete(child)
     child.parent = undefined
+    this.#children.delete(child)
   }
 
-  public getAttribute(name: AttributeName): Attribute | undefined {
-    return this.#attributes.get(name)
-  }
-
-  public addAttribute(attribute: Attribute, preventOverwrite = false) {
-    const previousValue = this.#attributes.get(attribute.name)
-    if (preventOverwrite && previousValue !== undefined) {
-      throw new Error(`Attribute ${attribute.name} already exists`)
-    }
-    this.#attributes.set(attribute.name, attribute)
-    if (attribute.name === this.model.idAttribute) {
-      this.model.updateNodeMap(this, previousValue?.value.literal)
-    }
-  }
-
-  public removeAttribute(name: AttributeName) {
-    this.#attributes.delete(name)
-  }
-
+  /**
+   * Do not call this manually.
+   */
   public addIncomingEdge(edge: GraphEdge) {
     requireSameModel(this, edge)
     this.#incomingEdges.add(edge)
   }
 
+  /**
+   * Do not call this manually.
+   */
   public removeIncomingEdge(edge: GraphEdge) {
     requireSameModel(this, edge)
     this.#incomingEdges.delete(edge)
   }
 
+  /**
+   * Do not call this manually.
+   */
   public addOutgoingEdge(edge: GraphEdge) {
     requireSameModel(this, edge)
     this.#outgoingEdges.add(edge)
   }
 
+  /**
+   * Do not call this manually.
+   */
   public removeOutgoingEdge(edge: GraphEdge) {
     requireSameModel(this, edge)
     this.#outgoingEdges.delete(edge)
   }
 
+  public getAttribute(name: AttributeName): Attribute | undefined {
+    return this.#attributeDelegate.getAttribute(name)
+  }
+
+  public addAttribute(
+    attribute: Attribute,
+    preventOverwrite?: boolean | undefined
+  ): void {
+    this.#attributeDelegate.addAttribute(attribute, preventOverwrite)
+  }
+
+  public removeAttribute(name: AttributeName): void {
+    this.#attributeDelegate.removeAttribute(name)
+  }
+
   public show(indent: number): string {
-    const attributes = [...this.#attributes.values()]
+    const attributes = [...this.attributes.values()]
       .map((attribute) => this.showAttribute(attribute))
       .join('')
 
@@ -263,45 +268,42 @@ export class GraphNode implements ModelMember, Show {
   }
 }
 
-// Include strings here for autocomplete.
-export type AttributeName =
-  | 'id'
-  | 'idref'
-  | 'name'
-  | 'type'
-  | (string & Record<never, never>)
+export class GraphEdge implements Attributable, ModelMember {
+  readonly #attributeDelegate = new AttributeDelegate(undefined)
+  public readonly attributes = this.#attributeDelegate.attributes
 
-export interface SimpleAttribute {
-  readonly name: AttributeName
-  readonly value: Value
-}
-
-export interface NamespacedAttribute {
-  readonly fullName: AttributeName
-  readonly name: AttributeName
-  readonly namespace: string
-  readonly value: Value
-}
-
-export type Attribute = SimpleAttribute | NamespacedAttribute
-
-export interface SimpleValue {
-  readonly literal: string
-}
-
-export interface NamespacedValue extends SimpleValue {
-  readonly namespace: string
-}
-export type Value = SimpleValue | NamespacedValue
-
-// TODO: Add attributes to graph edge via delegate
-export class GraphEdge implements ModelMember {
   public constructor(
     public readonly model: GraphModel,
     public readonly tag: string,
     public readonly source: GraphNode,
     public readonly target: GraphNode
   ) {}
+
+  public getAttribute(name: AttributeName): Attribute | undefined {
+    return this.#attributeDelegate.getAttribute(name)
+  }
+
+  public addAttribute(
+    attribute: Attribute,
+    preventOverwrite?: boolean | undefined
+  ): void {
+    this.#attributeDelegate.addAttribute(attribute, preventOverwrite)
+  }
+
+  public removeAttribute(name: AttributeName): void {
+    this.#attributeDelegate.removeAttribute(name)
+  }
+}
+
+function requireSameModel(
+  first: ModelMember | GraphModel,
+  second: ModelMember | GraphModel
+) {
+  const firstModel = first instanceof GraphModel ? first : first.model
+  const secondModel = second instanceof GraphModel ? second : second.model
+  if (firstModel !== secondModel) {
+    throw new Error('Both entities must be members of the same model')
+  }
 }
 
 function createIndent(indent: number): string {
