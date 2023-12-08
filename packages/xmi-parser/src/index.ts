@@ -52,7 +52,7 @@ function initNodeFromElement(node: GraphNode, element: Element) {
     .forEach((attribute) => node.addAttribute(attribute, true))
   Stream.from(element.childNodes)
     .map((child) =>
-      isElement(child) ? createNodeFromElement(node.model, child) : null
+      isElement(child) ? createNodeFromElement(node.model, child) : null,
     )
     .filterNonNull()
     .forEach((child) => node.addChild(child))

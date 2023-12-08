@@ -18,7 +18,10 @@ export class GraphModel implements Show {
 
   public readonly root: GraphNode
 
-  public constructor(public readonly idAttribute: string, rootTag: string) {
+  public constructor(
+    public readonly idAttribute: string,
+    rootTag: string,
+  ) {
     this.root = this.addNode(rootTag)
   }
 
@@ -103,7 +106,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
       if (attributeName === this.model.idAttribute) {
         this.model.updateNodeMap(this, previousValue?.literal)
       }
-    }
+    },
   )
 
   public readonly attributes = this.#attributeDelegate.attributes
@@ -113,7 +116,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
 
   public constructor(
     public readonly model: GraphModel,
-    public readonly tag: string
+    public readonly tag: string,
   ) {}
 
   public get id(): string | undefined {
@@ -176,7 +179,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
   }
 
   public findChild(
-    predicate: (child: GraphNode) => boolean
+    predicate: (child: GraphNode) => boolean,
   ): GraphNode | undefined {
     for (const child of this.children) {
       if (predicate(child)) {
@@ -236,7 +239,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
 
   public addAttribute(
     attribute: Attribute,
-    preventOverwrite?: boolean | undefined
+    preventOverwrite?: boolean | undefined,
   ): void {
     this.#attributeDelegate.addAttribute(attribute, preventOverwrite)
   }
@@ -276,7 +279,7 @@ export class GraphEdge implements Attributable, ModelMember {
     public readonly model: GraphModel,
     public readonly tag: string,
     public readonly source: GraphNode,
-    public readonly target: GraphNode
+    public readonly target: GraphNode,
   ) {}
 
   public getAttribute(name: AttributeName): Attribute | undefined {
@@ -285,7 +288,7 @@ export class GraphEdge implements Attributable, ModelMember {
 
   public addAttribute(
     attribute: Attribute,
-    preventOverwrite?: boolean | undefined
+    preventOverwrite?: boolean | undefined,
   ): void {
     this.#attributeDelegate.addAttribute(attribute, preventOverwrite)
   }
@@ -297,7 +300,7 @@ export class GraphEdge implements Attributable, ModelMember {
 
 function requireSameModel(
   first: ModelMember | GraphModel,
-  second: ModelMember | GraphModel
+  second: ModelMember | GraphModel,
 ) {
   const firstModel = first instanceof GraphModel ? first : first.model
   const secondModel = second instanceof GraphModel ? second : second.model

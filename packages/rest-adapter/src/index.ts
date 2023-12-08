@@ -12,10 +12,10 @@ class Server extends PluginAdapter<string> {
   private readonly server = fastify()
 
   protected onApply<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<string, Out, Parameters>
+    plugin: Plugin<string, Out, Parameters>,
   ) {
     this.server.post(`/encoders/${plugin.name}`, async (request, reply) =>
-      pluginRequestHandler(plugin, request, reply)
+      pluginRequestHandler(plugin, request, reply),
     )
   }
 
@@ -46,13 +46,13 @@ class Server extends PluginAdapter<string> {
         }
         // eslint-disable-next-line no-console
         console.log(`Server listening at ${address}`)
-      }
+      },
     )
   }
 }
 
 function isValidRequestBody(
-  body: unknown
+  body: unknown,
 ): body is Record<string, string> & { input: string } {
   if (typeof body !== 'object' || !body || !('input' in body)) {
     return false
@@ -67,7 +67,7 @@ function isValidRequestBody(
 function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
   plugin: Plugin<string, Out, Parameters>,
   request: FastifyRequest,
-  reply: FastifyReply
+  reply: FastifyReply,
 ) {
   try {
     const body = request.body
@@ -91,7 +91,7 @@ function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
       })
       .toRecord(
         ({ key }) => key,
-        ({ value }) => value
+        ({ value }) => value,
       )
 
     const result = plugin.validateAndInvoke(body.input, options)

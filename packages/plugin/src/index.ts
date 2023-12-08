@@ -52,10 +52,10 @@ export type ResolveZodParameterType<Type extends ParameterType> =
   Type extends 'number'
     ? z.ZodNumber
     : Type extends 'string'
-    ? z.ZodString
-    : Type extends 'boolean'
-    ? z.ZodBoolean
-    : never
+      ? z.ZodString
+      : Type extends 'boolean'
+        ? z.ZodBoolean
+        : never
 
 // From: https://stackoverflow.com/a/57683652
 export type Expand<T> = T extends object
@@ -65,7 +65,7 @@ export type Expand<T> = T extends object
   : T
 
 function deriveValidator<Parameters extends ParameterMetadata>(
-  parameterMetadata: Parameters
+  parameterMetadata: Parameters,
 ) {
   const parameterSchemas = Stream.fromObject(parameterMetadata)
     .map(([name, metadata]) => ({
@@ -74,7 +74,7 @@ function deriveValidator<Parameters extends ParameterMetadata>(
     }))
     .toRecord(
       ({ name }) => name,
-      ({ schema }) => schema
+      ({ schema }) => schema,
     ) as ResolveZodSchema<Parameters>
   return z.object(parameterSchemas).readonly()
 }
@@ -106,7 +106,7 @@ export type PluginMetadata<Parameters extends ParameterMetadata> = Readonly<{
 
 export type PluginInvoke<In, Out, Parameters extends ParameterMetadata> = (
   input: In,
-  parameters: Readonly<ResolveParameters<Parameters>>
+  parameters: Readonly<ResolveParameters<Parameters>>,
 ) => Out
 
 export class Plugin<In, Out, Parameters extends ParameterMetadata> {
@@ -115,7 +115,7 @@ export class Plugin<In, Out, Parameters extends ParameterMetadata> {
   public constructor(
     public readonly name: string,
     public readonly parameters: Parameters,
-    public readonly invoke: PluginInvoke<In, Out, Parameters>
+    public readonly invoke: PluginInvoke<In, Out, Parameters>,
   ) {
     this.validator = deriveValidator(parameters)
   }
@@ -127,7 +127,7 @@ export class Plugin<In, Out, Parameters extends ParameterMetadata> {
   }
 
   public validate(
-    parameters: unknown
+    parameters: unknown,
   ): Readonly<ResolveParameters<Parameters>> {
     try {
       // @ts-expect-error TS can't handle the expansion of the validation result, even though the types would match
@@ -144,12 +144,12 @@ export class Plugin<In, Out, Parameters extends ParameterMetadata> {
 export function definePlugin<In, Out, Parameters extends ParameterMetadata>(
   data: PluginMetadata<Parameters> & {
     invoke: PluginInvoke<In, Out, Parameters>
-  }
+  },
 ) {
   return new Plugin<In, Out, Parameters>(
     data.name,
     data.parameters,
-    data.invoke
+    data.invoke,
   )
 }
 
@@ -177,11 +177,11 @@ export function compose<
   I1,
   P1 extends ParameterMetadata,
   Out,
-  P2 extends ParameterMetadata
+  P2 extends ParameterMetadata,
 >(
   first: Plugin<In, I1, P1>,
   second: Plugin<I1, Out, P2>,
-  name = `${first.name}-${second.name}`
+  name = `${first.name}-${second.name}`,
 ): Plugin<In, Out, P1 & P2> {
   try {
     const plugins = [first, second]
@@ -192,7 +192,7 @@ export function compose<
     }) as unknown as any
   } catch (error) {
     console.error(getMessage(error))
-    process.exit(1)
+    throw error
   }
 }
 
@@ -206,7 +206,7 @@ function joinParameters(plugins: PluginMetadata<ParameterMetadata>[]) {
         const existingParameter = parameters[name]
         if (existingParameter && existingParameter.type !== parameter.type) {
           throw new Error(
-            `Parameter ${name} is defined multiple times with different types in the plugin composition.`
+            `Parameter ${name} is defined multiple times with different types in the plugin composition.`,
           )
         }
         parameters[name] = parameter
@@ -222,14 +222,14 @@ function createInvocationChain<In, Out>(plugins: Plugin<any, any, any>[]) {
   }
   return (
     input: unknown,
-    parameters: Record<string, number | string | boolean>
+    parameters: Record<string, number | string | boolean>,
   ) =>
     Stream.from(plugins).reduce(
       (intermediateResult, plugin) =>
         plugin.invoke(intermediateResult, parameters),
-      input
+      input,
     ) as (
       input: In,
-      parameters: Record<string, number | string | boolean>
+      parameters: Record<string, number | string | boolean>,
     ) => Out
 }

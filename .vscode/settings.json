@@ -1,5 +1,4 @@
 {
-  "eslint.packageManager": "pnpm",
   "eslint.probe": [
     "html",
     "javascript",
@@ -15,5 +14,6 @@
   "markdownlint.config": {
     "MD033": false
   },
+  "typescript.preferences.importModuleSpecifier": "relative",
   "vitest.commandLine": "pnpm test --run"
 }

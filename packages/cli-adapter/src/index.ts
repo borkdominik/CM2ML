@@ -11,11 +11,11 @@ import { cac } from 'cac'
 class CLI extends PluginAdapter<string> {
   private readonly cli = cac('cm2ml').option(
     '--out <file>',
-    'Path to output file'
+    'Path to output file',
   )
 
   protected onApply<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<string, Out, Parameters>
+    plugin: Plugin<string, Out, Parameters>,
   ) {
     const command = this.cli.command(`${plugin.name} <inputFile>`)
     Stream.fromObject(plugin.parameters).forEach(([name, parameter]) => {
@@ -26,7 +26,7 @@ class CLI extends PluginAdapter<string> {
           {
             default: parameter.defaultValue,
             type: [getTypeConstructor(parameter.type)],
-          }
+          },
         )
         return
       }
@@ -37,7 +37,7 @@ class CLI extends PluginAdapter<string> {
           {
             default: parameter.defaultValue,
             type: [getTypeConstructor(parameter.type)],
-          }
+          },
         )
       }
       if (parameter.defaultValue !== false) {
@@ -50,12 +50,12 @@ class CLI extends PluginAdapter<string> {
           {
             default: parameter.defaultValue,
             type: [getTypeConstructor(parameter.type)],
-          }
+          },
         )
       }
     })
     command.action((inputFile: string, options: Record<string, unknown>) =>
-      pluginActionHandler(plugin, inputFile, options)
+      pluginActionHandler(plugin, inputFile, options),
     )
   }
 
@@ -92,7 +92,7 @@ function createOptionDescription(parameter: Parameter) {
 function pluginActionHandler<Out, Parameters extends ParameterMetadata>(
   plugin: Plugin<string, Out, Parameters>,
   inputFile: string,
-  options: Record<string, unknown>
+  options: Record<string, unknown>,
 ) {
   const normalizedOptions: Record<string, unknown> & { out?: string } =
     Stream.fromObject(options)
@@ -103,7 +103,7 @@ function pluginActionHandler<Out, Parameters extends ParameterMetadata>(
       })
       .toRecord(
         ([name]) => name,
-        ([_name, value]) => value
+        ([_name, value]) => value,
       )
 
   const input = fs.readFileSync(inputFile, 'utf8')

@@ -18,5 +18,5 @@ export const encoders: Plugin<GraphModel, unknown, any>[] = [
 ]
 
 export const plugins = parsers.flatMap((parser) =>
-  encoders.map((encoder) => compose(parser, encoder))
+  encoders.map((encoder) => compose(parser, encoder)),
 )

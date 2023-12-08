@@ -47,9 +47,9 @@ export class AttributeDelegate implements Attributable {
       | ((
           attributeName: AttributeName,
           previousValue: Value | undefined,
-          newValue: Value | undefined
+          newValue: Value | undefined,
         ) => void)
-      | undefined
+      | undefined,
   ) {}
 
   public getAttribute(name: AttributeName): Attribute | undefined {
@@ -65,7 +65,7 @@ export class AttributeDelegate implements Attributable {
     this.attributeChangeListener?.(
       attribute.name,
       previousValue?.value,
-      attribute.value
+      attribute.value,
     )
   }
 

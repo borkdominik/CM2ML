@@ -28,10 +28,10 @@ export const UmlParser = compose(XmiParser, UmlRefiner, 'uml')
 function refine(
   model: GraphModel,
   strict: boolean,
-  greedyEdges: boolean
+  greedyEdges: boolean,
 ): GraphModel {
   Stream.from(model.nodes).forEach((node) =>
-    createEdges(node, strict, greedyEdges)
+    createEdges(node, strict, greedyEdges),
   )
   // console.log(
   //   model.edges

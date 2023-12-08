@@ -12,7 +12,7 @@ export abstract class PluginAdapter<In> {
   }
 
   public apply(
-    plugin: Plugin<In, unknown, ParameterMetadata>
+    plugin: Plugin<In, unknown, ParameterMetadata>,
   ): PluginAdapter<In> {
     this.requireNotStarted()
     if (this.plugins.has(plugin.name)) {
@@ -24,7 +24,7 @@ export abstract class PluginAdapter<In> {
   }
 
   protected abstract onApply<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<In, Out, Parameters>
+    plugin: Plugin<In, Out, Parameters>,
   ): void
 
   public start() {

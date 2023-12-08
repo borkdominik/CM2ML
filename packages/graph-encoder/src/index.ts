@@ -59,7 +59,7 @@ type AdjacencyMatrix = number[][]
 function encodeAsAdjacencyMatrix(
   model: GraphModel,
   sortedIds: string[],
-  weighted: boolean
+  weighted: boolean,
 ) {
   const matrix = createAdjacencyMatrix(sortedIds.length)
   fillAdjacencyMatrix(matrix, model, sortedIds, weighted)
@@ -67,9 +67,9 @@ function encodeAsAdjacencyMatrix(
 }
 
 function createAdjacencyMatrix(size: number): AdjacencyMatrix {
-  const matrix = new Array(size)
+  const matrix = Array.from<number[]>({ length: size })
   for (let i = 0; i < size; i++) {
-    matrix[i] = new Array(size).fill(0)
+    matrix[i] = Array.from<number>({ length: size }).fill(0)
   }
   return matrix
 }
@@ -78,7 +78,7 @@ function fillAdjacencyMatrix(
   matrix: AdjacencyMatrix,
   model: GraphModel,
   sortedIds: string[],
-  weighted: boolean
+  weighted: boolean,
 ) {
   model.edges.forEach((edge) => {
     const sourceId = edge.source.id
