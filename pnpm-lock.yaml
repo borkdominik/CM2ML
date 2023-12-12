@@ -417,6 +417,9 @@ importers:
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
+      '@cm2ml/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@cm2ml/xmi-parser':
         specifier: workspace:*
         version: link:../xmi-parser
@@ -460,6 +463,9 @@ importers:
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
+      '@cm2ml/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@yeger/streams':
         specifier: 1.1.1
         version: 1.1.1

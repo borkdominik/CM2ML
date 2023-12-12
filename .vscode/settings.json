@@ -15,5 +15,19 @@
     "MD033": false
   },
   "typescript.preferences.importModuleSpecifier": "relative",
-  "vitest.commandLine": "pnpm test --run"
+  "vitest.commandLine": "pnpm test --run",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/*.unotation": true
+  },
+  "bigUML.hideUnotation": true
 }

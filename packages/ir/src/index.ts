@@ -116,7 +116,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
 
   public constructor(
     public readonly model: GraphModel,
-    public readonly tag: string,
+    public tag: string,
   ) {}
 
   public get id(): string | undefined {
@@ -131,7 +131,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
    * Do not call this manually.
    */
   public set parent(parent: GraphNode | undefined) {
-    if (this.parent !== undefined) {
+    if (this.parent !== undefined && parent !== undefined) {
       throw new Error('Parent already set')
     }
     if (parent !== undefined) {

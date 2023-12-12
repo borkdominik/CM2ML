@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_PTF5sc4OEe2NwpxoRjsNIQ" name="package">
+  <packagedElement xmi:type="uml:Package" xmi:id="_QGY-4M4OEe2NwpxoRjsNIQ" name="App" URI="com.example.app">
+    <elementImport xmi:id="_5AugUPn-Ee2smM55zuHUhw" importedElement="_gu8-gPn-Ee2smM55zuHUhw" visibility="private"/>
+    <packageImport xmi:id="_uBXk4M4OEe2WfbpzO7t8-A" importedPackage="_RY5voM4OEe2NwpxoRjsNIQ"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_KrFesfn-Ee2smM55zuHUhw" name="Main"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_RY5voM4OEe2NwpxoRjsNIQ" name="Lib" URI="com.example.lib">
+    <packagedElement xmi:type="uml:Class" xmi:id="_gu8-gPn-Ee2smM55zuHUhw" name="Launcher"/>
+  </packagedElement>
+</uml:Model>

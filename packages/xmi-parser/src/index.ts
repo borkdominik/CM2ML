@@ -1,6 +1,7 @@
 import type { Attribute, GraphNode, Value } from '@cm2ml/ir'
 import { GraphModel } from '@cm2ml/ir'
 import { definePlugin } from '@cm2ml/plugin'
+import { parseNamespace } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 import { Element } from 'domhandler'
 import type { Document, Node } from 'domhandler'
@@ -60,11 +61,16 @@ function initNodeFromElement(node: GraphNode, element: Element) {
 
 function mapAttribute([name, value]: [string, string]): Attribute {
   const xmiValue = mapValue(value)
-  if (!name.includes(':')) {
-    return { name, value: xmiValue }
+  const parsedName = parseNamespace(name)
+  if (parsedName.namespace) {
+    return {
+      fullName: name,
+      name: parsedName.name,
+      namespace: parsedName.namespace,
+      value: xmiValue,
+    }
   }
-  const [namespace, ...rest] = name.split(':')
-  return { fullName: name, name: rest.join(':'), value: xmiValue, namespace }
+  return { name, value: xmiValue }
 }
 
 function mapValue(value: string): Value {

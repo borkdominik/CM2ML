@@ -14,3 +14,11 @@ function containsMessage(error: unknown): error is { message: string } {
   }
   return 'message' in error
 }
+
+export function parseNamespace(string: string) {
+  if (!string.includes(':')) {
+    return { name: string }
+  }
+  const [namespace, ...value] = string.split(':')
+  return { name: value.join(':'), namespace }
+}

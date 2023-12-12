@@ -3,6 +3,9 @@ import { compose, definePlugin } from '@cm2ml/plugin'
 import { XmiParser } from '@cm2ml/xmi-parser'
 import { Stream } from '@yeger/streams'
 
+import { getRefiner } from './refiners'
+import { Uml } from './uml'
+
 export const UmlRefiner = definePlugin({
   name: 'uml',
   parameters: {
@@ -33,35 +36,35 @@ function refine(
   Stream.from(model.nodes).forEach((node) =>
     createEdges(node, strict, greedyEdges),
   )
+  Stream.from(model.nodes).forEach((node) => {
+    const type = Uml.getUmlType(node)
+    if (Uml.isValidType(type)) {
+      node.tag = type
+    } else if (strict) {
+      throw new Error(`Unknown type: ${type}`)
+    }
+  })
   // console.log(
-  //   model.edges
+  //   Stream.from(model.edges)
   //     .map((edge) => `${edge.source.tag} --${edge.tag}-> ${edge.target.tag}`)
-  //     .join('\n')
+  //     .join('\n'),
   // )
   return model
 }
-
-const ignoredTags: Readonly<string[]> = ['general']
 
 function createEdges(node: GraphNode, strict: boolean, greedyEdges: boolean) {
   if (greedyEdges) {
     createGreedyEdges(node)
     return
   }
-  if (ignoredTags.includes(node.tag)) {
+  const refiner = getRefiner(node)
+  if (!refiner) {
+    if (strict) {
+      throw new Error(`No refiner for tag: ${node.tag}`)
+    }
     return
   }
-  switch (node.tag) {
-    case 'generalization':
-      createGeneralizationEdges(node, strict)
-      return
-    case 'packagedElement':
-      return
-    default:
-      if (strict) {
-        throw new Error(`Unhandled tag: ${node.tag}`)
-      }
-  }
+  refiner(node)
 }
 
 function createGreedyEdges(node: GraphNode) {
@@ -80,36 +83,4 @@ function createGreedyEdges(node: GraphNode) {
       const tag = attribute.name === 'idref' ? node.tag : attribute.name
       node.model.addEdge(tag, source, target)
     })
-}
-
-function createGeneralizationEdges(generalization: GraphNode, strict: boolean) {
-  const source = generalization.parent
-  if (!source) {
-    if (strict) {
-      throw new Error('Expected parent of <generalization />')
-    }
-    return
-  }
-  const general = generalization.findChild((child) => child.tag === 'general')
-  if (!general) {
-    if (strict) {
-      throw new Error('Expected <general /> child')
-    }
-    return
-  }
-  const targetId = general.getAttribute('idref')?.value.literal
-  if (!targetId) {
-    if (strict) {
-      throw new Error('Expected idref attribute on <general />')
-    }
-    return
-  }
-  const target = generalization.model.getNodeById(targetId)
-  if (!target) {
-    if (strict) {
-      throw new Error(`Expected node with id ${targetId}`)
-    }
-    return
-  }
-  generalization.model.addEdge('generalization', source, target)
 }
