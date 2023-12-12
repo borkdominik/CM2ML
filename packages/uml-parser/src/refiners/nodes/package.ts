@@ -2,30 +2,36 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Model, Uml } from '../../uml'
 
-import { refinePackagedElement } from './packagedElement'
+import { PackageableElement } from './packageableElement'
 
-export function refinePackage(node: GraphNode) {
-  refinePackagedElement(node)
-  node.children.forEach((child) => {
-    if (Model.isElementImport(child)) {
-      addElementImport(node, child)
-    }
-    if (Model.isPackage(child)) {
-      node.model.addEdge('nestedPackage', node, child)
-    }
-    if (Model.isPackagedElement(child)) {
-      node.model.addEdge(Uml.Tags.packagedElement, node, child)
-    }
-    if (Model.isPackageImport(child)) {
-      addPackageImport(node, child)
-    }
-    if (Model.isPackageMerge(child)) {
-      addPackageMerge(node, child)
-    }
-    if (Model.isType(child)) {
-      node.model.addEdge('ownedType', node, child)
-    }
-  })
+export class Package extends PackageableElement {
+  public isApplicable(node: GraphNode) {
+    return node.tag === Uml.Types.Package || super.isApplicable(node)
+  }
+
+  public refine(node: GraphNode) {
+    super.refine(node)
+    node.children.forEach((child) => {
+      if (Model.isElementImport(child)) {
+        addElementImport(node, child)
+      }
+      if (Model.isPackage(child)) {
+        node.model.addEdge('nestedPackage', node, child)
+      }
+      if (Model.isPackagedElement(child)) {
+        node.model.addEdge(Uml.Tags.packagedElement, node, child)
+      }
+      if (Model.isPackageImport(child)) {
+        addPackageImport(node, child)
+      }
+      if (Model.isPackageMerge(child)) {
+        addPackageMerge(node, child)
+      }
+      if (Model.isType(child)) {
+        node.model.addEdge('ownedType', node, child)
+      }
+    })
+  }
 }
 
 function addElementImport(node: GraphNode, elementImport: GraphNode) {

@@ -37,14 +37,14 @@ function refine(
   Stream.from(model.nodes).forEach((node) =>
     createEdges(node, strict, greedyEdges),
   )
-  Stream.from(model.nodes).forEach((node) => {
-    const type = Uml.getUmlType(node)
-    if (Uml.isValidType(type)) {
-      node.tag = type
-    } else if (strict) {
-      throw new Error(`Unknown type: ${type}`)
-    }
-  })
+  // Stream.from(model.nodes).forEach((node) => {
+  //   const type = Uml.getUmlType(node)
+  //   if (Uml.isValidType(type)) {
+  //     node.tag = type
+  //   } else if (strict) {
+  //     throw new Error(`Unknown type: ${type}`)
+  //   }
+  // })
   // console.log(
   //   Stream.from(model.edges)
   //     .map((edge) => `${edge.source.tag} --${edge.tag}-> ${edge.target.tag}`)
@@ -64,9 +64,17 @@ function findModelRoot(node: GraphNode): GraphNode | undefined {
 
 function refineModelRoot(model: GraphModel) {
   const newRoot = findModelRoot(model.root)
-  if (newRoot) {
-    model.root = newRoot
+  if (!newRoot) {
+    return
   }
+  const tagType = Uml.getTypeFromTag(newRoot)
+  if (tagType !== undefined && newRoot.getAttribute('type') === undefined) {
+    newRoot.addAttribute({
+      name: 'type',
+      value: { literal: tagType },
+    })
+  }
+  model.root = newRoot
 }
 
 function createEdges(node: GraphNode, strict: boolean, greedyEdges: boolean) {
@@ -81,7 +89,7 @@ function createEdges(node: GraphNode, strict: boolean, greedyEdges: boolean) {
     }
     return
   }
-  refiner(node)
+  refiner.refine(node)
 }
 
 function createGreedyEdges(node: GraphNode) {

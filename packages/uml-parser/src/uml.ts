@@ -3,11 +3,9 @@ import { parseNamespace } from '@cm2ml/utils'
 
 const Tags = {
   elementImport: 'elementImport',
-  package: 'package',
   packagedElement: 'packagedElement',
   packageImport: 'packageImport',
   packageMerge: 'packageMerge',
-  type: 'type',
 } as const
 
 export type UmlTag = (typeof Tags)[keyof typeof Tags]
@@ -53,14 +51,10 @@ function getTypeFromTag(node: GraphNode) {
   return undefined
 }
 
-function getUmlType(node: GraphNode) {
+function getType(node: GraphNode) {
   const type = node.getAttribute('type')?.value.literal
   if (isValidType(type)) {
     return type
-  }
-  const tagType = getTypeFromTag(node)
-  if (tagType) {
-    return tagType
   }
   return undefined
 }
@@ -77,7 +71,7 @@ export const Uml = {
   Types,
   isValidType,
   getTypeFromTag,
-  getUmlType,
+  getType,
   Attributes,
 } as const
 
