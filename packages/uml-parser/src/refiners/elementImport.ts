@@ -1,7 +1,8 @@
 import { Uml } from '../uml'
 
-import { UmlElement } from './umlElement'
+import { Element } from './element'
 
-export const ElementImport = new UmlElement(
+// TODO
+export const ElementImport = Element.extend(
   (node) => node.tag === Uml.Tags.elementImport,
 )

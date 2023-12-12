@@ -1,6 +1,6 @@
-import type { Attributable, GraphNode } from '@cm2ml/ir'
+import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml } from '../uml'
+import { Uml, copyAttributes } from '../uml'
 
 import { ElementImport } from './elementImport'
 import { PackageableElement } from './packageableElement'
@@ -98,10 +98,4 @@ function addPackageMerge(node: GraphNode, packageMerge: GraphNode) {
   )
   copyAttributes(packageMerge, packageMergeEdge)
   node.model.removeNode(packageMerge)
-}
-
-function copyAttributes(source: Attributable, target: Attributable) {
-  source.attributes.forEach((attribute) => {
-    target.addAttribute(attribute)
-  })
 }

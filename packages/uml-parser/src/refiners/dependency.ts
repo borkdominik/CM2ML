@@ -2,9 +2,13 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Uml } from '../uml'
 
+import { extendMultiple } from './element'
 import { PackageableElement } from './packageableElement'
+import { DirectedRelationship } from './relationship'
 
-export const Dependency = PackageableElement.extend(
+// TODO
+export const Dependency = extendMultiple(
+  [DirectedRelationship, PackageableElement],
   (node: GraphNode) => Uml.getType(node) === Uml.Types.Dependency,
   (node: GraphNode) => {
     const clientId = node.getAttribute(Uml.Attributes.client)?.value.literal

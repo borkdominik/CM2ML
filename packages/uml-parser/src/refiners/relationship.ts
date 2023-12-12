@@ -1,7 +1,7 @@
-import { UmlElement } from './umlElement'
+import { Element } from './element'
 
 // TODO
-export const Relationship = new UmlElement(() => false)
+export const Relationship = Element.extend(() => false)
 
 // TODO
 export const DirectedRelationship = Relationship.extend(() => false)

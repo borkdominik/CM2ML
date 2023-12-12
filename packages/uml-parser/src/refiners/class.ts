@@ -1,7 +1,8 @@
 import { Uml } from '../uml'
 
-import { UmlElement } from './umlElement'
+import { Element } from './element'
 
-export const Class = new UmlElement(
+// TODO
+export const Class = Element.extend(
   (node) => Uml.getType(node) === Uml.Types.Class,
 )

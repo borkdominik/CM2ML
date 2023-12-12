@@ -1,17 +1,17 @@
 import { Stream } from '@yeger/streams'
 
-import { Uml } from '../uml'
+import { Uml, copyAttributes } from '../uml'
 
 import { DirectedRelationship } from './relationship'
 
 export const Generalization = DirectedRelationship.extend(
   (node) => node.tag === Uml.Tags.generalization,
-  (node) => {
-    const specfic = node.parent
+  (generalization) => {
+    const specfic = generalization.parent
     if (!specfic) {
       throw new Error('Missing parent for generalization')
     }
-    const generalChild = Stream.from(node.children).find(
+    const generalChild = Stream.from(generalization.children).find(
       (child) => child.tag === Uml.Tags.general,
     )
     if (!generalChild) {
@@ -21,11 +21,16 @@ export const Generalization = DirectedRelationship.extend(
     if (!generalId) {
       throw new Error('Missing idref attribute on general')
     }
-    const general = node.model.getNodeById(generalId)
+    const general = generalization.model.getNodeById(generalId)
     if (!general) {
       throw new Error(`Could not find general with id ${generalId}`)
     }
-    node.model.addEdge('generalization', specfic, general)
-    node.model.removeNode(node)
+    const generalizationEdge = generalization.model.addEdge(
+      'generalization',
+      specfic,
+      general,
+    )
+    copyAttributes(generalization, generalizationEdge)
+    generalization.model.removeNode(generalization)
   },
 )

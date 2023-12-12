@@ -1,10 +1,11 @@
-import type { GraphNode } from '@cm2ml/ir'
+import type { Attributable, GraphNode } from '@cm2ml/ir'
 import { parseNamespace } from '@cm2ml/utils'
 
 const Tags = {
   elementImport: 'elementImport',
   general: 'general',
   generalization: 'generalization',
+  ownedAttribute: 'ownedAttribute',
   packagedElement: 'packagedElement',
   packageImport: 'packageImport',
   packageMerge: 'packageMerge',
@@ -37,6 +38,7 @@ const Types = {
   Dependency: 'Dependency',
   Model: 'Model',
   Package: 'Package',
+  Property: 'Property',
 } as const
 
 export type UmlType = (typeof Types)[keyof typeof Types]
@@ -82,114 +84,8 @@ export const Uml = {
   Attributes,
 } as const
 
-// Done
-function isConstraint(node: GraphNode) {
-  return (
-    node.tag === 'constraint' ||
-    isIntervalConstraint(node) ||
-    isInteractionConstraint(node)
-  )
+export function copyAttributes(source: Attributable, target: Attributable) {
+  source.attributes.forEach((attribute) => {
+    target.addAttribute(attribute)
+  })
 }
-
-function isDependency(node: GraphNode) {
-  return node.tag === 'dependency'
-}
-
-// Done
-function isDurationConstraint(node: GraphNode) {
-  return node.tag === 'durationConstraint'
-}
-
-function isElementImport(node: GraphNode) {
-  return node.tag === 'elementImport'
-}
-
-function isEvent(node: GraphNode) {
-  return node.tag === 'event'
-}
-
-function isGeneralizationSet(node: GraphNode) {
-  return node.tag === 'generalizationSet'
-}
-
-function isInformationFlow(node: GraphNode) {
-  return node.tag === 'informationFlow'
-}
-
-function isInstanceSpecification(node: GraphNode) {
-  return node.tag === 'instanceSpecification'
-}
-
-// Done
-function isInteractionConstraint(node: GraphNode) {
-  return node.tag === 'interactionConstraint'
-}
-
-// Done
-function isIntervalConstraint(node: GraphNode) {
-  return (
-    node.tag === 'intervalConstraint' ||
-    isDurationConstraint(node) ||
-    isTimeConstraint(node)
-  )
-}
-
-function isNamedElement(node: GraphNode) {
-  return isPackagedElement(node) // TODO: Complete
-}
-
-function isObservation(node: GraphNode) {
-  return node.tag === 'observation'
-}
-
-function isPackage(node: GraphNode) {
-  return node.tag === 'package'
-}
-
-function isPackageImport(node: GraphNode) {
-  return node.tag === 'packageImport'
-}
-
-// Done
-function isPackageMerge(node: GraphNode) {
-  return node.tag === 'packageMerge'
-}
-
-function isPackagedElement(node: GraphNode) {
-  return node.tag === Tags.packagedElement || isPackage(node)
-}
-
-// Done
-function isTimeConstraint(node: GraphNode) {
-  return node.tag === 'timeConstraint'
-}
-
-function isType(node: GraphNode) {
-  return node.tag === 'type'
-}
-
-function isValueSpecification(node: GraphNode) {
-  return node.tag === 'valueSpecification'
-}
-
-export const Model = {
-  isConstraint,
-  isDependency,
-  isDurationConstraint,
-  isElementImport,
-  isEvent,
-  isGeneralizationSet,
-  isInformationFlow,
-  isInstanceSpecification,
-  isInteractionConstraint,
-  isIntervalConstraint,
-  isNamedElement,
-  isObservation,
-  isPackage,
-  isPackageImport,
-  isPackageMerge,
-  isPackagedElement,
-  isTimeConstraint,
-  isType,
-  isValueSpecification,
-} as const

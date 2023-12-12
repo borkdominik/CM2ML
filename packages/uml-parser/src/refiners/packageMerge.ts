@@ -1,7 +1,8 @@
 import { Uml } from '../uml'
 
-import { UmlElement } from './umlElement'
+import { Element } from './element'
 
-export const PackageMerge = new UmlElement(
+// TODO
+export const PackageMerge = Element.extend(
   (node) => node.tag === Uml.Tags.packageMerge,
 )
