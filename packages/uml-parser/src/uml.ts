@@ -3,6 +3,8 @@ import { parseNamespace } from '@cm2ml/utils'
 
 const Tags = {
   elementImport: 'elementImport',
+  general: 'general',
+  generalization: 'generalization',
   packagedElement: 'packagedElement',
   packageImport: 'packageImport',
   packageMerge: 'packageMerge',
