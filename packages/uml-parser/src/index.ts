@@ -33,6 +33,7 @@ function refine(
   strict: boolean,
   greedyEdges: boolean,
 ): GraphModel {
+  refineModelRoot(model)
   Stream.from(model.nodes).forEach((node) =>
     createEdges(node, strict, greedyEdges),
   )
@@ -50,6 +51,22 @@ function refine(
   //     .join('\n'),
   // )
   return model
+}
+
+function findModelRoot(node: GraphNode): GraphNode | undefined {
+  if (Uml.getTypeFromTag(node) !== undefined) {
+    return node
+  }
+  return Stream.from(node.children)
+    .map(findModelRoot)
+    .find((child) => child !== undefined)
+}
+
+function refineModelRoot(model: GraphModel) {
+  const newRoot = findModelRoot(model.root)
+  if (newRoot) {
+    model.root = newRoot
+  }
 }
 
 function createEdges(node: GraphNode, strict: boolean, greedyEdges: boolean) {

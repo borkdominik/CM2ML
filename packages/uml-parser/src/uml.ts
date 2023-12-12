@@ -44,15 +44,23 @@ function isValidType(type: string | undefined): type is UmlType {
   return type !== undefined && type in Types
 }
 
+// The outermost UML element may use its type as its tag
+function getTypeFromTag(node: GraphNode) {
+  const { name: parsedName } = parseNamespace(node.tag)
+  if (isValidType(parsedName)) {
+    return parsedName
+  }
+  return undefined
+}
+
 function getUmlType(node: GraphNode) {
   const type = node.getAttribute('type')?.value.literal
   if (isValidType(type)) {
     return type
   }
-  // The outermost UML element may use its type as its tag
-  const { name: parsedName } = parseNamespace(node.tag)
-  if (isValidType(parsedName)) {
-    return parsedName
+  const tagType = getTypeFromTag(node)
+  if (tagType) {
+    return tagType
   }
   return undefined
 }
@@ -68,6 +76,7 @@ export const Uml = {
   isValidTag,
   Types,
   isValidType,
+  getTypeFromTag,
   getUmlType,
   Attributes,
 } as const

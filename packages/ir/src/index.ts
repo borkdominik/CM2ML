@@ -16,13 +16,24 @@ export class GraphModel implements Show {
   readonly #nodeMap: Map<string, GraphNode> = new Map()
   readonly #edges = new Set<GraphEdge>()
 
-  public readonly root: GraphNode
+  #root: GraphNode
 
   public constructor(
     public readonly idAttribute: string,
     rootTag: string,
   ) {
-    this.root = this.addNode(rootTag)
+    this.#root = this.addNode(rootTag)
+  }
+
+  public get root(): GraphNode {
+    return this.#root
+  }
+
+  public set root(newRoot: GraphNode) {
+    requireSameModel(this, newRoot)
+    this.purgeNode(this.root, new Set([newRoot]))
+    newRoot.parent = undefined
+    this.#root = newRoot
   }
 
   public get nodes(): ReadonlySet<GraphNode> {
@@ -62,14 +73,21 @@ export class GraphModel implements Show {
   }
 
   public removeNode(node: GraphNode) {
+    this.purgeNode(node, new Set())
+  }
+
+  private purgeNode(node: GraphNode, protectedNodes: Set<GraphNode>) {
     requireSameModel(this, node)
+    if (protectedNodes.has(node)) {
+      return
+    }
     node.incomingEdges.forEach((edge) => this.removeEdge(edge))
     node.outgoingEdges.forEach((edge) => this.removeEdge(edge))
     const id = node.id
     if (id !== undefined) {
       this.#nodeMap.delete(id)
     }
-    node.children.forEach((child) => this.removeNode(child))
+    node.children.forEach((child) => this.purgeNode(child, protectedNodes))
     node.parent?.removeChild(node)
     this.#nodes.delete(node)
   }
