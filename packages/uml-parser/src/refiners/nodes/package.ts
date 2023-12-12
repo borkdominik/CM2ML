@@ -1,4 +1,4 @@
-import type { GraphNode } from '@cm2ml/ir'
+import type { Attributable, GraphNode } from '@cm2ml/ir'
 
 import { Model, Uml } from '../../uml'
 
@@ -47,7 +47,12 @@ function addElementImport(node: GraphNode, elementImport: GraphNode) {
       `Could not find node with id ${importedElementId} for elementImport`,
     )
   }
-  node.model.addEdge(Uml.Tags.elementImport, node, importedElement)
+  const elementImportEdge = node.model.addEdge(
+    Uml.Tags.elementImport,
+    node,
+    importedElement,
+  )
+  copyAttributes(elementImport, elementImportEdge)
   node.model.removeNode(elementImport)
 }
 
@@ -64,12 +69,17 @@ function addPackageImport(node: GraphNode, packageImport: GraphNode) {
       `Could not find node with id ${importedPackageId} for packageImport`,
     )
   }
-  node.model.addEdge(Uml.Tags.packageImport, node, importedPackage)
+  const packageImportEdge = node.model.addEdge(
+    Uml.Tags.packageImport,
+    node,
+    importedPackage,
+  )
+  copyAttributes(packageImport, packageImportEdge)
   node.model.removeNode(packageImport)
 }
 
-function addPackageMerge(node: GraphNode, packageImport: GraphNode) {
-  const mergedPackageId = packageImport.getAttribute(
+function addPackageMerge(node: GraphNode, packageMerge: GraphNode) {
+  const mergedPackageId = packageMerge.getAttribute(
     Uml.Attributes.mergedPackage,
   )?.value.literal
   if (!mergedPackageId) {
@@ -81,6 +91,17 @@ function addPackageMerge(node: GraphNode, packageImport: GraphNode) {
       `Could not find node with id ${mergedPackageId} for packageMerge`,
     )
   }
-  node.model.addEdge(Uml.Tags.packageMerge, node, mergedPackage)
-  node.model.removeNode(packageImport)
+  const packageMergeEdge = node.model.addEdge(
+    Uml.Tags.packageMerge,
+    node,
+    mergedPackage,
+  )
+  copyAttributes(packageMerge, packageMergeEdge)
+  node.model.removeNode(packageMerge)
+}
+
+function copyAttributes(source: Attributable, target: Attributable) {
+  source.attributes.forEach((attribute) => {
+    target.addAttribute(attribute)
+  })
 }

@@ -5,7 +5,7 @@ import { UmlElement } from '../refiner'
 
 export class PackageableElement extends UmlElement {
   public isApplicable(node: GraphNode) {
-    return node.tag === Uml.Tags.packagedElement || super.isApplicable(node)
+    return node.tag === Uml.Tags.packagedElement
   }
 
   public refine(node: GraphNode) {

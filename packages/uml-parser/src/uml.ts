@@ -32,6 +32,7 @@ function isValidTag(tag: string | undefined): tag is UmlTag {
 
 const Types = {
   Class: 'Class',
+  Dependency: 'Dependency',
   Model: 'Model',
   Package: 'Package',
 } as const
@@ -60,9 +61,13 @@ function getType(node: GraphNode) {
 }
 
 const Attributes = {
+  alias: 'alias',
+  client: 'client',
   importedElement: 'importedElement',
   importedPackage: 'importedPackage',
   mergedPackage: 'mergedPackage',
+  supplier: 'supplier',
+  visibility: 'visibility',
 } as const
 
 export const Uml = {
