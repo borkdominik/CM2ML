@@ -2,9 +2,9 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Uml } from '../uml'
 
+import { DirectedRelationship } from './directedRelationship'
 import { extendMultiple } from './element'
 import { PackageableElement } from './packageableElement'
-import { DirectedRelationship } from './relationship'
 
 // TODO
 export const Dependency = extendMultiple(

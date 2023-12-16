@@ -5,10 +5,15 @@ const Tags = {
   elementImport: 'elementImport',
   general: 'general',
   generalization: 'generalization',
+  interfaceRealization: 'interfaceRealization',
+  lowerValue: 'lowerValue',
   ownedAttribute: 'ownedAttribute',
+  ownedOperation: 'ownedOperation',
+  ownedParameter: 'ownedParameter',
   packagedElement: 'packagedElement',
   packageImport: 'packageImport',
   packageMerge: 'packageMerge',
+  upperValue: 'upperValue',
 } as const
 
 export type UmlTag = (typeof Tags)[keyof typeof Tags]
@@ -36,8 +41,13 @@ function isValidTag(tag: string | undefined): tag is UmlTag {
 const Types = {
   Class: 'Class',
   Dependency: 'Dependency',
+  InterfaceRealization: 'InterfaceRealization',
+  LiteralInteger: 'LiteralInteger',
+  LiteralUnlimitedNatural: 'LiteralUnlimitedNatural',
   Model: 'Model',
+  Operation: 'Operation',
   Package: 'Package',
+  Parameter: 'Parameter',
   Property: 'Property',
 } as const
 

@@ -2,7 +2,7 @@ import { Stream } from '@yeger/streams'
 
 import { Uml, copyAttributes } from '../uml'
 
-import { DirectedRelationship } from './relationship'
+import { DirectedRelationship } from './directedRelationship'
 
 export const Generalization = DirectedRelationship.extend(
   (node) => node.tag === Uml.Tags.generalization,
