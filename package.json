@@ -13,7 +13,7 @@
     "build": "nr turbo run build",
     "changeset": "changeset",
     "ci": "cross-env COVERAGE=true nr turbo run build generate lint test check:publish check:tsc check:vue",
-    "clean": "rimraf -g **/tsconfig.tsbuildinfo",
+    "clean": "rimraf -g **/tsconfig.tsbuildinfo **/vite.config.ts.*",
     "cm2ml": "nr turbo build --filter=cli... && cm2ml",
     "create-package": "nr turbo generate lib && ni",
     "dev": "nr turbo run dev --parallel",

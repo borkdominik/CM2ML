@@ -8,11 +8,13 @@ const Tags = {
   interfaceRealization: 'interfaceRealization',
   lowerValue: 'lowerValue',
   ownedAttribute: 'ownedAttribute',
+  ownedLiteral: 'ownedLiteral',
   ownedOperation: 'ownedOperation',
   ownedParameter: 'ownedParameter',
   packagedElement: 'packagedElement',
   packageImport: 'packageImport',
   packageMerge: 'packageMerge',
+  substitution: 'substitution',
   upperValue: 'upperValue',
 } as const
 
@@ -39,16 +41,33 @@ function isValidTag(tag: string | undefined): tag is UmlTag {
 // }
 
 const Types = {
+  Abstraction: 'Abstraction',
+  Association: 'Association',
   Class: 'Class',
+  Comment: 'Comment',
+  Constraint: 'Constraint',
+  DataType: 'DataType',
   Dependency: 'Dependency',
+  ElementImport: 'ElementImport',
+  EnumerationLiteral: 'EnumerationLiteral',
+  Enumeration: 'Enumeration',
+  Generalization: 'Generalization',
+  InstanceSpecfification: 'InstanceSpecification',
+  Interface: 'Interface',
   InterfaceRealization: 'InterfaceRealization',
   LiteralInteger: 'LiteralInteger',
   LiteralUnlimitedNatural: 'LiteralUnlimitedNatural',
   Model: 'Model',
   Operation: 'Operation',
   Package: 'Package',
+  PackageImport: 'PackageImport',
+  PackageMerge: 'PackageMerge',
   Parameter: 'Parameter',
+  PrimitiveType: 'PrimitiveType',
   Property: 'Property',
+  Realization: 'Realization',
+  Substitution: 'Substitution',
+  Usage: 'Usage',
 } as const
 
 export type UmlType = (typeof Types)[keyof typeof Types]
@@ -66,8 +85,12 @@ function getTypeFromTag(node: GraphNode) {
   return undefined
 }
 
+function getRawType(node: GraphNode) {
+  return node.getAttribute('type')?.value.literal
+}
+
 function getType(node: GraphNode) {
-  const type = node.getAttribute('type')?.value.literal
+  const type = getRawType(node)
   if (isValidType(type)) {
     return type
   }
@@ -89,10 +112,22 @@ export const Uml = {
   isValidTag,
   Types,
   isValidType,
+  getRawType,
   getTypeFromTag,
   getType,
   Attributes,
 } as const
+
+export function setFallbackType(node: GraphNode, type: UmlType) {
+  const currentType = getRawType(node)
+  if (currentType !== undefined) {
+    if (!Uml.isValidType(node.tag)) {
+      node.tag = type
+    }
+    return
+  }
+  node.addAttribute({ name: 'type', value: { literal: type } })
+}
 
 export function copyAttributes(source: Attributable, target: Attributable) {
   source.attributes.forEach((attribute) => {

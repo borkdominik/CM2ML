@@ -3,8 +3,8 @@ import { compose, definePlugin } from '@cm2ml/plugin'
 import { XmiParser } from '@cm2ml/xmi-parser'
 import { Stream } from '@yeger/streams'
 
-import { getRefiner } from './refiners'
-import { Uml } from './uml'
+import { getHandler } from './metamodel/handler-registry'
+import { Uml, setFallbackType } from './uml'
 
 export const UmlRefiner = definePlugin({
   name: 'uml',
@@ -22,27 +22,40 @@ export const UmlRefiner = definePlugin({
 export const UmlParser = compose(XmiParser, UmlRefiner, 'uml')
 
 function refine(model: GraphModel, strict: boolean): GraphModel {
-  narrowModelRefine(model)
+  stripModel(model)
   refineNode(model.root, strict)
   Stream.from(model.nodes).forEach((node) => {
-    const type = Uml.getType(node)
+    const type = Uml.getRawType(node)
     if (Uml.isValidType(type)) {
       node.tag = type
-    } else if (strict) {
+      return
+    }
+    if (!strict) {
+      return
+    }
+    const resolvedType = type ? model.getNodeById(type) : undefined
+    if (!resolvedType) {
       throw new Error(`Unknown type: ${type}`)
     }
   })
-  // console.log(
-  //   Stream.from(model.edges)
-  //     .map((edge) => `${edge.source.tag} --${edge.tag}-> ${edge.target.tag}`)
-  //     .join('\n')
-  //     .concat('\n'),
-  // )
+  // TODO Remove log
+  // eslint-disable-next-line no-console
+  console.log(
+    Stream.from(model.edges)
+      .map((edge) => `${edge.source.tag} --${edge.tag}-> ${edge.target.tag}`)
+      .join('\n')
+      .concat('\n'),
+  )
   return model
 }
 
 function findModelRoot(node: GraphNode): GraphNode | undefined {
-  if (Uml.getTypeFromTag(node) !== undefined) {
+  if (Uml.getType(node) !== undefined) {
+    return node
+  }
+  const tagType = Uml.getTypeFromTag(node)
+  if (tagType !== undefined) {
+    setFallbackType(node, tagType)
     return node
   }
   return Stream.from(node.children)
@@ -50,33 +63,27 @@ function findModelRoot(node: GraphNode): GraphNode | undefined {
     .find((child) => child !== undefined)
 }
 
-function narrowModelRefine(model: GraphModel) {
+/** This function strips the model (root) of non-UML elements */
+function stripModel(model: GraphModel) {
   const newRoot = findModelRoot(model.root)
   if (!newRoot) {
     return
-  }
-  const tagType = Uml.getTypeFromTag(newRoot)
-  if (tagType !== undefined && newRoot.getAttribute('type') === undefined) {
-    newRoot.addAttribute({
-      name: 'type',
-      value: { literal: tagType },
-    })
   }
   model.root = newRoot
 }
 
 function refineNode(node: GraphNode, strict: boolean) {
-  const refiner = getRefiner(node)
-  if (!refiner) {
+  const handler = getHandler(node)
+  if (!handler) {
     if (strict) {
       throw new Error(
-        `No refiner for node with tag ${node.tag} and type ${Uml.getType(
+        `No handler for node with tag ${node.tag} and type ${Uml.getRawType(
           node,
         )}`,
       )
     }
     return
   }
-  refiner.refine(node)
+  handler(node)
   Stream.from(node.children).forEach((child) => refineNode(child, strict))
 }
