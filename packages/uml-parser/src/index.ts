@@ -4,7 +4,7 @@ import { XmiParser } from '@cm2ml/xmi-parser'
 import { Stream } from '@yeger/streams'
 
 import { inferHandler } from './metamodel/handler-registry'
-import { Uml, setFallbackType } from './uml'
+import { Uml, inferAndSaveType } from './uml'
 
 export const UmlRefiner = definePlugin({
   name: 'uml',
@@ -22,22 +22,9 @@ export const UmlRefiner = definePlugin({
 export const UmlParser = compose(XmiParser, UmlRefiner, 'uml')
 
 function refine(model: GraphModel, strict: boolean): GraphModel {
-  stripModel(model)
-  refineNode(model.root, strict)
-  Stream.from(model.nodes).forEach((node) => {
-    const type = Uml.getRawType(node)
-    if (Uml.isValidType(type)) {
-      node.tag = type
-      return
-    }
-    if (!strict) {
-      return
-    }
-    const resolvedType = type ? model.getNodeById(type) : undefined
-    if (!resolvedType) {
-      throw new Error(`Unknown type: ${type}`)
-    }
-  })
+  removeNonUmlNodes(model)
+  refineNodesRecursively(model.root, strict)
+  replaceTagsWithTypes(model, strict)
   // TODO Remove log
   // eslint-disable-next-line no-console
   console.log(
@@ -55,7 +42,7 @@ function findModelRoot(node: GraphNode): GraphNode | undefined {
   }
   const tagType = Uml.getTypeFromTag(node)
   if (tagType !== undefined) {
-    setFallbackType(node, tagType)
+    inferAndSaveType(node, tagType)
     return node
   }
   return Stream.from(node.children)
@@ -64,7 +51,7 @@ function findModelRoot(node: GraphNode): GraphNode | undefined {
 }
 
 /** This function strips the model (root) of non-UML elements */
-function stripModel(model: GraphModel) {
+function removeNonUmlNodes(model: GraphModel) {
   const newRoot = findModelRoot(model.root)
   if (!newRoot) {
     return
@@ -72,7 +59,7 @@ function stripModel(model: GraphModel) {
   model.root = newRoot
 }
 
-function refineNode(node: GraphNode, strict: boolean) {
+function refineNodesRecursively(node: GraphNode, strict: boolean) {
   const handler = inferHandler(node)
   if (!handler) {
     if (strict) {
@@ -85,5 +72,24 @@ function refineNode(node: GraphNode, strict: boolean) {
     return
   }
   handler.handle(node)
-  Stream.from(node.children).forEach((child) => refineNode(child, strict))
+  Stream.from(node.children).forEach((child) =>
+    refineNodesRecursively(child, strict),
+  )
+}
+
+function replaceTagsWithTypes(model: GraphModel, strict: boolean) {
+  Stream.from(model.nodes).forEach((node) => {
+    const type = Uml.getRawType(node)
+    if (Uml.isValidType(type)) {
+      node.tag = type
+      return
+    }
+    if (!strict) {
+      return
+    }
+    const resolvedType = type ? model.getNodeById(type) : undefined
+    if (!resolvedType) {
+      throw new Error(`Unknown type: ${type}`)
+    }
+  })
 }

@@ -36,7 +36,7 @@ const Types = {
   EnumerationLiteral: 'EnumerationLiteral',
   Enumeration: 'Enumeration',
   Generalization: 'Generalization',
-  InstanceSpecfification: 'InstanceSpecification',
+  InstanceSpecification: 'InstanceSpecification',
   Interface: 'Interface',
   InterfaceRealization: 'InterfaceRealization',
   LiteralInteger: 'LiteralInteger',
@@ -61,24 +61,26 @@ function isValidType(type: string | undefined): type is UmlType {
 }
 
 // The outermost UML element may use its type as its tag
-function getTypeFromTag(node: GraphNode) {
-  const { name: parsedName } = parseNamespace(node.tag)
-  if (isValidType(parsedName)) {
-    return parsedName
+function getTagType(node: GraphNode) {
+  const parsedName = parseNamespace(node.tag)
+  const actualName =
+    typeof parsedName === 'object' ? parsedName.name : parsedName
+  if (isValidType(actualName)) {
+    return actualName
   }
   return undefined
 }
 
-function getRawType(node: GraphNode) {
+function getTypeAttribute(node: GraphNode) {
   return node.getAttribute('type')?.value.literal
 }
 
 function getType(node: GraphNode) {
-  const type = getRawType(node)
+  const type = getTypeAttribute(node)
   if (isValidType(type)) {
     return type
   }
-  return undefined
+  return getTagType(node)
 }
 
 const Attributes = {
@@ -96,21 +98,27 @@ export const Uml = {
   isValidTag,
   Types,
   isValidType,
-  getRawType,
-  getTypeFromTag,
+  getRawType: getTypeAttribute,
+  getTypeFromTag: getTagType,
   getType,
   Attributes,
 } as const
 
-export function setFallbackType(node: GraphNode, type: UmlType) {
-  const currentType = getRawType(node)
-  if (currentType !== undefined) {
-    if (!Uml.isValidType(node.tag)) {
-      node.tag = type
-    }
+export function inferAndSaveType(node: GraphNode, type: UmlType) {
+  const typeAttribute = getTypeAttribute(node)
+  if (isValidType(typeAttribute)) {
+    // Valid type attribute already exists
     return
   }
-  node.addAttribute({ name: 'type', value: { literal: type } })
+  if (typeAttribute === undefined) {
+    // Store inferred type as attribute
+    node.addAttribute({ name: 'type', value: { literal: type } })
+    return
+  }
+  if (!Uml.isValidType(node.tag)) {
+    // Store valid type as tag, because type attribute is already taken by reference
+    node.tag = type
+  }
 }
 
 export function copyAttributes(source: Attributable, target: Attributable) {

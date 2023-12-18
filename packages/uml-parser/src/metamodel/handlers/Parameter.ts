@@ -1,4 +1,3 @@
-import { Uml, setFallbackType } from '../../uml'
 import { Parameter } from '../metamodel'
 
 // TODO
@@ -7,6 +6,4 @@ export const ParameterHandler = Parameter.createHandler((node) => {
   if (parent) {
     node.model.addEdge('operation', node, parent)
   }
-
-  setFallbackType(node, Uml.Types.Parameter)
 })

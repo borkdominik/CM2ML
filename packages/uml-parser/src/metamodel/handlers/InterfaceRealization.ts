@@ -1,4 +1,3 @@
-import { Uml, setFallbackType } from '../../uml'
 import { InterfaceRealization } from '../metamodel'
 
 export const InterfaceRealizationHandler = InterfaceRealization.createHandler(
@@ -35,7 +34,5 @@ export const InterfaceRealizationHandler = InterfaceRealization.createHandler(
       node,
       resolvedImplementingClassifier,
     )
-
-    setFallbackType(node, Uml.Types.InterfaceRealization)
   },
 )

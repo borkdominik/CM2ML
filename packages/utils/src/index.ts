@@ -17,7 +17,7 @@ function containsMessage(error: unknown): error is { message: string } {
 
 export function parseNamespace(string: string) {
   if (!string.includes(':')) {
-    return { name: string }
+    return string
   }
   const [namespace, ...value] = string.split(':')
   return { name: value.join(':'), namespace }

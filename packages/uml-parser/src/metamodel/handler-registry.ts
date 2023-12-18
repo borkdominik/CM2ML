@@ -24,11 +24,11 @@ function getHandler(key: string | undefined) {
 }
 
 Object.values(handlers).forEach((handler) => {
-  const tag = handler.assignableTag
+  const tag = handler.tag
   if (tag !== undefined) {
     registerHandler(tag, handler)
   }
-  const type = handler.assignableType
+  const type = handler.type
   if (type !== undefined) {
     registerHandler(type, handler)
   }

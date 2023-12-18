@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml } from '../uml'
+import { Uml, inferAndSaveType } from '../uml'
 import type { UmlTag, UmlType } from '../uml'
 
 export interface Handler {
@@ -22,13 +22,18 @@ export class MetamodelElement implements Handler {
 
   private handler: Handler['handle'] | undefined
 
-  // TODO: Make assignableTags and assignableTypes a single element here. Store it separately from the sets
   public constructor(
     public readonly isAbstract: boolean,
+    public readonly tag?: UmlTag,
+    public readonly type?: UmlType,
     generalizations?: MetamodelElement[],
-    public readonly assignableTag?: UmlTag,
-    public readonly assignableType?: UmlType,
   ) {
+    if (tag) {
+      this.#assignableTags.add(tag)
+    }
+    if (type) {
+      this.#assignableTypes.add(type)
+    }
     generalizations?.forEach((parent) => {
       if (this.isAbstract && !parent.isAbstract) {
         throw new Error('Parent of abstract type must also be abstract')
@@ -36,12 +41,6 @@ export class MetamodelElement implements Handler {
       this.#generalizations.add(parent)
       parent.specialize(this)
     })
-    if (assignableTag) {
-      this.#assignableTags.add(assignableTag)
-    }
-    if (assignableType) {
-      this.#assignableTypes.add(assignableType)
-    }
   }
 
   public get generalizations(): ReadonlySet<MetamodelElement> {
@@ -82,6 +81,9 @@ export class MetamodelElement implements Handler {
     this.generalizations.forEach((parent) => {
       parent.handle(node)
     })
+    if (this.type) {
+      inferAndSaveType(node, this.type)
+    }
   }
 
   public createHandler(handler?: Handler['handle']) {
@@ -117,14 +119,14 @@ function define(
 ) {
   return new MetamodelElement(
     false,
-    generalizations,
     assignableTag,
     assignableType,
+    generalizations,
   )
 }
 
 function defineAbstract(...generalizations: MetamodelElement[]) {
-  return new MetamodelElement(true, generalizations)
+  return new MetamodelElement(true, undefined, undefined, generalizations)
 }
 
 export const Element = defineAbstract()

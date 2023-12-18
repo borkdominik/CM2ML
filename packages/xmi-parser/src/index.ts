@@ -62,7 +62,7 @@ function initNodeFromElement(node: GraphNode, element: Element) {
 function mapAttribute([name, value]: [string, string]): Attribute {
   const xmiValue = mapValue(value)
   const parsedName = parseNamespace(name)
-  if (parsedName.namespace) {
+  if (typeof parsedName === 'object') {
     return {
       fullName: name,
       name: parsedName.name,
