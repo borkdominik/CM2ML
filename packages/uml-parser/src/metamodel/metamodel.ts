@@ -317,7 +317,7 @@ export const DeployedArtifact = defineAbstract(NamedElement)
 
 export const InstanceSpecification = define(
   undefined,
-  Uml.Types.InstanceSpecfification,
+  Uml.Types.InstanceSpecification,
   DeploymentTarget,
   PackageableElement,
   DeployedArtifact,

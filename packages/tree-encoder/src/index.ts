@@ -21,7 +21,6 @@ export const TreeEncoder = definePlugin({
     },
   },
   invoke(input: GraphModel, _parameters) {
-    // TODO
     return input.show()
   },
 })

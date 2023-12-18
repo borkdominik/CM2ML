@@ -8,26 +8,17 @@ import { Uml, inferAndSaveType } from './uml'
 
 export const UmlRefiner = definePlugin({
   name: 'uml',
-  parameters: {
-    strict: {
-      type: 'boolean',
-      defaultValue: false,
-      description:
-        'Whether to fail when encountering unknown tags. Ignored if greedyEdges is true.',
-    },
-  },
-  invoke: (input: GraphModel, { strict }) => refine(input, strict),
+  parameters: {},
+  invoke: (input: GraphModel, _parameters) => refine(input),
 })
 
 export const UmlParser = compose(XmiParser, UmlRefiner, 'uml')
 
-function refine(model: GraphModel, strict: boolean): GraphModel {
+function refine(model: GraphModel): GraphModel {
   removeNonUmlNodes(model)
-  refineNodesRecursively(model.root, strict)
-  replaceTagsWithTypes(model, strict)
-  // TODO Remove log
-  // eslint-disable-next-line no-console
-  console.log(
+  refineNodesRecursively(model.root)
+  replaceTagsWithTypes(model)
+  model.debug(
     Stream.from(model.edges)
       .map((edge) => `${edge.source.tag} --${edge.tag}-> ${edge.target.tag}`)
       .join('\n')
@@ -59,10 +50,10 @@ function removeNonUmlNodes(model: GraphModel) {
   model.root = newRoot
 }
 
-function refineNodesRecursively(node: GraphNode, strict: boolean) {
+function refineNodesRecursively(node: GraphNode) {
   const handler = inferHandler(node)
   if (!handler) {
-    if (strict) {
+    if (node.model.settings.strict) {
       throw new Error(
         `No handler for node with tag ${node.tag} and type ${Uml.getRawType(
           node,
@@ -72,19 +63,17 @@ function refineNodesRecursively(node: GraphNode, strict: boolean) {
     return
   }
   handler.handle(node)
-  Stream.from(node.children).forEach((child) =>
-    refineNodesRecursively(child, strict),
-  )
+  Stream.from(node.children).forEach((child) => refineNodesRecursively(child))
 }
 
-function replaceTagsWithTypes(model: GraphModel, strict: boolean) {
+function replaceTagsWithTypes(model: GraphModel) {
   Stream.from(model.nodes).forEach((node) => {
     const type = Uml.getRawType(node)
     if (Uml.isValidType(type)) {
       node.tag = type
       return
     }
-    if (!strict) {
+    if (!model.settings.strict) {
       return
     }
     const resolvedType = type ? model.getNodeById(type) : undefined

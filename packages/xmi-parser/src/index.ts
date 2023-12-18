@@ -1,4 +1,4 @@
-import type { Attribute, GraphNode, Value } from '@cm2ml/ir'
+import type { Attribute, GraphNode, Settings, Value } from '@cm2ml/ir'
 import { GraphModel } from '@cm2ml/ir'
 import { definePlugin } from '@cm2ml/plugin'
 import { parseNamespace } from '@cm2ml/utils'
@@ -16,18 +16,28 @@ export const XmiParser = definePlugin({
       description:
         'The name of the attribute that is used to identify elements.',
     },
+    debug: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Whether to log debug information.',
+    },
+    strict: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Whether to fail when encountering unknown information.',
+    },
   },
-  invoke: (input: string, { idAttribute }) => parse(input, idAttribute),
+  invoke: (input: string, settings) => parse(input, settings),
 })
 
-function parse(xmi: string, idAttribute: string): GraphModel {
+function parse(xmi: string, settings: Settings): GraphModel {
   const document = parseDocument(xmi, {
     xmlMode: true,
   })
-  return mapDocument(document, idAttribute)
+  return mapDocument(document, settings)
 }
 
-function mapDocument(document: Document, idAttribute: string) {
+function mapDocument(document: Document, settings: Settings) {
   const elementChildren = Stream.from(document.childNodes)
     .map((node) => (isElement(node) ? node : null))
     .filterNonNull()
@@ -36,7 +46,7 @@ function mapDocument(document: Document, idAttribute: string) {
   if (elementChildren.length !== 1 || !root) {
     throw new Error('Expected exactly one root element')
   }
-  const model = new GraphModel(idAttribute, root.tagName)
+  const model = new GraphModel(settings, root.tagName)
   initNodeFromElement(model.root, root)
   return model
 }

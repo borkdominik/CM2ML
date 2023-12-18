@@ -11,6 +11,12 @@ export interface ModelMember {
   readonly model: GraphModel
 }
 
+export interface Settings {
+  readonly idAttribute: string
+  readonly debug: boolean
+  readonly strict: boolean
+}
+
 export class GraphModel implements Show {
   readonly #nodes = new Set<GraphNode>()
   readonly #nodeMap: Map<string, GraphNode> = new Map()
@@ -19,7 +25,7 @@ export class GraphModel implements Show {
   #root: GraphNode
 
   public constructor(
-    public readonly idAttribute: string,
+    public readonly settings: Settings,
     rootTag: string,
   ) {
     this.#root = this.addNode(rootTag)
@@ -109,6 +115,13 @@ export class GraphModel implements Show {
     this.#edges.delete(edge)
   }
 
+  public debug(message: string) {
+    if (this.settings.debug) {
+      // eslint-disable-next-line no-console
+      console.log(message)
+    }
+  }
+
   public show(): string {
     return this.root.show(0)
   }
@@ -121,7 +134,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
 
   readonly #attributeDelegate = new AttributeDelegate(
     (attributeName, previousValue) => {
-      if (attributeName === this.model.idAttribute) {
+      if (attributeName === this.model.settings.idAttribute) {
         this.model.updateNodeMap(this, previousValue?.literal)
       }
     },
@@ -138,7 +151,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
   ) {}
 
   public get id(): string | undefined {
-    return this.getAttribute(this.model.idAttribute)?.value.literal
+    return this.getAttribute(this.model.settings.idAttribute)?.value.literal
   }
 
   public get parent(): GraphNode | undefined {

@@ -4,7 +4,10 @@ import { GraphModel } from '../src'
 
 describe('ir model', () => {
   it('can add nodes and edges', () => {
-    const model = new GraphModel('id', 'root')
+    const model = new GraphModel(
+      { debug: false, idAttribute: 'id', strict: true },
+      'root',
+    )
 
     const child = model.addNode('child')
     model.root.addChild(child)
