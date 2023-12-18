@@ -5,6 +5,7 @@ import { AssociationHandler } from './Association'
 import { ClassHandler } from './Class'
 import { DataTypeHandler } from './DataType'
 import { DependencyHandler } from './Dependency'
+import { ElementHandler } from './Element'
 import { EnumerationHandler } from './Enumeration'
 import { EnumerationLiteralHandler } from './EnumerationLiteral'
 import { GeneralizationHandler } from './Generalization'
@@ -33,6 +34,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   ClassHandler,
   DataTypeHandler,
   DependencyHandler,
+  ElementHandler,
   EnumerationHandler,
   EnumerationLiteralHandler,
   GeneralizationHandler,

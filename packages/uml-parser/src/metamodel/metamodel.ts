@@ -23,6 +23,7 @@ export class MetamodelElement implements Handler {
   private handler: Handler['handle'] | undefined
 
   public constructor(
+    public readonly name: string,
     public readonly isAbstract: boolean,
     public readonly tag?: UmlTag,
     public readonly type?: UmlType,
@@ -36,7 +37,9 @@ export class MetamodelElement implements Handler {
     }
     generalizations?.forEach((parent) => {
       if (this.isAbstract && !parent.isAbstract) {
-        throw new Error('Parent of abstract type must also be abstract')
+        throw new Error(
+          `Parent ${parent.name} of abstract element ${this.name} must also be abstract`,
+        )
       }
       this.#generalizations.add(parent)
       parent.specialize(this)
@@ -75,8 +78,11 @@ export class MetamodelElement implements Handler {
     return false
   }
 
-  // TODO: Automatically setFallback type here based on the assignableType
   public handle(node: GraphNode) {
+    // Note: The following check is used to ensure that the metamodel is well defined and complete
+    if (node.model.settings.debug && !this.handler) {
+      node.model.debug(`No handler for metamodel element ${this.name}`)
+    }
     this.handler?.(node)
     this.generalizations.forEach((parent) => {
       parent.handle(node)
@@ -114,10 +120,11 @@ export class MetamodelElement implements Handler {
 
 function define(
   assignableTag: UmlTag | undefined,
-  assignableType: UmlType | undefined,
+  assignableType: UmlType,
   ...generalizations: MetamodelElement[]
 ) {
   return new MetamodelElement(
+    assignableType,
     false,
     assignableTag,
     assignableType,
@@ -125,23 +132,36 @@ function define(
   )
 }
 
-function defineAbstract(...generalizations: MetamodelElement[]) {
-  return new MetamodelElement(true, undefined, undefined, generalizations)
+function defineAbstract(name: string, ...generalizations: MetamodelElement[]) {
+  return new MetamodelElement(name, true, undefined, undefined, generalizations)
 }
 
-export const Element = defineAbstract()
+export const Element = defineAbstract('Element')
 
-export const NamedElement = defineAbstract(Element)
+export const NamedElement = defineAbstract('NamedElement', Element)
 
-export const Namespace = defineAbstract(NamedElement)
+export const Namespace = defineAbstract('Namespace', NamedElement)
 
-export const RedefinableElement = defineAbstract(NamedElement)
+export const RedefinableElement = defineAbstract(
+  'RedefinableElement',
+  NamedElement,
+)
 
-export const Classifier = defineAbstract(Namespace, RedefinableElement)
+export const Classifier = defineAbstract(
+  'Classifier',
+  Namespace,
+  RedefinableElement,
+)
 
-export const BehavioredClassifier = defineAbstract(Classifier)
+export const BehavioredClassifier = defineAbstract(
+  'BehavioredClassifier',
+  Classifier,
+)
 
-export const EncapsulatedClassifier = defineAbstract(Classifier)
+export const EncapsulatedClassifier = defineAbstract(
+  'EncapsulatedClassifier',
+  Classifier,
+)
 
 export const Class = define(
   undefined,
@@ -150,11 +170,17 @@ export const Class = define(
   EncapsulatedClassifier,
 )
 
-export const TypedElement = defineAbstract(NamedElement)
+export const TypedElement = defineAbstract('TypedElement', NamedElement)
 
-export const ConnectableElement = defineAbstract(TypedElement)
+export const ConnectableElement = defineAbstract(
+  'ConnectableElement',
+  TypedElement,
+)
 
-export const MultiplicityElement = defineAbstract(Element)
+export const MultiplicityElement = defineAbstract(
+  'MultiplicityElement',
+  Element,
+)
 
 export const Parameter = define(
   Uml.Tags.ownedParameter,
@@ -163,11 +189,17 @@ export const Parameter = define(
   MultiplicityElement,
 )
 
-export const TemplateableElement = defineAbstract(Element)
+export const TemplateableElement = defineAbstract(
+  'TemplateableElement',
+  Element,
+)
 
-export const ParameterableElement = defineAbstract(Element)
+export const ParameterableElement = defineAbstract(
+  'ParameterableElement',
+  Element,
+)
 
-export const BehavioralFeature = defineAbstract(Element)
+export const BehavioralFeature = defineAbstract('BehavioralFeature', Element)
 
 export const Operation = define(
   Uml.Tags.ownedOperation,
@@ -177,11 +209,15 @@ export const Operation = define(
   BehavioralFeature,
 )
 
-export const Relationship = defineAbstract(Element)
+export const Relationship = defineAbstract('Relationship', Element)
 
-export const DirectedRelationship = defineAbstract(Relationship)
+export const DirectedRelationship = defineAbstract(
+  'DirectedRelationship',
+  Relationship,
+)
 
 export const PackageableElement = defineAbstract(
+  'PackageableElement',
   ParameterableElement,
   NamedElement,
 )
@@ -228,24 +264,32 @@ export const Realization = define(undefined, Uml.Types.Realization, Abstraction)
 // TODO
 export const TemplateBinding = define(
   undefined,
-  undefined,
+  Uml.Types.TemplateBinding,
   DirectedRelationship,
 )
 
 // TODO
-export const TemplateParameter = define(undefined, undefined, Element)
-
-// TODO
-export const TemplateParameterSubstitution = define(
+export const TemplateParameter = define(
   undefined,
-  undefined,
+  Uml.Types.TemplateParameter,
   Element,
 )
 
 // TODO
-export const TemplateSignature = define(undefined, undefined, Element)
+export const TemplateParameterSubstitution = define(
+  undefined,
+  Uml.Types.TemplateParameterSubstitution,
+  Element,
+)
 
-export const Type = defineAbstract(PackageableElement)
+// TODO
+export const TemplateSignature = define(
+  undefined,
+  Uml.Types.TemplateSignature,
+  Element,
+)
+
+export const Type = defineAbstract('Type', PackageableElement)
 
 export const Usage = define(undefined, Uml.Types.Usage, Dependency)
 
@@ -264,18 +308,24 @@ export const InterfaceRealization = define(
 )
 
 // TODO
-export const Generalization = define(undefined, undefined, DirectedRelationship)
+export const Generalization = define(
+  undefined,
+  Uml.Types.Generalization,
+  DirectedRelationship,
+)
 
 export const ValueSpecification = defineAbstract(
+  'ValueSpecification',
   TypedElement,
   PackageableElement,
 )
 
-export const Feature = defineAbstract(RedefinableElement)
+export const Feature = defineAbstract('Feature', RedefinableElement)
 
-export const DeploymentTarget = defineAbstract(NamedElement)
+export const DeploymentTarget = defineAbstract('DeploymentTarget', NamedElement)
 
 export const StructuralFeature = defineAbstract(
+  'StructuralFeature',
   MultiplicityElement,
   TypedElement,
   Feature,
@@ -289,7 +339,10 @@ export const Property = define(
   StructuralFeature,
 )
 
-export const LiteralSpecification = defineAbstract(ValueSpecification)
+export const LiteralSpecification = defineAbstract(
+  'LiteralSpecification',
+  ValueSpecification,
+)
 
 export const LiteralInteger = define(
   undefined,
@@ -313,7 +366,7 @@ export const PrimitiveType = define(
   DataType,
 )
 
-export const DeployedArtifact = defineAbstract(NamedElement)
+export const DeployedArtifact = defineAbstract('DeployedArtifact', NamedElement)
 
 export const InstanceSpecification = define(
   undefined,

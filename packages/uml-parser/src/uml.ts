@@ -51,6 +51,10 @@ const Types = {
   Property: 'Property',
   Realization: 'Realization',
   Substitution: 'Substitution',
+  TemplateBinding: 'TemplateBinding',
+  TemplateParameter: 'TemplateParameter',
+  TemplateParameterSubstitution: 'TemplateParameterSubstitution',
+  TemplateSignature: 'TemplateSignature',
   Usage: 'Usage',
 } as const
 
