@@ -4,49 +4,36 @@ import { Uml } from '../uml'
 import type { UmlTag, UmlType } from '../uml'
 
 import { handlers } from './handlers'
-import type { Handler } from './metamodel'
+import type { MetamodelElement } from './metamodel'
 
-export const typeHandlers: Partial<Record<UmlType, Handler>> = {
-  Abstraction: handlers.AbstractionHandler,
-  Association: handlers.AssociationHandler,
-  Class: handlers.ClassHandler,
-  DataType: handlers.DataTypeHandler,
-  Dependency: handlers.DependencyHandler,
-  Enumeration: handlers.EnumerationHandler,
-  EnumerationLiteral: handlers.EnumerationLiteralHandler,
-  Generalization: handlers.GeneralizationHandler,
-  Interface: handlers.InterfaceHandler,
-  InterfaceRealization: handlers.InterfaceRealizationHandler,
-  LiteralInteger: handlers.LiteralIntegerHandler,
-  LiteralUnlimitedNatural: handlers.LiteralUnlimitedNaturalHandler,
-  Model: handlers.ModelHandler,
-  Operation: handlers.OperationHandler,
-  Package: handlers.PackageHandler,
-  Parameter: handlers.ParameterHandler,
-  PrimitiveType: handlers.PrimitiveTypeHandler,
-  Property: handlers.PropertyHandler,
-  Realization: handlers.RealizationHandler,
-  Substitution: handlers.SubstitutionHandler,
-  Usage: handlers.UsageHandler,
-}
+// This registry includes all handlers that are addressable by a UML tag or type
+const handlerRegistry = new Map<UmlTag | UmlType, MetamodelElement>()
 
-export const tagHandlers: Partial<Record<UmlTag, Handler>> = {
-  interfaceRealization: handlers.InterfaceRealizationHandler,
-  ownedAttribute: handlers.PropertyHandler,
-  ownedLiteral: handlers.EnumerationLiteralHandler,
-  ownedParameter: handlers.ParameterHandler,
-  ownedOperation: handlers.OperationHandler,
-  substitution: handlers.SubstitutionHandler,
-}
-
-export function getHandler(node: GraphNode) {
-  const type = Uml.getType(node)
-  if (type) {
-    return typeHandlers[type]
+function registerHandler(key: UmlTag | UmlType, handler: MetamodelElement) {
+  if (handlerRegistry.has(key)) {
+    throw new Error(`Handler for ${key} already registered`)
   }
-  const tag = node.tag
-  if (Uml.isValidTag(tag)) {
-    return tagHandlers[tag]
+  handlerRegistry.set(key, handler)
+}
+
+function getHandler(key: string | undefined) {
+  if (Uml.isValidTag(key) || Uml.isValidType(key)) {
+    return handlerRegistry.get(key)
   }
   return undefined
+}
+
+Object.values(handlers).forEach((handler) => {
+  const tag = handler.assignableTag
+  if (tag !== undefined) {
+    registerHandler(tag, handler)
+  }
+  const type = handler.assignableType
+  if (type !== undefined) {
+    registerHandler(type, handler)
+  }
+})
+
+export function inferHandler(node: GraphNode) {
+  return getHandler(Uml.getType(node)) ?? getHandler(node.tag)
 }

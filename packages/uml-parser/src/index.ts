@@ -3,7 +3,7 @@ import { compose, definePlugin } from '@cm2ml/plugin'
 import { XmiParser } from '@cm2ml/xmi-parser'
 import { Stream } from '@yeger/streams'
 
-import { getHandler } from './metamodel/handler-registry'
+import { inferHandler } from './metamodel/handler-registry'
 import { Uml, setFallbackType } from './uml'
 
 export const UmlRefiner = definePlugin({
@@ -73,7 +73,7 @@ function stripModel(model: GraphModel) {
 }
 
 function refineNode(node: GraphNode, strict: boolean) {
-  const handler = getHandler(node)
+  const handler = inferHandler(node)
   if (!handler) {
     if (strict) {
       throw new Error(
@@ -84,6 +84,6 @@ function refineNode(node: GraphNode, strict: boolean) {
     }
     return
   }
-  handler(node)
+  handler.handle(node)
   Stream.from(node.children).forEach((child) => refineNode(child, strict))
 }

@@ -3,7 +3,9 @@ import type { GraphNode } from '@cm2ml/ir'
 import { Uml } from '../uml'
 import type { UmlTag, UmlType } from '../uml'
 
-export type Handler = (node: GraphNode) => void
+export interface Handler {
+  handle: (node: GraphNode) => void
+}
 
 export interface Definition {
   generalizations: MetamodelElement[]
@@ -11,14 +13,14 @@ export interface Definition {
   assignableTypes?: UmlType[]
 }
 
-export class MetamodelElement {
+export class MetamodelElement implements Handler {
   readonly #generalizations = new Set<MetamodelElement>()
   readonly #specializations = new Set<MetamodelElement>()
 
   readonly #assignableTags = new Set<UmlTag>()
   readonly #assignableTypes = new Set<string>()
 
-  private handler: Handler | undefined
+  private handler: Handler['handle'] | undefined
 
   // TODO: Make assignableTags and assignableTypes a single element here. Store it separately from the sets
   public constructor(
@@ -82,12 +84,12 @@ export class MetamodelElement {
     })
   }
 
-  public createHandler(handler?: Handler): Handler {
+  public createHandler(handler?: Handler['handle']) {
     if (this.handler !== undefined) {
       throw new Error('Handler already assigned')
     }
     this.handler = handler
-    return (node) => this.handle(node)
+    return this
   }
 
   private specialize(specialization: MetamodelElement) {

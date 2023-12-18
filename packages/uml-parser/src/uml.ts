@@ -24,22 +24,6 @@ function isValidTag(tag: string | undefined): tag is UmlTag {
   return tag !== undefined && tag in Tags
 }
 
-// function normalizeTag(tag: string | undefined) {
-//   if (!tag) {
-//     return undefined
-//   }
-//   let normalizedTag = tag
-//   const indexOfColon = tag.indexOf(':')
-//   if (indexOfColon !== -1) {
-//     normalizedTag = tag.slice(indexOfColon + 1)
-//   }
-//   normalizedTag = normalizedTag[0]?.toLowerCase() + normalizedTag.slice(1)
-//   if (isValidTag(normalizedTag)) {
-//     return normalizedTag
-//   }
-//   return undefined
-// }
-
 const Types = {
   Abstraction: 'Abstraction',
   Association: 'Association',

@@ -1,3 +1,5 @@
+import type { MetamodelElement } from '../metamodel'
+
 import { AbstractionHandler } from './Abstraction'
 import { AssociationHandler } from './Association'
 import { ClassHandler } from './Class'
@@ -23,7 +25,9 @@ import { SubstitutionHandler } from './Substitution'
 import { TypedElementHandler } from './TypedElement'
 import { UsageHandler } from './Usage'
 
-export const handlers = {
+// This record includes ALL handlers.
+// Handlers MUST be added to this record, in order to properly instantiate the hierarchy chain.
+export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   AbstractionHandler,
   AssociationHandler,
   ClassHandler,
