@@ -1,4 +1,4 @@
-import type { Attributable, GraphNode } from '@cm2ml/ir'
+import type { GraphNode } from '@cm2ml/ir'
 import { parseNamespace } from '@cm2ml/utils'
 
 const Tags = {

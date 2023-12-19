@@ -1,18 +1,25 @@
+import type { GraphNode } from '@cm2ml/ir'
+
 import { Uml } from '../../uml'
 import { TypedElement } from '../metamodel'
 
-// TODO
-export const TypedElementHandler = TypedElement.createHandler((node) => {
-  const type = node.getAttribute('type')?.value.literal
+export const TypedElementHandler = TypedElement.createHandler(
+  (typedElement) => {
+    addEdge_type(typedElement)
+  },
+)
+
+function addEdge_type(typedElement: GraphNode) {
+  const type = typedElement.getAttribute('type')?.value.literal
   if (type === undefined) {
     return
   }
   if (Uml.isValidType(type)) {
     return
   }
-  const resolvedType = node.model.getNodeById(type)
+  const resolvedType = typedElement.model.getNodeById(type)
   if (!resolvedType) {
     return
   }
-  node.model.addEdge('type', node, resolvedType)
-})
+  typedElement.model.addEdge('type', typedElement, resolvedType)
+}
