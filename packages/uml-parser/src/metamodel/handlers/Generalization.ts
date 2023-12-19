@@ -1,34 +1,29 @@
-import { Stream } from '@yeger/streams'
+import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml, copyAttributes } from '../../uml'
 import { Generalization } from '../metamodel'
 
 export const GeneralizationHandler = Generalization.createHandler(
   (generalization) => {
-    const specfic = generalization.parent
-    if (!specfic) {
-      throw new Error('Missing parent for generalization')
-    }
-    const generalChild = Stream.from(generalization.children).find(
-      (child) => child.tag === Uml.Tags.general,
-    )
-    if (!generalChild) {
-      throw new Error('Missing general child for generalization')
-    }
-    const generalId = generalChild.getAttribute('idref')?.value.literal
-    if (!generalId) {
-      throw new Error('Missing idref attribute on general')
-    }
-    const general = generalization.model.getNodeById(generalId)
-    if (!general) {
-      throw new Error(`Could not find general with id ${generalId}`)
-    }
-    const generalizationEdge = generalization.model.addEdge(
-      'generalization',
-      specfic,
-      general,
-    )
-    copyAttributes(generalization, generalizationEdge)
-    generalization.model.removeNode(generalization)
+    addEdge_general(generalization)
+    addEdge_generalizationSet(generalization)
+    addEdge_specific(generalization)
   },
 )
+
+function addEdge_general(_generalization: GraphNode) {
+  // TODO
+  // general : Classifier [1..1]{subsets DirectedRelationship::target} (opposite A_general_generalization::generalization)
+  // The general classifier in the Generalization relationship.
+}
+
+function addEdge_generalizationSet(_generalization: GraphNode) {
+  // TODO
+  // generalizationSet : GeneralizationSet [0..*] (opposite GeneralizationSet::generalization)
+  // Represents a set of instances of Generalization. A Generalization may appear in many GeneralizationSets.
+}
+
+function addEdge_specific(_generalization: GraphNode) {
+  // TODO
+  // specific : Classifier [1..1]{subsets DirectedRelationship::source, subsets Element::owner} (opposite Classifier::generalization)
+  // The specializing Classifier in the Generalization relationship.
+}
