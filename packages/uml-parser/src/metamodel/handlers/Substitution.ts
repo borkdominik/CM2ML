@@ -1,4 +1,34 @@
+import type { GraphNode } from '@cm2ml/ir'
+
 import { Substitution } from '../metamodel'
 
-// TODO: Edge from/to classifier
-export const SubstitutionHandler = Substitution.createHandler()
+export const SubstitutionHandler = Substitution.createHandler(
+  (substitution) => {
+    addEdge_contract(substitution)
+    addEdge_substitutingClassifier(substitution)
+  },
+)
+
+function addEdge_contract(substitution: GraphNode) {
+  const supplierId = substitution.getAttribute('supplier')?.value.literal
+  if (!supplierId) {
+    throw new Error('Missing supplier attribute on Substitution')
+  }
+  const supplier = substitution.model.getNodeById(supplierId)
+  if (!supplier) {
+    throw new Error(`Missing supplier with id ${supplierId} for Substitution`)
+  }
+  substitution.model.addEdge('contract', substitution, supplier)
+}
+
+function addEdge_substitutingClassifier(substitution: GraphNode) {
+  const clientId = substitution.getAttribute('client')?.value.literal
+  if (!clientId) {
+    throw new Error('Missing client attribute on Substitution')
+  }
+  const client = substitution.model.getNodeById(clientId)
+  if (!client) {
+    throw new Error(`Missing client with id ${clientId} for Substitution`)
+  }
+  substitution.model.addEdge('substitutingClassifier', substitution, client)
+}
