@@ -78,14 +78,18 @@ export class MetamodelElement implements Handler {
     return false
   }
 
-  public handle(node: GraphNode) {
+  public handle(node: GraphNode, visited = new Set<MetamodelElement>()): void {
+    if (visited.has(this)) {
+      return
+    }
     // Note: The following check is used to ensure that the metamodel is well defined and complete
     if (node.model.settings.debug && !this.handler) {
       node.model.debug(`No handler for metamodel element ${this.name}`)
     }
     this.handler?.(node)
+    visited.add(this)
     this.generalizations.forEach((parent) => {
-      parent.handle(node)
+      parent.handle(node, visited)
     })
     if (this.type) {
       inferAndSaveType(node, this.type)
