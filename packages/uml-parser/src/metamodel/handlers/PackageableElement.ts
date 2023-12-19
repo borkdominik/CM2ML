@@ -1,14 +1,4 @@
-import { Package, PackageableElement } from '../metamodel'
+import { PackageableElement } from '../metamodel'
 
-export const PackageableElementHandler = PackageableElement.createHandler(
-  (node) => {
-    const parent = node.parent
-    if (!parent) {
-      return
-    }
-    if (!Package.isAssignable(parent)) {
-      return
-    }
-    node.model.addEdge('owningPackage', node, parent)
-  },
-)
+// Note: No additional associations over generalization
+export const PackageableElementHandler = PackageableElement.createHandler()
