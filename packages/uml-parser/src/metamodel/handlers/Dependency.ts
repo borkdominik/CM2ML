@@ -4,24 +4,33 @@ import { Uml } from '../../uml'
 import { Dependency } from '../metamodel'
 
 export const DependencyHandler = Dependency.createHandler((node: GraphNode) => {
-  const clientId = node.getAttribute(Uml.Attributes.client)?.value.literal
+  addEdge_client(node)
+  addEdge_supplier(node)
+})
+
+function addEdge_client(dependency: GraphNode) {
+  const clientId = dependency.getAttribute(Uml.Attributes.client)?.value.literal
   if (!clientId) {
     throw new Error('Missing client attribute on dependency')
   }
-  const client = node.model.getNodeById(clientId)
+  const client = dependency.model.getNodeById(clientId)
   if (!client) {
     throw new Error(`Could not find client with id ${clientId} for dependency`)
   }
-  const supplierId = node.getAttribute(Uml.Attributes.supplier)?.value.literal
+  dependency.model.addEdge('client', dependency, client)
+}
+
+function addEdge_supplier(dependency: GraphNode) {
+  const supplierId = dependency.getAttribute(Uml.Attributes.supplier)?.value
+    .literal
   if (!supplierId) {
     throw new Error('Missing supplier attribute on dependency')
   }
-  const supplier = node.model.getNodeById(supplierId)
+  const supplier = dependency.model.getNodeById(supplierId)
   if (!supplier) {
     throw new Error(
       `Could not find supplier with id ${supplierId} for dependency`,
     )
   }
-  // TODO: Update tag
-  node.model.addEdge('dependency', client, supplier)
-})
+  dependency.model.addEdge('supplier', dependency, supplier)
+}
