@@ -31,7 +31,7 @@ function findModelRoot(node: GraphNode): GraphNode | undefined {
   if (Uml.getType(node) !== undefined) {
     return node
   }
-  const tagType = Uml.getTypeFromTag(node)
+  const tagType = Uml.getTagType(node)
   if (tagType !== undefined) {
     inferAndSaveType(node, tagType)
     return node
@@ -55,9 +55,9 @@ function refineNodesRecursively(node: GraphNode) {
   if (!handler) {
     if (node.model.settings.strict) {
       throw new Error(
-        `No handler for node with tag ${node.tag} and type ${Uml.getRawType(
-          node,
-        )}`,
+        `No handler for node with tag ${
+          node.tag
+        } and type ${Uml.getTypeAttribute(node)}`,
       )
     }
     return
@@ -68,7 +68,7 @@ function refineNodesRecursively(node: GraphNode) {
 
 function replaceTagsWithTypes(model: GraphModel) {
   Stream.from(model.nodes).forEach((node) => {
-    const type = Uml.getRawType(node)
+    const type = Uml.getTypeAttribute(node)
     if (Uml.isValidType(type)) {
       node.tag = type
       return

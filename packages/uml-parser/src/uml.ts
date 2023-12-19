@@ -102,8 +102,8 @@ export const Uml = {
   isValidTag,
   Types,
   isValidType,
-  getRawType: getTypeAttribute,
-  getTypeFromTag: getTagType,
+  getTypeAttribute,
+  getTagType,
   getType,
   Attributes,
 } as const
