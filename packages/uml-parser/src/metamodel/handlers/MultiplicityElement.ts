@@ -1,24 +1,56 @@
+import type { GraphNode } from '@cm2ml/ir'
+import { Stream } from '@yeger/streams'
+
 import { Uml } from '../../uml'
 import { MultiplicityElement } from '../metamodel'
 
 export const MultiplicityElementHandler = MultiplicityElement.createHandler(
   (node) => {
-    node.children.forEach((child) => {
-      if (child.tag === Uml.Tags.lowerValue) {
-        node.model.addEdge('lowerValue', node, child)
-        const lowerValue = child.getAttribute('value')?.value.literal
-        if (lowerValue === undefined) {
-          throw new Error('LowerValue must have a value')
-        }
-        node.addAttribute({ name: 'lower', value: { literal: lowerValue } })
-      } else if (child.tag === Uml.Tags.upperValue) {
-        node.model.addEdge('upperValue', node, child)
-        const upperValue = child.getAttribute('value')?.value.literal
-        if (upperValue === undefined) {
-          throw new Error('UpperValue must have a value')
-        }
-        node.addAttribute({ name: 'upper', value: { literal: upperValue } })
-      }
-    })
+    addEdgeAndAttribute_lowerValue(node)
+    addEdgeAndAttribute_upperValue(node)
   },
 )
+
+function addEdgeAndAttribute_lowerValue(multiplicityElement: GraphNode) {
+  const lowerValueNode = Stream.from(multiplicityElement.children).find(
+    (child) => child.tag === Uml.Tags.lowerValue,
+  )
+  if (!lowerValueNode) {
+    return
+  }
+  multiplicityElement.model.addEdge(
+    'lowerValue',
+    multiplicityElement,
+    lowerValueNode,
+  )
+  const lowerValue = lowerValueNode.getAttribute('value')?.value.literal
+  if (lowerValue === undefined) {
+    throw new Error('LowerValue must have a value')
+  }
+  multiplicityElement.addAttribute({
+    name: 'lower',
+    value: { literal: lowerValue },
+  })
+}
+
+function addEdgeAndAttribute_upperValue(multiplicityElement: GraphNode) {
+  const upperValueNode = Stream.from(multiplicityElement.children).find(
+    (child) => child.tag === Uml.Tags.upperValue,
+  )
+  if (!upperValueNode) {
+    return
+  }
+  multiplicityElement.model.addEdge(
+    'upperValue',
+    multiplicityElement,
+    upperValueNode,
+  )
+  const upperValue = upperValueNode.getAttribute('value')?.value.literal
+  if (upperValue === undefined) {
+    throw new Error('UpperValue must have a value')
+  }
+  multiplicityElement.addAttribute({
+    name: 'upper',
+    value: { literal: upperValue },
+  })
+}
