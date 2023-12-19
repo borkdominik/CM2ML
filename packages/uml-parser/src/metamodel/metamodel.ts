@@ -86,14 +86,14 @@ export class MetamodelElement implements Handler {
     if (node.model.settings.debug && !this.handler) {
       node.model.debug(`No handler for metamodel element ${this.name}`)
     }
+    if (this.type) {
+      inferAndSaveType(node, this.type)
+    }
     this.handler?.(node)
     visited.add(this)
     this.generalizations.forEach((parent) => {
       parent.handle(node, visited)
     })
-    if (this.type) {
-      inferAndSaveType(node, this.type)
-    }
   }
 
   public createHandler(handler?: Handler['handle']) {

@@ -125,8 +125,8 @@ export function inferAndSaveType(node: GraphNode, type: UmlType) {
   }
 }
 
-export function copyAttributes(source: Attributable, target: Attributable) {
-  source.attributes.forEach((attribute) => {
-    target.addAttribute(attribute)
-  })
-}
+// export function copyAttributes(source: Attributable, target: Attributable) {
+//   source.attributes.forEach((attribute) => {
+//     target.addAttribute(attribute)
+//   })
+// }
