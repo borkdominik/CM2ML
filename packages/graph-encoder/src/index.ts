@@ -7,21 +7,33 @@ export const GraphEncoder = definePlugin({
   parameters: {
     weighted: {
       type: 'boolean',
-      description: 'Whether to encode the graph as a weighted matrix.',
+      description:
+        'Output weighted values, dependening on the number of incoming edges on an edge target.',
       defaultValue: false,
     },
     sparse: {
       type: 'boolean',
-      description: 'Whether to encode the graph as a sparse list.',
+      description: 'Encode the graph as a sparse list.',
+      defaultValue: true,
+    },
+    includeEqualPaths: {
+      type: 'boolean',
+      description:
+        'Include equal paths, i.e., edges that have the same source and target, more than once.',
       defaultValue: false,
     },
   },
-  invoke(input: GraphModel, { sparse, weighted }) {
+  invoke(input: GraphModel, { includeEqualPaths, sparse, weighted }) {
     const sortedIds = getSortedIds(input)
     if (sparse) {
-      return encodeAsSparseList(input, sortedIds, weighted)
+      return encodeAsSparseList(input, sortedIds, includeEqualPaths, weighted)
     }
-    return encodeAsAdjacencyMatrix(input, sortedIds, weighted)
+    return encodeAsAdjacencyMatrix(
+      input,
+      sortedIds,
+      includeEqualPaths,
+      weighted,
+    )
   },
 })
 
@@ -36,12 +48,14 @@ function getSortedIds(model: GraphModel) {
 function encodeAsSparseList(
   model: GraphModel,
   sortedIds: string[],
+  includeEqualPaths: boolean,
   weighted: boolean,
 ) {
   const list = new Array<
     readonly [number, number] | readonly [number, number, number]
   >()
-  model.edges.forEach((edge) => {
+  const relevantEdges = getRelevantEdges(model, includeEqualPaths)
+  relevantEdges.forEach((edge) => {
     const sourceId = edge.source.id
     const targetId = edge.target.id
     if (sourceId === undefined) {
@@ -53,7 +67,11 @@ function encodeAsSparseList(
     const sourceIndex = sortedIds.indexOf(sourceId)
     const targetIndex = sortedIds.indexOf(targetId)
     const entry = weighted
-      ? ([sourceIndex, targetIndex, getWeightedValue(edge)] as const)
+      ? ([
+          sourceIndex,
+          targetIndex,
+          getWeightedValue(edge, relevantEdges),
+        ] as const)
       : ([sourceIndex, targetIndex] as const)
     list.push(entry)
   })
@@ -65,10 +83,11 @@ type AdjacencyMatrix = number[][]
 function encodeAsAdjacencyMatrix(
   model: GraphModel,
   sortedIds: string[],
+  includeEqualPaths: boolean,
   weighted: boolean,
 ) {
   const matrix = createAdjacencyMatrix(sortedIds.length)
-  fillAdjacencyMatrix(matrix, model, sortedIds, weighted)
+  fillAdjacencyMatrix(matrix, model, sortedIds, includeEqualPaths, weighted)
   return { matrix, nodes: sortedIds }
 }
 
@@ -84,9 +103,11 @@ function fillAdjacencyMatrix(
   matrix: AdjacencyMatrix,
   model: GraphModel,
   sortedIds: string[],
+  includeEqualPaths: boolean,
   weighted: boolean,
 ) {
-  model.edges.forEach((edge) => {
+  const relevantEdges = getRelevantEdges(model, includeEqualPaths)
+  relevantEdges.forEach((edge) => {
     const sourceId = edge.source.id
     const targetId = edge.target.id
     if (sourceId === undefined) {
@@ -97,11 +118,47 @@ function fillAdjacencyMatrix(
     }
     const sourceIndex = sortedIds.indexOf(sourceId)
     const targetIndex = sortedIds.indexOf(targetId)
-    const value = weighted ? getWeightedValue(edge) : 1
+    const value = weighted ? getWeightedValue(edge, relevantEdges) : 1
     matrix[sourceIndex]![targetIndex] = value
   })
 }
 
-function getWeightedValue(edge: GraphEdge) {
-  return 1 / edge.target.incomingEdges.size
+function getWeightedValue(
+  edge: GraphEdge,
+  relevantEdges: ReadonlySet<GraphEdge>,
+) {
+  if (relevantEdges.size === edge.model.edges.size) {
+    return 1 / edge.target.incomingEdges.size
+  }
+  const relevantIncomingEdges = Stream.from(edge.target.incomingEdges)
+    .map((incomingEdge) => (relevantEdges.has(incomingEdge) ? 1 : 0))
+    .sum()
+  return 1 / relevantIncomingEdges
+}
+
+function getRelevantEdges(model: GraphModel, includeEqualPaths: boolean) {
+  if (includeEqualPaths) {
+    return model.edges
+  }
+  const edges = new Set<GraphEdge>()
+  const consideredEdgePaths = new Map<string, Set<string>>()
+  model.edges.forEach((edge) => {
+    const sourceId = edge.source.id
+    const targetId = edge.target.id
+    if (sourceId === undefined || targetId === undefined) {
+      return
+    }
+    const pathsFromSource = consideredEdgePaths.get(sourceId)
+    if (pathsFromSource !== undefined && pathsFromSource.has(targetId)) {
+      return
+    } else if (pathsFromSource === undefined) {
+      const newPathsFromSource = new Set<string>()
+      newPathsFromSource.add(targetId)
+      consideredEdgePaths.set(sourceId, newPathsFromSource)
+    } else {
+      pathsFromSource.add(targetId)
+    }
+    edges.add(edge)
+  })
+  return edges
 }
