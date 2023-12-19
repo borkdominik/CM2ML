@@ -1,4 +1,4 @@
-import type { GraphModel } from '@cm2ml/ir'
+import type { GraphEdge, GraphModel } from '@cm2ml/ir'
 import { definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
@@ -17,12 +17,9 @@ export const GraphEncoder = definePlugin({
     },
   },
   invoke(input: GraphModel, { sparse, weighted }) {
-    if (sparse && weighted) {
-      throw new Error('Sparse and weighted options are mutually exclusive.')
-    }
     const sortedIds = getSortedIds(input)
     if (sparse) {
-      return encodeAsSparseList(input, sortedIds)
+      return encodeAsSparseList(input, sortedIds, weighted)
     }
     return encodeAsAdjacencyMatrix(input, sortedIds, weighted)
   },
@@ -36,8 +33,14 @@ function getSortedIds(model: GraphModel) {
     .sort((a, b) => a.localeCompare(b))
 }
 
-function encodeAsSparseList(model: GraphModel, sortedIds: string[]) {
-  const list = new Array<readonly [number, number]>()
+function encodeAsSparseList(
+  model: GraphModel,
+  sortedIds: string[],
+  weighted: boolean,
+) {
+  const list = new Array<
+    readonly [number, number] | readonly [number, number, number]
+  >()
   model.edges.forEach((edge) => {
     const sourceId = edge.source.id
     const targetId = edge.target.id
@@ -49,7 +52,10 @@ function encodeAsSparseList(model: GraphModel, sortedIds: string[]) {
     }
     const sourceIndex = sortedIds.indexOf(sourceId)
     const targetIndex = sortedIds.indexOf(targetId)
-    list.push([sourceIndex, targetIndex] as const)
+    const entry = weighted
+      ? ([sourceIndex, targetIndex, getWeightedValue(edge)] as const)
+      : ([sourceIndex, targetIndex] as const)
+    list.push(entry)
   })
   return { list, nodes: sortedIds }
 }
@@ -91,7 +97,11 @@ function fillAdjacencyMatrix(
     }
     const sourceIndex = sortedIds.indexOf(sourceId)
     const targetIndex = sortedIds.indexOf(targetId)
-    const value = weighted ? 1 / edge.target.incomingEdges.size : 1
+    const value = weighted ? getWeightedValue(edge) : 1
     matrix[sourceIndex]![targetIndex] = value
   })
+}
+
+function getWeightedValue(edge: GraphEdge) {
+  return 1 / edge.target.incomingEdges.size
 }
