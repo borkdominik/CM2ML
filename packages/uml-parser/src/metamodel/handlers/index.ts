@@ -1,4 +1,4 @@
-import type { MetamodelElement } from '../metamodel'
+import { type MetamodelElement } from '../metamodel'
 
 import { AbstractionHandler } from './Abstraction'
 import { AssociationHandler } from './Association'
@@ -19,6 +19,7 @@ import { OperationHandler } from './Operation'
 import { PackageHandler } from './Package'
 import { PackageableElementHandler } from './PackageableElement'
 import { PackageImportHandler } from './PackageImport'
+import { PackageMergeHandler } from './PackageMerge'
 import { ParameterHandler } from './Parameter'
 import { PrimitiveTypeHandler } from './PrimitiveType'
 import { PropertyHandler } from './Property'
@@ -46,8 +47,10 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   ModelHandler,
   MultiplicityElementHandler,
   OperationHandler,
-  PackageHandler,
   PackageableElementHandler,
+  PackageHandler,
+  PackageImportHandler,
+  PackageMergeHandler,
   ParameterHandler,
   PrimitiveTypeHandler,
   PropertyHandler,
