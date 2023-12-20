@@ -37,6 +37,7 @@ import { PropertyHandler } from './Property'
 import { RealizationHandler } from './Realization'
 import { RedefinableElementHandler } from './RedefinableElement'
 import { RelationshipHandler } from './Relationship'
+import { StructuralFeatureHandler } from './StructuralFeature'
 import { SubstitutionHandler } from './Substitution'
 import { TemplateableElementHandler } from './TemplateableElement'
 import { TypeHandler } from './Type'
@@ -83,6 +84,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   RealizationHandler,
   RedefinableElementHandler,
   RelationshipHandler,
+  StructuralFeatureHandler,
   SubstitutionHandler,
   TemplateableElementHandler,
   TypedElementHandler,
