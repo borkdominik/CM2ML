@@ -16,6 +16,7 @@ import { LiteralIntegerHandler } from './LiteralInteger'
 import { LiteralUnlimitedNaturalHandler } from './LiteralUnlimitedNatural'
 import { ModelHandler } from './Model'
 import { MultiplicityElementHandler } from './MultiplicityElement'
+import { NamespaceHandler } from './Namespace'
 import { OperationHandler } from './Operation'
 import { PackageHandler } from './Package'
 import { PackageableElementHandler } from './PackageableElement'
@@ -48,6 +49,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   LiteralUnlimitedNaturalHandler,
   ModelHandler,
   MultiplicityElementHandler,
+  NamespaceHandler,
   OperationHandler,
   PackageableElementHandler,
   PackageHandler,

@@ -82,8 +82,7 @@ export class MetamodelElement implements Handler {
     if (visited.has(this)) {
       return
     }
-    // Note: The following check is used to ensure that the metamodel is well defined and complete
-    if (node.model.settings.debug && !this.handler) {
+    if (!this.handler) {
       node.model.debug(`No handler for metamodel element ${this.name}`)
     }
     if (this.type) {
@@ -96,7 +95,7 @@ export class MetamodelElement implements Handler {
     })
   }
 
-  public createHandler(handler?: Handler['handle']) {
+  public createHandler(handler: Handler['handle'] = () => {}) {
     if (this.handler !== undefined) {
       throw new Error('Handler already assigned')
     }
