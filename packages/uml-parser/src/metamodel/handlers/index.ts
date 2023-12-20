@@ -18,6 +18,7 @@ import { EnumerationHandler } from './Enumeration'
 import { EnumerationLiteralHandler } from './EnumerationLiteral'
 import { FeatureHandler } from './Feature'
 import { GeneralizationHandler } from './Generalization'
+import { InstanceSpecificationHandler } from './InstanceSpecification'
 import { InterfaceHandler } from './Interface'
 import { InterfaceRealizationHandler } from './InterfaceRealization'
 import { LiteralIntegerHandler } from './LiteralInteger'
@@ -68,6 +69,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   EnumerationLiteralHandler,
   FeatureHandler,
   GeneralizationHandler,
+  InstanceSpecificationHandler,
   InterfaceHandler,
   InterfaceRealizationHandler,
   LiteralIntegerHandler,
