@@ -3,6 +3,7 @@ import { type MetamodelElement } from '../metamodel'
 import { AbstractionHandler } from './Abstraction'
 import { AssociationHandler } from './Association'
 import { ClassHandler } from './Class'
+import { ClassifierHandler } from './Classifier'
 import { DataTypeHandler } from './DataType'
 import { DependencyHandler } from './Dependency'
 import { DirectedRelationshipHandler } from './DirectedRelationship'
@@ -40,6 +41,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   AbstractionHandler,
   AssociationHandler,
   ClassHandler,
+  ClassifierHandler,
   DataTypeHandler,
   DependencyHandler,
   DirectedRelationshipHandler,

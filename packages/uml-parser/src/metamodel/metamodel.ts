@@ -178,10 +178,29 @@ export const RedefinableElement = defineAbstract(
   'RedefinableElement',
   NamedElement,
 )
+export const TemplateableElement = defineAbstract(
+  'TemplateableElement',
+  Element,
+)
+
+export const ParameterableElement = defineAbstract(
+  'ParameterableElement',
+  Element,
+)
+
+export const PackageableElement = defineAbstract(
+  'PackageableElement',
+  ParameterableElement,
+  NamedElement,
+)
+
+export const Type = defineAbstract('Type', PackageableElement)
 
 export const Classifier = defineAbstract(
   'Classifier',
   Namespace,
+  Type,
+  TemplateableElement,
   RedefinableElement,
 )
 
@@ -220,17 +239,6 @@ export const Parameter = define(
   ConnectableElement,
   MultiplicityElement,
 )
-
-export const TemplateableElement = defineAbstract(
-  'TemplateableElement',
-  Element,
-)
-
-export const ParameterableElement = defineAbstract(
-  'ParameterableElement',
-  Element,
-)
-
 export const BehavioralFeature = defineAbstract('BehavioralFeature', Element)
 
 export const Operation = define(
@@ -246,12 +254,6 @@ export const Relationship = defineAbstract('Relationship', Element)
 export const DirectedRelationship = defineAbstract(
   'DirectedRelationship',
   Relationship,
-)
-
-export const PackageableElement = defineAbstract(
-  'PackageableElement',
-  ParameterableElement,
-  NamedElement,
 )
 
 export const Dependency = define(
@@ -320,8 +322,6 @@ export const TemplateSignature = define(
   Uml.Types.TemplateSignature,
   Element,
 )
-
-export const Type = defineAbstract('Type', PackageableElement)
 
 export const Usage = define(undefined, Uml.Types.Usage, Dependency)
 
