@@ -12,5 +12,5 @@ function addEdge_package(type: GraphNode) {
     return
   }
   type.model.addEdge('package', type, package_)
-  // TODO: Set reverse direction here instead of in package? -> Issue of nested types with current approach
+  // TODO/Investigate: Set reverse direction here instead of in package? -> Issue of nested types with current approach
 }

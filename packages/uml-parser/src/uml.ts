@@ -24,6 +24,34 @@ function isValidTag(tag: string | undefined): tag is UmlTag {
   return tag !== undefined && tag in Tags
 }
 
+export const AbstractTypes = {
+  BehavioralFeature: 'BehavioralFeature',
+  BehavioredClassifier: 'BehavioredClassifier',
+  Classifier: 'Classifier',
+  ConnectableElement: 'ConnectableElement',
+  DeployedArtifact: 'DeployedArtifact',
+  DeploymentTarget: 'DeploymentTarget',
+  DirectedRelationship: 'DirectedRelationship',
+  Element: 'Element',
+  EncapsulatedClassifier: 'EncapsulatedClassifier',
+  Feature: 'Feature',
+  LiteralSpecification: 'LiteralSpecification',
+  MultiplicityElement: 'MultiplicityElement',
+  NamedElement: 'NamedElement',
+  Namespace: 'Namespace',
+  PackageableElement: 'PackageableElement',
+  ParameterableElement: 'ParameterableElement',
+  RedefinableElement: 'RedefinableElement',
+  Relationship: 'Relationship',
+  StructuralFeature: 'StructuralFeature',
+  TemplateableElement: 'TemplateableElement',
+  Type: 'Type',
+  TypedElement: 'TypedElement',
+  ValueSpecification: 'ValueSpecification',
+} as const
+
+export type UmlAbstractType = (typeof AbstractTypes)[keyof typeof AbstractTypes]
+
 const Types = {
   Abstraction: 'Abstraction',
   Association: 'Association',
@@ -100,6 +128,7 @@ const Attributes = {
 export const Uml = {
   Tags,
   isValidTag,
+  AbstractTypes,
   Types,
   isValidType,
   getTypeAttribute,

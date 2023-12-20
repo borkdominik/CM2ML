@@ -1,6 +1,5 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml } from '../../uml'
 import { Class, Property } from '../metamodel'
 
 export const ClassHandler = Class.createHandler((class_) => {
@@ -27,7 +26,7 @@ function addEdge_nestedClassifier(class_: GraphNode, child: GraphNode) {
 
 function addEdge_ownedAttribute(class_: GraphNode, child: GraphNode) {
   if (Property.isAssignable(child)) {
-    class_.model.addEdge(Uml.Tags.ownedAttribute, class_, child)
+    class_.model.addEdge('ownedAttribute', class_, child)
   }
 }
 

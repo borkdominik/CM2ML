@@ -1,7 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { Uml, inferAndSaveType } from '../uml'
-import type { UmlTag, UmlType } from '../uml'
+import type { UmlAbstractType, UmlTag, UmlType } from '../uml'
 
 export interface Handler {
   handle: (node: GraphNode) => void
@@ -23,7 +23,7 @@ export class MetamodelElement implements Handler {
   private handler: Handler['handle'] | undefined
 
   public constructor(
-    public readonly name: string,
+    public readonly name: UmlType | UmlAbstractType,
     public readonly isAbstract: boolean,
     public readonly tag?: UmlTag,
     public readonly type?: UmlType,
@@ -139,7 +139,10 @@ function define(
   )
 }
 
-function defineAbstract(name: string, ...generalizations: MetamodelElement[]) {
+function defineAbstract(
+  name: UmlAbstractType,
+  ...generalizations: MetamodelElement[]
+) {
   return new MetamodelElement(name, true, undefined, undefined, generalizations)
 }
 
@@ -172,36 +175,43 @@ export function requireImmediateParentOfType(
   return node.parent
 }
 
-export const Element = defineAbstract('Element')
+export const Element = defineAbstract(Uml.AbstractTypes.Element)
 
-export const NamedElement = defineAbstract('NamedElement', Element)
+export const NamedElement = defineAbstract(
+  Uml.AbstractTypes.NamedElement,
+  Element,
+)
 
-export const Namespace = defineAbstract('Namespace', NamedElement)
-
-export const RedefinableElement = defineAbstract(
-  'RedefinableElement',
+export const Namespace = defineAbstract(
+  Uml.AbstractTypes.Namespace,
   NamedElement,
 )
+
+export const RedefinableElement = defineAbstract(
+  Uml.AbstractTypes.RedefinableElement,
+  NamedElement,
+)
+
 export const TemplateableElement = defineAbstract(
-  'TemplateableElement',
+  Uml.AbstractTypes.TemplateableElement,
   Element,
 )
 
 export const ParameterableElement = defineAbstract(
-  'ParameterableElement',
+  Uml.AbstractTypes.ParameterableElement,
   Element,
 )
 
 export const PackageableElement = defineAbstract(
-  'PackageableElement',
+  Uml.AbstractTypes.PackageableElement,
   ParameterableElement,
   NamedElement,
 )
 
-export const Type = defineAbstract('Type', PackageableElement)
+export const Type = defineAbstract(Uml.AbstractTypes.Type, PackageableElement)
 
 export const Classifier = defineAbstract(
-  'Classifier',
+  Uml.AbstractTypes.Classifier,
   Namespace,
   Type,
   TemplateableElement,
@@ -209,12 +219,12 @@ export const Classifier = defineAbstract(
 )
 
 export const BehavioredClassifier = defineAbstract(
-  'BehavioredClassifier',
+  Uml.AbstractTypes.BehavioredClassifier,
   Classifier,
 )
 
 export const EncapsulatedClassifier = defineAbstract(
-  'EncapsulatedClassifier',
+  Uml.AbstractTypes.EncapsulatedClassifier,
   Classifier,
 )
 
@@ -225,15 +235,18 @@ export const Class = define(
   EncapsulatedClassifier,
 )
 
-export const TypedElement = defineAbstract('TypedElement', NamedElement)
+export const TypedElement = defineAbstract(
+  Uml.AbstractTypes.TypedElement,
+  NamedElement,
+)
 
 export const ConnectableElement = defineAbstract(
-  'ConnectableElement',
+  Uml.AbstractTypes.ConnectableElement,
   TypedElement,
 )
 
 export const MultiplicityElement = defineAbstract(
-  'MultiplicityElement',
+  Uml.AbstractTypes.MultiplicityElement,
   Element,
 )
 
@@ -243,7 +256,11 @@ export const Parameter = define(
   ConnectableElement,
   MultiplicityElement,
 )
-export const BehavioralFeature = defineAbstract('BehavioralFeature', Element)
+
+export const BehavioralFeature = defineAbstract(
+  Uml.AbstractTypes.BehavioralFeature,
+  Element,
+)
 
 export const Operation = define(
   Uml.Tags.ownedOperation,
@@ -253,10 +270,13 @@ export const Operation = define(
   BehavioralFeature,
 )
 
-export const Relationship = defineAbstract('Relationship', Element)
+export const Relationship = defineAbstract(
+  Uml.AbstractTypes.Relationship,
+  Element,
+)
 
 export const DirectedRelationship = defineAbstract(
-  'DirectedRelationship',
+  Uml.AbstractTypes.DirectedRelationship,
   Relationship,
 )
 
@@ -267,7 +287,6 @@ export const Dependency = define(
   PackageableElement,
 )
 
-// TODO
 export const Abstraction = define(undefined, Uml.Types.Abstraction, Dependency)
 
 export const Comment = define(undefined, Uml.Types.Comment, Element)
@@ -296,31 +315,26 @@ export const PackageMerge = define(
   DirectedRelationship,
 )
 
-// TODO
 export const Realization = define(undefined, Uml.Types.Realization, Abstraction)
 
-// TODO
 export const TemplateBinding = define(
   undefined,
   Uml.Types.TemplateBinding,
   DirectedRelationship,
 )
 
-// TODO
 export const TemplateParameter = define(
   undefined,
   Uml.Types.TemplateParameter,
   Element,
 )
 
-// TODO
 export const TemplateParameterSubstitution = define(
   undefined,
   Uml.Types.TemplateParameterSubstitution,
   Element,
 )
 
-// TODO
 export const TemplateSignature = define(
   undefined,
   Uml.Types.TemplateSignature,
@@ -343,7 +357,6 @@ export const InterfaceRealization = define(
   Realization,
 )
 
-// TODO
 export const Generalization = define(
   undefined,
   Uml.Types.Generalization,
@@ -351,17 +364,23 @@ export const Generalization = define(
 )
 
 export const ValueSpecification = defineAbstract(
-  'ValueSpecification',
+  Uml.AbstractTypes.ValueSpecification,
   TypedElement,
   PackageableElement,
 )
 
-export const Feature = defineAbstract('Feature', RedefinableElement)
+export const Feature = defineAbstract(
+  Uml.AbstractTypes.Feature,
+  RedefinableElement,
+)
 
-export const DeploymentTarget = defineAbstract('DeploymentTarget', NamedElement)
+export const DeploymentTarget = defineAbstract(
+  Uml.AbstractTypes.DeploymentTarget,
+  NamedElement,
+)
 
 export const StructuralFeature = defineAbstract(
-  'StructuralFeature',
+  Uml.AbstractTypes.StructuralFeature,
   MultiplicityElement,
   TypedElement,
   Feature,
@@ -376,7 +395,7 @@ export const Property = define(
 )
 
 export const LiteralSpecification = defineAbstract(
-  'LiteralSpecification',
+  Uml.AbstractTypes.LiteralSpecification,
   ValueSpecification,
 )
 
@@ -402,7 +421,10 @@ export const PrimitiveType = define(
   DataType,
 )
 
-export const DeployedArtifact = defineAbstract('DeployedArtifact', NamedElement)
+export const DeployedArtifact = defineAbstract(
+  Uml.AbstractTypes.DeployedArtifact,
+  NamedElement,
+)
 
 export const InstanceSpecification = define(
   undefined,

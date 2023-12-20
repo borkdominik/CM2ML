@@ -2,7 +2,6 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Class, DataType, Interface, Operation, Parameter } from '../metamodel'
 
-// TODO
 export const OperationHandler = Operation.createHandler((node) => {
   addEdge_bodyCondition(node)
   addEdge_class(node)
