@@ -83,7 +83,11 @@ export class MetamodelElement implements Handler {
       return
     }
     if (!this.handler) {
-      node.model.debug(`No handler for metamodel element ${this.name}`)
+      const message = `No handler for metamodel element ${this.name}`
+      if (node.model.settings.strict) {
+        throw new Error(message)
+      }
+      node.model.debug(message)
     }
     if (this.type) {
       inferAndSaveType(node, this.type)
@@ -430,5 +434,3 @@ export const Association = define(
   Relationship,
   Classifier,
 )
-
-// TODO: VisibilityKind enumeration

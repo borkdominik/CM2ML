@@ -6,6 +6,7 @@ export function validateModel(model: GraphModel) {
     return
   }
   validateEdgeUniqueness(model)
+  model.debug('All validations passed')
 }
 
 function validateEdgeUniqueness(model: GraphModel) {
