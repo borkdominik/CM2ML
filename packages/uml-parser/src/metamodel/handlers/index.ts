@@ -15,6 +15,7 @@ import { ElementImportHandler } from './ElementImport'
 import { EncapsulatedClassifierHandler } from './EncapsulatedClassifier'
 import { EnumerationHandler } from './Enumeration'
 import { EnumerationLiteralHandler } from './EnumerationLiteral'
+import { FeatureHandler } from './Feature'
 import { GeneralizationHandler } from './Generalization'
 import { InterfaceHandler } from './Interface'
 import { InterfaceRealizationHandler } from './InterfaceRealization'
@@ -60,6 +61,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   EncapsulatedClassifierHandler,
   EnumerationHandler,
   EnumerationLiteralHandler,
+  FeatureHandler,
   GeneralizationHandler,
   InterfaceHandler,
   InterfaceRealizationHandler,
