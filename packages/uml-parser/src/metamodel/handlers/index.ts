@@ -10,6 +10,7 @@ import { DependencyHandler } from './Dependency'
 import { DirectedRelationshipHandler } from './DirectedRelationship'
 import { ElementHandler } from './Element'
 import { ElementImportHandler } from './ElementImport'
+import { EncapsulatedClassifierHandler } from './EncapsulatedClassifier'
 import { EnumerationHandler } from './Enumeration'
 import { EnumerationLiteralHandler } from './EnumerationLiteral'
 import { GeneralizationHandler } from './Generalization'
@@ -52,6 +53,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   DirectedRelationshipHandler,
   ElementHandler,
   ElementImportHandler,
+  EncapsulatedClassifierHandler,
   EnumerationHandler,
   EnumerationLiteralHandler,
   GeneralizationHandler,
