@@ -32,6 +32,7 @@ import { RealizationHandler } from './Realization'
 import { RedefinableElementHandler } from './RedefinableElement'
 import { RelationshipHandler } from './Relationship'
 import { SubstitutionHandler } from './Substitution'
+import { TemplateableElementHandler } from './TemplateableElement'
 import { TypedElementHandler } from './TypedElement'
 import { UsageHandler } from './Usage'
 
@@ -70,6 +71,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   RedefinableElementHandler,
   RelationshipHandler,
   SubstitutionHandler,
+  TemplateableElementHandler,
   TypedElementHandler,
   UsageHandler,
 }
