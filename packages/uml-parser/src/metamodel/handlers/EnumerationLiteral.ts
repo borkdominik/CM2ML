@@ -3,7 +3,7 @@ import type { GraphNode } from '@cm2ml/ir'
 import {
   Enumeration,
   EnumerationLiteral,
-  requireParentOfType,
+  requireImmediateParentOfType,
 } from '../metamodel'
 
 export const EnumerationLiteralHandler = EnumerationLiteral.createHandler(
@@ -20,7 +20,10 @@ function addEdge_classifier(_enumerationLiteral: GraphNode) {
 }
 
 function addEdge_enumeration(enumerationLiteral: GraphNode) {
-  const enumeration = requireParentOfType(enumerationLiteral, Enumeration)
+  const enumeration = requireImmediateParentOfType(
+    enumerationLiteral,
+    Enumeration,
+  )
   enumerationLiteral.model.addEdge(
     'enumeration',
     enumerationLiteral,

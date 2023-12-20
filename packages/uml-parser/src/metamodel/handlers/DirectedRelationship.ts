@@ -2,7 +2,7 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { DirectedRelationship } from '../metamodel'
 
-export const RelationshipHandler = DirectedRelationship.createHandler(
+export const DirectedRelationshipHandler = DirectedRelationship.createHandler(
   (directedRelationship) => {
     addEdge_source(directedRelationship)
     addEdge_target(directedRelationship)

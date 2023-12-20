@@ -5,6 +5,7 @@ import { AssociationHandler } from './Association'
 import { ClassHandler } from './Class'
 import { DataTypeHandler } from './DataType'
 import { DependencyHandler } from './Dependency'
+import { DirectedRelationshipHandler } from './DirectedRelationship'
 import { ElementHandler } from './Element'
 import { ElementImportHandler } from './ElementImport'
 import { EnumerationHandler } from './Enumeration'
@@ -16,6 +17,7 @@ import { LiteralIntegerHandler } from './LiteralInteger'
 import { LiteralUnlimitedNaturalHandler } from './LiteralUnlimitedNatural'
 import { ModelHandler } from './Model'
 import { MultiplicityElementHandler } from './MultiplicityElement'
+import { NamedElementHandler } from './NamedElement'
 import { NamespaceHandler } from './Namespace'
 import { OperationHandler } from './Operation'
 import { PackageHandler } from './Package'
@@ -26,6 +28,7 @@ import { ParameterHandler } from './Parameter'
 import { PrimitiveTypeHandler } from './PrimitiveType'
 import { PropertyHandler } from './Property'
 import { RealizationHandler } from './Realization'
+import { RelationshipHandler } from './Relationship'
 import { SubstitutionHandler } from './Substitution'
 import { TypedElementHandler } from './TypedElement'
 import { UsageHandler } from './Usage'
@@ -38,6 +41,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   ClassHandler,
   DataTypeHandler,
   DependencyHandler,
+  DirectedRelationshipHandler,
   ElementHandler,
   ElementImportHandler,
   EnumerationHandler,
@@ -49,6 +53,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   LiteralUnlimitedNaturalHandler,
   ModelHandler,
   MultiplicityElementHandler,
+  NamedElementHandler,
   NamespaceHandler,
   OperationHandler,
   PackageableElementHandler,
@@ -59,6 +64,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   PrimitiveTypeHandler,
   PropertyHandler,
   RealizationHandler,
+  RelationshipHandler,
   SubstitutionHandler,
   TypedElementHandler,
   UsageHandler,

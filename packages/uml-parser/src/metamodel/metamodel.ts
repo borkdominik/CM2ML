@@ -144,14 +144,15 @@ export function getParentOfType(node: GraphNode, type: MetamodelElement) {
     return undefined
   }
   if (!type.isAssignable(node.parent)) {
-    throw new Error(
-      `Parent ${node.parent.tag} (${node.parent.id}) of node ${node.tag} (${node.id}) is not of type ${type.name}`,
-    )
+    return getParentOfType(node.parent, type)
   }
   return node.parent
 }
 
-export function requireParentOfType(node: GraphNode, type: MetamodelElement) {
+export function requireImmediateParentOfType(
+  node: GraphNode,
+  type: MetamodelElement,
+) {
   if (!node.parent) {
     throw new Error(
       `Missing parent for node ${node.tag} (${node.id}) of type ${Uml.getType(
