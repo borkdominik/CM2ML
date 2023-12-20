@@ -5,6 +5,7 @@ import { AssociationHandler } from './Association'
 import { BehavioredClassifierHandler } from './BehavioredClassifier'
 import { ClassHandler } from './Class'
 import { ClassifierHandler } from './Classifier'
+import { ConnectableElementHandler } from './ConnectableElement'
 import { DataTypeHandler } from './DataType'
 import { DependencyHandler } from './Dependency'
 import { DirectedRelationshipHandler } from './DirectedRelationship'
@@ -48,6 +49,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   BehavioredClassifierHandler,
   ClassHandler,
   ClassifierHandler,
+  ConnectableElementHandler,
   DataTypeHandler,
   DependencyHandler,
   DirectedRelationshipHandler,
