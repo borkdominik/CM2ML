@@ -44,6 +44,7 @@ import { TemplateableElementHandler } from './TemplateableElement'
 import { TypeHandler } from './Type'
 import { TypedElementHandler } from './TypedElement'
 import { UsageHandler } from './Usage'
+import { ValueSpecificationHandler } from './ValueSpecification'
 
 // This record includes ALL handlers.
 // Handlers MUST be added to this record, in order to properly instantiate the hierarchy chain.
@@ -92,4 +93,5 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   TypedElementHandler,
   TypeHandler,
   UsageHandler,
+  ValueSpecificationHandler,
 }
