@@ -21,6 +21,7 @@ import { GeneralizationHandler } from './Generalization'
 import { InterfaceHandler } from './Interface'
 import { InterfaceRealizationHandler } from './InterfaceRealization'
 import { LiteralIntegerHandler } from './LiteralInteger'
+import { LiteralSpecificationHandler } from './LiteralSpecification'
 import { LiteralUnlimitedNaturalHandler } from './LiteralUnlimitedNatural'
 import { ModelHandler } from './Model'
 import { MultiplicityElementHandler } from './MultiplicityElement'
@@ -70,6 +71,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   InterfaceHandler,
   InterfaceRealizationHandler,
   LiteralIntegerHandler,
+  LiteralSpecificationHandler,
   LiteralUnlimitedNaturalHandler,
   ModelHandler,
   MultiplicityElementHandler,
