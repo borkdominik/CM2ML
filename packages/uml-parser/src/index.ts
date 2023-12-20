@@ -5,6 +5,7 @@ import { Stream } from '@yeger/streams'
 
 import { inferHandler } from './metamodel/handler-registry'
 import { Uml, inferAndSaveType } from './uml'
+import { validateModel } from './validations'
 
 export const UmlRefiner = definePlugin({
   name: 'uml',
@@ -18,6 +19,7 @@ function refine(model: GraphModel): GraphModel {
   removeNonUmlNodes(model)
   refineNodesRecursively(model.root)
   replaceTagsWithTypes(model)
+  validateModel(model)
   model.debug(
     Stream.from(model.edges)
       .map((edge) => `${edge.source.tag} --${edge.tag}-> ${edge.target.tag}`)
