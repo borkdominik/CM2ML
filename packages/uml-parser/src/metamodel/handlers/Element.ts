@@ -12,9 +12,13 @@ export const ElementHandler = Element.createHandler((element) => {
 
 function addEdge_owner(element: GraphNode) {
   const parent = element.parent
-  if (parent && Element.isAssignable(parent)) {
-    element.model.addEdge('owner', element, parent)
+  if (!parent) {
+    return
   }
+  if (!Element.isAssignable(element)) {
+    throw new Error('Parent of element is no element')
+  }
+  element.model.addEdge('owner', element, parent)
 }
 
 function addEdge_ownedElement(element: GraphNode, child: GraphNode) {

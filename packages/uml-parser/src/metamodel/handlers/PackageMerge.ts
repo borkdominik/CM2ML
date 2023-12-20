@@ -1,7 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { Uml } from '../../uml'
-import { PackageMerge } from '../metamodel'
+import { Package, PackageMerge, requireParentOfType } from '../metamodel'
 
 export const PackageMergeHandler = PackageMerge.createHandler(
   (PackageMerge) => {
@@ -27,9 +27,6 @@ function addEdge_mergedPackage(packageMerge: GraphNode) {
 }
 
 function addEdge_receivingPackage(packageMerge: GraphNode) {
-  const parent = packageMerge.parent
-  if (!parent) {
-    throw new Error('Missing parent for PackageMerge')
-  }
-  packageMerge.model.addEdge('receivingPackage', packageMerge, parent)
+  const receivingPackage = requireParentOfType(packageMerge, Package)
+  packageMerge.model.addEdge('receivingPackage', packageMerge, receivingPackage)
 }

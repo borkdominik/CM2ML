@@ -139,6 +139,34 @@ function defineAbstract(name: string, ...generalizations: MetamodelElement[]) {
   return new MetamodelElement(name, true, undefined, undefined, generalizations)
 }
 
+export function getParentOfType(node: GraphNode, type: MetamodelElement) {
+  if (!node.parent) {
+    return undefined
+  }
+  if (!type.isAssignable(node.parent)) {
+    throw new Error(
+      `Parent ${node.parent.tag} (${node.parent.id}) of node ${node.tag} (${node.id}) is not of type ${type.name}`,
+    )
+  }
+  return node.parent
+}
+
+export function requireParentOfType(node: GraphNode, type: MetamodelElement) {
+  if (!node.parent) {
+    throw new Error(
+      `Missing parent for node ${node.tag} (${node.id}) of type ${Uml.getType(
+        node,
+      )}`,
+    )
+  }
+  if (!type.isAssignable(node.parent)) {
+    throw new Error(
+      `Parent ${node.parent.tag} (${node.parent.id}) of node ${node.tag} (${node.id}) is not of type ${type.name}`,
+    )
+  }
+  return node.parent
+}
+
 export const Element = defineAbstract('Element')
 
 export const NamedElement = defineAbstract('NamedElement', Element)

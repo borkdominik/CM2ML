@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Operation, Parameter } from '../metamodel'
+import { Operation, Parameter, getParentOfType } from '../metamodel'
 
 // TODO
 export const ParameterHandler = Parameter.createHandler((node) => {
@@ -16,10 +16,11 @@ function addEdge_defaultValue(_parameter: GraphNode) {
 }
 
 function addEdge_operation(parameter: GraphNode) {
-  const parent = parameter.parent
-  if (parent && Operation.isAssignable(parent)) {
-    parameter.model.addEdge('operation', parameter, parent)
+  const operation = getParentOfType(parameter, Operation)
+  if (!operation) {
+    return
   }
+  parameter.model.addEdge('operation', parameter, operation)
 }
 
 function addEdge_parameterSet(_parameter: GraphNode) {

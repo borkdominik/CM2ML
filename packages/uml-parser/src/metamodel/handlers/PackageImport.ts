@@ -1,7 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { Uml } from '../../uml'
-import { PackageImport } from '../metamodel'
+import { Namespace, PackageImport, requireParentOfType } from '../metamodel'
 
 export const PackageImportHandler = PackageImport.createHandler(
   (packageImport) => {
@@ -27,9 +27,10 @@ function addEdge_importedPackage(packageImport: GraphNode) {
 }
 
 function addEdge_importingNamespace(packageImport: GraphNode) {
-  const parent = packageImport.parent
-  if (!parent) {
-    throw new Error('Missing parent for PackageImport')
-  }
-  packageImport.model.addEdge('importingNamespace', packageImport, parent)
+  const importingNamespace = requireParentOfType(packageImport, Namespace)
+  packageImport.model.addEdge(
+    'importingNamespace',
+    packageImport,
+    importingNamespace,
+  )
 }
