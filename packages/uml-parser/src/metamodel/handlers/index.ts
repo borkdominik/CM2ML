@@ -2,6 +2,7 @@ import { type MetamodelElement } from '../metamodel'
 
 import { AbstractionHandler } from './Abstraction'
 import { AssociationHandler } from './Association'
+import { BehavioralFeatureHandler } from './BehavioralFeature'
 import { BehavioredClassifierHandler } from './BehavioredClassifier'
 import { ClassHandler } from './Class'
 import { ClassifierHandler } from './Classifier'
@@ -49,6 +50,7 @@ import { UsageHandler } from './Usage'
 export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   AbstractionHandler,
   AssociationHandler,
+  BehavioralFeatureHandler,
   BehavioredClassifierHandler,
   ClassHandler,
   ClassifierHandler,
