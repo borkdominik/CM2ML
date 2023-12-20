@@ -22,18 +22,21 @@ export class MetamodelElement implements Handler {
 
   private handler: Handler['handle'] | undefined
 
+  public readonly type: UmlType | undefined
+
   public constructor(
     public readonly name: UmlType | UmlAbstractType,
-    public readonly isAbstract: boolean,
     public readonly tag?: UmlTag,
-    public readonly type?: UmlType,
     generalizations?: MetamodelElement[],
   ) {
+    if (Uml.isValidType(name)) {
+      this.type = name
+    }
     if (tag) {
       this.#assignableTags.add(tag)
     }
-    if (type) {
-      this.#assignableTypes.add(type)
+    if (this.type) {
+      this.#assignableTypes.add(this.type)
     }
     generalizations?.forEach((parent) => {
       if (this.isAbstract && !parent.isAbstract) {
@@ -44,6 +47,10 @@ export class MetamodelElement implements Handler {
       this.#generalizations.add(parent)
       parent.specialize(this)
     })
+  }
+
+  private get isAbstract(): boolean {
+    return this.type === undefined
   }
 
   public get generalizations(): ReadonlySet<MetamodelElement> {
@@ -101,7 +108,7 @@ export class MetamodelElement implements Handler {
 
   public createHandler(handler: Handler['handle'] = () => {}) {
     if (this.handler !== undefined) {
-      throw new Error('Handler already assigned')
+      throw new Error(`There already is a handler assigned to ${this.name}`)
     }
     this.handler = handler
     return this
@@ -126,24 +133,18 @@ export class MetamodelElement implements Handler {
 }
 
 function define(
-  assignableTag: UmlTag | undefined,
-  assignableType: UmlType,
+  name: UmlType,
+  tag: UmlTag | undefined,
   ...generalizations: MetamodelElement[]
 ) {
-  return new MetamodelElement(
-    assignableType,
-    false,
-    assignableTag,
-    assignableType,
-    generalizations,
-  )
+  return new MetamodelElement(name, tag, generalizations)
 }
 
 function defineAbstract(
   name: UmlAbstractType,
   ...generalizations: MetamodelElement[]
 ) {
-  return new MetamodelElement(name, true, undefined, undefined, generalizations)
+  return new MetamodelElement(name, undefined, generalizations)
 }
 
 export function getParentOfType(node: GraphNode, type: MetamodelElement) {
@@ -229,8 +230,8 @@ export const EncapsulatedClassifier = defineAbstract(
 )
 
 export const Class = define(
-  undefined,
   Uml.Types.Class,
+  undefined,
   BehavioredClassifier,
   EncapsulatedClassifier,
 )
@@ -251,8 +252,8 @@ export const MultiplicityElement = defineAbstract(
 )
 
 export const Parameter = define(
-  Uml.Tags.ownedParameter,
   Uml.Types.Parameter,
+  Uml.Tags.ownedParameter,
   ConnectableElement,
   MultiplicityElement,
 )
@@ -263,8 +264,8 @@ export const BehavioralFeature = defineAbstract(
 )
 
 export const Operation = define(
-  Uml.Tags.ownedOperation,
   Uml.Types.Operation,
+  Uml.Tags.ownedOperation,
   TemplateableElement,
   ParameterableElement,
   BehavioralFeature,
@@ -281,85 +282,85 @@ export const DirectedRelationship = defineAbstract(
 )
 
 export const Dependency = define(
-  undefined,
   Uml.Types.Dependency,
+  undefined,
   DirectedRelationship,
   PackageableElement,
 )
 
-export const Abstraction = define(undefined, Uml.Types.Abstraction, Dependency)
+export const Abstraction = define(Uml.Types.Abstraction, undefined, Dependency)
 
-export const Comment = define(undefined, Uml.Types.Comment, Element)
+export const Comment = define(Uml.Types.Comment, undefined, Element)
 
 export const Constraint = define(
-  undefined,
   Uml.Types.Constraint,
+  undefined,
   PackageableElement,
 )
 
 export const ElementImport = define(
-  Uml.Tags.elementImport,
   Uml.Types.ElementImport,
+  Uml.Tags.elementImport,
   DirectedRelationship,
 )
 
 export const PackageImport = define(
-  Uml.Tags.packageImport,
   Uml.Types.PackageImport,
+  Uml.Tags.packageImport,
   DirectedRelationship,
 )
 
 export const PackageMerge = define(
-  Uml.Tags.packageMerge,
   Uml.Types.PackageMerge,
+  Uml.Tags.packageMerge,
   DirectedRelationship,
 )
 
-export const Realization = define(undefined, Uml.Types.Realization, Abstraction)
+export const Realization = define(Uml.Types.Realization, undefined, Abstraction)
 
 export const TemplateBinding = define(
-  undefined,
   Uml.Types.TemplateBinding,
+  undefined,
   DirectedRelationship,
 )
 
 export const TemplateParameter = define(
-  undefined,
   Uml.Types.TemplateParameter,
+  undefined,
   Element,
 )
 
 export const TemplateParameterSubstitution = define(
-  undefined,
   Uml.Types.TemplateParameterSubstitution,
+  undefined,
   Element,
 )
 
 export const TemplateSignature = define(
-  undefined,
   Uml.Types.TemplateSignature,
+  undefined,
   Element,
 )
 
-export const Usage = define(undefined, Uml.Types.Usage, Dependency)
+export const Usage = define(Uml.Types.Usage, undefined, Dependency)
 
 export const Package = define(
-  undefined,
   Uml.Types.Package,
+  undefined,
   PackageableElement,
   TemplateableElement,
   Namespace,
 )
 
 export const InterfaceRealization = define(
-  Uml.Tags.interfaceRealization,
   Uml.Types.InterfaceRealization,
+  Uml.Tags.interfaceRealization,
   Realization,
 )
 
 export const Generalization = define(
-  undefined,
   Uml.Types.Generalization,
+  undefined,
   DirectedRelationship,
 )
 
@@ -387,8 +388,8 @@ export const StructuralFeature = defineAbstract(
 )
 
 export const Property = define(
-  Uml.Tags.ownedAttribute,
   Uml.Types.Property,
+  Uml.Tags.ownedAttribute,
   ConnectableElement,
   DeploymentTarget,
   StructuralFeature,
@@ -400,24 +401,24 @@ export const LiteralSpecification = defineAbstract(
 )
 
 export const LiteralInteger = define(
-  undefined,
   Uml.Types.LiteralInteger,
+  undefined,
   LiteralSpecification,
 )
 
 export const LiteralUnlimitedNatural = define(
-  undefined,
   Uml.Types.LiteralUnlimitedNatural,
+  undefined,
   LiteralSpecification,
 )
 
-export const Model = define(undefined, Uml.Types.Model, Package)
+export const Model = define(Uml.Types.Model, undefined, Package)
 
-export const DataType = define(undefined, Uml.Types.DataType, Classifier)
+export const DataType = define(Uml.Types.DataType, undefined, Classifier)
 
 export const PrimitiveType = define(
-  undefined,
   Uml.Types.PrimitiveType,
+  undefined,
   DataType,
 )
 
@@ -427,32 +428,32 @@ export const DeployedArtifact = defineAbstract(
 )
 
 export const InstanceSpecification = define(
-  undefined,
   Uml.Types.InstanceSpecification,
+  undefined,
   DeploymentTarget,
   PackageableElement,
   DeployedArtifact,
 )
 
-export const Enumeration = define(undefined, Uml.Types.Enumeration, DataType)
+export const Enumeration = define(Uml.Types.Enumeration, undefined, DataType)
 
 export const EnumerationLiteral = define(
-  Uml.Tags.ownedLiteral,
   Uml.Types.EnumerationLiteral,
+  Uml.Tags.ownedLiteral,
   InstanceSpecification,
 )
 
-export const Interface = define(undefined, Uml.Types.Interface, Classifier)
+export const Interface = define(Uml.Types.Interface, undefined, Classifier)
 
 export const Substitution = define(
-  Uml.Tags.substitution,
   Uml.Types.Substitution,
+  Uml.Tags.substitution,
   Realization,
 )
 
 export const Association = define(
-  undefined,
   Uml.Types.Association,
+  undefined,
   Relationship,
   Classifier,
 )
