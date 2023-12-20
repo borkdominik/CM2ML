@@ -28,6 +28,7 @@ import { ParameterHandler } from './Parameter'
 import { PrimitiveTypeHandler } from './PrimitiveType'
 import { PropertyHandler } from './Property'
 import { RealizationHandler } from './Realization'
+import { RedefinableElementHandler } from './RedefinableElement'
 import { RelationshipHandler } from './Relationship'
 import { SubstitutionHandler } from './Substitution'
 import { TypedElementHandler } from './TypedElement'
@@ -64,6 +65,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   PrimitiveTypeHandler,
   PropertyHandler,
   RealizationHandler,
+  RedefinableElementHandler,
   RelationshipHandler,
   SubstitutionHandler,
   TypedElementHandler,
