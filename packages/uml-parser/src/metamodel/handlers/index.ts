@@ -26,6 +26,7 @@ import { PackageableElementHandler } from './PackageableElement'
 import { PackageImportHandler } from './PackageImport'
 import { PackageMergeHandler } from './PackageMerge'
 import { ParameterHandler } from './Parameter'
+import { ParameterableElementHandler } from './ParameterableElement'
 import { PrimitiveTypeHandler } from './PrimitiveType'
 import { PropertyHandler } from './Property'
 import { RealizationHandler } from './Realization'
@@ -64,6 +65,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   PackageHandler,
   PackageImportHandler,
   PackageMergeHandler,
+  ParameterableElementHandler,
   ParameterHandler,
   PrimitiveTypeHandler,
   PropertyHandler,
