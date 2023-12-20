@@ -9,6 +9,7 @@ import { ClassifierHandler } from './Classifier'
 import { ConnectableElementHandler } from './ConnectableElement'
 import { DataTypeHandler } from './DataType'
 import { DependencyHandler } from './Dependency'
+import { DeployedArtifactHandler } from './DeployedArtifact'
 import { DeploymentTargetHandler } from './DeploymentTarget'
 import { DirectedRelationshipHandler } from './DirectedRelationship'
 import { ElementHandler } from './Element'
@@ -60,6 +61,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   ConnectableElementHandler,
   DataTypeHandler,
   DependencyHandler,
+  DeployedArtifactHandler,
   DeploymentTargetHandler,
   DirectedRelationshipHandler,
   ElementHandler,
