@@ -2,7 +2,7 @@
   "name": "cm2ml",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@8.11.0+sha256.5858806c3b292cbec89b5533662168a957358e2bbd86431516d441dc1aface89",
+  "packageManager": "pnpm@8.12.1",
   "repository": {
     "url": "https://github.com/borkdominik/CM2ML"
   },
@@ -31,7 +31,7 @@
     "test": "cross-env COVERAGE=true nr turbo run test",
     "turbo": "cross-env CI=true FORCE_COLOR=1 turbo --output-logs=new-only",
     "typecheck": "nr turbo run check:tsc check:vue",
-    "vercel": "vercel",
+    "update": "taze major -l -r -w",
     "version": "changeset version && pnpm install --no-frozen-lockfile"
   },
   "devDependencies": {
@@ -41,22 +41,22 @@
     "@cm2ml/rest": "workspace:*",
     "@commitlint/cli": "18.4.3",
     "@commitlint/config-conventional": "18.4.3",
-    "@turbo/gen": "1.11.1",
-    "@types/node": "18.19.3",
-    "@vitest/coverage-v8": "1.0.2",
-    "@vitest/ui": "1.0.2",
+    "@turbo/gen": "1.11.2",
+    "@types/node": "20.10.5",
+    "@vitest/coverage-v8": "1.1.0",
+    "@vitest/ui": "1.1.0",
     "@yeger/eslint-config": "1.9.2",
     "@yeger/turbo-graph": "1.0.4",
     "cross-env": "7.0.3",
-    "eslint": "8.55.0",
+    "eslint": "8.56.0",
     "husky": "8.0.3",
     "lint-staged": "15.2.0",
     "publint": "0.2.6",
     "rimraf": "5.0.5",
     "syncpack": "11.2.1",
-    "turbo": "1.11.1",
-    "vercel": "32.6.1",
-    "vitest": "1.0.2"
+    "taze": "0.13.0",
+    "turbo": "1.11.2",
+    "vitest": "1.1.0"
   },
   "lint-staged": {
     "*.{astro,html,js,jsx,json,md,ts,tsx,vue,yaml,yml}": "eslint --rule 'import/no-unresolved: off' --rule 'import/default: off' --fix"
