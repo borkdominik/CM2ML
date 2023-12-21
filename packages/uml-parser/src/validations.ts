@@ -5,8 +5,18 @@ export function validateModel(model: GraphModel) {
   if (!model.settings.debug || !model.settings.strict) {
     return
   }
+  model.debug('Validating model')
+  validateNodeIdentifiability(model)
   validateEdgeUniqueness(model)
   model.debug('All validations passed')
+}
+
+function validateNodeIdentifiability(model: GraphModel) {
+  model.nodes.forEach((node) => {
+    if (!node.id) {
+      throw new Error(`Node ${node.tag} has no id`)
+    }
+  })
 }
 
 function validateEdgeUniqueness(model: GraphModel) {

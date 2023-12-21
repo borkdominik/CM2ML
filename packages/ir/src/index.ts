@@ -115,10 +115,10 @@ export class GraphModel implements Show {
     this.#edges.delete(edge)
   }
 
-  public debug(message: string) {
+  public debug(message: string | (() => string)) {
     if (this.settings.debug) {
       // eslint-disable-next-line no-console
-      console.log(message)
+      console.log(typeof message === 'string' ? message : message())
     }
   }
 

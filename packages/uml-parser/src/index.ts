@@ -20,12 +20,7 @@ function refine(model: GraphModel): GraphModel {
   refineNodesRecursively(model.root)
   replaceTagsWithTypes(model)
   validateModel(model)
-  model.debug(
-    Stream.from(model.edges)
-      .map((edge) => `${edge.source.tag} --${edge.tag}-> ${edge.target.tag}`)
-      .join('\n')
-      .concat('\n'),
-  )
+  printEdges(model)
   return model
 }
 
@@ -49,6 +44,9 @@ function removeNonUmlNodes(model: GraphModel) {
   if (!newRoot) {
     return
   }
+  model.debug(
+    `Re-rooted model with new root ${Uml.getType(newRoot)} (${newRoot.id})`,
+  )
   model.root = newRoot
 }
 
@@ -83,4 +81,17 @@ function replaceTagsWithTypes(model: GraphModel) {
       throw new Error(`Unknown type: ${type}`)
     }
   })
+}
+
+function printEdges(model: GraphModel) {
+  model.debug(`Created ${model.edges.size} edges`)
+  model.debug(() =>
+    Stream.from(model.edges)
+      .map(
+        (edge) =>
+          `${edge.source.tag} (${edge.source.id}) --${edge.tag}-> ${edge.target.tag} (${edge.target.id})`,
+      )
+      .join('\n')
+      .concat('\n'),
+  )
 }
