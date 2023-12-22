@@ -151,20 +151,18 @@ function createVisNodes(model: GraphModel) {
 }
 
 function createVisEdges(model: GraphModel) {
-  // @ts-expect-error Broken types
-  const groups: Record<string, GraphEdge[]> = Object.groupBy(
-    model.edges,
-    // @ts-expect-error Broken types
-    ({ source, target }) => {
-      const sourceId = source.id
-      const targetId = target.id
-      if (!sourceId || !targetId) {
-        return undefined
-      }
-      // Maintain stable order to also merge reverse-directed edges
-      return createEdgeId(sourceId, targetId)
-    },
-  )
+  const groups: Record<string, GraphEdge[]> = {}
+  Stream.from(model.edges).forEach((edge) => {
+    const sourceId = edge.source.id
+    const targetId = edge.target.id
+    if (!sourceId || !targetId) {
+      return
+    }
+    const edgeId = createEdgeId(sourceId, targetId)
+    const edges = groups[edgeId] ?? []
+    edges.push(edge)
+    groups[edgeId] = edges
+  })
   const newMappedEdges = Stream.fromObject(groups)
     .map<Edge | null>(([_key, edges]) => {
       const [firstEdge] = edges
