@@ -90,7 +90,7 @@ function useVisNetwok(
       }
       if (selectedNodes.length === 2) {
         const [sourceId, targetId] = selectedNodes
-        setSelection([sourceId!, targetId!])
+        setSelection([[sourceId!, targetId!]])
       }
     })
     network.on('selectEdge', (params: { edges: string[] }) => {
@@ -100,7 +100,8 @@ function useVisNetwok(
         if (!edge) {
           return
         }
-        setSelection(edge)
+        const reversed = edge.toReversed() as [string, string]
+        setSelection([edge, reversed])
       }
     })
     network.on('deselectNode', clearSelection)
@@ -127,7 +128,10 @@ function useVisNetwok(
       network.selectNodes([selection])
       return
     }
-    network.selectEdges([createEdgeId(selection[0], selection[1])])
+    const edgeIds = selection.map(([sourceId, targetId]) =>
+      createEdgeId(sourceId, targetId),
+    )
+    network.selectEdges(edgeIds)
   }, [network, selection])
 }
 

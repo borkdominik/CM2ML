@@ -163,7 +163,7 @@ function GridCell({ column, isActive, nodes, row }: GridCellProps) {
   const color = useCellColor(isActive, isCellSelected)
   function onEnter() {
     if (isActive && sourceId && targetId) {
-      setSelection([sourceId, targetId])
+      setSelection([[sourceId, targetId]])
     } else {
       clearSelection()
     }

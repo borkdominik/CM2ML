@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-export type Selection = readonly [string, string] | string
+export type Selection = (readonly [string, string])[] | string
 
 export interface SelectionState {
   selection: Selection | undefined
@@ -18,10 +18,10 @@ export interface SelectionState {
 export const useSelection = create<SelectionState>((set, get) => ({
   selection: undefined,
   isSelectedNode: (id: string | undefined) => {
-    if (id === undefined) {
+    const selection = get().selection
+    if (id === undefined || selection === undefined) {
       return false
     }
-    const selection = get().selection
     if (typeof selection === 'string') {
       return selection === id
     }
@@ -31,34 +31,38 @@ export const useSelection = create<SelectionState>((set, get) => ({
     sourceId: string | undefined,
     targetId: string | undefined,
   ) => {
-    if (sourceId === undefined || targetId === undefined) {
+    const selection = get().selection
+    if (
+      sourceId === undefined ||
+      targetId === undefined ||
+      selection === undefined
+    ) {
       return false
     }
-    const selection = get().selection
-    if (Array.isArray(selection)) {
-      return selection[0] === sourceId && selection[1] === targetId
+    if (typeof selection === 'string') {
+      return selection === sourceId || selection === targetId
     }
-    return selection === sourceId || selection === targetId
+    return selection.some(([sId, tId]) => sId === sourceId && tId === targetId)
   },
   isSelectedSource: (id: string | undefined) => {
-    if (id === undefined) {
+    const selection = get().selection
+    if (id === undefined || selection === undefined) {
       return false
     }
-    const selection = get().selection
-    if (Array.isArray(selection)) {
-      return selection[0] === id
+    if (typeof selection === 'string') {
+      return selection === id
     }
-    return selection === id
+    return selection.some(([sourceId]) => sourceId === id)
   },
   isSelectedTarget: (id: string | undefined) => {
-    if (id === undefined) {
+    const selection = get().selection
+    if (id === undefined || selection === undefined) {
       return false
     }
-    const selection = get().selection
-    if (Array.isArray(selection)) {
-      return selection[1] === id
+    if (typeof selection === 'string') {
+      return selection === id
     }
-    return selection === id
+    return selection.some(([_, targetId]) => targetId === id)
   },
   clearSelection: () => {
     set((_state) => ({
