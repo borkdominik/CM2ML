@@ -1,4 +1,5 @@
 import type { GraphEdge, GraphModel } from '@cm2ml/ir'
+import { debounce } from '@yeger/debounce'
 import { Stream } from '@yeger/streams'
 import type { RefObject } from 'react'
 import { useEffect, useRef, useState } from 'react'
@@ -55,6 +56,7 @@ function useVisNetwok(
       container.current,
       { nodes, edges },
       {
+        autoResize: false,
         edges: {
           color: {
             color: colors.active,
@@ -106,9 +108,12 @@ function useVisNetwok(
     })
     network.on('deselectNode', clearSelection)
     network.on('deselectEdge', clearSelection)
-    const resizeObserver = new ResizeObserver(() => {
-      network.fit()
-    })
+    const resizeObserver = new ResizeObserver(
+      debounce(() => {
+        network.redraw()
+        network.fit()
+      }),
+    )
     resizeObserver.observe(container.current)
     return () => {
       network.destroy()

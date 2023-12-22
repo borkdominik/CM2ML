@@ -1,6 +1,10 @@
 import { create } from 'zustand'
 
-export type Selection = (readonly [string, string])[] | string
+export type NodeSelection = string
+
+export type EdgeSelection = (readonly [string, string])[]
+
+export type Selection = NodeSelection | EdgeSelection
 
 export interface SelectionState {
   selection: Selection | undefined
