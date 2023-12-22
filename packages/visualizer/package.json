@@ -19,12 +19,14 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
+    "@cm2ml/builtin": "workspace:*",
     "@cm2ml/graph-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/uml-parser": "workspace:*",
     "@cm2ml/utils": "workspace:*",
     "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@yeger/streams": "1.1.1",
     "class-variance-authority": "0.7.0",

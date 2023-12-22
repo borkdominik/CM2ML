@@ -13,5 +13,9 @@ export function Encoding({ encoder, model }: Props) {
   if (encoder === GraphEncoder) {
     return <RawGraphEncoding model={model} />
   }
-  return <div>Unsupported encoder</div>
+  return (
+    <div className="flex h-full items-center justify-center text-red-500">
+      Unsupported encoder
+    </div>
+  )
 }

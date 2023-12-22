@@ -12,10 +12,21 @@ export const parsers: Plugin<string, GraphModel, any>[] = [
   XmiParser,
 ]
 
+export const parserMap = {
+  [EcoreParser.name]: EcoreParser,
+  [UmlParser.name]: UmlParser,
+  [XmiParser.name]: XmiParser,
+}
+
 export const encoders: Plugin<GraphModel, unknown, any>[] = [
   GraphEncoder,
   TreeEncoder,
 ]
+
+export const encoderMap = {
+  [GraphEncoder.name]: GraphEncoder,
+  [TreeEncoder.name]: TreeEncoder,
+}
 
 export const plugins = parsers.flatMap((parser) =>
   encoders.map((encoder) => compose(parser, encoder)),
