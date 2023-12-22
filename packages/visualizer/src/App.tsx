@@ -1,38 +1,34 @@
 import { GraphEncoder } from '@cm2ml/graph-encoder'
-import { UmlParser } from '@cm2ml/uml-parser'
-import { useMemo } from 'react'
+import type { GraphModel } from '@cm2ml/ir'
+import { useState } from 'react'
 
 import { Encoding } from './components/encodings/Encoding'
 import { IRGraph } from './components/IRGraph'
+import { ModelForm } from './components/ModelForm'
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from './components/ui/resizable'
-import { modelString } from './model'
 
 export function App() {
-  const model = useModelParser(modelString)
+  const [model, setModel] = useState<GraphModel | undefined>()
   return (
     <ResizablePanelGroup direction="horizontal" className="h-full">
       <ResizablePanel defaultSize={50}>
-        <IRGraph model={model} />
+        {model ? (
+          <IRGraph clearModel={() => setModel(undefined)} model={model} />
+        ) : null}
+        {!model ? (
+          <div className="p-2">
+            <ModelForm setModel={setModel} />
+          </div>
+        ) : null}
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel>
-        <Encoding model={model} encoder={GraphEncoder} />
+        {model ? <Encoding model={model} encoder={GraphEncoder} /> : null}
       </ResizablePanel>
     </ResizablePanelGroup>
   )
-}
-
-function useModelParser(serializedModel: string) {
-  const model = useMemo(() => {
-    return UmlParser.invoke(serializedModel, {
-      debug: false,
-      idAttribute: 'id',
-      strict: true,
-    })
-  }, [serializedModel])
-  return model
 }

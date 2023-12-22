@@ -1,4 +1,4 @@
-export const modelString = `<?xml version="1.0" encoding="UTF-8"?>
+export const exampleModel = `<?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Cfp0UGmxEe2kLe5KTNzRtw" name="clazz">
   <packagedElement xmi:type="uml:Class" xmi:id="_QE0EkK7gEe2EZoZ5sgiBCg" name="asd">
     <ownedAttribute xmi:id="_bM_S4K7gEe2EZoZ5sgiBCg" name="NewProperty1" type="_9pVK8LK0Ee24ffphK9Na6g">

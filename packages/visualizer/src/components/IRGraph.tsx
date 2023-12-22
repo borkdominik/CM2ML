@@ -14,9 +14,10 @@ import { Button } from './ui/button'
 
 export interface Props {
   model: GraphModel
+  clearModel: () => void
 }
 
-export function IRGraph({ model }: Props) {
+export function IRGraph({ clearModel, model }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const { fit, isLoading } = useVisNetwok(model, containerRef)
   return (
@@ -32,10 +33,9 @@ export function IRGraph({ model }: Props) {
         })}
       />
       {isLoading ? null : (
-        <div className="absolute inset-x-2 top-2 z-10">
-          <Button onClick={fit} className="text-xs">
-            Fit
-          </Button>
+        <div className="absolute inset-x-2 top-2 z-10 flex gap-2">
+          <Button onClick={fit}>Fit</Button>
+          <Button onClick={clearModel}>Clear</Button>
         </div>
       )}
     </div>
