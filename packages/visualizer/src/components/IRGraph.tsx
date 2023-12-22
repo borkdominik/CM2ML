@@ -6,7 +6,7 @@ import type { Edge } from 'vis-network/standalone/esm/vis-network'
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
 import { colors } from '../colors'
-import { useSelection } from '../selection'
+import { useSelection } from '../useSelection'
 
 export interface Props {
   model: GraphModel
@@ -17,15 +17,8 @@ export function IRGraph({ model }: Props) {
   useVisNetwok(model, containerRef)
   return <div ref={containerRef} className="h-full"></div>
 }
-const edgeIdSeparator = '-_$_-'
 
-function splitEdgeId(edgeId: string) {
-  const [sourceId, targetId] = edgeId.split(edgeIdSeparator)
-  if (!sourceId || !targetId) {
-    return undefined
-  }
-  return [sourceId, targetId]
-}
+const edgeIdSeparator = '-_$_-'
 
 function createEdgeId(sourceId: string, targetId: string) {
   return sourceId < targetId
@@ -33,11 +26,22 @@ function createEdgeId(sourceId: string, targetId: string) {
     : `${targetId}${edgeIdSeparator}${sourceId}`
 }
 
+function splitEdgeId(edgeId: string | undefined) {
+  if (!edgeId) {
+    return undefined
+  }
+  const [sourceId, targetId] = edgeId.split(edgeIdSeparator)
+  if (!sourceId || !targetId) {
+    return undefined
+  }
+  return [sourceId, targetId] as const
+}
+
 function useVisNetwok(
   model: GraphModel,
   container: RefObject<HTMLDivElement | null>,
 ) {
-  const { selectedNodes, selectIds, clearSelection } = useSelection()
+  const { selection, setSelection, clearSelection } = useSelection()
   const [network, setNetwork] = useState<Network | null>(null)
   useEffect(() => {
     if (!container.current) {
@@ -46,6 +50,7 @@ function useVisNetwok(
     const nodes = createVisNodes(model)
     const edges = createVisEdges(model)
     const isLargeModel = edges.length > 1000
+    // TODO: Disable multi select
     const network = new Network(
       container.current,
       { nodes, edges },
@@ -78,13 +83,25 @@ function useVisNetwok(
     )
     setNetwork(network)
     network.on('selectNode', (params: { nodes: string[] }) => {
-      selectIds(params.nodes)
+      const selectedNodes = params.nodes
+      if (selectedNodes.length === 1) {
+        setSelection(selectedNodes[0]!)
+        return
+      }
+      if (selectedNodes.length === 2) {
+        const [sourceId, targetId] = selectedNodes
+        setSelection([sourceId!, targetId!])
+      }
     })
     network.on('selectEdge', (params: { edges: string[] }) => {
-      const nodeIds = params.edges.flatMap(
-        (edgeId) => splitEdgeId(edgeId) ?? [],
-      )
-      selectIds(nodeIds)
+      const selectedEdges = params.edges
+      if (selectedEdges.length === 1) {
+        const edge = splitEdgeId(selectedEdges[0])
+        if (!edge) {
+          return
+        }
+        setSelection(edge)
+      }
     })
     network.on('deselectNode', clearSelection)
     network.on('deselectEdge', clearSelection)
@@ -102,21 +119,16 @@ function useVisNetwok(
     if (!network) {
       return
     }
-    if (selectedNodes.size === 0) {
+    if (selection === undefined) {
       network.unselectAll()
       return
     }
-    if (selectedNodes.size === 1) {
-      const [nodeId] = selectedNodes
-      network.selectNodes([nodeId!])
+    if (typeof selection === 'string') {
+      network.selectNodes([selection])
       return
     }
-    if (selectedNodes.size === 2) {
-      const nodeIds = Array.from(selectedNodes)
-      // network.selectNodes([nodeIds[0]!, nodeIds[1]!])
-      network.selectEdges([createEdgeId(nodeIds[0]!, nodeIds[1]!)])
-    }
-  }, [network, selectedNodes])
+    network.selectEdges([createEdgeId(selection[0], selection[1])])
+  }, [network, selection])
 }
 
 function createVisNodes(model: GraphModel) {

@@ -3,7 +3,7 @@ import type { GraphModel } from '@cm2ml/ir'
 import { useMemo } from 'react'
 
 import { colors } from '../../colors'
-import { useSelection } from '../../selection'
+import { useSelection } from '../../useSelection'
 
 const cellSize = 25
 const fontSize = cellSize / 2
@@ -15,7 +15,7 @@ export interface Props {
 export function RawGraphEncoding({ model }: Props) {
   const encoding = useRawGraphEncoding(model)
   return (
-    <div className="p-4">
+    <div className="p-2">
       <Grid
         connections={encoding.connections}
         model={model}
@@ -40,48 +40,99 @@ function getOffset(nodeId: string) {
 function Grid({ connections: connectedNodes, model, nodes }: GridProps) {
   const size = cellSize * nodes.length
   const offset = Math.min(...nodes.map(getOffset))
+  const viewBoxSize = size - offset
   return (
     <svg
       height={size}
       width={size}
-      viewBox={`${offset} 0 ${size} ${size}`}
+      viewBox={`${offset} ${offset} ${viewBoxSize} ${viewBoxSize}`}
       className="h-full w-full"
     >
-      {nodes.map((node, row) => (
-        <GridRow
-          connections={connectedNodes}
-          key={node}
-          model={model}
-          node={node}
-          nodes={nodes}
-          row={row}
-        />
-      ))}
+      <Labels nodes={nodes} offset={offset} />
+      <g>
+        {nodes.map((node, row) => (
+          <GridRow
+            connections={connectedNodes}
+            key={node}
+            model={model}
+            nodes={nodes}
+            row={row}
+          />
+        ))}
+      </g>
     </svg>
+  )
+}
+interface LabelsProps {
+  nodes: string[]
+  offset: number
+}
+
+function Labels({ nodes, offset }: LabelsProps) {
+  return (
+    <g>
+      {nodes.map((node, index) => (
+        <Label index={index} key={node} node={node} offset={offset} />
+      ))}
+    </g>
+  )
+}
+
+interface LabelProps {
+  index: number
+  node: string
+  offset: number
+}
+
+function Label({ index, node, offset }: LabelProps) {
+  const { clearSelection, isSelectedSource, isSelectedTarget, setSelection } =
+    useSelection()
+  function onEnter() {
+    setSelection(node)
+  }
+  function onLeave() {
+    clearSelection()
+  }
+  return (
+    <g>
+      <text
+        height={cellSize}
+        y={cellSize * (index + 1) - fontSize / 2}
+        x={offset}
+        className="font-mono"
+        fill={isSelectedSource(node) ? colors.selected : undefined}
+        fontSize={fontSize}
+        onPointerEnter={onEnter}
+        onPointerLeave={onLeave}
+      >
+        {node}
+      </text>
+      <text
+        height={cellSize}
+        y={cellSize * (index + 1) - fontSize / 2}
+        x={fontSize}
+        className="-rotate-90 font-mono"
+        fill={isSelectedTarget(node) ? colors.selected : undefined}
+        fontSize={fontSize}
+        onPointerEnter={onEnter}
+        onPointerLeave={onLeave}
+      >
+        {node}
+      </text>
+    </g>
   )
 }
 
 interface GridRowProps {
   connections: Connections
   model: GraphModel
-  node: string
   nodes: string[]
   row: number
 }
 
-function GridRow({ connections, model, node, nodes, row }: GridRowProps) {
+function GridRow({ connections, model, nodes, row }: GridRowProps) {
   return (
-    <>
-      {/* TODO */}
-      <text
-        height={cellSize}
-        y={cellSize * (row + 1) - fontSize / 2}
-        x={getOffset(node)}
-        className="font-mono"
-        fontSize={fontSize}
-      >
-        {node}
-      </text>
+    <g>
       {nodes.map((_otherNode, column) => (
         <GridCell
           column={column}
@@ -92,7 +143,7 @@ function GridRow({ connections, model, node, nodes, row }: GridRowProps) {
           row={row}
         />
       ))}
-    </>
+    </g>
   )
 }
 
@@ -105,17 +156,14 @@ interface GridCellProps {
 }
 
 function GridCell({ column, isActive, nodes, row }: GridCellProps) {
-  const sourceId = nodes[row]!
-  const targetId = nodes[column]!
-  const { clearSelection, selectedNodes, selectIds } = useSelection()
-  const isSelected =
-    selectedNodes.has(sourceId) &&
-    selectedNodes.has(targetId) &&
-    (sourceId !== targetId || selectedNodes.size === 1)
-  const color = useCellColor(isActive, isSelected)
+  const sourceId = nodes[row]
+  const targetId = nodes[column]
+  const { isSelectedEdge, clearSelection, setSelection } = useSelection()
+  const isCellSelected = isSelectedEdge(sourceId, targetId)
+  const color = useCellColor(isActive, isCellSelected)
   function onEnter() {
-    if (isActive) {
-      selectIds([sourceId, targetId])
+    if (isActive && sourceId && targetId) {
+      setSelection([sourceId, targetId])
     } else {
       clearSelection()
     }
@@ -159,8 +207,7 @@ function useRawGraphEncoding(model: GraphModel) {
   if (!('list' in encoding)) {
     throw new Error('Expected encoding to be a list')
   }
-  encoding.list.forEach((connection) => {
-    const [source, target] = connection
+  encoding.list.forEach(([source, target]) => {
     const set = connections[source] ?? new Set()
     set.add(target)
     connections[source] = set
