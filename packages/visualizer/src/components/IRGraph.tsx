@@ -43,13 +43,15 @@ function useVisNetwok(
             type: isLargeModel ? 'discrete' : 'dynamic',
           },
         },
-        physics: {
-          // enabled: false,
-        },
       },
     )
+    const resizeObserver = new ResizeObserver(() => {
+      network.fit()
+    })
+    resizeObserver.observe(container.current)
     return () => {
       network.destroy()
+      resizeObserver.disconnect()
     }
   }, [model, container])
 }

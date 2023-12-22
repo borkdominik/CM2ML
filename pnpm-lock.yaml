@@ -40,10 +40,10 @@ importers:
         version: 1.1.0(vitest@1.1.0)
       '@yeger/eslint-config':
         specifier: 1.9.2
-        version: 1.9.2(@typescript-eslint/parser@6.13.2)(eslint@8.56.0)(tailwindcss@3.3.3)(typescript@5.3.3)
+        version: 1.9.2(@typescript-eslint/parser@6.13.2)(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
       '@yeger/turbo-graph':
         specifier: 1.0.4
-        version: 1.0.4(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.3)(turbo@1.11.2)
+        version: 1.0.4(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.4.0)(turbo@1.11.2)
       cross-env:
         specifier: 7.0.3
         version: 7.0.3
@@ -457,6 +457,9 @@ importers:
 
   packages/visualizer:
     dependencies:
+      '@cm2ml/graph-encoder':
+        specifier: workspace:*
+        version: link:../graph-encoder
       '@cm2ml/ir':
         specifier: workspace:*
         version: link:../ir
@@ -3033,7 +3036,7 @@ packages:
     resolution: {integrity: sha512-B+z4Cmaf5dkfvjN4wTVhM8M40IFpz+KoMp80cCemiPH8XYL5nmogyfd2Kmf1cn/TC2RR601yFsZe1DV4GVbmuA==}
     dev: true
 
-  /@yeger/eslint-config@1.9.2(@typescript-eslint/parser@6.13.2)(eslint@8.56.0)(tailwindcss@3.3.3)(typescript@5.3.3):
+  /@yeger/eslint-config@1.9.2(@typescript-eslint/parser@6.13.2)(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3):
     resolution: {integrity: sha512-jAIP/FONYsClhpWhhj3S/7XprjF+9rGNBzIU0q84tFdFcKA/ohLk6rt2IzBaZ8UFrtekTbenJvsqrsWkkM0Sqg==}
     hasBin: true
     peerDependencies:
@@ -3050,7 +3053,7 @@ packages:
       eslint-plugin-markdown: 3.0.1(eslint@8.56.0)
       eslint-plugin-md: 1.0.19
       eslint-plugin-prettier: 5.0.1(eslint-config-prettier@9.1.0)(eslint@8.56.0)(prettier@3.1.0)
-      eslint-plugin-tailwindcss: 3.13.0(tailwindcss@3.3.3)
+      eslint-plugin-tailwindcss: 3.13.0(tailwindcss@3.4.0)
       eslint-plugin-tsdoc: 0.2.17
       eslint-plugin-turbo: 1.10.16(eslint@8.56.0)
       eslint-plugin-yml: 1.10.0(eslint@8.56.0)
@@ -3087,7 +3090,7 @@ packages:
   /@yeger/streams@1.1.1:
     resolution: {integrity: sha512-sFEQVJbXT/J1sQ7vRzAuwTkPkz6r40p/SXg7SRhNRRz5bI7Hd1Ju2/5OVW04MkOO3pMMtYNmRWmsamrUGNOREA==}
 
-  /@yeger/turbo-graph-ui@1.0.4(tailwindcss@3.3.3)(turbo@1.11.2):
+  /@yeger/turbo-graph-ui@1.0.4(tailwindcss@3.4.0)(turbo@1.11.2):
     resolution: {integrity: sha512-VmeHTauFvZuBun+ASNNJzawgOZgtBbl+PxkQSm2t6iXjRNgiXXISURIYnu2bvmXuyl0gc20bG3GdA6IZ14wjwA==}
     peerDependencies:
       turbo: ^1.0.0
@@ -3107,7 +3110,7 @@ packages:
       reactflow: 11.10.1(react-dom@18.2.0)(react@18.2.0)
       resumon: 2.0.2
       tailwind-merge: 2.1.0
-      tailwindcss-animate: 1.0.7(tailwindcss@3.3.3)
+      tailwindcss-animate: 1.0.7(tailwindcss@3.4.0)
       turbo: 1.11.2
     transitivePeerDependencies:
       - '@types/react'
@@ -3115,11 +3118,11 @@ packages:
       - tailwindcss
     dev: true
 
-  /@yeger/turbo-graph@1.0.4(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.3)(turbo@1.11.2):
+  /@yeger/turbo-graph@1.0.4(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.4.0)(turbo@1.11.2):
     resolution: {integrity: sha512-bDR6atkAm8bFUfCF2f6WVBDkbGxxbGffji8LyhKsb5HSM+vg9saSrAfLI6nznADbzGCu6o6i+T8oF6dQ924oeQ==}
     hasBin: true
     dependencies:
-      '@yeger/turbo-graph-ui': 1.0.4(tailwindcss@3.3.3)(turbo@1.11.2)
+      '@yeger/turbo-graph-ui': 1.0.4(tailwindcss@3.4.0)(turbo@1.11.2)
       cac: 6.7.14
       next: 14.0.3(react-dom@18.2.0)(react@18.2.0)
       open: 8.4.2
@@ -5116,7 +5119,7 @@ packages:
       eslint: 8.56.0
     dev: true
 
-  /eslint-plugin-tailwindcss@3.13.0(tailwindcss@3.3.3):
+  /eslint-plugin-tailwindcss@3.13.0(tailwindcss@3.4.0):
     resolution: {integrity: sha512-Fcep4KDRLWaK3KmkQbdyKHG0P4GdXFmXdDaweTIPcgOP60OOuWFbh1++dufRT28Q4zpKTKaHwTsXPJ4O/EjU2Q==}
     engines: {node: '>=12.13.0'}
     peerDependencies:
@@ -5124,7 +5127,7 @@ packages:
     dependencies:
       fast-glob: 3.3.2
       postcss: 8.4.32
-      tailwindcss: 3.3.3
+      tailwindcss: 3.4.0
     dev: true
 
   /eslint-plugin-tsdoc@0.2.17:
@@ -10111,43 +10114,12 @@ packages:
       '@babel/runtime': 7.23.5
     dev: true
 
-  /tailwindcss-animate@1.0.7(tailwindcss@3.3.3):
+  /tailwindcss-animate@1.0.7(tailwindcss@3.4.0):
     resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
     dependencies:
-      tailwindcss: 3.3.3
-    dev: true
-
-  /tailwindcss@3.3.3:
-    resolution: {integrity: sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==}
-    engines: {node: '>=14.0.0'}
-    hasBin: true
-    dependencies:
-      '@alloc/quick-lru': 5.2.0
-      arg: 5.0.2
-      chokidar: 3.5.3
-      didyoumean: 1.2.2
-      dlv: 1.1.3
-      fast-glob: 3.3.2
-      glob-parent: 6.0.2
-      is-glob: 4.0.3
-      jiti: 1.20.0
-      lilconfig: 2.1.0
-      micromatch: 4.0.5
-      normalize-path: 3.0.0
-      object-hash: 3.0.0
-      picocolors: 1.0.0
-      postcss: 8.4.32
-      postcss-import: 15.1.0(postcss@8.4.32)
-      postcss-js: 4.0.1(postcss@8.4.32)
-      postcss-load-config: 4.0.1(postcss@8.4.32)
-      postcss-nested: 6.0.1(postcss@8.4.32)
-      postcss-selector-parser: 6.0.13
-      resolve: 1.22.6
-      sucrase: 3.34.0
-    transitivePeerDependencies:
-      - ts-node
+      tailwindcss: 3.4.0
     dev: true
 
   /tailwindcss@3.4.0:

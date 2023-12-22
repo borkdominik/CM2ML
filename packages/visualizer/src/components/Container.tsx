@@ -5,5 +5,5 @@ export interface Props {
 }
 
 export function Container({ children }: Props) {
-  return <div className="rounded bg-neutral-100">{children}</div>
+  return <div className="overflow-auto rounded bg-neutral-100">{children}</div>
 }

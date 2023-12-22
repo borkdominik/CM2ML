@@ -19,6 +19,7 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
+    "@cm2ml/graph-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/uml-parser": "workspace:*",

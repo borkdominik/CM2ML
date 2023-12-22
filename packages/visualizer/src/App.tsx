@@ -1,7 +1,9 @@
+import { GraphEncoder } from '@cm2ml/graph-encoder'
 import { UmlParser } from '@cm2ml/uml-parser'
 import { useMemo } from 'react'
 
 import { Container } from './components/Container'
+import { Encoding } from './components/encodings/Encoding'
 import { IRGraph } from './components/IRGraph'
 import { modelString } from './model'
 
@@ -12,7 +14,9 @@ export function App() {
       <Container>
         <IRGraph model={model} />
       </Container>
-      <Container>Test</Container>
+      <Container>
+        <Encoding model={model} encoder={GraphEncoder} />
+      </Container>
     </div>
   )
 }
