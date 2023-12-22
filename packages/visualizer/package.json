@@ -1,0 +1,41 @@
+{
+  "name": "@cm2ml/visualizer",
+  "type": "module",
+  "private": true,
+  "version": "0.0.0",
+  "author": {
+    "name": "Jan Müller",
+    "url": "https://github.com/DerYeger"
+  },
+  "license": "MIT",
+  "repository": "github:borkdominik/CM2ML",
+  "bugs": {
+    "url": "https://github.com/borkdominik/CM2ML/issues"
+  },
+  "scripts": {
+    "build": "vite build",
+    "check:tsc": "tsc",
+    "dev": "vite",
+    "lint": "yeger-lint"
+  },
+  "dependencies": {
+    "@cm2ml/ir": "workspace:*",
+    "@cm2ml/plugin": "workspace:*",
+    "@cm2ml/uml-parser": "workspace:*",
+    "@yeger/streams": "1.1.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "vis-network": "9.1.9"
+  },
+  "devDependencies": {
+    "@cm2ml/tsconfig": "workspace:*",
+    "@types/react": "18.2.45",
+    "@types/react-dom": "18.2.18",
+    "@vitejs/plugin-react": "4.2.1",
+    "autoprefixer": "10.4.16",
+    "postcss": "8.4.32",
+    "tailwindcss": "3.4.0",
+    "typescript": "5.3.3",
+    "vite": "5.0.10"
+  }
+}

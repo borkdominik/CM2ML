@@ -1,0 +1,9 @@
+{
+  "extends": "@cm2ml/tsconfig/vite",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "jsx": "react-jsx",
+    "types": ["node"]
+  },
+  "exclude": ["node_modules", "coverage", "dist"]
+}
