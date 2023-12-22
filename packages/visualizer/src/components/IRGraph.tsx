@@ -76,7 +76,7 @@ function useVisNetwok(
       edges: {
         color: {
           color: colors.active,
-          highlight: colors.selected,
+          highlight: colors.selectedBackground,
         },
         length: isLargeModel ? 250 : undefined,
         scaling: {
@@ -91,10 +91,12 @@ function useVisNetwok(
         },
       },
       nodes: {
+        borderWidth: 2,
         color: {
           border: colors.activeBorder,
-          background: colors.background,
+          background: colors.activeBackground,
           highlight: {
+            background: colors.selectedBackground,
             border: colors.selected,
           },
         },
