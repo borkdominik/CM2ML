@@ -3,6 +3,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "jsx": "react-jsx",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "types": ["node"]
   },
   "exclude": ["node_modules", "coverage", "dist"]

@@ -85,13 +85,9 @@ interface LabelProps {
 }
 
 function Label({ index, node, offset }: LabelProps) {
-  const { clearSelection, isSelectedSource, isSelectedTarget, setSelection } =
-    useSelection()
-  function onEnter() {
+  const { isSelectedSource, isSelectedTarget, setSelection } = useSelection()
+  function onPointerDown() {
     setSelection(node)
-  }
-  function onLeave() {
-    clearSelection()
   }
   return (
     <g>
@@ -99,11 +95,10 @@ function Label({ index, node, offset }: LabelProps) {
         height={cellSize}
         y={cellSize * (index + 1) - fontSize / 2}
         x={offset}
-        className="font-mono"
+        className="cursor-default font-mono hover:fill-red-300"
         fill={isSelectedSource(node) ? colors.selected : undefined}
         fontSize={fontSize}
-        onPointerEnter={onEnter}
-        onPointerLeave={onLeave}
+        onPointerDown={onPointerDown}
       >
         {node}
       </text>
@@ -111,11 +106,10 @@ function Label({ index, node, offset }: LabelProps) {
         height={cellSize}
         y={cellSize * (index + 1) - fontSize / 2}
         x={fontSize}
-        className="-rotate-90 font-mono"
+        className="-rotate-90 cursor-default font-mono hover:fill-red-300"
         fill={isSelectedTarget(node) ? colors.selected : undefined}
         fontSize={fontSize}
-        onPointerEnter={onEnter}
-        onPointerLeave={onLeave}
+        onPointerDown={onPointerDown}
       >
         {node}
       </text>
@@ -161,7 +155,7 @@ function GridCell({ column, isActive, nodes, row }: GridCellProps) {
   const { isSelectedEdge, clearSelection, setSelection } = useSelection()
   const isCellSelected = isSelectedEdge(sourceId, targetId)
   const color = useCellColor(isActive, isCellSelected)
-  function onEnter() {
+  function onPointerDown() {
     if (isActive && sourceId && targetId) {
       setSelection([[sourceId, targetId]])
     } else {
@@ -177,8 +171,8 @@ function GridCell({ column, isActive, nodes, row }: GridCellProps) {
       y={cellSize * row}
       fill={color}
       stroke="darkgrey"
-      onPointerEnter={onEnter}
-      onPointerLeave={clearSelection}
+      className="hover:fill-red-300"
+      onPointerDown={onPointerDown}
     />
   )
 }

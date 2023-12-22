@@ -2,22 +2,27 @@ import { GraphEncoder } from '@cm2ml/graph-encoder'
 import { UmlParser } from '@cm2ml/uml-parser'
 import { useMemo } from 'react'
 
-import { Container } from './components/Container'
 import { Encoding } from './components/encodings/Encoding'
 import { IRGraph } from './components/IRGraph'
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from './components/ui/resizable'
 import { modelString } from './model'
 
 export function App() {
   const model = useModelParser(modelString)
   return (
-    <div className="grid h-full grid-cols-2 gap-1 bg-neutral-900 p-1">
-      <Container>
+    <ResizablePanelGroup direction="horizontal" className="h-full">
+      <ResizablePanel defaultSize={50}>
         <IRGraph model={model} />
-      </Container>
-      <Container>
+      </ResizablePanel>
+      <ResizableHandle withHandle />
+      <ResizablePanel>
         <Encoding model={model} encoder={GraphEncoder} />
-      </Container>
-    </div>
+      </ResizablePanel>
+    </ResizablePanelGroup>
   )
 }
 
