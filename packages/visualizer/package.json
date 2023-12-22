@@ -23,6 +23,7 @@
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/uml-parser": "workspace:*",
+    "@radix-ui/react-slot": "^1.0.2",
     "@yeger/streams": "1.1.1",
     "class-variance-authority": "0.7.0",
     "clsx": "2.0.0",

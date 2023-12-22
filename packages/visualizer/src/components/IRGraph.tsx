@@ -1,13 +1,16 @@
-import type { GraphEdge, GraphModel } from '@cm2ml/ir'
+import type { GraphModel } from '@cm2ml/ir'
 import { debounce } from '@yeger/debounce'
 import { Stream } from '@yeger/streams'
 import type { RefObject } from 'react'
-import { useEffect, useRef, useState } from 'react'
-import type { Edge } from 'vis-network/standalone/esm/vis-network'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import type { Edge, Options } from 'vis-network/standalone/esm/vis-network'
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
 import { colors } from '../colors'
+import { cn } from '../lib/utils'
 import { useSelection } from '../useSelection'
+
+import { Button } from './ui/button'
 
 export interface Props {
   model: GraphModel
@@ -15,8 +18,28 @@ export interface Props {
 
 export function IRGraph({ model }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  useVisNetwok(model, containerRef)
-  return <div ref={containerRef} className="h-full"></div>
+  const { fit, isLoading } = useVisNetwok(model, containerRef)
+  return (
+    <div className="relative h-full">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="h-10 w-10 animate-spin rounded-full border-y-2 border-neutral-950 dark:border-neutral-50" />
+      </div>
+      <div
+        ref={containerRef}
+        className={cn({
+          'absolute inset-0 ': true,
+          'bg-white': !isLoading,
+        })}
+      />
+      {isLoading ? null : (
+        <div className="absolute inset-x-2 top-2 z-10">
+          <Button onClick={fit} className="text-xs">
+            Fit
+          </Button>
+        </div>
+      )}
+    </div>
+  )
 }
 
 const edgeIdSeparator = '-_$_-'
@@ -44,48 +67,49 @@ function useVisNetwok(
 ) {
   const { selection, setSelection, clearSelection } = useSelection()
   const [network, setNetwork] = useState<Network | null>(null)
+  const { data, options } = useMemo(() => {
+    const nodes = createVisNodes(model)
+    const edges = createVisEdges(model)
+    const isLargeModel = edges.length > 1000
+    const options: Options = {
+      autoResize: false,
+      edges: {
+        color: {
+          color: colors.active,
+          highlight: colors.selected,
+        },
+        length: isLargeModel ? 250 : undefined,
+        scaling: {
+          min: 1,
+          max: 7,
+        },
+        smooth: {
+          enabled: true,
+          forceDirection: false,
+          roundness: 0.6,
+          type: isLargeModel ? 'discrete' : 'dynamic',
+        },
+      },
+      nodes: {
+        color: {
+          border: colors.activeBorder,
+          background: colors.background,
+          highlight: {
+            border: colors.selected,
+          },
+        },
+      },
+    }
+    return { data: { nodes, edges }, options }
+  }, [model])
+
   useEffect(() => {
     if (!container.current) {
       return
     }
-    const nodes = createVisNodes(model)
-    const edges = createVisEdges(model)
-    const isLargeModel = edges.length > 1000
-    // TODO: Disable multi select
-    const network = new Network(
-      container.current,
-      { nodes, edges },
-      {
-        autoResize: false,
-        edges: {
-          color: {
-            color: colors.active,
-            highlight: colors.selected,
-          },
-          length: isLargeModel ? 250 : undefined,
-          scaling: {
-            min: 1,
-            max: 7,
-          },
-          smooth: {
-            enabled: true,
-            forceDirection: false,
-            roundness: 0.6,
-            type: isLargeModel ? 'discrete' : 'dynamic',
-          },
-        },
-        nodes: {
-          color: {
-            highlight: {
-              border: colors.selected,
-            },
-          },
-        },
-      },
-    )
+    const network = new Network(container.current, data, options)
     setNetwork(network)
-    network.on('selectNode', (params: { nodes: string[] }) => {
-      const selectedNodes = params.nodes
+    function selectNodes(selectedNodes: string[]) {
       if (selectedNodes.length === 1) {
         setSelection(selectedNodes[0]!)
         return
@@ -94,6 +118,12 @@ function useVisNetwok(
         const [sourceId, targetId] = selectedNodes
         setSelection([[sourceId!, targetId!]])
       }
+    }
+    network.on('dragStart', (params: { nodes: string[] }) => {
+      selectNodes(params.nodes)
+    })
+    network.on('selectNode', (params: { nodes: string[] }) => {
+      selectNodes(params.nodes)
     })
     network.on('selectEdge', (params: { edges: string[] }) => {
       const selectedEdges = params.edges
@@ -120,7 +150,8 @@ function useVisNetwok(
       resizeObserver.disconnect()
       setNetwork(null)
     }
-  }, [model, container])
+  }, [container, data, options])
+
   useEffect(() => {
     if (!network) {
       return
@@ -138,6 +169,11 @@ function useVisNetwok(
     )
     network.selectEdges(edgeIds)
   }, [network, selection])
+
+  return {
+    isLoading: !network,
+    fit: () => network?.fit(),
+  }
 }
 
 function createVisNodes(model: GraphModel) {
@@ -151,7 +187,7 @@ function createVisNodes(model: GraphModel) {
 }
 
 function createVisEdges(model: GraphModel) {
-  const groups: Record<string, GraphEdge[]> = {}
+  const edgeMap: Record<string, Edge> = {}
   Stream.from(model.edges).forEach((edge) => {
     const sourceId = edge.source.id
     const targetId = edge.target.id
@@ -159,28 +195,17 @@ function createVisEdges(model: GraphModel) {
       return
     }
     const edgeId = createEdgeId(sourceId, targetId)
-    const edges = groups[edgeId] ?? []
-    edges.push(edge)
-    groups[edgeId] = edges
+    const networkEdge: Edge = edgeMap[edgeId] ?? {
+      id: edgeId,
+      from: sourceId,
+      to: targetId,
+    }
+    networkEdge.value = (networkEdge.value ?? 0) + 1
+    edgeMap[edgeId] = networkEdge
   })
-  const newMappedEdges = Stream.fromObject(groups)
-    .map<Edge | null>(([_key, edges]) => {
-      const [firstEdge] = edges
-      if (!firstEdge) {
-        return null
-      }
-      const { source, target } = firstEdge
-      if (!source.id || !target.id) {
-        return null
-      }
-      return {
-        id: createEdgeId(source.id, target.id),
-        from: source.id,
-        to: target.id,
-        value: Math.log10(edges.length),
-      }
-    })
-    .filterNonNull()
-    .toArray()
-  return new DataSet(newMappedEdges)
+  const edges = Object.values(edgeMap).map((edge) => ({
+    ...edge,
+    value: Math.log10(edge.value ?? 1),
+  }))
+  return new DataSet(edges)
 }
