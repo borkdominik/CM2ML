@@ -16,7 +16,8 @@ import {
 } from './ui/menubar'
 
 export function Menu() {
-  const { clearEncoder, clearModel, fitGraph, model, setModel } = useAppState()
+  const { clearEncoder, clearModel, encoder, fitGraph, model, setModel } =
+    useAppState()
   return (
     <Menubar>
       <MenubarMenu>
@@ -26,13 +27,17 @@ export function Menu() {
             Load Example
           </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem onClick={clearModel}>Close</MenubarItem>
+          <MenubarItem onClick={clearModel} disabled={model === undefined}>
+            Close
+          </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
         <MenubarTrigger>Encoder</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem onClick={clearEncoder}>Close</MenubarItem>
+          <MenubarItem onClick={clearEncoder} disabled={encoder === undefined}>
+            Close
+          </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>

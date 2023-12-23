@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 
 import { colors } from '../../colors'
 import { useSelection } from '../../lib/useSelection'
+import { cn } from '../../lib/utils'
 
 const cellSize = 25
 const fontSize = cellSize / 2
@@ -90,14 +91,20 @@ function Label({ index, node, offset }: LabelProps) {
   function onPointerDown() {
     setSelection(node)
   }
+  const isRowSelected = isSelectedSource(node)
+  const isColumnSelected = isSelectedTarget(node)
   return (
     <g>
       <text
         height={cellSize}
         y={cellSize * (index + 1) - fontSize / 2}
         x={offset}
-        className="cursor-default font-mono hover:fill-red-300"
-        fill={isSelectedSource(node) ? colors.selected : undefined}
+        className={cn({
+          'cursor-default fill-foreground font-mono hover:fill-secondary-foreground hover:font-bold':
+            true,
+          'fill-foreground': !isRowSelected,
+          'fill-primary': isRowSelected,
+        })}
         fontSize={fontSize}
         onPointerDown={onPointerDown}
       >
@@ -107,8 +114,12 @@ function Label({ index, node, offset }: LabelProps) {
         height={cellSize}
         y={cellSize * (index + 1) - fontSize / 2}
         x={fontSize}
-        className="-rotate-90 cursor-default font-mono hover:fill-red-300"
-        fill={isSelectedTarget(node) ? colors.selected : undefined}
+        className={cn({
+          '-rotate-90 cursor-default font-mono hover:fill-secondary-foreground hover:font-bold':
+            true,
+          'fill-foreground': !isColumnSelected,
+          'fill-primary': isColumnSelected,
+        })}
         fontSize={fontSize}
         onPointerDown={onPointerDown}
       >
@@ -171,8 +182,10 @@ function GridCell({ column, isActive, nodes, row }: GridCellProps) {
       x={cellSize * column}
       y={cellSize * row}
       fill={color}
-      stroke="darkgrey"
-      className="hover:fill-red-300"
+      className={cn({
+        'stroke-border': true,
+        'hover:fill-secondary-foreground': isActive,
+      })}
       onPointerDown={onPointerDown}
     />
   )
