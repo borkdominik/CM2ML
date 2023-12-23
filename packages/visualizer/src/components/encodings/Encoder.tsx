@@ -4,9 +4,9 @@ import { EncoderForm } from './EncoderForm'
 import { Encoding } from './Encoding'
 
 export function Encoder() {
-  const { encoder, model } = useAppState()
+  const { encoder, model, parameters } = useAppState()
   if (encoder && model) {
-    return <Encoding model={model} encoder={encoder} />
+    return <Encoding model={model} encoder={encoder} parameters={parameters} />
   }
   if (encoder) {
     return (

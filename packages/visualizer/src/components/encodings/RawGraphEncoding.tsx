@@ -5,17 +5,19 @@ import { useMemo } from 'react'
 import { colors } from '../../colors'
 import { useSelection } from '../../lib/useSelection'
 import { cn } from '../../lib/utils'
+import type { ParameterValues } from '../Parameters'
 
 const cellSize = 25
 const fontSize = cellSize / 2
 
 export interface Props {
   model: GraphModel
+  parameters: ParameterValues
 }
 
 // TODO: Handle encoding without edges
-export function RawGraphEncoding({ model }: Props) {
-  const encoding = useRawGraphEncoding(model)
+export function RawGraphEncoding({ model, parameters }: Props) {
+  const encoding = useRawGraphEncoding(model, parameters)
   return (
     <div className="p-2">
       <Grid
@@ -201,14 +203,9 @@ function useCellColor(isActive: boolean, isSelected: boolean) {
   return 'none'
 }
 
-function useRawGraphEncoding(model: GraphModel) {
+function useRawGraphEncoding(model: GraphModel, parameters: ParameterValues) {
   const encoding = useMemo(
-    () =>
-      GraphEncoder.invoke(model, {
-        includeEqualPaths: false,
-        sparse: true,
-        weighted: false,
-      }),
+    () => GraphEncoder.validateAndInvoke(model, parameters),
     [model],
   )
   const connections: Connections = {}
