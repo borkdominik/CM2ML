@@ -17,11 +17,9 @@ import {
 
 const encoders = Object.keys(encoderMap)
 
-export interface Props {
-  canSubmit: boolean
-}
+export interface Props {}
 
-export function EncoderForm({ canSubmit }: Props) {
+export function EncoderForm(_: Props) {
   const { setEncoder } = useAppState()
   const [encoderName, setEncoderName] = useState<string>('')
   return (
@@ -52,7 +50,7 @@ export function EncoderForm({ canSubmit }: Props) {
         </CardContent>
         <CardFooter>
           <Button
-            disabled={!canSubmit || encoderMap[encoderName] === undefined}
+            disabled={encoderMap[encoderName] === undefined}
             onClick={() => setEncoder(encoderMap[encoderName]!)}
           >
             Submit

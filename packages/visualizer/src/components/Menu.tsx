@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import { loadExample } from '../lib/exampleModel'
 import { useAppState } from '../lib/useAppState'
 
@@ -44,8 +46,45 @@ export function Menu() {
               </MenubarItem>
             </MenubarSubContent>
           </MenubarSub>
+          <ThemeSubMenu />
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
+  )
+}
+
+const themes = ['light', 'dark'] as const
+
+type Theme = (typeof themes)[number]
+
+function ThemeSubMenu() {
+  const body = document.getElementsByTagName('body')[0]
+  const [theme, setTheme] = useState<Theme>(() =>
+    body?.classList.contains('dark') ? 'dark' : 'light',
+  )
+  useEffect(() => {
+    if (theme === 'light') {
+      body?.classList.remove('dark')
+      localStorage.setItem('theme', 'light')
+    } else {
+      body?.classList.add('dark')
+      localStorage.setItem('theme', 'dark')
+    }
+  }, [theme])
+  return (
+    <MenubarSub>
+      <MenubarSubTrigger>Theme</MenubarSubTrigger>
+      <MenubarSubContent>
+        {themes.map((th) => (
+          <MenubarItem
+            disabled={th === theme}
+            key={th}
+            onClick={() => setTheme(th)}
+          >
+            <span className="capitalize">{th}</span>
+          </MenubarItem>
+        ))}
+      </MenubarSubContent>
+    </MenubarSub>
   )
 }
