@@ -1,19 +1,13 @@
 import type { GraphModel } from '@cm2ml/ir'
 import { debounce } from '@yeger/debounce'
 import { Stream } from '@yeger/streams'
-import type { ForwardedRef, RefObject } from 'react'
-import {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import type { RefObject } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Edge, Options } from 'vis-network/standalone/esm/vis-network'
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
 import { colors } from '../colors'
+import { useAppState } from '../lib/useAppState'
 import { useSelection } from '../lib/useSelection'
 
 export interface Props {
@@ -24,25 +18,11 @@ export interface IRGraphRef {
   fit?: () => void
 }
 
-function NetworkComponent({ model }: Props, ref: ForwardedRef<IRGraphRef>) {
+export function IRGraph({ model }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { fit, isLoading } = useVisNetwok(model, containerRef)
-  useImperativeHandle(ref, () => ({
-    fit,
-  }))
-  return (
-    <div className="relative h-full">
-      <div className="absolute inset-0 z-10 flex h-full items-center justify-center">
-        {isLoading ? (
-          <div className="h-10 w-10 animate-spin rounded-full border-y-2 border-primary" />
-        ) : null}
-      </div>
-      <div ref={containerRef} className={'absolute inset-0'} />
-    </div>
-  )
+  useVisNetwok(model, containerRef)
+  return <div ref={containerRef} className={'h-full'} />
 }
-
-export const IRGraph = forwardRef(NetworkComponent)
 
 const edgeIdSeparator = '-_$_-'
 
@@ -67,6 +47,7 @@ function useVisNetwok(
   model: GraphModel,
   container: RefObject<HTMLDivElement | null>,
 ) {
+  const { setFitGraph } = useAppState()
   const { selection, setSelection, clearSelection } = useSelection()
   const [network, setNetwork] = useState<Network | null>(null)
   const { data, options } = useMemo(() => {
@@ -174,10 +155,9 @@ function useVisNetwok(
     network.selectEdges(edgeIds)
   }, [network, selection])
 
-  return {
-    isLoading: !network,
-    fit: network ? () => network.fit() : undefined,
-  }
+  useEffect(() => {
+    setFitGraph(network ? () => network.fit() : undefined)
+  }, [network, setFitGraph])
 }
 
 function createVisNodes(model: GraphModel) {

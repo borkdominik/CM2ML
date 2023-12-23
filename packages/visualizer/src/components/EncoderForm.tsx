@@ -1,7 +1,7 @@
 import { encoderMap } from '@cm2ml/builtin'
-import type { GraphModel } from '@cm2ml/ir'
-import type { Plugin } from '@cm2ml/plugin'
 import { useState } from 'react'
+
+import { useAppState } from '../lib/useAppState'
 
 import { Button } from './ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card'
@@ -19,10 +19,10 @@ const encoders = Object.keys(encoderMap)
 
 export interface Props {
   canSubmit: boolean
-  setEncoder: (encoding: Plugin<GraphModel, unknown, any>) => void
 }
 
-export function EncoderForm({ canSubmit, setEncoder }: Props) {
+export function EncoderForm({ canSubmit }: Props) {
+  const { setEncoder } = useAppState()
   const [encoderName, setEncoderName] = useState<string>('')
   return (
     <>
