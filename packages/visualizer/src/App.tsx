@@ -17,6 +17,7 @@ export function App() {
   const [encoder, setEncoder] = useState<
     Plugin<GraphModel, unknown, any> | undefined
   >(undefined)
+  // TODO: Make clear buttons red
   // TODO: Load example button for model form
   // TODO: Clear button for encoder section
   return (

@@ -13,6 +13,7 @@
     "url": "https://github.com/borkdominik/CM2ML/issues"
   },
   "scripts": {
+    "add-component": "shadcn-ui add",
     "build": "vite build",
     "check:tsc": "tsc",
     "dev": "vite",
@@ -25,6 +26,7 @@
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/uml-parser": "workspace:*",
     "@cm2ml/utils": "workspace:*",
+    "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
@@ -48,6 +50,7 @@
     "@yeger/debounce": "2.0.2",
     "autoprefixer": "10.4.16",
     "postcss": "8.4.32",
+    "shadcn-ui": "0.5.0",
     "tailwindcss": "3.4.0",
     "typescript": "5.3.3",
     "vite": "5.0.10"

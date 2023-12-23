@@ -29,7 +29,7 @@ export function IRGraph({ clearModel, model }: Props) {
         ref={containerRef}
         className={cn({
           'absolute inset-0 ': true,
-          'bg-white': !isLoading,
+          'bg-background': !isLoading,
         })}
       />
       {isLoading ? null : (
