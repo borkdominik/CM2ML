@@ -1,10 +1,9 @@
 import { encoderMap } from '@cm2ml/builtin'
 import { useState } from 'react'
 
-import { useAppState } from '../lib/useAppState'
-
-import { Button } from './ui/button'
-import { Card, CardContent, CardFooter, CardHeader } from './ui/card'
+import { useAppState } from '../../lib/useAppState'
+import { Button } from '../ui/button'
+import { Card, CardContent, CardFooter, CardHeader } from '../ui/card'
 import {
   Select,
   SelectContent,
@@ -13,7 +12,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from './ui/select'
+} from '../ui/select'
 
 const encoders = Object.keys(encoderMap)
 

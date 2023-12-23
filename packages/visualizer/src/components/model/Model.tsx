@@ -1,4 +1,4 @@
-import { useAppState } from '../lib/useAppState'
+import { useAppState } from '../../lib/useAppState'
 
 import { IRGraph } from './IRGraph'
 import { ModelForm } from './ModelForm'

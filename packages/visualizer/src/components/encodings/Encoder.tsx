@@ -1,7 +1,7 @@
-import { useAppState } from '../lib/useAppState'
+import { useAppState } from '../../lib/useAppState'
 
 import { EncoderForm } from './EncoderForm'
-import { Encoding } from './encodings/Encoding'
+import { Encoding } from './Encoding'
 
 export function Encoder() {
   const { encoder, model } = useAppState()

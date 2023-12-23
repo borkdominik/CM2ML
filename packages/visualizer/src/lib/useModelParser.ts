@@ -1,15 +1,20 @@
-import { UmlParser } from '@cm2ml/uml-parser'
+import type { GraphModel } from '@cm2ml/ir'
+import type { Plugin } from '@cm2ml/plugin'
 import { getMessage } from '@cm2ml/utils'
 import { useMemo } from 'react'
 
-// TODO: Make parser selectable
-export function useModelParser(serializedModel: string | undefined) {
+export type Parser = Plugin<string, GraphModel, any>
+
+export function useModelParser(
+  serializedModel: string | undefined,
+  parser: Parser | undefined,
+) {
   const result = useMemo(() => {
-    if (!serializedModel) {
+    if (!serializedModel || !parser) {
       return {}
     }
     try {
-      const model = UmlParser.invoke(serializedModel, {
+      const model = parser.invoke(serializedModel, {
         debug: false,
         idAttribute: 'id',
         strict: true,

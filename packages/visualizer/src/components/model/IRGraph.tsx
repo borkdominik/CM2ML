@@ -6,9 +6,9 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Edge, Options } from 'vis-network/standalone/esm/vis-network'
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
-import { colors } from '../colors'
-import { useAppState } from '../lib/useAppState'
-import { useSelection } from '../lib/useSelection'
+import { colors } from '../../colors'
+import { useAppState } from '../../lib/useAppState'
+import { useSelection } from '../../lib/useSelection'
 
 export interface Props {
   model: GraphModel

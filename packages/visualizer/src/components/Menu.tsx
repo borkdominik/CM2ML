@@ -19,7 +19,7 @@ export function Menu() {
   const { clearEncoder, clearModel, encoder, fitGraph, model, setModel } =
     useAppState()
   return (
-    <Menubar>
+    <Menubar className="rounded-none">
       <MenubarMenu>
         <MenubarTrigger>Model</MenubarTrigger>
         <MenubarContent>

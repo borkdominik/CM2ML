@@ -1,6 +1,6 @@
-import { Encoder } from './components/Encoder'
+import { Encoder } from './components/encodings/Encoder'
 import { Menu } from './components/Menu'
-import { Model } from './components/Model'
+import { Model } from './components/model/Model'
 import {
   ResizableHandle,
   ResizablePanel,
