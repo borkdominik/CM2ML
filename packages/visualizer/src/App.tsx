@@ -4,8 +4,7 @@ import { useState } from 'react'
 
 import { EncoderForm } from './components/EncoderForm'
 import { Encoding } from './components/encodings/Encoding'
-import { IRGraph } from './components/IRGraph'
-import { ModelForm } from './components/ModelForm'
+import { Model } from './components/Model'
 import {
   ResizableHandle,
   ResizablePanel,
@@ -18,19 +17,11 @@ export function App() {
     Plugin<GraphModel, unknown, any> | undefined
   >(undefined)
   // TODO: Make clear buttons red
-  // TODO: Load example button for model form
   // TODO: Clear button for encoder section
   return (
     <ResizablePanelGroup direction="horizontal" className="h-full">
-      <ResizablePanel defaultSize={50}>
-        {model ? (
-          <IRGraph clearModel={() => setModel(undefined)} model={model} />
-        ) : null}
-        {!model ? (
-          <div className="p-2">
-            <ModelForm setModel={setModel} />
-          </div>
-        ) : null}
+      <ResizablePanel defaultSize={50} className="relative">
+        <Model model={model} setModel={setModel} />
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel>

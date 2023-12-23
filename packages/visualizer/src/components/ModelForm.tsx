@@ -1,23 +1,19 @@
 import type { GraphModel } from '@cm2ml/ir'
-import { UmlParser } from '@cm2ml/uml-parser'
-import { getMessage } from '@cm2ml/utils'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
-import { exampleModel } from '../model'
+import { useModelParser } from '../lib/useModelParser'
 
 import { Button } from './ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card'
-import { Input } from './ui/input'
 import { Label } from './ui/label'
+import { Textarea } from './ui/textarea'
 
 export interface Props {
   setModel: (model: GraphModel) => void
 }
 
 export function ModelForm({ setModel }: Props) {
-  const [modelString, setModelString] = useState<string | undefined>(
-    '' ?? exampleModel,
-  )
+  const [modelString, setModelString] = useState<string | undefined>('')
   const { model, error } = useModelParser(modelString)
   return (
     <Card>
@@ -26,13 +22,12 @@ export function ModelForm({ setModel }: Props) {
       </CardHeader>
       <CardContent>
         <Label htmlFor="model">Serialized Model</Label>
-        <Input
+        <Textarea
           name="model"
-          type="textarea"
           value={modelString}
           onChange={(event) => setModelString(event.target.value)}
         />
-        {error ? <div className="text-red-500">{error}</div> : null}
+        {error ? <div className="text-destructive">{error}</div> : null}
       </CardContent>
       <CardFooter>
         <Button disabled={!model} onClick={() => setModel(model!)}>
@@ -41,23 +36,4 @@ export function ModelForm({ setModel }: Props) {
       </CardFooter>
     </Card>
   )
-}
-
-function useModelParser(serializedModel: string | undefined) {
-  const result = useMemo(() => {
-    if (!serializedModel) {
-      return {}
-    }
-    try {
-      const model = UmlParser.invoke(serializedModel, {
-        debug: false,
-        idAttribute: 'id',
-        strict: true,
-      })
-      return { model }
-    } catch (error) {
-      return { error: getMessage(error) }
-    }
-  }, [serializedModel])
-  return result
 }

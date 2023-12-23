@@ -1,46 +1,48 @@
 import type { GraphModel } from '@cm2ml/ir'
 import { debounce } from '@yeger/debounce'
 import { Stream } from '@yeger/streams'
-import type { RefObject } from 'react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import type { ForwardedRef, RefObject } from 'react'
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import type { Edge, Options } from 'vis-network/standalone/esm/vis-network'
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
 import { colors } from '../colors'
-import { cn } from '../lib/utils'
-import { useSelection } from '../useSelection'
-
-import { Button } from './ui/button'
+import { useSelection } from '../lib/useSelection'
 
 export interface Props {
   model: GraphModel
-  clearModel: () => void
 }
 
-export function IRGraph({ clearModel, model }: Props) {
+export interface IRGraphRef {
+  fit?: () => void
+}
+
+function NetworkComponent({ model }: Props, ref: ForwardedRef<IRGraphRef>) {
   const containerRef = useRef<HTMLDivElement>(null)
   const { fit, isLoading } = useVisNetwok(model, containerRef)
+  useImperativeHandle(ref, () => ({
+    fit,
+  }))
   return (
     <div className="relative h-full">
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="h-10 w-10 animate-spin rounded-full border-y-2 border-neutral-950 dark:border-neutral-50" />
+      <div className="absolute inset-0 z-10 flex h-full items-center justify-center">
+        {isLoading ? (
+          <div className="h-10 w-10 animate-spin rounded-full border-y-2 border-primary" />
+        ) : null}
       </div>
-      <div
-        ref={containerRef}
-        className={cn({
-          'absolute inset-0 ': true,
-          'bg-background': !isLoading,
-        })}
-      />
-      {isLoading ? null : (
-        <div className="absolute inset-x-2 top-2 z-10 flex gap-2">
-          <Button onClick={fit}>Fit</Button>
-          <Button onClick={clearModel}>Clear</Button>
-        </div>
-      )}
+      <div ref={containerRef} className={'absolute inset-0'} />
     </div>
   )
 }
+
+export const IRGraph = forwardRef(NetworkComponent)
 
 const edgeIdSeparator = '-_$_-'
 
@@ -174,7 +176,7 @@ function useVisNetwok(
 
   return {
     isLoading: !network,
-    fit: () => network?.fit(),
+    fit: network ? () => network.fit() : undefined,
   }
 }
 

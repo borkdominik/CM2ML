@@ -3,7 +3,7 @@ import type { GraphModel } from '@cm2ml/ir'
 import { useMemo } from 'react'
 
 import { colors } from '../../colors'
-import { useSelection } from '../../useSelection'
+import { useSelection } from '../../lib/useSelection'
 
 const cellSize = 25
 const fontSize = cellSize / 2
@@ -12,6 +12,7 @@ export interface Props {
   model: GraphModel
 }
 
+// TODO: Handle encoding without edges
 export function RawGraphEncoding({ model }: Props) {
   const encoding = useRawGraphEncoding(model)
   return (
