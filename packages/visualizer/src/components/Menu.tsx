@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { loadExample } from '../lib/exampleModel'
 import { useAppState } from '../lib/useAppState'
+import { useSelection } from '../lib/useSelection'
 
 import {
   Menubar,
@@ -18,6 +19,7 @@ import {
 export function Menu() {
   const { clearEncoder, clearModel, encoder, fitGraph, model, setModel } =
     useAppState()
+  const { clearSelection } = useSelection()
   return (
     <Menubar className="rounded-none">
       <MenubarMenu>
@@ -27,7 +29,13 @@ export function Menu() {
             Load Example
           </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem onClick={clearModel} disabled={model === undefined}>
+          <MenubarItem
+            onClick={() => {
+              clearSelection()
+              clearModel()
+            }}
+            disabled={model === undefined}
+          >
             Close
           </MenubarItem>
         </MenubarContent>
