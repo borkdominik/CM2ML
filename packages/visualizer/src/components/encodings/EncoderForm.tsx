@@ -25,7 +25,7 @@ export function EncoderForm(_: Props) {
   const { setEncoder } = useAppState()
   const [encoderName, setEncoderName] = useState<string>('')
   const encoder = encoderMap[encoderName]
-  const [parameters, setParameters] = useState<ParameterValues>({})
+  const [parameterValues, setParameterValues] = useState<ParameterValues>({})
 
   return (
     <Card>
@@ -36,7 +36,7 @@ export function EncoderForm(_: Props) {
           value={encoderName}
           onValueChange={(value) => setEncoderName(value)}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="max-w-xs">
             <SelectValue placeholder="Select an encoder" />
           </SelectTrigger>
           <SelectContent>
@@ -55,13 +55,13 @@ export function EncoderForm(_: Props) {
         {encoder ? (
           <Parameters
             parameters={encoder.parameters}
-            values={parameters}
-            setValues={setParameters}
+            values={parameterValues}
+            setValues={setParameterValues}
           />
         ) : null}
         <Button
           disabled={encoder === undefined}
-          onClick={() => setEncoder(encoder!, parameters)}
+          onClick={() => setEncoder(encoder!, parameterValues)}
         >
           Submit
         </Button>

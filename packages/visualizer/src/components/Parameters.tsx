@@ -26,6 +26,10 @@ export interface Props {
 }
 
 export function Parameters({ parameters, setValues, values }: Props) {
+  const sortedParameters = useMemo(
+    () => Object.entries(parameters).sort(([a], [b]) => a.localeCompare(b)),
+    [parameters],
+  )
   useEffect(() => {
     const defaultValues = Stream.fromObject(parameters).toRecord(
       ([name]) => name,
@@ -35,7 +39,7 @@ export function Parameters({ parameters, setValues, values }: Props) {
   }, [parameters])
   return (
     <div className="flex flex-col gap-4">
-      {Object.entries(parameters).map(([name, parameter]) => (
+      {sortedParameters.map(([name, parameter]) => (
         <ParameterInput
           key={name}
           name={name}
@@ -151,7 +155,7 @@ function StringParameter({
           value={value}
           onValueChange={(selectedValue) => onChange(selectedValue)}
         >
-          <SelectTrigger>
+          <SelectTrigger className="max-w-xs">
             <SelectValue placeholder="Select a value" />
           </SelectTrigger>
           <SelectContent>
@@ -189,7 +193,11 @@ function Container({ children }: { children: React.ReactNode }) {
 
 function ParameterLabel({ name }: { name: string }) {
   const label = useDisplayName(name)
-  return <Label htmlFor={name}>{label}</Label>
+  return (
+    <Label htmlFor={name} className="text-balance">
+      {label}
+    </Label>
+  )
 }
 
 function Description({ description }: { description: string }) {
