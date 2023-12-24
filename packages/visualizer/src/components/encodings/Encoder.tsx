@@ -1,4 +1,5 @@
 import { useAppState } from '../../lib/useAppState'
+import { Error } from '../Error'
 
 import { EncoderForm } from './EncoderForm'
 import { Encoding } from './Encoding'
@@ -10,8 +11,8 @@ export function Encoder() {
   }
   if (encoder) {
     return (
-      <div className="flex h-full items-center justify-center text-destructive">
-        No model loaded
+      <div className="flex h-full items-center justify-center">
+        <Error error="No model loaded" />
       </div>
     )
   }

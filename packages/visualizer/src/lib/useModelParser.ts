@@ -1,6 +1,5 @@
 import type { GraphModel } from '@cm2ml/ir'
 import type { Plugin } from '@cm2ml/plugin'
-import { getMessage } from '@cm2ml/utils'
 import { useMemo } from 'react'
 
 import type { ParameterValues } from '../components/Parameters'
@@ -20,7 +19,7 @@ export function useModelParser(
       const model = parser.invoke(serializedModel, parameters)
       return { model }
     } catch (error) {
-      return { error: getMessage(error) }
+      return { error }
     }
   }, [serializedModel, parameters, parser])
   return result

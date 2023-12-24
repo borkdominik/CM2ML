@@ -3,6 +3,7 @@ import type { GraphModel } from '@cm2ml/ir'
 import { useState } from 'react'
 
 import { useModelParser } from '../../lib/useModelParser'
+import { Error } from '../Error'
 import type { ParameterValues } from '../Parameters'
 import { Parameters } from '../Parameters'
 import { Button } from '../ui/button'
@@ -70,7 +71,7 @@ export function ModelForm({ setModel }: Props) {
             onChange={(event) => setModelString(event.target.value)}
           />
         </div>
-        {error ? <div className="text-destructive">{error}</div> : null}
+        {error ? <Error error={error} /> : null}
         <Button disabled={!model} onClick={() => setModel(model!)}>
           Submit
         </Button>
