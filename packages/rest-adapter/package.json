@@ -36,7 +36,7 @@
     "@cm2ml/plugin-adapter": "workspace:*",
     "@cm2ml/utils": "workspace:*",
     "@yeger/streams": "1.1.1",
-    "fastify": "4.25.1"
+    "fastify": "4.25.2"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
