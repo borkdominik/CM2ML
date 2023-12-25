@@ -12,7 +12,7 @@ export function Model(_: Props) {
       {model ? (
         <IRGraph model={model} />
       ) : (
-        <div className="p-2">
+        <div className="h-full p-2">
           <ModelForm setModel={setModel} />
         </div>
       )}

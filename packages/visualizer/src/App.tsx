@@ -1,4 +1,4 @@
-import { Encoder } from './components/encodings/Encoder'
+import { Encoder } from './components/encoder/Encoder'
 import { Menu } from './components/Menu'
 import { Model } from './components/model/Model'
 import {

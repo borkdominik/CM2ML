@@ -2,10 +2,10 @@ import { GraphEncoder } from '@cm2ml/graph-encoder'
 import type { GraphModel } from '@cm2ml/ir'
 import { useMemo } from 'react'
 
-import { colors } from '../../colors'
-import { useSelection } from '../../lib/useSelection'
-import { cn } from '../../lib/utils'
-import type { ParameterValues } from '../Parameters'
+import { colors } from '../../../colors'
+import { useSelection } from '../../../lib/useSelection'
+import { cn } from '../../../lib/utils'
+import type { ParameterValues } from '../../Parameters'
 
 const cellSize = 25
 const fontSize = cellSize / 2

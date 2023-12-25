@@ -5,7 +5,7 @@ import type { Plugin } from '@cm2ml/plugin'
 import { Error } from '../Error'
 import type { ParameterValues } from '../Parameters'
 
-import { RawGraphEncoding } from './RawGraphEncoding'
+import { RawGraphEncoding } from './encodings/RawGraphEncoding'
 
 export interface Props {
   encoder: Plugin<GraphModel, unknown, any>

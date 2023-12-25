@@ -17,7 +17,7 @@ export function Encoder() {
     )
   }
   return (
-    <div className="p-2">
+    <div className="h-full p-2">
       <EncoderForm />
     </div>
   )

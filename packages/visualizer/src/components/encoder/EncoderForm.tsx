@@ -28,7 +28,7 @@ export function EncoderForm(_: Props) {
   const [parameterValues, setParameterValues] = useState<ParameterValues>({})
 
   return (
-    <Card>
+    <Card className="max-h-full overflow-y-auto">
       <CardHeader className="space-y-2">
         <Label htmlFor="encoder">Encoder</Label>
         <Select

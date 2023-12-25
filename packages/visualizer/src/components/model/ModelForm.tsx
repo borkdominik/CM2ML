@@ -12,7 +12,6 @@ import { Button } from '../ui/button'
 import { Card, CardContent, CardHeader } from '../ui/card'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
-import { ScrollArea } from '../ui/scroll-area'
 import {
   Select,
   SelectContent,
@@ -73,71 +72,66 @@ export function ModelForm({ setModel }: Props) {
   }
 
   return (
-    <Card className="max-h-full">
-      {/* TODO: Fix scrolling */}
-      <ScrollArea className="h-full">
-        <CardHeader className="space-y-2">
-          <Label htmlFor="parser">Parser</Label>
-          <Select
-            value={parserName}
-            onValueChange={(value) => setParserName(value)}
-          >
-            <SelectTrigger className="max-w-xs">
-              <SelectValue placeholder="Select a parser" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Parser</SelectLabel>
-                {parsers.map((parser) => (
-                  <SelectItem key={parser} value={parser}>
-                    {parser}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-4">
-          {parser ? (
-            <Parameters
-              parameters={parser.parameters}
-              values={parameterValues}
-              setValues={setParameterValues}
+    <Card className="max-h-full overflow-y-auto">
+      <CardHeader className="space-y-2">
+        <Label htmlFor="parser">Parser</Label>
+        <Select
+          value={parserName}
+          onValueChange={(value) => setParserName(value)}
+        >
+          <SelectTrigger className="max-w-xs">
+            <SelectValue placeholder="Select a parser" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Parser</SelectLabel>
+              {parsers.map((parser) => (
+                <SelectItem key={parser} value={parser}>
+                  {parser}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-4">
+        {parser ? (
+          <Parameters
+            parameters={parser.parameters}
+            values={parameterValues}
+            setValues={setParameterValues}
+          />
+        ) : null}
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="model">Model</Label>
+          <Textarea
+            name="model"
+            value={modelString}
+            onChange={(event) => setModelString(event.target.value)}
+            placeholder="Paste your model here"
+          />
+          <span className="mx-auto text-muted-foreground">- or -</span>
+          <Input type="file" onInput={onFileLoaded} />
+          <span className="mx-auto text-muted-foreground">- or -</span>
+          <div className="flex gap-2">
+            <Input
+              type="url"
+              placeholder="URL"
+              value={modelUrl}
+              onChange={(event) => setModelUrl(event.target.value)}
             />
-          ) : null}
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="model">Model</Label>
-            <Textarea
-              name="model"
-              value={modelString}
-              onChange={(event) => setModelString(event.target.value)}
-              placeholder="Paste your model here"
-            />
-            <span className="mx-auto text-muted-foreground">- or -</span>
-            <Input type="file" onInput={onFileLoaded} />
-            <span className="mx-auto text-muted-foreground">- or -</span>
-            <div className="flex gap-2">
-              <Input
-                type="url"
-                placeholder="URL"
-                value={modelUrl}
-                onChange={(event) => setModelUrl(event.target.value)}
-              />
-              <Button onClick={loadModelFromUrl} disabled={!isValidModelUrl}>
-                Load
-              </Button>
-            </div>
-            {modelUrl && !isValidModelUrl ? (
-              <Error error="Invalid URL" />
-            ) : null}
-            {modelError ? <Error error={modelError} /> : null}
+            <Button onClick={loadModelFromUrl} disabled={!isValidModelUrl}>
+              Load
+            </Button>
           </div>
-          {error ? <Error error={error} /> : null}
-          <Button disabled={!model} onClick={() => setModel(model!)}>
-            Submit
-          </Button>
-        </CardContent>
-      </ScrollArea>
+          {modelUrl && !isValidModelUrl ? <Error error="Invalid URL" /> : null}
+          {modelError ? <Error error={modelError} /> : null}
+        </div>
+        {error ? <Error error={error} /> : null}
+        <Button disabled={!model} onClick={() => setModel(model!)}>
+          Submit
+        </Button>
+      </CardContent>
     </Card>
   )
 }
