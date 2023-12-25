@@ -9,6 +9,8 @@ import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 import { colors } from '../../colors'
 import { useAppState } from '../../lib/useAppState'
 import { useSelection } from '../../lib/useSelection'
+import { cn } from '../../lib/utils'
+import { Progress } from '../ui/progress'
 
 export interface Props {
   model: GraphModel
@@ -20,8 +22,20 @@ export interface IRGraphRef {
 
 export function IRGraph({ model }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  useVisNetwok(model, containerRef)
-  return <div ref={containerRef} className={'h-full'} />
+  const { isReady, progress } = useVisNetwok(model, containerRef)
+  return (
+    <div className="relative h-full">
+      <div
+        ref={containerRef}
+        className={cn({ 'h-full': true, 'opacity-0': !isReady })}
+      />
+      {!isReady ? (
+        <div className="absolute inset-0 flex items-center justify-center p-2">
+          <Progress value={progress} className="max-w-56" />
+        </div>
+      ) : null}
+    </div>
+  )
 }
 
 const edgeIdSeparator = '-_$_-'
@@ -50,6 +64,7 @@ function useVisNetwok(
   const { setFitGraph } = useAppState()
   const { selection, setSelection, clearSelection } = useSelection()
   const [network, setNetwork] = useState<Network | null>(null)
+  const [stabilizationProgress, setStabilizationProgress] = useState(0)
   const { data, options } = useMemo(() => {
     const nodes = createVisNodes(model)
     const edges = createVisEdges(model)
@@ -94,6 +109,7 @@ function useVisNetwok(
     }
     const network = new Network(container.current, data, options)
     setNetwork(network)
+    setStabilizationProgress(0)
     function selectNodes(selectedNodes: string[]) {
       if (selectedNodes.length === 1) {
         setSelection(selectedNodes[0]!)
@@ -104,6 +120,15 @@ function useVisNetwok(
         setSelection([[sourceId!, targetId!]])
       }
     }
+    network.on(
+      'stabilizationProgress',
+      (params: { iterations: number; total: number }) => {
+        setStabilizationProgress((100 * params.iterations) / params.total)
+      },
+    )
+    network.on('stabilizationIterationsDone', () => {
+      setStabilizationProgress(1)
+    })
     network.on('dragStart', (params: { nodes: string[] }) => {
       selectNodes(params.nodes)
     })
@@ -158,6 +183,11 @@ function useVisNetwok(
   useEffect(() => {
     setFitGraph(network ? () => network.fit() : undefined)
   }, [network, setFitGraph])
+
+  return {
+    isReady: stabilizationProgress === 1,
+    progress: stabilizationProgress,
+  }
 }
 
 function createVisNodes(model: GraphModel) {
