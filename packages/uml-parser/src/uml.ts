@@ -118,6 +118,7 @@ function getType(node: GraphNode) {
 const Attributes = {
   alias: 'alias',
   client: 'client',
+  general: 'general',
   importedElement: 'importedElement',
   importedPackage: 'importedPackage',
   mergedPackage: 'mergedPackage',

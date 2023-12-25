@@ -360,7 +360,7 @@ export const InterfaceRealization = define(
 
 export const Generalization = define(
   Uml.Types.Generalization,
-  undefined,
+  Uml.Tags.generalization,
   DirectedRelationship,
 )
 
