@@ -7,6 +7,12 @@ import { colors } from '../../../colors'
 import { useSelection } from '../../../lib/useSelection'
 import { cn } from '../../../lib/utils'
 import type { ParameterValues } from '../../Parameters'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../../ui/tooltip'
 
 const cellSize = 25
 const fontSize = cellSize / 2
@@ -321,14 +327,21 @@ function ListEdge({
   return (
     <>
       {index > 0 ? <ListSeparator /> : null}
-      <ListEntry
-        key={`${source}-${target}`}
-        isSelected={isSelected}
-        onClick={() => setSelection([[sourceId, targetId]])}
-        style={{ opacity: getOpacity(weight ?? 1) }}
-      >
-        [{source}, {target}]
-      </ListEntry>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <ListEntry
+              key={`${source}-${target}`}
+              isSelected={isSelected}
+              onClick={() => setSelection([[sourceId, targetId]])}
+              style={{ opacity: getOpacity(weight ?? 1) }}
+            >
+              [{source}, {target}]
+            </ListEntry>
+          </TooltipTrigger>
+          <TooltipContent>{weight}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </>
   )
 }
