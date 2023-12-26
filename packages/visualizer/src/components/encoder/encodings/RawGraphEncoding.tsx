@@ -1,5 +1,6 @@
 import { GraphEncoder } from '@cm2ml/graph-encoder'
 import type { GraphModel } from '@cm2ml/ir'
+import type { HTMLAttributes, ReactNode } from 'react'
 import { useMemo } from 'react'
 
 import { colors } from '../../../colors'
@@ -19,32 +20,33 @@ export interface Props {
 export function RawGraphEncoding({ model, parameters }: Props) {
   const encoding = useRawGraphEncoding(model, parameters)
   return (
-    <div className="p-2">
-      <Grid
-        connections={encoding.connections}
-        model={model}
-        nodes={encoding.nodes}
-      />
+    <div className="h-full overflow-y-auto p-2">
+      {encoding.format === 'matrix' ? (
+        <Grid matrix={encoding.matrix} nodes={encoding.nodes} />
+      ) : null}
+      {encoding.format === 'list' ? (
+        <List list={encoding.list} nodes={encoding.nodes} />
+      ) : null}
     </div>
   )
 }
 
-type Connections = Record<number, Set<number>>
+type Matrix = number[][]
 
 interface GridProps {
-  connections: Connections
-  model: GraphModel
+  matrix: Matrix
   nodes: string[]
 }
 
-function getOffset(nodeId: string) {
+function getLabelOffset(nodeId: string) {
   return nodeId.length * -0.65 * fontSize
 }
 
-function Grid({ connections: connectedNodes, model, nodes }: GridProps) {
+function Grid({ matrix, nodes }: GridProps) {
   const size = cellSize * nodes.length
-  const offset = Math.min(...nodes.map(getOffset))
+  const offset = useMemo(() => Math.min(...nodes.map(getLabelOffset)), [nodes])
   const viewBoxSize = size - offset
+  const getOpacity = useWeightedOpacityFromMatrix(matrix)
   return (
     <svg
       height={size}
@@ -56,9 +58,9 @@ function Grid({ connections: connectedNodes, model, nodes }: GridProps) {
       <g>
         {nodes.map((node, row) => (
           <GridRow
-            connections={connectedNodes}
+            getOpacity={getOpacity}
             key={node}
-            model={model}
+            matrix={matrix}
             nodes={nodes}
             row={row}
           />
@@ -75,6 +77,27 @@ interface LabelsProps {
 function Labels({ nodes, offset }: LabelsProps) {
   return (
     <g>
+      <g>
+        <text
+          height={cellSize}
+          y={-fontSize / 2}
+          x={offset}
+          className="cursor-default fill-foreground font-mono"
+          fontSize={fontSize}
+        >
+          Source
+        </text>
+        <text
+          height={cellSize}
+          y={-fontSize / 2}
+          x={-offset}
+          className="-rotate-90 cursor-default fill-foreground font-mono "
+          fontSize={fontSize}
+          text-anchor="end"
+        >
+          Target
+        </text>
+      </g>
       {nodes.map((node, index) => (
         <Label index={index} key={node} node={node} offset={offset} />
       ))}
@@ -132,23 +155,23 @@ function Label({ index, node, offset }: LabelProps) {
 }
 
 interface GridRowProps {
-  connections: Connections
-  model: GraphModel
+  getOpacity: (weight: number) => number
+  matrix: Matrix
   nodes: string[]
   row: number
 }
 
-function GridRow({ connections, model, nodes, row }: GridRowProps) {
+function GridRow({ getOpacity, matrix, nodes, row }: GridRowProps) {
   return (
     <g>
       {nodes.map((_otherNode, column) => (
         <GridCell
           column={column}
-          isActive={connections[row]?.has(column) ?? false}
+          getOpacity={getOpacity}
           key={`${row}-${column}`}
-          model={model}
           nodes={nodes}
           row={row}
+          value={matrix[row]?.[column] ?? 0}
         />
       ))}
     </g>
@@ -157,17 +180,18 @@ function GridRow({ connections, model, nodes, row }: GridRowProps) {
 
 interface GridCellProps {
   column: number
-  isActive: boolean
-  model: GraphModel
+  getOpacity: (weight: number) => number
   nodes: string[]
   row: number
+  value: number
 }
 
-function GridCell({ column, isActive, nodes, row }: GridCellProps) {
+function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
   const sourceId = nodes[row]
   const targetId = nodes[column]
   const { isSelectedEdge, clearSelection, setSelection } = useSelection()
   const isCellSelected = isSelectedEdge(sourceId, targetId)
+  const isActive = value > 0
   const color = useCellColor(isActive, isCellSelected)
   function onPointerDown() {
     if (isActive && sourceId && targetId) {
@@ -188,6 +212,9 @@ function GridCell({ column, isActive, nodes, row }: GridCellProps) {
         'stroke-border': true,
         'hover:fill-secondary-foreground': isActive,
       })}
+      style={{
+        opacity: getOpacity(value),
+      }}
       onPointerDown={onPointerDown}
     />
   )
@@ -203,19 +230,171 @@ function useCellColor(isActive: boolean, isSelected: boolean) {
   return 'none'
 }
 
+type AdjacencyList = (
+  | readonly [number, number]
+  | readonly [number, number, number]
+)[]
+
+interface ListProps {
+  list: AdjacencyList
+  nodes: string[]
+}
+
+function List({ list, nodes }: ListProps) {
+  const getOpacity = useWeightedOpacityFromList(list)
+  return (
+    <div className="h-full space-y-4">
+      <div>
+        <span>Nodes</span>
+        <div className="flex flex-wrap font-mono text-xs">
+          <ListBorder>[</ListBorder>
+          {nodes.map((node, index) => (
+            <ListNode key={node} index={index} node={node} />
+          ))}
+          <ListBorder>]</ListBorder>
+        </div>
+      </div>
+      <div>
+        <span>Edges</span>
+        <div className="flex flex-wrap font-mono text-xs">
+          <ListBorder>[</ListBorder>
+          {list.map(([source, target, weight], index) => (
+            <ListEdge
+              key={`${source}-${target}`}
+              getOpacity={getOpacity}
+              index={index}
+              nodes={nodes}
+              source={source}
+              target={target}
+              weight={weight}
+            />
+          ))}
+          <ListBorder>]</ListBorder>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+interface ListNodeProps {
+  node: string
+  index: number
+}
+
+function ListNode({ node, index }: ListNodeProps) {
+  const { isSelectedNode, setSelection } = useSelection()
+  const isSelected = isSelectedNode(node)
+  return (
+    <>
+      {index > 0 ? <ListSeparator /> : null}
+      <ListEntry onClick={() => setSelection(node)} isSelected={isSelected}>
+        {node}
+      </ListEntry>
+    </>
+  )
+}
+
+interface ListEdgeProps {
+  getOpacity: (weight: number) => number
+  index: number
+  nodes: string[]
+  source: number
+  target: number
+  weight: number | undefined
+}
+
+function ListEdge({
+  getOpacity,
+  index,
+  nodes,
+  source,
+  target,
+  weight,
+}: ListEdgeProps) {
+  const { isSelectedEdge, setSelection } = useSelection()
+  const sourceId = nodes[source]
+  const targetId = nodes[target]
+  if (!sourceId || !targetId) {
+    return null
+  }
+  const isSelected = isSelectedEdge(sourceId, targetId)
+  return (
+    <>
+      {index > 0 ? <ListSeparator /> : null}
+      <ListEntry
+        key={`${source}-${target}`}
+        isSelected={isSelected}
+        onClick={() => setSelection([[sourceId, targetId]])}
+        style={{ opacity: getOpacity(weight ?? 1) }}
+      >
+        [{source}, {target}]
+      </ListEntry>
+    </>
+  )
+}
+
 function useRawGraphEncoding(model: GraphModel, parameters: ParameterValues) {
-  const encoding = useMemo(
+  return useMemo(
     () => GraphEncoder.validateAndInvoke(model, parameters),
     [model],
   )
-  const connections: Connections = {}
-  if (!('list' in encoding)) {
-    throw new Error('Expected encoding to be a list')
-  }
-  encoding.list.forEach(([source, target]) => {
-    const set = connections[source] ?? new Set()
-    set.add(target)
-    connections[source] = set
-  })
-  return { connections, ...encoding }
+}
+
+function createOpacityRangeMapper(min: number, max: number) {
+  const minOpacity = 0.3
+  const maxOpacity = 1
+  return (weight: number) =>
+    minOpacity + (maxOpacity - minOpacity) * ((weight - min) / (max - min))
+}
+
+function useWeightedOpacityFromMatrix(matrix: Matrix) {
+  return useMemo(() => {
+    const weights = matrix.flat()
+    const min = Math.min(...weights)
+    const max = Math.max(...weights)
+    return createOpacityRangeMapper(min, max)
+  }, [matrix])
+}
+
+function useWeightedOpacityFromList(list: AdjacencyList) {
+  return useMemo(() => {
+    if ((list[0]?.length ?? 2) === 2) {
+      return () => 1
+    }
+    const weights = list.map(([, , weight]) => weight ?? 1)
+    const min = Math.min(...weights)
+    const max = Math.max(...weights)
+    return createOpacityRangeMapper(min, max)
+  }, list)
+}
+
+interface ListEntryProps {
+  children: ReactNode
+  isSelected: boolean
+  onClick?: () => void
+  style?: HTMLAttributes<HTMLSpanElement>['style']
+}
+
+function ListEntry({ children, isSelected, onClick, style }: ListEntryProps) {
+  return (
+    <div
+      className={cn({
+        'mx-1 my-0.5 py-0.5 px-1 rounded-sm hover:border-accent-foreground hover:bg-accent hover:text-accent-foreground':
+          true,
+        'bg-primary text-primary-foreground': isSelected,
+      })}
+      onClick={onClick}
+      style={style}
+    >
+      {children}
+    </div>
+  )
+}
+
+function ListSeparator() {
+  return <span className="my-0.5 py-0.5">,</span>
+}
+
+function ListBorder({ children }: { children: ReactNode }) {
+  return <span className="my-0.5 py-0.5 font-bold">{children}</span>
 }

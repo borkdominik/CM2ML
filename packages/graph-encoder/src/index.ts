@@ -75,7 +75,7 @@ function encodeAsSparseList(
       : ([sourceIndex, targetIndex] as const)
     list.push(entry)
   })
-  return { list, nodes: sortedIds }
+  return { format: 'list' as const, list, nodes: sortedIds }
 }
 
 type AdjacencyMatrix = number[][]
@@ -88,7 +88,7 @@ function encodeAsAdjacencyMatrix(
 ) {
   const matrix = createAdjacencyMatrix(sortedIds.length)
   fillAdjacencyMatrix(matrix, model, sortedIds, includeEqualPaths, weighted)
-  return { matrix, nodes: sortedIds }
+  return { format: 'matrix' as const, matrix, nodes: sortedIds }
 }
 
 function createAdjacencyMatrix(size: number): AdjacencyMatrix {
