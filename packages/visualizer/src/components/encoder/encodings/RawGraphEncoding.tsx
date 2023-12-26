@@ -301,7 +301,7 @@ function ListNode({ node, index }: ListNodeProps) {
 }
 
 interface ListEdgeProps {
-  getOpacity: (weight: number) => number
+  getOpacity?: (weight: number) => number
   index: number
   nodes: string[]
   source: number
@@ -324,24 +324,30 @@ function ListEdge({
     return null
   }
   const isSelected = isSelectedEdge(sourceId, targetId)
+  const isTooltipDisabled = getOpacity === undefined
+  const entry = (
+    <ListEntry
+      key={`${source}-${target}`}
+      isSelected={isSelected}
+      onClick={() => setSelection([[sourceId, targetId]])}
+      style={{ opacity: getOpacity?.(weight ?? 1) ?? 1 }}
+    >
+      [{source}, {target}]
+    </ListEntry>
+  )
   return (
     <>
       {index > 0 ? <ListSeparator /> : null}
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <ListEntry
-              key={`${source}-${target}`}
-              isSelected={isSelected}
-              onClick={() => setSelection([[sourceId, targetId]])}
-              style={{ opacity: getOpacity(weight ?? 1) }}
-            >
-              [{source}, {target}]
-            </ListEntry>
-          </TooltipTrigger>
-          <TooltipContent>{weight}</TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      {isTooltipDisabled ? (
+        entry
+      ) : (
+        <TooltipProvider>
+          <Tooltip disableHoverableContent={isTooltipDisabled}>
+            <TooltipTrigger>{entry}</TooltipTrigger>
+            <TooltipContent>{weight ?? 1}</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      )}
     </>
   )
 }
@@ -372,7 +378,7 @@ function useWeightedOpacityFromMatrix(matrix: Matrix) {
 function useWeightedOpacityFromList(list: AdjacencyList) {
   return useMemo(() => {
     if ((list[0]?.length ?? 2) === 2) {
-      return () => 1
+      return undefined
     }
     const weights = list.map(([, , weight]) => weight ?? 1)
     const min = Math.min(...weights)
@@ -392,9 +398,10 @@ function ListEntry({ children, isSelected, onClick, style }: ListEntryProps) {
   return (
     <div
       className={cn({
-        'mx-1 my-0.5 py-0.5 px-1 rounded-sm hover:border-accent-foreground hover:bg-accent hover:text-accent-foreground':
+        'mx-1 my-0.5 py-0.5 px-1 rounded-sm hover:outline hover:outline-accent-foreground hover:bg-accent hover:text-accent-foreground':
           true,
-        'bg-primary text-primary-foreground': isSelected,
+        'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground':
+          isSelected,
       })}
       onClick={onClick}
       style={style}
