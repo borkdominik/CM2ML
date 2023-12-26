@@ -8,7 +8,7 @@ export const GraphEncoder = definePlugin({
     weighted: {
       type: 'boolean',
       description:
-        'Output weighted values, dependening on the number of incoming edges on an edge target.',
+        'Output weighted values, depending on the number of incoming edges on an edge target.',
       defaultValue: false,
     },
     sparse: {
@@ -45,6 +45,8 @@ function getSortedIds(model: GraphModel) {
     .sort((a, b) => a.localeCompare(b))
 }
 
+export type AdjacencyList = [number, number][] | [number, number, number][]
+
 function encodeAsSparseList(
   model: GraphModel,
   sortedIds: string[],
@@ -75,10 +77,37 @@ function encodeAsSparseList(
       : ([sourceIndex, targetIndex] as const)
     list.push(entry)
   })
-  return { format: 'list' as const, list, nodes: sortedIds }
+  sortAdjacencyList(list as AdjacencyList)
+  return {
+    format: 'list' as const,
+    list: list as AdjacencyList,
+    nodes: sortedIds,
+  }
 }
 
-type AdjacencyMatrix = number[][]
+function sortAdjacencyList(list: AdjacencyList) {
+  list.sort((a, b) => {
+    const sourceIndexA = a[0]
+    const sourceIndexB = b[0]
+    if (sourceIndexA < sourceIndexB) {
+      return -1
+    }
+    if (sourceIndexA > sourceIndexB) {
+      return 1
+    }
+    const targetIndexA = a[1]
+    const targetIndexB = b[1]
+    if (targetIndexA < targetIndexB) {
+      return -1
+    }
+    if (targetIndexA > targetIndexB) {
+      return 1
+    }
+    return 0
+  })
+}
+
+export type AdjacencyMatrix = number[][]
 
 function encodeAsAdjacencyMatrix(
   model: GraphModel,
