@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select'
+import { Separator } from '../ui/separator'
 import { Textarea } from '../ui/textarea'
 
 const parsers = Object.keys(parserMap)
@@ -110,9 +111,9 @@ export function ModelForm({ setModel }: Props) {
             onChange={(event) => setModelString(event.target.value)}
             placeholder="Paste your model here"
           />
-          <span className="mx-auto text-muted-foreground">- or -</span>
+          <Or />
           <Input type="file" onInput={onFileLoaded} />
-          <span className="mx-auto text-muted-foreground">- or -</span>
+          <Or />
           <div className="flex gap-2">
             <Input
               type="url"
@@ -133,6 +134,16 @@ export function ModelForm({ setModel }: Props) {
         </Button>
       </CardContent>
     </Card>
+  )
+}
+
+function Or() {
+  return (
+    <span className="mx-auto flex w-full items-center gap-2 text-muted-foreground">
+      <Separator className="shrink" />
+      or
+      <Separator className="shrink" />
+    </span>
   )
 }
 
