@@ -369,8 +369,8 @@ function createOpacityRangeMapper(min: number, max: number) {
 function useWeightedOpacityFromMatrix(matrix: Matrix) {
   return useMemo(() => {
     const weights = matrix.flat()
-    const min = Math.min(...weights)
-    const max = Math.max(...weights)
+    const min = weights.reduce((min, weight) => Math.min(min, weight), Infinity)
+    const max = weights.reduce((max, weight) => Math.max(max, weight), 0)
     return createOpacityRangeMapper(min, max)
   }, [matrix])
 }
