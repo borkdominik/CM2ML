@@ -1,5 +1,6 @@
 import type { GraphModel, GraphNode } from '@cm2ml/ir'
 import { compose, definePlugin } from '@cm2ml/plugin'
+import { getMessage } from '@cm2ml/utils'
 import { XmiParser } from '@cm2ml/xmi-parser'
 import { Stream } from '@yeger/streams'
 
@@ -53,18 +54,20 @@ function removeNonUmlNodes(model: GraphModel) {
 function refineNodesRecursively(node: GraphNode) {
   const handler = inferHandler(node)
   if (!handler) {
+    const message = `No handler for node with tag ${
+      node.tag
+    } and type ${Uml.getType(node)}`
     if (node.model.settings.strict) {
-      throw new Error(
-        `No handler for node with tag ${node.tag} and type ${Uml.getType(
-          node,
-        )}`,
-      )
+      throw new Error(message)
+    } else {
+      node.model.debug(message)
     }
     return
   }
   try {
     handler.handle(node)
   } catch (error) {
+    node.model.debug(getMessage(error))
     if (node.model.settings.strict) {
       throw error
     }
