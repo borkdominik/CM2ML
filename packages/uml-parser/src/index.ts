@@ -62,7 +62,13 @@ function refineNodesRecursively(node: GraphNode) {
     }
     return
   }
-  handler.handle(node)
+  try {
+    handler.handle(node)
+  } catch (error) {
+    if (node.model.settings.strict) {
+      throw error
+    }
+  }
   Stream.from(node.children).forEach((child) => refineNodesRecursively(child))
 }
 
