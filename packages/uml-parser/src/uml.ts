@@ -1,6 +1,23 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { parseNamespace } from '@cm2ml/utils'
 
+const Attributes = {
+  alias: 'alias',
+  client: 'client',
+  contract: 'contract',
+  general: 'general',
+  importedElement: 'importedElement',
+  importedPackage: 'importedPackage',
+  lower: 'lower',
+  mergedPackage: 'mergedPackage',
+  supplier: 'supplier',
+  type: 'type',
+  upper: 'upper',
+  value: 'value',
+  visibility: 'visibility',
+  xmiType: 'xmi:type',
+} as const
+
 const Tags = {
   elementImport: 'elementImport',
   general: 'general',
@@ -103,28 +120,13 @@ function getTagType(node: GraphNode) {
   return undefined
 }
 
-function getTypeAttribute(node: GraphNode) {
-  return node.getAttribute('type')?.value.literal
-}
-
 function getType(node: GraphNode) {
-  const type = getTypeAttribute(node)
+  const type = node.getAttribute(Attributes.xmiType)?.value.literal
   if (isValidType(type)) {
     return type
   }
-  return getTagType(node)
+  return undefined
 }
-
-const Attributes = {
-  alias: 'alias',
-  client: 'client',
-  general: 'general',
-  importedElement: 'importedElement',
-  importedPackage: 'importedPackage',
-  mergedPackage: 'mergedPackage',
-  supplier: 'supplier',
-  visibility: 'visibility',
-} as const
 
 export const Uml = {
   Tags,
@@ -132,27 +134,25 @@ export const Uml = {
   AbstractTypes,
   Types,
   isValidType,
-  getTypeAttribute,
   getTagType,
   getType,
   Attributes,
 } as const
 
 export function inferAndSaveType(node: GraphNode, type: UmlType) {
-  const typeAttribute = getTypeAttribute(node)
-  if (isValidType(typeAttribute)) {
+  const currentType = getType(node)
+  if (isValidType(currentType)) {
     // Valid type attribute already exists
     return
   }
-  if (typeAttribute === undefined) {
-    // Store inferred type as attribute
-    node.addAttribute({ name: 'type', value: { literal: type } })
-    return
+  if (currentType !== undefined && node.model.settings.strict) {
+    throw new Error(`Node ${node.id} has invalid type ${currentType}`)
   }
-  if (!Uml.isValidType(node.tag)) {
-    // Store valid type as tag, because type attribute is already taken by reference
-    node.tag = type
-  }
+  node.addAttribute({
+    name: Attributes.type,
+    fullName: Attributes.xmiType,
+    value: { literal: type },
+  })
 }
 
 // export function copyAttributes(source: Attributable, target: Attributable) {

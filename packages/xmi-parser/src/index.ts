@@ -12,7 +12,7 @@ export const XmiParser = definePlugin({
   parameters: {
     idAttribute: {
       type: 'string',
-      defaultValue: 'id',
+      defaultValue: 'xmi:id',
       description:
         'The name of the attribute that is used to identify elements.',
     },

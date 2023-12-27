@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../../uml'
 import { InterfaceRealization } from '../metamodel'
 
 export const InterfaceRealizationHandler = InterfaceRealization.createHandler(
@@ -10,8 +11,8 @@ export const InterfaceRealizationHandler = InterfaceRealization.createHandler(
 )
 
 function addEdge_contract(interfaceRealization: GraphNode) {
-  const contractId =
-    interfaceRealization.getAttribute('contract')?.value.literal
+  const contractId = interfaceRealization.getAttribute(Uml.Attributes.contract)
+    ?.value.literal
   if (contractId === undefined) {
     throw new Error('InterfaceRealization must have a contract')
   }
@@ -23,8 +24,9 @@ function addEdge_contract(interfaceRealization: GraphNode) {
 }
 
 function addEdge_implementingClassifier(interfaceRealization: GraphNode) {
-  const implementingClassifierId =
-    interfaceRealization.getAttribute('client')?.value.literal
+  const implementingClassifierId = interfaceRealization.getAttribute(
+    Uml.Attributes.client,
+  )?.value.literal
   if (implementingClassifierId === undefined) {
     throw new Error('InterfaceRealization must have a client')
   }

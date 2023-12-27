@@ -111,7 +111,7 @@ const exampleModel = `<?xml version="1.0" encoding="UTF-8"?>
 export function loadExample() {
   return UmlParser.invoke(exampleModel, {
     debug: false,
-    idAttribute: 'id',
+    idAttribute: 'xmi:id',
     strict: true,
   })
 }

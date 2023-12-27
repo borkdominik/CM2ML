@@ -57,16 +57,13 @@ export class AttributeDelegate implements Attributable {
   }
 
   public addAttribute(attribute: Attribute, preventOverwrite = false) {
-    const previousValue = this.#attributes.get(attribute.name)
+    const key = 'fullName' in attribute ? attribute.fullName : attribute.name
+    const previousValue = this.#attributes.get(key)
     if (preventOverwrite && previousValue !== undefined) {
-      throw new Error(`Attribute ${attribute.name} already exists`)
+      throw new Error(`Attribute ${key} already exists`)
     }
-    this.#attributes.set(attribute.name, attribute)
-    this.attributeChangeListener?.(
-      attribute.name,
-      previousValue?.value,
-      attribute.value,
-    )
+    this.#attributes.set(key, attribute)
+    this.attributeChangeListener?.(key, previousValue?.value, attribute.value)
   }
 
   public removeAttribute(name: AttributeName) {

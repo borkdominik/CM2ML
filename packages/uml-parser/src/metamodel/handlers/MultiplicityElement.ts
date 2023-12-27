@@ -23,12 +23,13 @@ function addEdgeAndAttribute_lowerValue(multiplicityElement: GraphNode) {
     multiplicityElement,
     lowerValueNode,
   )
-  const lowerValue = lowerValueNode.getAttribute('value')?.value.literal
+  const lowerValue = lowerValueNode.getAttribute(Uml.Attributes.value)?.value
+    .literal
   if (lowerValue === undefined) {
     throw new Error('LowerValue must have a value')
   }
   multiplicityElement.addAttribute({
-    name: 'lower',
+    name: Uml.Attributes.lower,
     value: { literal: lowerValue },
   })
 }
@@ -45,12 +46,13 @@ function addEdgeAndAttribute_upperValue(multiplicityElement: GraphNode) {
     multiplicityElement,
     upperValueNode,
   )
-  const upperValue = upperValueNode.getAttribute('value')?.value.literal
+  const upperValue = upperValueNode.getAttribute(Uml.Attributes.value)?.value
+    .literal
   if (upperValue === undefined) {
     throw new Error('UpperValue must have a value')
   }
   multiplicityElement.addAttribute({
-    name: 'upper',
+    name: Uml.Attributes.upper,
     value: { literal: upperValue },
   })
 }

@@ -10,11 +10,8 @@ export const TypedElementHandler = TypedElement.createHandler(
 )
 
 function addEdge_type(typedElement: GraphNode) {
-  const type = typedElement.getAttribute('type')?.value.literal
+  const type = typedElement.getAttribute(Uml.Attributes.type)?.value.literal
   if (type === undefined) {
-    return
-  }
-  if (Uml.isValidType(type)) {
     return
   }
   const resolvedType = typedElement.model.getNodeById(type)

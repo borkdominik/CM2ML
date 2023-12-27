@@ -55,9 +55,9 @@ function refineNodesRecursively(node: GraphNode) {
   if (!handler) {
     if (node.model.settings.strict) {
       throw new Error(
-        `No handler for node with tag ${
-          node.tag
-        } and type ${Uml.getTypeAttribute(node)}`,
+        `No handler for node with tag ${node.tag} and type ${Uml.getType(
+          node,
+        )}`,
       )
     }
     return
@@ -68,7 +68,7 @@ function refineNodesRecursively(node: GraphNode) {
 
 function replaceTagsWithTypes(model: GraphModel) {
   Stream.from(model.nodes).forEach((node) => {
-    const type = Uml.getTypeAttribute(node)
+    const type = Uml.getType(node)
     if (Uml.isValidType(type)) {
       node.tag = type
       return
@@ -76,10 +76,7 @@ function replaceTagsWithTypes(model: GraphModel) {
     if (!model.settings.strict) {
       return
     }
-    const resolvedType = type ? model.getNodeById(type) : undefined
-    if (!resolvedType) {
-      throw new Error(`Unknown type: ${type}`)
-    }
+    throw new Error(`Unknown type ${type} on node ${node.id}`)
   })
 }
 

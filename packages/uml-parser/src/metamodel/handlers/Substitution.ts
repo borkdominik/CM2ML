@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../../uml'
 import { Substitution } from '../metamodel'
 
 export const SubstitutionHandler = Substitution.createHandler(
@@ -10,7 +11,8 @@ export const SubstitutionHandler = Substitution.createHandler(
 )
 
 function addEdge_contract(substitution: GraphNode) {
-  const supplierId = substitution.getAttribute('supplier')?.value.literal
+  const supplierId = substitution.getAttribute(Uml.Attributes.supplier)?.value
+    .literal
   if (!supplierId) {
     throw new Error('Missing supplier attribute on Substitution')
   }
@@ -22,7 +24,8 @@ function addEdge_contract(substitution: GraphNode) {
 }
 
 function addEdge_substitutingClassifier(substitution: GraphNode) {
-  const clientId = substitution.getAttribute('client')?.value.literal
+  const clientId = substitution.getAttribute(Uml.Attributes.client)?.value
+    .literal
   if (!clientId) {
     throw new Error('Missing client attribute on Substitution')
   }
