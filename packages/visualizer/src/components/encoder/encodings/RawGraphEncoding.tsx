@@ -8,6 +8,11 @@ import { useSelection } from '../../../lib/useSelection'
 import { cn } from '../../../lib/utils'
 import type { ParameterValues } from '../../Parameters'
 import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '../../ui/resizable'
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -25,14 +30,12 @@ export interface Props {
 // TODO: Handle encoding without edges
 export function RawGraphEncoding({ model, parameters }: Props) {
   const encoding = useRawGraphEncoding(model, parameters)
+  if (encoding.format === 'list') {
+    return <List list={encoding.list} nodes={encoding.nodes} />
+  }
   return (
-    <div className="h-full overflow-y-auto p-2">
-      {encoding.format === 'matrix' ? (
-        <Grid matrix={encoding.matrix} nodes={encoding.nodes} />
-      ) : null}
-      {encoding.format === 'list' ? (
-        <List list={encoding.list} nodes={encoding.nodes} />
-      ) : null}
+    <div className="h-full p-2">
+      <Grid matrix={encoding.matrix} nodes={encoding.nodes} />
     </div>
   )
 }
@@ -249,36 +252,41 @@ interface ListProps {
 function List({ list, nodes }: ListProps) {
   const getOpacity = useWeightedOpacityFromList(list)
   return (
-    <div className="h-full space-y-4">
-      <div>
-        <span>Nodes</span>
-        <div className="flex flex-wrap font-mono text-xs">
-          <ListBorder>[</ListBorder>
-          {nodes.map((node, index) => (
-            <ListNode key={node} index={index} node={node} />
-          ))}
-          <ListBorder>]</ListBorder>
+    <ResizablePanelGroup direction="vertical" className="h-full">
+      <ResizablePanel>
+        <div className="h-full overflow-y-auto p-2">
+          <span className="text-sm font-bold">Nodes</span>
+          <div className="flex flex-wrap font-mono text-xs">
+            <ListBorder>[</ListBorder>
+            {nodes.map((node, index) => (
+              <ListNode key={node} index={index} node={node} />
+            ))}
+            <ListBorder>]</ListBorder>
+          </div>
         </div>
-      </div>
-      <div>
-        <span>Edges</span>
-        <div className="flex flex-wrap font-mono text-xs">
-          <ListBorder>[</ListBorder>
-          {list.map(([source, target, weight], index) => (
-            <ListEdge
-              key={`${source}-${target}`}
-              getOpacity={getOpacity}
-              index={index}
-              nodes={nodes}
-              source={source}
-              target={target}
-              weight={weight}
-            />
-          ))}
-          <ListBorder>]</ListBorder>
+      </ResizablePanel>
+      <ResizableHandle withHandle />
+      <ResizablePanel>
+        <div className="h-full overflow-y-auto p-2">
+          <span className="text-sm font-bold">Edges</span>
+          <div className="flex flex-wrap font-mono text-xs">
+            <ListBorder>[</ListBorder>
+            {list.map(([source, target, weight], index) => (
+              <ListEdge
+                key={`${source}-${target}`}
+                getOpacity={getOpacity}
+                index={index}
+                nodes={nodes}
+                source={source}
+                target={target}
+                weight={weight}
+              />
+            ))}
+            <ListBorder>]</ListBorder>
+          </div>
         </div>
-      </div>
-    </div>
+      </ResizablePanel>
+    </ResizablePanelGroup>
   )
 }
 

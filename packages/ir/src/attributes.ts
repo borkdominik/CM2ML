@@ -12,7 +12,6 @@ export interface SimpleAttribute {
 }
 
 export interface NamespacedAttribute {
-  readonly fullName: AttributeName
   readonly name: AttributeName
   readonly namespace: string
   readonly value: Value
@@ -57,7 +56,7 @@ export class AttributeDelegate implements Attributable {
   }
 
   public addAttribute(attribute: Attribute, preventOverwrite = false) {
-    const key = 'fullName' in attribute ? attribute.fullName : attribute.name
+    const key = attribute.name
     const previousValue = this.#attributes.get(key)
     if (preventOverwrite && previousValue !== undefined) {
       throw new Error(`Attribute ${key} already exists`)

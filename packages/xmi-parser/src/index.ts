@@ -74,8 +74,7 @@ function mapAttribute([name, value]: [string, string]): Attribute {
   const parsedName = parseNamespace(name)
   if (typeof parsedName === 'object') {
     return {
-      fullName: name,
-      name: parsedName.name,
+      name,
       namespace: parsedName.namespace,
       value: xmiValue,
     }
@@ -84,7 +83,7 @@ function mapAttribute([name, value]: [string, string]): Attribute {
 }
 
 function mapValue(value: string): Value {
-  if (!value.includes(':')) {
+  if (!value.includes(':') || value.startsWith('http')) {
     return { literal: value }
   }
   const [namespace, ...rest] = value.split(':')

@@ -298,9 +298,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
   }
 
   private showAttribute(attribute: Attribute) {
-    return ` ${
-      'fullName' in attribute ? attribute.fullName : attribute.name
-    }="${attribute.value.literal}"`
+    return ` ${attribute.name}="${attribute.value.literal}"`
   }
 }
 

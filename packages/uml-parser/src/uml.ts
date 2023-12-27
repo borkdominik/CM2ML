@@ -149,8 +149,7 @@ export function inferAndSaveType(node: GraphNode, type: UmlType) {
     throw new Error(`Node ${node.id} has invalid type ${currentType}`)
   }
   node.addAttribute({
-    name: Attributes.type,
-    fullName: Attributes.xmiType,
+    name: Attributes.xmiType,
     value: { literal: type },
   })
 }
