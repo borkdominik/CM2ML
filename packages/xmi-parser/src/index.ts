@@ -3,7 +3,7 @@ import { GraphModel } from '@cm2ml/ir'
 import { definePlugin } from '@cm2ml/plugin'
 import { parseNamespace } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
-import { Element } from 'domhandler'
+import { Element, Text } from 'domhandler'
 import type { Document, Node } from 'domhandler'
 import { parseDocument } from 'htmlparser2'
 
@@ -61,12 +61,24 @@ function initNodeFromElement(node: GraphNode, element: Element) {
   Stream.fromObject(element.attribs)
     .map(mapAttribute)
     .forEach((attribute) => node.addAttribute(attribute, true))
-  Stream.from(element.childNodes)
-    .map((child) =>
-      isElement(child) ? createNodeFromElement(node.model, child) : null,
-    )
-    .filterNonNull()
-    .forEach((child) => node.addChild(child))
+  Stream.from(element.childNodes).forEach((child) => {
+    if (isElement(child)) {
+      const childNode = createNodeFromElement(node.model, child)
+      node.addChild(childNode)
+      return
+    }
+    if (isText(child)) {
+      const data = child.data.trim()
+      if (
+        child.data === '' ||
+        node.tag !== 'body' ||
+        node.getAttribute('body') !== undefined
+      ) {
+        return
+      }
+      node.addAttribute({ name: 'body', value: { literal: data } })
+    }
+  })
 }
 
 function mapAttribute([name, value]: [string, string]): Attribute {
@@ -75,6 +87,7 @@ function mapAttribute([name, value]: [string, string]): Attribute {
   if (typeof parsedName === 'object') {
     return {
       name,
+      simpleName: parsedName.name,
       namespace: parsedName.namespace,
       value: xmiValue,
     }
@@ -92,4 +105,8 @@ function mapValue(value: string): Value {
 
 function isElement(node: Node): node is Element {
   return node.type === 'tag' || node instanceof Element
+}
+
+function isText(node: Node): node is Text {
+  return node.type === 'text' || node instanceof Text
 }

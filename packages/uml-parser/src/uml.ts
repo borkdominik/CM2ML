@@ -3,6 +3,7 @@ import { parseNamespace } from '@cm2ml/utils'
 
 const Attributes = {
   alias: 'alias',
+  body: 'body',
   client: 'client',
   contract: 'contract',
   general: 'general',
@@ -19,6 +20,7 @@ const Attributes = {
 } as const
 
 const Tags = {
+  body: 'body',
   elementImport: 'elementImport',
   general: 'general',
   generalization: 'generalization',

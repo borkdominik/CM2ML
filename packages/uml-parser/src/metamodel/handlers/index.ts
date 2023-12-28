@@ -6,6 +6,7 @@ import { BehavioralFeatureHandler } from './BehavioralFeature'
 import { BehavioredClassifierHandler } from './BehavioredClassifier'
 import { ClassHandler } from './Class'
 import { ClassifierHandler } from './Classifier'
+import { CommentHandler } from './Comment'
 import { ConnectableElementHandler } from './ConnectableElement'
 import { DataTypeHandler } from './DataType'
 import { DependencyHandler } from './Dependency'
@@ -58,6 +59,7 @@ export const handlers: Record<`${string}Handler`, MetamodelElement> = {
   BehavioredClassifierHandler,
   ClassHandler,
   ClassifierHandler,
+  CommentHandler,
   ConnectableElementHandler,
   DataTypeHandler,
   DependencyHandler,

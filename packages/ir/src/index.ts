@@ -298,7 +298,10 @@ export class GraphNode implements Attributable, ModelMember, Show {
   }
 
   private showAttribute(attribute: Attribute) {
-    return ` ${attribute.name}="${attribute.value.literal}"`
+    const value = attribute.value.literal.includes('\n')
+      ? '{{omitted}}'
+      : attribute.value.literal
+    return ` ${attribute.name}="${value}"`
   }
 }
 

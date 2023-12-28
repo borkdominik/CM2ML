@@ -13,6 +13,7 @@ export interface SimpleAttribute {
 
 export interface NamespacedAttribute {
   readonly name: AttributeName
+  readonly simpleName: string
   readonly namespace: string
   readonly value: Value
 }

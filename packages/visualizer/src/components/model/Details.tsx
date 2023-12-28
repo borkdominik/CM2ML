@@ -1,6 +1,6 @@
 import type { Attributable, GraphEdge, GraphModel, GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
-import { useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
 
 import { useAppState } from '../../lib/useAppState'
 import type { EdgeSelection } from '../../lib/useSelection'
@@ -80,19 +80,15 @@ function AttributableDetails({ attributable }: { attributable: Attributable }) {
   }
 
   return (
-    <div className="flex gap-2 text-xs">
-      <div className="flex flex-col items-end gap-2">
-        {attributes.map(([name]) => (
+    <div className="grid grid-cols-[min-content,_auto] gap-2 text-xs">
+      {attributes.map(([name, attribute]) => (
+        <Fragment key={name}>
           <div key={name} className="font-mono text-muted-foreground">
             {name}
           </div>
-        ))}
-      </div>
-      <div className="flex flex-col gap-2">
-        {attributes.map(([name, attribute]) => (
-          <div key={name}>{attribute.value.literal}</div>
-        ))}
-      </div>
+          <div className="whitespace-pre-wrap">{attribute.value.literal}</div>
+        </Fragment>
+      ))}
     </div>
   )
 }

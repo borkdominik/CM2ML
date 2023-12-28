@@ -20,5 +20,5 @@ export function parseNamespace(string: string) {
     return string
   }
   const [namespace, ...value] = string.split(':')
-  return { name: value.join(':'), namespace }
+  return { name: value.join(':'), namespace: namespace! }
 }
