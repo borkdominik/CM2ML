@@ -64,8 +64,8 @@ function NodeDetails({ node }: { node: GraphNode }) {
         <div className="space-y-2">
           <div className="text-sm font-bold">Parent</div>
           <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
-            <SelectionButton id={node.parent.id} />
             <div className="whitespace-pre-wrap">{node.parent.tag}</div>
+            <SelectionButton id={node.parent.id} />
           </div>
         </div>
       ) : null}
@@ -81,7 +81,8 @@ function NodeChildren({ node }: { node: GraphNode }) {
   const sortedChildren = useMemo(
     () =>
       [...node.children].sort(
-        (a, b) => a.id?.localeCompare(b.id ?? '') ?? a.tag.localeCompare(b.tag),
+        (a, b) =>
+          (a.tag.localeCompare(b.tag) || a.id?.localeCompare(b.id ?? '')) ?? 0,
       ),
     [node],
   )
@@ -94,8 +95,8 @@ function NodeChildren({ node }: { node: GraphNode }) {
     <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
       {sortedChildren.map((child) => (
         <Fragment key={child.id}>
-          <SelectionButton id={child.id} />
           <div className="whitespace-pre-wrap">{child.tag}</div>
+          <SelectionButton id={child.id} />
         </Fragment>
       ))}
     </div>
