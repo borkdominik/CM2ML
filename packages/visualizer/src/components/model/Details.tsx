@@ -60,6 +60,15 @@ function NodeDetails({ node }: { node: GraphNode }) {
     <div className="space-y-2 p-2">
       <div className="text-sm font-bold">{node.id}</div>
       <AttributableDetails attributable={node} />
+      {node.parent ? (
+        <div className="space-y-2">
+          <div className="text-sm font-bold">Parent</div>
+          <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
+            <SelectionButton id={node.parent.id} />
+            <div className="whitespace-pre-wrap">{node.parent.tag}</div>
+          </div>
+        </div>
+      ) : null}
       <div className="space-y-2">
         <div className="text-sm font-bold">Children</div>
         <NodeChildren node={node} />
