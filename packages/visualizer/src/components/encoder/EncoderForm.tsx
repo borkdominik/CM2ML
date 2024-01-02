@@ -1,8 +1,6 @@
 import { encoderMap } from '@cm2ml/builtin'
-import { useState } from 'react'
 
 import { useEncoderState } from '../../lib/useEncoderState'
-import type { ParameterValues } from '../Parameters'
 import { Parameters } from '../Parameters'
 import { Button } from '../ui/button'
 import { Card, CardContent, CardHeader } from '../ui/card'
@@ -22,23 +20,8 @@ const encoders = Object.keys(encoderMap)
 export interface Props {}
 
 export function EncoderForm(_: Props) {
-  const {
-    encoder: currentEncoder,
-    setEncoder,
-    parameters,
-    setParameters,
-  } = useEncoderState()
-  const [encoderName, setEncoderName] = useState<string>(
-    currentEncoder?.name ?? '',
-  )
-  const encoder = encoderMap[encoderName]
-  const [parameterValues, setParameterValues] =
-    useState<ParameterValues>(parameters)
-
-  const onConfirm = () => {
-    setEncoder(encoderMap[encoderName])
-    setParameters(parameterValues)
-  }
+  const { encoder, setEncoder, parameters, setParameters, setIsEditing } =
+    useEncoderState()
 
   return (
     <Card className="max-h-full overflow-y-auto">
@@ -46,8 +29,8 @@ export function EncoderForm(_: Props) {
         <Label htmlFor="encoder">Encoder</Label>
         <Select
           name="encoder"
-          value={encoderName}
-          onValueChange={(value) => setEncoderName(value)}
+          value={encoder?.name ?? ''}
+          onValueChange={(value) => setEncoder(encoderMap[value])}
         >
           <SelectTrigger className="max-w-xs">
             <SelectValue placeholder="Select an encoder" />
@@ -68,11 +51,14 @@ export function EncoderForm(_: Props) {
         {encoder ? (
           <Parameters
             parameters={encoder.parameters}
-            values={parameterValues}
-            setValues={setParameterValues}
+            values={parameters}
+            setValues={setParameters}
           />
         ) : null}
-        <Button disabled={encoder === undefined} onClick={onConfirm}>
+        <Button
+          disabled={encoder === undefined}
+          onClick={() => setIsEditing(false)}
+        >
           Submit
         </Button>
       </CardContent>

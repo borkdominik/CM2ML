@@ -3,7 +3,6 @@ import { getMessage } from '@cm2ml/utils'
 import type { ChangeEvent } from 'react'
 import { useMemo, useState } from 'react'
 
-import { useModelParser } from '../../lib/useModelParser'
 import { useModelState } from '../../lib/useModelState'
 import { Error } from '../Error'
 import { Parameters } from '../Parameters'
@@ -29,15 +28,16 @@ export interface Props {}
 
 export function ModelForm(_: Props) {
   const {
+    model,
+    error,
     serializedModel,
     setSerializedModel,
-    setModel,
     parameters,
     setParameters,
     parser,
     setParser,
+    setIsEditing,
   } = useModelState()
-  const { error, model } = useModelParser(parser, serializedModel, parameters)
   const [modelUrl, setModelUrl] = useState<string>('')
   const [modelError, setFetchError] = useState<string | undefined>()
   const isValidModelUrl = useMemo(() => isValidUrl(modelUrl), [modelUrl])
@@ -80,7 +80,7 @@ export function ModelForm(_: Props) {
       <CardHeader className="space-y-2">
         <Label htmlFor="parser">Parser</Label>
         <Select
-          value={parser?.name}
+          value={parser?.name ?? ''}
           onValueChange={(value) => setParser(parserMap[value])}
         >
           <SelectTrigger className="max-w-xs">
@@ -132,7 +132,7 @@ export function ModelForm(_: Props) {
           {modelError ? <Error error={modelError} /> : null}
         </div>
         {error ? <Error error={error} /> : null}
-        <Button disabled={!model} onClick={() => setModel(model)}>
+        <Button disabled={!model} onClick={() => setIsEditing(false)}>
           Submit
         </Button>
       </CardContent>

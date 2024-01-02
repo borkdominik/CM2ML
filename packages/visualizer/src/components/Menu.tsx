@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { loadExample } from '../lib/exampleModel'
+import { exampleModel } from '../lib/exampleModel'
 import { useEncoderState } from '../lib/useEncoderState'
 import { useModelState } from '../lib/useModelState'
 import { useSelection } from '../lib/useSelection'
@@ -18,25 +18,39 @@ import {
 } from './ui/menubar'
 
 export function Menu() {
-  const { fit: fitGraph, close: closeModel, model, setModel } = useModelState()
-  const { encoder, close: closeEncoder } = useEncoderState()
+  const {
+    fit: fitGraph,
+    setParameters,
+    setParser,
+    setSerializedModel,
+    isEditing: isEditingModel,
+    setIsEditing: setIsEditingModel,
+  } = useModelState()
+  const { isEditing: isEditingEncoder, setIsEditing: setIsEditingEncoder } =
+    useEncoderState()
   const { clearSelection } = useSelection()
+
+  function loadExample() {
+    setSerializedModel(exampleModel.serializedModel)
+    setParameters(exampleModel.parameters)
+    setParser(exampleModel.parser)
+    setIsEditingModel(false)
+  }
+
   return (
     <Menubar className="rounded-none">
       <MenubarMenu>
         <MenubarTrigger>Model</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem onClick={() => setModel(loadExample())}>
-            Load Example
-          </MenubarItem>
+          <MenubarItem onClick={loadExample}>Load Example</MenubarItem>
           <MenubarSeparator />
           <MenubarItem
             onClick={() => {
               clearSelection()
-              closeEncoder()
-              closeModel()
+              setIsEditingModel(true)
+              setIsEditingEncoder(true)
             }}
-            disabled={model === undefined}
+            disabled={isEditingModel}
           >
             Close
           </MenubarItem>
@@ -45,7 +59,12 @@ export function Menu() {
       <MenubarMenu>
         <MenubarTrigger>Encoder</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem onClick={closeEncoder} disabled={encoder === undefined}>
+          <MenubarItem
+            onClick={() => {
+              setIsEditingEncoder(true)
+            }}
+            disabled={isEditingEncoder}
+          >
             Close
           </MenubarItem>
         </MenubarContent>
@@ -56,7 +75,7 @@ export function Menu() {
           <MenubarSub>
             <MenubarSubTrigger>Model</MenubarSubTrigger>
             <MenubarSubContent>
-              <MenubarItem disabled={model === undefined} onClick={fitGraph}>
+              <MenubarItem disabled={fitGraph !== undefined} onClick={fitGraph}>
                 Fit
               </MenubarItem>
             </MenubarSubContent>

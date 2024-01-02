@@ -31,7 +31,7 @@ export function Parameters({ parameters, setValues, values }: Props) {
   useEffect(() => {
     const defaultValues = Stream.fromObject(parameters).toRecord(
       ([name]) => name,
-      ([, { defaultValue }]) => defaultValue,
+      ([name, { defaultValue }]) => values[name] ?? defaultValue,
     )
     setValues(defaultValues)
   }, [parameters])
