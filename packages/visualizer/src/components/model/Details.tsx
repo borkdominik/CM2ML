@@ -1,4 +1,10 @@
-import type { Attributable, GraphEdge, GraphModel, GraphNode } from '@cm2ml/ir'
+import type {
+  Attributable,
+  GraphEdge,
+  GraphModel,
+  GraphNode,
+  ModelMember,
+} from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 import { Fragment, useMemo } from 'react'
 
@@ -63,7 +69,6 @@ function NodeDetails({ node }: { node: GraphNode }) {
 }
 
 function NodeChildren({ node }: { node: GraphNode }) {
-  const { setSelection } = useSelection()
   const sortedChildren = useMemo(
     () =>
       [...node.children].sort(
@@ -80,14 +85,7 @@ function NodeChildren({ node }: { node: GraphNode }) {
     <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
       {sortedChildren.map((child) => (
         <Fragment key={child.id}>
-          <Button
-            variant={'link'}
-            className="h-fit p-0 font-mono text-xs"
-            disabled={child.id === undefined}
-            onClick={() => setSelection(child.id!)}
-          >
-            {child.id}
-          </Button>
+          <SelectionButton id={child.id} />
           <div className="whitespace-pre-wrap">{child.tag}</div>
         </Fragment>
       ))}
@@ -95,6 +93,21 @@ function NodeChildren({ node }: { node: GraphNode }) {
   )
 }
 
+function SelectionButton({ id }: { id: string | undefined }) {
+  const { setSelection } = useSelection()
+  if (id === undefined) {
+    return null
+  }
+  return (
+    <Button
+      variant={'link'}
+      className="h-fit w-fit p-0 font-mono text-xs"
+      onClick={() => setSelection(id)}
+    >
+      {id}
+    </Button>
+  )
+}
 function EdgeDetails({ edge }: { edge: GraphEdge }) {
   return (
     <div className="space-y-2">
@@ -104,7 +117,11 @@ function EdgeDetails({ edge }: { edge: GraphEdge }) {
   )
 }
 
-function AttributableDetails({ attributable }: { attributable: Attributable }) {
+function AttributableDetails({
+  attributable,
+}: {
+  attributable: Attributable & ModelMember
+}) {
   const attributes = useMemo(
     () =>
       [...attributable.attributes.entries()].sort(([a], [b]) =>
@@ -124,7 +141,13 @@ function AttributableDetails({ attributable }: { attributable: Attributable }) {
           <div key={name} className="font-mono text-muted-foreground">
             {name}
           </div>
-          <div className="whitespace-pre-wrap">{attribute.value.literal}</div>
+          {attributable.model.getNodeById(attribute.value.literal) !==
+            undefined &&
+          attribute.name !== attributable.model.settings.idAttribute ? (
+            <SelectionButton id={attribute.value.literal} />
+          ) : (
+            <div className="whitespace-pre-wrap">{attribute.value.literal}</div>
+          )}
         </Fragment>
       ))}
     </div>
