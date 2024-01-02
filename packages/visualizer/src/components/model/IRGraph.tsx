@@ -7,7 +7,7 @@ import type { Edge, Options } from 'vis-network/standalone/esm/vis-network'
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
 import { colors } from '../../colors'
-import { useAppState } from '../../lib/useAppState'
+import { useModelState } from '../../lib/useModelState'
 import { useSelection } from '../../lib/useSelection'
 import { cn } from '../../lib/utils'
 import { Progress } from '../ui/progress'
@@ -61,7 +61,7 @@ function useVisNetwok(
   model: GraphModel,
   container: RefObject<HTMLDivElement | null>,
 ) {
-  const { setFitGraph } = useAppState()
+  const { setFit } = useModelState()
   const { selection, setSelection, clearSelection } = useSelection()
   const [network, setNetwork] = useState<Network | null>(null)
   const [stabilizationProgress, setStabilizationProgress] = useState(0)
@@ -181,8 +181,8 @@ function useVisNetwok(
   }, [network, selection])
 
   useEffect(() => {
-    setFitGraph(network ? () => network.fit() : undefined)
-  }, [network, setFitGraph])
+    setFit(network ? () => network.fit() : () => {})
+  }, [network])
 
   return {
     isReady: stabilizationProgress === 1,

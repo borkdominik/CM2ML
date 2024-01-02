@@ -2,13 +2,13 @@ import type { Attributable, GraphEdge, GraphModel, GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 import { Fragment, useMemo } from 'react'
 
-import { useAppState } from '../../lib/useAppState'
+import { useModelState } from '../../lib/useModelState'
 import type { EdgeSelection } from '../../lib/useSelection'
 import { useSelection } from '../../lib/useSelection'
 import { Badge } from '../ui/badge'
 
 export function SelectionDetails() {
-  const { model } = useAppState()
+  const { model } = useModelState()
   const { selection } = useSelection()
   if (!model || !selection) {
     return (
@@ -53,6 +53,7 @@ function NodeDetails({ node }: { node: GraphNode }) {
     <div className="space-y-2 p-2">
       <div className="text-sm font-bold">{node.id}</div>
       <AttributableDetails attributable={node} />
+      {/* TODO: Children */}
     </div>
   )
 }

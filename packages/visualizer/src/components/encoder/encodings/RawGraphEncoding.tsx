@@ -102,7 +102,7 @@ function Labels({ nodes, offset }: LabelsProps) {
           x={-offset}
           className="-rotate-90 cursor-default fill-foreground font-mono "
           fontSize={fontSize}
-          text-anchor="end"
+          textAnchor="end"
         >
           Target
         </text>

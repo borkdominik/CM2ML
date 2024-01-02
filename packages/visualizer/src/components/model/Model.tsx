@@ -1,4 +1,4 @@
-import { useAppState } from '../../lib/useAppState'
+import { useModelState } from '../../lib/useModelState'
 import {
   ResizableHandle,
   ResizablePanel,
@@ -12,7 +12,7 @@ import { ModelForm } from './ModelForm'
 export interface Props {}
 
 export function Model(_: Props) {
-  const { model, setModel } = useAppState()
+  const { model } = useModelState()
   return (
     <>
       {model ? (
@@ -29,7 +29,7 @@ export function Model(_: Props) {
         </ResizablePanelGroup>
       ) : (
         <div className="h-full p-2">
-          <ModelForm setModel={setModel} />
+          <ModelForm />
         </div>
       )}
     </>

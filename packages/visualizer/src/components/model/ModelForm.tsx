@@ -1,12 +1,11 @@
 import { parserMap } from '@cm2ml/builtin'
-import type { GraphModel } from '@cm2ml/ir'
 import { getMessage } from '@cm2ml/utils'
 import type { ChangeEvent } from 'react'
 import { useMemo, useState } from 'react'
 
 import { useModelParser } from '../../lib/useModelParser'
+import { useModelState } from '../../lib/useModelState'
 import { Error } from '../Error'
-import type { ParameterValues } from '../Parameters'
 import { Parameters } from '../Parameters'
 import { Button } from '../ui/button'
 import { Card, CardContent, CardHeader } from '../ui/card'
@@ -26,16 +25,19 @@ import { Textarea } from '../ui/textarea'
 
 const parsers = Object.keys(parserMap)
 
-export interface Props {
-  setModel: (model: GraphModel) => void
-}
+export interface Props {}
 
-export function ModelForm({ setModel }: Props) {
-  const [parserName, setParserName] = useState<string>('')
-  const parser = parserMap[parserName]
-  const [modelString, setModelString] = useState<string | undefined>('')
-  const [parameterValues, setParameterValues] = useState<ParameterValues>({})
-  const { model, error } = useModelParser(parser, modelString, parameterValues)
+export function ModelForm(_: Props) {
+  const {
+    serializedModel,
+    setSerializedModel,
+    setModel,
+    parameters,
+    setParameters,
+    parser,
+    setParser,
+  } = useModelState()
+  const { error, model } = useModelParser(parser, serializedModel, parameters)
   const [modelUrl, setModelUrl] = useState<string>('')
   const [modelError, setFetchError] = useState<string | undefined>()
   const isValidModelUrl = useMemo(() => isValidUrl(modelUrl), [modelUrl])
@@ -47,9 +49,9 @@ export function ModelForm({ setModel }: Props) {
     }
     const fileType = file.name.split('.').at(-1)
     if (fileType && fileType in parserMap) {
-      setParserName(fileType)
+      setParser(parserMap[fileType])
     }
-    setModelString(await file.text())
+    setSerializedModel(await file.text())
     setModelUrl('')
     setFetchError(undefined)
   }
@@ -64,9 +66,10 @@ export function ModelForm({ setModel }: Props) {
       const modelString = await response.text()
       const fileType = modelUrl.split('.').at(-1)
       if (fileType && fileType in parserMap) {
-        setParserName(fileType)
+        setParser(parserMap[fileType])
       }
-      setModelString(modelString)
+      setSerializedModel(modelString)
+      setModelUrl('')
     } catch (error: unknown) {
       setFetchError(getMessage(error))
     }
@@ -77,8 +80,8 @@ export function ModelForm({ setModel }: Props) {
       <CardHeader className="space-y-2">
         <Label htmlFor="parser">Parser</Label>
         <Select
-          value={parserName}
-          onValueChange={(value) => setParserName(value)}
+          value={parser?.name}
+          onValueChange={(value) => setParser(parserMap[value])}
         >
           <SelectTrigger className="max-w-xs">
             <SelectValue placeholder="Select a parser" />
@@ -99,16 +102,16 @@ export function ModelForm({ setModel }: Props) {
         {parser ? (
           <Parameters
             parameters={parser.parameters}
-            values={parameterValues}
-            setValues={setParameterValues}
+            values={parameters}
+            setValues={setParameters}
           />
         ) : null}
         <div className="flex flex-col gap-2">
           <Label htmlFor="model">Model</Label>
           <Textarea
             name="model"
-            value={modelString}
-            onChange={(event) => setModelString(event.target.value)}
+            value={serializedModel}
+            onChange={(event) => setSerializedModel(event.target.value)}
             placeholder="Paste your model here"
           />
           <Or />
@@ -129,7 +132,7 @@ export function ModelForm({ setModel }: Props) {
           {modelError ? <Error error={modelError} /> : null}
         </div>
         {error ? <Error error={error} /> : null}
-        <Button disabled={!model} onClick={() => setModel(model!)}>
+        <Button disabled={!model} onClick={() => setModel(model)}>
           Submit
         </Button>
       </CardContent>

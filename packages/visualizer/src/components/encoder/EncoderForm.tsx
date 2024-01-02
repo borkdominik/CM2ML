@@ -1,7 +1,7 @@
 import { encoderMap } from '@cm2ml/builtin'
 import { useState } from 'react'
 
-import { useAppState } from '../../lib/useAppState'
+import { useEncoderState } from '../../lib/useEncoderState'
 import type { ParameterValues } from '../Parameters'
 import { Parameters } from '../Parameters'
 import { Button } from '../ui/button'
@@ -22,10 +22,23 @@ const encoders = Object.keys(encoderMap)
 export interface Props {}
 
 export function EncoderForm(_: Props) {
-  const { setEncoder } = useAppState()
-  const [encoderName, setEncoderName] = useState<string>('')
+  const {
+    encoder: currentEncoder,
+    setEncoder,
+    parameters,
+    setParameters,
+  } = useEncoderState()
+  const [encoderName, setEncoderName] = useState<string>(
+    currentEncoder?.name ?? '',
+  )
   const encoder = encoderMap[encoderName]
-  const [parameterValues, setParameterValues] = useState<ParameterValues>({})
+  const [parameterValues, setParameterValues] =
+    useState<ParameterValues>(parameters)
+
+  const onConfirm = () => {
+    setEncoder(encoderMap[encoderName])
+    setParameters(parameterValues)
+  }
 
   return (
     <Card className="max-h-full overflow-y-auto">
@@ -59,10 +72,7 @@ export function EncoderForm(_: Props) {
             setValues={setParameterValues}
           />
         ) : null}
-        <Button
-          disabled={encoder === undefined}
-          onClick={() => setEncoder(encoder!, parameterValues)}
-        >
+        <Button disabled={encoder === undefined} onClick={onConfirm}>
           Submit
         </Button>
       </CardContent>

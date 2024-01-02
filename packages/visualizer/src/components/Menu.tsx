@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import { loadExample } from '../lib/exampleModel'
-import { useAppState } from '../lib/useAppState'
+import { useEncoderState } from '../lib/useEncoderState'
+import { useModelState } from '../lib/useModelState'
 import { useSelection } from '../lib/useSelection'
 
 import {
@@ -17,8 +18,8 @@ import {
 } from './ui/menubar'
 
 export function Menu() {
-  const { clearEncoder, clearModel, encoder, fitGraph, model, setModel } =
-    useAppState()
+  const { fit: fitGraph, close: closeModel, model, setModel } = useModelState()
+  const { encoder, close: closeEncoder } = useEncoderState()
   const { clearSelection } = useSelection()
   return (
     <Menubar className="rounded-none">
@@ -32,7 +33,8 @@ export function Menu() {
           <MenubarItem
             onClick={() => {
               clearSelection()
-              clearModel()
+              closeEncoder()
+              closeModel()
             }}
             disabled={model === undefined}
           >
@@ -43,7 +45,7 @@ export function Menu() {
       <MenubarMenu>
         <MenubarTrigger>Encoder</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem onClick={clearEncoder} disabled={encoder === undefined}>
+          <MenubarItem onClick={closeEncoder} disabled={encoder === undefined}>
             Close
           </MenubarItem>
         </MenubarContent>

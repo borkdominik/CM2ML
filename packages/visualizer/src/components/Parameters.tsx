@@ -19,9 +19,7 @@ export type ParameterValues = Record<string, boolean | number | string>
 
 export interface Props {
   parameters: ParameterMetadata
-  setValues: (
-    setter: ParameterValues | ((oldValues: ParameterValues) => ParameterValues),
-  ) => void
+  setValues: (parameters: ParameterValues) => void
   values: ParameterValues
 }
 
@@ -43,9 +41,7 @@ export function Parameters({ parameters, setValues, values }: Props) {
         <ParameterInput
           key={name}
           name={name}
-          onChange={(value) =>
-            setValues((oldValue) => ({ ...oldValue, [name]: value }))
-          }
+          onChange={(value) => setValues({ [name]: value })}
           parameter={parameter}
           value={values[name] ?? parameter.defaultValue}
         />

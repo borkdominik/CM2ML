@@ -1,11 +1,13 @@
-import { useAppState } from '../../lib/useAppState'
+import { useEncoderState } from '../../lib/useEncoderState'
+import { useModelState } from '../../lib/useModelState'
 import { Error } from '../Error'
 
 import { EncoderForm } from './EncoderForm'
 import { Encoding } from './Encoding'
 
 export function Encoder() {
-  const { encoder, model, parameters } = useAppState()
+  const { model } = useModelState()
+  const { encoder, parameters } = useEncoderState()
   if (encoder && model) {
     return <Encoding model={model} encoder={encoder} parameters={parameters} />
   }
