@@ -20,6 +20,7 @@ import {
 export function Menu() {
   const {
     fit: fitGraph,
+    setFit: setFitGraph,
     setParameters,
     setParser,
     setSerializedModel,
@@ -49,6 +50,7 @@ export function Menu() {
               clearSelection()
               setIsEditingModel(true)
               setIsEditingEncoder(true)
+              setFitGraph(undefined)
             }}
             disabled={isEditingModel}
           >
@@ -75,7 +77,7 @@ export function Menu() {
           <MenubarSub>
             <MenubarSubTrigger>Model</MenubarSubTrigger>
             <MenubarSubContent>
-              <MenubarItem disabled={fitGraph !== undefined} onClick={fitGraph}>
+              <MenubarItem disabled={fitGraph === undefined} onClick={fitGraph}>
                 Fit
               </MenubarItem>
             </MenubarSubContent>

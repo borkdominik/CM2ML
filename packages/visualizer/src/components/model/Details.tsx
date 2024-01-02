@@ -6,6 +6,7 @@ import { useModelState } from '../../lib/useModelState'
 import type { EdgeSelection } from '../../lib/useSelection'
 import { useSelection } from '../../lib/useSelection'
 import { Badge } from '../ui/badge'
+import { Button } from '../ui/button'
 
 export function SelectionDetails() {
   const { model } = useModelState()
@@ -53,7 +54,43 @@ function NodeDetails({ node }: { node: GraphNode }) {
     <div className="space-y-2 p-2">
       <div className="text-sm font-bold">{node.id}</div>
       <AttributableDetails attributable={node} />
-      {/* TODO: Children */}
+      <div className="space-y-2">
+        <div className="text-sm font-bold">Children</div>
+        <NodeChildren node={node} />
+      </div>
+    </div>
+  )
+}
+
+function NodeChildren({ node }: { node: GraphNode }) {
+  const { setSelection } = useSelection()
+  const sortedChildren = useMemo(
+    () =>
+      [...node.children].sort(
+        (a, b) => a.id?.localeCompare(b.id ?? '') ?? a.tag.localeCompare(b.tag),
+      ),
+    [node],
+  )
+
+  if (sortedChildren.length === 0) {
+    return <div className="text-xs text-muted-foreground">No children</div>
+  }
+
+  return (
+    <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
+      {sortedChildren.map((child) => (
+        <Fragment key={child.id}>
+          <Button
+            variant={'link'}
+            className="h-fit p-0 font-mono text-xs"
+            disabled={child.id === undefined}
+            onClick={() => setSelection(child.id!)}
+          >
+            {child.id}
+          </Button>
+          <div className="whitespace-pre-wrap">{child.tag}</div>
+        </Fragment>
+      ))}
     </div>
   )
 }

@@ -181,7 +181,7 @@ function useVisNetwok(
   }, [network, selection])
 
   useEffect(() => {
-    setFit(network ? () => network.fit() : () => {})
+    setFit(network ? () => network.fit() : undefined)
   }, [network])
 
   return {
