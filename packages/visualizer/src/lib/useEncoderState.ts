@@ -1,10 +1,7 @@
-import type { GraphModel } from '@cm2ml/ir'
-import type { Plugin } from '@cm2ml/plugin'
+import type { Encoder } from '@cm2ml/builtin'
 import { create } from 'zustand'
 
 import type { ParameterValues } from '../components/Parameters'
-
-export type Encoder = Plugin<GraphModel, unknown, any>
 
 export interface EncoderState {
   isEditing: boolean

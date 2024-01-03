@@ -17,9 +17,7 @@ import {
 
 const encoders = Object.keys(encoderMap)
 
-export interface Props {}
-
-export function EncoderForm(_: Props) {
+export function EncoderForm() {
   const { encoder, setEncoder, parameters, setParameters, setIsEditing } =
     useEncoderState()
 

@@ -1,4 +1,4 @@
-import { parserMap } from '@cm2ml/builtin'
+import { UmlParser } from '@cm2ml/builtin'
 
 const serializedModel = `<?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Cfp0UGmxEe2kLe5KTNzRtw" name="clazz">
@@ -116,5 +116,5 @@ export const exampleModel = {
     relationshipsAsEdges: true,
     strict: true,
   },
-  parser: parserMap.uml,
+  parser: UmlParser,
 }

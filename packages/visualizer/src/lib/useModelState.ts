@@ -1,10 +1,8 @@
+import type { Parser } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
-import type { Plugin } from '@cm2ml/plugin'
 import { create } from 'zustand'
 
 import type { ParameterValues } from '../components/Parameters'
-
-export type Parser = Plugin<string, GraphModel, any>
 
 export interface ModelState {
   isEditing: boolean

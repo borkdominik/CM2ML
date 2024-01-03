@@ -24,9 +24,7 @@ import { Textarea } from '../ui/textarea'
 
 const parsers = Object.keys(parserMap)
 
-export interface Props {}
-
-export function ModelForm(_: Props) {
+export function ModelForm() {
   const {
     model,
     error,

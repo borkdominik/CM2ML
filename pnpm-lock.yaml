@@ -460,18 +460,12 @@ importers:
       '@cm2ml/builtin':
         specifier: workspace:*
         version: link:../builtin
-      '@cm2ml/graph-encoder':
-        specifier: workspace:*
-        version: link:../graph-encoder
       '@cm2ml/ir':
         specifier: workspace:*
         version: link:../ir
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
-      '@cm2ml/uml-parser':
-        specifier: workspace:*
-        version: link:../uml-parser
       '@cm2ml/utils':
         specifier: workspace:*
         version: link:../utils

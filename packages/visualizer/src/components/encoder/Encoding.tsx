@@ -1,4 +1,4 @@
-import { GraphEncoder } from '@cm2ml/graph-encoder'
+import { GraphEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import type { Plugin } from '@cm2ml/plugin'
 
