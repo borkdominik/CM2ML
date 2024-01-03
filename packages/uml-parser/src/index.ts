@@ -5,22 +5,30 @@ import { XmiParser } from '@cm2ml/xmi-parser'
 import { Stream } from '@yeger/streams'
 
 import { inferHandler } from './metamodel/handler-registry'
+import type { HandlerConfiguration } from './metamodel/metamodel'
 import { Uml, inferAndSaveType } from './uml'
 import { validateModel } from './validations'
 
 export const UmlRefiner = definePlugin({
   name: 'uml',
-  parameters: {},
-  invoke: (input: GraphModel, _parameters) => refine(input),
+  parameters: {
+    relationshipsAsEdges: {
+      type: 'boolean',
+      defaultValue: true,
+      description: 'Whether to treat relationships as edges.',
+    },
+  },
+  invoke: (input: GraphModel, { relationshipsAsEdges }) =>
+    refine(input, relationshipsAsEdges),
 })
 
 export const UmlParser = compose(XmiParser, UmlRefiner, 'uml')
 
-function refine(model: GraphModel): GraphModel {
+function refine(model: GraphModel, relationshipsAsEdges: boolean): GraphModel {
   removeNonUmlNodes(model)
-  refineNodesRecursively(model.root)
+  refineNodesRecursively(model.root, { relationshipsAsEdges })
   replaceTagsWithTypes(model)
-  validateModel(model)
+  validateModel(model, relationshipsAsEdges)
   printEdges(model)
   return model
 }
@@ -51,7 +59,10 @@ function removeNonUmlNodes(model: GraphModel) {
   model.root = newRoot
 }
 
-function refineNodesRecursively(node: GraphNode) {
+function refineNodesRecursively(
+  node: GraphNode,
+  configuration: HandlerConfiguration,
+) {
   const handler = inferHandler(node)
   if (!handler) {
     const message = `No handler for node with tag ${
@@ -65,14 +76,16 @@ function refineNodesRecursively(node: GraphNode) {
     return
   }
   try {
-    handler.handle(node)
+    handler.handle(node, configuration)
   } catch (error) {
     node.model.debug(getMessage(error))
     if (node.model.settings.strict) {
       throw error
     }
   }
-  Stream.from(node.children).forEach((child) => refineNodesRecursively(child))
+  Stream.from(node.children).forEach((child) =>
+    refineNodesRecursively(child, configuration),
+  )
 }
 
 function replaceTagsWithTypes(model: GraphModel) {

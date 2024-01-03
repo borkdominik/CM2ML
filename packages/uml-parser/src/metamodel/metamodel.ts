@@ -3,8 +3,19 @@ import type { GraphNode } from '@cm2ml/ir'
 import { Uml, inferAndSaveType } from '../uml'
 import type { UmlAbstractType, UmlTag, UmlType } from '../uml'
 
+export interface HandlerConfiguration {
+  relationshipsAsEdges: boolean
+}
+
 export interface Handler {
-  handle: (node: GraphNode) => void
+  handle: (
+    node: GraphNode,
+    parameters: HandlerConfiguration & Partial<HandlerPropagation>,
+  ) => void | false | Partial<HandlerPropagation>
+}
+
+export interface HandlerPropagation {
+  nodeAsEdgeTag: string
 }
 
 export interface Definition {
@@ -85,7 +96,11 @@ export class MetamodelElement implements Handler {
     return false
   }
 
-  public handle(node: GraphNode, visited = new Set<MetamodelElement>()): void {
+  public handle(
+    node: GraphNode,
+    parameters: HandlerConfiguration & Partial<HandlerPropagation>,
+    visited = new Set<MetamodelElement>(),
+  ): void {
     if (visited.has(this)) {
       return
     }
@@ -99,10 +114,17 @@ export class MetamodelElement implements Handler {
     if (this.type) {
       inferAndSaveType(node, this.type)
     }
-    this.handler?.(node)
+    const propagation = this.handler?.(node, parameters)
+    if (propagation === false) {
+      return
+    }
     visited.add(this)
+    const newParameters =
+      typeof propagation === 'object'
+        ? { ...parameters, ...propagation }
+        : parameters
     this.generalizations.forEach((parent) => {
-      parent.handle(node, visited)
+      parent.handle(node, newParameters, visited)
     })
   }
 

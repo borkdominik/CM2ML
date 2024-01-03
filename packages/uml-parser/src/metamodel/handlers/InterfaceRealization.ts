@@ -4,7 +4,10 @@ import { Uml } from '../../uml'
 import { InterfaceRealization } from '../metamodel'
 
 export const InterfaceRealizationHandler = InterfaceRealization.createHandler(
-  (interfaceRealization) => {
+  (interfaceRealization, { relationshipsAsEdges }) => {
+    if (relationshipsAsEdges) {
+      return { nodeAsEdgeTag: 'interfaceRealization' }
+    }
     addEdge_contract(interfaceRealization)
     addEdge_implementingClassifier(interfaceRealization)
   },

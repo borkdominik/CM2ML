@@ -1,4 +1,4 @@
-import type { GraphNode } from '@cm2ml/ir'
+import type { Attributable, GraphNode } from '@cm2ml/ir'
 import { parseNamespace } from '@cm2ml/utils'
 
 const Attributes = {
@@ -156,8 +156,31 @@ export function inferAndSaveType(node: GraphNode, type: UmlType) {
   })
 }
 
-// export function copyAttributes(source: Attributable, target: Attributable) {
-//   source.attributes.forEach((attribute) => {
-//     target.addAttribute(attribute)
-//   })
-// }
+export function copyAttributes(source: Attributable, target: Attributable) {
+  source.attributes.forEach((attribute) => {
+    target.addAttribute(attribute)
+  })
+}
+
+/**
+ * Transform a node to an edge
+ * @param node - The node to be transformed
+ * @param source - The source, i.e., client of the edge
+ * @param target - The target, i.e., supplier of the edge
+ * @param tag - The tag of the edge, optional
+ * @returns The created edge or undefined if the source or target is undefined
+ */
+export function transformNodeToEdge(
+  node: GraphNode,
+  source: GraphNode | undefined,
+  target: GraphNode | undefined,
+  tag?: string,
+) {
+  if (!source || !target) {
+    return
+  }
+  const edge = node.model.addEdge(tag ?? node.tag, source, target)
+  copyAttributes(node, edge)
+  node.model.removeNode(node)
+  return edge
+}

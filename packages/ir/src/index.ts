@@ -279,7 +279,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
     this.#attributeDelegate.removeAttribute(name)
   }
 
-  public show(indent: number): string {
+  public show(indent: number = 0): string {
     const attributes = [...this.attributes.values()]
       .map((attribute) => this.showAttribute(attribute))
       .join('')

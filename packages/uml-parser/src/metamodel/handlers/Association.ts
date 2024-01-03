@@ -3,6 +3,9 @@ import type { GraphNode } from '@cm2ml/ir'
 import { Association } from '../metamodel'
 
 export const AssociationHandler = Association.createHandler((association) => {
+  // TODO: Include associations?
+  association.model.removeNode(association)
+  return false
   addEdge_endType(association)
   addEdge_memberEnd(association)
   addEdge_navigableOwnerEnd(association)
