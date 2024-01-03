@@ -33,7 +33,7 @@ export function SelectionDetails() {
   }
   const edges = getEdges(selection, model)
   return (
-    <div className="space-y-2 p-2">
+    <div className="space-y-6 p-2">
       {edges.map((edge, index) => (
         <EdgeDetails key={index} edge={edge} />
       ))}
@@ -56,6 +56,7 @@ function getEdges(edgeSelection: EdgeSelection, model: GraphModel) {
 }
 
 function NodeDetails({ node }: { node: GraphNode }) {
+  // TODO: Add outgoing and incoming edges
   return (
     <div className="space-y-2 p-2">
       <div className="text-sm font-bold">{node.id}</div>
@@ -65,7 +66,7 @@ function NodeDetails({ node }: { node: GraphNode }) {
           <div className="text-sm font-bold">Parent</div>
           <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
             <div className="whitespace-pre-wrap">{node.parent.tag}</div>
-            <SelectionButton id={node.parent.id} />
+            <NodeSelectionButton id={node.parent.id} />
           </div>
         </div>
       ) : null}
@@ -73,6 +74,8 @@ function NodeDetails({ node }: { node: GraphNode }) {
         <div className="text-sm font-bold">Children</div>
         <NodeChildren node={node} />
       </div>
+      <NodeEdges type="outgoing" node={node} />
+      <NodeEdges type="incoming" node={node} />
     </div>
   )
 }
@@ -96,14 +99,62 @@ function NodeChildren({ node }: { node: GraphNode }) {
       {sortedChildren.map((child) => (
         <Fragment key={child.id}>
           <div className="whitespace-pre-wrap">{child.tag}</div>
-          <SelectionButton id={child.id} />
+          <NodeSelectionButton id={child.id} />
         </Fragment>
       ))}
     </div>
   )
 }
 
-function SelectionButton({ id }: { id: string | undefined }) {
+function NodeEdges({
+  type,
+  node,
+}: {
+  type: 'incoming' | 'outgoing'
+  node: GraphNode
+}) {
+  const edges = type === 'incoming' ? node.incomingEdges : node.outgoingEdges
+  const sortedEdges = useMemo(
+    () => [...edges].sort((a, b) => a.tag.localeCompare(b.tag)),
+    [edges],
+  )
+
+  if (sortedEdges.length === 0) {
+    return null
+  }
+
+  return (
+    <div className="space-y-2">
+      <div className="text-sm font-bold">
+        {type === 'incoming' ? 'Incoming Edges' : 'Outgoing Edges'}
+      </div>
+      <div className="grid grid-cols-[min-content,_min-content,_auto] items-center gap-2 text-xs">
+        {sortedEdges.map((edge) => (
+          <Fragment key={`${edge.source.id}-${edge.tag}-${edge.target.id}`}>
+            <EdgeSelectionButton
+              sourceId={edge.source.id}
+              targetId={edge.target.id}
+              label={edge.tag}
+            />
+            {type === 'incoming' ? (
+              <>
+                <span className="text-muted-foreground">from</span>
+                <NodeSelectionButton id={edge.source.id} />
+              </>
+            ) : (
+              <>
+                <span className="text-muted-foreground">to</span>
+                <NodeSelectionButton id={edge.target.id} />
+              </>
+            )}
+          </Fragment>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function NodeSelectionButton({ id }: { id: string | undefined }) {
   const { setSelection } = useSelection()
   if (id === undefined) {
     return null
@@ -118,11 +169,50 @@ function SelectionButton({ id }: { id: string | undefined }) {
     </Button>
   )
 }
+
+function EdgeSelectionButton({
+  sourceId,
+  targetId,
+  label,
+}: {
+  sourceId: string | undefined
+  targetId: string | undefined
+  label: string
+}) {
+  const { setSelection } = useSelection()
+  if (sourceId === undefined || targetId === undefined) {
+    return null
+  }
+  return (
+    <Button
+      variant={'link'}
+      className="h-fit w-fit p-0 font-mono text-xs"
+      onClick={() => setSelection([[sourceId, targetId]])}
+    >
+      {label}
+    </Button>
+  )
+}
+
 function EdgeDetails({ edge }: { edge: GraphEdge }) {
   return (
     <div className="space-y-2">
       <div className="text-sm font-bold">{edge.tag}</div>
       <AttributableDetails attributable={edge} />
+      <div className="space-y-2">
+        <div className="text-sm font-bold">Source</div>
+        <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
+          <div className="whitespace-pre-wrap">{edge.source.tag}</div>
+          <NodeSelectionButton id={edge.source.id} />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <div className="text-sm font-bold">Target</div>
+        <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
+          <div className="whitespace-pre-wrap">{edge.target.tag}</div>
+          <NodeSelectionButton id={edge.target.id} />
+        </div>
+      </div>
     </div>
   )
 }
@@ -154,7 +244,7 @@ function AttributableDetails({
           {attributable.model.getNodeById(attribute.value.literal) !==
             undefined &&
           attribute.name !== attributable.model.settings.idAttribute ? (
-            <SelectionButton id={attribute.value.literal} />
+            <NodeSelectionButton id={attribute.value.literal} />
           ) : (
             <div className="whitespace-pre-wrap">{attribute.value.literal}</div>
           )}
