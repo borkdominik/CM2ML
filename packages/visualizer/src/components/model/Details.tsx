@@ -13,6 +13,7 @@ import type { EdgeSelection } from '../../lib/useSelection'
 import { useSelection } from '../../lib/useSelection'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
+import { Separator } from '../ui/separator'
 
 export function SelectionDetails() {
   const { model } = useModelState()
@@ -33,9 +34,12 @@ export function SelectionDetails() {
   }
   const edges = getEdges(selection, model)
   return (
-    <div className="space-y-6 p-2">
+    <div className="space-y-4 p-2">
       {edges.map((edge, index) => (
-        <EdgeDetails key={index} edge={edge} />
+        <Fragment key={index}>
+          <EdgeDetails edge={edge} />
+          {index !== edges.length - 1 ? <Separator /> : null}
+        </Fragment>
       ))}
     </div>
   )

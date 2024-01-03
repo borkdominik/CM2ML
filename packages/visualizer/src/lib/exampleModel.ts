@@ -113,6 +113,7 @@ export const exampleModel = {
   parameters: {
     debug: false,
     idAttribute: 'xmi:id',
+    relationshipsAsEdges: true,
     strict: true,
   },
   parser: parserMap.uml,

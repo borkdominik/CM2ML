@@ -49,7 +49,6 @@ export function Menu() {
             onClick={() => {
               clearSelection()
               setIsEditingModel(true)
-              setIsEditingEncoder(true)
               setFitGraph(undefined)
             }}
             disabled={isEditingModel}
