@@ -65,11 +65,16 @@ function useVisNetwok(
   const { selection, setSelection, clearSelection } = useSelection()
   const [network, setNetwork] = useState<Network | null>(null)
   const [stabilizationProgress, setStabilizationProgress] = useState(0)
-  const { data, options } = useMemo(() => {
+
+  const data = useMemo(() => {
     const nodes = createVisNodes(model)
     const edges = createVisEdges(model)
-    const isLargeModel = edges.length > 1000
-    const options: Options = {
+    return { nodes, edges }
+  }, [model])
+
+  const isLargeModel = data.edges.length > 1000
+  const options = useMemo<Options>(() => {
+    return {
       autoResize: false,
       edges: {
         color: {
@@ -100,16 +105,18 @@ function useVisNetwok(
         },
       },
     }
-    return { data: { nodes, edges }, options }
-  }, [model])
+  }, [isLargeModel])
 
   useEffect(() => {
     if (!container.current) {
       return
     }
-    const network = new Network(container.current, data, options)
+    const network = new Network(container.current, {
+      nodes: undefined,
+      edges: undefined,
+    })
     setNetwork(network)
-    setStabilizationProgress(0)
+    setFit(() => network.fit())
     function selectNodes(selectedNodes: string[]) {
       if (selectedNodes.length === 1) {
         setSelection(selectedNodes[0]!)
@@ -120,6 +127,7 @@ function useVisNetwok(
         setSelection([[sourceId!, targetId!]])
       }
     }
+    network.on('startStabilizing', () => setStabilizationProgress(0))
     network.on(
       'stabilizationProgress',
       (params: { iterations: number; total: number }) => {
@@ -159,8 +167,9 @@ function useVisNetwok(
       network.destroy()
       resizeObserver.disconnect()
       setNetwork(null)
+      setFit(undefined)
     }
-  }, [container, data, options])
+  }, [container])
 
   useEffect(() => {
     if (!network) {
@@ -180,9 +189,8 @@ function useVisNetwok(
     network.selectEdges(edgeIds)
   }, [network, selection])
 
-  useEffect(() => {
-    setFit(network ? () => network.fit() : undefined)
-  }, [network])
+  useEffect(() => network?.setData(data), [network, data])
+  useEffect(() => network?.setOptions(options), [network, options])
 
   return {
     isReady: stabilizationProgress === 1,
