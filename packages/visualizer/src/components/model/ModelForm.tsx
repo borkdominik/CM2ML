@@ -40,7 +40,7 @@ export function ModelForm() {
   const [modelUrl, setModelUrl] = useState<string>('')
   const [modelError, setFetchError] = useState<string | undefined>()
   const isValidModelUrl = useMemo(() => isValidUrl(modelUrl), [modelUrl])
-  const alwaysShowEditors = useSettings((state) => state.alwaysShowEditors)
+  const layout = useSettings((state) => state.layout)
 
   async function onFileLoaded(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]
@@ -132,7 +132,7 @@ export function ModelForm() {
           {modelError ? <Error error={modelError} /> : null}
         </div>
         {error ? <Error error={error} /> : null}
-        {alwaysShowEditors ? null : (
+        {layout === 'extended' ? null : (
           <Button disabled={!model} onClick={() => setIsEditing(false)}>
             Submit
           </Button>

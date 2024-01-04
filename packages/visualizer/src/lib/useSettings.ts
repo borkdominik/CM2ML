@@ -1,17 +1,18 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+export type Layout = 'compact' | 'extended'
+
 export interface SettingsState {
-  alwaysShowEditors: boolean
-  setAlwaysShowEditors: (alwaysShowEditors: boolean) => void
+  layout: Layout
+  setLayout: (layout: Layout) => void
 }
 
 export const useSettings = create(
   persist<SettingsState>(
     (set) => ({
-      alwaysShowEditors: false,
-      setAlwaysShowEditors: (alwaysShowEditors: boolean) =>
-        set({ alwaysShowEditors }),
+      layout: 'compact',
+      setLayout: (layout: Layout) => set({ layout }),
     }),
     { name: 'settings' },
   ),

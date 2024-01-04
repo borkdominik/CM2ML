@@ -31,7 +31,7 @@ export function Menu() {
   const { isEditing: isEditingEncoder, setIsEditing: setIsEditingEncoder } =
     useEncoderState()
   const { clearSelection } = useSelection()
-  const alwaysShowEditors = useSettings((state) => state.alwaysShowEditors)
+  const layout = useSettings((state) => state.layout)
 
   function loadExample() {
     setSerializedModel(exampleModel.serializedModel)
@@ -52,7 +52,7 @@ export function Menu() {
               setIsEditingModel(true)
               setFitGraph(undefined)
             }}
-            disabled={isEditingModel || alwaysShowEditors}
+            disabled={isEditingModel || layout !== 'compact'}
           >
             Close
           </MenubarItem>
@@ -65,7 +65,7 @@ export function Menu() {
             onClick={() => {
               setIsEditingEncoder(true)
             }}
-            disabled={isEditingEncoder || alwaysShowEditors}
+            disabled={isEditingEncoder || layout !== 'compact'}
           >
             Close
           </MenubarItem>
@@ -83,7 +83,7 @@ export function Menu() {
             </MenubarSubContent>
           </MenubarSub>
           <ThemeSubMenu />
-          <EditorVisibilitySubMenu />
+          <LayoutSubMenu />
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
@@ -126,33 +126,33 @@ function ThemeSubMenu() {
   )
 }
 
-function EditorVisibilitySubMenu() {
-  const { alwaysShowEditors, setAlwaysShowEditors } = useSettings()
+function LayoutSubMenu() {
+  const { layout, setLayout } = useSettings()
   const { model, setIsEditing: setIsEditingModel } = useModelState()
   const { encoder, setIsEditing: setIsEditingEncoder } = useEncoderState()
   return (
     <MenubarSub>
-      <MenubarSubTrigger>Show Editors</MenubarSubTrigger>
+      <MenubarSubTrigger>Layout</MenubarSubTrigger>
       <MenubarSubContent>
         <MenubarItem
-          disabled={alwaysShowEditors}
-          onClick={() => setAlwaysShowEditors(true)}
-        >
-          <span>Always</span>
-        </MenubarItem>
-        <MenubarItem
-          disabled={!alwaysShowEditors}
+          disabled={layout === 'compact'}
           onClick={() => {
-            setAlwaysShowEditors(false)
-            if (model !== undefined) {
-              setIsEditingModel(false)
-            }
-            if (encoder !== undefined) {
-              setIsEditingEncoder(false)
-            }
+            setIsEditingModel(model === undefined)
+            setIsEditingEncoder(encoder === undefined)
+            setLayout('compact')
           }}
         >
-          <span>On Demand</span>
+          <span>Compact</span>
+        </MenubarItem>
+        <MenubarItem
+          disabled={layout === 'extended'}
+          onClick={() => {
+            setIsEditingModel(true)
+            setIsEditingEncoder(true)
+            setLayout('extended')
+          }}
+        >
+          <span>Extended</span>
         </MenubarItem>
       </MenubarSubContent>
     </MenubarSub>

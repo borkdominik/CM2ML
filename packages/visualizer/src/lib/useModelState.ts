@@ -97,6 +97,7 @@ export const useModelState = create(
           parser,
           model,
           error,
+          isEditing: model === undefined,
         }
         return { state: state as ModelState, version: 0 }
       },

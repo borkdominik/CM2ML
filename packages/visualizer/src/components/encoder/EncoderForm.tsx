@@ -21,7 +21,7 @@ const encoders = Object.keys(encoderMap)
 export function EncoderForm() {
   const { encoder, setEncoder, parameters, setParameters, setIsEditing } =
     useEncoderState()
-  const alwaysShowEditors = useSettings((state) => state.alwaysShowEditors)
+  const layout = useSettings((state) => state.layout)
 
   return (
     <Card className="max-h-full overflow-y-auto">
@@ -55,7 +55,7 @@ export function EncoderForm() {
             setValues={setParameters}
           />
         ) : null}
-        {alwaysShowEditors ? null : (
+        {layout === 'extended' ? null : (
           <Button
             disabled={encoder === undefined}
             onClick={() => setIsEditing(false)}

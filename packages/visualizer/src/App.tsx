@@ -13,56 +13,70 @@ import { useModelState } from './lib/useModelState'
 import { useSettings } from './lib/useSettings'
 
 export function App() {
-  const isEditingEncoder = useEncoderState((state) => state.isEditing)
-  const isEditingModel = useModelState((state) => state.isEditing)
-  const alwaysShowEditors = useSettings((state) => state.alwaysShowEditors)
+  const layout = useSettings((state) => state.layout)
 
   return (
     <div className="flex h-full flex-col">
       <Menu />
-      <ResizablePanelGroup direction="horizontal" className="h-full">
-        <ResizablePanel
-          defaultSize={alwaysShowEditors ? 25 : 50}
-          id="model-editor"
-          order={0}
-        >
-          {isEditingModel || alwaysShowEditors ? (
-            <div className="h-full p-2">
-              <ModelForm />
-            </div>
-          ) : (
-            <Model />
-          )}
-        </ResizablePanel>
-        {alwaysShowEditors ? (
-          <>
-            <ResizableHandle withHandle />
-            <ResizablePanel id="model-encoder" order={1}>
-              <ResizablePanelGroup direction="vertical" className="h-full">
-                <ResizablePanel>
-                  <Model />
-                </ResizablePanel>
-                <ResizableHandle withHandle />
-                <ResizablePanel>
-                  <Encoder />
-                </ResizablePanel>
-              </ResizablePanelGroup>
-            </ResizablePanel>
-            <ResizableHandle withHandle />
-          </>
+      {layout === 'extended' ? <ExtendedLayout /> : <CompactLayout />}
+    </div>
+  )
+}
+
+function CompactLayout() {
+  const isEditingEncoder = useEncoderState((state) => state.isEditing)
+  const isEditingModel = useModelState((state) => state.isEditing)
+  return (
+    <ResizablePanelGroup direction="horizontal" className="h-full">
+      <ResizablePanel defaultSize={50}>
+        {isEditingModel ? (
+          <div className="h-full p-2">
+            <ModelForm />
+          </div>
         ) : (
-          <ResizableHandle withHandle />
+          <Model />
         )}
-        <ResizablePanel id="encoder-editor" order={alwaysShowEditors ? 2 : 1}>
-          {isEditingEncoder || alwaysShowEditors ? (
+      </ResizablePanel>
+      <ResizableHandle withHandle />
+      <ResizablePanel>
+        {isEditingEncoder ? (
+          <div className="h-full p-2">
+            <EncoderForm />
+          </div>
+        ) : (
+          <Encoder />
+        )}
+      </ResizablePanel>
+    </ResizablePanelGroup>
+  )
+}
+
+function ExtendedLayout() {
+  return (
+    <ResizablePanelGroup direction="horizontal" className="h-full">
+      <ResizablePanel>
+        <div className="h-full p-2">
+          <ModelForm />
+        </div>
+      </ResizablePanel>
+      <ResizableHandle withHandle />
+      <ResizablePanel>
+        <Model />
+      </ResizablePanel>
+      <ResizableHandle withHandle />
+      <ResizablePanel>
+        <ResizablePanelGroup direction="vertical" className="h-full">
+          <ResizablePanel>
             <div className="h-full p-2">
               <EncoderForm />
             </div>
-          ) : (
+          </ResizablePanel>
+          <ResizableHandle withHandle />
+          <ResizablePanel>
             <Encoder />
-          )}
-        </ResizablePanel>
-      </ResizablePanelGroup>
-    </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </ResizablePanel>
+    </ResizablePanelGroup>
   )
 }

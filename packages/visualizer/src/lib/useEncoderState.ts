@@ -59,6 +59,7 @@ export const useEncoderState = create(
         const state: Partial<EncoderState> = {
           parameters,
           encoder,
+          isEditing: encoder === undefined,
         }
         return { state: state as EncoderState, version: 0 }
       },

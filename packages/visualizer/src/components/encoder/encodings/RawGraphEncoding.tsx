@@ -392,7 +392,7 @@ function useWeightedOpacityFromList(list: AdjacencyList) {
     const min = Math.min(...weights)
     const max = Math.max(...weights)
     return createOpacityRangeMapper(min, max)
-  }, list)
+  }, [list])
 }
 
 interface ListEntryProps {
