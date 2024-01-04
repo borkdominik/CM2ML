@@ -9,7 +9,11 @@ export function Encoder() {
   const { encoder, parameters } = useEncoderState()
 
   if (!encoder) {
-    return null
+    return (
+      <div className="flex h-full items-center justify-center">
+        <span className="text-muted-foreground">No encoder</span>
+      </div>
+    )
   }
 
   if (!model) {

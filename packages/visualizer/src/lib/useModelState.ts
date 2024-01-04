@@ -4,6 +4,8 @@ import { create } from 'zustand'
 
 import type { ParameterValues } from '../components/Parameters'
 
+import { getNewParameters } from './utils'
+
 export interface ModelState {
   isEditing: boolean
   setIsEditing: (isEditing: boolean) => void
@@ -37,9 +39,12 @@ export const useModelState = create<ModelState>((set, get) => ({
   parser: undefined,
   setParser: (parser: Parser | undefined) => {
     set({ parser })
-    const { serializedModel, parameters } = get()
-    const { model, error } = tryParse(parser, serializedModel, parameters)
-    set({ model, error })
+    const { serializedModel, parameters: oldParameters } = get()
+    const newParameters = parser
+      ? getNewParameters(parser.parameters, oldParameters)
+      : oldParameters
+    const { model, error } = tryParse(parser, serializedModel, newParameters)
+    set({ model, error, parameters: newParameters })
   },
   parameters: {},
   setParameters: (parameters: ParameterValues) => {

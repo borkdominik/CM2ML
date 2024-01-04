@@ -4,6 +4,7 @@ import type { ChangeEvent } from 'react'
 import { useMemo, useState } from 'react'
 
 import { useModelState } from '../../lib/useModelState'
+import { useSettings } from '../../lib/useSettings'
 import { Error } from '../Error'
 import { Parameters } from '../Parameters'
 import { Button } from '../ui/button'
@@ -39,6 +40,7 @@ export function ModelForm() {
   const [modelUrl, setModelUrl] = useState<string>('')
   const [modelError, setFetchError] = useState<string | undefined>()
   const isValidModelUrl = useMemo(() => isValidUrl(modelUrl), [modelUrl])
+  const alwaysShowEditors = useSettings((state) => state.alwaysShowEditors)
 
   async function onFileLoaded(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]
@@ -130,9 +132,11 @@ export function ModelForm() {
           {modelError ? <Error error={modelError} /> : null}
         </div>
         {error ? <Error error={error} /> : null}
-        <Button disabled={!model} onClick={() => setIsEditing(false)}>
-          Submit
-        </Button>
+        {alwaysShowEditors ? null : (
+          <Button disabled={!model} onClick={() => setIsEditing(false)}>
+            Submit
+          </Button>
+        )}
       </CardContent>
     </Card>
   )

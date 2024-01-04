@@ -4,6 +4,7 @@ import { exampleModel } from '../lib/exampleModel'
 import { useEncoderState } from '../lib/useEncoderState'
 import { useModelState } from '../lib/useModelState'
 import { useSelection } from '../lib/useSelection'
+import { useSettings } from '../lib/useSettings'
 
 import {
   Menubar,
@@ -81,6 +82,7 @@ export function Menu() {
             </MenubarSubContent>
           </MenubarSub>
           <ThemeSubMenu />
+          <EditorVisibilitySubMenu />
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
@@ -118,6 +120,39 @@ function ThemeSubMenu() {
             <span className="capitalize">{th}</span>
           </MenubarItem>
         ))}
+      </MenubarSubContent>
+    </MenubarSub>
+  )
+}
+
+function EditorVisibilitySubMenu() {
+  const { alwaysShowEditors, setAlwaysShowEditors } = useSettings()
+  const { model, setIsEditing: setIsEditingModel } = useModelState()
+  const { encoder, setIsEditing: setIsEditingEncoder } = useEncoderState()
+  return (
+    <MenubarSub>
+      <MenubarSubTrigger>Show Editors</MenubarSubTrigger>
+      <MenubarSubContent>
+        <MenubarItem
+          disabled={alwaysShowEditors}
+          onClick={() => setAlwaysShowEditors(true)}
+        >
+          <span>Always</span>
+        </MenubarItem>
+        <MenubarItem
+          disabled={!alwaysShowEditors}
+          onClick={() => {
+            setAlwaysShowEditors(false)
+            if (model !== undefined) {
+              setIsEditingModel(false)
+            }
+            if (encoder !== undefined) {
+              setIsEditingEncoder(false)
+            }
+          }}
+        >
+          <span>On Demand</span>
+        </MenubarItem>
       </MenubarSubContent>
     </MenubarSub>
   )

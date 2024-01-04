@@ -1,6 +1,7 @@
 import { encoderMap } from '@cm2ml/builtin'
 
 import { useEncoderState } from '../../lib/useEncoderState'
+import { useSettings } from '../../lib/useSettings'
 import { Parameters } from '../Parameters'
 import { Button } from '../ui/button'
 import { Card, CardContent, CardHeader } from '../ui/card'
@@ -20,6 +21,7 @@ const encoders = Object.keys(encoderMap)
 export function EncoderForm() {
   const { encoder, setEncoder, parameters, setParameters, setIsEditing } =
     useEncoderState()
+  const alwaysShowEditors = useSettings((state) => state.alwaysShowEditors)
 
   return (
     <Card className="max-h-full overflow-y-auto">
@@ -53,12 +55,14 @@ export function EncoderForm() {
             setValues={setParameters}
           />
         ) : null}
-        <Button
-          disabled={encoder === undefined}
-          onClick={() => setIsEditing(false)}
-        >
-          Submit
-        </Button>
+        {alwaysShowEditors ? null : (
+          <Button
+            disabled={encoder === undefined}
+            onClick={() => setIsEditing(false)}
+          >
+            Submit
+          </Button>
+        )}
       </CardContent>
     </Card>
   )

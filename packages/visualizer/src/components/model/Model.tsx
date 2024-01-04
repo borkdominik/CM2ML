@@ -12,7 +12,11 @@ export function Model() {
   const { model } = useModelState()
 
   if (!model) {
-    return null
+    return (
+      <div className="flex h-full items-center justify-center">
+        <span className="text-muted-foreground">No model</span>
+      </div>
+    )
   }
 
   return (

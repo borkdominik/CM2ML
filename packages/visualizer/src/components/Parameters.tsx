@@ -1,6 +1,6 @@
 import type { Parameter, ParameterMetadata, ParameterType } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { Checkbox } from './ui/checkbox'
 import { Input } from './ui/input'
@@ -28,13 +28,6 @@ export function Parameters({ parameters, setValues, values }: Props) {
     () => Object.entries(parameters).sort(([a], [b]) => a.localeCompare(b)),
     [parameters],
   )
-  useEffect(() => {
-    const defaultValues = Stream.fromObject(parameters).toRecord(
-      ([name]) => name,
-      ([name, { defaultValue }]) => values[name] ?? defaultValue,
-    )
-    setValues(defaultValues)
-  }, [parameters])
   return (
     <div className="flex flex-col gap-4">
       {sortedParameters.map(([name, parameter]) => (

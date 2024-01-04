@@ -363,7 +363,7 @@ function ListEdge({
 function useRawGraphEncoding(model: GraphModel, parameters: ParameterValues) {
   return useMemo(
     () => GraphEncoder.validateAndInvoke(model, parameters),
-    [model],
+    [model, parameters],
   )
 }
 

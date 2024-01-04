@@ -3,6 +3,8 @@ import { create } from 'zustand'
 
 import type { ParameterValues } from '../components/Parameters'
 
+import { getNewParameters } from './utils'
+
 export interface EncoderState {
   isEditing: boolean
   setIsEditing: (isEditing: boolean) => void
@@ -18,7 +20,11 @@ export const useEncoderState = create<EncoderState>((set, get) => ({
   setIsEditing: (isEditing: boolean) => set({ isEditing }),
   encoder: undefined,
   setEncoder: (encoder: Encoder | undefined) => {
-    set({ encoder })
+    const oldParameters = get().parameters
+    const newParameters = encoder
+      ? getNewParameters(encoder.parameters, oldParameters)
+      : oldParameters
+    set({ encoder, parameters: newParameters })
   },
   parameters: {},
   setParameters: (parameters: ParameterValues) => {
