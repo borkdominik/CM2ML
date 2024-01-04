@@ -3,7 +3,10 @@ import type { GraphNode } from '@cm2ml/ir'
 import { BehavioredClassifier } from '../metamodel'
 
 export const BehavioredClassifierHandler = BehavioredClassifier.createHandler(
-  (behavioredClassifier) => {
+  (behavioredClassifier, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_classifierBehavior(behavioredClassifier)
     addEdge_interfaceRealization(behavioredClassifier)
     addEdge_ownedBehavior(behavioredClassifier)

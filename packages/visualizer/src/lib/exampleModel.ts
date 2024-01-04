@@ -113,6 +113,7 @@ export const exampleModel = {
   parameters: {
     debug: false,
     idAttribute: 'xmi:id',
+    onlyContainmentAssociations: true,
     relationshipsAsEdges: true,
     strict: true,
   },

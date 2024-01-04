@@ -2,21 +2,26 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Class, DataType, Interface, Operation, Parameter } from '../metamodel'
 
-export const OperationHandler = Operation.createHandler((node) => {
-  addEdge_bodyCondition(node)
-  addEdge_class(node)
-  addEdge_datatype(node)
-  addEdge_interface(node)
-  node.children.forEach((child) => {
-    addEdge_ownedParameter(node, child)
-  })
-  addEdge_postcondition(node)
-  addEdge_precondition(node)
-  addEdge_raisedException(node)
-  addEdge_redefinedOperation(node)
-  addEdge_templateParameter(node)
-  addEdge_type(node)
-})
+export const OperationHandler = Operation.createHandler(
+  (operation, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
+    addEdge_bodyCondition(operation)
+    addEdge_class(operation)
+    addEdge_datatype(operation)
+    addEdge_interface(operation)
+    operation.children.forEach((child) => {
+      addEdge_ownedParameter(operation, child)
+    })
+    addEdge_postcondition(operation)
+    addEdge_precondition(operation)
+    addEdge_raisedException(operation)
+    addEdge_redefinedOperation(operation)
+    addEdge_templateParameter(operation)
+    addEdge_type(operation)
+  },
+)
 
 function addEdge_bodyCondition(_operation: GraphNode) {
   // TODO

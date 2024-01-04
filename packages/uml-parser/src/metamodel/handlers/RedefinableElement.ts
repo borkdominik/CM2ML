@@ -3,7 +3,10 @@ import type { GraphNode } from '@cm2ml/ir'
 import { RedefinableElement } from '../metamodel'
 
 export const RedefinableElementHandler = RedefinableElement.createHandler(
-  (redefinableElement) => {
+  (redefinableElement, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_redefinedElement(redefinableElement)
     addEdge_redefinitionContext(redefinableElement)
   },

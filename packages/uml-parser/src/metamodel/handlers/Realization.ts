@@ -2,9 +2,14 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Realization } from '../metamodel'
 
-export const RealizationHandler = Realization.createHandler((realization) => {
-  addEdge_relatedElement(realization)
-})
+export const RealizationHandler = Realization.createHandler(
+  (realization, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
+    addEdge_relatedElement(realization)
+  },
+)
 
 function addEdge_relatedElement(_realization: GraphNode) {
   // TODO

@@ -3,7 +3,10 @@ import type { GraphNode } from '@cm2ml/ir'
 import { ConnectableElement } from '../metamodel'
 
 export const ConnectableElementHandler = ConnectableElement.createHandler(
-  (connectableElement) => {
+  (connectableElement, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_end(connectableElement)
     addEdge_templateParameter(connectableElement)
   },

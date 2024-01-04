@@ -2,22 +2,27 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Classifier } from '../metamodel'
 
-export const ClassifierHandler = Classifier.createHandler((classifier) => {
-  addEdge_attribute(classifier)
-  addEdge_collaborationUse(classifier)
-  addEdge_feature(classifier)
-  addEdge_general(classifier)
-  addEdge_generalization(classifier)
-  addEdge_inheritedMember(classifier)
-  addEdge_ownedTemplateSignature(classifier)
-  addEdge_ownedUseCase(classifier)
-  addEdge_powertypeExtent(classifier)
-  addEdge_redefinedClassifier(classifier)
-  addEdge_representation(classifier)
-  addEdge_substitution(classifier)
-  addEdge_templateParameter(classifier)
-  addEdge_useCase(classifier)
-})
+export const ClassifierHandler = Classifier.createHandler(
+  (classifier, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
+    addEdge_attribute(classifier)
+    addEdge_collaborationUse(classifier)
+    addEdge_feature(classifier)
+    addEdge_general(classifier)
+    addEdge_generalization(classifier)
+    addEdge_inheritedMember(classifier)
+    addEdge_ownedTemplateSignature(classifier)
+    addEdge_ownedUseCase(classifier)
+    addEdge_powertypeExtent(classifier)
+    addEdge_redefinedClassifier(classifier)
+    addEdge_representation(classifier)
+    addEdge_substitution(classifier)
+    addEdge_templateParameter(classifier)
+    addEdge_useCase(classifier)
+  },
+)
 
 function addEdge_attribute(_classifier: GraphNode) {
   // TODO

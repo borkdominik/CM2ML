@@ -2,9 +2,14 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Package, Type, getParentOfType } from '../metamodel'
 
-export const TypeHandler = Type.createHandler((type) => {
-  addEdge_package(type)
-})
+export const TypeHandler = Type.createHandler(
+  (type, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
+    addEdge_package(type)
+  },
+)
 
 function addEdge_package(type: GraphNode) {
   const package_ = getParentOfType(type, Package)

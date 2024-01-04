@@ -3,9 +3,14 @@ import type { GraphNode } from '@cm2ml/ir'
 import { EncapsulatedClassifier } from '../metamodel'
 
 export const EncapsulatedClassifierHandler =
-  EncapsulatedClassifier.createHandler((encapsulatedClassifier) => {
-    addEdge_ownedPort(encapsulatedClassifier)
-  })
+  EncapsulatedClassifier.createHandler(
+    (encapsulatedClassifier, { onlyContainmentAssociations }) => {
+      if (onlyContainmentAssociations) {
+        return
+      }
+      addEdge_ownedPort(encapsulatedClassifier)
+    },
+  )
 
 function addEdge_ownedPort(_encapsulatedClassifier: GraphNode) {
   // TODO

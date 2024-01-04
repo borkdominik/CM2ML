@@ -1,9 +1,10 @@
-import type { GraphNode } from '@cm2ml/ir'
+import type { GraphEdge, GraphNode } from '@cm2ml/ir'
 
 import { Uml, inferAndSaveType } from '../uml'
 import type { UmlAbstractType, UmlTag, UmlType } from '../uml'
 
 export interface HandlerConfiguration {
+  onlyContainmentAssociations: boolean
   relationshipsAsEdges: boolean
 }
 
@@ -80,7 +81,7 @@ export class MetamodelElement implements Handler {
     return this.#assignableTypes
   }
 
-  public isAssignable(node: GraphNode): boolean {
+  public isAssignable(node: GraphNode | GraphEdge): boolean {
     const type = Uml.getType(node)
     if (type) {
       return this.#assignableTypes.has(type)

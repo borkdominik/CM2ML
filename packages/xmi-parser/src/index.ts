@@ -19,12 +19,12 @@ export const XmiParser = definePlugin({
     debug: {
       type: 'boolean',
       defaultValue: false,
-      description: 'Whether to log debug information.',
+      description: 'Log debug information.',
     },
     strict: {
       type: 'boolean',
       defaultValue: false,
-      description: 'Whether to fail when encountering unknown information.',
+      description: 'Fail when encountering unknown or invalid input.',
     },
   },
   invoke: (input: string, settings) => parse(input, settings),

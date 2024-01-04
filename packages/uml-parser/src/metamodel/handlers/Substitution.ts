@@ -4,7 +4,10 @@ import { Uml } from '../../uml'
 import { Substitution } from '../metamodel'
 
 export const SubstitutionHandler = Substitution.createHandler(
-  (substitution) => {
+  (substitution, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_contract(substitution)
     addEdge_substitutingClassifier(substitution)
   },

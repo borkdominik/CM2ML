@@ -3,7 +3,10 @@ import type { GraphNode } from '@cm2ml/ir'
 import { BehavioralFeature } from '../metamodel'
 
 export const BehavioralFeatureHandler = BehavioralFeature.createHandler(
-  (behavioralFeature) => {
+  (behavioralFeature, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_method(behavioralFeature)
     addEdge_ownedParameter(behavioralFeature)
     addEdge_ownedParameterSet(behavioralFeature)

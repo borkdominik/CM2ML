@@ -3,7 +3,10 @@ import type { GraphNode } from '@cm2ml/ir'
 import { DirectedRelationship } from '../metamodel'
 
 export const DirectedRelationshipHandler = DirectedRelationship.createHandler(
-  (directedRelationship) => {
+  (directedRelationship, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_source(directedRelationship)
     addEdge_target(directedRelationship)
   },

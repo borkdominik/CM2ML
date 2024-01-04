@@ -2,16 +2,21 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Classifier, Interface, Operation, Property } from '../metamodel'
 
-export const InterfaceHandler = Interface.createHandler((interface_) => {
-  addEdge_protocol(interface_)
-  addEdge_redefinedInterface(interface_)
-  interface_.children.forEach((child) => {
-    addEdge_nestedClassifier(interface_, child)
-    addEdge_ownedAttribute(interface_, child)
-    addEdge_ownedOperation(interface_, child)
-    addEdge_ownedReception(interface_, child)
-  })
-})
+export const InterfaceHandler = Interface.createHandler(
+  (interface_, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
+    addEdge_protocol(interface_)
+    addEdge_redefinedInterface(interface_)
+    interface_.children.forEach((child) => {
+      addEdge_nestedClassifier(interface_, child)
+      addEdge_ownedAttribute(interface_, child)
+      addEdge_ownedOperation(interface_, child)
+      addEdge_ownedReception(interface_, child)
+    })
+  },
+)
 
 function addEdge_nestedClassifier(interface_: GraphNode, child: GraphNode) {
   if (Classifier.isAssignable(child)) {

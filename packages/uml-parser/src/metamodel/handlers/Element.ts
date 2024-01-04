@@ -2,13 +2,18 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Comment, Element } from '../metamodel'
 
-export const ElementHandler = Element.createHandler((element) => {
-  addEdge_owner(element)
-  element.children.forEach((child) => {
-    addEdge_ownedElement(element, child)
-    addEdge_ownedComment(element, child)
-  })
-})
+export const ElementHandler = Element.createHandler(
+  (element, { onlyContainmentAssociations }) => {
+    addEdge_owner(element)
+    element.children.forEach((child) => {
+      addEdge_ownedElement(element, child)
+      if (onlyContainmentAssociations) {
+        return
+      }
+      addEdge_ownedComment(element, child)
+    })
+  },
+)
 
 function addEdge_owner(element: GraphNode) {
   const parent = element.parent

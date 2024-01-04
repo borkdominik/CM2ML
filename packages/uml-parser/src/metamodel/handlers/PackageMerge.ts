@@ -8,12 +8,15 @@ import {
 } from '../metamodel'
 
 export const PackageMergeHandler = PackageMerge.createHandler(
-  (PackageMerge, { relationshipsAsEdges }) => {
+  (PackageMerge, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     if (relationshipsAsEdges) {
       const receivingPackage = getReceivingPackage(PackageMerge)
       const mergedPackage = getMergedPackage(PackageMerge)
       transformNodeToEdge(PackageMerge, receivingPackage, mergedPackage)
       return false
+    }
+    if (onlyContainmentAssociations) {
+      return
     }
     addEdge_mergedPackage(PackageMerge)
     addEdge_receivingPackage(PackageMerge)

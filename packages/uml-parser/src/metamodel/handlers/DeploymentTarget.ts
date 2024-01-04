@@ -3,7 +3,10 @@ import type { GraphNode } from '@cm2ml/ir'
 import { DeploymentTarget } from '../metamodel'
 
 export const DeploymentTargetHandler = DeploymentTarget.createHandler(
-  (deploymentTarget) => {
+  (deploymentTarget, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_deployedElement(deploymentTarget)
     addEdge_deployment(deploymentTarget)
   },

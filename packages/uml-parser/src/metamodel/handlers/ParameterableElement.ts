@@ -3,7 +3,10 @@ import type { GraphNode } from '@cm2ml/ir'
 import { ParameterableElement } from '../metamodel'
 
 export const ParameterableElementHandler = ParameterableElement.createHandler(
-  (parameterableElement) => {
+  (parameterableElement, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_owningTemplateParameter(parameterableElement)
     addEdge_templateParameter(parameterableElement)
   },

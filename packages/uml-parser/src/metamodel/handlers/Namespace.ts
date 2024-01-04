@@ -8,16 +8,21 @@ import {
   PackageImport,
 } from '../metamodel'
 
-export const NamespaceHandler = Namespace.createHandler((namespace) => {
-  namespace.children.forEach((child) => {
-    addEdge_elementImport(namespace, child)
-    addEdge_importedMember(namespace, child)
-    addEdge_member(namespace, child)
-    addEdge_ownedMember(namespace, child)
-    addEdge_ownedRule(namespace, child)
-    addEdge_packageImport(namespace, child)
-  })
-})
+export const NamespaceHandler = Namespace.createHandler(
+  (namespace, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
+    namespace.children.forEach((child) => {
+      addEdge_elementImport(namespace, child)
+      addEdge_importedMember(namespace, child)
+      addEdge_member(namespace, child)
+      addEdge_ownedMember(namespace, child)
+      addEdge_ownedRule(namespace, child)
+      addEdge_packageImport(namespace, child)
+    })
+  },
+)
 
 function addEdge_elementImport(namespace: GraphNode, child: GraphNode) {
   if (ElementImport.isAssignable(child)) {

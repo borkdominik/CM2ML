@@ -8,17 +8,22 @@ import {
   getParentOfType,
 } from '../metamodel'
 
-export const PackageHandler = Package.createHandler((node) => {
-  addEdge_nestingPackage(node)
-  node.children.forEach((child) => {
-    addEdge_nestedPackage(node, child)
-    addEdge_ownedStereotype(node, child)
-    addEdge_ownedType(node, child)
-    addEdge_packageMerge(node, child)
-    addEdge_packagedElement(node, child)
-    addEdge_profileApplication(node, child)
-  })
-})
+export const PackageHandler = Package.createHandler(
+  (package_, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
+    addEdge_nestingPackage(package_)
+    package_.children.forEach((child) => {
+      addEdge_nestedPackage(package_, child)
+      addEdge_ownedStereotype(package_, child)
+      addEdge_ownedType(package_, child)
+      addEdge_packageMerge(package_, child)
+      addEdge_packagedElement(package_, child)
+      addEdge_profileApplication(package_, child)
+    })
+  },
+)
 
 function addEdge_nestedPackage(package_: GraphNode, child: GraphNode) {
   if (Package.isAssignable(child)) {

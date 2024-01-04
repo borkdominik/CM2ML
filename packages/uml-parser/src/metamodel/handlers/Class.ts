@@ -2,15 +2,20 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Class, Property } from '../metamodel'
 
-export const ClassHandler = Class.createHandler((class_) => {
-  addEdge_extension(class_)
-  addEdge_superClass(class_)
-  class_.children.forEach((child) => {
-    addEdge_nestedClassifier(class_, child)
-    addEdge_ownedAttribute(class_, child)
-    addEdge_ownedReception(class_, child)
-  })
-})
+export const ClassHandler = Class.createHandler(
+  (class_, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
+    addEdge_extension(class_)
+    addEdge_superClass(class_)
+    class_.children.forEach((child) => {
+      addEdge_nestedClassifier(class_, child)
+      addEdge_ownedAttribute(class_, child)
+      addEdge_ownedReception(class_, child)
+    })
+  },
+)
 
 function addEdge_extension(_class_: GraphNode) {
   // TODO

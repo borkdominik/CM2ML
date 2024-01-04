@@ -35,7 +35,6 @@ export function Menu() {
     setSerializedModel(exampleModel.serializedModel)
     setParameters(exampleModel.parameters)
     setParser(exampleModel.parser)
-    setIsEditingModel(false)
   }
 
   return (

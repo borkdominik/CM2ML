@@ -7,7 +7,10 @@ import {
 } from '../metamodel'
 
 export const EnumerationLiteralHandler = EnumerationLiteral.createHandler(
-  (enumerationLiteral) => {
+  (enumerationLiteral, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_classifier(enumerationLiteral)
     addEdge_enumeration(enumerationLiteral)
   },

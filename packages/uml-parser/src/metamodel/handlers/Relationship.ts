@@ -3,7 +3,10 @@ import type { GraphNode } from '@cm2ml/ir'
 import { Relationship } from '../metamodel'
 
 export const RelationshipHandler = Relationship.createHandler(
-  (relationship) => {
+  (relationship, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_relatedElement(relationship)
   },
 )

@@ -4,7 +4,10 @@ import { Uml } from '../../uml'
 import { Classifier, Generalization, getParentOfType } from '../metamodel'
 
 export const GeneralizationHandler = Generalization.createHandler(
-  (generalization) => {
+  (generalization, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_general(generalization)
     addEdge_generalizationSet(generalization)
     addEdge_specific(generalization)

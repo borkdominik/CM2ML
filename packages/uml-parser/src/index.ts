@@ -29,23 +29,38 @@ import { validateModel } from './validations'
 export const UmlRefiner = definePlugin({
   name: 'uml',
   parameters: {
+    onlyContainmentAssociations: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Only consider containment associations for edges.',
+    },
     relationshipsAsEdges: {
       type: 'boolean',
       defaultValue: true,
-      description: 'Whether to treat relationships as edges.',
+      description: 'Treat relationships as edges.',
     },
   },
-  invoke: (input: GraphModel, { relationshipsAsEdges }) =>
-    refine(input, relationshipsAsEdges),
+  invoke: (
+    input: GraphModel,
+    { onlyContainmentAssociations, relationshipsAsEdges },
+  ) => refine(input, onlyContainmentAssociations, relationshipsAsEdges),
 })
 
 export const UmlParser = compose(XmiParser, UmlRefiner, 'uml')
 
-function refine(model: GraphModel, relationshipsAsEdges: boolean): GraphModel {
+function refine(
+  model: GraphModel,
+  onlyContainmentAssociations: boolean,
+  relationshipsAsEdges: boolean,
+): GraphModel {
   removeNonUmlNodes(model)
-  refineNodesRecursively(model.root, { relationshipsAsEdges })
+  const configuration: HandlerConfiguration = {
+    onlyContainmentAssociations,
+    relationshipsAsEdges,
+  }
+  refineNodesRecursively(model.root, configuration)
   replaceTagsWithTypes(model)
-  validateModel(model, relationshipsAsEdges)
+  validateModel(model, configuration)
   printEdges(model)
   return model
 }

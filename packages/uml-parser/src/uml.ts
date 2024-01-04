@@ -122,7 +122,7 @@ function getTagType(node: GraphNode) {
   return undefined
 }
 
-function getType(node: GraphNode) {
+function getType(node: Attributable) {
   const type = node.getAttribute(Attributes.xmiType)?.value.literal
   if (isValidType(type)) {
     return type

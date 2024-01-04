@@ -5,9 +5,12 @@ import { Uml } from '../../uml'
 import { MultiplicityElement } from '../metamodel'
 
 export const MultiplicityElementHandler = MultiplicityElement.createHandler(
-  (node) => {
-    addEdgeAndAttribute_lowerValue(node)
-    addEdgeAndAttribute_upperValue(node)
+  (multiplicityElement, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
+    addEdgeAndAttribute_lowerValue(multiplicityElement)
+    addEdgeAndAttribute_upperValue(multiplicityElement)
   },
 )
 

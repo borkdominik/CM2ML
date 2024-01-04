@@ -1,4 +1,11 @@
 import { ValueSpecification } from '../metamodel'
 
 // Note: No additional associations over generalization
-export const ValueSpecificationHandler = ValueSpecification.createHandler()
+export const ValueSpecificationHandler = ValueSpecification.createHandler(
+  () => {
+    // if (onlyContainmentAssociations) {
+    //   return
+    // }
+    // TODO
+  },
+)

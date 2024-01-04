@@ -2,19 +2,24 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Association, Class, DataType, Interface, Property } from '../metamodel'
 
-export const PropertyHandler = Property.createHandler((property) => {
-  addEdge_association(property)
-  addEdge_associationEnd(property)
-  addEdge_class(property)
-  addEdge_datatype(property)
-  addEdge_defaultValue(property)
-  addEdge_interface(property)
-  addEdge_opposite(property)
-  addEdge_owningAssociation(property)
-  addEdge_qualifier(property)
-  addEdge_redefinedProperty(property)
-  addEdge_subsettedProperty(property)
-})
+export const PropertyHandler = Property.createHandler(
+  (property, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
+    addEdge_association(property)
+    addEdge_associationEnd(property)
+    addEdge_class(property)
+    addEdge_datatype(property)
+    addEdge_defaultValue(property)
+    addEdge_interface(property)
+    addEdge_opposite(property)
+    addEdge_owningAssociation(property)
+    addEdge_qualifier(property)
+    addEdge_redefinedProperty(property)
+    addEdge_subsettedProperty(property)
+  },
+)
 
 function addEdge_association(_property: GraphNode) {
   // TODO

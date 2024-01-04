@@ -3,7 +3,10 @@ import type { GraphNode } from '@cm2ml/ir'
 import { TemplateableElement } from '../metamodel'
 
 export const TemplateableElementHandler = TemplateableElement.createHandler(
-  (templateableElement) => {
+  (templateableElement, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_ownedTemplateSignature(templateableElement)
     addEdge_templateBinding(templateableElement)
   },

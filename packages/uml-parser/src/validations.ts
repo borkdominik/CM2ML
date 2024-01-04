@@ -1,18 +1,20 @@
 import type { GraphModel } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
+import type { HandlerConfiguration } from './metamodel/metamodel'
 import { Relationship } from './metamodel/metamodel'
 
 export function validateModel(
   model: GraphModel,
-  relationshipsAsEdges: boolean,
+  configuration: HandlerConfiguration,
 ) {
   if (!model.settings.strict) {
     return
   }
   model.debug('Validating model')
   validateNodeIdentifiability(model)
-  validateRelationshipTransformation(model, relationshipsAsEdges)
+  validateOnlyContainmentAssociations(model, configuration)
+  validateRelationshipTransformation(model, configuration)
   validateEdgeUniqueness(model)
   model.debug('All validations passed')
 }
@@ -25,9 +27,28 @@ function validateNodeIdentifiability(model: GraphModel) {
   })
 }
 
+function validateOnlyContainmentAssociations(
+  model: GraphModel,
+  { onlyContainmentAssociations, relationshipsAsEdges }: HandlerConfiguration,
+) {
+  if (!onlyContainmentAssociations) {
+    return
+  }
+  model.edges.forEach((edge) => {
+    if (relationshipsAsEdges && Relationship.isAssignable(edge)) {
+      return
+    }
+    if (edge.tag !== 'owner' && edge.tag !== 'ownedElement') {
+      throw new Error(
+        `Edge ${edge.tag} from ${edge.source.id} to ${edge.target.id} is not a containment association`,
+      )
+    }
+  })
+}
+
 function validateRelationshipTransformation(
   model: GraphModel,
-  relationshipsAsEdges: boolean,
+  { relationshipsAsEdges }: HandlerConfiguration,
 ) {
   if (!relationshipsAsEdges) {
     return

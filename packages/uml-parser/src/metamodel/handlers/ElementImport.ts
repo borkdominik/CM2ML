@@ -8,12 +8,15 @@ import {
 } from '../metamodel'
 
 export const ElementImportHandler = ElementImport.createHandler(
-  (elementImport, { relationshipsAsEdges }) => {
+  (elementImport, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     if (relationshipsAsEdges) {
       const importingNamespace = getImportingNamespace(elementImport)
       const importedElement = getImportedElement(elementImport)
       transformNodeToEdge(elementImport, importingNamespace, importedElement)
       return false
+    }
+    if (onlyContainmentAssociations) {
+      return
     }
     addEdge_importedElement(elementImport)
     addEdge_importingNamespace(elementImport)

@@ -2,15 +2,22 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { Association } from '../metamodel'
 
-export const AssociationHandler = Association.createHandler((association) => {
-  // TODO: Include associations?
-  association.model.removeNode(association)
-  return false
-  addEdge_endType(association)
-  addEdge_memberEnd(association)
-  addEdge_navigableOwnerEnd(association)
-  addEdge_ownedEnd(association)
-})
+export const AssociationHandler = Association.createHandler(
+  (association, { onlyContainmentAssociations, relationshipsAsEdges }) => {
+    if (relationshipsAsEdges) {
+      // TODO: Include associations?
+      association.model.removeNode(association)
+      return false
+    }
+    if (onlyContainmentAssociations) {
+      return
+    }
+    addEdge_endType(association)
+    addEdge_memberEnd(association)
+    addEdge_navigableOwnerEnd(association)
+    addEdge_ownedEnd(association)
+  },
+)
 
 function addEdge_endType(_association: GraphNode) {
   // TODO

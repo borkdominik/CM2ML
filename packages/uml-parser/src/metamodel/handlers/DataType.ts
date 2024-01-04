@@ -2,12 +2,17 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { DataType, Operation, Property } from '../metamodel'
 
-export const DataTypeHandler = DataType.createHandler((dataType) => {
-  dataType.children.forEach((child) => {
-    addEdge_ownedAttribute(dataType, child)
-    addEdge_ownedOperation(dataType, child)
-  })
-})
+export const DataTypeHandler = DataType.createHandler(
+  (dataType, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
+    dataType.children.forEach((child) => {
+      addEdge_ownedAttribute(dataType, child)
+      addEdge_ownedOperation(dataType, child)
+    })
+  },
+)
 
 function addEdge_ownedAttribute(dataType: GraphNode, child: GraphNode) {
   if (Property.isAssignable(child)) {

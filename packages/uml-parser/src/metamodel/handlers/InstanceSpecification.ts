@@ -3,7 +3,10 @@ import type { GraphNode } from '@cm2ml/ir'
 import { InstanceSpecification } from '../metamodel'
 
 export const InstanceSpecificationHandler = InstanceSpecification.createHandler(
-  (instanceSpecification) => {
+  (instanceSpecification, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_classifier(instanceSpecification)
     addEdge_slot(instanceSpecification)
     addEdge_specification(instanceSpecification)

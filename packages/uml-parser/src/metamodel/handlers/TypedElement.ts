@@ -4,7 +4,10 @@ import { Uml } from '../../uml'
 import { TypedElement } from '../metamodel'
 
 export const TypedElementHandler = TypedElement.createHandler(
-  (typedElement) => {
+  (typedElement, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_type(typedElement)
   },
 )

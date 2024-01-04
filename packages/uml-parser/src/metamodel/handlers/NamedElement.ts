@@ -3,7 +3,10 @@ import type { GraphNode } from '@cm2ml/ir'
 import { NamedElement, Namespace, getParentOfType } from '../metamodel'
 
 export const NamedElementHandler = NamedElement.createHandler(
-  (namedElement) => {
+  (namedElement, { onlyContainmentAssociations }) => {
+    if (onlyContainmentAssociations) {
+      return
+    }
     addEdge_clientDependency(namedElement)
     addEdge_nameExpression(namedElement)
     addEdge_namespace(namedElement)
