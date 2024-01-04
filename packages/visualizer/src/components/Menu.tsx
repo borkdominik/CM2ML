@@ -31,6 +31,7 @@ export function Menu() {
   const { isEditing: isEditingEncoder, setIsEditing: setIsEditingEncoder } =
     useEncoderState()
   const { clearSelection } = useSelection()
+  const alwaysShowEditors = useSettings((state) => state.alwaysShowEditors)
 
   function loadExample() {
     setSerializedModel(exampleModel.serializedModel)
@@ -51,7 +52,7 @@ export function Menu() {
               setIsEditingModel(true)
               setFitGraph(undefined)
             }}
-            disabled={isEditingModel}
+            disabled={isEditingModel || alwaysShowEditors}
           >
             Close
           </MenubarItem>
@@ -64,7 +65,7 @@ export function Menu() {
             onClick={() => {
               setIsEditingEncoder(true)
             }}
-            disabled={isEditingEncoder}
+            disabled={isEditingEncoder || alwaysShowEditors}
           >
             Close
           </MenubarItem>

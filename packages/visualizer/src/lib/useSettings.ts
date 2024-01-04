@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 
 export interface SettingsState {
   alwaysShowEditors: boolean
@@ -13,6 +13,6 @@ export const useSettings = create(
       setAlwaysShowEditors: (alwaysShowEditors: boolean) =>
         set({ alwaysShowEditors }),
     }),
-    { name: 'settings', storage: createJSONStorage(() => localStorage) },
+    { name: 'settings' },
   ),
 )
