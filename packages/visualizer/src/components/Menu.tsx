@@ -18,57 +18,22 @@ import {
   MenubarTrigger,
 } from './ui/menubar'
 
+// TODO: Add clear buttons for model and encoder
 export function Menu() {
-  const fitGraph = useModelState.use.fit()
-  const setFitGraph = useModelState.use.setFit()
-  const setParameters = useModelState.use.setParameters()
-  const setParser = useModelState.use.setParser()
-  const setSerializedModel = useModelState.use.setSerializedModel()
-  const isEditingModel = useModelState.use.isEditing()
-  const setIsEditingModel = useModelState.use.setIsEditing()
-
-  const isEditingEncoder = useEncoderState.use.isEditing()
-  const setIsEditingEncoder = useEncoderState.use.setIsEditing()
-
-  const clearSelection = useSelection.use.clearSelection()
-  const layout = useSettings.use.layout()
-
-  function loadExample() {
-    setSerializedModel(exampleModel.serializedModel)
-    setParameters(exampleModel.parameters)
-    setParser(exampleModel.parser)
-  }
-
   return (
     <Menubar className="rounded-none">
       <MenubarMenu>
         <MenubarTrigger>Model</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem onClick={loadExample}>Load Example</MenubarItem>
+          <LoadExampleModelMenuItem />
           <MenubarSeparator />
-          <MenubarItem
-            onClick={() => {
-              clearSelection()
-              setIsEditingModel(true)
-              setFitGraph(undefined)
-            }}
-            disabled={isEditingModel || layout !== 'compact'}
-          >
-            Close
-          </MenubarItem>
+          <CloseModelMenuItem />
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
         <MenubarTrigger>Encoder</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem
-            onClick={() => {
-              setIsEditingEncoder(true)
-            }}
-            disabled={isEditingEncoder || layout !== 'compact'}
-          >
-            Close
-          </MenubarItem>
+          <CloseEncoderModelItem />
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
@@ -77,9 +42,7 @@ export function Menu() {
           <MenubarSub>
             <MenubarSubTrigger>Model</MenubarSubTrigger>
             <MenubarSubContent>
-              <MenubarItem disabled={fitGraph === undefined} onClick={fitGraph}>
-                Fit
-              </MenubarItem>
+              <FitGraphMenuItem />
             </MenubarSubContent>
           </MenubarSub>
           <ThemeSubMenu />
@@ -87,6 +50,63 @@ export function Menu() {
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
+  )
+}
+
+function LoadExampleModelMenuItem() {
+  const setSerializedModel = useModelState.use.setSerializedModel()
+  const setParameters = useModelState.use.setParameters()
+  const setParser = useModelState.use.setParser()
+  function loadExample() {
+    setSerializedModel(exampleModel.serializedModel)
+    setParameters(exampleModel.parameters)
+    setParser(exampleModel.parser)
+  }
+  return <MenubarItem onClick={loadExample}>Load Example</MenubarItem>
+}
+
+function CloseModelMenuItem() {
+  const setFitGraph = useModelState.use.setFit()
+  const isEditingModel = useModelState.use.isEditing()
+  const setIsEditingModel = useModelState.use.setIsEditing()
+  const clearSelection = useSelection.use.clearSelection()
+  const layout = useSettings.use.layout()
+  return (
+    <MenubarItem
+      onClick={() => {
+        clearSelection()
+        setIsEditingModel(true)
+        setFitGraph(undefined)
+      }}
+      disabled={isEditingModel || layout !== 'compact'}
+    >
+      Close
+    </MenubarItem>
+  )
+}
+
+function CloseEncoderModelItem() {
+  const isEditingEncoder = useEncoderState.use.isEditing()
+  const setIsEditingEncoder = useEncoderState.use.setIsEditing()
+  const layout = useSettings.use.layout()
+  return (
+    <MenubarItem
+      onClick={() => {
+        setIsEditingEncoder(true)
+      }}
+      disabled={isEditingEncoder || layout !== 'compact'}
+    >
+      Close
+    </MenubarItem>
+  )
+}
+
+function FitGraphMenuItem() {
+  const fitGraph = useModelState.use.fit()
+  return (
+    <MenubarItem disabled={fitGraph === undefined} onClick={fitGraph}>
+      Fit
+    </MenubarItem>
   )
 }
 
