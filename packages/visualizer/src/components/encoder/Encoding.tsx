@@ -2,8 +2,8 @@ import { GraphEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import type { Plugin } from '@cm2ml/plugin'
 
-import { Error } from '../Error'
 import type { ParameterValues } from '../Parameters'
+import { Hint } from '../ui/hint'
 
 import { RawGraphEncoding } from './encodings/RawGraphEncoding'
 
@@ -18,8 +18,9 @@ export function Encoding({ encoder, model, parameters }: Props) {
     return <RawGraphEncoding model={model} parameters={parameters} />
   }
   return (
-    <div className="flex h-full items-center justify-center">
-      <Error error={`No visualization for ${encoder.name} available`} />
-    </div>
+    <Hint
+      text={`No visualization for ${encoder.name} encoding available`}
+      error
+    />
   )
 }

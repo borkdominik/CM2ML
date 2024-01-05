@@ -1,4 +1,5 @@
 import { useModelState } from '../../lib/useModelState'
+import { Hint } from '../ui/hint'
 import {
   ResizableHandle,
   ResizablePanel,
@@ -12,11 +13,7 @@ export function Model() {
   const model = useModelState.use.model()
 
   if (!model) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <span className="text-xs text-muted-foreground">No model</span>
-      </div>
-    )
+    return <Hint text="No model" />
   }
 
   return (

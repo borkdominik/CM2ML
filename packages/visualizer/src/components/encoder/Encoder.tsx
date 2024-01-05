@@ -1,6 +1,6 @@
 import { useEncoderState } from '../../lib/useEncoderState'
 import { useModelState } from '../../lib/useModelState'
-import { Error } from '../Error'
+import { Hint } from '../ui/hint'
 
 import { Encoding } from './Encoding'
 
@@ -10,19 +10,11 @@ export function Encoder() {
   const parameters = useEncoderState.use.parameters()
 
   if (!encoder) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <span className="text-xs text-muted-foreground">No encoder</span>
-      </div>
-    )
+    return <Hint text="No encoder" />
   }
 
   if (!model) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <Error error="No model loaded" />
-      </div>
-    )
+    return <Hint text="No model loaded" error />
   }
 
   return <Encoding model={model} encoder={encoder} parameters={parameters} />
