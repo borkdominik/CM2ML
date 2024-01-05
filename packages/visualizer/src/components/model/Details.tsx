@@ -11,17 +11,18 @@ import { Fragment, useMemo } from 'react'
 import { useModelState } from '../../lib/useModelState'
 import type { EdgeSelection } from '../../lib/useSelection'
 import { useSelection } from '../../lib/useSelection'
-import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 
 export function SelectionDetails() {
-  const { model } = useModelState()
-  const { selection } = useSelection()
+  const model = useModelState.use.model()
+  const selection = useSelection.use.selection()
   if (!model || !selection) {
     return (
       <div className="flex h-full items-center justify-center">
-        <Badge variant="outline">Select a node or edge by clicking on it</Badge>
+        <span className="text-xs text-muted-foreground">
+          Select a node or edge by clicking on it
+        </span>
       </div>
     )
   }
@@ -159,7 +160,7 @@ function NodeEdges({
 }
 
 function NodeSelectionButton({ id }: { id: string | undefined }) {
-  const { setSelection } = useSelection()
+  const setSelection = useSelection.use.setSelection()
   if (id === undefined) {
     return null
   }
@@ -183,7 +184,7 @@ function EdgeSelectionButton({
   targetId: string | undefined
   label: string
 }) {
-  const { setSelection } = useSelection()
+  const setSelection = useSelection.use.setSelection()
   if (sourceId === undefined || targetId === undefined) {
     return null
   }

@@ -19,9 +19,12 @@ import {
 const encoders = Object.keys(encoderMap)
 
 export function EncoderForm() {
-  const { encoder, setEncoder, parameters, setParameters, setIsEditing } =
-    useEncoderState()
-  const layout = useSettings((state) => state.layout)
+  const encoder = useEncoderState.use.encoder()
+  const setEncoder = useEncoderState.use.setEncoder()
+  const parameters = useEncoderState.use.parameters()
+  const setParameters = useEncoderState.use.setParameters()
+  const setIsEditing = useEncoderState.use.setIsEditing()
+  const layout = useSettings.use.layout()
 
   return (
     <Card className="max-h-full overflow-y-auto">

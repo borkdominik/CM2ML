@@ -13,7 +13,7 @@ import { useModelState } from './lib/useModelState'
 import { useSettings } from './lib/useSettings'
 
 export function App() {
-  const layout = useSettings((state) => state.layout)
+  const layout = useSettings.use.layout()
 
   return (
     <div className="flex h-full flex-col">
@@ -24,8 +24,8 @@ export function App() {
 }
 
 function CompactLayout() {
-  const isEditingEncoder = useEncoderState((state) => state.isEditing)
-  const isEditingModel = useModelState((state) => state.isEditing)
+  const isEditingEncoder = useEncoderState.use.isEditing()
+  const isEditingModel = useModelState.use.isEditing()
   return (
     <ResizablePanelGroup direction="horizontal" className="h-full">
       <ResizablePanel defaultSize={50}>

@@ -5,13 +5,14 @@ import { Error } from '../Error'
 import { Encoding } from './Encoding'
 
 export function Encoder() {
-  const { model } = useModelState()
-  const { encoder, parameters } = useEncoderState()
+  const model = useModelState.use.model()
+  const encoder = useEncoderState.use.encoder()
+  const parameters = useEncoderState.use.parameters()
 
   if (!encoder) {
     return (
       <div className="flex h-full items-center justify-center">
-        <span className="text-muted-foreground">No encoder</span>
+        <span className="text-xs text-muted-foreground">No encoder</span>
       </div>
     )
   }

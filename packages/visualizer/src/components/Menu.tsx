@@ -19,19 +19,19 @@ import {
 } from './ui/menubar'
 
 export function Menu() {
-  const {
-    fit: fitGraph,
-    setFit: setFitGraph,
-    setParameters,
-    setParser,
-    setSerializedModel,
-    isEditing: isEditingModel,
-    setIsEditing: setIsEditingModel,
-  } = useModelState()
-  const { isEditing: isEditingEncoder, setIsEditing: setIsEditingEncoder } =
-    useEncoderState()
-  const { clearSelection } = useSelection()
-  const layout = useSettings((state) => state.layout)
+  const fitGraph = useModelState.use.fit()
+  const setFitGraph = useModelState.use.setFit()
+  const setParameters = useModelState.use.setParameters()
+  const setParser = useModelState.use.setParser()
+  const setSerializedModel = useModelState.use.setSerializedModel()
+  const isEditingModel = useModelState.use.isEditing()
+  const setIsEditingModel = useModelState.use.setIsEditing()
+
+  const isEditingEncoder = useEncoderState.use.isEditing()
+  const setIsEditingEncoder = useEncoderState.use.setIsEditing()
+
+  const clearSelection = useSelection.use.clearSelection()
+  const layout = useSettings.use.layout()
 
   function loadExample() {
     setSerializedModel(exampleModel.serializedModel)
@@ -127,9 +127,15 @@ function ThemeSubMenu() {
 }
 
 function LayoutSubMenu() {
-  const { layout, setLayout } = useSettings()
-  const { model, setIsEditing: setIsEditingModel } = useModelState()
-  const { encoder, setIsEditing: setIsEditingEncoder } = useEncoderState()
+  const layout = useSettings.use.layout()
+  const setLayout = useSettings.use.setLayout()
+
+  const model = useModelState.use.model()
+  const setIsEditingModel = useModelState.use.setIsEditing()
+
+  const encoder = useEncoderState.use.encoder()
+  const setIsEditingEncoder = useEncoderState.use.setIsEditing()
+
   return (
     <MenubarSub>
       <MenubarSubTrigger>Layout</MenubarSubTrigger>

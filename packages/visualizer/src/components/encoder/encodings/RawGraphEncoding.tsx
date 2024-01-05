@@ -4,7 +4,13 @@ import type { HTMLAttributes, ReactNode } from 'react'
 import { useMemo } from 'react'
 
 import { colors } from '../../../colors'
-import { useSelection } from '../../../lib/useSelection'
+import {
+  useIsSelectedEdge,
+  useIsSelectedNode,
+  useIsSelectedSource,
+  useIsSelectedTarget,
+  useSelection,
+} from '../../../lib/useSelection'
 import { cn } from '../../../lib/utils'
 import type { ParameterValues } from '../../Parameters'
 import {
@@ -121,12 +127,14 @@ interface LabelProps {
 }
 
 function Label({ index, node, offset }: LabelProps) {
-  const { isSelectedSource, isSelectedTarget, setSelection } = useSelection()
+  const isRowSelected = useIsSelectedSource(node)
+  const isColumnSelected = useIsSelectedTarget(node)
+  const setSelection = useSelection.use.setSelection()
+
   function onPointerDown() {
     setSelection(node)
   }
-  const isRowSelected = isSelectedSource(node)
-  const isColumnSelected = isSelectedTarget(node)
+
   return (
     <g>
       <text
@@ -198,10 +206,14 @@ interface GridCellProps {
 function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
   const sourceId = nodes[row]
   const targetId = nodes[column]
-  const { isSelectedEdge, clearSelection, setSelection } = useSelection()
-  const isCellSelected = isSelectedEdge(sourceId, targetId)
+
+  const isCellSelected = useIsSelectedEdge(sourceId, targetId)
+  const clearSelection = useSelection.use.clearSelection()
+  const setSelection = useSelection.use.setSelection()
+
   const isActive = value > 0
   const color = useCellColor(isActive, isCellSelected)
+
   function onPointerDown() {
     if (isActive && sourceId && targetId) {
       setSelection([[sourceId, targetId]])
@@ -209,6 +221,7 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
       clearSelection()
     }
   }
+
   return (
     <rect
       height={cellSize}
@@ -296,8 +309,8 @@ interface ListNodeProps {
 }
 
 function ListNode({ node, index }: ListNodeProps) {
-  const { isSelectedNode, setSelection } = useSelection()
-  const isSelected = isSelectedNode(node)
+  const isSelected = useIsSelectedNode(node)
+  const setSelection = useSelection.use.setSelection()
   return (
     <>
       {index > 0 ? <ListSeparator /> : null}
@@ -325,13 +338,13 @@ function ListEdge({
   target,
   weight,
 }: ListEdgeProps) {
-  const { isSelectedEdge, setSelection } = useSelection()
   const sourceId = nodes[source]
   const targetId = nodes[target]
+  const isSelected = useIsSelectedEdge(sourceId, targetId)
+  const setSelection = useSelection.use.setSelection()
   if (!sourceId || !targetId) {
     return null
   }
-  const isSelected = isSelectedEdge(sourceId, targetId)
   const isTooltipDisabled = getOpacity === undefined
   const entry = (
     <ListEntry

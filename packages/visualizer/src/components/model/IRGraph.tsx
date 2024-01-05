@@ -61,8 +61,10 @@ function useVisNetwok(
   model: GraphModel,
   container: RefObject<HTMLDivElement | null>,
 ) {
-  const { setFit } = useModelState()
-  const { selection, setSelection, clearSelection } = useSelection()
+  const setFit = useModelState.use.setFit()
+  const selection = useSelection.use.selection()
+  const setSelection = useSelection.use.setSelection()
+  const clearSelection = useSelection.use.clearSelection()
   const [network, setNetwork] = useState<Network | null>(null)
   const [stabilizationProgress, setStabilizationProgress] = useState(0)
 

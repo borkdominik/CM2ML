@@ -26,21 +26,19 @@ import { Textarea } from '../ui/textarea'
 const parsers = Object.keys(parserMap)
 
 export function ModelForm() {
-  const {
-    model,
-    error,
-    serializedModel,
-    setSerializedModel,
-    parameters,
-    setParameters,
-    parser,
-    setParser,
-    setIsEditing,
-  } = useModelState()
+  const model = useModelState.use.model()
+  const error = useModelState.use.error()
+  const serializedModel = useModelState.use.serializedModel()
+  const setSerializedModel = useModelState.use.setSerializedModel()
+  const parameters = useModelState.use.parameters()
+  const setParameters = useModelState.use.setParameters()
+  const parser = useModelState.use.parser()
+  const setParser = useModelState.use.setParser()
+  const setIsEditing = useModelState.use.setIsEditing()
   const [modelUrl, setModelUrl] = useState<string>('')
   const [modelError, setFetchError] = useState<string | undefined>()
   const isValidModelUrl = useMemo(() => isValidUrl(modelUrl), [modelUrl])
-  const layout = useSettings((state) => state.layout)
+  const layout = useSettings.use.layout()
 
   async function onFileLoaded(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]
