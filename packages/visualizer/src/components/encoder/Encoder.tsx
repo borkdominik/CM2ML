@@ -14,7 +14,7 @@ export function Encoder() {
   }
 
   if (!model) {
-    return <Hint text="No model loaded" error />
+    return <Hint text="No model to encode" error />
   }
 
   return <Encoding model={model} encoder={encoder} parameters={parameters} />

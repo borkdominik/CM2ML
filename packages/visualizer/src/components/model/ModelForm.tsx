@@ -130,11 +130,11 @@ export function ModelForm() {
           {modelError ? <Error error={modelError} /> : null}
         </div>
         {error ? <Error error={error} /> : null}
-        {layout === 'extended' ? null : (
+        {layout === 'compact' ? (
           <Button disabled={!model} onClick={() => setIsEditing(false)}>
             Submit
           </Button>
-        )}
+        ) : null}
       </CardContent>
     </Card>
   )
