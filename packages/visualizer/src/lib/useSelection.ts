@@ -14,19 +14,20 @@ export interface SelectionState {
   setSelection: (ids: Selection) => void
 }
 
+const defaults = {
+  selection: undefined,
+} as const satisfies Partial<SelectionState>
+
 export const useSelection = createSelectors(
   create<SelectionState>((set, _get) => ({
-    selection: undefined,
-    clearSelection: () => {
-      set((_state) => ({
+    selection: defaults.selection,
+    clearSelection: () =>
+      set({
         selection: undefined,
-      }))
-    },
+      }),
     setSelection: (selection: Selection) => {
-      set((_state) => {
-        return {
-          selection,
-        }
+      set({
+        selection,
       })
     },
   })),

@@ -85,9 +85,10 @@ function useVisNetwok(
         },
         length: isLargeModel ? 250 : undefined,
         scaling: {
-          min: 1,
-          max: 7,
+          min: 2,
+          max: 5,
         },
+        selectionWidth: 2,
         smooth: {
           enabled: true,
           forceDirection: false,
@@ -113,10 +114,12 @@ function useVisNetwok(
     if (!container.current) {
       return
     }
-    const network = new Network(container.current, {
-      nodes: undefined,
-      edges: undefined,
-    })
+
+    const network = new Network(
+      container.current,
+      { nodes: undefined, edges: undefined },
+      options,
+    )
     setNetwork(network)
     setFit(() => network.fit())
     function selectNodes(selectedNodes: string[]) {
@@ -129,7 +132,6 @@ function useVisNetwok(
         setSelection([[sourceId!, targetId!]])
       }
     }
-    network.on('startStabilizing', () => setStabilizationProgress(0))
     network.on(
       'stabilizationProgress',
       (params: { iterations: number; total: number }) => {
@@ -229,7 +231,7 @@ function createVisEdges(model: GraphModel) {
   })
   const edges = Object.values(edgeMap).map((edge) => ({
     ...edge,
-    value: Math.log10(edge.value ?? 1),
+    value: Math.log10((edge.value ?? 0) + 1),
   }))
   return new DataSet(edges)
 }

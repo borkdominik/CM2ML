@@ -12,7 +12,10 @@ export interface SerializedModelState {
   parserName: string | undefined
   serializedModel: string | undefined
   parameters: ParameterValues
+  version: number | undefined
 }
+
+const currentVersion = 0
 
 export interface ModelState {
   isEditing: boolean
@@ -88,18 +91,19 @@ export const useModelState = createSelectors(
       }),
       {
         name: 'model',
-        serialize({ state }) {
+        version: currentVersion,
+        serialize({ state, version }) {
           const serializableState: SerializedModelState = {
             serializedModel: state.serializedModel,
             parameters: state.parameters,
             parserName: state.parser?.name,
+            version,
           }
           return JSON.stringify(serializableState)
         },
         deserialize(serializedState) {
-          const { serializedModel, parserName, parameters } = JSON.parse(
-            serializedState,
-          ) as SerializedModelState
+          const { serializedModel, parserName, parameters, version } =
+            JSON.parse(serializedState) as SerializedModelState
           const parser = parserName ? parserMap[parserName] : undefined
           const { model, error } = tryParse(parser, serializedModel, parameters)
           const state: Partial<ModelState> = {
@@ -110,7 +114,13 @@ export const useModelState = createSelectors(
             error,
             isEditing: model === undefined,
           }
-          return { state: state as ModelState, version: 0 }
+          return { state: state as ModelState, version }
+        },
+        migrate(persistedState, version) {
+          if (version !== currentVersion) {
+            return defaults as ModelState
+          }
+          return persistedState as ModelState
         },
       },
     ),

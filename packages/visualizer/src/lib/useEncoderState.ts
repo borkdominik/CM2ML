@@ -11,6 +11,8 @@ export interface SerializedEncoderState {
   parameters: ParameterValues
 }
 
+const currentVersion = 0
+
 export interface EncoderState {
   isEditing: boolean
   setIsEditing: (isEditing: boolean) => void
@@ -51,6 +53,7 @@ export const useEncoderState = createSelectors(
       }),
       {
         name: 'encoder',
+        version: currentVersion,
         serialize({ state }) {
           const serializableState: SerializedEncoderState = {
             parameters: state.parameters,
@@ -69,6 +72,12 @@ export const useEncoderState = createSelectors(
             isEditing: encoder === undefined,
           }
           return { state: state as EncoderState, version: 0 }
+        },
+        migrate(persistedState, version) {
+          if (version !== currentVersion) {
+            return defaults as EncoderState
+          }
+          return persistedState as EncoderState
         },
       },
     ),
