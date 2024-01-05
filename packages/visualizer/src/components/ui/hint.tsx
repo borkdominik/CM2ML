@@ -13,7 +13,9 @@ export function Hint({ error = false, text }: Props) {
       {error ? (
         <Error error={text} />
       ) : (
-        <span className="text-xs text-muted-foreground">{text}</span>
+        <span className="select-none text-balance px-3 py-1 text-xs text-muted-foreground">
+          {text}
+        </span>
       )}
     </Center>
   )

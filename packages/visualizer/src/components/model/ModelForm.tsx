@@ -76,7 +76,9 @@ export function ModelForm() {
   return (
     <Card className="max-h-full overflow-y-auto">
       <CardHeader className="space-y-2">
-        <Label htmlFor="parser">Parser</Label>
+        <Label htmlFor="parser" className="select-none">
+          Parser
+        </Label>
         <Select
           value={parser?.name ?? ''}
           onValueChange={(value) => setParser(parserMap[value])}
@@ -105,7 +107,9 @@ export function ModelForm() {
           />
         ) : null}
         <div className="flex flex-col gap-2">
-          <Label htmlFor="model">Model</Label>
+          <Label htmlFor="model" className="select-none">
+            Model
+          </Label>
           <Textarea
             name="model"
             value={serializedModel}
@@ -113,7 +117,7 @@ export function ModelForm() {
             placeholder="Paste your model here"
           />
           <Or />
-          <Input type="file" onInput={onFileLoaded} />
+          <Input type="file" onInput={onFileLoaded} className="select-none" />
           <Or />
           <div className="flex gap-2">
             <Input
@@ -122,7 +126,11 @@ export function ModelForm() {
               value={modelUrl}
               onChange={(event) => setModelUrl(event.target.value)}
             />
-            <Button onClick={loadModelFromUrl} disabled={!isValidModelUrl}>
+            <Button
+              onClick={loadModelFromUrl}
+              disabled={!isValidModelUrl}
+              className="select-none"
+            >
               Load
             </Button>
           </div>
@@ -131,7 +139,11 @@ export function ModelForm() {
         </div>
         {error ? <Error error={error} /> : null}
         {layout === 'compact' ? (
-          <Button disabled={!model} onClick={() => setIsEditing(false)}>
+          <Button
+            disabled={!model}
+            onClick={() => setIsEditing(false)}
+            className="select-none"
+          >
             Submit
           </Button>
         ) : null}
@@ -142,7 +154,7 @@ export function ModelForm() {
 
 function Or() {
   return (
-    <span className="mx-auto flex w-full items-center gap-2 text-xs text-muted-foreground">
+    <span className="mx-auto flex w-full select-none items-center gap-2 text-xs text-muted-foreground">
       <Separator className="shrink" />
       or
       <Separator className="shrink" />

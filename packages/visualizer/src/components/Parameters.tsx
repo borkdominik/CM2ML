@@ -183,14 +183,18 @@ function Container({ children }: { children: React.ReactNode }) {
 function ParameterLabel({ name }: { name: string }) {
   const label = useDisplayName(name)
   return (
-    <Label htmlFor={name} className="text-balance">
+    <Label htmlFor={name} className="select-none text-balance">
       {label}
     </Label>
   )
 }
 
 function Description({ description }: { description: string }) {
-  return <span className="text-xs text-muted-foreground">{description}</span>
+  return (
+    <span className="select-none text-balance text-xs text-muted-foreground">
+      {description}
+    </span>
+  )
 }
 
 function useDisplayName(name: string) {

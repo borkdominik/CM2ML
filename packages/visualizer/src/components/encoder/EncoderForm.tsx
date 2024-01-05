@@ -29,7 +29,9 @@ export function EncoderForm() {
   return (
     <Card className="max-h-full overflow-y-auto">
       <CardHeader className="space-y-2">
-        <Label htmlFor="encoder">Encoder</Label>
+        <Label htmlFor="encoder" className="select-none">
+          Encoder
+        </Label>
         <Select
           name="encoder"
           value={encoder?.name ?? ''}
@@ -63,6 +65,7 @@ export function EncoderForm() {
             <Button
               disabled={encoder === undefined}
               onClick={() => setIsEditing(false)}
+              className="select-none"
             >
               Submit
             </Button>

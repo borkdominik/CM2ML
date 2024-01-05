@@ -97,7 +97,7 @@ function Labels({ nodes, offset }: LabelsProps) {
           height={cellSize}
           y={-fontSize / 2}
           x={offset}
-          className="cursor-default fill-foreground font-mono"
+          className="cursor-default select-none fill-foreground font-mono"
           fontSize={fontSize}
         >
           Source
@@ -106,7 +106,7 @@ function Labels({ nodes, offset }: LabelsProps) {
           height={cellSize}
           y={-fontSize / 2}
           x={-offset}
-          className="-rotate-90 cursor-default fill-foreground font-mono "
+          className="-rotate-90 cursor-default select-none fill-foreground font-mono "
           fontSize={fontSize}
           textAnchor="end"
         >
@@ -142,7 +142,7 @@ function Label({ index, node, offset }: LabelProps) {
         y={cellSize * (index + 1) - fontSize / 2}
         x={offset}
         className={cn({
-          'cursor-default fill-foreground font-mono hover:fill-secondary-foreground hover:font-bold':
+          'cursor-default fill-foreground font-mono hover:fill-secondary-foreground hover:font-bold select-none':
             true,
           'fill-foreground': !isRowSelected,
           'fill-primary': isRowSelected,
@@ -157,7 +157,7 @@ function Label({ index, node, offset }: LabelProps) {
         y={cellSize * (index + 1) - fontSize / 2}
         x={fontSize}
         className={cn({
-          '-rotate-90 cursor-default font-mono hover:fill-secondary-foreground hover:font-bold':
+          '-rotate-90 cursor-default font-mono hover:fill-secondary-foreground hover:font-bold select-none':
             true,
           'fill-foreground': !isColumnSelected,
           'fill-primary': isColumnSelected,
@@ -265,7 +265,7 @@ interface ListProps {
 function List({ list, nodes }: ListProps) {
   const getOpacity = useWeightedOpacityFromList(list)
   return (
-    <ResizablePanelGroup direction="vertical" className="h-full">
+    <ResizablePanelGroup direction="vertical" className="h-full select-none">
       <ResizablePanel>
         <div className="h-full overflow-y-auto p-2">
           <span className="text-sm font-bold">Nodes</span>
