@@ -18,16 +18,22 @@ export interface EncoderState {
   setEncoder: (encoder: Encoder | undefined) => void
   parameters: ParameterValues
   setParameters: (parameters: ParameterValues) => void
-  close: () => void
+  clear: () => void
 }
+
+const defaults = {
+  isEditing: true,
+  encoder: undefined,
+  parameters: {},
+} as const satisfies Partial<EncoderState>
 
 export const useEncoderState = createSelectors(
   create(
     persist<EncoderState>(
       (set, get) => ({
-        isEditing: true,
+        isEditing: defaults.isEditing,
         setIsEditing: (isEditing: boolean) => set({ isEditing }),
-        encoder: undefined,
+        encoder: defaults.encoder,
         setEncoder: (encoder: Encoder | undefined) => {
           const oldParameters = get().parameters
           const newParameters = encoder
@@ -35,13 +41,13 @@ export const useEncoderState = createSelectors(
             : oldParameters
           set({ encoder, parameters: newParameters })
         },
-        parameters: {},
+        parameters: defaults.parameters,
         setParameters: (parameters: ParameterValues) => {
           const currentParameters = get().parameters
           const newParameters = { ...currentParameters, ...parameters }
           set({ parameters: newParameters })
         },
-        close: () => set({ encoder: undefined }),
+        clear: () => set(defaults),
       }),
       {
         name: 'encoder',

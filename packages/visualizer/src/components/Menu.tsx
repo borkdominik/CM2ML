@@ -27,13 +27,17 @@ export function Menu() {
         <MenubarContent>
           <LoadExampleModelMenuItem />
           <MenubarSeparator />
-          <CloseModelMenuItem />
+          <EditModelMenuItem />
+          <MenubarSeparator />
+          <ClearModelMenuItem />
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
         <MenubarTrigger>Encoder</MenubarTrigger>
         <MenubarContent>
-          <CloseEncoderModelItem />
+          <EditEncoderModelItem />
+          <MenubarSeparator />
+          <ClearEncoderMenuItem />
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
@@ -65,8 +69,7 @@ function LoadExampleModelMenuItem() {
   return <MenubarItem onClick={loadExample}>Load Example</MenubarItem>
 }
 
-function CloseModelMenuItem() {
-  const setFitGraph = useModelState.use.setFit()
+function EditModelMenuItem() {
   const isEditingModel = useModelState.use.isEditing()
   const setIsEditingModel = useModelState.use.setIsEditing()
   const clearSelection = useSelection.use.clearSelection()
@@ -76,16 +79,39 @@ function CloseModelMenuItem() {
       onClick={() => {
         clearSelection()
         setIsEditingModel(true)
-        setFitGraph(undefined)
       }}
       disabled={isEditingModel || layout !== 'compact'}
     >
-      Close
+      Edit
     </MenubarItem>
   )
 }
 
-function CloseEncoderModelItem() {
+function ClearModelMenuItem() {
+  const serializedModel = useModelState.use.serializedModel()
+  const parser = useModelState.use.parser()
+  const clear = useModelState.use.clear()
+  return (
+    <MenubarItem
+      onClick={clear}
+      disabled={!serializedModel && parser === undefined}
+    >
+      Clear
+    </MenubarItem>
+  )
+}
+
+function ClearEncoderMenuItem() {
+  const encoder = useEncoderState.use.encoder()
+  const clear = useEncoderState.use.clear()
+  return (
+    <MenubarItem onClick={clear} disabled={encoder === undefined}>
+      Clear
+    </MenubarItem>
+  )
+}
+
+function EditEncoderModelItem() {
   const isEditingEncoder = useEncoderState.use.isEditing()
   const setIsEditingEncoder = useEncoderState.use.setIsEditing()
   const layout = useSettings.use.layout()
@@ -96,7 +122,7 @@ function CloseEncoderModelItem() {
       }}
       disabled={isEditingEncoder || layout !== 'compact'}
     >
-      Close
+      Edit
     </MenubarItem>
   )
 }

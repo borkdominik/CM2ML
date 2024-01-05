@@ -21,33 +21,43 @@ export interface ModelState {
   error: unknown | undefined
   fit: (() => void) | undefined
   setFit: (fit: (() => void) | undefined) => void
-  serializedModel: string | undefined
+  serializedModel: string
   setSerializedModel: (serializedModel: string) => void
   parser: Parser | undefined
   setParser: (parser: Parser | undefined) => void
   parameters: ParameterValues
   setParameters: (parameters: ParameterValues) => void
-  close: () => void
+  clear: () => void
 }
+
+const defaults = {
+  isEditing: true,
+  model: undefined,
+  error: undefined,
+  fit: undefined,
+  serializedModel: '',
+  parser: undefined,
+  parameters: {},
+} as const satisfies Partial<ModelState>
 
 export const useModelState = createSelectors(
   create(
     persist<ModelState>(
       (set, get) => ({
-        isEditing: true,
+        isEditing: defaults.isEditing,
         setIsEditing: (isEditing: boolean) => set({ isEditing }),
-        model: undefined,
-        error: undefined,
-        fit: undefined,
+        model: defaults.model,
+        error: defaults.error,
+        fit: defaults.fit,
         setFit: (fit: (() => void) | undefined) => set({ fit }),
-        serializedModel: '',
+        serializedModel: defaults.serializedModel,
         setSerializedModel: (serializedModel: string) => {
           set({ serializedModel })
           const { parser, parameters } = get()
           const { model, error } = tryParse(parser, serializedModel, parameters)
           set({ model, error })
         },
-        parser: undefined,
+        parser: defaults.parser,
         setParser: (parser: Parser | undefined) => {
           set({ parser })
           const { serializedModel, parameters: oldParameters } = get()
@@ -61,7 +71,7 @@ export const useModelState = createSelectors(
           )
           set({ model, error, parameters: newParameters })
         },
-        parameters: {},
+        parameters: defaults.parameters,
         setParameters: (parameters: ParameterValues) => {
           const currentParameters = get().parameters
           const newParameters = { ...currentParameters, ...parameters }
@@ -74,7 +84,7 @@ export const useModelState = createSelectors(
           )
           set({ model, error })
         },
-        close: () => set({ model: undefined }),
+        clear: () => set(defaults),
       }),
       {
         name: 'model',
