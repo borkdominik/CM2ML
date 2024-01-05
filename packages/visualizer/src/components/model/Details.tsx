@@ -56,7 +56,6 @@ function getEdges(edgeSelection: EdgeSelection, model: GraphModel) {
 }
 
 function NodeDetails({ node }: { node: GraphNode }) {
-  // TODO: Add outgoing and incoming edges
   return (
     <div className="space-y-2 p-2">
       <div className="text-sm font-bold">{node.id}</div>
@@ -65,7 +64,9 @@ function NodeDetails({ node }: { node: GraphNode }) {
         <div className="space-y-2">
           <div className="text-sm font-bold">Parent</div>
           <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
-            <div className="whitespace-pre-wrap">{node.parent.tag}</div>
+            <div className="whitespace-pre-wrap text-muted-foreground">
+              {node.parent.tag}
+            </div>
             <NodeSelectionButton id={node.parent.id} />
           </div>
         </div>
@@ -98,7 +99,9 @@ function NodeChildren({ node }: { node: GraphNode }) {
     <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
       {sortedChildren.map((child) => (
         <Fragment key={child.id}>
-          <div className="whitespace-pre-wrap">{child.tag}</div>
+          <div className="whitespace-pre-wrap text-muted-foreground">
+            {child.tag}
+          </div>
           <NodeSelectionButton id={child.id} />
         </Fragment>
       ))}
@@ -202,14 +205,18 @@ function EdgeDetails({ edge }: { edge: GraphEdge }) {
       <div className="space-y-2">
         <div className="text-sm font-bold">Source</div>
         <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
-          <div className="whitespace-pre-wrap">{edge.source.tag}</div>
+          <div className="whitespace-pre-wrap text-muted-foreground">
+            {edge.source.tag}
+          </div>
           <NodeSelectionButton id={edge.source.id} />
         </div>
       </div>
       <div className="space-y-2">
         <div className="text-sm font-bold">Target</div>
         <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
-          <div className="whitespace-pre-wrap">{edge.target.tag}</div>
+          <div className="whitespace-pre-wrap text-muted-foreground">
+            {edge.target.tag}
+          </div>
           <NodeSelectionButton id={edge.target.id} />
         </div>
       </div>

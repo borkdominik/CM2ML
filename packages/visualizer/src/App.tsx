@@ -8,6 +8,8 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from './components/ui/resizable'
+import { Toaster } from './components/ui/sonner'
+import { UpdatePrompt } from './components/UpdatePrompt'
 import { useEncoderState } from './lib/useEncoderState'
 import { useModelState } from './lib/useModelState'
 import { useSettings } from './lib/useSettings'
@@ -19,6 +21,8 @@ export function App() {
     <div className="flex h-full flex-col">
       <Menu />
       {layout === 'extended' ? <ExtendedLayout /> : <CompactLayout />}
+      <Toaster />
+      <UpdatePrompt />
     </div>
   )
 }
