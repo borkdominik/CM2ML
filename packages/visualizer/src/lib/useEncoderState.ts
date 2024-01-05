@@ -7,6 +7,7 @@ import type { ParameterValues } from '../components/Parameters'
 import { createSelectors, getNewParameters } from './utils'
 
 export interface SerializedEncoderState {
+  isEditing: boolean
   encoderName: string | undefined
   parameters: ParameterValues
 }
@@ -56,20 +57,21 @@ export const useEncoderState = createSelectors(
         version: currentVersion,
         serialize({ state }) {
           const serializableState: SerializedEncoderState = {
+            isEditing: state.isEditing,
             parameters: state.parameters,
             encoderName: state.encoder?.name,
           }
           return JSON.stringify(serializableState)
         },
         deserialize(serializedState) {
-          const { encoderName, parameters } = JSON.parse(
+          const { encoderName, isEditing, parameters } = JSON.parse(
             serializedState,
           ) as SerializedEncoderState
           const encoder = encoderName ? encoderMap[encoderName] : undefined
           const state: Partial<EncoderState> = {
             parameters,
             encoder,
-            isEditing: encoder === undefined,
+            isEditing,
           }
           return { state: state as EncoderState, version: 0 }
         },

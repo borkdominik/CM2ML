@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CM2ML</title>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+    <meta name="theme-color" content="#ffffff" />
   </head>
   <body class="h-dvh">
     <div id="root" class="h-full"></div>
@@ -11,6 +15,9 @@
       const theme = localStorage.getItem('theme')
       if (theme === 'dark') {
         document.getElementsByTagName('body')[0]?.classList.add('dark')
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute('content', '#000000')
       }
     </script>
     <script type="module" src="/src/main.tsx"></script>

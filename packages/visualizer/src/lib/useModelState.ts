@@ -9,6 +9,7 @@ import type { ParameterValues } from '../components/Parameters'
 import { createSelectors, getNewParameters } from './utils'
 
 export interface SerializedModelState {
+  isEditing: boolean
   parserName: string | undefined
   serializedModel: string | undefined
   parameters: ParameterValues
@@ -94,6 +95,7 @@ export const useModelState = createSelectors(
         version: currentVersion,
         serialize({ state, version }) {
           const serializableState: SerializedModelState = {
+            isEditing: state.isEditing,
             serializedModel: state.serializedModel,
             parameters: state.parameters,
             parserName: state.parser?.name,
@@ -102,8 +104,13 @@ export const useModelState = createSelectors(
           return JSON.stringify(serializableState)
         },
         deserialize(serializedState) {
-          const { serializedModel, parserName, parameters, version } =
-            JSON.parse(serializedState) as SerializedModelState
+          const {
+            isEditing,
+            serializedModel,
+            parserName,
+            parameters,
+            version,
+          } = JSON.parse(serializedState) as SerializedModelState
           const parser = parserName ? parserMap[parserName] : undefined
           const { model, error } = tryParse(parser, serializedModel, parameters)
           const state: Partial<ModelState> = {
@@ -112,7 +119,7 @@ export const useModelState = createSelectors(
             parser,
             model,
             error,
-            isEditing: model === undefined,
+            isEditing,
           }
           return { state: state as ModelState, version }
         },
