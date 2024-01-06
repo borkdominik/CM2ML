@@ -13,6 +13,7 @@ import {
 } from '../../../lib/useSelection'
 import { cn } from '../../../lib/utils'
 import type { ParameterValues } from '../../Parameters'
+import { Hint } from '../../ui/hint'
 import {
   ResizableHandle,
   ResizablePanel,
@@ -35,7 +36,10 @@ export interface Props {
 
 // TODO: Handle encoding without edges
 export function RawGraphEncoding({ model, parameters }: Props) {
-  const encoding = useRawGraphEncoding(model, parameters)
+  const { encoding, error } = useRawGraphEncoding(model, parameters)
+  if (error || !encoding) {
+    return <Hint error={error} />
+  }
   if (encoding.format === 'list') {
     return <List list={encoding.list} nodes={encoding.nodes} />
   }
@@ -374,10 +378,13 @@ function ListEdge({
 }
 
 function useRawGraphEncoding(model: GraphModel, parameters: ParameterValues) {
-  return useMemo(
-    () => GraphEncoder.validateAndInvoke(model, parameters),
-    [model, parameters],
-  )
+  return useMemo(() => {
+    try {
+      return { encoding: GraphEncoder.validateAndInvoke(model, parameters) }
+    } catch (error) {
+      return { error }
+    }
+  }, [model, parameters])
 }
 
 function createOpacityRangeMapper(min: number, max: number) {

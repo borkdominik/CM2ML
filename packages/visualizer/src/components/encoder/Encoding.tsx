@@ -18,9 +18,6 @@ export function Encoding({ encoder, model, parameters }: Props) {
     return <RawGraphEncoding model={model} parameters={parameters} />
   }
   return (
-    <Hint
-      text={`No visualization for ${encoder.name} encoding available`}
-      error
-    />
+    <Hint error={`No visualization for ${encoder.name} encoding available`} />
   )
 }
