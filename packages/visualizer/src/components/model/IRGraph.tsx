@@ -140,6 +140,7 @@ function useVisNetwok(
     )
     network.on('stabilizationIterationsDone', () => {
       setStabilizationProgress(1)
+      network.storePositions()
     })
     network.on('dragStart', (params: { nodes: string[] }) => {
       selectNodes(params.nodes)
@@ -168,18 +169,28 @@ function useVisNetwok(
     )
     resizeObserver.observe(container.current)
     return () => {
-      network.destroy()
-      resizeObserver.disconnect()
       setNetwork(null)
       setFit(undefined)
+      network.destroy()
+      resizeObserver.disconnect()
     }
   }, [container])
 
-  useEffect(() => network?.setData(data), [network, data])
-  useEffect(() => network?.setOptions(options), [network, options])
+  useEffect(() => {
+    if (isNetworkDestroyed(network)) {
+      return
+    }
+    network.setData(data)
+  }, [network, data])
+  useEffect(() => {
+    if (isNetworkDestroyed(network)) {
+      return
+    }
+    network.setOptions(options)
+  }, [network, options])
 
   useEffect(() => {
-    if (!network) {
+    if (isNetworkDestroyed(network)) {
       return
     }
     if (selection === undefined) {
@@ -200,6 +211,18 @@ function useVisNetwok(
     isReady: stabilizationProgress === 1,
     progress: stabilizationProgress,
   }
+}
+
+/**
+ * This check is required for dev-mode HMR only.
+ * network.destroy() removes the selectionHandler and other internal functions of the network.
+ * This causes an error when the network is accessed.
+ */
+function isNetworkDestroyed(network: Network | null): network is null {
+  if (network === null) {
+    return true
+  }
+  return !('selectionHandler' in network)
 }
 
 function createVisNodes(model: GraphModel) {
