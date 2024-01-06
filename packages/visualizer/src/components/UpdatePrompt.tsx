@@ -16,7 +16,7 @@ export function UpdatePrompt() {
 
   useEffect(() => {
     if (offlineReady) {
-      toast('Ready for offline usage')
+      toast('Ready for offline usage', { duration: 10000 })
       return
     }
     if (!needRefresh) {

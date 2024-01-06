@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react'
-
 import { exampleModel } from '../lib/exampleModel'
 import { useEncoderState } from '../lib/useEncoderState'
 import { useModelState } from '../lib/useModelState'
 import { useSelection } from '../lib/useSelection'
 import { useSettings } from '../lib/useSettings'
+import { themes, useTheme } from '../lib/useTheme'
 
 import {
   Menubar,
@@ -136,27 +135,8 @@ function FitGraphMenuItem() {
   )
 }
 
-const themes = ['light', 'dark'] as const
-
-type Theme = (typeof themes)[number]
-
 function ThemeSubMenu() {
-  const body = document.getElementsByTagName('body')[0]
-  const [theme, setTheme] = useState<Theme>(() =>
-    body?.classList.contains('dark') ? 'dark' : 'light',
-  )
-  useEffect(() => {
-    if (theme === 'light') {
-      body?.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    } else {
-      body?.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    }
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'light' ? '#ffffff' : '#000000')
-  }, [theme])
+  const { theme, setTheme } = useTheme()
   return (
     <MenubarSub>
       <MenubarSubTrigger>Theme</MenubarSubTrigger>
