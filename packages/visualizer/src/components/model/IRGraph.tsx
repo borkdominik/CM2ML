@@ -175,6 +175,9 @@ function useVisNetwok(
     }
   }, [container])
 
+  useEffect(() => network?.setData(data), [network, data])
+  useEffect(() => network?.setOptions(options), [network, options])
+
   useEffect(() => {
     if (!network) {
       return
@@ -192,9 +195,6 @@ function useVisNetwok(
     )
     network.selectEdges(edgeIds)
   }, [network, selection])
-
-  useEffect(() => network?.setData(data), [network, data])
-  useEffect(() => network?.setOptions(options), [network, options])
 
   return {
     isReady: stabilizationProgress === 1,
