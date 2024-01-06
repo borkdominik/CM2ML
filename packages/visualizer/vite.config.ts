@@ -1,11 +1,18 @@
 import path from 'node:path'
 
 import react from '@vitejs/plugin-react'
+import { vite as million } from 'million/compiler'
+import type { Plugin } from 'vite'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
   plugins: [
+    million({
+      auto: {
+        threshold: 0.01,
+      },
+    }) as Plugin,
     react(),
     VitePWA({
       registerType: 'prompt',

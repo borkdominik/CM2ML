@@ -74,7 +74,8 @@ function useVisNetwok(
     return { nodes, edges }
   }, [model])
 
-  const isLargeModel = data.edges.length > 1000
+  const hasManyEdges = data.edges.length > 1000
+  const hasManyNodes = data.nodes.length > 100
   const options = useMemo<Options>(() => {
     return {
       autoResize: false,
@@ -83,7 +84,7 @@ function useVisNetwok(
           color: colors.active,
           highlight: colors.selectedBackground,
         },
-        length: isLargeModel ? 250 : undefined,
+        length: hasManyEdges ? 250 : undefined,
         scaling: {
           min: 2,
           max: 5,
@@ -93,7 +94,7 @@ function useVisNetwok(
           enabled: true,
           forceDirection: false,
           roundness: 0.6,
-          type: isLargeModel ? 'discrete' : 'dynamic',
+          type: hasManyEdges ? 'discrete' : 'dynamic',
         },
       },
       nodes: {
@@ -107,8 +108,11 @@ function useVisNetwok(
           },
         },
       },
+      layout: {
+        improvedLayout: !hasManyNodes,
+      },
     }
-  }, [isLargeModel])
+  }, [hasManyNodes, hasManyEdges])
 
   useEffect(() => {
     if (!container.current) {

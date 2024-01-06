@@ -11,7 +11,9 @@ export function Hint({ error = false, text }: Props) {
   return (
     <Center>
       {error ? (
-        <Error error={text} />
+        <div className="p-2">
+          <Error error={text} />
+        </div>
       ) : (
         <span className="select-none text-balance px-3 py-1 text-xs text-muted-foreground">
           {text}

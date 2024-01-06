@@ -235,7 +235,7 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
         'hover:fill-secondary-foreground': isActive,
       })}
       style={{
-        opacity: getOpacity(value),
+        opacity: isActive ? getOpacity(value) : 1,
       }}
       onPointerDown={onPointerDown}
     />
