@@ -1,4 +1,5 @@
 import type { GraphModel, GraphNode } from '@cm2ml/ir'
+import { IrPostProcessor } from '@cm2ml/ir-post-processor'
 import { compose, definePlugin } from '@cm2ml/plugin'
 import { getMessage } from '@cm2ml/utils'
 import { XmiParser } from '@cm2ml/xmi-parser'
@@ -46,7 +47,11 @@ export const UmlRefiner = definePlugin({
   ) => refine(input, onlyContainmentAssociations, relationshipsAsEdges),
 })
 
-export const UmlParser = compose(XmiParser, UmlRefiner, 'uml')
+export const UmlParser = compose(
+  XmiParser,
+  compose(UmlRefiner, IrPostProcessor),
+  'uml',
+)
 
 function refine(
   model: GraphModel,
@@ -136,13 +141,13 @@ function replaceTagsWithTypes(model: GraphModel) {
 
 function printEdges(model: GraphModel) {
   model.debug(`Created ${model.edges.size} edges`)
-  model.debug(() =>
-    Stream.from(model.edges)
-      .map(
-        (edge) =>
-          `${edge.source.tag} (${edge.source.id}) --${edge.tag}-> ${edge.target.tag} (${edge.target.id})`,
-      )
-      .join('\n')
-      .concat('\n'),
-  )
+  // model.debug(() =>
+  //   Stream.from(model.edges)
+  //     .map(
+  //       (edge) =>
+  //         `${edge.source.tag} (${edge.source.id}) --${edge.tag}-> ${edge.target.tag} (${edge.target.id})`,
+  //     )
+  //     .join('\n')
+  //     .concat('\n'),
+  // )
 }

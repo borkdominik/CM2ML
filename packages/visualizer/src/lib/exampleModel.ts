@@ -115,6 +115,7 @@ export const exampleModel = {
     idAttribute: 'xmi:id',
     onlyContainmentAssociations: true,
     relationshipsAsEdges: true,
+    removeInvalidNodes: true,
     strict: true,
   },
   parser: UmlParser,
