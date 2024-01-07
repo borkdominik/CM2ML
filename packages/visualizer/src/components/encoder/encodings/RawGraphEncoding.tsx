@@ -264,6 +264,7 @@ interface ListProps {
 
 function List({ list, nodes }: ListProps) {
   const getOpacity = useWeightedOpacityFromList(list)
+  const listEdgePaddingAmount = nodes.length.toFixed(0).length
   return (
     <ResizablePanelGroup direction="vertical" className="h-full select-none">
       <ResizablePanel>
@@ -272,7 +273,11 @@ function List({ list, nodes }: ListProps) {
           <div className="flex flex-wrap font-mono text-xs">
             <ListBorder>[</ListBorder>
             {nodes.map((node, index) => (
-              <ListNode key={node} index={index} node={node} />
+              <ListNode
+                key={node}
+                node={node}
+                isLast={index === nodes.length - 1}
+              />
             ))}
             <ListBorder>]</ListBorder>
           </div>
@@ -288,11 +293,12 @@ function List({ list, nodes }: ListProps) {
               <ListEdge
                 key={`${source}-${target}`}
                 getOpacity={getOpacity}
-                index={index}
+                isLast={index === list.length - 1}
                 nodes={nodes}
                 source={source}
                 target={target}
                 weight={weight}
+                indexPadding={listEdgePaddingAmount}
               />
             ))}
             <ListBorder>]</ListBorder>
@@ -305,16 +311,19 @@ function List({ list, nodes }: ListProps) {
 
 interface ListNodeProps {
   node: string
-  index: number
+  isLast: boolean
 }
 
-function ListNode({ node, index }: ListNodeProps) {
+function ListNode({ node, isLast }: ListNodeProps) {
   const isSelected = useIsSelectedNode(node)
   const setSelection = useSelection.use.setSelection()
   return (
     <>
-      {index > 0 ? <ListSeparator /> : null}
-      <ListEntry onClick={() => setSelection(node)} isSelected={isSelected}>
+      <ListEntry
+        onClick={() => setSelection(node)}
+        isSelected={isSelected}
+        isLast={isLast}
+      >
         {node}
       </ListEntry>
     </>
@@ -323,7 +332,8 @@ function ListNode({ node, index }: ListNodeProps) {
 
 interface ListEdgeProps {
   getOpacity?: (weight: number) => number
-  index: number
+  indexPadding: number
+  isLast: boolean
   nodes: string[]
   source: number
   target: number
@@ -332,7 +342,8 @@ interface ListEdgeProps {
 
 function ListEdge({
   getOpacity,
-  index,
+  indexPadding,
+  isLast,
   nodes,
   source,
   target,
@@ -346,19 +357,23 @@ function ListEdge({
     return null
   }
   const isTooltipDisabled = getOpacity === undefined
+  function padIndex(index: number) {
+    return index.toFixed(0).padStart(indexPadding, ' ')
+  }
+  const text = `[${padIndex(source)}, ${padIndex(target)}]`
   const entry = (
     <ListEntry
       key={`${source}-${target}`}
       isSelected={isSelected}
       onClick={() => setSelection([[sourceId, targetId]])}
       style={{ opacity: getOpacity?.(weight ?? 1) ?? 1 }}
+      isLast={isLast}
     >
-      [{source}, {target}]
+      <span className="whitespace-pre">{text}</span>
     </ListEntry>
   )
   return (
     <>
-      {index > 0 ? <ListSeparator /> : null}
       {isTooltipDisabled ? (
         entry
       ) : (
@@ -416,14 +431,22 @@ function useWeightedOpacityFromList(list: AdjacencyList) {
 
 interface ListEntryProps {
   children: ReactNode
+  isLast: boolean
   isSelected: boolean
   onClick?: () => void
   style?: HTMLAttributes<HTMLSpanElement>['style']
 }
 
-function ListEntry({ children, isSelected, onClick, style }: ListEntryProps) {
+function ListEntry({
+  children,
+  isLast,
+  isSelected,
+  onClick,
+  style,
+}: ListEntryProps) {
   return (
-    <div
+    <div className="h-fit w-fit">
+      <span
         className={cn({
           'mx-1 my-0.5 py-0.5 px-1 rounded-sm hover:outline hover:outline-accent-foreground hover:bg-accent hover:text-accent-foreground':
             true,
@@ -434,6 +457,8 @@ function ListEntry({ children, isSelected, onClick, style }: ListEntryProps) {
         style={style}
       >
         {children}
+      </span>
+      {!isLast ? <ListSeparator /> : null}
     </div>
   )
 }
@@ -443,5 +468,5 @@ function ListSeparator() {
 }
 
 function ListBorder({ children }: { children: ReactNode }) {
-  return <span className="my-0.5 py-0.5 font-bold">{children}</span>
+  return <span className="my-0.5 w-full py-0.5 font-bold">{children}</span>
 }
