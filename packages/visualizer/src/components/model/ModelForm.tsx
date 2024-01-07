@@ -98,7 +98,7 @@ export function ModelForm() {
           </SelectContent>
         </Select>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4">
+      <CardContent className="flex flex-col gap-6">
         {parser ? (
           <Parameters
             parameters={parser.parameters}

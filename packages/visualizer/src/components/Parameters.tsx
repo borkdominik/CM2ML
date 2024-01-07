@@ -1,8 +1,15 @@
 import type { Parameter, ParameterMetadata, ParameterType } from '@cm2ml/plugin'
+import { CaretSortIcon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
 import { useMemo } from 'react'
 
+import { Button } from './ui/button'
 import { Checkbox } from './ui/checkbox'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from './ui/collapsible'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 import {
@@ -29,17 +36,30 @@ export function Parameters({ parameters, setValues, values }: Props) {
     [parameters],
   )
   return (
-    <div className="flex flex-col gap-4">
-      {sortedParameters.map(([name, parameter]) => (
-        <ParameterInput
-          key={name}
-          name={name}
-          onChange={(value) => setValues({ [name]: value })}
-          parameter={parameter}
-          value={values[name] ?? parameter.defaultValue}
-        />
-      ))}
-    </div>
+    <Collapsible>
+      <div className="flex items-center justify-between">
+        <Label>Parameters</Label>
+        <CollapsibleTrigger asChild>
+          <Button variant="ghost" size="sm">
+            <CaretSortIcon className="h-4 w-4" />
+            <span className="sr-only">Toggle</span>
+          </Button>
+        </CollapsibleTrigger>
+      </div>
+      <CollapsibleContent>
+        <div className="flex flex-col gap-4 pt-4">
+          {sortedParameters.map(([name, parameter]) => (
+            <ParameterInput
+              key={name}
+              name={name}
+              onChange={(value) => setValues({ [name]: value })}
+              parameter={parameter}
+              value={values[name] ?? parameter.defaultValue}
+            />
+          ))}
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
   )
 }
 
