@@ -20,7 +20,7 @@ import {
 // TODO: Add clear buttons for model and encoder
 export function Menu() {
   return (
-    <Menubar className="rounded-none">
+    <Menubar className="rounded-none border-x-0 border-t-0">
       <MenubarMenu>
         <MenubarTrigger>Model</MenubarTrigger>
         <MenubarContent>
