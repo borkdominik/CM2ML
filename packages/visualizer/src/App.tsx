@@ -58,7 +58,7 @@ function CompactLayout() {
 function ExtendedLayout() {
   return (
     <ResizablePanelGroup direction="horizontal" className="h-full">
-      <ResizablePanel>
+      <ResizablePanel defaultSize={30}>
         <div className="h-full p-2">
           <ModelForm />
         </div>
@@ -68,7 +68,7 @@ function ExtendedLayout() {
         <Model />
       </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel>
+      <ResizablePanel defaultSize={30}>
         <ResizablePanelGroup direction="vertical" className="h-full">
           <ResizablePanel>
             <div className="h-full p-2">

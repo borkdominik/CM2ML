@@ -1,6 +1,6 @@
 import { GraphEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes, PointerEvent, ReactNode } from 'react'
 import { useMemo } from 'react'
 
 import { colors } from '../../../colors'
@@ -66,12 +66,14 @@ function Grid({ matrix, nodes }: GridProps) {
   const offset = useMemo(() => Math.min(...nodes.map(getLabelOffset)), [nodes])
   const viewBoxSize = size - offset
   const getOpacity = useWeightedOpacityFromMatrix(matrix)
+  const clearSelection = useSelection.use.clearSelection()
   return (
     <svg
       height={size}
       width={size}
       viewBox={`${offset} ${offset} ${viewBoxSize} ${viewBoxSize}`}
       className="h-full w-full"
+      onPointerDown={() => clearSelection()}
     >
       <Labels nodes={nodes} offset={offset} />
       <g>
@@ -135,7 +137,8 @@ function Label({ index, node, offset }: LabelProps) {
   const isColumnSelected = useIsSelectedTarget(node)
   const setSelection = useSelection.use.setSelection()
 
-  function onPointerDown() {
+  const onPointerDown = (event: PointerEvent<SVGTextElement>) => {
+    event.stopPropagation()
     setSelection(node)
   }
 
@@ -212,18 +215,16 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
   const targetId = nodes[column]
 
   const isCellSelected = useIsSelectedEdge(sourceId, targetId)
-  const clearSelection = useSelection.use.clearSelection()
   const setSelection = useSelection.use.setSelection()
 
-  const isActive = value > 0
-  const color = useCellColor(isActive, isCellSelected)
+  if (value <= 0 || !sourceId || !targetId) {
+    return null
+  }
 
-  function onPointerDown() {
-    if (isActive && sourceId && targetId) {
-      setSelection([[sourceId, targetId]])
-    } else {
-      clearSelection()
-    }
+  const color = useCellColor(isCellSelected)
+  const onPointerDown = (event: PointerEvent<SVGRectElement>) => {
+    event.stopPropagation()
+    setSelection([[sourceId, targetId]])
   }
 
   return (
@@ -234,26 +235,21 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
       x={cellSize * column}
       y={cellSize * row}
       fill={color}
-      className={cn({
-        'stroke-border': true,
-        'hover:fill-secondary-foreground': isActive,
-      })}
+      className="stroke-border hover:fill-secondary-foreground"
       style={{
-        opacity: isActive ? getOpacity(value) : 1,
+        opacity: getOpacity(value),
+        willChange: 'opacity',
       }}
       onPointerDown={onPointerDown}
     />
   )
 }
 
-function useCellColor(isActive: boolean, isSelected: boolean) {
-  if (isSelected && isActive) {
+function useCellColor(isSelected: boolean) {
+  if (isSelected) {
     return colors.selected
   }
-  if (isActive) {
-    return colors.active
-  }
-  return 'none'
+  return colors.active
 }
 
 type AdjacencyList = (
@@ -428,16 +424,16 @@ interface ListEntryProps {
 function ListEntry({ children, isSelected, onClick, style }: ListEntryProps) {
   return (
     <div
-      className={cn({
-        'mx-1 my-0.5 py-0.5 px-1 rounded-sm hover:outline hover:outline-accent-foreground hover:bg-accent hover:text-accent-foreground':
-          true,
-        'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground':
-          isSelected,
-      })}
-      onClick={onClick}
-      style={style}
-    >
-      {children}
+        className={cn({
+          'mx-1 my-0.5 py-0.5 px-1 rounded-sm hover:outline hover:outline-accent-foreground hover:bg-accent hover:text-accent-foreground':
+            true,
+          'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground':
+            isSelected,
+        })}
+        onClick={onClick}
+        style={style}
+      >
+        {children}
     </div>
   )
 }
