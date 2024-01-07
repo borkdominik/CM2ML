@@ -5,10 +5,10 @@ import { Comment } from '../metamodel'
 
 export const CommentHandler = Comment.createHandler(
   (comment, { onlyContainmentAssociations }) => {
-    if (onlyContainmentAssociations) {
-      return
-    }
     addAttribute_body(comment)
+    if (onlyContainmentAssociations) {
+      // return
+    }
   },
 )
 
