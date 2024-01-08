@@ -16,10 +16,10 @@ importers:
         version: 2.27.1
       '@cm2ml/cli':
         specifier: workspace:*
-        version: link:packages/cli
+        version: link:packages/framework/cli
       '@cm2ml/rest':
         specifier: workspace:*
-        version: link:packages/rest
+        version: link:packages/framework/rest
       '@cm2ml/scripts':
         specifier: workspace:*
         version: link:packages/scripts
@@ -78,33 +78,21 @@ importers:
         specifier: 1.1.3
         version: 1.1.3(@types/node@20.10.6)(@vitest/ui@1.1.3)
 
-  packages/builtin:
+  packages/ecore/ecore-metamodel:
     dependencies:
-      '@cm2ml/ecore-parser':
-        specifier: workspace:*
-        version: link:../ecore-parser
-      '@cm2ml/graph-encoder':
-        specifier: workspace:*
-        version: link:../graph-encoder
       '@cm2ml/ir':
         specifier: workspace:*
-        version: link:../ir
-      '@cm2ml/plugin':
+        version: link:../../framework/ir
+      '@cm2ml/metamodel':
         specifier: workspace:*
-        version: link:../plugin
-      '@cm2ml/tree-encoder':
+        version: link:../../framework/metamodel
+      '@cm2ml/utils':
         specifier: workspace:*
-        version: link:../tree-encoder
-      '@cm2ml/uml-parser':
-        specifier: workspace:*
-        version: link:../uml-parser
-      '@cm2ml/xmi-parser':
-        specifier: workspace:*
-        version: link:../xmi-parser
+        version: link:../../utils
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -115,7 +103,134 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/cli:
+  packages/ecore/ecore-parser:
+    dependencies:
+      '@cm2ml/ecore-metamodel':
+        specifier: workspace:*
+        version: link:../ecore-metamodel
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../../framework/ir
+      '@cm2ml/ir-post-processor':
+        specifier: workspace:*
+        version: link:../../framework/ir-post-processor
+      '@cm2ml/metamodel':
+        specifier: workspace:*
+        version: link:../../framework/metamodel
+      '@cm2ml/metamodel-refiner':
+        specifier: workspace:*
+        version: link:../../framework/metamodel-refiner
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../../framework/plugin
+      '@cm2ml/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@cm2ml/xmi-parser':
+        specifier: workspace:*
+        version: link:../../framework/xmi-parser
+      '@yeger/streams':
+        specifier: 1.1.1
+        version: 1.1.1
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
+      vite:
+        specifier: 5.0.11
+        version: 5.0.11(@types/node@20.10.6)
+      vite-plugin-lib:
+        specifier: 2.0.3
+        version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
+
+  packages/encoder/graph-encoder:
+    dependencies:
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../../framework/ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../../framework/plugin
+      '@yeger/streams':
+        specifier: 1.1.1
+        version: 1.1.1
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
+      vite:
+        specifier: 5.0.11
+        version: 5.0.11(@types/node@20.10.6)
+      vite-plugin-lib:
+        specifier: 2.0.3
+        version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
+
+  packages/encoder/tree-encoder:
+    dependencies:
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../../framework/ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../../framework/plugin
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
+      vite:
+        specifier: 5.0.11
+        version: 5.0.11(@types/node@20.10.6)
+      vite-plugin-lib:
+        specifier: 2.0.3
+        version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
+
+  packages/framework/builtin:
+    dependencies:
+      '@cm2ml/ecore-parser':
+        specifier: workspace:*
+        version: link:../../ecore/ecore-parser
+      '@cm2ml/graph-encoder':
+        specifier: workspace:*
+        version: link:../../encoder/graph-encoder
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../plugin
+      '@cm2ml/tree-encoder':
+        specifier: workspace:*
+        version: link:../../encoder/tree-encoder
+      '@cm2ml/uml-parser':
+        specifier: workspace:*
+        version: link:../../uml/uml-parser
+      '@cm2ml/xmi-parser':
+        specifier: workspace:*
+        version: link:../xmi-parser
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
+      vite:
+        specifier: 5.0.11
+        version: 5.0.11(@types/node@20.10.6)
+      vite-plugin-lib:
+        specifier: 2.0.3
+        version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
+
+  packages/framework/cli:
     dependencies:
       '@cm2ml/builtin':
         specifier: workspace:*
@@ -126,7 +241,7 @@ importers:
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -137,7 +252,7 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/cli-adapter:
+  packages/framework/cli-adapter:
     dependencies:
       '@cm2ml/plugin':
         specifier: workspace:*
@@ -147,7 +262,7 @@ importers:
         version: link:../plugin-adapter
       '@cm2ml/utils':
         specifier: workspace:*
-        version: link:../utils
+        version: link:../../utils
       '@yeger/streams':
         specifier: 1.1.1
         version: 1.1.1
@@ -157,7 +272,7 @@ importers:
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -168,7 +283,7 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/cm2ml:
+  packages/framework/cm2ml:
     dependencies:
       '@cm2ml/builtin':
         specifier: workspace:*
@@ -181,7 +296,7 @@ importers:
         version: link:../cli-adapter
       '@cm2ml/ecore-parser':
         specifier: workspace:*
-        version: link:../ecore-parser
+        version: link:../../ecore/ecore-parser
       '@cm2ml/ir':
         specifier: workspace:*
         version: link:../ir
@@ -199,17 +314,17 @@ importers:
         version: link:../rest-adapter
       '@cm2ml/uml-parser':
         specifier: workspace:*
-        version: link:../uml-parser
+        version: link:../../uml/uml-parser
       '@cm2ml/utils':
         specifier: workspace:*
-        version: link:../utils
+        version: link:../../utils
       '@cm2ml/xmi-parser':
         specifier: workspace:*
         version: link:../xmi-parser
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -220,21 +335,11 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/ecore-metamodel:
-    dependencies:
-      '@cm2ml/ir':
-        specifier: workspace:*
-        version: link:../ir
-      '@cm2ml/metamodel':
-        specifier: workspace:*
-        version: link:../metamodel
-      '@cm2ml/utils':
-        specifier: workspace:*
-        version: link:../utils
+  packages/framework/ir:
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -245,90 +350,7 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/ecore-parser:
-    dependencies:
-      '@cm2ml/ecore-metamodel':
-        specifier: workspace:*
-        version: link:../ecore-metamodel
-      '@cm2ml/ir':
-        specifier: workspace:*
-        version: link:../ir
-      '@cm2ml/ir-post-processor':
-        specifier: workspace:*
-        version: link:../ir-post-processor
-      '@cm2ml/metamodel':
-        specifier: workspace:*
-        version: link:../metamodel
-      '@cm2ml/metamodel-refiner':
-        specifier: workspace:*
-        version: link:../metamodel-refiner
-      '@cm2ml/plugin':
-        specifier: workspace:*
-        version: link:../plugin
-      '@cm2ml/utils':
-        specifier: workspace:*
-        version: link:../utils
-      '@cm2ml/xmi-parser':
-        specifier: workspace:*
-        version: link:../xmi-parser
-      '@yeger/streams':
-        specifier: 1.1.1
-        version: 1.1.1
-    devDependencies:
-      '@cm2ml/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      typescript:
-        specifier: 5.3.3
-        version: 5.3.3
-      vite:
-        specifier: 5.0.11
-        version: 5.0.11(@types/node@20.10.6)
-      vite-plugin-lib:
-        specifier: 2.0.3
-        version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
-
-  packages/graph-encoder:
-    dependencies:
-      '@cm2ml/ir':
-        specifier: workspace:*
-        version: link:../ir
-      '@cm2ml/plugin':
-        specifier: workspace:*
-        version: link:../plugin
-      '@yeger/streams':
-        specifier: 1.1.1
-        version: 1.1.1
-    devDependencies:
-      '@cm2ml/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      typescript:
-        specifier: 5.3.3
-        version: 5.3.3
-      vite:
-        specifier: 5.0.11
-        version: 5.0.11(@types/node@20.10.6)
-      vite-plugin-lib:
-        specifier: 2.0.3
-        version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
-
-  packages/ir:
-    devDependencies:
-      '@cm2ml/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      typescript:
-        specifier: 5.3.3
-        version: 5.3.3
-      vite:
-        specifier: 5.0.11
-        version: 5.0.11(@types/node@20.10.6)
-      vite-plugin-lib:
-        specifier: 2.0.3
-        version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
-
-  packages/ir-post-processor:
+  packages/framework/ir-post-processor:
     dependencies:
       '@cm2ml/ir':
         specifier: workspace:*
@@ -338,14 +360,14 @@ importers:
         version: link:../plugin
       '@cm2ml/utils':
         specifier: workspace:*
-        version: link:../utils
+        version: link:../../utils
       '@yeger/streams':
         specifier: 1.1.1
         version: 1.1.1
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -356,7 +378,7 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/metamodel:
+  packages/framework/metamodel:
     dependencies:
       '@cm2ml/ir':
         specifier: workspace:*
@@ -364,7 +386,7 @@ importers:
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -375,7 +397,7 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/metamodel-refiner:
+  packages/framework/metamodel-refiner:
     dependencies:
       '@cm2ml/ir':
         specifier: workspace:*
@@ -385,14 +407,14 @@ importers:
         version: link:../metamodel
       '@cm2ml/utils':
         specifier: workspace:*
-        version: link:../utils
+        version: link:../../utils
       '@yeger/streams':
         specifier: 1.1.1
         version: 1.1.1
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -403,11 +425,11 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/plugin:
+  packages/framework/plugin:
     dependencies:
       '@cm2ml/utils':
         specifier: workspace:*
-        version: link:../utils
+        version: link:../../utils
       '@yeger/streams':
         specifier: 1.1.1
         version: 1.1.1
@@ -417,7 +439,7 @@ importers:
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -428,7 +450,7 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/plugin-adapter:
+  packages/framework/plugin-adapter:
     dependencies:
       '@cm2ml/plugin':
         specifier: workspace:*
@@ -439,7 +461,7 @@ importers:
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -450,7 +472,7 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/rest:
+  packages/framework/rest:
     dependencies:
       '@cm2ml/builtin':
         specifier: workspace:*
@@ -461,7 +483,7 @@ importers:
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -472,7 +494,7 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/rest-adapter:
+  packages/framework/rest-adapter:
     dependencies:
       '@cm2ml/plugin':
         specifier: workspace:*
@@ -482,7 +504,7 @@ importers:
         version: link:../plugin-adapter
       '@cm2ml/utils':
         specifier: workspace:*
-        version: link:../utils
+        version: link:../../utils
       '@yeger/streams':
         specifier: 1.1.1
         version: 1.1.1
@@ -492,7 +514,44 @@ importers:
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
+      vite:
+        specifier: 5.0.11
+        version: 5.0.11(@types/node@20.10.6)
+      vite-plugin-lib:
+        specifier: 2.0.3
+        version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
+
+  packages/framework/xmi-parser:
+    dependencies:
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../plugin
+      '@cm2ml/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@yeger/streams':
+        specifier: 1.1.1
+        version: 1.1.1
+      domhandler:
+        specifier: 5.0.3
+        version: 5.0.3
+      htmlparser2:
+        specifier: 9.1.0
+        version: 9.1.0
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      '@types/jsdom':
+        specifier: 21.1.6
+        version: 21.1.6
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -522,48 +581,26 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/tree-encoder:
-    dependencies:
-      '@cm2ml/ir':
-        specifier: workspace:*
-        version: link:../ir
-      '@cm2ml/plugin':
-        specifier: workspace:*
-        version: link:../plugin
-    devDependencies:
-      '@cm2ml/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      typescript:
-        specifier: 5.3.3
-        version: 5.3.3
-      vite:
-        specifier: 5.0.11
-        version: 5.0.11(@types/node@20.10.6)
-      vite-plugin-lib:
-        specifier: 2.0.3
-        version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
-
   packages/tsconfig: {}
 
-  packages/uml-metamodel:
+  packages/uml/uml-metamodel:
     dependencies:
       '@cm2ml/ir':
         specifier: workspace:*
-        version: link:../ir
+        version: link:../../framework/ir
       '@cm2ml/metamodel':
         specifier: workspace:*
-        version: link:../metamodel
+        version: link:../../framework/metamodel
       '@cm2ml/utils':
         specifier: workspace:*
-        version: link:../utils
+        version: link:../../utils
       '@yeger/streams':
         specifier: 1.1.1
         version: 1.1.1
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -574,39 +611,39 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
-  packages/uml-parser:
+  packages/uml/uml-parser:
     dependencies:
       '@cm2ml/ir':
         specifier: workspace:*
-        version: link:../ir
+        version: link:../../framework/ir
       '@cm2ml/ir-post-processor':
         specifier: workspace:*
-        version: link:../ir-post-processor
+        version: link:../../framework/ir-post-processor
       '@cm2ml/metamodel':
         specifier: workspace:*
-        version: link:../metamodel
+        version: link:../../framework/metamodel
       '@cm2ml/metamodel-refiner':
         specifier: workspace:*
-        version: link:../metamodel-refiner
+        version: link:../../framework/metamodel-refiner
       '@cm2ml/plugin':
         specifier: workspace:*
-        version: link:../plugin
+        version: link:../../framework/plugin
       '@cm2ml/uml-metamodel':
         specifier: workspace:*
         version: link:../uml-metamodel
       '@cm2ml/utils':
         specifier: workspace:*
-        version: link:../utils
+        version: link:../../utils
       '@cm2ml/xmi-parser':
         specifier: workspace:*
-        version: link:../xmi-parser
+        version: link:../../framework/xmi-parser
       '@yeger/streams':
         specifier: 1.1.1
         version: 1.1.1
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -636,13 +673,13 @@ importers:
     dependencies:
       '@cm2ml/builtin':
         specifier: workspace:*
-        version: link:../builtin
+        version: link:../framework/builtin
       '@cm2ml/ir':
         specifier: workspace:*
-        version: link:../ir
+        version: link:../framework/ir
       '@cm2ml/plugin':
         specifier: workspace:*
-        version: link:../plugin
+        version: link:../framework/plugin
       '@cm2ml/utils':
         specifier: workspace:*
         version: link:../utils
@@ -764,43 +801,6 @@ importers:
       workbox-window:
         specifier: 7.0.0
         version: 7.0.0
-
-  packages/xmi-parser:
-    dependencies:
-      '@cm2ml/ir':
-        specifier: workspace:*
-        version: link:../ir
-      '@cm2ml/plugin':
-        specifier: workspace:*
-        version: link:../plugin
-      '@cm2ml/utils':
-        specifier: workspace:*
-        version: link:../utils
-      '@yeger/streams':
-        specifier: 1.1.1
-        version: 1.1.1
-      domhandler:
-        specifier: 5.0.3
-        version: 5.0.3
-      htmlparser2:
-        specifier: 9.1.0
-        version: 9.1.0
-    devDependencies:
-      '@cm2ml/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/jsdom':
-        specifier: 21.1.6
-        version: 21.1.6
-      typescript:
-        specifier: 5.3.3
-        version: 5.3.3
-      vite:
-        specifier: 5.0.11
-        version: 5.0.11(@types/node@20.10.6)
-      vite-plugin-lib:
-        specifier: 2.0.3
-        version: 2.0.3(@types/node@20.10.6)(typescript@5.3.3)(vite@5.0.11)
 
 packages:
 
@@ -4706,7 +4706,7 @@ packages:
   /@types/jsdom@21.1.6:
     resolution: {integrity: sha512-/7kkMsC+/kMs7gAYmmBR9P0vGTnOoLhQhyhQJSlXGI5bzTHp6xdo0TtKWQAsz6pmSAeVqKSbqeyP6hytqr9FDw==}
     dependencies:
-      '@types/node': 18.19.3
+      '@types/node': 20.10.6
       '@types/tough-cookie': 4.0.3
       parse5: 7.1.2
     dev: true
@@ -4735,12 +4735,6 @@ packages:
 
   /@types/node@12.20.55:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
-    dev: true
-
-  /@types/node@18.19.3:
-    resolution: {integrity: sha512-k5fggr14DwAytoA/t8rPrIz++lXK7/DqckthCmoZOKNsEbJkId4Z//BqgApXBUGrGddrigYa1oqheo/7YmW4rg==}
-    dependencies:
-      undici-types: 5.26.5
     dev: true
 
   /@types/node@20.10.6:

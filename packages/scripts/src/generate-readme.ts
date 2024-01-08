@@ -6,11 +6,24 @@ import { getPackages } from '@manypkg/get-packages'
 
 export async function generateReadme() {
   const { packages, rootPackage } = await getPackages(process.cwd())
-  const packagesByType = groupBy(
-    packages,
-    (pkg) => pkg.relativeDir.split('/')[0] ?? 'other',
-  )
+  const packagesByType = groupBy(packages, (pkg) => {
+    const dirs = pkg.relativeDir.split('/')
+    const fallback = 'other'
+    if (dirs.length < 3) {
+      return fallback
+    }
+    return dirs[1] ?? fallback
+  })
   const output = Object.entries(packagesByType)
+    .sort(([a], [b]) => {
+      if (a === 'other') {
+        return 1
+      }
+      if (b === 'other') {
+        return -1
+      }
+      return a.localeCompare(b)
+    })
     .map(([type, pkgs]) => createSection(type, pkgs))
     .join('\n\n')
   const readme = `${createHeader(rootPackage)}\n\n${output}\n`

@@ -43,7 +43,7 @@ function isValidTag(tag: string | undefined): tag is UmlTag {
   return tag !== undefined && tag in Tags
 }
 
-export const AbstractTypes = {
+const AbstractTypes = {
   BehavioralFeature: 'BehavioralFeature',
   BehavioredClassifier: 'BehavioredClassifier',
   Classifier: 'Classifier',
