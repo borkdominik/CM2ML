@@ -1,0 +1,50 @@
+{
+  "name": "@cm2ml/scripts",
+  "type": "module",
+  "version": "0.0.0",
+  "author": {
+    "name": "Jan Müller",
+    "url": "https://github.com/DerYeger"
+  },
+  "license": "MIT",
+  "repository": "github:borkdominik/CM2ML",
+  "bugs": {
+    "url": "https://github.com/borkdominik/CM2ML/issues"
+  },
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    }
+  },
+  "types": "dist/types/index.d.mts",
+  "bin": {
+    "generate-readme": "bin/generate-readme.js"
+  },
+  "files": [
+    "bin/*",
+    "dist/*"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "check:publish": "publint run --strict",
+    "check:tsc": "tsc",
+    "dev": "vite build --watch",
+    "lint": "yeger-lint"
+  },
+  "dependencies": {
+    "@manypkg/get-packages": "2.2.0"
+  },
+  "devDependencies": {
+    "@cm2ml/tsconfig": "workspace:*",
+    "typescript": "5.3.3",
+    "vite": "5.0.11",
+    "vite-plugin-lib": "2.0.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
