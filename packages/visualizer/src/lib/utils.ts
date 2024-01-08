@@ -12,10 +12,17 @@ export function cn(...inputs: ClassValue[]) {
 export function getNewParameters(
   metadata: ParameterMetadata,
   oldParameters: ParameterValues,
+  oldMetadata: ParameterMetadata | undefined,
 ) {
   return Stream.fromObject(metadata).toRecord(
     ([name]) => name,
-    ([name, { defaultValue }]) => oldParameters[name] ?? defaultValue,
+    ([name, { defaultValue }]) => {
+      if (oldMetadata && name in oldMetadata) {
+        // Prevent same-name parameters of previous plugin from being used
+        return defaultValue
+      }
+      return oldParameters[name] ?? defaultValue
+    },
   )
 }
 

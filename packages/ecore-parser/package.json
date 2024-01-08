@@ -32,9 +32,13 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
+    "@cm2ml/ecore-metamodel": "workspace:*",
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/ir-post-processor": "workspace:*",
+    "@cm2ml/metamodel": "workspace:*",
+    "@cm2ml/metamodel-refiner": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
+    "@cm2ml/utils": "workspace:*",
     "@cm2ml/xmi-parser": "workspace:*",
     "@yeger/streams": "1.1.1"
   },

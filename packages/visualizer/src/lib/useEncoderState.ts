@@ -38,9 +38,13 @@ export const useEncoderState = createSelectors(
         setIsEditing: (isEditing: boolean) => set({ isEditing }),
         encoder: defaults.encoder,
         setEncoder: (encoder: Encoder | undefined) => {
-          const oldParameters = get().parameters
+          const { encoder: oldEncoder, parameters: oldParameters } = get()
           const newParameters = encoder
-            ? getNewParameters(encoder.parameters, oldParameters)
+            ? getNewParameters(
+                encoder.parameters,
+                oldParameters,
+                oldEncoder?.parameters,
+              )
             : oldParameters
           set({ encoder, parameters: newParameters })
         },

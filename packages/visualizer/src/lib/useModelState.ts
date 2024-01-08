@@ -63,17 +63,24 @@ export const useModelState = createSelectors(
         },
         parser: defaults.parser,
         setParser: (parser: Parser | undefined) => {
-          set({ parser })
-          const { serializedModel, parameters: oldParameters } = get()
+          const {
+            serializedModel,
+            parameters: oldParameters,
+            parser: oldParser,
+          } = get()
           const newParameters = parser
-            ? getNewParameters(parser.parameters, oldParameters)
+            ? getNewParameters(
+                parser.parameters,
+                oldParameters,
+                oldParser?.parameters,
+              )
             : oldParameters
           const { model, error } = tryParse(
             parser,
             serializedModel,
             newParameters,
           )
-          set({ model, error, parameters: newParameters })
+          set({ model, error, parser, parameters: newParameters })
         },
         parameters: defaults.parameters,
         setParameters: (parameters: ParameterValues) => {

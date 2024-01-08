@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/uml-parser",
+  "name": "@cm2ml/uml-metamodel",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -33,13 +33,8 @@
   },
   "dependencies": {
     "@cm2ml/ir": "workspace:*",
-    "@cm2ml/ir-post-processor": "workspace:*",
     "@cm2ml/metamodel": "workspace:*",
-    "@cm2ml/metamodel-refiner": "workspace:*",
-    "@cm2ml/plugin": "workspace:*",
-    "@cm2ml/uml-metamodel": "workspace:*",
     "@cm2ml/utils": "workspace:*",
-    "@cm2ml/xmi-parser": "workspace:*",
     "@yeger/streams": "1.1.1"
   },
   "devDependencies": {
