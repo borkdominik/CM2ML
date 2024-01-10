@@ -1,3 +1,5 @@
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
+
 import { exampleModel } from '../lib/exampleModel'
 import { useEncoderState } from '../lib/useEncoderState'
 import { useModelState } from '../lib/useModelState'
@@ -21,38 +23,28 @@ import {
 export function Menu() {
   return (
     <Menubar className="rounded-none border-x-0 border-t-0">
-      <MenubarMenu>
-        <MenubarTrigger>Model</MenubarTrigger>
-        <MenubarContent>
-          <LoadExampleModelMenuItem />
-          <MenubarSeparator />
-          <EditModelMenuItem />
-          <MenubarSeparator />
-          <ClearModelMenuItem />
-        </MenubarContent>
-      </MenubarMenu>
-      <MenubarMenu>
-        <MenubarTrigger>Encoder</MenubarTrigger>
-        <MenubarContent>
-          <EditEncoderModelItem />
-          <MenubarSeparator />
-          <ClearEncoderMenuItem />
-        </MenubarContent>
-      </MenubarMenu>
-      <MenubarMenu>
-        <MenubarTrigger>View</MenubarTrigger>
-        <MenubarContent>
-          <MenubarSub>
-            <MenubarSubTrigger>Model</MenubarSubTrigger>
-            <MenubarSubContent>
-              <FitGraphMenuItem />
-            </MenubarSubContent>
-          </MenubarSub>
-          <ThemeSubMenu />
-          <LayoutSubMenu />
-        </MenubarContent>
-      </MenubarMenu>
+      <ModelMenu />
+      <EncoderMenu />
+      <ViewMenu />
+      <HelpMenu />
+      <div className="flex-1" />
+      <img src="/logo.svg" alt="logo" className="hidden h-8 w-8 sm:block" />
     </Menubar>
+  )
+}
+
+function ModelMenu() {
+  return (
+    <MenubarMenu>
+      <MenubarTrigger>Model</MenubarTrigger>
+      <MenubarContent>
+        <LoadExampleModelMenuItem />
+        <MenubarSeparator />
+        <EditModelMenuItem />
+        <MenubarSeparator />
+        <ClearModelMenuItem />
+      </MenubarContent>
+    </MenubarMenu>
   )
 }
 
@@ -100,6 +92,19 @@ function ClearModelMenuItem() {
   )
 }
 
+function EncoderMenu() {
+  return (
+    <MenubarMenu>
+      <MenubarTrigger>Encoder</MenubarTrigger>
+      <MenubarContent>
+        <EditEncoderModelItem />
+        <MenubarSeparator />
+        <ClearEncoderMenuItem />
+      </MenubarContent>
+    </MenubarMenu>
+  )
+}
+
 function ClearEncoderMenuItem() {
   const encoder = useEncoderState.use.encoder()
   const clear = useEncoderState.use.clear()
@@ -123,6 +128,24 @@ function EditEncoderModelItem() {
     >
       Edit
     </MenubarItem>
+  )
+}
+
+function ViewMenu() {
+  return (
+    <MenubarMenu>
+      <MenubarTrigger>View</MenubarTrigger>
+      <MenubarContent>
+        <MenubarSub>
+          <MenubarSubTrigger>Model</MenubarSubTrigger>
+          <MenubarSubContent>
+            <FitGraphMenuItem />
+          </MenubarSubContent>
+        </MenubarSub>
+        <ThemeSubMenu />
+        <LayoutSubMenu />
+      </MenubarContent>
+    </MenubarMenu>
   )
 }
 
@@ -191,5 +214,25 @@ function LayoutSubMenu() {
         </MenubarItem>
       </MenubarSubContent>
     </MenubarSub>
+  )
+}
+
+function HelpMenu() {
+  return (
+    <MenubarMenu>
+      <MenubarTrigger>Help</MenubarTrigger>
+      <MenubarContent>
+        <MenubarItem>
+          <a
+            href={__SOURCE_URL}
+            rel="noopener"
+            className="flex w-full items-center gap-2"
+          >
+            <span>Source Code</span>
+            <GitHubLogoIcon className="text-foreground" />
+          </a>
+        </MenubarItem>
+      </MenubarContent>
+    </MenubarMenu>
   )
 }

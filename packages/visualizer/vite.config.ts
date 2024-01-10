@@ -6,6 +6,8 @@ import type { Plugin } from 'vite'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+import packageJson from './package.json'
+
 export default defineConfig({
   plugins: [
     million({
@@ -47,6 +49,11 @@ export default defineConfig({
       },
     }),
   ],
+  define: {
+    __SOURCE_URL: JSON.stringify(
+      packageJson.repository.replace('github:', 'https://github.com/'),
+    ),
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
