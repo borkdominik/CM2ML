@@ -1,7 +1,7 @@
 import type { Parameter, ParameterMetadata, ParameterType } from '@cm2ml/plugin'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 import { Button } from './ui/button'
 import { Checkbox } from './ui/checkbox'
@@ -35,8 +35,13 @@ export function Parameters({ parameters, setValues, values }: Props) {
     () => Object.entries(parameters).sort(([a], [b]) => a.localeCompare(b)),
     [parameters],
   )
+  const [open, setOpen] = useState(() => {
+    return !Object.entries(values).every(
+      ([name, value]) => parameters[name]?.defaultValue === value,
+    )
+  })
   return (
-    <Collapsible>
+    <Collapsible open={open} onOpenChange={setOpen}>
       <div className="flex items-center justify-between">
         <Label>Parameters</Label>
         <CollapsibleTrigger asChild>
