@@ -167,6 +167,33 @@ function getType(node: Attributable) {
   return undefined
 }
 
+const relationshipToEdgeTag: Partial<Record<UmlType, string>> = {
+  [Types.Abstraction]: 'abstraction',
+  [Types.ComponentRealization]: 'componentRealization',
+  [Types.Dependency]: 'dependency',
+  [Types.Generalization]: 'generalization',
+  [Types.InterfaceRealization]: 'interfaceRealization',
+  [Types.PackageImport]: 'packageImport',
+  [Types.PackageMerge]: 'packageMerge',
+  [Types.Realization]: 'realization',
+  [Types.Substitution]: 'substitution',
+  [Types.Usage]: 'usage',
+}
+
+function getEdgeTagForRelationship(relationship: GraphNode) {
+  const type = getType(relationship)
+  if (!type) {
+    throw new Error(`Could not determine type for ${relationship.id}`)
+  }
+  const tag = relationshipToEdgeTag[type]
+  if (!tag) {
+    throw new Error(
+      `Could not determine edge tag for ${relationship.id} with original tag ${relationship.tag}`,
+    )
+  }
+  return tag
+}
+
 export const Uml = {
   AbstractTypes,
   Attributes,
@@ -177,4 +204,5 @@ export const Uml = {
   isValidType,
   getTagType,
   getType,
+  getEdgeTagForRelationship,
 } as const

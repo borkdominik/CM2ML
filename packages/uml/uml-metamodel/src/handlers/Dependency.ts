@@ -7,17 +7,13 @@ import { Dependency } from '../uml-metamodel'
 export const DependencyHandler = Dependency.createHandler(
   (
     dependency: GraphNode,
-    { nodeAsEdgeTag, onlyContainmentAssociations, relationshipsAsEdges },
+    { onlyContainmentAssociations, relationshipsAsEdges },
   ) => {
     if (relationshipsAsEdges) {
       const client = getClient(dependency)
       const supplier = getSupplier(dependency)
-      transformNodeToEdge(
-        dependency,
-        client,
-        supplier,
-        nodeAsEdgeTag ?? 'dependency',
-      )
+      const edgeTag = Uml.getEdgeTagForRelationship(dependency)
+      transformNodeToEdge(dependency, client, supplier, edgeTag)
       return false
     }
     if (onlyContainmentAssociations) {

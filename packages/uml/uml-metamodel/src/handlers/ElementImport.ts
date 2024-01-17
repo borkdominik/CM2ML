@@ -12,7 +12,13 @@ export const ElementImportHandler = ElementImport.createHandler(
     if (relationshipsAsEdges) {
       const importingNamespace = getImportingNamespace(elementImport)
       const importedElement = getImportedElement(elementImport)
-      transformNodeToEdge(elementImport, importingNamespace, importedElement)
+      const edgeTag = Uml.getEdgeTagForRelationship(elementImport)
+      transformNodeToEdge(
+        elementImport,
+        importingNamespace,
+        importedElement,
+        edgeTag,
+      )
       return false
     }
     if (onlyContainmentAssociations) {

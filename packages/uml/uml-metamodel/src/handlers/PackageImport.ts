@@ -12,7 +12,13 @@ export const PackageImportHandler = PackageImport.createHandler(
     if (relationshipsAsEdges) {
       const importingNamespace = getImportingNamespace(packageImport)
       const importedPackage = getImportedPackage(packageImport)
-      transformNodeToEdge(packageImport, importingNamespace, importedPackage)
+      const edgeTag = Uml.getEdgeTagForRelationship(packageImport)
+      transformNodeToEdge(
+        packageImport,
+        importingNamespace,
+        importedPackage,
+        edgeTag,
+      )
       return false
     }
     if (onlyContainmentAssociations) {

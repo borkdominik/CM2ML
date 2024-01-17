@@ -39,12 +39,12 @@ export function transformNodeToEdge(
   node: GraphNode,
   source: GraphNode | undefined,
   target: GraphNode | undefined,
-  tag?: string,
+  tag: string,
 ) {
   if (!source || !target) {
     return
   }
-  const edge = node.model.addEdge(tag ?? node.tag, source, target)
+  const edge = node.model.addEdge(tag, source, target)
   copyAttributes(node, edge)
   node.model.removeNode(node)
   return edge
@@ -55,9 +55,7 @@ export type Handler<HandlerParameters extends HandlerPropagation> = (
   parameters: HandlerParameters,
 ) => void | false | HandlerPropagation
 
-export interface HandlerPropagation {
-  nodeAsEdgeTag?: string
-}
+export interface HandlerPropagation {}
 
 export interface Definition<
   Type extends string,

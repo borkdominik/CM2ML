@@ -8,18 +8,24 @@ import { Uml } from '../uml'
 import { Package, PackageMerge } from '../uml-metamodel'
 
 export const PackageMergeHandler = PackageMerge.createHandler(
-  (PackageMerge, { onlyContainmentAssociations, relationshipsAsEdges }) => {
+  (packageMerge, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     if (relationshipsAsEdges) {
-      const receivingPackage = getReceivingPackage(PackageMerge)
-      const mergedPackage = getMergedPackage(PackageMerge)
-      transformNodeToEdge(PackageMerge, receivingPackage, mergedPackage)
+      const receivingPackage = getReceivingPackage(packageMerge)
+      const mergedPackage = getMergedPackage(packageMerge)
+      const edgeTag = Uml.getEdgeTagForRelationship(packageMerge)
+      transformNodeToEdge(
+        packageMerge,
+        receivingPackage,
+        mergedPackage,
+        edgeTag,
+      )
       return false
     }
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_mergedPackage(PackageMerge)
-    addEdge_receivingPackage(PackageMerge)
+    addEdge_mergedPackage(packageMerge)
+    addEdge_receivingPackage(packageMerge)
   },
 )
 
