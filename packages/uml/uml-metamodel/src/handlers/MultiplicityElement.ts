@@ -12,6 +12,10 @@ export const MultiplicityElementHandler = MultiplicityElement.createHandler(
     addEdgeAndAttribute_lowerValue(multiplicityElement)
     addEdgeAndAttribute_upperValue(multiplicityElement)
   },
+  {
+    [Uml.Attributes.isOrdered]: 'false',
+    [Uml.Attributes.isUnique]: 'true',
+  },
 )
 
 function addEdgeAndAttribute_lowerValue(multiplicityElement: GraphNode) {

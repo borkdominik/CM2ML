@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { RedefinableElement } from '../uml-metamodel'
 
 export const RedefinableElementHandler = RedefinableElement.createHandler(
@@ -9,6 +10,9 @@ export const RedefinableElementHandler = RedefinableElement.createHandler(
     }
     addEdge_redefinedElement(redefinableElement)
     addEdge_redefinitionContext(redefinableElement)
+  },
+  {
+    [Uml.Attributes.isLeaf]: 'false',
   },
 )
 

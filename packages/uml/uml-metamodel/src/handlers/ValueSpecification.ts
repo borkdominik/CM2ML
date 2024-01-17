@@ -6,6 +6,5 @@ export const ValueSpecificationHandler = ValueSpecification.createHandler(
     // if (onlyContainmentAssociations) {
     //   return
     // }
-    // TODO
   },
 )

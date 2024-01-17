@@ -1,5 +1,6 @@
 import type { GraphModel } from '@cm2ml/ir'
 
+import { Uml } from './uml'
 import type { UmlHandlerParameters } from './uml-metamodel'
 import { Relationship } from './uml-metamodel'
 
@@ -13,6 +14,7 @@ export function validateUmlModel(
   model.debug('Validating UML model')
   validateOnlyContainmentAssociations(model, handlerParameters)
   validateRelationshipTransformation(model, handlerParameters)
+  allAttributesAreKnown(model)
   model.debug('All UML validations passed')
 }
 
@@ -46,5 +48,28 @@ function validateRelationshipTransformation(
     if (Relationship.isAssignable(node)) {
       throw new Error(`Relationship ${node.show()} was not transformed to edge`)
     }
+  })
+}
+
+function allAttributesAreKnown(model: GraphModel) {
+  model.nodes.forEach((node) => {
+    node.attributes.forEach(({ name }) => {
+      if (!(name in Uml.Attributes)) {
+        throw new Error(
+          `Attribute ${name} of node ${node.id ?? node.show()} is unknown`,
+        )
+      }
+    })
+  })
+  model.edges.forEach((edge) => {
+    edge.attributes.forEach(({ name }) => {
+      if (!(name in Uml.Attributes)) {
+        throw new Error(
+          `Attribute ${name} of edge ${edge.tag} from ${
+            edge.source.id ?? edge.source.show()
+          } to ${edge.target.id ?? edge.target.show()} is unknown`,
+        )
+      }
+    })
   })
 }

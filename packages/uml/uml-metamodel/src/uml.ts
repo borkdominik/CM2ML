@@ -2,21 +2,47 @@ import type { Attributable, GraphNode } from '@cm2ml/ir'
 import { parseNamespace } from '@cm2ml/utils'
 
 const Attributes = {
+  aggregation: 'aggregation',
   alias: 'alias',
   body: 'body',
   client: 'client',
+  concurrency: 'concurrency',
   contract: 'contract',
+  direction: 'direction',
   general: 'general',
   importedElement: 'importedElement',
   importedPackage: 'importedPackage',
+  isAbstract: 'isAbstract',
+  isActive: 'isActive',
+  isBehavior: 'isBehavior',
+  isComposite: 'isComposite',
+  isConjugated: 'isConjugated',
+  isDerived: 'isDerived',
+  isDerivedUnion: 'isDerivedUnion',
+  isFinalSpecialization: 'isFinalSpecialization',
+  isException: 'isException',
+  isID: 'isID',
+  isIndirectlyInstantiated: 'isIndirectlyInstantiated',
+  isLeaf: 'isLeaf',
+  isOrdered: 'isOrdered',
+  isQuery: 'isQuery',
+  isReadOnly: 'isReadOnly',
+  isService: 'isService',
+  isStatic: 'isStatic',
+  isStream: 'isStream',
+  isSubstitutable: 'isSubstitutable',
+  isUnique: 'isUnique',
   lower: 'lower',
   mergedPackage: 'mergedPackage',
+  name: 'name',
   supplier: 'supplier',
   type: 'type',
   upper: 'upper',
+  URI: 'URI',
   value: 'value',
   visibility: 'visibility',
-  xmiType: 'xmi:type',
+  'xmi:id': 'xmi:id',
+  'xmi:type': 'xmi:type',
 } as const
 
 const Tags = {
@@ -134,7 +160,7 @@ function getTagType(node: GraphNode) {
 }
 
 function getType(node: Attributable) {
-  const type = node.getAttribute(Attributes.xmiType)?.value.literal
+  const type = node.getAttribute(Attributes['xmi:type'])?.value.literal
   if (isValidType(type)) {
     return type
   }
@@ -146,7 +172,7 @@ export const Uml = {
   Attributes,
   Tags,
   Types,
-  typeAttributeName: Attributes.xmiType,
+  typeAttributeName: Attributes['xmi:type'],
   isValidTag,
   isValidType,
   getTagType,

@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { Classifier } from '../uml-metamodel'
 
 export const ClassifierHandler = Classifier.createHandler(
@@ -21,6 +22,10 @@ export const ClassifierHandler = Classifier.createHandler(
     addEdge_substitution(classifier)
     addEdge_templateParameter(classifier)
     addEdge_useCase(classifier)
+  },
+  {
+    [Uml.Attributes.isAbstract]: 'false',
+    [Uml.Attributes.isFinalSpecialization]: 'false',
   },
 )
 

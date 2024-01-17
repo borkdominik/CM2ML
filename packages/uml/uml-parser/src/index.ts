@@ -40,10 +40,25 @@ export const UmlRefiner = definePlugin({
   },
   invoke: (input: GraphModel, parameters) => {
     const model = refine(input, parameters)
+    removeNonUmlAttributes(model)
     validateUmlModel(model, parameters)
     return model
   },
 })
+
+function removeNonUmlAttributes(model: GraphModel) {
+  ;[...model.nodes, ...model.edges].forEach((attributable) => {
+    attributable.attributes.forEach(({ name }) => {
+      if (name.startsWith('xmlns:')) {
+        attributable.removeAttribute(name)
+        return
+      }
+      if (!(name in Uml.Attributes) && name.startsWith('xmi:')) {
+        attributable.removeAttribute(name)
+      }
+    })
+  })
+}
 
 export const UmlParser = compose(
   XmiParser,

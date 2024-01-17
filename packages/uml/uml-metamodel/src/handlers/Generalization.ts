@@ -13,6 +13,9 @@ export const GeneralizationHandler = Generalization.createHandler(
     addEdge_generalizationSet(generalization)
     addEdge_specific(generalization)
   },
+  {
+    [Uml.Attributes.isSubstitutable]: 'true',
+  },
 )
 
 function addEdge_general(generalization: GraphNode) {

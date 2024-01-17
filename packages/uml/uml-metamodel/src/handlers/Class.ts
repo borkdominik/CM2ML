@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { Class, Property } from '../uml-metamodel'
 
 export const ClassHandler = Class.createHandler(
@@ -14,6 +15,10 @@ export const ClassHandler = Class.createHandler(
       addEdge_ownedAttribute(class_, child)
       addEdge_ownedReception(class_, child)
     })
+  },
+  {
+    [Uml.Attributes.isAbstract]: 'false',
+    [Uml.Attributes.isActive]: 'false',
   },
 )
 

@@ -5,14 +5,14 @@ import { Comment } from '../uml-metamodel'
 
 export const CommentHandler = Comment.createHandler(
   (comment, { onlyContainmentAssociations }) => {
-    addAttribute_body(comment)
+    setAttribute_body(comment)
     if (onlyContainmentAssociations) {
       // return
     }
   },
 )
 
-function addAttribute_body(comment: GraphNode) {
+function setAttribute_body(comment: GraphNode) {
   const body = comment.findChild((child) => child.tag === Uml.Tags.body)
   if (!body) {
     return

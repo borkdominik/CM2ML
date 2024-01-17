@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
+import { Uml } from '../uml'
 import { Classifier, Feature } from '../uml-metamodel'
 
 export const FeatureHandler = Feature.createHandler(
@@ -9,6 +10,9 @@ export const FeatureHandler = Feature.createHandler(
       return
     }
     addEdge_featuringClassifier(feature)
+  },
+  {
+    [Uml.Attributes.isStatic]: 'false',
   },
 )
 

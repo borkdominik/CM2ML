@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { Component, PackageableElement } from '../uml-metamodel'
 
 export const ComponentHandler = Component.createHandler(
@@ -14,7 +15,11 @@ export const ComponentHandler = Component.createHandler(
     addEdge_realization(component)
     addEdge_required(component)
   },
+  {
+    [Uml.Attributes.isIndirectlyInstantiated]: 'true',
+  },
 )
+
 function addEdge_packagedElement(component: GraphNode, child: GraphNode) {
   if (PackageableElement.isAssignable(child)) {
     component.model.addEdge('packagedElement', component, child)

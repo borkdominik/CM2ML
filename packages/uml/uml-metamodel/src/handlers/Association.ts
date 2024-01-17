@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { Association } from '../uml-metamodel'
 
 export const AssociationHandler = Association.createHandler(
@@ -16,6 +17,9 @@ export const AssociationHandler = Association.createHandler(
     addEdge_memberEnd(association)
     addEdge_navigableOwnerEnd(association)
     addEdge_ownedEnd(association)
+  },
+  {
+    [Uml.Attributes.isDerived]: 'false',
   },
 )
 

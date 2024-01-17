@@ -21,6 +21,9 @@ export const PackageImportHandler = PackageImport.createHandler(
     addEdge_importedPackage(packageImport)
     addEdge_importingNamespace(packageImport)
   },
+  {
+    [Uml.Attributes.visibility]: 'public',
+  },
 )
 
 function getImportedPackage(packageImport: GraphNode) {

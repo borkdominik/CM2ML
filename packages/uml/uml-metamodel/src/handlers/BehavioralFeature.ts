@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { BehavioralFeature } from '../uml-metamodel'
 
 export const BehavioralFeatureHandler = BehavioralFeature.createHandler(
@@ -11,6 +12,10 @@ export const BehavioralFeatureHandler = BehavioralFeature.createHandler(
     addEdge_ownedParameter(behavioralFeature)
     addEdge_ownedParameterSet(behavioralFeature)
     addEdge_raisedException(behavioralFeature)
+  },
+  {
+    [Uml.Attributes.concurrency]: 'sequential',
+    [Uml.Attributes.isAbstract]: 'false',
   },
 )
 

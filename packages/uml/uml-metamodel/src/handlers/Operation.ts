@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import {
   Class,
   DataType,
@@ -26,6 +27,9 @@ export const OperationHandler = Operation.createHandler(
     addEdge_redefinedOperation(operation)
     addEdge_templateParameter(operation)
     addEdge_type(operation)
+  },
+  {
+    [Uml.Attributes.isQuery]: 'false',
   },
 )
 

@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { Port } from '../uml-metamodel'
 
 export const PortHandler = Port.createHandler(
@@ -11,6 +12,11 @@ export const PortHandler = Port.createHandler(
     addEdge_provivded(port)
     addEdge_redefinedPort(port)
     addEdge_required(port)
+  },
+  {
+    [Uml.Attributes.isBehavior]: 'false',
+    [Uml.Attributes.isConjugated]: 'false',
+    [Uml.Attributes.isService]: 'true',
   },
 )
 

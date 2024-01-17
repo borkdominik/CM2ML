@@ -21,6 +21,9 @@ export const ElementImportHandler = ElementImport.createHandler(
     addEdge_importedElement(elementImport)
     addEdge_importingNamespace(elementImport)
   },
+  {
+    [Uml.Attributes.visibility]: 'public',
+  },
 )
 
 function getImportedElement(elementImport: GraphNode) {

@@ -201,11 +201,21 @@ export class MetamodelElement<
     })
   }
 
-  public createHandler(handler: Handler<HandlerParameters> = () => {}) {
+  public createHandler(
+    handler: Handler<HandlerParameters> = () => {},
+    attributeDefaults: Record<string, string> = {},
+  ) {
     if (this.handler !== undefined) {
       throw new Error(`There already is a handler assigned to ${this.name}`)
     }
-    this.handler = handler
+    this.handler = (node, parameters) => {
+      Object.entries(attributeDefaults).forEach(([name, value]) => {
+        if (!node.getAttribute(name)) {
+          node.addAttribute({ name, value: { literal: value } })
+        }
+      })
+      return handler(node, parameters)
+    }
     return this
   }
 

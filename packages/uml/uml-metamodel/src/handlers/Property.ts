@@ -1,5 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
+import { getParentOfType } from '@cm2ml/metamodel'
 
+import { Uml } from '../uml'
 import {
   Association,
   Class,
@@ -20,17 +22,36 @@ export const PropertyHandler = Property.createHandler(
     addEdge_defaultValue(property)
     addEdge_interface(property)
     addEdge_opposite(property)
-    addEdge_owningAssociation(property)
     addEdge_qualifier(property)
     addEdge_redefinedProperty(property)
     addEdge_subsettedProperty(property)
   },
+  {
+    [Uml.Attributes.aggregation]: 'none',
+    [Uml.Attributes.isComposite]: 'false',
+    [Uml.Attributes.isDerived]: 'false',
+    [Uml.Attributes.isDerivedUnion]: 'false',
+    [Uml.Attributes.isID]: 'false',
+  },
 )
 
-function addEdge_association(_property: GraphNode) {
-  // TODO
+function addEdge_association(property: GraphNode) {
   // association : Association [0..1]{subsets A_member_memberNamespace::memberNamespace} (opposite Association::memberEnd)
   // The Association of which this Property is a member, if any.
+  const association = property.getAttribute('association')
+  if (!association) {
+    return
+  }
+  const associationNode = property.model.getNodeById(association.value.literal)
+  if (!associationNode) {
+    throw new Error(`Association ${association.value.literal} not found`)
+  }
+  if (!Association.isAssignable(associationNode)) {
+    throw new Error(`Node ${associationNode.show()} is not an association`)
+  }
+  property.model.addEdge('association', property, associationNode)
+  property.removeAttribute('association')
+  addEdge_owningAssociation(property, associationNode)
 }
 
 function addEdge_associationEnd(_property: GraphNode) {
@@ -72,11 +93,18 @@ function addEdge_opposite(_property: GraphNode) {
   // In the case where the Property is one end of a binary association this gives the other end.
 }
 
-function addEdge_owningAssociation(property: GraphNode) {
-  const parent = property.parent
-  if (parent && Association.isAssignable(parent)) {
-    property.model.addEdge('association', property, parent)
+function addEdge_owningAssociation(
+  property: GraphNode,
+  association: GraphNode,
+) {
+  // TODO
+  // owningAssociation : Association [0..1]{subsets Feature::featuringClassifier, subsets NamedElement::namespace, subsets Property::association, subsets RedefinableElement::redefinitionContext} (opposite Association::ownedEnd)
+  // The owning association of this property, if any.
+  const parentAssociation = getParentOfType(property, Association)
+  if (parentAssociation !== association) {
+    return
   }
+  property.model.addEdge('owningAssociation', property, association)
 }
 
 function addEdge_qualifier(_property: GraphNode) {

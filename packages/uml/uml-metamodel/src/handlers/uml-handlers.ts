@@ -1,4 +1,4 @@
-import type { UmlAbstractType, UmlTag, UmlType } from '../uml'
+import type { UmlAbstractType, UmlType } from '../uml'
 import type { UmlMetamodelElement } from '../uml-metamodel'
 
 import { AbstractionHandler } from './Abstraction'
@@ -72,8 +72,7 @@ import { ValueSpecificationHandler } from './ValueSpecification'
 export const umlHandlers: Record<
   `${UmlType | UmlAbstractType}Handler`,
   UmlMetamodelElement
-> &
-  Partial<Record<`${UmlTag}Handler`, UmlMetamodelElement>> = {
+> = {
   AbstractionHandler,
   AssociationClassHandler,
   AssociationHandler,

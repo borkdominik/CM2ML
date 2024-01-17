@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
+import { Uml } from '../uml'
 import { Operation, Parameter } from '../uml-metamodel'
 
 // TODO
@@ -12,6 +13,11 @@ export const ParameterHandler = Parameter.createHandler(
     addEdge_defaultValue(parameter)
     addEdge_operation(parameter)
     addEdge_parameterSet(parameter)
+  },
+  {
+    [Uml.Attributes.direction]: 'in',
+    [Uml.Attributes.isException]: 'false',
+    [Uml.Attributes.isStream]: 'false',
   },
 )
 
