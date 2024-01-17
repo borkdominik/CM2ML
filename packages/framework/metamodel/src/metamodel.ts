@@ -53,7 +53,7 @@ export function transformNodeToEdge(
 export type Handler<HandlerParameters extends HandlerPropagation> = (
   node: GraphNode,
   parameters: HandlerParameters,
-) => void | false | HandlerPropagation
+) => void | false
 
 export interface HandlerPropagation {}
 
@@ -190,12 +190,8 @@ export class MetamodelElement<
       return
     }
     visited.add(this)
-    const newParameters =
-      typeof propagation === 'object'
-        ? { ...parameters, ...propagation }
-        : parameters
     this.generalizations.forEach((parent) => {
-      parent.handle(node, newParameters, visited)
+      parent.handle(node, parameters, visited)
     })
   }
 
