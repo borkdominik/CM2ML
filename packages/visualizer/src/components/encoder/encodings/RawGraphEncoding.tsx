@@ -34,14 +34,19 @@ export interface Props {
   parameters: ParameterValues
 }
 
-// TODO: Handle encoding without edges
 export function RawGraphEncoding({ model, parameters }: Props) {
   const { encoding, error } = useRawGraphEncoding(model, parameters)
   if (error || !encoding) {
     return <Hint error={error} />
   }
   if (encoding.format === 'list') {
+    if (encoding.list.length === 0) {
+      return <Hint text="No edges" />
+    }
     return <List list={encoding.list} nodes={encoding.nodes} />
+  }
+  if (encoding.matrix.every((row) => row.every((weight) => weight === 0))) {
+    return <Hint text="No edges" />
   }
   return (
     <div className="h-full p-2">

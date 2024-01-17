@@ -19,7 +19,6 @@ import {
   MenubarTrigger,
 } from './ui/menubar'
 
-// TODO: Add clear buttons for model and encoder
 export function Menu() {
   return (
     <Menubar className="rounded-none border-x-0 border-t-0">
