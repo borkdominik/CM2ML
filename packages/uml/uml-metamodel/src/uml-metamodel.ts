@@ -303,3 +303,59 @@ export const Association = define(
   Relationship,
   Classifier,
 )
+
+export const AssociationClass = define(
+  Uml.Types.AssociationClass,
+  undefined,
+  Association,
+  Class,
+)
+
+export const StructuredClassifier = defineAbstract(
+  Uml.AbstractTypes.StructuredClassifier,
+  Classifier,
+)
+
+export const Collaboration = define(
+  Uml.Types.Collaboration,
+  undefined,
+  StructuredClassifier,
+  BehavioredClassifier,
+)
+
+export const CollaborationUse = define(
+  Uml.Types.CollaborationUse,
+  undefined,
+  NamedElement,
+)
+
+export const Component = define(Uml.Types.Component, undefined, Class)
+
+export const ComponentRealization = define(
+  Uml.Types.ComponentRealization,
+  undefined,
+  Realization,
+)
+
+export const ConnectableElementTemplateParameter = define(
+  Uml.Types.ConnectableElementTemplateParameter,
+  undefined,
+  TemplateParameter,
+)
+
+export const Connector = define(Uml.Types.Connector, undefined, Feature)
+
+export const ConnectorEnd = define(
+  Uml.Types.ConnectorEnd,
+  undefined,
+  MultiplicityElement,
+)
+
+// TODO: Is this the correct approach?
+export const ConnectorKind = define(
+  Uml.Types.ConnectorKind,
+  undefined,
+  EnumerationLiteral,
+)
+
+export const Port = define(Uml.Types.Port, undefined, Property)
