@@ -56,9 +56,13 @@ function getEdges(edgeSelection: EdgeSelection, model: GraphModel) {
 }
 
 function NodeDetails({ node }: { node: GraphNode }) {
+  const name = node.getAttribute('name')?.value.literal
   return (
     <div className="space-y-2 p-2">
-      <div className="text-sm font-bold">{node.id}</div>
+      <div className="text-sm font-bold">
+        {node.tag}
+        {name ? ` — ${name}` : null}
+      </div>
       <AttributableDetails attributable={node} />
       {node.parent ? (
         <div className="space-y-2">
