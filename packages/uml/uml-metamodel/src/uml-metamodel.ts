@@ -22,6 +22,8 @@ const { define, defineAbstract } = createMetamodel<
   UmlHandlerParameters
 >(Uml)
 
+// TODO: Include [Enumeration] elements?
+
 export const Element = defineAbstract(Uml.AbstractTypes.Element)
 
 export const NamedElement = defineAbstract(
@@ -70,9 +72,14 @@ export const BehavioredClassifier = defineAbstract(
   Classifier,
 )
 
+export const StructuredClassifier = defineAbstract(
+  Uml.AbstractTypes.StructuredClassifier,
+  Classifier,
+)
+
 export const EncapsulatedClassifier = defineAbstract(
   Uml.AbstractTypes.EncapsulatedClassifier,
-  Classifier,
+  StructuredClassifier,
 )
 
 export const Class = define(
@@ -90,6 +97,7 @@ export const TypedElement = defineAbstract(
 export const ConnectableElement = defineAbstract(
   Uml.AbstractTypes.ConnectableElement,
   TypedElement,
+  ParameterableElement,
 )
 
 export const MultiplicityElement = defineAbstract(
@@ -104,9 +112,15 @@ export const Parameter = define(
   MultiplicityElement,
 )
 
+export const Feature = defineAbstract(
+  Uml.AbstractTypes.Feature,
+  RedefinableElement,
+)
+
 export const BehavioralFeature = defineAbstract(
   Uml.AbstractTypes.BehavioralFeature,
-  Element,
+  Feature,
+  Namespace,
 )
 
 export const Operation = define(
@@ -216,11 +230,6 @@ export const ValueSpecification = defineAbstract(
   PackageableElement,
 )
 
-export const Feature = defineAbstract(
-  Uml.AbstractTypes.Feature,
-  RedefinableElement,
-)
-
 export const DeploymentTarget = defineAbstract(
   Uml.AbstractTypes.DeploymentTarget,
   NamedElement,
@@ -311,11 +320,6 @@ export const AssociationClass = define(
   Class,
 )
 
-export const StructuredClassifier = defineAbstract(
-  Uml.AbstractTypes.StructuredClassifier,
-  Classifier,
-)
-
 export const Collaboration = define(
   Uml.Types.Collaboration,
   undefined,
@@ -351,11 +355,120 @@ export const ConnectorEnd = define(
   MultiplicityElement,
 )
 
-// TODO: Is this the correct approach?
-export const ConnectorKind = define(
-  Uml.Types.ConnectorKind,
-  undefined,
-  EnumerationLiteral,
+export const Port = define(Uml.Types.Port, undefined, Property)
+
+export const Observation = defineAbstract(
+  Uml.AbstractTypes.Observation,
+  PackageableElement,
 )
 
-export const Port = define(Uml.Types.Port, undefined, Property)
+export const Behavior = defineAbstract(Uml.AbstractTypes.Behavior, Class)
+
+export const Event = defineAbstract(Uml.AbstractTypes.Event, PackageableElement)
+
+export const MessageEvent = defineAbstract(
+  Uml.AbstractTypes.MessageEvent,
+  Event,
+)
+
+export const Vertex = defineAbstract(
+  Uml.AbstractTypes.Vertex,
+  NamedElement,
+  RedefinableElement,
+)
+
+export const ActivityEdge = defineAbstract(
+  Uml.AbstractTypes.ActivityEdge,
+  RedefinableElement,
+)
+
+export const ActivityGroup = defineAbstract(
+  Uml.AbstractTypes.ActivityGroup,
+  NamedElement,
+)
+
+export const ActivityNode = defineAbstract(
+  Uml.AbstractTypes.ActivityNode,
+  RedefinableElement,
+)
+
+export const ControlNode = defineAbstract(
+  Uml.AbstractTypes.ControlNode,
+  ActivityNode,
+)
+
+export const ExecutableNode = defineAbstract(
+  Uml.AbstractTypes.ExecutableNode,
+  ActivityNode,
+)
+
+export const FinalNode = defineAbstract(
+  Uml.AbstractTypes.FinalNode,
+  ControlNode,
+)
+
+export const ObjectNode = defineAbstract(
+  Uml.AbstractTypes.ObjectNode,
+  TypedElement,
+  ActivityNode,
+)
+
+export const Action = defineAbstract(Uml.AbstractTypes.Action, ExecutableNode)
+
+export const InvocationAction = defineAbstract(
+  Uml.AbstractTypes.InvocationAction,
+  Action,
+)
+
+export const CallAction = defineAbstract(
+  Uml.AbstractTypes.CallAction,
+  InvocationAction,
+)
+
+export const LinkAction = defineAbstract(Uml.AbstractTypes.LinkAction, Action)
+
+export const Pin = defineAbstract(
+  Uml.AbstractTypes.Pin,
+  ObjectNode,
+  MultiplicityElement,
+)
+
+export const StructuralFeatureAction = defineAbstract(
+  Uml.AbstractTypes.StructuralFeatureAction,
+  Action,
+)
+
+export const VariableAction = defineAbstract(
+  Uml.AbstractTypes.VariableAction,
+  Action,
+)
+
+export const WriteLinkAction = defineAbstract(
+  Uml.AbstractTypes.WriteLinkAction,
+  LinkAction,
+)
+
+export const WriteStructuralFeatureAction = defineAbstract(
+  Uml.AbstractTypes.WriteStructuralFeatureAction,
+  StructuralFeatureAction,
+)
+
+export const WriteVariableAction = defineAbstract(
+  Uml.AbstractTypes.WriteVariableAction,
+  VariableAction,
+)
+
+export const InteractionFragment = defineAbstract(
+  Uml.AbstractTypes.InteractionFragment,
+  NamedElement,
+)
+
+export const ExecutionSpecification = defineAbstract(
+  Uml.AbstractTypes.ExecutionSpecification,
+  InteractionFragment,
+)
+
+export const MessageEnd = defineAbstract(
+  Uml.AbstractTypes.MessageEnd,
+  NamedElement,
+)

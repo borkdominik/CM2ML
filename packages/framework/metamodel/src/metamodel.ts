@@ -115,17 +115,12 @@ export class MetamodelElement<
       this.#assignableTypes.add(this.type)
     }
     generalizations?.forEach((parent) => {
-      if (this.isAbstract && !parent.isAbstract) {
-        throw new Error(
-          `Parent ${parent.name} of abstract element ${this.name} must also be abstract`,
-        )
-      }
       this.#generalizations.add(parent)
       parent.specialize(this)
     })
   }
 
-  private get isAbstract(): boolean {
+  public get isAbstract(): boolean {
     return this.type === undefined
   }
 
