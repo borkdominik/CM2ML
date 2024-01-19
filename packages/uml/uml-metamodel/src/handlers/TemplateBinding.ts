@@ -14,19 +14,19 @@ export const TemplateBindingHandler = TemplateBinding.createHandler(
 )
 
 function addEdge_boundElement(_templateBinding: GraphNode) {
-  // TODO
+  // TODO/Association
   // boundElement : TemplateableElement [1..1]{subsets DirectedRelationship::source, subsets Element::owner} (opposite TemplateableElement::templateBinding)
   // The TemplateableElement that is bound by this TemplateBinding.
 }
 
 function addEdge_parameterSubstitution(_templateBinding: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ parameterSubstitution : TemplateParameterSubstitution [0..*]{subsets Element::ownedElement} (opposite TemplateParameterSubstitution::templateBinding)
   // The TemplateParameterSubstitutions owned by this TemplateBinding.
 }
 
 function addEdge_signature(_templateBinding: GraphNode) {
-  // TODO
+  // TODO/Association
   // signature : TemplateSignature [1..1]{subsets DirectedRelationship::target} (opposite A_signature_templateBinding::templateBinding)
   // The TemplateSignature for the template that is the target of this TemplateBinding.
 }

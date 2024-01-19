@@ -12,7 +12,7 @@ export const VariableActionHandler = VariableAction.createHandler(
 )
 
 function addEdge_variable(_variableAction: GraphNode) {
-  // TODO
+  // TODO/Association
   // variable : Variable [1..1] (opposite A_variable_variableAction::variableAction)
   // The Variable to be read or written.
 }

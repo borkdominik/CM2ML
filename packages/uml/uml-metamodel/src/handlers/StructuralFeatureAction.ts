@@ -6,7 +6,7 @@ export const StructuralFeatureActionHandler =
   StructuralFeatureAction.createHandler(
     (structuralFeatureAction, { onlyContainmentAssociations }) => {
       if (onlyContainmentAssociations) {
-        // return
+        return
       }
       addEdge_object(structuralFeatureAction)
       addEdge_structuralFeature(structuralFeatureAction)
@@ -14,13 +14,13 @@ export const StructuralFeatureActionHandler =
   )
 
 function addEdge_object(_structuralFeatureAction: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ object : InputPin [1..1]{subsets Action::input} (opposite A_object_structuralFeatureAction::structuralFeatureAction)
   // The InputPin from which the object whose StructuralFeature is to be read or written is obtained.
 }
 
 function addEdge_structuralFeature(_structuralFeatureAction: GraphNode) {
-  // TODO
+  // TODO/Association
   // structuralFeature : StructuralFeature [1..1] (opposite A_structuralFeature_structuralFeatureAction::structuralFeatureAction)
   // The StructuralFeature to be read or written.
 }

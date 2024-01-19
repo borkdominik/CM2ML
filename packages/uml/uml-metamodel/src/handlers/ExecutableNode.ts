@@ -12,7 +12,7 @@ export const ExecutableNodeHandler = ExecutableNode.createHandler(
 )
 
 function addEdge_handler(_executableNode: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ handler : ExceptionHandler [0..*]{subsets Element::ownedElement} (opposite ExceptionHandler::protectedNode)
   // A set of ExceptionHandlers that are examined if an exception propagates out of the ExceptionNode.
 }

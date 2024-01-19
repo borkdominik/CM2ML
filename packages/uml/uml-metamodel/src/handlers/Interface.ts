@@ -37,19 +37,19 @@ function addEdge_ownedOperation(interface_: GraphNode, child: GraphNode) {
 }
 
 function addEdge_ownedReception(_interface_: GraphNode, _child: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ ownedReception : Reception [0..*]{subsets Classifier::feature, subsets Namespace::ownedMember} (opposite A_ownedReception_interface::interface)
   // Receptions that objects providing this Interface are willing to accept.
 }
 
 function addEdge_protocol(_interface_: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ protocol : ProtocolStateMachine [0..1]{subsets Namespace::ownedMember} (opposite A_protocol_interface::interface)
   // References a ProtocolStateMachine specifying the legal sequences of the invocation of the BehavioralFeatures described in the Interface.
 }
 
 function addEdge_redefinedInterface(_interface_: GraphNode) {
-  // TODO
+  // TODO/Association
   // redefinedInterface : Interface [0..*]{subsets Classifier::redefinedClassifier} (opposite A_redefinedInterface_interface::interface )
   // References all the Interfaces redefined by this Interface.
 }

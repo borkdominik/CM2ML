@@ -13,7 +13,7 @@ export const EncapsulatedClassifierHandler =
   )
 
 function addEdge_ownedPort(_encapsulatedClassifier: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ /ownedPort : Port [0..*]{subsets StructuredClassifier::ownedAttribute} (opposite A_ownedPort_encapsulatedClassifier::encapsulatedClassifier )
   // The Ports owned by the EncapsulatedClassifier.
 }

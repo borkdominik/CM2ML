@@ -34,7 +34,7 @@ export const OperationHandler = Operation.createHandler(
 )
 
 function addEdge_bodyCondition(_operation: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ bodyCondition : Constraint [0..1]{subsets Namespace::ownedRule} (opposite A_bodyCondition_bodyContext::bodyContext)
   // An optional Constraint on the result values of an invocation of this Operation.
 }
@@ -67,37 +67,37 @@ function addEdge_ownedParameter(operation: GraphNode, child: GraphNode) {
 }
 
 function addEdge_postcondition(_operation: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ postcondition : Constraint [0..*]{subsets Namespace::ownedRule} (opposite A_postcondition_postContext::postContext)
   // An optional set of Constraints specifying the state of the system when the Operation is completed.
 }
 
 function addEdge_precondition(_operation: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ precondition : Constraint [0..*]{subsets Namespace::ownedRule} (opposite A_precondition_preContext::preContext)
   // An optional set of Constraints on the state of the system when the Operation is invoked.
 }
 
 function addEdge_raisedException(_operation: GraphNode) {
-  // TODO
+  // TODO/Association
   // raisedException : Type [0..*]{redefines BehavioralFeature::raisedException} (opposite A_raisedException_operation::operation)
   // The Types representing exceptions that may be raised during an invocation of this operation.
 }
 
 function addEdge_redefinedOperation(_operation: GraphNode) {
-  // TODO
+  // TODO/Association
   // redefinedOperation : Operation [0..*]{subsets RedefinableElement::redefinedElement} (opposite A_redefinedOperation_operation::operation)
   // The Operations that are redefined by this Operation.
 }
 
 function addEdge_templateParameter(_operation: GraphNode) {
-  // TODO
+  // TODO/Association
   // templateParameter : OperationTemplateParameter [0..1]{redefines ParameterableElement::templateParameter} (opposite OperationTemplateParameter::parameteredElement)
   // The OperationTemplateParameter that exposes this element as a formal parameter.
 }
 
 function addEdge_type(_operation: GraphNode) {
-  // TODO
+  // TODO/Association
   // /type : Type [0..1]{} (opposite A_type_operation::operation)
   // The return type of the operation, if present. This information is derived from the return result for this Operation.
 }

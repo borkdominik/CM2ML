@@ -12,6 +12,6 @@ export const AbstractionHandler = Abstraction.createHandler(
 )
 
 function addEdge_mapping(_abstraction: GraphNode) {
-  // TODO
+  // TODO/Association
   // mapping: OpaqueExpression[0..1]{subsets Element:: ownedElement } (opposite A_mapping_abstraction::abstraction)
 }

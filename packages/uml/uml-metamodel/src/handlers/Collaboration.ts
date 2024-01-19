@@ -12,7 +12,7 @@ export const CollaborationHandler = Collaboration.createHandler(
 )
 
 function addEdge_collaborationRole(_collaboration: GraphNode) {
-  // TODO
+  // TODO/Association
   //   collaborationRole: ConnectableElement[0..*]{subsets StructuredClassifier:: role } (opposite A_collaborationRole_collaboration::collaboration)
   //   Represents the participants in the Collaboration.
 }

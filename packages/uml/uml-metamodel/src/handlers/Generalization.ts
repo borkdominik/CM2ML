@@ -32,7 +32,7 @@ function addEdge_general(generalization: GraphNode) {
 }
 
 function addEdge_generalizationSet(_generalization: GraphNode) {
-  // TODO
+  // TODO/Association
   // generalizationSet : GeneralizationSet [0..*] (opposite GeneralizationSet::generalization)
   // Represents a set of instances of Generalization. A Generalization may appear in many GeneralizationSets.
 }

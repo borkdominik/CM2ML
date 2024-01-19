@@ -12,7 +12,7 @@ export const RealizationHandler = Realization.createHandler(
 )
 
 function addEdge_relatedElement(_realization: GraphNode) {
-  // TODO
+  // TODO/Association
   // /relatedElement : Element [1..*]{union} (opposite A_relatedElement_relationship::relationship)
   // Specifies the elements related by the Relationship.
 }

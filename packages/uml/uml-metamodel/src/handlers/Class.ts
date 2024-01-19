@@ -23,7 +23,7 @@ export const ClassHandler = Class.createHandler(
 )
 
 function addEdge_extension(_class_: GraphNode) {
-  // TODO
+  // TODO/Association
   // /extension : Extension [0..*]{} (opposite Extension::metaclass)
   // This property is used when the Class is acting as a metaclass. It references the Extensions that specify additional properties of the metaclass. The property is derived from the Extensions whose memberEnds are typed by the Class.
 }
@@ -41,13 +41,13 @@ function addEdge_ownedAttribute(class_: GraphNode, child: GraphNode) {
 }
 
 function addEdge_ownedReception(_class_: GraphNode, _child: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ ownedReception : Reception [0..*]{subsets Classifier::feature, subsets Namespace::ownedMember} (opposite A_ownedReception_class::class)
   // The Receptions owned by the Class.
 }
 
 function addEdge_superClass(_class_: GraphNode) {
-  // TODO
+  // TODO/Association
   // /superClass : Class [0..*]{redefines Classifier::general} (opposite A_superClass_class::class)
   // The superclasses of a Class, derived from its Generalizations.
 }

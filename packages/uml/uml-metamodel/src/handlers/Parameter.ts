@@ -22,7 +22,7 @@ export const ParameterHandler = Parameter.createHandler(
 )
 
 function addEdge_defaultValue(_parameter: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ defaultValue : ValueSpecification [0..1]{subsets Element::ownedElement} (opposite A_defaultValue_owningParameter::owningParameter)
   // Specifies a ValueSpecification that represents a value to be used when no argument is supplied for the Parameter.
 }
@@ -36,7 +36,7 @@ function addEdge_operation(parameter: GraphNode) {
 }
 
 function addEdge_parameterSet(_parameter: GraphNode) {
-  // TODO
+  // TODO/Association
   // parameterSet : ParameterSet [0..*] (opposite ParameterSet::parameter)
   // The ParameterSets containing the parameter.See ParameterSet.
 }

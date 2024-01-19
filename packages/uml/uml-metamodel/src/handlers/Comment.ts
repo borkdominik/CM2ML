@@ -7,8 +7,9 @@ export const CommentHandler = Comment.createHandler(
   (comment, { onlyContainmentAssociations }) => {
     setAttribute_body(comment)
     if (onlyContainmentAssociations) {
-      // return
+      return
     }
+    addEdge_annotatedElement(comment)
   },
 )
 
@@ -23,4 +24,10 @@ function setAttribute_body(comment: GraphNode) {
     return
   }
   comment.addAttribute({ name: Uml.Attributes.body, value: bodyText.value })
+}
+
+function addEdge_annotatedElement(_comment: GraphNode) {
+  // TODO/Association
+  // annotatedElement : Element [0..*] (opposite A_annotatedElement_comment::comment)
+  // References the Element(s) being commented.
 }

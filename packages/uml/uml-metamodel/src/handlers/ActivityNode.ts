@@ -19,49 +19,49 @@ export const ActivityNodeHandler = ActivityNode.createHandler(
 )
 
 function addEdge_activity(_activityNode: GraphNode) {
-  // TODO
+  // TODO/Association
   // activity : Activity [0..1]{subsets Element::owner} (opposite Activity::node)
   // The Activity containing the ActivityNode, if it is directly owned by an Activity.
 }
 
 function addEdge_inGroup(_activityNode: GraphNode) {
-  // TODO
+  // TODO/Association
   // /inGroup : ActivityGroup [0..*]{union} (opposite ActivityGroup::containedNode)
   // ActivityGroups containing the ActivityNode.
 }
 
 function addEdge_inInterruptibleRegion(_activityNode: GraphNode) {
-  // TODO
+  // TODO/Association
   // inInterruptibleRegion : InterruptibleActivityRegion [0..*]{subsets ActivityNode::inGroup} (opposite InterruptibleActivityRegion::node)
   // InterruptibleActivityRegions containing the ActivityNode.
 }
 
 function addEdge_inPartition(_activityNode: GraphNode) {
-  // TODO
+  // TODO/Association
   // inPartition : ActivityPartition [0..*]{subsets ActivityNode::inGroup} (opposite ActivityPartition::node)
   // ActivityPartitions containing the ActivityNode.
 }
 
 function addEdge_inStructuredNode(_activityNode: GraphNode) {
-  // TODO
+  // TODO/Association
   // inStructuredNode : StructuredActivityNode [0..1]{subsets Element::owner, subsets ActivityNode::inGroup} (opposite StructuredActivityNode::node)
   // The StructuredActivityNode containing the ActvityNode, if it is directly owned by a StructuredActivityNode.
 }
 
 function addEdge_incoming(_activityNode: GraphNode) {
-  // TODO
+  // TODO/Association
   // incoming : ActivityEdge [0..*] (opposite ActivityEdge::target)
   // ActivityEdges that have the ActivityNode as their target.
 }
 
 function addEdge_outgoing(_activityNode: GraphNode) {
-  // TODO
+  // TODO/Association
   // outgoing : ActivityEdge [0..*] (opposite ActivityEdge::source)
   // ActivityEdges that have the ActivityNode as their source.
 }
 
 function addEdge_redefinedNode(_activityNode: GraphNode) {
-  // TODO
+  // TODO/Association
   // redefinedNode : ActivityNode [0..*]{subsets RedefinableElement::redefinedElement} (opposite A_redefinedNode_activityNode::activityNode)
   // ActivityNodes from a generalization of the Activity containining this ActivityNode that are redefined by this ActivityNode.
 }

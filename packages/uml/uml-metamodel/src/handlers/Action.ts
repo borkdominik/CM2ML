@@ -20,31 +20,31 @@ export const ActionHandler = Action.createHandler(
 )
 
 function addEdge_context(_action: GraphNode) {
-  // TODO
+  // TODO/Association
   // /context : Classifier [0..1]{} (opposite A_context_action::action)
   // The context Classifier of the Behavior that contains this Action, or the Behavior itself if it has no context.
 }
 
 function addEdge_input(_action: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ /input : InputPin [0..*]{ordered, union, subsets Element::ownedElement} (opposite A_input_action::action)
   // The ordered set of InputPins representing the inputs to the Action.
 }
 
 function addEdge_localPostcondition(_action: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ localPostcondition : Constraint [0..*]{subsets Element::ownedElement} (opposite A_localPostcondition_action::action)
   // A Constraint that must be satisfied when execution of the Action is completed.
 }
 
 function addEdge_localPrecondition(_action: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ localPrecondition : Constraint [0..*]{subsets Element::ownedElement} (opposite A_localPrecondition_action::action)
   // A Constraint that must be satisfied when execution of the Action is started.
 }
 
 function addEdge_output(_action: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ /output : OutputPin [0..*]{ordered, union, subsets Element::ownedElement} (opposite A_output_action::action)
   // The ordered set of OutputPins representing outputs from the Action.
 }

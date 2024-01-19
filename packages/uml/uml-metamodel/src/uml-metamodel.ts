@@ -108,8 +108,14 @@ export const MultiplicityElement = defineAbstract(
 export const Parameter = define(
   Uml.Types.Parameter,
   Uml.Tags.ownedParameter,
-  ConnectableElement,
   MultiplicityElement,
+  ConnectableElement,
+)
+
+export const ParameterSet = define(
+  Uml.Types.ParameterSet,
+  undefined,
+  NamedElement,
 )
 
 export const Feature = defineAbstract(
@@ -212,6 +218,14 @@ export const Package = define(
   Namespace,
 )
 
+export const Profile = define(Uml.Types.Profile, undefined, Package)
+
+export const ProfileApplication = define(
+  Uml.Types.ProfileApplication,
+  undefined,
+  DirectedRelationship,
+)
+
 export const InterfaceRealization = define(
   Uml.Types.InterfaceRealization,
   Uml.Tags.interfaceRealization,
@@ -255,8 +269,32 @@ export const LiteralSpecification = defineAbstract(
   ValueSpecification,
 )
 
+export const LiteralBoolean = define(
+  Uml.Types.LiteralBoolean,
+  undefined,
+  LiteralSpecification,
+)
+
 export const LiteralInteger = define(
   Uml.Types.LiteralInteger,
+  undefined,
+  LiteralSpecification,
+)
+
+export const LiteralNull = define(
+  Uml.Types.LiteralNull,
+  undefined,
+  LiteralSpecification,
+)
+
+export const LiteralReal = define(
+  Uml.Types.LiteralReal,
+  undefined,
+  LiteralSpecification,
+)
+
+export const LiteralString = define(
+  Uml.Types.LiteralString,
   undefined,
   LiteralSpecification,
 )
@@ -265,6 +303,26 @@ export const LiteralUnlimitedNatural = define(
   Uml.Types.LiteralUnlimitedNatural,
   undefined,
   LiteralSpecification,
+)
+
+export const OpaqueExpression = define(
+  Uml.Types.OpaqueExpression,
+  undefined,
+  ValueSpecification,
+)
+
+// TODO: Validate generalization
+export const Expression = define(
+  Uml.Types.Expression,
+  undefined,
+  ValueSpecification,
+)
+
+export const StringExpression = define(
+  Uml.Types.StringExpression,
+  undefined,
+  TemplateableElement,
+  Expression,
 )
 
 export const Model = define(Uml.Types.Model, undefined, Package)
@@ -288,6 +346,12 @@ export const InstanceSpecification = define(
   DeploymentTarget,
   PackageableElement,
   DeployedArtifact,
+)
+
+export const InstanceValue = define(
+  Uml.Types.InstanceValue,
+  undefined,
+  ValueSpecification,
 )
 
 export const Enumeration = define(Uml.Types.Enumeration, undefined, DataType)
@@ -316,8 +380,8 @@ export const Association = define(
 export const AssociationClass = define(
   Uml.Types.AssociationClass,
   undefined,
-  Association,
   Class,
+  Association,
 )
 
 export const Collaboration = define(
@@ -471,4 +535,725 @@ export const ExecutionSpecification = defineAbstract(
 export const MessageEnd = defineAbstract(
   Uml.AbstractTypes.MessageEnd,
   NamedElement,
+)
+
+export const Duration = define(
+  Uml.Types.Duration,
+  undefined,
+  ValueSpecification,
+)
+
+export const Interval = define(
+  Uml.Types.Interval,
+  undefined,
+  ValueSpecification,
+)
+
+export const IntervalConstraint = define(
+  Uml.Types.IntervalConstraint,
+  undefined,
+  Constraint,
+)
+
+export const DurationConstraint = define(
+  Uml.Types.DurationConstraint,
+  undefined,
+  IntervalConstraint,
+)
+
+export const DurationInterval = define(
+  Uml.Types.DurationInterval,
+  undefined,
+  Interval,
+)
+
+export const DurationObservation = define(
+  Uml.Types.DurationObservation,
+  undefined,
+  Observation,
+)
+
+export const TimeConstraint = define(
+  Uml.Types.TimeConstraint,
+  undefined,
+  IntervalConstraint,
+)
+
+export const TimeExpression = define(
+  Uml.Types.TimeExpression,
+  undefined,
+  ValueSpecification,
+)
+
+export const TimeInterval = define(Uml.Types.TimeInterval, undefined, Interval)
+
+export const TimeObservation = define(
+  Uml.Types.TimeObservation,
+  undefined,
+  Observation,
+)
+
+export const ClassifierTemplateParameter = define(
+  Uml.Types.ClassifierTemplateParameter,
+  undefined,
+  TemplateParameter,
+)
+
+export const GeneralizationSet = define(
+  Uml.Types.GeneralizationSet,
+  undefined,
+  PackageableElement,
+)
+
+export const OperationTemplateParameter = define(
+  Uml.Types.OperationTemplateParameter,
+  undefined,
+  TemplateParameter,
+)
+
+export const RedefinableTemplateSignature = define(
+  Uml.Types.RedefinableTemplateSignature,
+  undefined,
+  RedefinableElement,
+  TemplateSignature,
+)
+
+export const Slot = define(Uml.Types.Slot, undefined, Element)
+
+export const Reception = define(
+  Uml.Types.Reception,
+  undefined,
+  BehavioralFeature,
+)
+
+export const Signal = define(Uml.Types.Signal, undefined, Classifier)
+
+export const Extension = define(Uml.Types.Extension, undefined, Association)
+
+export const ExtensionEnd = define(Uml.Types.ExtensionEnd, undefined, Property)
+
+export const Image = define(Uml.Types.Image, undefined, Element)
+
+export const Stereotype = define(Uml.Types.Stereotype, undefined, Class)
+
+export const AnyReceiveEvent = define(
+  Uml.Types.AnyReceiveEvent,
+  undefined,
+  MessageEvent,
+)
+
+export const CallEvent = define(Uml.Types.CallEvent, undefined, MessageEvent)
+
+export const ChangeEvent = define(Uml.Types.ChangeEvent, undefined, Event)
+
+export const OpaqueBehavior = define(
+  Uml.Types.OpaqueBehavior,
+  undefined,
+  Behavior,
+)
+
+export const FunctionBehavior = define(
+  Uml.Types.FunctionBehavior,
+  undefined,
+  OpaqueBehavior,
+)
+
+export const SignalEvent = define(
+  Uml.Types.SignalEvent,
+  undefined,
+  MessageEvent,
+)
+
+export const TimeEvent = define(Uml.Types.TimeEvent, undefined, Event)
+
+export const Trigger = define(Uml.Types.Trigger, undefined, NamedElement)
+
+export const ConnectionPointReference = define(
+  Uml.Types.ConnectionPointReference,
+  undefined,
+  Vertex,
+)
+
+export const State = define(Uml.Types.State, undefined, Namespace, Vertex)
+
+export const FinalState = define(Uml.Types.FinalState, undefined, State)
+
+export const ProtocolConformance = define(
+  Uml.Types.ProtocolConformance,
+  undefined,
+  DirectedRelationship,
+)
+
+export const StateMachine = define(Uml.Types.StateMachine, undefined, Behavior)
+
+export const ProtocolStateMachine = define(
+  Uml.Types.ProtocolStateMachine,
+  undefined,
+  StateMachine,
+)
+
+export const Transition = define(
+  Uml.Types.Transition,
+  undefined,
+  Namespace,
+  RedefinableElement,
+)
+
+export const ProtocolTransition = define(
+  Uml.Types.ProtocolTransition,
+  undefined,
+  Transition,
+)
+
+export const Pseudostate = define(Uml.Types.Pseudostate, undefined, Vertex)
+
+export const Region = define(
+  Uml.Types.Region,
+  undefined,
+  Namespace,
+  RedefinableElement,
+)
+
+export const Activity = define(Uml.Types.Activity, undefined, Behavior)
+
+export const ActivityFinalNode = define(
+  Uml.Types.ActivityFinalNode,
+  undefined,
+  FinalNode,
+)
+
+export const ActivityParameterNode = define(
+  Uml.Types.ActivityParameterNode,
+  undefined,
+  ObjectNode,
+)
+
+export const ActivityPartition = define(
+  Uml.Types.ActivityPartition,
+  undefined,
+  ActivityGroup,
+)
+
+export const CentralBufferNode = define(
+  Uml.Types.CentralBufferNode,
+  undefined,
+  ObjectNode,
+)
+
+export const ControlFlow = define(
+  Uml.Types.ControlFlow,
+  undefined,
+  ActivityEdge,
+)
+
+export const DataStoreNode = define(
+  Uml.Types.DataStoreNode,
+  undefined,
+  CentralBufferNode,
+)
+
+export const DecisionNode = define(
+  Uml.Types.DecisionNode,
+  undefined,
+  ControlNode,
+)
+
+export const ExceptionHandler = define(
+  Uml.Types.ExceptionHandler,
+  undefined,
+  Element,
+)
+
+export const FlowFinalNode = define(
+  Uml.Types.FlowFinalNode,
+  undefined,
+  FinalNode,
+)
+
+export const ForkNode = define(Uml.Types.ForkNode, undefined, ControlNode)
+
+export const InitialNode = define(Uml.Types.InitialNode, undefined, ControlNode)
+
+export const InterruptibleActivityRegion = define(
+  Uml.Types.InterruptibleActivityRegion,
+  undefined,
+  ActivityGroup,
+)
+
+export const JoinNode = define(Uml.Types.JoinNode, undefined, ControlNode)
+
+export const MergeNode = define(Uml.Types.MergeNode, undefined, ControlNode)
+
+export const ObjectFlow = define(Uml.Types.ObjectFlow, undefined, ActivityEdge)
+
+export const Variable = define(
+  Uml.Types.Variable,
+  undefined,
+  ConnectableElement,
+  MultiplicityElement,
+)
+
+export const AcceptEventAction = define(
+  Uml.Types.AcceptEventAction,
+  undefined,
+  Action,
+)
+
+export const AcceptCallAction = define(
+  Uml.Types.AcceptCallAction,
+  undefined,
+  AcceptEventAction,
+)
+
+export const InputPin = define(Uml.Types.InputPin, undefined, Pin)
+
+export const ActionInputPin = define(
+  Uml.Types.ActionInputPin,
+  undefined,
+  InputPin,
+)
+
+export const AddStructuralFeatureValueAction = define(
+  Uml.Types.AddStructuralFeatureValueAction,
+  undefined,
+  WriteStructuralFeatureAction,
+)
+
+export const AddVariableValueAction = define(
+  Uml.Types.AddVariableValueAction,
+  undefined,
+  WriteVariableAction,
+)
+
+export const BroadcastSignalAction = define(
+  Uml.Types.BroadcastSignalAction,
+  undefined,
+  InvocationAction,
+)
+
+export const CallBehaviorAction = define(
+  Uml.Types.CallBehaviorAction,
+  undefined,
+  CallAction,
+)
+
+export const CallOperationAction = define(
+  Uml.Types.CallOperationAction,
+  undefined,
+  CallAction,
+)
+
+export const Clause = define(Uml.Types.Clause, undefined, Element)
+
+export const ClearAssociationAction = define(
+  Uml.Types.ClearAssociationAction,
+  undefined,
+  Action,
+)
+
+export const ClearStructuralFeatureAction = define(
+  Uml.Types.ClearStructuralFeatureAction,
+  undefined,
+  StructuralFeatureAction,
+)
+
+export const ClearVariableAction = define(
+  Uml.Types.ClearVariableAction,
+  undefined,
+  VariableAction,
+)
+
+export const StructuredActivityNode = define(
+  Uml.Types.StructuredActivityNode,
+  undefined,
+  Namespace,
+  ActivityGroup,
+  Action,
+)
+
+export const ConditionalNode = define(
+  Uml.Types.ConditionalNode,
+  undefined,
+  StructuredActivityNode,
+)
+
+export const CreateLinkAction = define(
+  Uml.Types.CreateLinkAction,
+  undefined,
+  WriteLinkAction,
+)
+
+export const CreateLinkObjectAction = define(
+  Uml.Types.CreateLinkObjectAction,
+  undefined,
+  CreateLinkAction,
+)
+
+export const CreateObjectAction = define(
+  Uml.Types.CreateObjectAction,
+  undefined,
+  Action,
+)
+
+export const DestroyLinkAction = define(
+  Uml.Types.DestroyLinkAction,
+  undefined,
+  WriteLinkAction,
+)
+
+export const DestroyObjectAction = define(
+  Uml.Types.DestroyObjectAction,
+  undefined,
+  Action,
+)
+
+export const ExpansionNode = define(
+  Uml.Types.ExpansionNode,
+  undefined,
+  ObjectNode,
+)
+
+export const ExpansionRegion = define(
+  Uml.Types.ExpansionRegion,
+  undefined,
+  StructuredActivityNode,
+)
+
+export const LinkEndData = define(Uml.Types.LinkEndData, undefined, Element)
+
+export const LinkEndCreationData = define(
+  Uml.Types.LinkEndCreationData,
+  undefined,
+  LinkEndData,
+)
+
+export const LinkEndDestructionData = define(
+  Uml.Types.LinkEndDestructionData,
+  undefined,
+  LinkEndData,
+)
+
+export const LoopNode = define(
+  Uml.Types.LoopNode,
+  undefined,
+  StructuredActivityNode,
+)
+
+export const OpaqueAction = define(Uml.Types.OpaqueAction, undefined, Action)
+
+export const OutputPin = define(Uml.Types.OutputPin, undefined, Pin)
+
+export const QualifierValue = define(
+  Uml.Types.QualifierValue,
+  undefined,
+  Element,
+)
+
+export const RaiseExceptionAction = define(
+  Uml.Types.RaiseExceptionAction,
+  undefined,
+  Action,
+)
+
+export const ReadExtentAction = define(
+  Uml.Types.ReadExtentAction,
+  undefined,
+  Action,
+)
+
+export const ReadIsClassifiedObjectAction = define(
+  Uml.Types.ReadIsClassifiedObjectAction,
+  undefined,
+  Action,
+)
+
+export const ReadLinkAction = define(
+  Uml.Types.ReadLinkAction,
+  undefined,
+  LinkAction,
+)
+
+export const ReadLinkObjectEndAction = define(
+  Uml.Types.ReadLinkObjectEndAction,
+  undefined,
+  Action,
+)
+
+export const ReadLinkObjectEndQualifierAction = define(
+  Uml.Types.ReadLinkObjectEndQualifierAction,
+  undefined,
+  Action,
+)
+
+export const ReadSelfAction = define(
+  Uml.Types.ReadSelfAction,
+  undefined,
+  Action,
+)
+
+export const ReadStructuralFeatureAction = define(
+  Uml.Types.ReadStructuralFeatureAction,
+  undefined,
+  StructuralFeatureAction,
+)
+
+export const ReadVariableAction = define(
+  Uml.Types.ReadVariableAction,
+  undefined,
+  VariableAction,
+)
+
+export const ReclassifyObjectAction = define(
+  Uml.Types.ReclassifyObjectAction,
+  undefined,
+  Action,
+)
+
+export const ReduceAction = define(Uml.Types.ReduceAction, undefined, Action)
+
+export const RemoveStructuralFeatureValueAction = define(
+  Uml.Types.RemoveStructuralFeatureValueAction,
+  undefined,
+  WriteStructuralFeatureAction,
+)
+
+export const RemoveVariableValueAction = define(
+  Uml.Types.RemoveVariableValueAction,
+  undefined,
+  WriteVariableAction,
+)
+
+export const ReplyAction = define(Uml.Types.ReplyAction, undefined, Action)
+
+export const SendObjectAction = define(
+  Uml.Types.SendObjectAction,
+  undefined,
+  InvocationAction,
+)
+
+export const SendSignalAction = define(
+  Uml.Types.SendSignalAction,
+  undefined,
+  InvocationAction,
+)
+
+export const SequenceNode = define(
+  Uml.Types.SequenceNode,
+  undefined,
+  StructuredActivityNode,
+)
+
+export const StartClassifierBehaviorAction = define(
+  Uml.Types.StartClassifierBehaviorAction,
+  undefined,
+  Action,
+)
+
+export const StartObjectBehaviorAction = define(
+  Uml.Types.StartObjectBehaviorAction,
+  undefined,
+  CallAction,
+)
+
+export const TestIdentityAction = define(
+  Uml.Types.TestIdentityAction,
+  undefined,
+  Action,
+)
+
+export const UnmarshallAction = define(
+  Uml.Types.UnmarshallAction,
+  undefined,
+  Action,
+)
+
+export const ValuePin = define(Uml.Types.ValuePin, undefined, InputPin)
+
+export const ValueSpecificationAction = define(
+  Uml.Types.ValueSpecificationAction,
+  undefined,
+  Action,
+)
+
+export const ActionExecutionSpecification = define(
+  Uml.Types.ActionExecutionSpecification,
+  undefined,
+  ExecutionSpecification,
+)
+
+export const BehaviorExecutionSpecification = define(
+  Uml.Types.BehaviorExecutionSpecification,
+  undefined,
+  ExecutionSpecification,
+)
+
+export const CombinedFragment = define(
+  Uml.Types.CombinedFragment,
+  undefined,
+  InteractionFragment,
+)
+
+export const ConsiderIgnoreFragment = define(
+  Uml.Types.ConsiderIgnoreFragment,
+  undefined,
+  CombinedFragment,
+)
+
+export const Continuation = define(
+  Uml.Types.Continuation,
+  undefined,
+  InteractionFragment,
+)
+
+export const OccurrenceSpecification = define(
+  Uml.Types.OccurrenceSpecification,
+  undefined,
+  InteractionFragment,
+)
+
+export const MessageOccurrenceSpecification = define(
+  Uml.Types.MessageOccurrenceSpecification,
+  undefined,
+  MessageEnd,
+  OccurrenceSpecification,
+)
+
+export const DestructionOccurrenceSpecification = define(
+  Uml.Types.DestructionOccurrenceSpecification,
+  undefined,
+  MessageOccurrenceSpecification,
+)
+
+export const ExecutionOccurrenceSpecification = define(
+  Uml.Types.ExecutionOccurrenceSpecification,
+  undefined,
+  OccurrenceSpecification,
+)
+
+export const Gate = define(Uml.Types.Gate, undefined, MessageEnd)
+
+export const GeneralOrdering = define(
+  Uml.Types.GeneralOrdering,
+  undefined,
+  NamedElement,
+)
+
+export const Interaction = define(
+  Uml.Types.Interaction,
+  undefined,
+  InteractionFragment,
+  Behavior,
+)
+
+export const InteractionConstraint = define(
+  Uml.Types.InteractionConstraint,
+  undefined,
+  Constraint,
+)
+
+export const InteractionOperand = define(
+  Uml.Types.InteractionOperand,
+  undefined,
+  InteractionFragment,
+  Namespace,
+)
+
+export const InteractionUse = define(
+  Uml.Types.InteractionUse,
+  undefined,
+  InteractionFragment,
+)
+
+export const Lifeline = define(Uml.Types.Lifeline, undefined, NamedElement)
+
+export const Message = define(Uml.Types.Message, undefined, NamedElement)
+
+export const PartDecomposition = define(
+  Uml.Types.PartDecomposition,
+  undefined,
+  InteractionUse,
+)
+
+export const StateInvariant = define(
+  Uml.Types.StateInvariant,
+  undefined,
+  InteractionFragment,
+)
+
+export const Actor = define(Uml.Types.Actor, undefined, BehavioredClassifier)
+
+export const Extend = define(
+  Uml.Types.Extend,
+  undefined,
+  NamedElement,
+  DirectedRelationship,
+)
+
+export const ExtensionPoint = define(
+  Uml.Types.ExtensionPoint,
+  undefined,
+  RedefinableElement,
+)
+
+export const Include = define(
+  Uml.Types.Include,
+  undefined,
+  DirectedRelationship,
+  NamedElement,
+)
+
+export const UseCase = define(
+  Uml.Types.UseCase,
+  undefined,
+  BehavioredClassifier,
+)
+
+export const Artifact = define(
+  Uml.Types.Artifact,
+  undefined,
+  Classifier,
+  DeployedArtifact,
+)
+
+export const CommunicationPath = define(
+  Uml.Types.CommunicationPath,
+  undefined,
+  Association,
+)
+
+export const Deployment = define(Uml.Types.Deployment, undefined, Dependency)
+
+export const DeploymentSpecification = define(
+  Uml.Types.DeploymentSpecification,
+  undefined,
+  Artifact,
+)
+
+export const Node = define(Uml.Types.Node, undefined, Class, DeploymentTarget)
+
+export const Device = define(Uml.Types.Device, undefined, Node)
+
+export const ExecutionEnvironment = define(
+  Uml.Types.ExecutionEnvironment,
+  undefined,
+  Node,
+)
+
+export const Manifestation = define(
+  Uml.Types.Manifestation,
+  undefined,
+  Abstraction,
+)
+
+export const InformationFlow = define(
+  Uml.Types.InformationFlow,
+  undefined,
+  DirectedRelationship,
+  PackageableElement,
+)
+
+export const InformationItem = define(
+  Uml.Types.InformationItem,
+  undefined,
+  Classifier,
 )

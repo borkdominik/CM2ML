@@ -26,7 +26,7 @@ function addEdge_abstraction(componentRealization: GraphNode) {
 }
 
 function addEdge_realizingClassifier(_componentRealization: GraphNode) {
-  // TODO
+  // TODO/Association
   // realizingClassifier: Classifier[1..*]{subsets Dependency:: client } (opposite A_realizingClassifier_componentRealization::componentRealization)
   // The Classifiers that are involved in the implementation of the Component that owns this Realization.
 }

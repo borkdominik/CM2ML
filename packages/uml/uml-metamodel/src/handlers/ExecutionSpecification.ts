@@ -14,13 +14,13 @@ export const ExecutionSpecificationHandler =
   )
 
 function addEdge_finish(_executionSpecification: GraphNode) {
-  // TODO
+  // TODO/Association
   // finish : OccurrenceSpecification [1..1] (opposite A_finish_executionSpecification::executionSpecification)
   // References the OccurrenceSpecification that designates the finish of the Action or Behavior.
 }
 
 function addEdge_start(_executionSpecification: GraphNode) {
-  // TODO
+  // TODO/Association
   // start : OccurrenceSpecification [1..1] (opposite A_start_executionSpecification::executionSpecification)
   // References the OccurrenceSpecification that designates the start of the Action or Behavior.
 }

@@ -1,14 +1,7 @@
 import { Uml } from '../uml'
 import { StructuralFeature } from '../uml-metamodel'
 
-// Note: No additional associations over generalization
-export const StructuralFeatureHandler = StructuralFeature.createHandler(
-  (_structuralFeature, { onlyContainmentAssociations }) => {
-    if (onlyContainmentAssociations) {
-      //   return
-    }
-  },
-  {
+export const StructuralFeatureHandler =
+  StructuralFeature.createPassthroughHandler({
     [Uml.Attributes.isReadOnly]: 'false',
-  },
-)
+  })

@@ -77,7 +77,7 @@ function addEdge_ownedMember(namespace: GraphNode, child: GraphNode) {
 }
 
 function addEdge_ownedRule(_namespace: GraphNode, _child: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ ownedRule : Constraint [0..*]{subsets Namespace::ownedMember} (opposite Constraint::context)
   // Specifies a set of Constraints owned by this Namespace.
 }

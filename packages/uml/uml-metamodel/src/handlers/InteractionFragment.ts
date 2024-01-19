@@ -15,25 +15,25 @@ export const InteractionFragmentHandler = InteractionFragment.createHandler(
 )
 
 function addEdge_covered(_interactionFragment: GraphNode) {
-  // TODO
+  // TODO/Association
   // covered : Lifeline [0..*] (opposite Lifeline::coveredBy)
   // References the Lifelines that the InteractionFragment involves.
 }
 
 function addEdge_enclosingInteraction(_interactionFragment: GraphNode) {
-  // TODO
+  // TODO/Association
   // enclosingInteraction : Interaction [0..1]{subsets NamedElement::namespace} (opposite Interaction::fragment)
   // The Interaction enclosing this InteractionFragment.
 }
 
 function addEdge_enclosingOperand(_interactionFragment: GraphNode) {
-  // TODO
+  // TODO/Association
   // enclosingOperand : InteractionOperand [0..1]{subsets NamedElement::namespace} (opposite InteractionOperand::fragment)
   // The operand enclosing this InteractionFragment (they may nest recursively).
 }
 
 function addEdge_generalOrdering(_interactionFragment: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ generalOrdering : GeneralOrdering [0..*]{subsets Element::ownedElement} (opposite A_generalOrdering_interactionFragment::interactionFragment)
   // The general ordering relationships contained in this fragment.
 }

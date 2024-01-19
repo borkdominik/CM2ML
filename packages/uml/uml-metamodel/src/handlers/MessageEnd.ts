@@ -12,7 +12,7 @@ export const MessageEndHandler = MessageEnd.createHandler(
 )
 
 function addEdge_message(_messageEnd: GraphNode) {
-  // TODO
+  // TODO/Association
   // message : Message [0..1] (opposite A_message_messageEnd::messageEnd)
   // References a Message.
 }

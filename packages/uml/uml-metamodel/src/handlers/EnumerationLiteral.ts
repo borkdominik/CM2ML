@@ -14,7 +14,7 @@ export const EnumerationLiteralHandler = EnumerationLiteral.createHandler(
 )
 
 function addEdge_classifier(_enumerationLiteral: GraphNode) {
-  // TODO
+  // TODO/Association
   // /classifier : Enumeration [1..1]{redefines InstanceSpecification::classifier} (opposite A_classifier_enumerationLiteral::enumerationLiteral )
   // The classifier of this EnumerationLiteral derived to be equal to its Enumeration.
 }

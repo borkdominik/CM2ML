@@ -40,7 +40,7 @@ function addEdge_nestingPackage(package_: GraphNode) {
 }
 
 function addEdge_ownedStereotype(_package_: GraphNode, _child: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ /ownedStereotype : Stereotype [0..*]{subsets Package::packagedElement} (opposite A_ownedStereotype_owningPackage::owningPackage)
   // References the Stereotypes that are owned by the package_.
 }
@@ -64,7 +64,7 @@ function addEdge_packagedElement(package_: GraphNode, child: GraphNode) {
 }
 
 function addEdge_profileApplication(_package_: GraphNode, _child: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ profileApplication : ProfileApplication [0..*]{subsets Element::ownedElement, subsets A_source_directedRelationship::directedRelationship} (opposite ProfileApplication::applyingPackage)
   // References the ProfileApplications that indicate which profiles have been applied to the Package.
 }

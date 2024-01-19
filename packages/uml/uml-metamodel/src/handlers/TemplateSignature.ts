@@ -14,19 +14,19 @@ export const TemplateSignatureHandler = TemplateSignature.createHandler(
 )
 
 function addEdge_ownedParameter(_templateSignature: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ ownedParameter : TemplateParameter [0..*]{ordered, subsets Element::ownedElement, subsets TemplateSignature::parameter} (opposite TemplateParameter::signature)
   // The formal parameters that are owned by this TemplateSignature.
 }
 
 function addEdge_parameter(_templateSignature: GraphNode) {
-  // TODO
+  // TODO/Association
   // parameter : TemplateParameter [1..*]{ordered} (opposite A_parameter_templateSignature::templateSignature)
   // The ordered set of all formal TemplateParameters for this TemplateSignature.
 }
 
 function addEdge_template(_templateSignature: GraphNode) {
-  // TODO
+  // TODO/Association
   // template : TemplateableElement [1..1]{subsets Element::owner} (opposite TemplateableElement::ownedTemplateSignature)
   // The TemplateableElement that owns this TemplateSignature.
 }

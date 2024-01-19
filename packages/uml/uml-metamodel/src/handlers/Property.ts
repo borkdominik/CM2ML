@@ -55,7 +55,7 @@ function addEdge_association(property: GraphNode) {
 }
 
 function addEdge_associationEnd(_property: GraphNode) {
-  // TODO
+  // TODO/Association
   // associationEnd : Property [0..1]{subsets Element::owner} (opposite Property::qualifier)
   // Designates the optional association end that owns a qualifier attribute.
 }
@@ -75,7 +75,7 @@ function addEdge_datatype(property: GraphNode) {
 }
 
 function addEdge_defaultValue(_property: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ defaultValue : ValueSpecification [0..1]{subsets Element::ownedElement} (opposite A_defaultValue_owningProperty::owningProperty)
   // A ValueSpecification that is evaluated to give a default value for the Property when an instance of the owning Classifier is instantiated.
 }
@@ -88,7 +88,7 @@ function addEdge_interface(property: GraphNode) {
 }
 
 function addEdge_opposite(_property: GraphNode) {
-  // TODO
+  // TODO/Association
   // /opposite : Property [0..1] (opposite A_opposite_property::property)
   // In the case where the Property is one end of a binary association this gives the other end.
 }
@@ -108,19 +108,19 @@ function addEdge_owningAssociation(
 }
 
 function addEdge_qualifier(_property: GraphNode) {
-  // TODO
+  // TODO/Association
   // ♦ qualifier : Property [0..*]{ordered, subsets Element::ownedElement} (opposite Property::associationEnd)
   // An optional list of ordered qualifier attributes for the end.
 }
 
 function addEdge_redefinedProperty(_property: GraphNode) {
-  // TODO
+  // TODO/Association
   // redefinedProperty : Property [0..*]{subsets RedefinableElement::redefinedElement} (opposite A_redefinedProperty_property::property)
   // The properties that are redefined by this property, if any.
 }
 
 function addEdge_subsettedProperty(_property: GraphNode) {
-  // TODO
+  // TODO/Association
   // subsettedProperty : Property [0..*] (opposite A_subsettedProperty_property::property)
   // The properties of which this Property is constrained to be a subset, if any.
 }

@@ -13,13 +13,13 @@ export const ParameterableElementHandler = ParameterableElement.createHandler(
 )
 
 function addEdge_owningTemplateParameter(_parameterableElement: GraphNode) {
-  // TODO
+  // TODO/Association
   // owningTemplateParameter : TemplateParameter [0..1]{subsets ParameterableElement::templateParameter, subsets Element::owner} (opposite TemplateParameter::ownedParameteredElement)
   // The formal TemplateParameter that owns this ParameterableElement.
 }
 
 function addEdge_templateParameter(_parameterableElement: GraphNode) {
-  // TODO
+  // TODO/Association
   // templateParameter : TemplateParameter [0..1] (opposite TemplateParameter::parameteredElement)
   // The TemplateParameter that exposes this ParameterableElement as a formal parameter.
 }

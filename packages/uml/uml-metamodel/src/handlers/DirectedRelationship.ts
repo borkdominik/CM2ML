@@ -13,13 +13,13 @@ export const DirectedRelationshipHandler = DirectedRelationship.createHandler(
 )
 
 function addEdge_source(_directedRelationship: GraphNode) {
-  // TODO
+  // TODO/Association
   // /source : Element [1..*]{union, subsets Relationship::relatedElement} (opposite A_source_directedRelationship::directedRelationship)
   // Specifies the source Element(s) of the DirectedRelationship.
 }
 
 function addEdge_target(_directedRelationship: GraphNode) {
-  // TODO
+  // TODO/Association
   // /target : Element [1..*]{union, subsets Relationship::relatedElement} (opposite A_target_directedRelationship::directedRelationship)
   // Specifies the target Element(s) of the DirectedRelationship.
 }

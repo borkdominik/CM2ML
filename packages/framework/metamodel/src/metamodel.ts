@@ -190,8 +190,19 @@ export class MetamodelElement<
     })
   }
 
+  /**
+   * Create a handler for a metamodel element without additional associations over its generalizations.
+   * @param attributeDefaults - Can be used to set default values for attributes
+   * @returns
+   */
+  public createPassthroughHandler(
+    attributeDefaults: Record<string, string> = {},
+  ) {
+    return this.createHandler(() => {}, attributeDefaults)
+  }
+
   public createHandler(
-    handler: Handler<HandlerParameters> = () => {},
+    handler: Handler<HandlerParameters>,
     attributeDefaults: Record<string, string> = {},
   ) {
     if (this.handler !== undefined) {
