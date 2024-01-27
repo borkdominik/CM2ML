@@ -169,7 +169,7 @@ function NodeSelectionButton({ id }: { id: string | undefined }) {
   return (
     <Button
       variant={'link'}
-      className="h-fit w-fit p-0 font-mono text-xs"
+      className="size-fit p-0 font-mono text-xs"
       onClick={() => setSelection(id)}
     >
       {id}
@@ -193,7 +193,7 @@ function EdgeSelectionButton({
   return (
     <Button
       variant={'link'}
-      className="h-fit w-fit p-0 font-mono text-xs"
+      className="size-fit p-0 font-mono text-xs"
       onClick={() => setSelection([[sourceId, targetId]])}
     >
       {label}

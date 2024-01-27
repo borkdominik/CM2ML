@@ -77,7 +77,7 @@ function Grid({ matrix, nodes }: GridProps) {
       height={size}
       width={size}
       viewBox={`${offset} ${offset} ${viewBoxSize} ${viewBoxSize}`}
-      className="h-full w-full"
+      className="size-full"
       onPointerDown={() => clearSelection()}
     >
       <Labels nodes={nodes} offset={offset} />
@@ -450,7 +450,7 @@ function ListEntry({
   style,
 }: ListEntryProps) {
   return (
-    <div className="h-fit w-fit">
+    <div className="size-fit">
       <span
         className={cn({
           'mx-1 my-0.5 py-0.5 px-1 rounded-sm hover:outline hover:outline-accent-foreground hover:bg-accent hover:text-accent-foreground':

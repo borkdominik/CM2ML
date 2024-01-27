@@ -35,14 +35,14 @@
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/plugin-adapter": "workspace:*",
     "@cm2ml/utils": "workspace:*",
-    "@yeger/streams": "1.1.3",
+    "@yeger/streams": "1.1.4",
     "fastify": "4.25.2"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
     "typescript": "5.3.3",
-    "vite": "5.0.11",
-    "vite-plugin-lib": "2.0.5"
+    "vite": "5.0.12",
+    "vite-plugin-lib": "2.0.6"
   },
   "publishConfig": {
     "access": "public"

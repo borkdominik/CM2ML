@@ -46,7 +46,7 @@ export function Parameters({ parameters, setValues, values }: Props) {
         <Label>Parameters</Label>
         <CollapsibleTrigger asChild>
           <Button variant="ghost" size="sm">
-            <CaretSortIcon className="h-4 w-4" />
+            <CaretSortIcon className="size-4" />
             <span className="sr-only">Toggle</span>
           </Button>
         </CollapsibleTrigger>
