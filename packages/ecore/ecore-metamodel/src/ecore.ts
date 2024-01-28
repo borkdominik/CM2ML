@@ -2,8 +2,9 @@ import type { Attributable, GraphNode } from '@cm2ml/ir'
 import { parseNamespace } from '@cm2ml/utils'
 
 const Attributes = {
+  'xsi:id': 'xsi:id',
   // TODO: Is this the correct type?
-  xsiType: 'xsi:type',
+  'xsi:type': 'xsi:type',
 } as const
 
 const Tags = {} as const
@@ -28,7 +29,7 @@ function isValidType(type: string | undefined): type is EcoreType {
 }
 
 function getType(node: Attributable) {
-  const type = node.getAttribute(Attributes.xsiType)?.value.literal
+  const type = node.getAttribute(Attributes['xsi:type'])?.value.literal
   if (isValidType(type)) {
     return type
   }
@@ -51,7 +52,7 @@ export const Ecore = {
   AbstractTypes,
   Tags,
   Types,
-  typeAttributeName: Attributes.xsiType,
+  typeAttributeName: Attributes['xsi:type'],
   getTagType,
   getType,
   isValidTag,

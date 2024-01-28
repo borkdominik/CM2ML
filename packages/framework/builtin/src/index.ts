@@ -4,7 +4,6 @@ import type { GraphModel } from '@cm2ml/ir'
 import { type Plugin, compose } from '@cm2ml/plugin'
 import { TreeEncoder } from '@cm2ml/tree-encoder'
 import { UmlParser } from '@cm2ml/uml-parser'
-import { XmiParser } from '@cm2ml/xmi-parser'
 
 export * from '@cm2ml/ecore-parser'
 export * from '@cm2ml/graph-encoder'
@@ -14,12 +13,11 @@ export * from '@cm2ml/xmi-parser'
 
 export type Parser = Plugin<string, GraphModel, any>
 
-export const parsers: Parser[] = [EcoreParser, UmlParser, XmiParser]
+export const parsers: Parser[] = [EcoreParser, UmlParser]
 
 export const parserMap = {
   [EcoreParser.name]: EcoreParser,
   [UmlParser.name]: UmlParser,
-  [XmiParser.name]: XmiParser,
 }
 
 export type Encoder = Plugin<GraphModel, unknown, any>

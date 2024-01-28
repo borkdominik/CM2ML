@@ -171,7 +171,7 @@ export class MetamodelElement<
       return
     }
     if (!this.handler) {
-      const message = `No handler for metamodel element ${this.name}`
+      const message = `Missing handler defined for metamodel element ${this.name}`
       if (node.model.settings.strict) {
         throw new Error(message)
       }

@@ -7,37 +7,47 @@ import { Element, Text } from 'domhandler'
 import type { Document, Node } from 'domhandler'
 import { parseDocument } from 'htmlparser2'
 
-export const XmiParser = definePlugin({
-  name: 'xmi',
-  parameters: {
-    idAttribute: {
-      type: 'string',
-      defaultValue: 'xmi:id',
-      description:
-        'The name of the attribute that is used to identify elements.',
-    },
-    debug: {
-      type: 'boolean',
-      defaultValue: false,
-      description: 'Log debug information.',
-    },
-    strict: {
-      type: 'boolean',
-      defaultValue: false,
-      description: 'Fail when encountering unknown or invalid input.',
-    },
-  },
-  invoke: (input: string, settings) => parse(input, settings),
-})
+export type TextNodeHandler = (node: GraphNode, text: string) => void
 
-function parse(xmi: string, settings: Settings): GraphModel {
+export function createXmiParser(
+  idAttribute: string,
+  textNodeHandler: TextNodeHandler,
+) {
+  return definePlugin({
+    name: 'xmi',
+    parameters: {
+      debug: {
+        type: 'boolean',
+        defaultValue: false,
+        description: 'Log debug information.',
+      },
+      strict: {
+        type: 'boolean',
+        defaultValue: false,
+        description: 'Fail when encountering unknown or invalid input.',
+      },
+    },
+    invoke: (input: string, settings) =>
+      parse(input, { ...settings, idAttribute }, textNodeHandler),
+  })
+}
+
+function parse(
+  xmi: string,
+  settings: Settings,
+  textNodeHandler: TextNodeHandler,
+): GraphModel {
   const document = parseDocument(xmi, {
     xmlMode: true,
   })
-  return mapDocument(document, settings)
+  return mapDocument(document, settings, textNodeHandler)
 }
 
-function mapDocument(document: Document, settings: Settings) {
+function mapDocument(
+  document: Document,
+  settings: Settings,
+  textNodeHandler: TextNodeHandler,
+) {
   const elementChildren = Stream.from(document.childNodes)
     .map((node) => (isElement(node) ? node : null))
     .filterNonNull()
@@ -47,36 +57,44 @@ function mapDocument(document: Document, settings: Settings) {
     throw new Error('Expected exactly one root element')
   }
   const model = new GraphModel(settings, root.tagName)
-  initNodeFromElement(model.root, root)
+  initNodeFromElement(model.root, root, textNodeHandler)
   return model
 }
 
-function createNodeFromElement(model: GraphModel, element: Element): GraphNode {
+function createNodeFromElement(
+  model: GraphModel,
+  element: Element,
+  textNodeHandler: TextNodeHandler,
+): GraphNode {
   const node = model.addNode(element.tagName)
-  initNodeFromElement(node, element)
+  initNodeFromElement(node, element, textNodeHandler)
   return node
 }
 
-function initNodeFromElement(node: GraphNode, element: Element) {
+function initNodeFromElement(
+  node: GraphNode,
+  element: Element,
+  textNodeHandler: TextNodeHandler,
+) {
   Stream.fromObject(element.attribs)
     .map(mapAttribute)
     .forEach((attribute) => node.addAttribute(attribute, true))
   Stream.from(element.childNodes).forEach((child) => {
     if (isElement(child)) {
-      const childNode = createNodeFromElement(node.model, child)
+      const childNode = createNodeFromElement(
+        node.model,
+        child,
+        textNodeHandler,
+      )
       node.addChild(childNode)
       return
     }
     if (isText(child)) {
-      const data = child.data.trim()
-      if (
-        child.data === '' ||
-        node.tag !== 'body' ||
-        node.getAttribute('body') !== undefined
-      ) {
+      const text = child.data.trim()
+      if (text === '') {
         return
       }
-      node.addAttribute({ name: 'body', value: { literal: data } })
+      textNodeHandler(node, text)
     }
   })
 }

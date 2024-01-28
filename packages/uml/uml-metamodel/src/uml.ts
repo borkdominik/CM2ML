@@ -100,6 +100,7 @@ const Tags = {
   general: 'general',
   generalization: 'generalization',
   interfaceRealization: 'interfaceRealization',
+  language: 'language',
   lowerValue: 'lowerValue',
   ownedAttribute: 'ownedAttribute',
   ownedLiteral: 'ownedLiteral',

@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveImportedPackage } from '../resolvers/resolveImportedPackage'
 import { Uml } from '../uml'
 import {
   ElementImport,
@@ -41,17 +42,7 @@ function addEdge_member(namespace: GraphNode, child: GraphNode) {
     namespace.model.addEdge('member', namespace, child)
   }
   if (PackageImport.isAssignable(child)) {
-    const importedPackageId = child.getAttribute(Uml.Attributes.importedPackage)
-      ?.value.literal
-    if (!importedPackageId) {
-      throw new Error('Missing importedPackage attribute on PackageImport')
-    }
-    const importedPackage = child.model.getNodeById(importedPackageId)
-    if (!importedPackage) {
-      throw new Error(
-        `Missing importedPackage with id ${importedPackageId} for PackageImport`,
-      )
-    }
+    const importedPackage = resolveImportedPackage(child)
     namespace.model.addEdge('member', namespace, importedPackage)
   }
   if (ElementImport.isAssignable(child)) {

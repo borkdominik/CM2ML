@@ -1,9 +1,9 @@
-import type { GraphModel } from '@cm2ml/ir'
+import type { GraphModel, GraphNode } from '@cm2ml/ir'
 import { IrPostProcessor } from '@cm2ml/ir-post-processor'
 import { createRefiner } from '@cm2ml/metamodel-refiner'
 import { compose, definePlugin } from '@cm2ml/plugin'
 import { Uml, inferUmlHandler, validateUmlModel } from '@cm2ml/uml-metamodel'
-import { XmiParser } from '@cm2ml/xmi-parser'
+import { createXmiParser } from '@cm2ml/xmi-parser'
 
 const refine = createRefiner(Uml, inferUmlHandler)
 
@@ -60,8 +60,19 @@ function removeNonUmlAttributes(model: GraphModel) {
   })
 }
 
+function handleTextNode(node: GraphNode, text: string) {
+  const tag = node.tag
+  if (!['body', 'language'].includes(tag)) {
+    return
+  }
+  if (node.getAttribute(tag) !== undefined) {
+    return
+  }
+  node.addAttribute({ name: tag, value: { literal: text } })
+}
+
 export const UmlParser = compose(
-  XmiParser,
+  createXmiParser(Uml.Attributes['xmi:id'], handleTextNode),
   compose(UmlRefiner, IrPostProcessor),
   'uml',
 )

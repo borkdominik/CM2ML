@@ -7,18 +7,13 @@ import type { GraphModel } from '@cm2ml/ir'
 import { IrPostProcessor } from '@cm2ml/ir-post-processor'
 import { createRefiner } from '@cm2ml/metamodel-refiner'
 import { compose, definePlugin } from '@cm2ml/plugin'
-import { XmiParser } from '@cm2ml/xmi-parser'
+import { createXmiParser } from '@cm2ml/xmi-parser'
 
 const refine = createRefiner(Ecore, inferEcoreHandler)
 
 export const EcoreRefiner = definePlugin({
   name: 'ecore',
-  parameters: {
-    idAttribute: {
-      ...XmiParser.parameters.idAttribute,
-      defaultValue: 'xsi:id',
-    },
-  },
+  parameters: {},
   invoke: (input: GraphModel, _parameters) => {
     const handlerParameters = {}
     const model = refine(input, handlerParameters)
@@ -28,7 +23,7 @@ export const EcoreRefiner = definePlugin({
 })
 
 export const EcoreParser = compose(
-  XmiParser,
+  createXmiParser(Ecore.Attributes['xsi:id'], () => {}),
   compose(EcoreRefiner, IrPostProcessor),
   'ecore',
 )
