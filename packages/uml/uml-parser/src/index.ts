@@ -39,7 +39,13 @@ export const UmlRefiner = definePlugin({
     },
   },
   invoke: (input: GraphModel, parameters) => {
+    input.nodes.forEach((node) => {
+      if (node.tag === 'eAnnotations') {
+        input.removeNode(node)
+      }
+    })
     const model = refine(input, parameters)
+
     removeNonUmlAttributes(model)
     validateUmlModel(model, parameters)
     return model

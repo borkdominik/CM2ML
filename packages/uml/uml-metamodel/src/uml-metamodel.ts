@@ -156,7 +156,7 @@ export const Dependency = define(
 
 export const Abstraction = define(Uml.Types.Abstraction, undefined, Dependency)
 
-export const Comment = define(Uml.Types.Comment, undefined, Element)
+export const Comment = define(Uml.Types.Comment, Uml.Tags.ownedComment, Element)
 
 export const Constraint = define(
   Uml.Types.Constraint,
@@ -222,7 +222,7 @@ export const Profile = define(Uml.Types.Profile, undefined, Package)
 
 export const ProfileApplication = define(
   Uml.Types.ProfileApplication,
-  undefined,
+  Uml.Tags.profileApplication,
   DirectedRelationship,
 )
 
@@ -1191,13 +1191,13 @@ export const Extend = define(
 
 export const ExtensionPoint = define(
   Uml.Types.ExtensionPoint,
-  undefined,
+  Uml.Tags.extensionPoint,
   RedefinableElement,
 )
 
 export const Include = define(
   Uml.Types.Include,
-  undefined,
+  Uml.Tags.include,
   DirectedRelationship,
   NamedElement,
 )

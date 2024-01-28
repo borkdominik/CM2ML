@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import path from 'node:path'
 
 import react from '@vitejs/plugin-react'
@@ -53,6 +54,7 @@ export default defineConfig({
     __SOURCE_URL: JSON.stringify(
       packageJson.repository.replace('github:', 'https://github.com/'),
     ),
+    __EXAMPLE_MODEL: JSON.stringify(readFileSync('../../clazz.uml', 'utf-8')),
   },
   resolve: {
     alias: {
