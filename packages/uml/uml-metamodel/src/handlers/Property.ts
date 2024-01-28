@@ -1,4 +1,4 @@
-import type { GraphNode } from '@cm2ml/ir'
+import type { Attribute, GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
 import { Uml } from '../uml'
@@ -12,10 +12,11 @@ import {
 
 export const PropertyHandler = Property.createHandler(
   (property, { onlyContainmentAssociations }) => {
+    const association = extractAssociation(property)
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_association(property)
+    addEdge_association(property, association)
     addEdge_associationEnd(property)
     addEdge_class(property)
     addEdge_datatype(property)
@@ -35,10 +36,21 @@ export const PropertyHandler = Property.createHandler(
   },
 )
 
-function addEdge_association(property: GraphNode) {
+function extractAssociation(property: GraphNode) {
+  const association = property.getAttribute('association')
+  if (!association) {
+    return undefined
+  }
+  property.removeAttribute('association')
+  return association
+}
+
+function addEdge_association(
+  property: GraphNode,
+  association: Attribute | undefined,
+) {
   // association : Association [0..1]{subsets A_member_memberNamespace::memberNamespace} (opposite Association::memberEnd)
   // The Association of which this Property is a member, if any.
-  const association = property.getAttribute('association')
   if (!association) {
     return
   }
