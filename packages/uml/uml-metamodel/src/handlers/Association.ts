@@ -28,8 +28,7 @@ export const AssociationHandler = Association.createHandler(
 
 function extractMemberEnds(association: GraphNode) {
   const memberEndsAttribute =
-    association.getAttribute('memberEnd')?.value.literal
-  association.removeAttribute('memberEnd')
+    association.removeAttribute('memberEnd')?.value.literal
   if (!memberEndsAttribute) {
     return []
   }

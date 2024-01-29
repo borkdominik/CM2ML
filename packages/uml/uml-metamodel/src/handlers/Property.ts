@@ -37,12 +37,7 @@ export const PropertyHandler = Property.createHandler(
 )
 
 function extractAssociation(property: GraphNode) {
-  const association = property.getAttribute('association')
-  if (!association) {
-    return undefined
-  }
-  property.removeAttribute('association')
-  return association
+  return property.removeAttribute('association')
 }
 
 function addEdge_association(
@@ -62,7 +57,6 @@ function addEdge_association(
     throw new Error(`Node ${associationNode.show()} is not an association`)
   }
   property.model.addEdge('association', property, associationNode)
-  property.removeAttribute('association')
   addEdge_owningAssociation(property, associationNode)
 }
 

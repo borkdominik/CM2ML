@@ -34,7 +34,7 @@ export interface Attributable {
   readonly attributes: ReadonlyMap<AttributeName, Attribute>
   getAttribute(name: AttributeName): Attribute | undefined
   addAttribute(attribute: Attribute, preventOverwrite?: boolean): void
-  removeAttribute(name: AttributeName): void
+  removeAttribute(name: AttributeName): Attribute | undefined
 }
 
 export class AttributeDelegate implements Attributable {
@@ -70,5 +70,6 @@ export class AttributeDelegate implements Attributable {
     const previousValue = this.#attributes.get(name)
     this.#attributes.delete(name)
     this.attributeChangeListener?.(name, previousValue?.value, undefined)
+    return previousValue
   }
 }
