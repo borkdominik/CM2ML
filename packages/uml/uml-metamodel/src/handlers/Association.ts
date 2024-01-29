@@ -5,6 +5,7 @@ import { Association } from '../uml-metamodel'
 
 export const AssociationHandler = Association.createHandler(
   (association, { onlyContainmentAssociations, relationshipsAsEdges }) => {
+    const memberEnds = extractMemberEnds(association)
     if (relationshipsAsEdges) {
       // TODO: Include associations?
       association.model.removeNode(association)
@@ -14,7 +15,7 @@ export const AssociationHandler = Association.createHandler(
       return
     }
     addEdge_endType(association)
-    addEdge_memberEnd(association)
+    addEdge_memberEnd(association, memberEnds)
     addEdge_navigableOwnerEnd(association)
     association.children.forEach((child) => {
       addEdge_ownedEnd(association, child)
@@ -25,16 +26,36 @@ export const AssociationHandler = Association.createHandler(
   },
 )
 
+function extractMemberEnds(association: GraphNode) {
+  const memberEndsAttribute =
+    association.getAttribute('memberEnd')?.value.literal
+  association.removeAttribute('memberEnd')
+  if (!memberEndsAttribute) {
+    return []
+  }
+  return memberEndsAttribute.split(' ').map((memberEndId) => {
+    const memberEnd = association.model.getNodeById(memberEndId)
+    if (!memberEnd) {
+      throw new Error(
+        `memberEnd ${memberEndId} of ${association.id} not found: ${memberEndId}`,
+      )
+    }
+    return memberEnd
+  })
+}
+
 function addEdge_endType(_association: GraphNode) {
   // TODO/Association
   // /endType : Type [1..*]{subsets Relationship::relatedElement} (opposite A_endType_association::association)
   // The Classifiers that are used as types of the ends of the Association.
 }
 
-function addEdge_memberEnd(_association: GraphNode) {
-  // TODO/Association
+function addEdge_memberEnd(association: GraphNode, memberEnds: GraphNode[]) {
   // memberEnd: Property[2..*]{ ordered, subsets Namespace:: member } (opposite Property::association)
   // Each end represents participation of instances of the Classifier connected to the end in links of the Association.
+  memberEnds.forEach((memberEnd) =>
+    association.model.addEdge('memberEnd', association, memberEnd),
+  )
 }
 
 function addEdge_navigableOwnerEnd(_association: GraphNode) {
