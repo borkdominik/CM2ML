@@ -1,5 +1,10 @@
 # cm2ml
 
+## Archimate
+
+- [@cm2ml/archimate-metamodel](./packages/archimate/archimate-metamodel)
+- [@cm2ml/archimate-parser](./packages/archimate/archimate-parser)
+
 ## Ecore
 
 - [@cm2ml/ecore-metamodel](./packages/ecore/ecore-metamodel)
