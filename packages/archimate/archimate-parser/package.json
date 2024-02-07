@@ -31,6 +31,15 @@
     "dev": "vite build --watch",
     "lint": "yeger-lint"
   },
+  "dependencies": {
+    "@cm2ml/archimate-metamodel": "workspace:*",
+    "@cm2ml/ir": "workspace:*",
+    "@cm2ml/ir-post-processor": "workspace:*",
+    "@cm2ml/metamodel": "workspace:*",
+    "@cm2ml/metamodel-refiner": "workspace:*",
+    "@cm2ml/plugin": "workspace:*",
+    "@cm2ml/xmi-parser": "workspace:*"
+  },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
     "typescript": "5.3.3",
