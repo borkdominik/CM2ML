@@ -92,6 +92,7 @@ const Attributes = {
   visibility: 'visibility',
   'xmi:id': 'xmi:id',
   'xmi:type': 'xmi:type',
+  'xsi:type': 'xsi:type',
 } as const
 
 const Tags = {
@@ -114,7 +115,9 @@ const Tags = {
   packageImport: 'packageImport',
   packageMerge: 'packageMerge',
   profileApplication: 'profileApplication',
+  region: 'region',
   substitution: 'substitution',
+  transition: 'transition',
   upperValue: 'upperValue',
 } as const
 
@@ -392,7 +395,8 @@ function getTagType(element: GraphNode | GraphEdge) {
 }
 
 function getType(element: Attributable) {
-  const type = element.getAttribute(Attributes['xmi:type'])?.value.literal
+  const typeAttribute = element.getAttribute(Attributes['xmi:type']) ?? element.getAttribute(Attributes['xsi:type'])
+  const type = typeAttribute?.value.literal
   if (isValidType(type)) {
     return type
   }

@@ -13,6 +13,7 @@ export const CommentHandler = Comment.createHandler(
   },
 )
 
+// TODO/Jan: Move this to a utility function, as many handlers will need to do this
 function setAttribute_body(comment: GraphNode) {
   const body = comment.findChild((child) => child.tag === Uml.Tags.body)
   if (!body) {

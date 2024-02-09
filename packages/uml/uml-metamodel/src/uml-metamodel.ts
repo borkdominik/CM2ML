@@ -694,7 +694,7 @@ export const ProtocolStateMachine = define(
 
 export const Transition = define(
   Uml.Types.Transition,
-  undefined,
+  Uml.Tags.transition,
   Namespace,
   RedefinableElement,
 )
@@ -709,7 +709,7 @@ export const Pseudostate = define(Uml.Types.Pseudostate, undefined, Vertex)
 
 export const Region = define(
   Uml.Types.Region,
-  undefined,
+  Uml.Tags.region,
   Namespace,
   RedefinableElement,
 )
