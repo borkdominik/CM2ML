@@ -5,20 +5,20 @@ import { ZodError, z } from 'zod'
 export type ParameterType = 'number' | 'string' | 'boolean'
 
 export type Parameter = Readonly<
-  { readonly type: ParameterType; readonly description: string } & (
+  { readonly type: ParameterType, readonly description: string } & (
     | {
-        readonly type: 'number'
-        readonly defaultValue: number
-      }
+      readonly type: 'number'
+      readonly defaultValue: number
+    }
     | {
-        readonly type: 'string'
-        readonly defaultValue: string
-        readonly allowedValues?: readonly string[]
-      }
+      readonly type: 'string'
+      readonly defaultValue: string
+      readonly allowedValues?: readonly string[]
+    }
     | {
-        readonly type: 'boolean'
-        readonly defaultValue: boolean
-      }
+      readonly type: 'boolean'
+      readonly defaultValue: boolean
+    }
   )
 >
 

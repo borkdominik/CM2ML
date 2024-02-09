@@ -9,11 +9,6 @@ export function UpdatePrompt() {
     updateServiceWorker,
   } = useRegisterSW()
 
-  const onUpdateDismissed = () => {
-    setOfflineReady(false)
-    setNeedRefresh(false)
-  }
-
   useEffect(() => {
     if (offlineReady) {
       toast('Ready for offline usage', { duration: 10000 })
@@ -21,6 +16,10 @@ export function UpdatePrompt() {
     }
     if (!needRefresh) {
       return
+    }
+    const onUpdateDismissed = () => {
+      setOfflineReady(false)
+      setNeedRefresh(false)
     }
     toast('Update available', {
       action: {
@@ -31,7 +30,7 @@ export function UpdatePrompt() {
       onDismiss: () => onUpdateDismissed(),
       onAutoClose: () => onUpdateDismissed(),
     })
-  }, [offlineReady, needRefresh])
+  }, [offlineReady, needRefresh, updateServiceWorker, setNeedRefresh, setOfflineReady])
 
   return null
 }

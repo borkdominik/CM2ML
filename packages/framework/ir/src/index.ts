@@ -4,7 +4,7 @@ import { AttributeDelegate } from './attributes'
 export * from './attributes'
 
 export interface Show {
-  show(indent?: number): string
+  show: (indent?: number) => string
 }
 
 export interface ModelMember {

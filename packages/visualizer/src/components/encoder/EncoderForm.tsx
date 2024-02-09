@@ -52,26 +52,32 @@ export function EncoderForm() {
           </SelectContent>
         </Select>
       </CardHeader>
-      {encoder || layout === 'compact' ? (
-        <CardContent className="flex flex-col gap-4">
-          {encoder ? (
-            <Parameters
-              parameters={encoder.parameters}
-              values={parameters}
-              setValues={setParameters}
-            />
-          ) : null}
-          {layout === 'compact' ? (
-            <Button
-              disabled={encoder === undefined}
-              onClick={() => setIsEditing(false)}
-              className="select-none"
-            >
-              Submit
-            </Button>
-          ) : null}
-        </CardContent>
-      ) : null}
+      {encoder || layout === 'compact'
+        ? (
+          <CardContent className="flex flex-col gap-4">
+            {encoder
+              ? (
+                <Parameters
+                  parameters={encoder.parameters}
+                  values={parameters}
+                  setValues={setParameters}
+                />
+                )
+              : null}
+            {layout === 'compact'
+              ? (
+                <Button
+                  disabled={encoder === undefined}
+                  onClick={() => setIsEditing(false)}
+                  className="select-none"
+                >
+                  Submit
+                </Button>
+                )
+              : null}
+          </CardContent>
+          )
+        : null}
     </Card>
   )
 }

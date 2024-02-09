@@ -3,11 +3,11 @@ import { Error } from '../Error'
 import { Center } from './center'
 
 export type Props =
-  | { error?: never; text: string }
+  | { error?: never, text: string }
   | {
-      error: unknown
-      text?: never
-    }
+    error: unknown
+    text?: never
+  }
 
 export function Hint({ error, text }: Props) {
   if (error) {

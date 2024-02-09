@@ -1,4 +1,4 @@
-import { type ParameterMetadata, type Plugin } from '@cm2ml/plugin'
+import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 export abstract class PluginAdapter<In> {

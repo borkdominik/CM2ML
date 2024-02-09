@@ -1,4 +1,4 @@
-import type { Attributable, GraphNode } from '@cm2ml/ir'
+import type { Attributable, GraphEdge, GraphNode } from '@cm2ml/ir'
 import { parseNamespace } from '@cm2ml/utils'
 
 const Attributes = {
@@ -28,8 +28,8 @@ function isValidType(type: string | undefined): type is EcoreType {
   return type !== undefined && type in Types
 }
 
-function getType(node: Attributable) {
-  const type = node.getAttribute(Attributes['xsi:type'])?.value.literal
+function getType(element: Attributable) {
+  const type = element.getAttribute(Attributes['xsi:type'])?.value.literal
   if (isValidType(type)) {
     return type
   }
@@ -37,8 +37,8 @@ function getType(node: Attributable) {
 }
 
 // The root element may use its type as its tag
-function getTagType(node: GraphNode) {
-  const parsedName = parseNamespace(node.tag)
+function getTagType(element: GraphNode | GraphEdge) {
+  const parsedName = parseNamespace(element.tag)
   const actualName =
     typeof parsedName === 'object' ? parsedName.name : parsedName
   if (isValidType(actualName)) {

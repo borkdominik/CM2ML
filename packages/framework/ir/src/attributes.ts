@@ -32,9 +32,9 @@ export type Value = SimpleValue | NamespacedValue
 
 export interface Attributable {
   readonly attributes: ReadonlyMap<AttributeName, Attribute>
-  getAttribute(name: AttributeName): Attribute | undefined
-  addAttribute(attribute: Attribute, preventOverwrite?: boolean): void
-  removeAttribute(name: AttributeName): Attribute | undefined
+  getAttribute: (name: AttributeName) => Attribute | undefined
+  addAttribute: (attribute: Attribute, preventOverwrite?: boolean) => void
+  removeAttribute: (name: AttributeName) => Attribute | undefined
 }
 
 export class AttributeDelegate implements Attributable {
@@ -45,10 +45,10 @@ export class AttributeDelegate implements Attributable {
   public constructor(
     private readonly attributeChangeListener:
       | ((
-          attributeName: AttributeName,
-          previousValue: Value | undefined,
-          newValue: Value | undefined,
-        ) => void)
+        attributeName: AttributeName,
+        previousValue: Value | undefined,
+        newValue: Value | undefined,
+      ) => void)
       | undefined,
   ) {}
 

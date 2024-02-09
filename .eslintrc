@@ -1,7 +1,0 @@
-{
-  "extends": ["@yeger"],
-  "plugins": ["turbo"],
-  "rules": {
-    "import/no-unresolved": "off"
-  }
-}

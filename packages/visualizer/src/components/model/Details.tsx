@@ -64,17 +64,19 @@ function NodeDetails({ node }: { node: GraphNode }) {
         {name ? ` — ${name}` : null}
       </div>
       <AttributableDetails attributable={node} />
-      {node.parent ? (
-        <div className="space-y-2">
-          <div className="text-sm font-bold">Parent</div>
-          <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
-            <div className="whitespace-pre-wrap text-muted-foreground">
-              {node.parent.tag}
+      {node.parent
+        ? (
+          <div className="space-y-2">
+            <div className="text-sm font-bold">Parent</div>
+            <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
+              <div className="whitespace-pre-wrap text-muted-foreground">
+                {node.parent.tag}
+              </div>
+              <NodeSelectionButton id={node.parent.id} />
             </div>
-            <NodeSelectionButton id={node.parent.id} />
           </div>
-        </div>
-      ) : null}
+          )
+        : null}
       <div className="space-y-2">
         <div className="text-sm font-bold">Children</div>
         <NodeChildren node={node} />
@@ -143,17 +145,19 @@ function NodeEdges({
               targetId={edge.target.id}
               label={edge.tag}
             />
-            {type === 'incoming' ? (
-              <>
-                <span className="text-muted-foreground">from</span>
-                <NodeSelectionButton id={edge.source.id} />
-              </>
-            ) : (
-              <>
-                <span className="text-muted-foreground">to</span>
-                <NodeSelectionButton id={edge.target.id} />
-              </>
-            )}
+            {type === 'incoming'
+              ? (
+                <>
+                  <span className="text-muted-foreground">from</span>
+                  <NodeSelectionButton id={edge.source.id} />
+                </>
+                )
+              : (
+                <>
+                  <span className="text-muted-foreground">to</span>
+                  <NodeSelectionButton id={edge.target.id} />
+                </>
+                )}
           </Fragment>
         ))}
       </div>
@@ -168,7 +172,7 @@ function NodeSelectionButton({ id }: { id: string | undefined }) {
   }
   return (
     <Button
-      variant={'link'}
+      variant="link"
       className="size-fit p-0 font-mono text-xs"
       onClick={() => setSelection(id)}
     >
@@ -192,7 +196,7 @@ function EdgeSelectionButton({
   }
   return (
     <Button
-      variant={'link'}
+      variant="link"
       className="size-fit p-0 font-mono text-xs"
       onClick={() => setSelection([[sourceId, targetId]])}
     >
@@ -253,12 +257,14 @@ function AttributableDetails({
             {name}
           </div>
           {attributable.model.getNodeById(attribute.value.literal) !==
-            undefined &&
-          attribute.name !== attributable.model.settings.idAttribute ? (
-            <NodeSelectionButton id={attribute.value.literal} />
-          ) : (
-            <div className="whitespace-pre-wrap">{attribute.value.literal}</div>
-          )}
+          undefined &&
+          attribute.name !== attributable.model.settings.idAttribute
+            ? (
+              <NodeSelectionButton id={attribute.value.literal} />
+              )
+            : (
+              <div className="whitespace-pre-wrap">{attribute.value.literal}</div>
+              )}
         </Fragment>
       ))}
     </div>

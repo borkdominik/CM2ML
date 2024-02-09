@@ -222,11 +222,12 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
   const isCellSelected = useIsSelectedEdge(sourceId, targetId)
   const setSelection = useSelection.use.setSelection()
 
+  const color = useCellColor(isCellSelected)
+
   if (value <= 0 || !sourceId || !targetId) {
     return null
   }
 
-  const color = useCellColor(isCellSelected)
   const onPointerDown = (event: PointerEvent<SVGRectElement>) => {
     event.stopPropagation()
     setSelection([[sourceId, targetId]])
@@ -379,16 +380,18 @@ function ListEdge({
   )
   return (
     <>
-      {isTooltipDisabled ? (
-        entry
-      ) : (
-        <TooltipProvider>
-          <Tooltip disableHoverableContent={isTooltipDisabled}>
-            <TooltipTrigger>{entry}</TooltipTrigger>
-            <TooltipContent>{weight ?? 1}</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      )}
+      {isTooltipDisabled
+        ? (
+            entry
+          )
+        : (
+          <TooltipProvider>
+            <Tooltip disableHoverableContent={isTooltipDisabled}>
+              <TooltipTrigger>{entry}</TooltipTrigger>
+              <TooltipContent>{weight ?? 1}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          )}
     </>
   )
 }

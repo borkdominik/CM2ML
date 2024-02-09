@@ -15,8 +15,7 @@ class Server extends PluginAdapter<string> {
     plugin: Plugin<string, Out, Parameters>,
   ) {
     this.server.post(`/encoders/${plugin.name}`, async (request, reply) =>
-      pluginRequestHandler(plugin, request, reply),
-    )
+      pluginRequestHandler(plugin, request, reply))
   }
 
   protected onStart() {

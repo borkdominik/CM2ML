@@ -41,10 +41,10 @@ export const useEncoderState = createSelectors(
           const { encoder: oldEncoder, parameters: oldParameters } = get()
           const newParameters = encoder
             ? getNewParameters(
-                encoder.parameters,
-                oldParameters,
-                oldEncoder?.parameters,
-              )
+              encoder.parameters,
+              oldParameters,
+              oldEncoder?.parameters,
+            )
             : oldParameters
           set({ encoder, parameters: newParameters })
         },

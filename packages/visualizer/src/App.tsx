@@ -33,23 +33,27 @@ function CompactLayout() {
   return (
     <ResizablePanelGroup direction="horizontal" className="h-full">
       <ResizablePanel defaultSize={50}>
-        {isEditingModel ? (
-          <div className="h-full p-2">
-            <ModelForm />
-          </div>
-        ) : (
-          <Model />
-        )}
+        {isEditingModel
+          ? (
+            <div className="h-full p-2">
+              <ModelForm />
+            </div>
+            )
+          : (
+            <Model />
+            )}
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel>
-        {isEditingEncoder ? (
-          <div className="h-full p-2">
-            <EncoderForm />
-          </div>
-        ) : (
-          <Encoder />
-        )}
+        {isEditingEncoder
+          ? (
+            <div className="h-full p-2">
+              <EncoderForm />
+            </div>
+            )
+          : (
+            <Encoder />
+            )}
       </ResizablePanel>
     </ResizablePanelGroup>
   )
