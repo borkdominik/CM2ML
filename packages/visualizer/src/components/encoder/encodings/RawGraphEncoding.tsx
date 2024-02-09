@@ -81,17 +81,15 @@ function Grid({ matrix, nodes }: GridProps) {
       onPointerDown={() => clearSelection()}
     >
       <Labels nodes={nodes} offset={offset} />
-      <g>
-        {nodes.map((node, row) => (
-          <GridRow
-            getOpacity={getOpacity}
-            key={node}
-            matrix={matrix}
-            nodes={nodes}
-            row={row}
-          />
-        ))}
-      </g>
+      {nodes.map((node, row) => (
+        <GridRow
+          getOpacity={getOpacity}
+          key={node}
+          matrix={matrix}
+          nodes={nodes}
+          row={row}
+        />
+      ))}
     </svg>
   )
 }
@@ -102,32 +100,30 @@ interface LabelsProps {
 
 function Labels({ nodes, offset }: LabelsProps) {
   return (
-    <g>
-      <g>
-        <text
-          height={cellSize}
-          y={-fontSize / 2}
-          x={offset}
-          className="cursor-default select-none fill-foreground font-mono"
-          fontSize={fontSize}
-        >
-          Source
-        </text>
-        <text
-          height={cellSize}
-          y={-fontSize / 2}
-          x={-offset}
-          className="-rotate-90 cursor-default select-none fill-foreground font-mono "
-          fontSize={fontSize}
-          textAnchor="end"
-        >
-          Target
-        </text>
-      </g>
+    <>
+      <text
+        height={cellSize}
+        y={-fontSize / 2}
+        x={offset}
+        className="cursor-default select-none fill-foreground font-mono"
+        fontSize={fontSize}
+      >
+        Source
+      </text>
+      <text
+        height={cellSize}
+        y={-fontSize / 2}
+        x={-offset}
+        className="-rotate-90 cursor-default select-none fill-foreground font-mono "
+        fontSize={fontSize}
+        textAnchor="end"
+      >
+        Target
+      </text>
       {nodes.map((node, index) => (
         <Label index={index} key={node} node={node} offset={offset} />
       ))}
-    </g>
+    </>
   )
 }
 
@@ -148,7 +144,7 @@ function Label({ index, node, offset }: LabelProps) {
   }
 
   return (
-    <g>
+    <>
       <text
         height={cellSize}
         y={cellSize * (index + 1) - fontSize / 2}
@@ -179,7 +175,7 @@ function Label({ index, node, offset }: LabelProps) {
       >
         {node}
       </text>
-    </g>
+    </>
   )
 }
 
@@ -191,20 +187,16 @@ interface GridRowProps {
 }
 
 function GridRow({ getOpacity, matrix, nodes, row }: GridRowProps) {
-  return (
-    <g>
-      {nodes.map((_otherNode, column) => (
-        <GridCell
-          column={column}
-          getOpacity={getOpacity}
-          key={`${row}-${column}`}
-          nodes={nodes}
-          row={row}
-          value={matrix[row]?.[column] ?? 0}
-        />
-      ))}
-    </g>
-  )
+  return nodes.map((_otherNode, column) => (
+    <GridCell
+      column={column}
+      getOpacity={getOpacity}
+      key={`${row}-${column}`}
+      nodes={nodes}
+      row={row}
+      value={matrix[row]?.[column] ?? 0}
+    />
+  ))
 }
 
 interface GridCellProps {
@@ -222,11 +214,11 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
   const isCellSelected = useIsSelectedEdge(sourceId, targetId)
   const setSelection = useSelection.use.setSelection()
 
-  const color = useCellColor(isCellSelected)
-
   if (value <= 0 || !sourceId || !targetId) {
     return null
   }
+
+  const color = getCellColor(isCellSelected)
 
   const onPointerDown = (event: PointerEvent<SVGRectElement>) => {
     event.stopPropagation()
@@ -251,7 +243,7 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
   )
 }
 
-function useCellColor(isSelected: boolean) {
+function getCellColor(isSelected: boolean) {
   if (isSelected) {
     return colors.selected
   }
@@ -324,15 +316,13 @@ function ListNode({ node, isLast }: ListNodeProps) {
   const isSelected = useIsSelectedNode(node)
   const setSelection = useSelection.use.setSelection()
   return (
-    <>
-      <ListEntry
-        onClick={() => setSelection(node)}
-        isSelected={isSelected}
-        isLast={isLast}
-      >
-        {node}
-      </ListEntry>
-    </>
+    <ListEntry
+      onClick={() => setSelection(node)}
+      isSelected={isSelected}
+      isLast={isLast}
+    >
+      {node}
+    </ListEntry>
   )
 }
 
@@ -378,22 +368,16 @@ function ListEdge({
       <span className="whitespace-pre">{text}</span>
     </ListEntry>
   )
-  return (
-    <>
-      {isTooltipDisabled
-        ? (
-            entry
-          )
-        : (
-          <TooltipProvider>
-            <Tooltip disableHoverableContent={isTooltipDisabled}>
-              <TooltipTrigger>{entry}</TooltipTrigger>
-              <TooltipContent>{weight ?? 1}</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          )}
-    </>
-  )
+  return isTooltipDisabled
+    ? entry
+    : (
+      <TooltipProvider>
+        <Tooltip disableHoverableContent={isTooltipDisabled}>
+          <TooltipTrigger>{entry}</TooltipTrigger>
+          <TooltipContent>{weight ?? 1}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      )
 }
 
 function useRawGraphEncoding(model: GraphModel, parameters: ParameterValues) {
