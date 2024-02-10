@@ -1,7 +1,5 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveImportedPackage } from '../resolvers/resolveImportedPackage'
-import { Uml } from '../uml'
 import {
   ElementImport,
   NamedElement,
@@ -41,24 +39,25 @@ function addEdge_member(namespace: GraphNode, child: GraphNode) {
   if (NamedElement.isAssignable(child)) {
     namespace.model.addEdge('member', namespace, child)
   }
-  if (PackageImport.isAssignable(child)) {
-    const importedPackage = resolveImportedPackage(child)
-    namespace.model.addEdge('member', namespace, importedPackage)
-  }
-  if (ElementImport.isAssignable(child)) {
-    const importedElementId = child.getAttribute(Uml.Attributes.importedElement)
-      ?.value.literal
-    if (!importedElementId) {
-      throw new Error('Missing importedElement attribute on ElementImport')
-    }
-    const importedElement = child.model.getNodeById(importedElementId)
-    if (!importedElement) {
-      throw new Error(
-        `Missing importedElement with id ${importedElementId} for ElementImport`,
-      )
-    }
-    namespace.model.addEdge('member', namespace, importedElement)
-  }
+  // TODO/Jan Consider removal
+  // if (PackageImport.isAssignable(child)) {
+  //   const importedPackage = resolveImportedPackage(child)
+  //   namespace.model.addEdge('member', namespace, importedPackage)
+  // }
+  // if (ElementImport.isAssignable(child)) {
+  //   const importedElementId = child.getAttribute('importedElement')
+  //     ?.value.literal
+  //   if (!importedElementId) {
+  //     throw new Error('Missing importedElement attribute on ElementImport')
+  //   }
+  //   const importedElement = child.model.getNodeById(importedElementId)
+  //   if (!importedElement) {
+  //     throw new Error(
+  //       `Missing importedElement with id ${importedElementId} for ElementImport`,
+  //     )
+  //   }
+  //   namespace.model.addEdge('member', namespace, importedElement)
+  // }
 }
 
 function addEdge_ownedMember(namespace: GraphNode, child: GraphNode) {

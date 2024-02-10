@@ -2,11 +2,11 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { Uml } from '../uml'
-import { Behavior, BehavioralFeature, requireAssignability } from '../uml-metamodel'
+import { Behavior, BehavioralFeature } from '../uml-metamodel'
 
 export const BehavioralFeatureHandler = BehavioralFeature.createHandler(
   (behavioralFeature, { onlyContainmentAssociations }) => {
-    const method = resolveFromAttribute(behavioralFeature, 'method')
+    const method = resolveFromAttribute(behavioralFeature, 'method', { type: Behavior })
     if (onlyContainmentAssociations) {
       return
     }
@@ -27,7 +27,6 @@ function addEdge_method(behavioralFeature: GraphNode, method: GraphNode | undefi
   if (!method) {
     return
   }
-  requireAssignability(method, Behavior)
   behavioralFeature.model.addEdge('method', behavioralFeature, method)
 }
 

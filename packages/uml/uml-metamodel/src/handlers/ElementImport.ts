@@ -4,14 +4,15 @@ import {
   transformNodeToEdge,
 } from '@cm2ml/metamodel'
 
+import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { Uml } from '../uml'
-import { ElementImport, Namespace } from '../uml-metamodel'
+import { ElementImport, Namespace, PackageableElement } from '../uml-metamodel'
 
 export const ElementImportHandler = ElementImport.createHandler(
   (elementImport, { onlyContainmentAssociations, relationshipsAsEdges }) => {
+    const importingNamespace = getImportingNamespace(elementImport)
+    const importedElement = resolveFromAttribute(elementImport, 'importedElement', { required: true, type: PackageableElement })
     if (relationshipsAsEdges) {
-      const importingNamespace = getImportingNamespace(elementImport)
-      const importedElement = getImportedElement(elementImport)
       const edgeTag = Uml.getEdgeTagForRelationship(elementImport)
       transformNodeToEdge(
         elementImport,
@@ -24,41 +25,23 @@ export const ElementImportHandler = ElementImport.createHandler(
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_importedElement(elementImport)
-    addEdge_importingNamespace(elementImport)
+    addEdge_importedElement(elementImport, importedElement)
+    addEdge_importingNamespace(elementImport, importingNamespace)
   },
   {
     [Uml.Attributes.visibility]: 'public',
   },
 )
 
-function getImportedElement(elementImport: GraphNode) {
-  const importedElementId = elementImport.getAttribute(
-    Uml.Attributes.importedElement,
-  )?.value.literal
-  if (!importedElementId) {
-    throw new Error('Missing importedElement attribute on ElementImport')
-  }
-  const importedElement = elementImport.model.getNodeById(importedElementId)
-  if (!importedElement) {
-    throw new Error(
-      `Missing importedElement with id ${importedElementId} for ElementImport`,
-    )
-  }
-  return importedElement
-}
-
 function getImportingNamespace(elementImport: GraphNode) {
   return requireImmediateParentOfType(elementImport, Namespace)
 }
 
-function addEdge_importedElement(elementImport: GraphNode) {
-  const importedElement = getImportedElement(elementImport)
+function addEdge_importedElement(elementImport: GraphNode, importedElement: GraphNode) {
   elementImport.model.addEdge('importedElement', elementImport, importedElement)
 }
 
-function addEdge_importingNamespace(elementImport: GraphNode) {
-  const importingNamespace = getImportingNamespace(elementImport)
+function addEdge_importingNamespace(elementImport: GraphNode, importingNamespace: GraphNode) {
   elementImport.model.addEdge(
     'importingNamespace',
     elementImport,

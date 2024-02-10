@@ -23,7 +23,10 @@ function resolveLastSegment(node: GraphNode, segments: string[]) {
 
   if (segment.includes('.') && segments.length === 1) {
     // We have an indexed path segment as the final segment
-    return resolveIndexedSegment(node, segment)
+    const indexedNode = resolveIndexedSegment(node, segment)
+    if (indexedNode) {
+      return indexedNode
+    }
   }
 
   const nextNode = node.findChild((child) => getNameAttribute(child) === segment)

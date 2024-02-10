@@ -1,25 +1,21 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml } from '../uml'
-import { TypedElement } from '../uml-metamodel'
+import { resolveFromAttribute } from '../resolvers/fromAttribute'
+import { Type, TypedElement } from '../uml-metamodel'
 
 export const TypedElementHandler = TypedElement.createHandler(
   (typedElement, { onlyContainmentAssociations }) => {
+    const type = resolveFromAttribute(typedElement, 'type', { type: Type })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_type(typedElement)
+    addEdge_type(typedElement, type)
   },
 )
 
-function addEdge_type(typedElement: GraphNode) {
-  const type = typedElement.getAttribute(Uml.Attributes.type)?.value.literal
-  if (type === undefined) {
+function addEdge_type(typedElement: GraphNode, type: GraphNode | undefined) {
+  if (!type) {
     return
   }
-  const resolvedType = typedElement.model.getNodeById(type)
-  if (!resolvedType) {
-    return
-  }
-  typedElement.model.addEdge('type', typedElement, resolvedType)
+  typedElement.model.addEdge('type', typedElement, type)
 }

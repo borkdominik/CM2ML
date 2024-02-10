@@ -1,16 +1,19 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { transformNodeToEdge } from '@cm2ml/metamodel'
 
-import { requireResolveFromAttribute } from '../resolvers/fromAttribute'
+import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { Uml } from '../uml'
-import { Transition, Vertex, requireAssignability } from '../uml-metamodel'
+import { Transition, Vertex } from '../uml-metamodel'
 
 export const TransitionHandler = Transition.createHandler(
-  (transition, { onlyContainmentAssociations }) => {
-    const source = resolveSource(transition)
-    const target = resolveTarget(transition)
-    if (onlyContainmentAssociations) {
+  (transition, { onlyContainmentAssociations, relationshipsAsEdges }) => {
+    const source = resolveFromAttribute(transition, 'source', { required: true, type: Vertex })
+    const target = resolveFromAttribute(transition, 'target', { required: true, type: Vertex })
+    if (relationshipsAsEdges) {
       transformNodeToEdge(transition, source, target, 'transition')
+      return
+    }
+    if (onlyContainmentAssociations) {
       return
     }
     addEdge_container(transition)
@@ -26,18 +29,6 @@ export const TransitionHandler = Transition.createHandler(
     [Uml.Attributes.kind]: 'external',
   },
 )
-
-function resolveSource(transition: GraphNode) {
-  const sourceNode = requireResolveFromAttribute(transition, 'source')
-  requireAssignability(sourceNode, Vertex)
-  return sourceNode
-}
-
-function resolveTarget(transition: GraphNode) {
-  const targetNode = requireResolveFromAttribute(transition, 'target')
-  requireAssignability(targetNode, Vertex)
-  return targetNode
-}
 
 function addEdge_container(_transition: GraphNode) {
   // TODO/Association

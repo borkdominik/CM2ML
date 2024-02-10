@@ -4,34 +4,59 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
-const umlModelDir = '../../../models/uml'
-const datasetDir = `${umlModelDir}/dataset`
-const numberOfDatasetFiles = 1
+const configurations: {
+  onlyContainmentAssociations: boolean
+  relationshipsAsEdges: boolean
+}[] = [
+  {
+    onlyContainmentAssociations: false,
+    relationshipsAsEdges: false,
+  },
+  {
+    onlyContainmentAssociations: true,
+    relationshipsAsEdges: false,
+  },
+  {
+    onlyContainmentAssociations: false,
+    relationshipsAsEdges: true,
+  },
+  {
+    onlyContainmentAssociations: true,
+    relationshipsAsEdges: true,
+  },
+]
 
-const files = readdirSync(umlModelDir).filter((file) => file.endsWith('.uml')).map((file) => `${umlModelDir}/${file}`)
-const datasetFiles = readdirSync(datasetDir).filter((file) => file.endsWith('.uml')).splice(0, numberOfDatasetFiles).map((file) => `${datasetDir}/${file}`)
-files.push(...datasetFiles)
-
-const override = undefined // '../../../models/uml/dataset/00000a1a1995c7c777870d14d51ad42d88dd147c5ddcc4a9d5b5438fdf1f0b16.uml'
+const override = undefined // '../../../models/uml/dataset/0023848af9cdebffab9a02171ebe4b842a23a23392cda9222913f9dbe5f44778.uml'
+const files = getFiles(override)
 
 describe('uml-parser', () => {
-  it.each(override ? [override] : files)('should parse %s', (file) => {
-    const serializedModel = readFileSync(file, 'utf-8')
-    try {
-      const result = UmlParser.invoke(serializedModel, {
-        strict: true,
-        onlyContainmentAssociations: false,
-        relationshipsAsEdges: false,
-        removeInvalidNodes: false,
-        debug: false,
-      })
-      expect(result).toBeDefined()
-    } catch (error) {
-      if (override) {
-        // eslint-disable-next-line no-console
-        console.info(serializedModel)
+  describe.each(configurations)('with configuration %j', (configuration) => {
+    it.each(files)('should parse %s', (file) => {
+      const serializedModel = readFileSync(file, 'utf-8')
+      try {
+        const result = UmlParser.invoke(serializedModel, { ...configuration, debug: false, removeInvalidNodes: false, strict: true })
+        expect(result).toBeDefined()
+      } catch (error) {
+        if (override) {
+          // eslint-disable-next-line no-console
+          console.info(serializedModel)
+        }
+        throw error
       }
-      throw error
-    }
+    })
   })
 })
+
+function getFiles(override?: string) {
+  if (override) {
+    return [override]
+  }
+  const umlModelDir = '../../../models/uml'
+  const datasetDir = `${umlModelDir}/dataset`
+  const numberOfDatasetFiles = 2
+
+  const files = readdirSync(umlModelDir).filter((file) => file.endsWith('.uml')).map((file) => `${umlModelDir}/${file}`)
+  const datasetFiles = readdirSync(datasetDir).filter((file) => file.endsWith('.uml')).splice(0, numberOfDatasetFiles).map((file) => `${datasetDir}/${file}`)
+  files.push(...datasetFiles)
+  return files
+}

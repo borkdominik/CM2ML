@@ -1,40 +1,26 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml } from '../uml'
+import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { Substitution } from '../uml-metamodel'
 
+// TODO/Jan: Validate associations
 export const SubstitutionHandler = Substitution.createHandler(
   (substitution, { onlyContainmentAssociations }) => {
+    // TODO/Jan: Add type configs
+    const contract = resolveFromAttribute(substitution, 'contract', { required: true })
+    const substitutingClassifier = resolveFromAttribute(substitution, 'client', { removeAttribute: false, required: true })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_contract(substitution)
-    addEdge_substitutingClassifier(substitution)
+    addEdge_contract(substitution, contract)
+    addEdge_substitutingClassifier(substitution, substitutingClassifier)
   },
 )
 
-function addEdge_contract(substitution: GraphNode) {
-  const supplierId = substitution.getAttribute(Uml.Attributes.supplier)?.value
-    .literal
-  if (!supplierId) {
-    throw new Error('Missing supplier attribute on Substitution')
-  }
-  const supplier = substitution.model.getNodeById(supplierId)
-  if (!supplier) {
-    throw new Error(`Missing supplier with id ${supplierId} for Substitution`)
-  }
-  substitution.model.addEdge('contract', substitution, supplier)
+function addEdge_contract(substitution: GraphNode, contract: GraphNode) {
+  substitution.model.addEdge('contract', substitution, contract)
 }
 
-function addEdge_substitutingClassifier(substitution: GraphNode) {
-  const clientId = substitution.getAttribute(Uml.Attributes.client)?.value
-    .literal
-  if (!clientId) {
-    throw new Error('Missing client attribute on Substitution')
-  }
-  const client = substitution.model.getNodeById(clientId)
-  if (!client) {
-    throw new Error(`Missing client with id ${clientId} for Substitution`)
-  }
-  substitution.model.addEdge('substitutingClassifier', substitution, client)
+function addEdge_substitutingClassifier(substitution: GraphNode, substitutingClassifier: GraphNode) {
+  substitution.model.addEdge('substitutingClassifier', substitution, substitutingClassifier)
 }
