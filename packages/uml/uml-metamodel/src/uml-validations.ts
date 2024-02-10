@@ -25,11 +25,12 @@ function validateOnlyContainmentAssociations(
   if (!onlyContainmentAssociations) {
     return
   }
+  const whitelistedEdges = new Set(['owner', 'ownedElement', 'transition'])
   model.edges.forEach((edge) => {
     if (relationshipsAsEdges && Relationship.isAssignable(edge)) {
       return
     }
-    if (edge.tag !== 'owner' && edge.tag !== 'ownedElement') {
+    if (!whitelistedEdges.has(edge.tag)) {
       throw new Error(
         `Edge ${edge.tag} from ${edge.source.id} to ${edge.target.id} is not a containment association`,
       )

@@ -1,12 +1,16 @@
 import type { GraphNode } from '@cm2ml/ir'
+import { transformNodeToEdge } from '@cm2ml/metamodel'
 
-import { resolvePath } from '../resolvers/path'
+import { requireResolveFromAttribute } from '../resolvers/fromAttribute'
 import { Uml } from '../uml'
 import { Transition, Vertex, requireAssignability } from '../uml-metamodel'
 
 export const TransitionHandler = Transition.createHandler(
   (transition, { onlyContainmentAssociations }) => {
+    const source = resolveSource(transition)
+    const target = resolveTarget(transition)
     if (onlyContainmentAssociations) {
+      transformNodeToEdge(transition, source, target, 'transition')
       return
     }
     addEdge_container(transition)
@@ -14,14 +18,26 @@ export const TransitionHandler = Transition.createHandler(
     addEdge_guard(transition)
     addEdge_redefinedTransition(transition)
     addEdge_redefinitionContext(transition)
-    addEdge_source(transition)
-    addEdge_target(transition)
+    addEdge_source(transition, source)
+    addEdge_target(transition, target)
     addEdge_trigger(transition)
   },
   {
     [Uml.Attributes.kind]: 'external',
   },
 )
+
+function resolveSource(transition: GraphNode) {
+  const sourceNode = requireResolveFromAttribute(transition, 'source')
+  requireAssignability(sourceNode, Vertex)
+  return sourceNode
+}
+
+function resolveTarget(transition: GraphNode) {
+  const targetNode = requireResolveFromAttribute(transition, 'target')
+  requireAssignability(targetNode, Vertex)
+  return targetNode
+}
 
 function addEdge_container(_transition: GraphNode) {
   // TODO/Association
@@ -53,36 +69,16 @@ function addEdge_redefinitionContext(_transition: GraphNode) {
   // References the Classifier in which context this element may be redefined.
 }
 
-function addEdge_source(transition: GraphNode) {
+function addEdge_source(transition: GraphNode, source: GraphNode) {
   // source : Vertex [1..1] (opposite Vertex::outgoing)
   // Designates the originating Vertex (State or Pseudostate) of the Transition.
-  const sourceAttribute = transition.getAttribute('source')?.value.literal
-  if (!sourceAttribute) {
-    return
-  }
-  const sourceNode = resolvePath(transition.model, sourceAttribute)
-  if (!sourceNode) {
-    throw new Error(`Missing source for transition ${transition.id}`)
-  }
-  requireAssignability(sourceNode, Vertex)
-  transition.removeAttribute('source')
-  transition.model.addEdge('source', transition, sourceNode)
+  transition.model.addEdge('source', transition, source)
 }
 
-function addEdge_target(transition: GraphNode) {
+function addEdge_target(transition: GraphNode, target: GraphNode) {
   // target : Vertex [1..1] (opposite Vertex::incoming)
   // Designates the target Vertex that is reached when the Transition is taken.
-  const targetAttribute = transition.getAttribute('target')?.value.literal
-  if (!targetAttribute) {
-    return
-  }
-  const targetNode = resolvePath(transition.model, targetAttribute)
-  if (!targetNode) {
-    throw new Error(`Missing target for transition ${transition.id}`)
-  }
-  requireAssignability(targetNode, Vertex)
-  transition.removeAttribute('target')
-  transition.model.addEdge('target', transition, targetNode)
+  transition.model.addEdge('target', transition, target)
 }
 
 function addEdge_trigger(_transition: GraphNode) {

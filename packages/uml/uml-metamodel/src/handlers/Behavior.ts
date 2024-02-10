@@ -1,11 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolvePath } from '../resolvers/path'
+import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { Uml } from '../uml'
 import { Behavior, BehavioralFeature, requireAssignability } from '../uml-metamodel'
 
 export const BehaviorHandler = Behavior.createHandler(
   (behavior, { onlyContainmentAssociations }) => {
+    const specification = resolveFromAttribute(behavior, 'specification')
     if (onlyContainmentAssociations) {
       return
     }
@@ -14,7 +15,7 @@ export const BehaviorHandler = Behavior.createHandler(
     addEdge_ownedParameterSet(behavior)
     addEdge_postcondition(behavior)
     addEdge_precondition(behavior)
-    addEdge_specification(behavior)
+    addEdge_specification(behavior, specification)
     addEdge_redefinedBehavior(behavior)
   },
   {
@@ -52,20 +53,14 @@ function addEdge_precondition(_behavior: GraphNode) {
   // An optional set of Constraints specifying what must be fulfilled before the Behavior is invoked.
 }
 
-function addEdge_specification(behavior: GraphNode) {
+function addEdge_specification(behavior: GraphNode, specification: GraphNode | undefined) {
   // specification : BehavioralFeature [0..1] (opposite BehavioralFeature::method)
   // Designates a BehavioralFeature that the Behavior implements. The BehavioralFeature must be owned by the BehavioredClassifier that owns the Behavior or be inherited by it. The Parameters of the BehavioralFeature and the implementing Behavior must match. A Behavior does not need to have a specification, in which case it either is the classifierBehavior of a BehavioredClassifier or it can only be invoked by another Behavior of the Classifier.
-  const specificationAttribute = behavior.getAttribute('specification')?.value.literal
-  if (!specificationAttribute) {
+  if (!specification) {
     return
   }
-  const specificationNode = resolvePath(behavior.model, specificationAttribute)
-  if (!specificationNode) {
-    return
-  }
-  requireAssignability(specificationNode, BehavioralFeature)
-  behavior.removeAttribute('specification')
-  behavior.model.addEdge('specification', behavior, specificationNode)
+  requireAssignability(specification, BehavioralFeature)
+  behavior.model.addEdge('specification', behavior, specification)
 }
 
 function addEdge_redefinedBehavior(_behavior: GraphNode) {
