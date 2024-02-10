@@ -1,3 +1,4 @@
+import type { GraphNode } from '@cm2ml/ir'
 import type { HandlerPropagation, MetamodelElement } from '@cm2ml/metamodel'
 import { createMetamodel } from '@cm2ml/metamodel'
 
@@ -20,7 +21,13 @@ const { define, defineAbstract } = createMetamodel<
   UmlAbstractType,
   UmlTag,
   UmlHandlerParameters
->(Uml)
+  >(Uml)
+
+export function requireAssignability(node: GraphNode, type: UmlMetamodelElement) {
+  if (!type.isAssignable(node)) {
+    throw new Error(`Node is not assignable to type: ${type.name}`)
+  }
+}
 
 // TODO: Include [Enumeration] elements?
 

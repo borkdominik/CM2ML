@@ -60,5 +60,6 @@
     "**/*.unotation": true,
     "models/**/dataset/**/*": true
   },
+  "typescript.preferences.importModuleSpecifier": "relative",
   "bigUML.hideUnotation": true
 }

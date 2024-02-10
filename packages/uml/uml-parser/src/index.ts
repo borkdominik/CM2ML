@@ -53,13 +53,22 @@ export const UmlRefiner = definePlugin({
 })
 
 function removeNonUmlAttributes(model: GraphModel) {
+  const attributesToRemove = new Set<string>(['href'])
+  function shouldRemoveAttribute(name: string) {
+    if (name.startsWith('xmlns:')) {
+      return true
+    }
+    if (!(name in Uml.Attributes) && name.startsWith('xmi:')) {
+      return true
+    }
+    if (attributesToRemove.has(name)) {
+      return true
+    }
+    return false
+  }
   ;[...model.nodes, ...model.edges].forEach((attributable) => {
     attributable.attributes.forEach(({ name }) => {
-      if (name.startsWith('xmlns:')) {
-        attributable.removeAttribute(name)
-        return
-      }
-      if (!(name in Uml.Attributes) && name.startsWith('xmi:')) {
+      if (shouldRemoveAttribute(name)) {
         attributable.removeAttribute(name)
       }
     })

@@ -1,31 +1,17 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml } from '../uml'
+import { setBodyAttribute } from '../resolvers/body'
 import { Comment } from '../uml-metamodel'
 
 export const CommentHandler = Comment.createHandler(
   (comment, { onlyContainmentAssociations }) => {
-    setAttribute_body(comment)
+    setBodyAttribute(comment)
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_annotatedElement(comment)
   },
 )
-
-// TODO/Jan: Move this to a utility function, as many handlers will need to do this
-function setAttribute_body(comment: GraphNode) {
-  const body = comment.findChild((child) => child.tag === Uml.Tags.body)
-  if (!body) {
-    return
-  }
-  comment.model.removeNode(body)
-  const bodyText = body.getAttribute(Uml.Attributes.body)
-  if (!bodyText) {
-    return
-  }
-  comment.addAttribute({ name: Uml.Attributes.body, value: bodyText.value })
-}
 
 function addEdge_annotatedElement(_comment: GraphNode) {
   // TODO/Association

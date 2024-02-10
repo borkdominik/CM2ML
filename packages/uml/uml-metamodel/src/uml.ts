@@ -96,7 +96,6 @@ const Attributes = {
 } as const
 
 const Tags = {
-  body: 'body',
   elementImport: 'elementImport',
   extensionPoint: 'extensionPoint',
   general: 'general',

@@ -220,6 +220,19 @@ export class GraphNode implements Attributable, ModelMember, Show {
     return undefined
   }
 
+  public findAllChildren(
+    predicate: (child: GraphNode) => boolean,
+  ): GraphNode[] {
+    const result: GraphNode[] = []
+    for (const child of this.children) {
+      if (predicate(child)) {
+        result.push(child)
+      }
+      result.push(...child.findAllChildren(predicate))
+    }
+    return result
+  }
+
   /**
    * Also sets the parent of the child to null.
    */

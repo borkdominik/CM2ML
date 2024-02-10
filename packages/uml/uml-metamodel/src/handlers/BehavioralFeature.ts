@@ -1,7 +1,8 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolvePath } from '../resolvers/path'
 import { Uml } from '../uml'
-import { BehavioralFeature } from '../uml-metamodel'
+import { Behavior, BehavioralFeature, requireAssignability } from '../uml-metamodel'
 
 export const BehavioralFeatureHandler = BehavioralFeature.createHandler(
   (behavioralFeature, { onlyContainmentAssociations }) => {
@@ -19,10 +20,20 @@ export const BehavioralFeatureHandler = BehavioralFeature.createHandler(
   },
 )
 
-function addEdge_method(_behavioralFeature: GraphNode) {
-  // TODO/Association
+function addEdge_method(behavioralFeature: GraphNode) {
   // method : Behavior [0..*] (opposite Behavior::specification)
   // A Behavior that implements the BehavioralFeature. There may be at most one Behavior for a particular pairing of a Classifier (as owner of the Behavior) and a BehavioralFeature (as specification of the Behavior).
+  const methodAttribute = behavioralFeature.getAttribute('method')?.value.literal
+  if (!methodAttribute) {
+    return
+  }
+  const methodNode = resolvePath(behavioralFeature.model, methodAttribute)
+  if (!methodNode) {
+    return
+  }
+  requireAssignability(methodNode, Behavior)
+  behavioralFeature.removeAttribute('method')
+  behavioralFeature.model.addEdge('method', behavioralFeature, methodNode)
 }
 
 function addEdge_ownedParameter(_behavioralFeature: GraphNode) {
