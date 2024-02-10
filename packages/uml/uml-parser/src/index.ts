@@ -45,12 +45,21 @@ export const UmlRefiner = definePlugin({
       }
     })
     const model = refine(input, parameters)
-
+    generateIds(model)
     removeNonUmlAttributes(model)
     validateUmlModel(model, parameters)
     return model
   },
 })
+
+function generateIds(model: GraphModel) {
+  let id = 0
+  model.nodes.forEach((node) => {
+    if (node.id === undefined) {
+      node.addAttribute({ name: Uml.Attributes['xmi:id'], value: { literal: `eu.yeger#generated-id-${id++}` } })
+    }
+  })
+}
 
 function removeNonUmlAttributes(model: GraphModel) {
   const attributesToRemove = new Set<string>(['href'])
