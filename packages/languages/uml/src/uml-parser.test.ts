@@ -4,6 +4,8 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
+const numberOfDatasetFiles = 2
+
 const configurations: {
   onlyContainmentAssociations: boolean
   relationshipsAsEdges: boolean
@@ -53,7 +55,6 @@ function getFiles(override?: string) {
   }
   const umlModelDir = '../../../models/uml'
   const datasetDir = `${umlModelDir}/dataset`
-  const numberOfDatasetFiles = 2
 
   const files = readdirSync(umlModelDir).filter((file) => file.endsWith('.uml')).map((file) => `${umlModelDir}/${file}`)
   const datasetFiles = readdirSync(datasetDir).filter((file) => file.endsWith('.uml')).splice(0, numberOfDatasetFiles).map((file) => `${datasetDir}/${file}`)

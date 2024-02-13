@@ -1,4 +1,4 @@
-import type { GraphModel } from '@cm2ml/ir'
+import type { GraphModel, GraphNode } from '@cm2ml/ir'
 
 import { Uml } from './uml'
 import type { UmlHandlerParameters } from './uml-metamodel'
@@ -57,7 +57,7 @@ function allAttributesAreKnown(model: GraphModel) {
     node.attributes.forEach(({ name }) => {
       if (!(name in Uml.Attributes)) {
         throw new Error(
-          `Attribute ${name} of node ${node.id ?? node.show()} is unknown`,
+          `Attribute ${name} of node ${formatElement(node)} is unknown`,
         )
       }
     })
@@ -67,10 +67,14 @@ function allAttributesAreKnown(model: GraphModel) {
       if (!(name in Uml.Attributes)) {
         throw new Error(
           `Attribute ${name} of edge ${edge.tag} from ${
-            edge.source.id ?? edge.source.show()
-          } to ${edge.target.id ?? edge.target.show()} is unknown`,
+            formatElement(edge.source)
+          } to ${formatElement(edge.target)} is unknown`,
         )
       }
     })
   })
+}
+
+function formatElement(element: GraphNode) {
+  return element.model.settings.debug ? element.show() : element.id
 }

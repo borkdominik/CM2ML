@@ -1,23 +1,28 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { InteractionFragment } from '../uml-metamodel'
 
 export const InteractionFragmentHandler = InteractionFragment.createHandler(
   (interactionFragment, { onlyContainmentAssociations }) => {
+    const covered = resolveFromAttribute(interactionFragment, 'covered', { many: true })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_covered(interactionFragment)
+    addEdge_covered(interactionFragment, covered)
     addEdge_enclosingInteraction(interactionFragment)
     addEdge_enclosingOperand(interactionFragment)
     addEdge_generalOrdering(interactionFragment)
   },
 )
 
-function addEdge_covered(_interactionFragment: GraphNode) {
+function addEdge_covered(interactionFragment: GraphNode, covered: GraphNode[]) {
   // TODO/Association
   // covered : Lifeline [0..*] (opposite Lifeline::coveredBy)
   // References the Lifelines that the InteractionFragment involves.
+  covered.forEach((covered) => {
+    interactionFragment.model.addEdge('covered', interactionFragment, covered)
+  })
 }
 
 function addEdge_enclosingInteraction(_interactionFragment: GraphNode) {

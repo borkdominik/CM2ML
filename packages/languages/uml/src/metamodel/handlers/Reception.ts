@@ -1,18 +1,24 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { Reception } from '../uml-metamodel'
 
 export const ReceptionHandler = Reception.createHandler(
   (reception, { onlyContainmentAssociations }) => {
+    const signal = resolveFromAttribute(reception, 'signal')
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_signal(reception)
+    addEdge_signal(reception, signal)
   },
 )
 
-function addEdge_signal(_reception: GraphNode) {
+function addEdge_signal(reception: GraphNode, signal: GraphNode | undefined) {
   // TODO/Association
   // signal : Signal [1..1] (opposite A_signal_reception::reception)
   // The Signal that this Reception handles.
+  if (!signal) {
+    return
+  }
+  reception.model.addEdge('signal', reception, signal)
 }

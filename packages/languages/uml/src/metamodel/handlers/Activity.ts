@@ -1,16 +1,18 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { Uml } from '../uml'
 import { Activity } from '../uml-metamodel'
 
 export const ActivityHandler = Activity.createHandler(
   (activity, { onlyContainmentAssociations }) => {
+    const node = resolveFromAttribute(activity, 'node', { many: true })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_edge(activity)
     addEdge_group(activity)
-    addEdge_node(activity)
+    addEdge_node(activity, node)
     addEdge_partition(activity)
     addEdge_structuredNode(activity)
     addEdge_variable(activity)
@@ -33,10 +35,13 @@ function addEdge_group(_activity: GraphNode) {
   // Top-level ActivityGroups in the Activity.
 }
 
-function addEdge_node(_activity: GraphNode) {
+function addEdge_node(activity: GraphNode, node: GraphNode[]) {
   // TODO/Association
   // ♦ node : ActivityNode [0..*]{subsets Element::ownedElement} (opposite ActivityNode::activity)
   // ActivityNodes coordinated by the Activity.
+  node.forEach((node) => {
+    activity.model.addEdge('node', activity, node)
+  })
 }
 
 function addEdge_partition(_activity: GraphNode) {

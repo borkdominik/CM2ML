@@ -1,9 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { ActivityNode } from '../uml-metamodel'
 
 export const ActivityNodeHandler = ActivityNode.createHandler(
   (activityNode, { onlyContainmentAssociations }) => {
+    const incoming = resolveFromAttribute(activityNode, 'incoming', { many: true })
+    const outgoing = resolveFromAttribute(activityNode, 'outgoing', { many: true })
     if (onlyContainmentAssociations) {
       return
     }
@@ -12,8 +15,8 @@ export const ActivityNodeHandler = ActivityNode.createHandler(
     addEdge_inInterruptibleRegion(activityNode)
     addEdge_inPartition(activityNode)
     addEdge_inStructuredNode(activityNode)
-    addEdge_incoming(activityNode)
-    addEdge_outgoing(activityNode)
+    addEdge_incoming(activityNode, incoming)
+    addEdge_outgoing(activityNode, outgoing)
     addEdge_redefinedNode(activityNode)
   },
 )
@@ -48,16 +51,22 @@ function addEdge_inStructuredNode(_activityNode: GraphNode) {
   // The StructuredActivityNode containing the ActvityNode, if it is directly owned by a StructuredActivityNode.
 }
 
-function addEdge_incoming(_activityNode: GraphNode) {
+function addEdge_incoming(activityNode: GraphNode, incoming: GraphNode[]) {
   // TODO/Association
   // incoming : ActivityEdge [0..*] (opposite ActivityEdge::target)
   // ActivityEdges that have the ActivityNode as their target.
+  incoming.forEach((incoming) => {
+    activityNode.model.addEdge('incoming', activityNode, incoming)
+  })
 }
 
-function addEdge_outgoing(_activityNode: GraphNode) {
+function addEdge_outgoing(activityNode: GraphNode, outgoing: GraphNode[]) {
   // TODO/Association
   // outgoing : ActivityEdge [0..*] (opposite ActivityEdge::source)
   // ActivityEdges that have the ActivityNode as their source.
+  outgoing.forEach((outgoing) => {
+    activityNode.model.addEdge('outgoing', activityNode, outgoing)
+  })
 }
 
 function addEdge_redefinedNode(_activityNode: GraphNode) {

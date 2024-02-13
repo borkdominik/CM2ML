@@ -1,22 +1,28 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { BehavioredClassifier } from '../uml-metamodel'
 
 export const BehavioredClassifierHandler = BehavioredClassifier.createHandler(
   (behavioredClassifier, { onlyContainmentAssociations }) => {
+    const classifierBehavior = resolveFromAttribute(behavioredClassifier, 'classifierBehavior')
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_classifierBehavior(behavioredClassifier)
+    addEdge_classifierBehavior(behavioredClassifier, classifierBehavior)
     addEdge_interfaceRealization(behavioredClassifier)
     addEdge_ownedBehavior(behavioredClassifier)
   },
 )
 
-function addEdge_classifierBehavior(_behavioredClassifier: GraphNode) {
+function addEdge_classifierBehavior(behavioredClassifier: GraphNode, classifierBehavior: GraphNode | undefined) {
   // TODO/Association
   // classifierBehavior : Behavior [0..1]{subsets BehavioredClassifier::ownedBehavior} (opposite A_classifierBehavior_behavioredClassifier::behavioredClassifier )
   // A Behavior that specifies the behavior of the BehavioredClassifier itself.
+  if (!classifierBehavior) {
+    return
+  }
+  behavioredClassifier.model.addEdge('classifierBehavior', behavioredClassifier, classifierBehavior)
 }
 
 function addEdge_interfaceRealization(_behavioredClassifier: GraphNode) {

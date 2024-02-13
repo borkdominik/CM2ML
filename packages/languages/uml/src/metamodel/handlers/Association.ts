@@ -1,11 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { Uml } from '../uml'
 import { Association } from '../uml-metamodel'
 
 export const AssociationHandler = Association.createHandler(
   (association, { onlyContainmentAssociations, relationshipsAsEdges }) => {
-    const memberEnds = extractMemberEnds(association)
+    const memberEnds = resolveFromAttribute(association, 'memberEnd', { many: true })
+    const navigableOwnedEnds = resolveFromAttribute(association, 'navigableOwnedEnd', { many: true })
     if (relationshipsAsEdges) {
       // TODO: Include associations?
       association.model.removeNode(association)
@@ -16,7 +18,7 @@ export const AssociationHandler = Association.createHandler(
     }
     addEdge_endType(association)
     addEdge_memberEnd(association, memberEnds)
-    addEdge_navigableOwnerEnd(association)
+    addEdge_navigableOwnedEnd(association, navigableOwnedEnds)
     association.children.forEach((child) => {
       addEdge_ownedEnd(association, child)
     })
@@ -25,23 +27,6 @@ export const AssociationHandler = Association.createHandler(
     [Uml.Attributes.isDerived]: 'false',
   },
 )
-
-function extractMemberEnds(association: GraphNode) {
-  const memberEndsAttribute =
-    association.removeAttribute('memberEnd')?.value.literal
-  if (!memberEndsAttribute) {
-    return []
-  }
-  return memberEndsAttribute.split(' ').map((memberEndId) => {
-    const memberEnd = association.model.getNodeById(memberEndId)
-    if (!memberEnd) {
-      throw new Error(
-        `memberEnd ${memberEndId} of ${association.id} not found: ${memberEndId}`,
-      )
-    }
-    return memberEnd
-  })
-}
 
 function addEdge_endType(_association: GraphNode) {
   // TODO/Association
@@ -57,10 +42,13 @@ function addEdge_memberEnd(association: GraphNode, memberEnds: GraphNode[]) {
   )
 }
 
-function addEdge_navigableOwnerEnd(_association: GraphNode) {
+function addEdge_navigableOwnedEnd(association: GraphNode, navigableOwnedEnds: GraphNode[]) {
   // TODO/Association
   // navigableOwnedEnd: Property[0..*]{subsets Association:: ownedEnd } (opposite A_navigableOwnedEnd_association::association)
   // The navigable ends that are owned by the Association itself.
+  navigableOwnedEnds.forEach((navigableOwnedEnd) =>
+    association.model.addEdge('navigableOwnedEnds', association, navigableOwnedEnd),
+  )
 }
 
 function addEdge_ownedEnd(association: GraphNode, child: GraphNode) {
@@ -74,5 +62,4 @@ function addEdge_ownedEnd(association: GraphNode, child: GraphNode) {
     value: { namespace: 'uml', literal: Uml.Types.Property },
   })
   association.model.addEdge('ownedEnd', association, child)
-  child.model.addEdge('owningAssociation', child, association)
 }

@@ -1,9 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { ActivityEdge } from '../uml-metamodel'
 
 export const ActivityEdgeHandler = ActivityEdge.createHandler(
   (activityEdge, { onlyContainmentAssociations }) => {
+    const source = resolveFromAttribute(activityEdge, 'source')
+    const target = resolveFromAttribute(activityEdge, 'target')
     if (onlyContainmentAssociations) {
       return
     }
@@ -14,8 +17,8 @@ export const ActivityEdgeHandler = ActivityEdge.createHandler(
     addEdge_inStructuredNode(activityEdge)
     addEdge_interrupts(activityEdge)
     addEdge_redefinedEdge(activityEdge)
-    addEdge_source(activityEdge)
-    addEdge_target(activityEdge)
+    addEdge_source(activityEdge, source)
+    addEdge_target(activityEdge, target)
     addEdge_weight(activityEdge)
   },
 )
@@ -62,16 +65,24 @@ function addEdge_redefinedEdge(_activityEdge: GraphNode) {
   // ActivityEdges from a generalization of the Activity containing this ActivityEdge that are redefined by this ActivityEdge.
 }
 
-function addEdge_source(_activityEdge: GraphNode) {
+function addEdge_source(activityEdge: GraphNode, source: GraphNode | undefined) {
   // TODO/Association
   // source : ActivityNode [1..1] (opposite ActivityNode::outgoing)
   // The ActivityNode from which tokens are taken when they traverse the ActivityEdge.
+  if (!source) {
+    return
+  }
+  activityEdge.model.addEdge('source', activityEdge, source)
 }
 
-function addEdge_target(_activityEdge: GraphNode) {
+function addEdge_target(activityEdge: GraphNode, target: GraphNode | undefined) {
   // TODO/Association
   // target : ActivityNode [1..1] (opposite ActivityNode::incoming)
   // The ActivityNode to which tokens are put when they traverse the ActivityEdge.
+  if (!target) {
+    return
+  }
+  activityEdge.model.addEdge('target', activityEdge, target)
 }
 
 function addEdge_weight(_activityEdge: GraphNode) {
