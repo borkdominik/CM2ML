@@ -1,8 +1,0 @@
-{
-  "extends": "@cm2ml/tsconfig/vite",
-  "compilerOptions": {
-    "baseUrl": "./",
-    "types": ["node"]
-  },
-  "exclude": ["node_modules", "coverage", "dist"]
-}

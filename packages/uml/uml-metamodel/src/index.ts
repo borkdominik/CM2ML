@@ -1,5 +1,0 @@
-export * from './handlers/uml-handlers'
-export * from './uml'
-export * from './uml-handler-registry'
-export * from './uml-metamodel'
-export * from './uml-validations'

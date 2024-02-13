@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/ecore-parser",
+  "name": "@cm2ml/ecore",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -32,7 +32,6 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
-    "@cm2ml/ecore-metamodel": "workspace:*",
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/ir-post-processor": "workspace:*",
     "@cm2ml/metamodel": "workspace:*",

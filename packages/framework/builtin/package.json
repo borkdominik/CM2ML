@@ -32,12 +32,12 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
-    "@cm2ml/ecore-parser": "workspace:*",
+    "@cm2ml/ecore": "workspace:*",
     "@cm2ml/graph-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/tree-encoder": "workspace:*",
-    "@cm2ml/uml-parser": "workspace:*",
+    "@cm2ml/uml": "workspace:*",
     "@cm2ml/xmi-parser": "workspace:*"
   },
   "devDependencies": {

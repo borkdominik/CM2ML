@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/ecore-metamodel",
+  "name": "@cm2ml/uml",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -29,12 +29,18 @@
     "check:publish": "publint run --strict",
     "check:tsc": "tsc",
     "dev": "vite build --watch",
-    "lint": "yeger-lint"
+    "lint": "yeger-lint",
+    "test": "vitest"
   },
   "dependencies": {
     "@cm2ml/ir": "workspace:*",
+    "@cm2ml/ir-post-processor": "workspace:*",
     "@cm2ml/metamodel": "workspace:*",
-    "@cm2ml/utils": "workspace:*"
+    "@cm2ml/metamodel-refiner": "workspace:*",
+    "@cm2ml/plugin": "workspace:*",
+    "@cm2ml/utils": "workspace:*",
+    "@cm2ml/xmi-parser": "workspace:*",
+    "@yeger/streams": "1.1.5"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

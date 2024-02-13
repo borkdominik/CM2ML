@@ -2,8 +2,11 @@ import type { GraphModel, GraphNode } from '@cm2ml/ir'
 import { IrPostProcessor } from '@cm2ml/ir-post-processor'
 import { createRefiner } from '@cm2ml/metamodel-refiner'
 import { compose, definePlugin } from '@cm2ml/plugin'
-import { Uml, inferUmlHandler, validateUmlModel } from '@cm2ml/uml-metamodel'
 import { createXmiParser } from '@cm2ml/xmi-parser'
+
+import { Uml } from './metamodel/uml'
+import { inferUmlHandler } from './metamodel/uml-handler-registry'
+import { validateUmlModel } from './metamodel/uml-validations'
 
 const refine = createRefiner(Uml, inferUmlHandler)
 
@@ -24,7 +27,7 @@ const refine = createRefiner(Uml, inferUmlHandler)
 // - PackageImport
 // - PackageMerge
 
-export const UmlRefiner = definePlugin({
+const UmlRefiner = definePlugin({
   name: 'uml',
   parameters: {
     onlyContainmentAssociations: {

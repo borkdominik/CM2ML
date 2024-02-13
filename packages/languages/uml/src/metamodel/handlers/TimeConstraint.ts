@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml } from '..'
+import { Uml } from '../uml'
 import { TimeConstraint } from '../uml-metamodel'
 
 export const TimeConstraintHandler = TimeConstraint.createHandler(
