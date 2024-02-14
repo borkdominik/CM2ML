@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
+import { Uml } from '../uml'
 import { Package } from '../uml-metamodel'
 
 import { resolveFromAttribute } from './fromAttribute'
@@ -18,7 +19,11 @@ export function resolveImportedPackage(packageImport: GraphNode) {
 }
 
 function resolveImportedPackageFromChild(packageImport: GraphNode) {
-  return Stream.from(packageImport.children).find(
+  const importedPackage = Stream.from(packageImport.children).find(
     (child) => child.tag === 'importedPackage',
   )
+  if (importedPackage && !Uml.getType(importedPackage)) {
+    importedPackage.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.Package } })
+  }
+  return importedPackage
 }

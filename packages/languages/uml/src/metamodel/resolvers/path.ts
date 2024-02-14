@@ -1,5 +1,7 @@
 import type { GraphModel, GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
+
 export function resolvePath(model: GraphModel, path: string) {
   if (path.startsWith('//')) {
     return resolveAbsolutePath(model, path)
@@ -10,10 +12,10 @@ export function resolvePath(model: GraphModel, path: string) {
 function resolveAbsolutePath(model: GraphModel, path: string) {
   const segments = path.replace('//', '').split('/')
   const root = model.root
-  return resolveLastSegment(root, segments)
+  return resolveSegments(root, segments)
 }
 
-function resolveLastSegment(node: GraphNode, segments: string[]) {
+function resolveSegments(node: GraphNode, segments: string[]) {
   const segment = segments[0]
 
   if (!segment) {
@@ -21,15 +23,7 @@ function resolveLastSegment(node: GraphNode, segments: string[]) {
     return undefined
   }
 
-  if (segment.includes('.') && segments.length === 1) {
-    // We have an indexed path segment as the final segment
-    const indexedNode = resolveIndexedSegment(node, segment)
-    if (indexedNode) {
-      return indexedNode
-    }
-  }
-
-  const nextNode = node.findChild((child) => getNameAttribute(child) === segment)
+  const nextNode = resolveTaggedSegment(node, segment) ?? resolveIndexedSegment(node, segment, matchName) ?? node.findChild(matchName(segment))
   if (!nextNode) {
     return undefined
   }
@@ -39,24 +33,48 @@ function resolveLastSegment(node: GraphNode, segments: string[]) {
     return nextNode
   }
 
-  return resolveLastSegment(nextNode, segments.slice(1))
+  return resolveSegments(nextNode, segments.slice(1))
 }
 
-function resolveIndexedSegment(node: GraphNode, segment: string) {
-  const [name, index] = segment.split('.')
-  if (!name || !index) {
+function resolveTaggedSegment(node: GraphNode, segment: string) {
+  if (!segment.startsWith('@')) {
+    return undefined
+  }
+  const tag = segment.replace('@', '')
+  if (tag.includes('.')) {
+    return resolveIndexedSegment(node, tag, matchTag)
+  }
+  const nextNode = node.findChild(matchTag(tag))
+  if (!nextNode) {
+    return undefined
+  }
+  return nextNode
+}
+
+function resolveIndexedSegment(node: GraphNode, segment: string, createMatcher: (string: string) => ((node: GraphNode) => boolean)) {
+  if (!segment.includes('.')) {
+    return undefined
+  }
+
+  const [key, index] = segment.split('.')
+  if (!key || !index) {
     throw new Error(`Invalid indexed segment: ${segment}`)
   }
 
-  const children = node.findAllChildren((child) => getNameAttribute(child) === name)
+  const children = node.findAllChildren(createMatcher(key))
 
   const child = children[Number(index)]
   if (!child) {
     throw new Error(`No child found for indexed segment: ${segment}`)
   }
+
   return child
 }
 
-function getNameAttribute(node: GraphNode) {
-  return node.getAttribute('name')?.value.literal
+function matchName(name: string) {
+  return (node: GraphNode) => node.getAttribute(Uml.Attributes.name)?.value.literal === name
+}
+
+function matchTag(tag: string) {
+  return (node: GraphNode) => node.tag === tag
 }

@@ -38,6 +38,10 @@ describe('uml-parser', () => {
       try {
         const result = UmlParser.invoke(serializedModel, { ...configuration, debug: false, removeInvalidNodes: false, strict: true })
         expect(result).toBeDefined()
+        if (override) {
+          // eslint-disable-next-line no-console
+          console.info(result.show())
+        }
       } catch (error) {
         if (override) {
           // eslint-disable-next-line no-console

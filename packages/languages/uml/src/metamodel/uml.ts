@@ -110,6 +110,7 @@ const Tags = {
   region: 'region',
   substitution: 'substitution',
   transition: 'transition',
+  trigger: 'trigger',
   upperValue: 'upperValue',
 } as const
 

@@ -673,7 +673,7 @@ export const SignalEvent = define(
 
 export const TimeEvent = define(Uml.Types.TimeEvent, undefined, Event)
 
-export const Trigger = define(Uml.Types.Trigger, undefined, NamedElement)
+export const Trigger = define(Uml.Types.Trigger, Uml.Tags.trigger, NamedElement)
 
 export const ConnectionPointReference = define(
   Uml.Types.ConnectionPointReference,

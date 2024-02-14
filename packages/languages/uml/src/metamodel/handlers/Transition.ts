@@ -3,7 +3,7 @@ import { transformNodeToEdge } from '@cm2ml/metamodel'
 
 import { resolveFromAttribute } from '../resolvers/fromAttribute'
 import { Uml } from '../uml'
-import { Transition, Vertex } from '../uml-metamodel'
+import { Transition, Trigger, Vertex } from '../uml-metamodel'
 
 export const TransitionHandler = Transition.createHandler(
   (transition, { onlyContainmentAssociations, relationshipsAsEdges }) => {
@@ -23,7 +23,9 @@ export const TransitionHandler = Transition.createHandler(
     addEdge_redefinitionContext(transition)
     addEdge_source(transition, source)
     addEdge_target(transition, target)
-    addEdge_trigger(transition)
+    transition.children.forEach((child) => {
+      addEdge_trigger(transition, child)
+    })
   },
   {
     [Uml.Attributes.kind]: 'external',
@@ -72,8 +74,11 @@ function addEdge_target(transition: GraphNode, target: GraphNode) {
   transition.model.addEdge('target', transition, target)
 }
 
-function addEdge_trigger(_transition: GraphNode) {
+function addEdge_trigger(transition: GraphNode, child: GraphNode) {
   // TODO/Association
   // ♦ trigger : Trigger [0..*]{subsets Element::ownedElement} (opposite A_trigger_transition::transition)
   // Specifies the Triggers that may fire the transition.
+  if (Trigger.isAssignable(child)) {
+    transition.model.addEdge('trigger', transition, child)
+  }
 }
