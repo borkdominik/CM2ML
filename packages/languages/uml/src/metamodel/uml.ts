@@ -89,10 +89,12 @@ const Attributes = {
 } as const
 
 const Tags = {
+  appliedProfile: 'appliedProfile',
   elementImport: 'elementImport',
   extensionPoint: 'extensionPoint',
   general: 'general',
   generalization: 'generalization',
+  icon: 'icon',
   include: 'include',
   interfaceRealization: 'interfaceRealization',
   language: 'language',

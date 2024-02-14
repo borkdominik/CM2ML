@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
-const numberOfDatasetFiles = 6
+const numberOfDatasetFiles = 20
 
 const configurations: {
   onlyContainmentAssociations: boolean

@@ -15,7 +15,8 @@ export interface ResolverConfiguration {
 function resolveNodeFromIdOrPath(node: GraphNode, pathOrId: string, type: UmlMetamodelElement | undefined) {
   const resolvedNode = node.model.getNodeById(pathOrId) ?? resolvePath(node.model, pathOrId)
   if (!resolvedNode) {
-    throw new Error(`Could not resolve ${pathOrId} from ${node.tag} node.`)
+    return undefined
+    // throw new Error(`Could not resolve ${pathOrId} from ${node.tag} node.`)
   }
   if (resolvedNode && type) {
     requireAssignability(resolvedNode, type)

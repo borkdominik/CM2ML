@@ -2,7 +2,7 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Association } from '../uml-metamodel'
+import { Association, Extension } from '../uml-metamodel'
 
 export const AssociationHandler = Association.createHandler(
   (association, { onlyContainmentAssociations, relationshipsAsEdges }) => {
@@ -54,7 +54,8 @@ function addEdge_navigableOwnedEnd(association: GraphNode, navigableOwnedEnds: G
 function addEdge_ownedEnd(association: GraphNode, child: GraphNode) {
   // ♦ ownedEnd : Property [0..*]{ordered, subsets Classifier::feature, subsets A_redefinitionContext_redefinableElement::redefinableElement, subsets Association::memberEnd, subsets Namespace::ownedMember} (opposite Property::owningAssociation)
   // The ends that are owned by the Association itself.
-  if (child.tag !== Uml.Tags.ownedEnd) {
+  if (Extension.isAssignable(association) || child.tag !== Uml.Tags.ownedEnd) {
+    // Extension redefines the ownedEnd attribute, hence we have to return here
     return
   }
   child.addAttribute({

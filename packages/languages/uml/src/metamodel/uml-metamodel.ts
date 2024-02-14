@@ -225,7 +225,7 @@ export const Package = define(
   Namespace,
 )
 
-export const Profile = define(Uml.Types.Profile, undefined, Package)
+export const Profile = define(Uml.Types.Profile, Uml.Tags.appliedProfile, Package)
 
 export const ProfileApplication = define(
   Uml.Types.ProfileApplication,
@@ -639,7 +639,7 @@ export const Extension = define(Uml.Types.Extension, undefined, Association)
 
 export const ExtensionEnd = define(Uml.Types.ExtensionEnd, undefined, Property)
 
-export const Image = define(Uml.Types.Image, undefined, Element)
+export const Image = define(Uml.Types.Image, Uml.Tags.icon, Element)
 
 export const Stereotype = define(Uml.Types.Stereotype, undefined, Class)
 

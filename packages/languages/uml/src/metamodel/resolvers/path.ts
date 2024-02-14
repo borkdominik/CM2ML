@@ -6,7 +6,8 @@ export function resolvePath(model: GraphModel, path: string) {
   if (path.startsWith('//')) {
     return resolveAbsolutePath(model, path)
   }
-  throw new Error(`Unsupported path: ${path}`)
+  return undefined
+  // throw new Error(`Unsupported path: ${path}`)
 }
 
 function resolveAbsolutePath(model: GraphModel, path: string) {
