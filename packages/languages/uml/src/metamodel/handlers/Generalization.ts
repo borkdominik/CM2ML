@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
-import { resolveFromAttribute } from '../resolvers/fromAttribute'
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Classifier, Generalization } from '../uml-metamodel'
 
 export const GeneralizationHandler = Generalization.createHandler(
   (generalization, { onlyContainmentAssociations }) => {
-    const general = resolveFromAttribute(generalization, 'general', { required: true, type: Classifier })
+    const general = resolveFromAttribute(generalization, 'general', { type: Classifier })
     if (onlyContainmentAssociations) {
       return
     }
@@ -20,7 +20,10 @@ export const GeneralizationHandler = Generalization.createHandler(
   },
 )
 
-function addEdge_general(generalization: GraphNode, general: GraphNode) {
+function addEdge_general(generalization: GraphNode, general: GraphNode | undefined) {
+  if (!general) {
+    return
+  }
   generalization.model.addEdge('general', generalization, general)
 }
 

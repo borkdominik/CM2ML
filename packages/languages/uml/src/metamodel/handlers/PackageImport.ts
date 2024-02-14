@@ -4,14 +4,14 @@ import {
   transformNodeToEdge,
 } from '@cm2ml/metamodel'
 
-import { resolveImportedPackage } from '../resolvers/resolveImportedPackage'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Namespace, PackageImport } from '../uml-metamodel'
 
 export const PackageImportHandler = PackageImport.createHandler(
   (packageImport, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const importingNamespace = getImportingNamespace(packageImport)
-    const importedPackage = resolveImportedPackage(packageImport)
+    const importedPackage = resolve(packageImport, 'importedPackage')
     if (relationshipsAsEdges) {
       const edgeTag = Uml.getEdgeTagForRelationship(packageImport)
       transformNodeToEdge(
@@ -37,7 +37,10 @@ function getImportingNamespace(packageImport: GraphNode) {
   return requireImmediateParentOfType(packageImport, Namespace)
 }
 
-function addEdge_importedPackage(packageImport: GraphNode, importedPackage: GraphNode) {
+function addEdge_importedPackage(packageImport: GraphNode, importedPackage: GraphNode | undefined) {
+  if (!importedPackage) {
+    return
+  }
   packageImport.model.addEdge('importedPackage', packageImport, importedPackage)
 }
 

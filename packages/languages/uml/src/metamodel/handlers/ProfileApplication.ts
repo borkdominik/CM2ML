@@ -6,7 +6,7 @@ import { Package, Profile, ProfileApplication } from '../uml-metamodel'
 
 export const ProfileApplicationHandler = ProfileApplication.createHandler(
   (profileApplication, { onlyContainmentAssociations, relationshipsAsEdges }) => {
-    const appliedProfile = profileApplication.findChild(Profile.isAssignable)
+    const appliedProfile = profileApplication.findChild((child) => Profile.isAssignable(child))
     const applyingPackage = getParentOfType(profileApplication, Package)
     if (relationshipsAsEdges) {
       // TODO/Jan Validate edge direction

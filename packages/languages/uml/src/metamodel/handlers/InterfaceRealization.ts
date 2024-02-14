@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/fromAttribute'
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { InterfaceRealization } from '../uml-metamodel'
 
 export const InterfaceRealizationHandler = InterfaceRealization.createHandler(
   (interfaceRealization, { onlyContainmentAssociations }) => {
     // TODO/Jan: Add type config
-    const contract = resolveFromAttribute(interfaceRealization, 'contract', { required: true })
-    const implementingClassifier = resolveFromAttribute(interfaceRealization, 'client', { removeAttribute: false, required: true })
+    const contract = resolveFromAttribute(interfaceRealization, 'contract')
+    const implementingClassifier = resolveFromAttribute(interfaceRealization, 'client', { removeAttribute: false })
     if (onlyContainmentAssociations) {
       return
     }
@@ -16,11 +16,17 @@ export const InterfaceRealizationHandler = InterfaceRealization.createHandler(
   },
 )
 
-function addEdge_contract(interfaceRealization: GraphNode, contract: GraphNode) {
+function addEdge_contract(interfaceRealization: GraphNode, contract: GraphNode | undefined) {
+  if (!contract) {
+    return
+  }
   interfaceRealization.model.addEdge('contract', interfaceRealization, contract)
 }
 
-function addEdge_implementingClassifier(interfaceRealization: GraphNode, implementingClassifier: GraphNode) {
+function addEdge_implementingClassifier(interfaceRealization: GraphNode, implementingClassifier: GraphNode | undefined) {
+  if (!implementingClassifier) {
+    return
+  }
   interfaceRealization.model.addEdge(
     'implementingClassifier',
     interfaceRealization,

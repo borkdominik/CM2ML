@@ -4,14 +4,14 @@ import {
   transformNodeToEdge,
 } from '@cm2ml/metamodel'
 
-import { resolveFromAttribute } from '../resolvers/fromAttribute'
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Package, PackageMerge } from '../uml-metamodel'
 
 export const PackageMergeHandler = PackageMerge.createHandler(
   (packageMerge, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const receivingPackage = getReceivingPackage(packageMerge)
-    const mergedPackage = resolveFromAttribute(packageMerge, 'mergedPackage', { required: true, type: Package })
+    const mergedPackage = resolveFromAttribute(packageMerge, 'mergedPackage', { type: Package })
     if (relationshipsAsEdges) {
       const edgeTag = Uml.getEdgeTagForRelationship(packageMerge)
       transformNodeToEdge(
@@ -34,7 +34,10 @@ function getReceivingPackage(packageMerge: GraphNode) {
   return requireImmediateParentOfType(packageMerge, Package)
 }
 
-function addEdge_mergedPackage(packageMerge: GraphNode, mergedPackage: GraphNode) {
+function addEdge_mergedPackage(packageMerge: GraphNode, mergedPackage: GraphNode | undefined) {
+  if (!mergedPackage) {
+    return
+  }
   packageMerge.model.addEdge('mergedPackage', packageMerge, mergedPackage)
 }
 

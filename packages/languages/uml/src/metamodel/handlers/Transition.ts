@@ -1,14 +1,14 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { transformNodeToEdge } from '@cm2ml/metamodel'
 
-import { resolveFromAttribute } from '../resolvers/fromAttribute'
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Transition, Trigger, Vertex } from '../uml-metamodel'
 
 export const TransitionHandler = Transition.createHandler(
   (transition, { onlyContainmentAssociations, relationshipsAsEdges }) => {
-    const source = resolveFromAttribute(transition, 'source', { required: true, type: Vertex })
-    const target = resolveFromAttribute(transition, 'target', { required: true, type: Vertex })
+    const source = resolveFromAttribute(transition, 'source', { type: Vertex })
+    const target = resolveFromAttribute(transition, 'target', { type: Vertex })
     if (relationshipsAsEdges) {
       transformNodeToEdge(transition, source, target, 'transition')
       return
@@ -62,15 +62,21 @@ function addEdge_redefinitionContext(_transition: GraphNode) {
   // References the Classifier in which context this element may be redefined.
 }
 
-function addEdge_source(transition: GraphNode, source: GraphNode) {
+function addEdge_source(transition: GraphNode, source: GraphNode | undefined) {
   // source : Vertex [1..1] (opposite Vertex::outgoing)
   // Designates the originating Vertex (State or Pseudostate) of the Transition.
+  if (!source) {
+    return
+  }
   transition.model.addEdge('source', transition, source)
 }
 
-function addEdge_target(transition: GraphNode, target: GraphNode) {
+function addEdge_target(transition: GraphNode, target: GraphNode | undefined) {
   // target : Vertex [1..1] (opposite Vertex::incoming)
   // Designates the target Vertex that is reached when the Transition is taken.
+  if (!target) {
+    return
+  }
   transition.model.addEdge('target', transition, target)
 }
 

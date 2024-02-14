@@ -1,23 +1,28 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
+import { resolve } from '../resolvers/resolve'
 import { NamedElement, Namespace } from '../uml-metamodel'
 
 export const NamedElementHandler = NamedElement.createHandler(
   (namedElement, { onlyContainmentAssociations }) => {
+    const clientDependency = resolve(namedElement, 'clientDependency', { many: true })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_clientDependency(namedElement)
+    addEdge_clientDependency(namedElement, clientDependency)
     addEdge_nameExpression(namedElement)
     addEdge_namespace(namedElement)
   },
 )
 
-function addEdge_clientDependency(_namedElement: GraphNode) {
+function addEdge_clientDependency(namedElement: GraphNode, clientDependency: GraphNode[]) {
   // TODO/Association
   // /clientDependency : Dependency [0..*]{subsets A_source_directedRelationship::directedRelationship} (opposite Dependency::client)
   // Indicates the Dependencies that reference this NamedElement as a client.
+  clientDependency.forEach((clientDependency) => {
+    namedElement.model.addEdge('clientDependency', namedElement, clientDependency)
+  })
 }
 
 function addEdge_nameExpression(_namedElement: GraphNode) {

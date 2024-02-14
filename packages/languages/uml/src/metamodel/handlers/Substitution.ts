@@ -1,14 +1,14 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/fromAttribute'
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { Substitution } from '../uml-metamodel'
 
 // TODO/Jan: Validate associations
 export const SubstitutionHandler = Substitution.createHandler(
   (substitution, { onlyContainmentAssociations }) => {
     // TODO/Jan: Add type configs
-    const contract = resolveFromAttribute(substitution, 'contract', { required: true })
-    const substitutingClassifier = resolveFromAttribute(substitution, 'client', { removeAttribute: false, required: true })
+    const contract = resolveFromAttribute(substitution, 'contract')
+    const substitutingClassifier = resolveFromAttribute(substitution, 'client', { removeAttribute: false })
     if (onlyContainmentAssociations) {
       return
     }
@@ -17,10 +17,16 @@ export const SubstitutionHandler = Substitution.createHandler(
   },
 )
 
-function addEdge_contract(substitution: GraphNode, contract: GraphNode) {
+function addEdge_contract(substitution: GraphNode, contract: GraphNode | undefined) {
+  if (!contract) {
+    return
+  }
   substitution.model.addEdge('contract', substitution, contract)
 }
 
-function addEdge_substitutingClassifier(substitution: GraphNode, substitutingClassifier: GraphNode) {
+function addEdge_substitutingClassifier(substitution: GraphNode, substitutingClassifier: GraphNode | undefined) {
+  if (!substitutingClassifier) {
+    return
+  }
   substitution.model.addEdge('substitutingClassifier', substitution, substitutingClassifier)
 }

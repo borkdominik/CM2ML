@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/fromAttribute'
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { ConnectorEnd } from '../uml-metamodel'
 
 export const ConnectorEndHandler = ConnectorEnd.createHandler(
   (connectorEnd, { onlyContainmentAssociations }) => {
     const partWithPort = resolveFromAttribute(connectorEnd, 'partWithPort')
-    const role = resolveFromAttribute(connectorEnd, 'role', { required: true })
+    const role = resolveFromAttribute(connectorEnd, 'role')
     if (onlyContainmentAssociations) {
       return
     }
@@ -32,9 +32,12 @@ function addEdge_partWithPort(connectorEnd: GraphNode, partWithPort: GraphNode |
   connectorEnd.model.addEdge('partWithPort', connectorEnd, partWithPort)
 }
 
-function addEdge_role(connectorEnd: GraphNode, role: GraphNode) {
+function addEdge_role(connectorEnd: GraphNode, role: GraphNode | undefined) {
   // TODO/Association
   // role: ConnectableElement[1..1](opposite ConnectableElement::end)
   // The ConnectableElement attached at this ConnectorEnd.When an instance of the containing Classifier is created, a link may(depending on the multiplicities) be created to an instance of the Classifier that types this ConnectableElement.
+  if (!role) {
+    return
+  }
   connectorEnd.model.addEdge('role', connectorEnd, role)
 }

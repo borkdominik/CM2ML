@@ -71,10 +71,10 @@ function resolveIndexedSegment(node: GraphNode, segment: string, createMatcher: 
   return child
 }
 
-function matchName(name: string) {
+export function matchName(name: string) {
   return (node: GraphNode) => node.getAttribute(Uml.Attributes.name)?.value.literal === name
 }
 
-function matchTag(tag: string) {
+export function matchTag(tag: string) {
   return (node: GraphNode) => node.tag === tag
 }

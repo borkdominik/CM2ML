@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/fromAttribute'
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { ActivityNode } from '../uml-metamodel'
 
 export const ActivityNodeHandler = ActivityNode.createHandler(
