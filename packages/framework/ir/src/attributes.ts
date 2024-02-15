@@ -56,6 +56,7 @@ export class AttributeDelegate implements Attributable {
     return this.#attributes.get(name)
   }
 
+  // TODO/Jan: Default preventOverwrite to true
   public addAttribute(attribute: Attribute, preventOverwrite = false) {
     const key = attribute.name
     const previousValue = this.#attributes.get(key)

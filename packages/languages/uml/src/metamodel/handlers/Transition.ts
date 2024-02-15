@@ -11,7 +11,7 @@ export const TransitionHandler = Transition.createHandler(
     const target = resolveFromAttribute(transition, 'target', { type: Vertex })
     if (relationshipsAsEdges) {
       transformNodeToEdge(transition, source, target, 'transition')
-      return
+      return false
     }
     if (onlyContainmentAssociations) {
       return

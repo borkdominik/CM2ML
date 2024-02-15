@@ -1,4 +1,5 @@
 import type { GraphNode } from '@cm2ml/ir'
+import { Stream } from '@yeger/streams'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
@@ -8,6 +9,7 @@ export const AssociationHandler = Association.createHandler(
   (association, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const memberEnds = resolveFromAttribute(association, 'memberEnd', { many: true })
     const navigableOwnedEnds = resolveFromAttribute(association, 'navigableOwnedEnd', { many: true })
+    const ownedEnds = getOwnedEnds(association)
     if (relationshipsAsEdges) {
       // TODO: Include associations?
       association.model.removeNode(association)
@@ -19,14 +21,29 @@ export const AssociationHandler = Association.createHandler(
     addEdge_endType(association)
     addEdge_memberEnd(association, memberEnds)
     addEdge_navigableOwnedEnd(association, navigableOwnedEnds)
-    association.children.forEach((child) => {
-      addEdge_ownedEnd(association, child)
+    ownedEnds.forEach((ownedEnd) => {
+      addEdge_ownedEnd(association, ownedEnd)
     })
   },
   {
     [Uml.Attributes.isDerived]: 'false',
   },
 )
+
+// TODO/Jan: Implement same approach for Extension
+function getOwnedEnds(association: GraphNode) {
+  if (Extension.isAssignable(association)) {
+    // Extension redefines the ownedEnd attribute, hence we have to return here
+    return []
+  }
+  return Stream.from(association.children).filter((child) => child.tag === Uml.Tags.ownedEnd).forEach((child) => {
+    // TODO/Jan: Only set as fallback
+    child.addAttribute({
+      name: Uml.typeAttributeName,
+      value: { namespace: 'uml', literal: Uml.Types.Property },
+    })
+  }).toArray()
+}
 
 function addEdge_endType(_association: GraphNode) {
   // TODO/Association
@@ -51,16 +68,8 @@ function addEdge_navigableOwnedEnd(association: GraphNode, navigableOwnedEnds: G
   )
 }
 
-function addEdge_ownedEnd(association: GraphNode, child: GraphNode) {
+function addEdge_ownedEnd(association: GraphNode, ownedEnd: GraphNode) {
   // ♦ ownedEnd : Property [0..*]{ordered, subsets Classifier::feature, subsets A_redefinitionContext_redefinableElement::redefinableElement, subsets Association::memberEnd, subsets Namespace::ownedMember} (opposite Property::owningAssociation)
   // The ends that are owned by the Association itself.
-  if (Extension.isAssignable(association) || child.tag !== Uml.Tags.ownedEnd) {
-    // Extension redefines the ownedEnd attribute, hence we have to return here
-    return
-  }
-  child.addAttribute({
-    name: Uml.typeAttributeName,
-    value: { namespace: 'uml', literal: Uml.Types.Property },
-  })
-  association.model.addEdge('ownedEnd', association, child)
+  association.model.addEdge('ownedEnd', association, ownedEnd)
 }

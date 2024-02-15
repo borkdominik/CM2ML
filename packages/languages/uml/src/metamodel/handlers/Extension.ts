@@ -27,6 +27,7 @@ function addEdge_ownedEnd(extension: GraphNode, child: GraphNode) {
   if (child.tag !== Uml.Tags.ownedEnd) {
     return
   }
+  // TODO/Jan: only set as fallback
   child.addAttribute({
     name: Uml.typeAttributeName,
     value: { namespace: 'uml', literal: Uml.Types.ExtensionEnd },
