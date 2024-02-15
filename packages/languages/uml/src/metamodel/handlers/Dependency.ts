@@ -1,7 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { transformNodeToEdge } from '@cm2ml/metamodel'
 
-import { resolveFromAttribute, resolve } from '../resolvers/resolve'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Dependency } from '../uml-metamodel'
 

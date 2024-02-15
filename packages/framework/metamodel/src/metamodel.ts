@@ -43,7 +43,7 @@ export function transformNodeToEdge(
 ) {
   if (!source || !target) {
     node.model.removeNode(node)
-    return
+    return undefined
   }
   const edge = node.model.addEdge(tag, source, target)
   copyAttributes(node, edge)
