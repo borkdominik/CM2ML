@@ -1,10 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Classifier } from '../uml-metamodel'
 
 export const ClassifierHandler = Classifier.createHandler(
   (classifier, { onlyContainmentAssociations }) => {
+    const redefinedClassifier = resolveFromAttribute(classifier, 'redefinedClassifier', { many: true })
     if (onlyContainmentAssociations) {
       return
     }
@@ -17,7 +19,7 @@ export const ClassifierHandler = Classifier.createHandler(
     addEdge_ownedTemplateSignature(classifier)
     addEdge_ownedUseCase(classifier)
     addEdge_powertypeExtent(classifier)
-    addEdge_redefinedClassifier(classifier)
+    addEdge_redefinedClassifier(classifier, redefinedClassifier)
     addEdge_representation(classifier)
     addEdge_substitution(classifier)
     addEdge_templateParameter(classifier)
@@ -83,10 +85,13 @@ function addEdge_powertypeExtent(_classifier: GraphNode) {
   // The GeneralizationSet of which this Classifier is a power type.
 }
 
-function addEdge_redefinedClassifier(_classifier: GraphNode) {
+function addEdge_redefinedClassifier(classifier: GraphNode, redefinedClassifier: GraphNode[]) {
   // TODO/Association
   // redefinedClassifier : Classifier [0..*]{subsets RedefinableElement::redefinedElement} (opposite A_redefinedClassifier_classifier::classifier )
   // The Classifiers redefined by this Classifier.
+  redefinedClassifier.forEach((redefinedClassifier) => {
+    classifier.model.addEdge('redefinedClassifier', classifier, redefinedClassifier)
+  })
 }
 
 function addEdge_representation(_classifier: GraphNode) {

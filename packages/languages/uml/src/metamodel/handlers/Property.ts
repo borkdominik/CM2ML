@@ -14,6 +14,7 @@ import {
 export const PropertyHandler = Property.createHandler(
   (property, { onlyContainmentAssociations }) => {
     const association = resolveFromAttribute(property, 'association', { type: Association })
+    const redefinedProperties = getRedefinedProperties(property)
     if (onlyContainmentAssociations) {
       return
     }
@@ -25,7 +26,7 @@ export const PropertyHandler = Property.createHandler(
     addEdge_interface(property)
     addEdge_opposite(property)
     addEdge_qualifier(property)
-    addEdge_redefinedProperty(property)
+    addEdge_redefinedProperty(property, redefinedProperties)
     addEdge_subsettedProperty(property)
   },
   {
@@ -36,6 +37,15 @@ export const PropertyHandler = Property.createHandler(
     [Uml.Attributes.isID]: 'false',
   },
 )
+
+function getRedefinedProperties(property: GraphNode) {
+  const redefinedProperties = property.findAllChildren((child) => child.tag === 'redefinedProperty')
+  redefinedProperties.forEach((redefinedProperty) => {
+    // TODO/Jan: Only as fallback
+    redefinedProperty.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.Property } })
+  })
+  return redefinedProperties
+}
 
 function addEdge_association(
   property: GraphNode,
@@ -109,10 +119,13 @@ function addEdge_qualifier(_property: GraphNode) {
   // An optional list of ordered qualifier attributes for the end.
 }
 
-function addEdge_redefinedProperty(_property: GraphNode) {
+function addEdge_redefinedProperty(property: GraphNode, redefinedProperties: GraphNode[]) {
   // TODO/Association
   // redefinedProperty : Property [0..*]{subsets RedefinableElement::redefinedElement} (opposite A_redefinedProperty_property::property)
   // The properties that are redefined by this property, if any.
+  redefinedProperties.forEach((redefinedProperty) => {
+    property.model.addEdge('redefinedProperty', property, redefinedProperty)
+  })
 }
 
 function addEdge_subsettedProperty(_property: GraphNode) {

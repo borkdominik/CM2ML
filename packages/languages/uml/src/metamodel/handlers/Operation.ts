@@ -11,6 +11,7 @@ import {
 
 export const OperationHandler = Operation.createHandler(
   (operation, { onlyContainmentAssociations }) => {
+    const redefinedOperations = getRedefinedOperations(operation)
     if (onlyContainmentAssociations) {
       return
     }
@@ -24,7 +25,7 @@ export const OperationHandler = Operation.createHandler(
     addEdge_postcondition(operation)
     addEdge_precondition(operation)
     addEdge_raisedException(operation)
-    addEdge_redefinedOperation(operation)
+    addEdge_redefinedOperation(operation, redefinedOperations)
     addEdge_templateParameter(operation)
     addEdge_type(operation)
   },
@@ -32,6 +33,15 @@ export const OperationHandler = Operation.createHandler(
     [Uml.Attributes.isQuery]: 'false',
   },
 )
+
+function getRedefinedOperations(operation: GraphNode) {
+  const redefinedOperations = operation.findAllChildren((child) => child.tag === 'redefinedOperation')
+  redefinedOperations.forEach((redefinedOperation) => {
+    // TODO/Jan: Only as fallback
+    redefinedOperation.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.Operation } })
+  })
+  return redefinedOperations
+}
 
 function addEdge_bodyCondition(_operation: GraphNode) {
   // TODO/Association
@@ -84,10 +94,13 @@ function addEdge_raisedException(_operation: GraphNode) {
   // The Types representing exceptions that may be raised during an invocation of this operation.
 }
 
-function addEdge_redefinedOperation(_operation: GraphNode) {
+function addEdge_redefinedOperation(operation: GraphNode, redefinedOperations: GraphNode[]) {
   // TODO/Association
   // redefinedOperation : Operation [0..*]{subsets RedefinableElement::redefinedElement} (opposite A_redefinedOperation_operation::operation)
   // The Operations that are redefined by this Operation.
+  redefinedOperations.forEach((redefinedOperation) => {
+    operation.model.addEdge('redefinedOperation', operation, redefinedOperation)
+  })
 }
 
 function addEdge_templateParameter(_operation: GraphNode) {

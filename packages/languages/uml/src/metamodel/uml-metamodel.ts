@@ -379,7 +379,7 @@ export const Substitution = define(
 
 export const Association = define(
   Uml.Types.Association,
-  undefined,
+  Uml.Tags.association,
   Relationship,
   Classifier,
 )

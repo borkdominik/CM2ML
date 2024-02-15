@@ -7,6 +7,7 @@ import { Transition, Trigger, Vertex } from '../uml-metamodel'
 
 export const TransitionHandler = Transition.createHandler(
   (transition, { onlyContainmentAssociations, relationshipsAsEdges }) => {
+    const guard = resolveFromAttribute(transition, 'guard')
     const source = resolveFromAttribute(transition, 'source', { type: Vertex })
     const target = resolveFromAttribute(transition, 'target', { type: Vertex })
     if (relationshipsAsEdges) {
@@ -18,7 +19,7 @@ export const TransitionHandler = Transition.createHandler(
     }
     addEdge_container(transition)
     addEdge_effect(transition)
-    addEdge_guard(transition)
+    addEdge_guard(transition, guard)
     addEdge_redefinedTransition(transition)
     addEdge_redefinitionContext(transition)
     addEdge_source(transition, source)
@@ -44,10 +45,14 @@ function addEdge_effect(_transition: GraphNode) {
   // Specifies an optional behavior to be performed when the Transition fires.
 }
 
-function addEdge_guard(_transition: GraphNode) {
+function addEdge_guard(transition: GraphNode, guard: GraphNode | undefined) {
   // TODO/Association
   // ♦ guard : Constraint [0..1]{subsets Namespace::ownedRule} (opposite A_guard_transition::transition)
   // A guard is a Constraint that provides a fine-grained control over the firing of the Transition. The guard is evaluated when an Event occurrence is dispatched by the StateMachine. If the guard is true at that time, the Transition may be enabled, otherwise, it is disabled. Guards should be pure expressions without side effects. Guard expressions with side effects are ill formed.
+  if (!guard) {
+    return
+  }
+  transition.model.addEdge('guard', transition, guard)
 }
 
 function addEdge_redefinedTransition(_transition: GraphNode) {

@@ -1,18 +1,24 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { ActivityParameterNode } from '../uml-metamodel'
 
 export const ActivityParameterNodeHandler = ActivityParameterNode.createHandler(
   (activityParameterNode, { onlyContainmentAssociations }) => {
+    const parameter = resolveFromAttribute(activityParameterNode, 'parameter')
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_parameter(activityParameterNode)
+    addEdge_parameter(activityParameterNode, parameter)
   },
 )
 
-function addEdge_parameter(_activityParameterNode: GraphNode) {
+function addEdge_parameter(activityParameterNode: GraphNode, parameter: GraphNode | undefined) {
   // TODO/Association
   // parameter : Parameter [1..1] (opposite A_parameter_activityParameterNode::activityParameterNode)
   // The Parameter for which the ActivityParameterNode will be accepting or providing values.
+  if (!parameter) {
+    return
+  }
+  activityParameterNode.model.addEdge('parameter', activityParameterNode, parameter)
 }

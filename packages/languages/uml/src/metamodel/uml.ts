@@ -90,6 +90,7 @@ const Attributes = {
 
 const Tags = {
   appliedProfile: 'appliedProfile',
+  association: 'association',
   elementImport: 'elementImport',
   extensionPoint: 'extensionPoint',
   general: 'general',

@@ -5,19 +5,24 @@ import { Profile } from '../uml-metamodel'
 
 export const ProfileHandler = Profile.createHandler(
   (profile, { onlyContainmentAssociations }) => {
+    const metaclassReference = resolveFromAttribute(profile, 'metaclassReference')
     const metamodelReference = resolveFromAttribute(profile, 'metamodelReference')
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_metaclassReference(profile)
+    addEdge_metaclassReference(profile, metaclassReference)
     addEdge_metamodelReference(profile, metamodelReference)
   },
 )
 
-function addEdge_metaclassReference(_profile: GraphNode) {
+function addEdge_metaclassReference(profile: GraphNode, metaclassReference: GraphNode | undefined) {
   // TODO/Association
   // ♦ metaclassReference : ElementImport [0..*]{subsets Namespace::elementImport} (opposite A_metaclassReference_profile::profile)
   // References a metaclass that may be extended.
+  if (!metaclassReference) {
+    return
+  }
+  profile.model.addEdge('metaclassReference', profile, metaclassReference)
 }
 
 function addEdge_metamodelReference(profile: GraphNode, metamodelReference: GraphNode | undefined) {

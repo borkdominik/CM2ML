@@ -6,12 +6,13 @@ import { Activity } from '../uml-metamodel'
 
 export const ActivityHandler = Activity.createHandler(
   (activity, { onlyContainmentAssociations }) => {
+    const group = resolveFromAttribute(activity, 'group', { many: true })
     const node = resolveFromAttribute(activity, 'node', { many: true })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_edge(activity)
-    addEdge_group(activity)
+    addEdge_group(activity, group)
     addEdge_node(activity, node)
     addEdge_partition(activity)
     addEdge_structuredNode(activity)
@@ -29,10 +30,13 @@ function addEdge_edge(_activity: GraphNode) {
   // ActivityEdges expressing flow between the nodes of the Activity.
 }
 
-function addEdge_group(_activity: GraphNode) {
+function addEdge_group(activity: GraphNode, group: GraphNode[]) {
   // TODO/Association
   // ♦ group : ActivityGroup [0..*]{subsets Element::ownedElement} (opposite ActivityGroup::inActivity)
   // Top-level ActivityGroups in the Activity.
+  group.forEach((group) => {
+    activity.model.addEdge('group', activity, group)
+  })
 }
 
 function addEdge_node(activity: GraphNode, node: GraphNode[]) {

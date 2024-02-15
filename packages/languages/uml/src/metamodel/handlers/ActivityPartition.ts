@@ -1,16 +1,19 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { ActivityPartition } from '../uml-metamodel'
 
 export const ActivityPartitionHandler = ActivityPartition.createHandler(
   (activityPartition, { onlyContainmentAssociations }) => {
+    const node = resolveFromAttribute(activityPartition, 'node', { many: true })
+    const represents = resolveFromAttribute(activityPartition, 'represents')
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_edge(activityPartition)
-    addEdge_node(activityPartition)
-    addEdge_represents(activityPartition)
+    addEdge_node(activityPartition, node)
+    addEdge_represents(activityPartition, represents)
     addEdge_subpartition(activityPartition)
     addEdge_superPartition(activityPartition)
   },
@@ -26,16 +29,23 @@ function addEdge_edge(_activityPartition: GraphNode) {
   // ActivityEdges immediately contained in the ActivityPartition.
 }
 
-function addEdge_node(_activityPartition: GraphNode) {
+function addEdge_node(activityPartition: GraphNode, node: GraphNode[]) {
   // TODO/Association
   // node : ActivityNode [0..*]{subsets ActivityGroup::containedNode} (opposite ActivityNode::inPartition)
   // ActivityNodes immediately contained in the ActivityPartition.
+  node.forEach((node) => {
+    activityPartition.model.addEdge('node', activityPartition, node)
+  })
 }
 
-function addEdge_represents(_activityPartition: GraphNode) {
+function addEdge_represents(activityPartition: GraphNode, represents: GraphNode | undefined) {
   // TODO/Association
   // represents : Element [0..1] (opposite A_represents_activityPartition::activityPartition)
   // An Element represented by the functionality modeled within the ActivityPartition.
+  if (!represents) {
+    return
+  }
+  activityPartition.model.addEdge('represents', activityPartition, represents)
 }
 
 function addEdge_subpartition(_activityPartition: GraphNode) {

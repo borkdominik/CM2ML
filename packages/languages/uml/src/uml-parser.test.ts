@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
-const numberOfDatasetFiles = 20
+const numberOfDatasetFiles = 50
 
 const configurations: {
   onlyContainmentAssociations: boolean
@@ -36,7 +36,7 @@ describe('uml-parser', () => {
     it.each(files)('should parse %s', (file) => {
       const serializedModel = readFileSync(file, 'utf-8')
       try {
-        const result = UmlParser.invoke(serializedModel, { ...configuration, debug: false, removeInvalidNodes: false, strict: true })
+        const result = UmlParser.invoke(serializedModel, { ...configuration, debug: true, removeInvalidNodes: false, strict: true })
         expect(result).toBeDefined()
         if (override) {
           // eslint-disable-next-line no-console
