@@ -4,46 +4,29 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
-const numberOfDatasetFiles = 50
+// Green: 0-70
 
-const configurations: {
-  onlyContainmentAssociations: boolean
-  relationshipsAsEdges: boolean
-}[] = [
-  {
-    onlyContainmentAssociations: false,
-    relationshipsAsEdges: false,
-  },
-  {
-    onlyContainmentAssociations: true,
-    relationshipsAsEdges: false,
-  },
-  {
-    onlyContainmentAssociations: false,
-    relationshipsAsEdges: true,
-  },
-  {
-    onlyContainmentAssociations: true,
-    relationshipsAsEdges: true,
-  },
-]
+const files = getFiles({
+  startIndex: 0,
+  numberOfFiles: 70,
+  // override: 183,
+})
 
-const override = undefined // '../../../models/uml/dataset/0023848af9cdebffab9a02171ebe4b842a23a23392cda9222913f9dbe5f44778.uml'
-const files = getFiles(override)
+const showDebugOutput = files.length === 1
 
 describe('uml-parser', () => {
-  describe.each(configurations)('with configuration %j', (configuration) => {
-    it.each(files)('should parse %s', (file) => {
+  describe.each(getConfigurations())('with configuration $name', (configuration) => {
+    it.each(files)('should parse model $index', ({ file }) => {
       const serializedModel = readFileSync(file, 'utf-8')
       try {
-        const result = UmlParser.invoke(serializedModel, { ...configuration, debug: true, removeInvalidNodes: false, strict: true })
+        const result = UmlParser.invoke(serializedModel, { ...configuration, debug: showDebugOutput, removeInvalidNodes: false, strict: true })
         expect(result).toBeDefined()
-        if (override) {
+        if (showDebugOutput) {
           // eslint-disable-next-line no-console
           console.info(result.show())
         }
       } catch (error) {
-        if (override) {
+        if (showDebugOutput) {
           // eslint-disable-next-line no-console
           console.info(serializedModel)
         }
@@ -53,15 +36,48 @@ describe('uml-parser', () => {
   })
 })
 
-function getFiles(override?: string) {
-  if (override) {
-    return [override]
-  }
+function getFiles({ startIndex = 0, numberOfFiles, override }: { startIndex?: number, numberOfFiles?: number, override?: number }) {
   const umlModelDir = '../../../models/uml'
   const datasetDir = `${umlModelDir}/dataset`
+  const preparedFiles = readdirSync(umlModelDir).filter((file) => file.endsWith('.uml')).map((file) => `${umlModelDir}/${file}`)
+  const datasetFiles = readdirSync(datasetDir).filter((file) => file.endsWith('.uml')).map((file) => `${datasetDir}/${file}`)
+  const allFiles = preparedFiles.concat(datasetFiles).map((file, index) => ({ file, index }))
+  if (override) {
+    const file = allFiles[override]
+    return file ? [file] : []
+  }
+  return allFiles.slice(startIndex, numberOfFiles ? startIndex + numberOfFiles : undefined)
+}
 
-  const files = readdirSync(umlModelDir).filter((file) => file.endsWith('.uml')).map((file) => `${umlModelDir}/${file}`)
-  const datasetFiles = readdirSync(datasetDir).filter((file) => file.endsWith('.uml')).splice(0, numberOfDatasetFiles).map((file) => `${datasetDir}/${file}`)
-  files.push(...datasetFiles)
-  return files
+function getConfigurations(pick?: 0 | 1 | 2 | 3) {
+  const configurationPresets = [
+    {
+      name: 'default',
+      onlyContainmentAssociations: false,
+      relationshipsAsEdges: false,
+    },
+    {
+      name: 'only containment associations',
+      onlyContainmentAssociations: true,
+      relationshipsAsEdges: false,
+    },
+    {
+      name: 'relationships as edges',
+      onlyContainmentAssociations: false,
+      relationshipsAsEdges: true,
+    },
+    {
+      name: 'only containment associations and relationships as edges',
+      onlyContainmentAssociations: true,
+      relationshipsAsEdges: true,
+    },
+  ] as const satisfies {
+    name: string
+    onlyContainmentAssociations: boolean
+    relationshipsAsEdges: boolean
+  }[]
+  if (pick !== undefined) {
+    return [configurationPresets[pick]]
+  }
+  return configurationPresets
 }
