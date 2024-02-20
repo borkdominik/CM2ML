@@ -52,7 +52,7 @@ export default defineConfig({
   ],
   define: {
     __SOURCE_URL: JSON.stringify(
-      packageJson.repository.replace('github:', 'https://github.com/'),
+      packageJson.repository.url.replace('git+', '').replace('.git', ''),
     ),
     __EXAMPLE_MODEL: JSON.stringify(readFileSync('../../models/uml/clazz.uml', 'utf-8')),
   },

@@ -7,7 +7,11 @@
     "url": "https://github.com/DerYeger"
   },
   "license": "MIT",
-  "repository": "github:borkdominik/CM2ML",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borkdominik/CM2ML.git",
+    "directory": "packages/framework/ir-post-processor"
+  },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"
   },
