@@ -33,7 +33,7 @@
     "test": "cross-env COVERAGE=true nr turbo run test",
     "turbo": "cross-env CI=true FORCE_COLOR=1 turbo --output-logs=new-only",
     "typecheck": "nr turbo run check:tsc check:vue",
-    "update": "taze major -l -r -w",
+    "update": "taze major -l -r -w --exclude million",
     "version": "changeset version && pnpm install --no-frozen-lockfile"
   },
   "devDependencies": {

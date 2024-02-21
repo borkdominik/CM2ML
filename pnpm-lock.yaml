@@ -97,11 +97,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/encoder/tree-encoder:
     dependencies:
@@ -119,11 +119,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/builtin:
     dependencies:
@@ -156,11 +156,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/cli:
     dependencies:
@@ -178,11 +178,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/cli-adapter:
     dependencies:
@@ -209,11 +209,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/cm2ml:
     dependencies:
@@ -255,11 +255,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/ir:
     devDependencies:
@@ -270,11 +270,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/ir-post-processor:
     dependencies:
@@ -298,11 +298,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/metamodel:
     dependencies:
@@ -317,11 +317,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/metamodel-refiner:
     dependencies:
@@ -345,11 +345,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/plugin:
     dependencies:
@@ -370,11 +370,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/plugin-adapter:
     dependencies:
@@ -392,11 +392,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/rest:
     dependencies:
@@ -414,11 +414,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/rest-adapter:
     dependencies:
@@ -445,11 +445,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/framework/xmi-parser:
     dependencies:
@@ -482,11 +482,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/languages/ecore:
     dependencies:
@@ -522,11 +522,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/languages/uml:
     dependencies:
@@ -562,11 +562,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/scripts:
     dependencies:
@@ -581,11 +581,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/tsconfig: {}
 
@@ -598,11 +598,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-lib:
         specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+        version: 2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
 
   packages/visualizer:
     dependencies:
@@ -705,7 +705,7 @@ importers:
         version: 0.2.4
       '@vitejs/plugin-react':
         specifier: 4.2.1
-        version: 4.2.1(vite@5.1.3)
+        version: 4.2.1(vite@5.1.4)
       '@yeger/debounce':
         specifier: 2.0.7
         version: 2.0.7
@@ -713,8 +713,8 @@ importers:
         specifier: 10.4.17
         version: 10.4.17(postcss@8.4.35)
       million:
-        specifier: 3.0.3
-        version: 3.0.3(rollup@2.79.1)
+        specifier: 2.6.4
+        version: 2.6.4
       postcss:
         specifier: 8.4.35
         version: 8.4.35
@@ -728,11 +728,11 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       vite:
-        specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)
+        specifier: 5.1.4
+        version: 5.1.4(@types/node@20.11.19)
       vite-plugin-pwa:
         specifier: 0.19.0
-        version: 0.19.0(@vite-pwa/assets-generator@0.2.4)(vite@5.1.3)(workbox-build@7.0.0)(workbox-window@7.0.0)
+        version: 0.19.0(@vite-pwa/assets-generator@0.2.4)(vite@5.1.4)(workbox-build@7.0.0)(workbox-window@7.0.0)
       workbox-window:
         specifier: 7.0.0
         version: 7.0.0
@@ -1383,6 +1383,16 @@ packages:
       '@babel/helper-plugin-utils': 7.22.5
     dev: true
 
+  /@babel/plugin-syntax-jsx@7.23.3(@babel/core@7.23.9):
+    resolution: {integrity: sha512-EB2MELswq55OHUoRZLGg/zC7QWUKfNLpE57m/S2yr1uEneIgsTgrSzXP3NXEsMkVn76OlaVVnzN+ugObuYGwhg==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.23.9
+      '@babel/helper-plugin-utils': 7.22.5
+    dev: true
+
   /@babel/plugin-syntax-logical-assignment-operators@7.10.4(@babel/core@7.23.9):
     resolution: {integrity: sha512-d8waShlpFDinQ5MtvGU9xDAOzKH47+FFoney2baFIoMr952hKOLp1HR7VszoZvOsV/4+RRszNY7D17ba0te0ig==}
     peerDependencies:
@@ -1464,6 +1474,16 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.23.6
+      '@babel/helper-plugin-utils': 7.22.5
+    dev: true
+
+  /@babel/plugin-syntax-typescript@7.23.3(@babel/core@7.23.9):
+    resolution: {integrity: sha512-9EiNjVJOMwCO+43TqoTrgQ8jMwcAd0sWyXi9RPfIsLTj4R2MADDDQXELhffaUx/uJv2AYcxBgPwH6j4TIA4ytQ==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.23.9
       '@babel/helper-plugin-utils': 7.22.5
     dev: true
 
@@ -2931,11 +2951,6 @@ packages:
       fast-uri: 2.2.0
     dev: false
 
-  /@fastify/busboy@2.1.0:
-    resolution: {integrity: sha512-+KpH+QxZU7O4675t3mnkQKcZZg56u+K/Ct2K+N2AZYNVK8kyeo/bI18tI8aPm3tvNNRyTWfj6s5tnGNlcbQRsA==}
-    engines: {node: '>=14'}
-    dev: true
-
   /@fastify/deepmerge@1.3.0:
     resolution: {integrity: sha512-J8TOSBq3SoZbDhM9+R/u77hP93gz/rajSA+K2kGyijPpORPWUXHUpTaleoj+92As0S9uPRP7Oi8IqMf0u+ro6A==}
     dev: false
@@ -4272,7 +4287,7 @@ packages:
       rollup: 2.79.1
     dev: true
 
-  /@rollup/pluginutils@5.1.0(rollup@2.79.1):
+  /@rollup/pluginutils@5.1.0:
     resolution: {integrity: sha512-XTIWOPPcpvyKI6L1NHo0lFlCyznUEyPmPY1mc3KpPVDYulHSTvyeLNVW00QTLIAFNhR3kYnJTQHeGqU4M3n09g==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -4284,7 +4299,6 @@ packages:
       '@types/estree': 1.0.2
       estree-walker: 2.0.2
       picomatch: 2.3.1
-      rollup: 2.79.1
     dev: true
 
   /@rollup/rollup-android-arm-eabi@4.6.1:
@@ -5150,7 +5164,7 @@ packages:
       unconfig: 0.3.11
     dev: true
 
-  /@vitejs/plugin-react@4.2.1(vite@5.1.3):
+  /@vitejs/plugin-react@4.2.1(vite@5.1.4):
     resolution: {integrity: sha512-oojO9IDc4nCUUi8qIR11KoQm0XFFLIwsRBwHRR4d/88IWghn1y6ckz/bJ8GHDCsYEJee8mDzqtJxh15/cisJNQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -5161,7 +5175,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.23.3(@babel/core@7.23.6)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.0
-      vite: 5.1.3(@types/node@20.11.19)
+      vite: 5.1.4(@types/node@20.11.19)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -10276,18 +10290,19 @@ packages:
       braces: 3.0.2
       picomatch: 2.3.1
 
-  /million@3.0.3(rollup@2.79.1):
-    resolution: {integrity: sha512-fuFF18eBfAQy/+0EnZbqi7lVyJqT0EISboz9bG5tKG0Be3KL2chG4cCp2Bv9wdU6WXI4RZ4mh1gtR4ZPoGn1Vw==}
+  /million@2.6.4:
+    resolution: {integrity: sha512-voUkdd/jHWrG+7NS+mX49Pat+POKdgGW78V7pYMSrTaOjUitR6ySEcAci8hn17Rsx1IMI3+5w41dkADM1J1ZEg==}
     hasBin: true
     dependencies:
       '@babel/core': 7.23.9
+      '@babel/generator': 7.23.6
+      '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.23.9)
+      '@babel/plugin-syntax-typescript': 7.23.3(@babel/core@7.23.9)
       '@babel/types': 7.23.9
-      '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
       kleur: 4.1.5
-      undici: 6.6.2
+      rollup: 3.29.4
       unplugin: 1.6.0
     transitivePeerDependencies:
-      - rollup
       - supports-color
     dev: true
 
@@ -12590,6 +12605,14 @@ packages:
       fsevents: 2.3.3
     dev: true
 
+  /rollup@3.29.4:
+    resolution: {integrity: sha512-oWzmBZwvYrU0iJHtDmhsm662rC15FRXmcjCk1xD771dFDx5jJ02ufAQQTn0etB2emNk4J9EZg/yWKpsn9BWGRw==}
+    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.3
+    dev: true
+
   /rollup@4.6.1:
     resolution: {integrity: sha512-jZHaZotEHQaHLgKr8JnQiDT1rmatjgKlMekyksz+yk9jt/8z9quNjnKNRoaM0wd9DC2QKXjmWWuDYtM3jfF8pQ==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
@@ -14008,13 +14031,6 @@ packages:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     dev: true
 
-  /undici@6.6.2:
-    resolution: {integrity: sha512-vSqvUE5skSxQJ5sztTZ/CdeJb1Wq0Hf44hlYMciqHghvz+K88U0l7D6u1VsndoFgskDcnU+nG3gYmMzJVzd9Qg==}
-    engines: {node: '>=18.0'}
-    dependencies:
-      '@fastify/busboy': 2.1.0
-    dev: true
-
   /unherit@1.1.3:
     resolution: {integrity: sha512-Ft16BJcnapDKp0+J/rqFC3Rrk6Y/Ng4nzsC028k2jdDII/rdZ7Wd3pPT/6+vIIxRagwRc9K0IUX0Ra4fKvw+WQ==}
     dependencies:
@@ -14347,7 +14363,7 @@ packages:
       debug: 4.3.4
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 5.1.3(@types/node@20.11.19)
+      vite: 5.1.4(@types/node@20.11.19)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -14359,7 +14375,7 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-dts@3.7.2(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3):
+  /vite-plugin-dts@3.7.2(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4):
     resolution: {integrity: sha512-kg//1nDA01b8rufJf4TsvYN8LMkdwv0oBYpiQi6nRwpHyue+wTlhrBiqgipdFpMnW1oOYv6ywmzE5B0vg6vSEA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -14370,12 +14386,12 @@ packages:
         optional: true
     dependencies:
       '@microsoft/api-extractor': 7.39.0(@types/node@20.11.19)
-      '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
+      '@rollup/pluginutils': 5.1.0
       '@vue/language-core': 1.8.27(typescript@5.3.3)
       debug: 4.3.4
       kolorist: 1.8.0
       typescript: 5.3.3
-      vite: 5.1.3(@types/node@20.11.19)
+      vite: 5.1.4(@types/node@20.11.19)
       vue-tsc: 1.8.27(typescript@5.3.3)
     transitivePeerDependencies:
       - '@types/node'
@@ -14383,7 +14399,7 @@ packages:
       - supports-color
     dev: true
 
-  /vite-plugin-lib@2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3):
+  /vite-plugin-lib@2.0.8(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4):
     resolution: {integrity: sha512-qXLubiMAmnLN0WTt0pblnAOsxLap9x591mflyHF+MEuU8xhtaaU+RvSKTvyMo9BWP/7MGWRm5C5WOs3pBCcXhA==}
     peerDependencies:
       typescript: '*'
@@ -14391,15 +14407,15 @@ packages:
     dependencies:
       picocolors: 1.0.0
       typescript: 5.3.3
-      vite: 5.1.3(@types/node@20.11.19)
-      vite-plugin-dts: 3.7.2(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.3)
+      vite: 5.1.4(@types/node@20.11.19)
+      vite-plugin-dts: 3.7.2(@types/node@20.11.19)(typescript@5.3.3)(vite@5.1.4)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
       - supports-color
     dev: true
 
-  /vite-plugin-pwa@0.19.0(@vite-pwa/assets-generator@0.2.4)(vite@5.1.3)(workbox-build@7.0.0)(workbox-window@7.0.0):
+  /vite-plugin-pwa@0.19.0(@vite-pwa/assets-generator@0.2.4)(vite@5.1.4)(workbox-build@7.0.0)(workbox-window@7.0.0):
     resolution: {integrity: sha512-Unfb4Jk/ka4HELtpMLIPCmGcW4LFT+CL7Ri1/Of1544CVKXS2ftP91kUkNzkzeI1sGpOdVGuxprVLB9NjMoCAA==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
@@ -14415,15 +14431,15 @@ packages:
       debug: 4.3.4
       fast-glob: 3.3.2
       pretty-bytes: 6.1.1
-      vite: 5.1.3(@types/node@20.11.19)
+      vite: 5.1.4(@types/node@20.11.19)
       workbox-build: 7.0.0
       workbox-window: 7.0.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite@5.1.3(@types/node@20.11.19):
-    resolution: {integrity: sha512-UfmUD36DKkqhi/F75RrxvPpry+9+tTkrXfMNZD+SboZqBCMsxKtO52XeGzzuh7ioz+Eo/SYDBbdb0Z7vgcDJew==}
+  /vite@5.1.4(@types/node@20.11.19):
+    resolution: {integrity: sha512-n+MPqzq+d9nMVTKyewqw6kSt+R3CkvF9QAKY8obiQn8g1fwTscKxyfaYnC632HtBXAQGc1Yjomphwn1dtwGAHg==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -14502,7 +14518,7 @@ packages:
       strip-literal: 2.0.0
       tinybench: 2.5.1
       tinypool: 0.8.2
-      vite: 5.1.3(@types/node@20.11.19)
+      vite: 5.1.4(@types/node@20.11.19)
       vite-node: 1.3.1(@types/node@20.11.19)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
