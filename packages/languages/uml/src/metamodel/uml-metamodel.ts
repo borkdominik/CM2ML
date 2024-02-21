@@ -219,7 +219,7 @@ export const Usage = define(Uml.Types.Usage, undefined, Dependency)
 
 export const Package = define(
   Uml.Types.Package,
-  undefined,
+  Uml.Tags.importedPackage,
   PackageableElement,
   TemplateableElement,
   Namespace,
@@ -327,7 +327,7 @@ export const Expression = define(
 
 export const StringExpression = define(
   Uml.Types.StringExpression,
-  undefined,
+  Uml.Tags.nameExpression,
   TemplateableElement,
   Expression,
 )
@@ -369,7 +369,7 @@ export const EnumerationLiteral = define(
   InstanceSpecification,
 )
 
-export const Interface = define(Uml.Types.Interface, undefined, Classifier)
+export const Interface = define(Uml.Types.Interface, Uml.Tags.contract, Classifier)
 
 export const Substitution = define(
   Uml.Types.Substitution,
@@ -418,7 +418,7 @@ export const ConnectableElementTemplateParameter = define(
   TemplateParameter,
 )
 
-export const Connector = define(Uml.Types.Connector, undefined, Feature)
+export const Connector = define(Uml.Types.Connector, Uml.Tags.ownedConnector, Feature)
 
 export const ConnectorEnd = define(
   Uml.Types.ConnectorEnd,
@@ -625,7 +625,7 @@ export const RedefinableTemplateSignature = define(
   TemplateSignature,
 )
 
-export const Slot = define(Uml.Types.Slot, undefined, Element)
+export const Slot = define(Uml.Types.Slot, Uml.Tags.slot, Element)
 
 export const Reception = define(
   Uml.Types.Reception,
@@ -1171,7 +1171,7 @@ export const InteractionUse = define(
   InteractionFragment,
 )
 
-export const Lifeline = define(Uml.Types.Lifeline, undefined, NamedElement)
+export const Lifeline = define(Uml.Types.Lifeline, Uml.Tags.lifeline, NamedElement)
 
 export const Message = define(Uml.Types.Message, undefined, NamedElement)
 

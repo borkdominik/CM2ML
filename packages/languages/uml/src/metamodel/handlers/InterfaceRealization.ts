@@ -17,6 +17,8 @@ export const InterfaceRealizationHandler = InterfaceRealization.createHandler(
 )
 
 function addEdge_contract(interfaceRealization: GraphNode, contract: GraphNode | undefined) {
+  // contract : Interface [1..1]{subsets Dependency::supplier} (opposite A_contract_interfaceRealization::interfaceRealization)
+  // References the Interface specifying the conformance contract.
   if (!contract) {
     return
   }
@@ -24,6 +26,8 @@ function addEdge_contract(interfaceRealization: GraphNode, contract: GraphNode |
 }
 
 function addEdge_implementingClassifier(interfaceRealization: GraphNode, implementingClassifier: GraphNode | undefined) {
+  // implementingClassifier : BehavioredClassifier [1..1]{subsets Dependency::client, subsets Element::owner} (opposite BehavioredClassifier::interfaceRealization)
+  // References the BehavioredClassifier that owns this InterfaceRealization, i.e., the BehavioredClassifier that realizes the Interface to which it refers.
   if (!implementingClassifier) {
     return
   }

@@ -1,9 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { InteractionOperand } from '../uml-metamodel'
 
 export const InteractionOperandHandler = InteractionOperand.createHandler(
   (interactionOperand, { onlyContainmentAssociations }) => {
+    inferChildTypes(interactionOperand)
     if (onlyContainmentAssociations) {
       return
     }
@@ -11,6 +13,15 @@ export const InteractionOperandHandler = InteractionOperand.createHandler(
     addEdge_guard(interactionOperand)
   },
 )
+
+function inferChildTypes(interactionOperand: GraphNode) {
+  // TODO/Jan: Only as fallback
+  interactionOperand.children.forEach((child) => {
+    if (child.tag === Uml.Tags.guard) {
+      child.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.InteractionConstraint } })
+    }
+  })
+}
 
 function addEdge_fragment(_interactionOperand: GraphNode) {
   // TODO/Association

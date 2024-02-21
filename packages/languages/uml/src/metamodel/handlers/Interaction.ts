@@ -1,9 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { Interaction } from '../uml-metamodel'
 
 export const InteractionHandler = Interaction.createHandler(
   (interaction, { onlyContainmentAssociations }) => {
+    inferChildTypes(interaction)
     if (onlyContainmentAssociations) {
       return
     }
@@ -14,6 +16,14 @@ export const InteractionHandler = Interaction.createHandler(
     addEdge_message(interaction)
   },
 )
+
+function inferChildTypes(interaction: GraphNode) {
+  interaction.children.forEach((child) => {
+    if (child.tag === Uml.Tags.message) {
+      child.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.Message } })
+    }
+  })
+}
 
 function addEdge_action(_interaction: GraphNode) {
   // TODO/Association

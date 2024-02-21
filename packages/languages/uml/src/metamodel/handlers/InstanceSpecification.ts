@@ -1,22 +1,27 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { InstanceSpecification } from '../uml-metamodel'
 
 export const InstanceSpecificationHandler = InstanceSpecification.createHandler(
   (instanceSpecification, { onlyContainmentAssociations }) => {
+    const classifier = resolveFromAttribute(instanceSpecification, 'classifier', { many: true})
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_classifier(instanceSpecification)
+    addEdge_classifier(instanceSpecification, classifier)
     addEdge_slot(instanceSpecification)
     addEdge_specification(instanceSpecification)
   },
 )
 
-function addEdge_classifier(_instanceSpecification: GraphNode) {
+function addEdge_classifier(instanceSpecification: GraphNode, classifier: GraphNode[]) {
   // TODO/Association
   // classifier : Classifier [0..*] (opposite A_classifier_instanceSpecification::instanceSpecification)
   // The Classifier or Classifiers of the represented instance. If multiple Classifiers are specified, the instance is classified by all of them.
+  classifier.forEach((classifier) => {
+    instanceSpecification.model.addEdge('classifier', instanceSpecification, classifier)
+  })
 }
 
 function addEdge_slot(_instanceSpecification: GraphNode) {
