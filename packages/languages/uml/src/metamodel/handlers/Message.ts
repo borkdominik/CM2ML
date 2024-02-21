@@ -9,6 +9,7 @@ export const MessageHandler = Message.createHandler(
     const connector = resolveFromAttribute(message, 'connector')
     const receiveEvent = resolveFromAttribute(message, 'receiveEvent')
     const sendEvent = resolveFromAttribute(message, 'sendEvent')
+    const signature = resolveFromAttribute(message, 'signature')
     if (onlyContainmentAssociations) {
       return
     }
@@ -17,7 +18,7 @@ export const MessageHandler = Message.createHandler(
     addEdge_interaction(message)
     addEdge_receiveEvent(message, receiveEvent)
     addEdge_sendEvent(message, sendEvent)
-    addEdge_signature(message)
+    addEdge_signature(message, signature)
   },
   {
     [Uml.Attributes.messageSort]: 'synchCall',
@@ -31,7 +32,6 @@ function addEdge_argument(_message: GraphNode) {
 }
 
 function addEdge_connector(message: GraphNode, connector: GraphNode | undefined) {
-  // TODO/Association
   // connector : Connector [0..1] (opposite A_connector_message::message)
   // The Connector on which this Message is sent.
   if (!connector) {
@@ -47,7 +47,6 @@ function addEdge_interaction(_message: GraphNode) {
 }
 
 function addEdge_receiveEvent(message: GraphNode, receiveEvent: GraphNode | undefined) {
-  // TODO/Association
   // receiveEvent : MessageEnd [0..1]{subsets A_message_messageEnd::messageEnd} (opposite A_receiveEvent_endMessage::endMessage)
   // References the Receiving of the Message.
   if (!receiveEvent) {
@@ -57,7 +56,6 @@ function addEdge_receiveEvent(message: GraphNode, receiveEvent: GraphNode | unde
 }
 
 function addEdge_sendEvent(message: GraphNode, sendEvent: GraphNode | undefined) {
-  // TODO/Association
   // sendEvent : MessageEnd [0..1]{subsets A_message_messageEnd::messageEnd} (opposite A_sendEvent_endMessage::endMessage)
   // References the Sending of the Message.
   if (!sendEvent) {
@@ -66,8 +64,11 @@ function addEdge_sendEvent(message: GraphNode, sendEvent: GraphNode | undefined)
   message.model.addEdge('sendEvent', message, sendEvent)
 }
 
-function addEdge_signature(_message: GraphNode) {
-  // TODO/Association
+function addEdge_signature(message: GraphNode, signature: GraphNode | undefined) {
   // signature : NamedElement [0..1] (opposite A_signature_message::message)
   // The signature of the Message is the specification of its content. It refers either an Operation or a Signal.
+  if (!signature) {
+    return
+  }
+  message.model.addEdge('signature', message, signature)
 }

@@ -4,22 +4,22 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
-// Green: 0-499
+// Green: 0-599
 
 const files = getFiles({
-  startIndex: 400,
+  startIndex: 500,
   numberOfFiles: 100,
-  // override: 432,
+  // override: 575,
 })
 
 const showDebugOutput = files.length === 1
 
 describe('uml-parser', () => {
-  describe.each(getConfigurations())('with configuration $name', (configuration) => {
+  describe.each(getConfigurations(0))('with configuration $name', (configuration) => {
     it.each(files)('should parse model $index', ({ file }) => {
       const serializedModel = readFileSync(file, 'utf-8')
       try {
-        const result = UmlParser.invoke(serializedModel, { ...configuration, debug: showDebugOutput, removeInvalidNodes: false, strict: true })
+        const result = UmlParser.invoke(serializedModel, { ...configuration, debug: true, removeInvalidNodes: false, strict: true })
         expect(result).toBeDefined()
         if (showDebugOutput) {
           // eslint-disable-next-line no-console

@@ -6,6 +6,7 @@ import { ActivityEdge } from '../uml-metamodel'
 export const ActivityEdgeHandler = ActivityEdge.createHandler(
   (activityEdge, { onlyContainmentAssociations }) => {
     const inPartitions = resolveFromAttribute(activityEdge, 'inPartition', { many: true })
+    const interrupts = resolveFromAttribute(activityEdge, 'interrupts')
     const source = resolveFromAttribute(activityEdge, 'source')
     const target = resolveFromAttribute(activityEdge, 'target')
     if (onlyContainmentAssociations) {
@@ -16,7 +17,7 @@ export const ActivityEdgeHandler = ActivityEdge.createHandler(
     addEdge_inGroup(activityEdge)
     addEdge_inPartition(activityEdge, inPartitions)
     addEdge_inStructuredNode(activityEdge)
-    addEdge_interrupts(activityEdge)
+    addEdge_interrupts(activityEdge, interrupts)
     addEdge_redefinedEdge(activityEdge)
     addEdge_source(activityEdge, source)
     addEdge_target(activityEdge, target)
@@ -56,10 +57,13 @@ function addEdge_inStructuredNode(_activityEdge: GraphNode) {
   // The StructuredActivityNode containing the ActivityEdge, if it is owned by a StructuredActivityNode.
 }
 
-function addEdge_interrupts(_activityEdge: GraphNode) {
-  // TODO/Association
+function addEdge_interrupts(activityEdge: GraphNode, interrupts: GraphNode | undefined) {
   // interrupts : InterruptibleActivityRegion [0..1] (opposite InterruptibleActivityRegion::interruptingEdge)
   // The InterruptibleActivityRegion for which this ActivityEdge is an interruptingEdge.
+  if (!interrupts) {
+    return
+  }
+  activityEdge.model.addEdge('interrupts', activityEdge, interrupts)
 }
 
 function addEdge_redefinedEdge(_activityEdge: GraphNode) {

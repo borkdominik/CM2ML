@@ -16,6 +16,7 @@ export const PropertyHandler = Property.createHandler(
     const association = resolveFromAttribute(property, 'association', { type: Association })
     const qualifiers = resolveFromChild(property, 'qualifier', { many: true, type: Property })
     const redefinedProperties = resolveFromChild(property, 'redefinedProperty', { many: true, type: Property })
+    const subsettedProperties = resolveFromChild(property, 'subsettedProperty', { many: true, type: Property })
     if (onlyContainmentAssociations) {
       return
     }
@@ -28,7 +29,7 @@ export const PropertyHandler = Property.createHandler(
     addEdge_opposite(property)
     addEdge_qualifier(property, qualifiers)
     addEdge_redefinedProperty(property, redefinedProperties)
-    addEdge_subsettedProperty(property)
+    addEdge_subsettedProperty(property, subsettedProperties)
   },
   {
     [Uml.Attributes.aggregation]: 'none',
@@ -121,8 +122,10 @@ function addEdge_redefinedProperty(property: GraphNode, redefinedProperties: Gra
   })
 }
 
-function addEdge_subsettedProperty(_property: GraphNode) {
-  // TODO/Association
+function addEdge_subsettedProperty(property: GraphNode, subsettedProperties: GraphNode[]) {
   // subsettedProperty : Property [0..*] (opposite A_subsettedProperty_property::property)
   // The properties of which this Property is constrained to be a subset, if any.
+  subsettedProperties.forEach((subsettedProperty) => {
+    property.model.addEdge('subsettedProperty', property, subsettedProperty)
+  })
 }

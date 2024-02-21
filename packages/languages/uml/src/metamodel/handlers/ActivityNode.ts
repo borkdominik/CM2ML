@@ -5,6 +5,7 @@ import { ActivityNode } from '../uml-metamodel'
 
 export const ActivityNodeHandler = ActivityNode.createHandler(
   (activityNode, { onlyContainmentAssociations }) => {
+    const inInterruptibleRegions = resolveFromAttribute(activityNode, 'inInterruptibleRegion', { many: true })
     const inPartition = resolveFromAttribute(activityNode, 'inPartition', { many: true })
     const incoming = resolveFromAttribute(activityNode, 'incoming', { many: true })
     const outgoing = resolveFromAttribute(activityNode, 'outgoing', { many: true })
@@ -13,7 +14,7 @@ export const ActivityNodeHandler = ActivityNode.createHandler(
     }
     addEdge_activity(activityNode)
     addEdge_inGroup(activityNode)
-    addEdge_inInterruptibleRegion(activityNode)
+    addEdge_inInterruptibleRegion(activityNode, inInterruptibleRegions)
     addEdge_inPartition(activityNode, inPartition)
     addEdge_inStructuredNode(activityNode)
     addEdge_incoming(activityNode, incoming)
@@ -34,10 +35,12 @@ function addEdge_inGroup(_activityNode: GraphNode) {
   // ActivityGroups containing the ActivityNode.
 }
 
-function addEdge_inInterruptibleRegion(_activityNode: GraphNode) {
-  // TODO/Association
+function addEdge_inInterruptibleRegion(activityNode: GraphNode, inInterruptibleRegions: GraphNode[]) {
   // inInterruptibleRegion : InterruptibleActivityRegion [0..*]{subsets ActivityNode::inGroup} (opposite InterruptibleActivityRegion::node)
   // InterruptibleActivityRegions containing the ActivityNode.
+  inInterruptibleRegions.forEach((inInterruptibleRegion) => {
+    activityNode.model.addEdge('inInterruptibleRegion', activityNode, inInterruptibleRegion)
+  })
 }
 
 function addEdge_inPartition(activityNode: GraphNode, inPartition: GraphNode[]) {
