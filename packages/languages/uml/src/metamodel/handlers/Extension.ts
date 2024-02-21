@@ -1,17 +1,16 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml } from '../uml'
-import { Extension } from '../uml-metamodel'
+import { resolveFromChild } from '../resolvers/resolve'
+import { Extension, ExtensionEnd } from '../uml-metamodel'
 
 export const ExtensionHandler = Extension.createHandler(
   (extension, { onlyContainmentAssociations }) => {
+    const ownedEnds = resolveFromChild(extension, 'ownedEnd', { many: true, type: ExtensionEnd })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_metaclass(extension)
-    extension.children.forEach((child) => {
-      addEdge_ownedEnd(extension, child)
-    })
+    addEdge_ownedEnd(extension, ownedEnds)
   },
 )
 
@@ -21,17 +20,11 @@ function addEdge_metaclass(_extension: GraphNode) {
   // References the Class that is extended through an Extension. The property is derived from the type of the memberEnd that is not the ownedEnd.
 }
 
-function addEdge_ownedEnd(extension: GraphNode, child: GraphNode) {
+function addEdge_ownedEnd(extension: GraphNode, ownedEnds: GraphNode[]) {
   // ♦ ownedEnd : ExtensionEnd [1..1]{redefines Association::ownedEnd} (opposite A_ownedEnd_extension::extension)
   // References the end of the extension that is typed by a Stereotype.
-  if (child.tag !== Uml.Tags.ownedEnd) {
-    return
-  }
-  // TODO/Jan: only set as fallback
-  child.addAttribute({
-    name: Uml.typeAttributeName,
-    value: { namespace: 'uml', literal: Uml.Types.ExtensionEnd },
+  ownedEnds.forEach((ownedEnd) => {
+    extension.model.addEdge('ownedEnd', extension, ownedEnd)
+    ownedEnd.model.addEdge('extension', ownedEnd, extension)
   })
-  extension.model.addEdge('ownedEnd', extension, child)
-  child.model.addEdge('extension', child, extension)
 }

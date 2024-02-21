@@ -1,7 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
-import { Stream } from '@yeger/streams'
 
-import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { resolve, resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Association, Extension, Property } from '../uml-metamodel'
 
@@ -28,19 +27,12 @@ export const AssociationHandler = Association.createHandler(
   },
 )
 
-// TODO/Jan: Implement same approach for Extension
 function getOwnedEnds(association: GraphNode) {
   if (Extension.isAssignable(association)) {
-    // Extension redefines the ownedEnd attribute, hence we have to return here
+    // Extension redefines the ownedEnd attribute, hence we have to return here or end up with duplicate edges
     return []
   }
-  return Stream.from(association.children).filter((child) => child.tag === Uml.Tags.ownedEnd).forEach((child) => {
-    // TODO/Jan: Only set as fallback
-    child.addAttribute({
-      name: Uml.typeAttributeName,
-      value: { namespace: 'uml', literal: Uml.Types.Property },
-    })
-  }).toArray()
+  return resolveFromChild(association, 'ownedEnd', { many: true, type: Property })
 }
 
 function addEdge_endType(_association: GraphNode) {
