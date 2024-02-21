@@ -32,7 +32,6 @@ function setAttribute_name(namedElement: GraphNode) {
 }
 
 function addEdge_clientDependency(namedElement: GraphNode, clientDependency: GraphNode[]) {
-  // TODO/Association
   // /clientDependency : Dependency [0..*]{subsets A_source_directedRelationship::directedRelationship} (opposite Dependency::client)
   // Indicates the Dependencies that reference this NamedElement as a client.
   clientDependency.forEach((clientDependency) => {

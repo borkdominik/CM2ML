@@ -6,13 +6,14 @@ import { ActivityPartition } from '../uml-metamodel'
 
 export const ActivityPartitionHandler = ActivityPartition.createHandler(
   (activityPartition, { onlyContainmentAssociations }) => {
-    const node = resolveFromAttribute(activityPartition, 'node', { many: true })
+    const edges = resolveFromAttribute(activityPartition, 'edge', { many: true })
+    const nodes = resolveFromAttribute(activityPartition, 'node', { many: true })
     const represents = resolveFromAttribute(activityPartition, 'represents')
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_edge(activityPartition)
-    addEdge_node(activityPartition, node)
+    addEdge_edge(activityPartition, edges)
+    addEdge_node(activityPartition, nodes)
     addEdge_represents(activityPartition, represents)
     addEdge_subpartition(activityPartition)
     addEdge_superPartition(activityPartition)
@@ -23,23 +24,24 @@ export const ActivityPartitionHandler = ActivityPartition.createHandler(
   },
 )
 
-function addEdge_edge(_activityPartition: GraphNode) {
+function addEdge_edge(activityPartition: GraphNode, edges: GraphNode[]) {
   // TODO/Association
   // edge : ActivityEdge [0..*]{subsets ActivityGroup::containedEdge} (opposite ActivityEdge::inPartition)
   // ActivityEdges immediately contained in the ActivityPartition.
+  edges.forEach((edge) => {
+    activityPartition.model.addEdge('edge', activityPartition, edge)
+  })
 }
 
-function addEdge_node(activityPartition: GraphNode, node: GraphNode[]) {
-  // TODO/Association
+function addEdge_node(activityPartition: GraphNode, nodes: GraphNode[]) {
   // node : ActivityNode [0..*]{subsets ActivityGroup::containedNode} (opposite ActivityNode::inPartition)
   // ActivityNodes immediately contained in the ActivityPartition.
-  node.forEach((node) => {
+  nodes.forEach((node) => {
     activityPartition.model.addEdge('node', activityPartition, node)
   })
 }
 
 function addEdge_represents(activityPartition: GraphNode, represents: GraphNode | undefined) {
-  // TODO/Association
   // represents : Element [0..1] (opposite A_represents_activityPartition::activityPartition)
   // An Element represented by the functionality modeled within the ActivityPartition.
   if (!represents) {

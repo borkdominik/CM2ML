@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Association, Extension } from '../uml-metamodel'
+import { Association, Extension, Property } from '../uml-metamodel'
 
 export const AssociationHandler = Association.createHandler(
   (association, { onlyContainmentAssociations, relationshipsAsEdges }) => {
-    const memberEnds = resolveFromAttribute(association, 'memberEnd', { many: true })
+    const memberEnds = resolve(association, 'memberEnd', { many: true, type: Property })
     const navigableOwnedEnds = resolveFromAttribute(association, 'navigableOwnedEnd', { many: true })
     const ownedEnds = getOwnedEnds(association)
     if (relationshipsAsEdges) {
@@ -21,9 +21,7 @@ export const AssociationHandler = Association.createHandler(
     addEdge_endType(association)
     addEdge_memberEnd(association, memberEnds)
     addEdge_navigableOwnedEnd(association, navigableOwnedEnds)
-    ownedEnds.forEach((ownedEnd) => {
-      addEdge_ownedEnd(association, ownedEnd)
-    })
+    addEdge_ownedEnd(association, ownedEnds)
   },
   {
     [Uml.Attributes.isDerived]: 'false',
@@ -60,7 +58,6 @@ function addEdge_memberEnd(association: GraphNode, memberEnds: GraphNode[]) {
 }
 
 function addEdge_navigableOwnedEnd(association: GraphNode, navigableOwnedEnds: GraphNode[]) {
-  // TODO/Association
   // navigableOwnedEnd: Property[0..*]{subsets Association:: ownedEnd } (opposite A_navigableOwnedEnd_association::association)
   // The navigable ends that are owned by the Association itself.
   navigableOwnedEnds.forEach((navigableOwnedEnd) =>
@@ -68,8 +65,10 @@ function addEdge_navigableOwnedEnd(association: GraphNode, navigableOwnedEnds: G
   )
 }
 
-function addEdge_ownedEnd(association: GraphNode, ownedEnd: GraphNode) {
+function addEdge_ownedEnd(association: GraphNode, ownedEnds: GraphNode[]) {
   // ♦ ownedEnd : Property [0..*]{ordered, subsets Classifier::feature, subsets A_redefinitionContext_redefinableElement::redefinableElement, subsets Association::memberEnd, subsets Namespace::ownedMember} (opposite Property::owningAssociation)
   // The ends that are owned by the Association itself.
-  association.model.addEdge('ownedEnd', association, ownedEnd)
+  ownedEnds.forEach((ownedEnd) =>
+    association.model.addEdge('ownedEnd', association, ownedEnd),
+  )
 }

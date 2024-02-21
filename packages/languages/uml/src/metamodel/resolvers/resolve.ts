@@ -2,7 +2,7 @@ import type { GraphNode } from '@cm2ml/ir'
 import { getMessage } from '@cm2ml/utils'
 
 import { Uml } from '../uml'
-import { type UmlMetamodelElement, requireAssignability } from '../uml-metamodel'
+import type { UmlMetamodelElement } from '../uml-metamodel'
 
 import { matchTag, resolvePath } from './path'
 
@@ -18,8 +18,10 @@ function resolveNodeFromIdOrPath(node: GraphNode, pathOrId: string, type: UmlMet
     return undefined
     // throw new Error(`Could not resolve ${pathOrId} from ${node.tag} node.`)
   }
-  if (resolvedNode && type) {
-    requireAssignability(resolvedNode, type)
+  if (resolvedNode && type?.type) {
+    if (!Uml.getType(resolvedNode)) {
+      resolvedNode.addAttribute({ name: Uml.typeAttributeName, value: { literal: type.type } })
+    }
   }
   return resolvedNode
 }
@@ -27,6 +29,13 @@ function resolveNodeFromIdOrPath(node: GraphNode, pathOrId: string, type: UmlMet
 export function resolve(node: GraphNode, name: string, configuration: ResolverConfiguration & { many: true }): GraphNode[]
 export function resolve(node: GraphNode, name: string, configuration?: ResolverConfiguration): GraphNode | undefined
 export function resolve(node: GraphNode, name: string, configuration?: ResolverConfiguration): GraphNode | GraphNode[] | undefined {
+  if (configuration?.many === true) {
+    const resolvedFromAttribute = resolveFromAttribute(node, name, { ...configuration, many: true })
+    if (resolvedFromAttribute.length > 0) {
+      return resolvedFromAttribute
+    }
+    return resolveFromChild(node, name, { ...configuration, many: true })
+  }
   return resolveFromAttribute(node, name, configuration) ?? resolveFromChild(node, name, configuration)
 }
 
@@ -65,7 +74,7 @@ export function resolveFromAttribute(node: GraphNode, name: string, { type, many
     if (!many) {
       return resolveNodeFromIdOrPath(node, attribute, type)
     }
-    return attribute.split(' ').map((id) => resolveNodeFromIdOrPath(node, id, type))
+    return attribute.split(' ').map((id) => resolveNodeFromIdOrPath(node, id, type)).filter((node): node is GraphNode => !!node)
   } catch (error) {
     throw new Error(`Error while resolving ${name} from attribute of ${node.tag} node: ${getMessage(error)}`)
   }

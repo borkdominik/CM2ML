@@ -5,6 +5,7 @@ import { ActivityEdge } from '../uml-metamodel'
 
 export const ActivityEdgeHandler = ActivityEdge.createHandler(
   (activityEdge, { onlyContainmentAssociations }) => {
+    const inPartitions = resolveFromAttribute(activityEdge, 'inPartition', { many: true })
     const source = resolveFromAttribute(activityEdge, 'source')
     const target = resolveFromAttribute(activityEdge, 'target')
     if (onlyContainmentAssociations) {
@@ -13,7 +14,7 @@ export const ActivityEdgeHandler = ActivityEdge.createHandler(
     addEdge_activity(activityEdge)
     addEdge_guard(activityEdge)
     addEdge_inGroup(activityEdge)
-    addEdge_inPartition(activityEdge)
+    addEdge_inPartition(activityEdge, inPartitions)
     addEdge_inStructuredNode(activityEdge)
     addEdge_interrupts(activityEdge)
     addEdge_redefinedEdge(activityEdge)
@@ -41,10 +42,12 @@ function addEdge_inGroup(_activityEdge: GraphNode) {
   // ActivityGroups containing the ActivityEdge.
 }
 
-function addEdge_inPartition(_activityEdge: GraphNode) {
-  // TODO/Association
+function addEdge_inPartition(activityEdge: GraphNode, inPartitions: GraphNode[]) {
   // inPartition : ActivityPartition [0..*]{} (opposite ActivityPartition::edge)
   // Partitions containing the ActivityEdge.
+  inPartitions.forEach((inPartition) => {
+    activityEdge.model.addEdge('inPartition', activityEdge, inPartition)
+  })
 }
 
 function addEdge_inStructuredNode(_activityEdge: GraphNode) {

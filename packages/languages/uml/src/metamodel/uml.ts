@@ -114,6 +114,7 @@ const Tags = {
   ownedLiteral: 'ownedLiteral',
   ownedOperation: 'ownedOperation',
   ownedParameter: 'ownedParameter',
+  ownedParameterSet: 'ownedParameterSet',
   packagedElement: 'packagedElement',
   packageImport: 'packageImport',
   packageMerge: 'packageMerge',

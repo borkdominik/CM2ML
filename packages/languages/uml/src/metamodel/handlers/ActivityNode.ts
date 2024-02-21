@@ -41,7 +41,6 @@ function addEdge_inInterruptibleRegion(_activityNode: GraphNode) {
 }
 
 function addEdge_inPartition(activityNode: GraphNode, inPartition: GraphNode[]) {
-  // TODO/Association
   // inPartition : ActivityPartition [0..*]{subsets ActivityNode::inGroup} (opposite ActivityPartition::node)
   // ActivityPartitions containing the ActivityNode.
   inPartition.forEach((inPartition) => {
@@ -56,7 +55,6 @@ function addEdge_inStructuredNode(_activityNode: GraphNode) {
 }
 
 function addEdge_incoming(activityNode: GraphNode, incoming: GraphNode[]) {
-  // TODO/Association
   // incoming : ActivityEdge [0..*] (opposite ActivityEdge::target)
   // ActivityEdges that have the ActivityNode as their target.
   incoming.forEach((incoming) => {
@@ -65,7 +63,6 @@ function addEdge_incoming(activityNode: GraphNode, incoming: GraphNode[]) {
 }
 
 function addEdge_outgoing(activityNode: GraphNode, outgoing: GraphNode[]) {
-  // TODO/Association
   // outgoing : ActivityEdge [0..*] (opposite ActivityEdge::source)
   // ActivityEdges that have the ActivityNode as their source.
   outgoing.forEach((outgoing) => {

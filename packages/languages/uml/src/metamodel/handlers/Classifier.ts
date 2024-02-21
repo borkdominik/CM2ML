@@ -1,12 +1,14 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Classifier } from '../uml-metamodel'
+import { Classifier, UseCase } from '../uml-metamodel'
 
 export const ClassifierHandler = Classifier.createHandler(
   (classifier, { onlyContainmentAssociations }) => {
-    const redefinedClassifier = resolveFromAttribute(classifier, 'redefinedClassifier', { many: true })
+    const ownedUseCases = resolveFromChild(classifier, 'ownedUseCase', { many: true, type: UseCase })
+    const redefinedClassifiers = resolveFromAttribute(classifier, 'redefinedClassifier', { many: true })
+    const useCases = resolveFromAttribute(classifier, 'useCase', { many: true })
     if (onlyContainmentAssociations) {
       return
     }
@@ -17,13 +19,13 @@ export const ClassifierHandler = Classifier.createHandler(
     addEdge_generalization(classifier)
     addEdge_inheritedMember(classifier)
     addEdge_ownedTemplateSignature(classifier)
-    addEdge_ownedUseCase(classifier)
+    addEdge_ownedUseCase(classifier, ownedUseCases)
     addEdge_powertypeExtent(classifier)
-    addEdge_redefinedClassifier(classifier, redefinedClassifier)
+    addEdge_redefinedClassifier(classifier, redefinedClassifiers)
     addEdge_representation(classifier)
     addEdge_substitution(classifier)
     addEdge_templateParameter(classifier)
-    addEdge_useCase(classifier)
+    addEdge_useCase(classifier, useCases)
   },
   {
     [Uml.Attributes.isAbstract]: 'false',
@@ -73,10 +75,12 @@ function addEdge_ownedTemplateSignature(_classifier: GraphNode) {
   // The optional RedefinableTemplateSignature specifying the formal template parameters.
 }
 
-function addEdge_ownedUseCase(_classifier: GraphNode) {
-  // TODO/Association
+function addEdge_ownedUseCase(classifier: GraphNode, ownedUseCases: GraphNode[]) {
   // ♦ ownedUseCase : UseCase [0..*]{subsets Namespace::ownedMember} (opposite A_ownedUseCase_classifier::classifier)
   // The UseCases owned by this classifier.
+  ownedUseCases.forEach((ownedUseCase) => {
+    classifier.model.addEdge('ownedUseCase', classifier, ownedUseCase)
+  })
 }
 
 function addEdge_powertypeExtent(_classifier: GraphNode) {
@@ -85,11 +89,10 @@ function addEdge_powertypeExtent(_classifier: GraphNode) {
   // The GeneralizationSet of which this Classifier is a power type.
 }
 
-function addEdge_redefinedClassifier(classifier: GraphNode, redefinedClassifier: GraphNode[]) {
-  // TODO/Association
+function addEdge_redefinedClassifier(classifier: GraphNode, redefinedClassifiers: GraphNode[]) {
   // redefinedClassifier : Classifier [0..*]{subsets RedefinableElement::redefinedElement} (opposite A_redefinedClassifier_classifier::classifier )
   // The Classifiers redefined by this Classifier.
-  redefinedClassifier.forEach((redefinedClassifier) => {
+  redefinedClassifiers.forEach((redefinedClassifier) => {
     classifier.model.addEdge('redefinedClassifier', classifier, redefinedClassifier)
   })
 }
@@ -112,8 +115,10 @@ function addEdge_templateParameter(_classifier: GraphNode) {
   // TheClassifierTemplateParameter that exposes this element as a formal parameter.
 }
 
-function addEdge_useCase(_classifier: GraphNode) {
-  // TODO/Association
+function addEdge_useCase(classifier: GraphNode, useCases: GraphNode[]) {
   // useCase : UseCase [0..*] (opposite UseCase::subject)
   // The set of UseCases for which this Classifier is the subject.
+  useCases.forEach((useCase) => {
+    classifier.model.addEdge('useCase', classifier, useCase)
+  })
 }

@@ -121,7 +121,7 @@ export const Parameter = define(
 
 export const ParameterSet = define(
   Uml.Types.ParameterSet,
-  undefined,
+  Uml.Tags.ownedParameterSet,
   NamedElement,
 )
 

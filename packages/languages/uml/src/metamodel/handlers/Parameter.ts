@@ -1,18 +1,20 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Operation, Parameter } from '../uml-metamodel'
 
 // TODO
 export const ParameterHandler = Parameter.createHandler(
   (parameter, { onlyContainmentAssociations }) => {
+    const parameterSets = resolveFromAttribute(parameter, 'parameterSet', { many: true })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_defaultValue(parameter)
     addEdge_operation(parameter)
-    addEdge_parameterSet(parameter)
+    addEdge_parameterSet(parameter, parameterSets)
   },
   {
     [Uml.Attributes.direction]: 'in',
@@ -35,8 +37,10 @@ function addEdge_operation(parameter: GraphNode) {
   parameter.model.addEdge('operation', parameter, operation)
 }
 
-function addEdge_parameterSet(_parameter: GraphNode) {
-  // TODO/Association
+function addEdge_parameterSet(parameter: GraphNode, parameterSets: GraphNode[]) {
   // parameterSet : ParameterSet [0..*] (opposite ParameterSet::parameter)
   // The ParameterSets containing the parameter.See ParameterSet.
+  parameterSets.forEach((parameterSet) => {
+    parameter.model.addEdge('parameterSet', parameter, parameterSet)
+  })
 }

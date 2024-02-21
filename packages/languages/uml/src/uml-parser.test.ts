@@ -4,12 +4,12 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
-// Green: 0-299
+// Green: 0-499
 
 const files = getFiles({
-  startIndex: 200,
+  startIndex: 400,
   numberOfFiles: 100,
-  // override: 279,
+  // override: 432,
 })
 
 const showDebugOutput = files.length === 1
