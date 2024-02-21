@@ -42,11 +42,7 @@ const UmlRefiner = definePlugin({
     },
   },
   invoke: (input: GraphModel, parameters) => {
-    input.nodes.forEach((node) => {
-      if (node.tag === 'eAnnotations') {
-        input.removeNode(node)
-      }
-    })
+    removeLegacyElements(input)
     const model = refine(input, parameters)
     generateIds(model)
     removeNonUmlAttributes(model)
@@ -60,6 +56,18 @@ function generateIds(model: GraphModel) {
   model.nodes.forEach((node) => {
     if (node.id === undefined) {
       node.addAttribute({ name: Uml.Attributes['xmi:id'], value: { literal: `eu.yeger#generated-id-${id++}` } })
+    }
+  })
+}
+
+function removeLegacyElements(model: GraphModel) {
+  // The following elements have been removed from the latest UML specification and are not supported by the UML metamodel
+  const legacyTags = new Set(['eAnnotations'])
+  const legacyTypes = new Set(['ReceiveOperationEvent', 'SendOperationEvent'])
+  model.nodes.forEach((node) => {
+    const nodeType = node.getAttribute(Uml.typeAttributeName)?.value.literal
+    if (legacyTags.has(node.tag) || (nodeType && legacyTypes.has(nodeType))) {
+      model.removeNode(node)
     }
   })
 }

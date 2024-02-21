@@ -64,7 +64,7 @@ export function createRefiner<
     if (!handler) {
       const message = `No handler for node with tag ${
         node.tag
-      } and type ${configuration.getType(node)}`
+      } and type ${configuration.getType(node)} of parent ${node.parent?.show()}`
       if (node.model.settings.strict) {
         throw new Error(message)
       } else {

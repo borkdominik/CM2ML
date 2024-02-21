@@ -812,7 +812,7 @@ export const AcceptCallAction = define(
   AcceptEventAction,
 )
 
-export const InputPin = define(Uml.Types.InputPin, undefined, Pin)
+export const InputPin = define(Uml.Types.InputPin, Uml.Tags.target, Pin)
 
 export const ActionInputPin = define(
   Uml.Types.ActionInputPin,

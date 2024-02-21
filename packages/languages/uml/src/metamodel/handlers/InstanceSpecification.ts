@@ -5,7 +5,7 @@ import { InstanceSpecification } from '../uml-metamodel'
 
 export const InstanceSpecificationHandler = InstanceSpecification.createHandler(
   (instanceSpecification, { onlyContainmentAssociations }) => {
-    const classifier = resolveFromAttribute(instanceSpecification, 'classifier', { many: true})
+    const classifier = resolveFromAttribute(instanceSpecification, 'classifier', { many: true })
     if (onlyContainmentAssociations) {
       return
     }

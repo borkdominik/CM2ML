@@ -1,20 +1,20 @@
 import type { GraphNode } from '@cm2ml/ir'
+import { Stream } from '@yeger/streams'
 
 import { Uml } from '../uml'
 
-function resolveLanguageAttribute(node: GraphNode) {
-  const language = node.findChild((child) => child.tag === 'language')
-  if (!language) {
-    return
-  }
-  node.model.removeNode(language)
-  return language.getAttribute(Uml.Attributes.language)
+function resolveLanguages(node: GraphNode) {
+  const languageChildren = node.findAllChildren((child) => child.tag === 'language')
+  return Stream.from(languageChildren).forEach((language) => {
+    node.model.removeNode(language)
+  }).map((language) => language.getAttribute(Uml.Attributes.language))
 }
 
 export function setLanguageAttribute(node: GraphNode) {
-  const language = resolveLanguageAttribute(node)
+  // TODO/Jan: How to handle multiple languages?
+  const language = resolveLanguages(node).join(' ').trim()
   if (!language) {
     return
   }
-  node.addAttribute({ name: Uml.Attributes.language, value: language.value })
+  node.addAttribute({ name: Uml.Attributes.language, value: { literal: language } })
 }

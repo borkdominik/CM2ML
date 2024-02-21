@@ -4,12 +4,12 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
-// Green: 0-70
+// Green: 0-299
 
 const files = getFiles({
-  startIndex: 0,
-  numberOfFiles: 70,
-  // override: 183,
+  startIndex: 200,
+  numberOfFiles: 100,
+  // override: 279,
 })
 
 const showDebugOutput = files.length === 1
@@ -42,11 +42,11 @@ function getFiles({ startIndex = 0, numberOfFiles, override }: { startIndex?: nu
   const preparedFiles = readdirSync(umlModelDir).filter((file) => file.endsWith('.uml')).map((file) => `${umlModelDir}/${file}`)
   const datasetFiles = readdirSync(datasetDir).filter((file) => file.endsWith('.uml')).map((file) => `${datasetDir}/${file}`)
   const allFiles = preparedFiles.concat(datasetFiles).map((file, index) => ({ file, index }))
-  if (override) {
-    const file = allFiles[override]
-    return file ? [file] : []
+  if (override && override >= 0 && override < allFiles.length) {
+    return [allFiles[override]!]
   }
-  return allFiles.slice(startIndex, numberOfFiles ? startIndex + numberOfFiles : undefined)
+  const actualStartIndex = process.env.COVERAGE ? 0 : startIndex
+  return allFiles.slice(actualStartIndex, numberOfFiles ? actualStartIndex + numberOfFiles : undefined)
 }
 
 function getConfigurations(pick?: 0 | 1 | 2 | 3) {

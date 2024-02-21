@@ -6,13 +6,14 @@ import { Message } from '../uml-metamodel'
 
 export const MessageHandler = Message.createHandler(
   (message, { onlyContainmentAssociations }) => {
+    const connector = resolveFromAttribute(message, 'connector')
     const receiveEvent = resolveFromAttribute(message, 'receiveEvent')
     const sendEvent = resolveFromAttribute(message, 'sendEvent')
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_argument(message)
-    addEdge_connector(message)
+    addEdge_connector(message, connector)
     addEdge_interaction(message)
     addEdge_receiveEvent(message, receiveEvent)
     addEdge_sendEvent(message, sendEvent)
@@ -29,10 +30,14 @@ function addEdge_argument(_message: GraphNode) {
   // The arguments of the Message.
 }
 
-function addEdge_connector(_message: GraphNode) {
+function addEdge_connector(message: GraphNode, connector: GraphNode | undefined) {
   // TODO/Association
   // connector : Connector [0..1] (opposite A_connector_message::message)
   // The Connector on which this Message is sent.
+  if (!connector) {
+    return
+  }
+  message.model.addEdge('connector', message, connector)
 }
 
 function addEdge_interaction(_message: GraphNode) {

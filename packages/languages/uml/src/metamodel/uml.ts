@@ -121,6 +121,7 @@ const Tags = {
   region: 'region',
   slot: 'slot',
   substitution: 'substitution',
+  target: 'target',
   transition: 'transition',
   trigger: 'trigger',
   upperValue: 'upperValue',

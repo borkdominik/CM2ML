@@ -1,9 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { Connector } from '../uml-metamodel'
 
 export const ConnectorHandler = Connector.createHandler(
   (connector, { onlyContainmentAssociations }) => {
+    inferChildTypes(connector)
     if (onlyContainmentAssociations) {
       return
     }
@@ -13,6 +15,15 @@ export const ConnectorHandler = Connector.createHandler(
     addEdge_type(connector)
   },
 )
+
+function inferChildTypes(connector: GraphNode) {
+  // TODO/Jan: Only as fallbakc
+  connector.children.forEach((child) => {
+    if (child.tag === 'end') {
+      child.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.ConnectorEnd } })
+    }
+  })
+}
 
 function addEdge_contract(_connector: GraphNode) {
   // TODO/Association
