@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml } from '../uml'
-import { Interaction } from '../uml-metamodel'
+import { resolveFromChild } from '../resolvers/resolve'
+import { Interaction, Message } from '../uml-metamodel'
 
 export const InteractionHandler = Interaction.createHandler(
   (interaction, { onlyContainmentAssociations }) => {
-    inferChildTypes(interaction)
+    const messages = resolveFromChild(interaction, 'message', { many: true, type: Message })
     if (onlyContainmentAssociations) {
       return
     }
@@ -13,17 +13,9 @@ export const InteractionHandler = Interaction.createHandler(
     addEdge_formalGate(interaction)
     addEdge_fragment(interaction)
     addEdge_lifeline(interaction)
-    addEdge_message(interaction)
+    addEdge_message(interaction, messages)
   },
 )
-
-function inferChildTypes(interaction: GraphNode) {
-  interaction.children.forEach((child) => {
-    if (child.tag === Uml.Tags.message) {
-      child.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.Message } })
-    }
-  })
-}
 
 function addEdge_action(_interaction: GraphNode) {
   // TODO/Association
@@ -49,8 +41,10 @@ function addEdge_lifeline(_interaction: GraphNode) {
   // Specifies the participants in this Interaction.
 }
 
-function addEdge_message(_interaction: GraphNode) {
-  // TODO/Association
+function addEdge_message(interaction: GraphNode, messages: GraphNode[]) {
   // ♦ message : Message [0..*]{subsets Namespace::ownedMember} (opposite Message::interaction)
   // The Messages contained in this Interaction.
+  messages.forEach((message) => {
+    interaction.model.addEdge('message', interaction, message)
+  })
 }

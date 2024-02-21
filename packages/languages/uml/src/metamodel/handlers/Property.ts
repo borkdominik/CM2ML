@@ -1,7 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import {
   Association,
@@ -14,8 +14,8 @@ import {
 export const PropertyHandler = Property.createHandler(
   (property, { onlyContainmentAssociations }) => {
     const association = resolveFromAttribute(property, 'association', { type: Association })
-    const qualifiers = getQualifiers(property)
-    const redefinedProperties = getRedefinedProperties(property)
+    const qualifiers = resolveFromChild(property, 'qualifier', { many: true, type: Property })
+    const redefinedProperties = resolveFromChild(property, 'redefinedProperty', { many: true, type: Property })
     if (onlyContainmentAssociations) {
       return
     }
@@ -38,24 +38,6 @@ export const PropertyHandler = Property.createHandler(
     [Uml.Attributes.isID]: 'false',
   },
 )
-
-function getQualifiers(property: GraphNode) {
-  const qualifiers = property.findAllChildren((child) => child.tag === 'qualifier')
-  qualifiers.forEach((qualifier) => {
-    // TODO/Jan: Only as fallback
-    qualifier.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.Property } })
-  })
-  return qualifiers
-}
-
-function getRedefinedProperties(property: GraphNode) {
-  const redefinedProperties = property.findAllChildren((child) => child.tag === 'redefinedProperty')
-  redefinedProperties.forEach((redefinedProperty) => {
-    // TODO/Jan: Only as fallback
-    redefinedProperty.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.Property } })
-  })
-  return redefinedProperties
-}
 
 function addEdge_association(
   property: GraphNode,
@@ -124,7 +106,6 @@ function addEdge_owningAssociation(
 }
 
 function addEdge_qualifier(property: GraphNode, qualifiers: GraphNode[]) {
-  // TODO/Association
   // ♦ qualifier : Property [0..*]{ordered, subsets Element::ownedElement} (opposite Property::associationEnd)
   // An optional list of ordered qualifier attributes for the end.
   qualifiers.forEach((qualifier) => {
@@ -133,7 +114,6 @@ function addEdge_qualifier(property: GraphNode, qualifiers: GraphNode[]) {
 }
 
 function addEdge_redefinedProperty(property: GraphNode, redefinedProperties: GraphNode[]) {
-  // TODO/Association
   // redefinedProperty : Property [0..*]{subsets RedefinableElement::redefinedElement} (opposite A_redefinedProperty_property::property)
   // The properties that are redefined by this property, if any.
   redefinedProperties.forEach((redefinedProperty) => {

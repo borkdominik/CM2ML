@@ -1,29 +1,20 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml } from '../uml'
-import { Connector } from '../uml-metamodel'
+import { resolveFromChild } from '../resolvers/resolve'
+import { Connector, ConnectorEnd } from '../uml-metamodel'
 
 export const ConnectorHandler = Connector.createHandler(
   (connector, { onlyContainmentAssociations }) => {
-    inferChildTypes(connector)
+    const ends = resolveFromChild(connector, 'end', { many: true, type: ConnectorEnd })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_contract(connector)
-    addEdge_end(connector)
+    addEdge_end(connector, ends)
     addEdge_redefinedConnector(connector)
     addEdge_type(connector)
   },
 )
-
-function inferChildTypes(connector: GraphNode) {
-  // TODO/Jan: Only as fallbakc
-  connector.children.forEach((child) => {
-    if (child.tag === 'end') {
-      child.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.ConnectorEnd } })
-    }
-  })
-}
 
 function addEdge_contract(_connector: GraphNode) {
   // TODO/Association
@@ -31,10 +22,12 @@ function addEdge_contract(_connector: GraphNode) {
   // The set of Behaviors that specify the valid interaction patterns across the Connector.
 }
 
-function addEdge_end(_connector: GraphNode) {
-  // TODO/Association
+function addEdge_end(connector: GraphNode, ends: GraphNode[]) {
   // ♦ end: ConnectorEnd[2..*]{ ordered, subsets Element:: ownedElement } (opposite A_end_connector::connector)
   // A Connector has at least two ConnectorEnds, each representing the participation of instances of the Classifiers typing the ConnectableElements attached to the end.The set of ConnectorEnds is ordered.
+  ends.forEach((end) => {
+    connector.model.addEdge('end', connector, end)
+  })
 }
 
 function addEdge_redefinedConnector(_connector: GraphNode) {

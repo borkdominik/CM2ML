@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import {
   Class,
@@ -11,7 +12,7 @@ import {
 
 export const OperationHandler = Operation.createHandler(
   (operation, { onlyContainmentAssociations }) => {
-    const redefinedOperations = getRedefinedOperations(operation)
+    const redefinedOperations = resolveFromChild(operation, 'redefinedOperation', { many: true, type: Operation })
     if (onlyContainmentAssociations) {
       return
     }
@@ -33,15 +34,6 @@ export const OperationHandler = Operation.createHandler(
     [Uml.Attributes.isQuery]: 'false',
   },
 )
-
-function getRedefinedOperations(operation: GraphNode) {
-  const redefinedOperations = operation.findAllChildren((child) => child.tag === 'redefinedOperation')
-  redefinedOperations.forEach((redefinedOperation) => {
-    // TODO/Jan: Only as fallback
-    redefinedOperation.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.Operation } })
-  })
-  return redefinedOperations
-}
 
 function addEdge_bodyCondition(_operation: GraphNode) {
   // TODO/Association

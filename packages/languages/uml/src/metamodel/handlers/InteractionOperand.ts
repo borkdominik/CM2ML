@@ -1,27 +1,18 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml } from '../uml'
-import { InteractionOperand } from '../uml-metamodel'
+import { resolveFromChild } from '../resolvers/resolve'
+import { InteractionConstraint, InteractionOperand } from '../uml-metamodel'
 
 export const InteractionOperandHandler = InteractionOperand.createHandler(
   (interactionOperand, { onlyContainmentAssociations }) => {
-    inferChildTypes(interactionOperand)
+    const guards = resolveFromChild(interactionOperand, 'guard', { type: InteractionConstraint })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_fragment(interactionOperand)
-    addEdge_guard(interactionOperand)
+    addEdge_guard(interactionOperand, guards)
   },
 )
-
-function inferChildTypes(interactionOperand: GraphNode) {
-  // TODO/Jan: Only as fallback
-  interactionOperand.children.forEach((child) => {
-    if (child.tag === Uml.Tags.guard) {
-      child.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.InteractionConstraint } })
-    }
-  })
-}
 
 function addEdge_fragment(_interactionOperand: GraphNode) {
   // TODO/Association
@@ -29,8 +20,11 @@ function addEdge_fragment(_interactionOperand: GraphNode) {
   // The fragments of the operand.
 }
 
-function addEdge_guard(_interactionOperand: GraphNode) {
-  // TODO/Association
+function addEdge_guard(interactionOperand: GraphNode, guard: GraphNode | undefined) {
   // ♦ guard : InteractionConstraint [0..1]{subsets Element::ownedElement} (opposite A_guard_interactionOperand::interactionOperand)
   // Constraint of the operand.
+  if (!guard) {
+    return
+  }
+  interactionOperand.model.addEdge('guard', interactionOperand, guard)
 }

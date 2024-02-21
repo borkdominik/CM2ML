@@ -2,10 +2,11 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Classifier, UseCase } from '../uml-metamodel'
+import { Classifier, CollaborationUse, UseCase } from '../uml-metamodel'
 
 export const ClassifierHandler = Classifier.createHandler(
   (classifier, { onlyContainmentAssociations }) => {
+    const collaborationUses = resolveFromChild(classifier, 'collaborationUse', { many: true, type: CollaborationUse })
     const ownedUseCases = resolveFromChild(classifier, 'ownedUseCase', { many: true, type: UseCase })
     const redefinedClassifiers = resolveFromAttribute(classifier, 'redefinedClassifier', { many: true })
     const useCases = resolveFromAttribute(classifier, 'useCase', { many: true })
@@ -13,7 +14,7 @@ export const ClassifierHandler = Classifier.createHandler(
       return
     }
     addEdge_attribute(classifier)
-    addEdge_collaborationUse(classifier)
+    addEdge_collaborationUse(classifier, collaborationUses)
     addEdge_feature(classifier)
     addEdge_general(classifier)
     addEdge_generalization(classifier)
@@ -39,10 +40,12 @@ function addEdge_attribute(_classifier: GraphNode) {
   // The Properties owned by the Classifier.
 }
 
-function addEdge_collaborationUse(_classifier: GraphNode) {
-  // TODO/Association
+function addEdge_collaborationUse(classifier: GraphNode, collaborationUses: GraphNode[]) {
   // ♦ collaborationUse : CollaborationUse [0..*]{subsets Element::ownedElement} (opposite A_collaborationUse_classifier::classifier)
   // The CollaborationUses owned by the Classifier.
+  collaborationUses.forEach((collaborationUse) => {
+    classifier.model.addEdge('collaborationUse', classifier, collaborationUse)
+  })
 }
 
 function addEdge_feature(_classifier: GraphNode) {

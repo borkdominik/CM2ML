@@ -1,7 +1,8 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Uml } from '../uml'
+import { resolveFromChild } from '../resolvers/resolve'
 import {
+  Constraint,
   ElementImport,
   NamedElement,
   Namespace,
@@ -10,7 +11,7 @@ import {
 
 export const NamespaceHandler = Namespace.createHandler(
   (namespace, { onlyContainmentAssociations }) => {
-    const ownedRules = getOwnedRules(namespace)
+    const ownedRules = resolveFromChild(namespace, 'ownedRule', { many: true, type: Constraint })
     if (onlyContainmentAssociations) {
       return
     }
@@ -24,15 +25,6 @@ export const NamespaceHandler = Namespace.createHandler(
     addEdge_ownedRule(namespace, ownedRules)
   },
 )
-
-function getOwnedRules(namespace: GraphNode) {
-  const ownedRules = namespace.findAllChildren((child) => child.tag === 'ownedRule')
-  ownedRules.forEach((ownedRule) => {
-    // TODO/Jan: Only as fallback
-    ownedRule.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.Constraint } })
-  })
-  return ownedRules
-}
 
 function addEdge_elementImport(namespace: GraphNode, child: GraphNode) {
   if (ElementImport.isAssignable(child)) {

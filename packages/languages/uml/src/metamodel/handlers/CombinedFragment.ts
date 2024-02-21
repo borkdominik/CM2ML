@@ -1,32 +1,22 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { CombinedFragment, InteractionOperand } from '../uml-metamodel'
 
 export const CombinedFragmentHandler = CombinedFragment.createHandler(
   (combinedFragment, { onlyContainmentAssociations }) => {
-    inferChildTypes(combinedFragment)
+    const operands = resolveFromChild(combinedFragment, 'operand', { many: true, type: InteractionOperand })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_cfragmentGate(combinedFragment)
-    combinedFragment.children.forEach((child) => {
-      addEdge_operand(combinedFragment, child)
-    })
+    addEdge_operand(combinedFragment, operands)
   },
   {
     [Uml.Attributes.interactionOperator]: 'seq',
   },
 )
-
-function inferChildTypes(combinedFragment: GraphNode) {
-  // TODO/Jan: Only as fallback
-  combinedFragment.children.forEach((child) => {
-    if (child.tag === Uml.Tags.operand) {
-      child.addAttribute({ name: Uml.typeAttributeName, value: { literal: Uml.Types.InteractionOperand } })
-    }
-  })
-}
 
 function addEdge_cfragmentGate(_combinedFragment: GraphNode) {
   // TODO/Association
@@ -34,11 +24,10 @@ function addEdge_cfragmentGate(_combinedFragment: GraphNode) {
   // Specifies the gates that form the interface between this CombinedFragment and its surroundings
 }
 
-function addEdge_operand(combinedFragment: GraphNode, child: GraphNode) {
-  // TODO/Association
+function addEdge_operand(combinedFragment: GraphNode, operands: GraphNode[]) {
   // ♦ operand : InteractionOperand [1..*]{ordered, subsets Element::ownedElement} (opposite A_operand_combinedFragment::combinedFragment)
   // The set of operands of the combined fragment.
-  if (InteractionOperand.isAssignable(child)) {
-    combinedFragment.model.addEdge('operand', combinedFragment, child)
-  }
+  operands.forEach((operand) => {
+    combinedFragment.model.addEdge('operand', combinedFragment, operand)
+  })
 }
