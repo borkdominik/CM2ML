@@ -1,18 +1,19 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Action } from '../uml-metamodel'
+import { Action, Constraint } from '../uml-metamodel'
 
 export const ActionHandler = Action.createHandler(
   (action, { onlyContainmentAssociations }) => {
     const input = resolveFromAttribute(action, 'input', { many: true })
+    const localPostconditions = resolveFromChild(action, 'localPostcondition', { many: true, type: Constraint })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_context(action)
     addEdge_input(action, input)
-    addEdge_localPostcondition(action)
+    addEdge_localPostcondition(action, localPostconditions)
     addEdge_localPrecondition(action)
     addEdge_output(action)
   },
@@ -35,10 +36,12 @@ function addEdge_input(action: GraphNode, input: GraphNode[]) {
   })
 }
 
-function addEdge_localPostcondition(_action: GraphNode) {
-  // TODO/Association
+function addEdge_localPostcondition(action: GraphNode, localPostconditions: GraphNode[]) {
   // ♦ localPostcondition : Constraint [0..*]{subsets Element::ownedElement} (opposite A_localPostcondition_action::action)
   // A Constraint that must be satisfied when execution of the Action is completed.
+  localPostconditions.forEach((localPostcondition) => {
+    action.model.addEdge('localPostcondition', action, localPostcondition)
+  })
 }
 
 function addEdge_localPrecondition(_action: GraphNode) {

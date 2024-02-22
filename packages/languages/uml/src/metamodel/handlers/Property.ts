@@ -1,7 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
-import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
+import { resolve, resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import {
   Association,
@@ -16,7 +16,7 @@ export const PropertyHandler = Property.createHandler(
     const association = resolveFromAttribute(property, 'association', { type: Association })
     const qualifiers = resolveFromChild(property, 'qualifier', { many: true, type: Property })
     const redefinedProperties = resolveFromChild(property, 'redefinedProperty', { many: true, type: Property })
-    const subsettedProperties = resolveFromChild(property, 'subsettedProperty', { many: true, type: Property })
+    const subsettedProperties = resolve(property, 'subsettedProperty', { many: true, type: Property })
     if (onlyContainmentAssociations) {
       return
     }

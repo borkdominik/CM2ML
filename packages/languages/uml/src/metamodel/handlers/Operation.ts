@@ -12,7 +12,6 @@ import {
 
 export const OperationHandler = Operation.createHandler(
   (operation, { onlyContainmentAssociations }) => {
-    removeUnspecifiedAttributes(operation)
     const redefinedOperations = resolveFromChild(operation, 'redefinedOperation', { many: true, type: Operation })
     if (onlyContainmentAssociations) {
       return
@@ -35,13 +34,6 @@ export const OperationHandler = Operation.createHandler(
     [Uml.Attributes.isQuery]: 'false',
   },
 )
-
-function removeUnspecifiedAttributes(operation: GraphNode) {
-  // TODO/Jan Validate correctness
-  // Some UML models contain an unspecified input/output attribute, we remove it here
-  operation.removeAttribute('input')
-  operation.removeAttribute('output')
-}
 
 function addEdge_bodyCondition(_operation: GraphNode) {
   // TODO/Association

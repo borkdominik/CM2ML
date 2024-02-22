@@ -5,7 +5,6 @@ import { InteractionFragment } from '../uml-metamodel'
 
 export const InteractionFragmentHandler = InteractionFragment.createHandler(
   (interactionFragment, { onlyContainmentAssociations }) => {
-    removeUnspecifiedAttributes(interactionFragment)
     const covered = resolveFromAttribute(interactionFragment, 'covered', { many: true })
     resolveFromAttribute(interactionFragment, 'event')
     if (onlyContainmentAssociations) {
@@ -17,12 +16,6 @@ export const InteractionFragmentHandler = InteractionFragment.createHandler(
     addEdge_generalOrdering(interactionFragment)
   },
 )
-
-function removeUnspecifiedAttributes(interactionFragment: GraphNode) {
-  // TODO/Jan Validate correctness
-  // Some UML models contain an unspecified event attribute, we remove it here
-  interactionFragment.removeAttribute('event')
-}
 
 function addEdge_covered(interactionFragment: GraphNode, covered: GraphNode[]) {
   // TODO/Association

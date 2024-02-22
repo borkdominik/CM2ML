@@ -1,9 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { State } from '../uml-metamodel'
+import { resolveFromChild } from '../resolvers/resolve'
+import { State, StateMachine } from '../uml-metamodel'
 
 export const StateHandler = State.createHandler(
   (state, { onlyContainmentAssociations }) => {
+    const submachine = resolveFromChild(state, 'submachine', { type: StateMachine })
     if (onlyContainmentAssociations) {
       return
     }
@@ -15,7 +17,7 @@ export const StateHandler = State.createHandler(
     addEdge_exit(state)
     addEdge_region(state)
     addEdge_stateInvariant(state)
-    addEdge_submachine(state)
+    addEdge_submachine(state, submachine)
   },
 )
 
@@ -67,8 +69,11 @@ function addEdge_stateInvariant(_state: GraphNode) {
   // Specifies conditions that are always true when this State is the current State. In ProtocolStateMachines state invariants are additional conditions to the preconditions of the outgoing Transitions, and to the postcondition of the incoming Transitions.
 }
 
-function addEdge_submachine(_state: GraphNode) {
-  // TODO/Association
+function addEdge_submachine(state: GraphNode, submachine: GraphNode | undefined) {
   // submachine : StateMachine [0..1] (opposite StateMachine::submachineState)
   // The StateMachine that is to be inserted in place of the (submachine) State.
+  if (!submachine) {
+    return
+  }
+  state.model.addEdge('submachine', state, submachine)
 }

@@ -9,6 +9,7 @@ export const ClassifierHandler = Classifier.createHandler(
     const collaborationUses = resolveFromChild(classifier, 'collaborationUse', { many: true, type: CollaborationUse })
     const ownedUseCases = resolveFromChild(classifier, 'ownedUseCase', { many: true, type: UseCase })
     const redefinedClassifiers = resolveFromAttribute(classifier, 'redefinedClassifier', { many: true })
+    const templateParameter = resolveFromAttribute(classifier, 'templateParameter')
     const useCases = resolveFromAttribute(classifier, 'useCase', { many: true })
     if (onlyContainmentAssociations) {
       return
@@ -25,7 +26,7 @@ export const ClassifierHandler = Classifier.createHandler(
     addEdge_redefinedClassifier(classifier, redefinedClassifiers)
     addEdge_representation(classifier)
     addEdge_substitution(classifier)
-    addEdge_templateParameter(classifier)
+    addEdge_templateParameter(classifier, templateParameter)
     addEdge_useCase(classifier, useCases)
   },
   {
@@ -112,10 +113,13 @@ function addEdge_substitution(_classifier: GraphNode) {
   // The Substitutions owned by this Classifier.
 }
 
-function addEdge_templateParameter(_classifier: GraphNode) {
-  // TODO/Association
+function addEdge_templateParameter(classifier: GraphNode, templateParameter: GraphNode | undefined) {
   // templateParameter : ClassifierTemplateParameter [0..1]{redefines ParameterableElement::templateParameter} (opposite ClassifierTemplateParameter::parameteredElement)
   // TheClassifierTemplateParameter that exposes this element as a formal parameter.
+  if (!templateParameter) {
+    return
+  }
+  classifier.model.addEdge('templateParameter', classifier, templateParameter)
 }
 
 function addEdge_useCase(classifier: GraphNode, useCases: GraphNode[]) {

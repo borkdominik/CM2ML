@@ -1,32 +1,49 @@
 import type { GraphNode } from '@cm2ml/ir'
+import { getParentOfType, transformNodeToEdge } from '@cm2ml/metamodel'
 
-import { TemplateBinding } from '../uml-metamodel'
+import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
+import { TemplateBinding, TemplateableElement } from '../uml-metamodel'
 
 export const TemplateBindingHandler = TemplateBinding.createHandler(
-  (templateBinding, { onlyContainmentAssociations }) => {
+  (templateBinding, { onlyContainmentAssociations, relationshipsAsEdges }) => {
+    const boundElement = getParentOfType(templateBinding, TemplateableElement)
+    const parameterSubstitutions = resolveFromChild(templateBinding, 'parameterSubstitution', { many: true })
+    const signature = resolveFromAttribute(templateBinding, 'signature')
+    if (relationshipsAsEdges) {
+      transformNodeToEdge(templateBinding, boundElement, signature, 'templateBinding')
+      return false
+    }
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_boundElement(templateBinding)
-    addEdge_parameterSubstitution(templateBinding)
-    addEdge_signature(templateBinding)
+    addEdge_boundElement(templateBinding, boundElement)
+    addEdge_parameterSubstitution(templateBinding, parameterSubstitutions)
+    addEdge_signature(templateBinding, signature)
   },
 )
 
-function addEdge_boundElement(_templateBinding: GraphNode) {
-  // TODO/Association
+function addEdge_boundElement(templateBinding: GraphNode, boundElement: GraphNode | undefined) {
   // boundElement : TemplateableElement [1..1]{subsets DirectedRelationship::source, subsets Element::owner} (opposite TemplateableElement::templateBinding)
   // The TemplateableElement that is bound by this TemplateBinding.
+  if (!boundElement) {
+    return
+  }
+  templateBinding.model.addEdge('boundElement', templateBinding, boundElement)
 }
 
-function addEdge_parameterSubstitution(_templateBinding: GraphNode) {
-  // TODO/Association
+function addEdge_parameterSubstitution(templateBinding: GraphNode, parameterSubstitutions: GraphNode[]) {
   // ♦ parameterSubstitution : TemplateParameterSubstitution [0..*]{subsets Element::ownedElement} (opposite TemplateParameterSubstitution::templateBinding)
   // The TemplateParameterSubstitutions owned by this TemplateBinding.
+  parameterSubstitutions.forEach((parameterSubstitution) => {
+    templateBinding.model.addEdge('parameterSubstitution', templateBinding, parameterSubstitution)
+  })
 }
 
-function addEdge_signature(_templateBinding: GraphNode) {
-  // TODO/Association
+function addEdge_signature(templateBinding: GraphNode, signature: GraphNode | undefined) {
   // signature : TemplateSignature [1..1]{subsets DirectedRelationship::target} (opposite A_signature_templateBinding::templateBinding)
   // The TemplateSignature for the template that is the target of this TemplateBinding.
+  if (!signature) {
+    return
+  }
+  templateBinding.model.addEdge('signature', templateBinding, signature)
 }

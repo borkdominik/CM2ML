@@ -193,7 +193,7 @@ export const Realization = define(Uml.Types.Realization, undefined, Abstraction)
 
 export const TemplateBinding = define(
   Uml.Types.TemplateBinding,
-  undefined,
+  Uml.Tags.templateBinding,
   DirectedRelationship,
 )
 
@@ -205,7 +205,7 @@ export const TemplateParameter = define(
 
 export const TemplateParameterSubstitution = define(
   Uml.Types.TemplateParameterSubstitution,
-  undefined,
+  Uml.Tags.parameterSubstitution,
   Element,
 )
 
@@ -1228,7 +1228,7 @@ export const CommunicationPath = define(
   Association,
 )
 
-export const Deployment = define(Uml.Types.Deployment, undefined, Dependency)
+export const Deployment = define(Uml.Types.Deployment, Uml.Tags.deployment, Dependency)
 
 export const DeploymentSpecification = define(
   Uml.Types.DeploymentSpecification,

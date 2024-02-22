@@ -1,9 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { setBodyAttribute } from '../resolvers/body'
+import { setLanguageAttribute } from '../resolvers/language'
 import { OpaqueAction } from '../uml-metamodel'
 
 export const OpaqueActionHandler = OpaqueAction.createHandler(
   (opaqueAction, { onlyContainmentAssociations }) => {
+    setBodyAttribute(opaqueAction)
+    setLanguageAttribute(opaqueAction)
     if (onlyContainmentAssociations) {
       return
     }

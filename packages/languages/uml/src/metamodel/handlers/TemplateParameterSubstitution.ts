@@ -1,30 +1,39 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { TemplateParameterSubstitution } from '../uml-metamodel'
 
 export const TemplateParameterSubstitutionHandler =
   TemplateParameterSubstitution.createHandler(
     (templateParameterSubstitution, { onlyContainmentAssociations }) => {
+      const actual = resolveFromAttribute(templateParameterSubstitution, 'actual')
+      const formal = resolveFromAttribute(templateParameterSubstitution, 'formal')
       if (onlyContainmentAssociations) {
         return
       }
-      addEdge_actual(templateParameterSubstitution)
-      addEdge_formal(templateParameterSubstitution)
+      addEdge_actual(templateParameterSubstitution, actual)
+      addEdge_formal(templateParameterSubstitution, formal)
       addEdge_ownedActual(templateParameterSubstitution)
       addEdge_templateBinding(templateParameterSubstitution)
     },
   )
 
-function addEdge_actual(_templateParameterSubstitution: GraphNode) {
-  // TODO/Association
+function addEdge_actual(templateParameterSubstitution: GraphNode, actual: GraphNode | undefined) {
   // actual : ParameterableElement [1..1] (opposite A_actual_templateParameterSubstitution::templateParameterSubstitution)
   // The ParameterableElement that is the actual parameter for this TemplateParameterSubstitution.
+  if (!actual) {
+    return
+  }
+  templateParameterSubstitution.model.addEdge('actual', templateParameterSubstitution, actual)
 }
 
-function addEdge_formal(_templateParameterSubstitution: GraphNode) {
-  // TODO/Association
+function addEdge_formal(templateParameterSubstitution: GraphNode, formal: GraphNode | undefined) {
   // formal : TemplateParameter [1..1] (opposite A_formal_templateParameterSubstitution::templateParameterSubstitution)
   // The formal TemplateParameter that is associated with this TemplateParameterSubstitution.
+  if (!formal) {
+    return
+  }
+  templateParameterSubstitution.model.addEdge('formal', templateParameterSubstitution, formal)
 }
 
 function addEdge_ownedActual(_templateParameterSubstitution: GraphNode) {
