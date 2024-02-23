@@ -1,7 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve, resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
-import { Uml } from '../uml'
+import { Uml, transformNodeToEdgeCallback } from '../uml'
 import { Association, Extension, Property } from '../uml-metamodel'
 
 export const AssociationHandler = Association.createHandler(
@@ -10,9 +10,8 @@ export const AssociationHandler = Association.createHandler(
     const navigableOwnedEnds = resolveFromAttribute(association, 'navigableOwnedEnd', { many: true })
     const ownedEnds = getOwnedEnds(association)
     if (relationshipsAsEdges) {
-      // TODO: Include associations?
-      association.model.removeNode(association)
-      return false
+      // TODO: Include associations at all?
+      return transformNodeToEdgeCallback(association, memberEnds[0], memberEnds[1])
     }
     if (onlyContainmentAssociations) {
       return

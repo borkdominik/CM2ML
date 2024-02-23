@@ -417,11 +417,15 @@ function getType(element: Attributable) {
 
 const relationshipToEdgeTag: Partial<Record<UmlType, string>> = {
   [Types.Abstraction]: 'abstraction',
+  [Types.Association]: 'association', // TODO: Validate
+  [Types.AssociationClass]: 'associationClass', // TODO: Validate
+  [Types.CommunicationPath]: 'communicationPath', // TODO: Validate
   [Types.ComponentRealization]: 'componentRealization',
   [Types.Dependency]: 'dependency',
   [Types.Deployment]: 'deployment', // TODO: Validate
   [Types.ElementImport]: 'elementImport',
   [Types.Extend]: 'extend',
+  [Types.Extension]: 'extension', // TODO: Validate
   [Types.Generalization]: 'generalization',
   [Types.Include]: 'include',
   [Types.InformationFlow]: 'informationFlow', // TODO: Validate
