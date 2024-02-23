@@ -1,13 +1,15 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolve } from '../resolvers/resolve'
 import { Region } from '../uml-metamodel'
 
 export const RegionHandler = Region.createHandler(
   (region, { onlyContainmentAssociations }) => {
+    const extendedRegion = resolve(region, 'extendedRegion', { type: Region })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_extendedRegion(region)
+    addEdge_extendedRegion(region, extendedRegion)
     addEdge_redefinitionContext(region)
     addEdge_state(region)
     addEdge_stateMachine(region)
@@ -16,10 +18,13 @@ export const RegionHandler = Region.createHandler(
   },
 )
 
-function addEdge_extendedRegion(_region: GraphNode) {
-  // TODO/Association
+function addEdge_extendedRegion(region: GraphNode, extendedRegion: GraphNode | undefined) {
   // extendedRegion : Region [0..1]{subsets RedefinableElement::redefinedElement} (opposite A_extendedRegion_region::region)
   // The region of which this region is an extension.
+  if (!extendedRegion) {
+    return
+  }
+  region.model.addEdge('extendedRegion', region, extendedRegion)
 }
 
 function addEdge_redefinitionContext(_region: GraphNode) {

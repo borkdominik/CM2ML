@@ -1,10 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Class, Property } from '../uml-metamodel'
+import { Class, Property, Reception } from '../uml-metamodel'
 
 export const ClassHandler = Class.createHandler(
   (class_, { onlyContainmentAssociations }) => {
+    const ownedReceptions = resolve(class_, 'ownedReception', { many: true, type: Reception })
     if (onlyContainmentAssociations) {
       return
     }
@@ -13,8 +15,8 @@ export const ClassHandler = Class.createHandler(
     class_.children.forEach((child) => {
       addEdge_nestedClassifier(class_, child)
       addEdge_ownedAttribute(class_, child)
-      addEdge_ownedReception(class_, child)
     })
+    addEdge_ownedReception(class_, ownedReceptions)
   },
   {
     [Uml.Attributes.isAbstract]: 'false',
@@ -40,10 +42,12 @@ function addEdge_ownedAttribute(class_: GraphNode, child: GraphNode) {
   }
 }
 
-function addEdge_ownedReception(_class_: GraphNode, _child: GraphNode) {
-  // TODO/Association
+function addEdge_ownedReception(class_: GraphNode, ownedReceptions: GraphNode[]) {
   // ♦ ownedReception : Reception [0..*]{subsets Classifier::feature, subsets Namespace::ownedMember} (opposite A_ownedReception_class::class)
   // The Receptions owned by the Class.
+  ownedReceptions.forEach((ownedReception) => {
+    class_.model.addEdge('ownedReception', class_, ownedReception)
+  })
 }
 
 function addEdge_superClass(_class_: GraphNode) {

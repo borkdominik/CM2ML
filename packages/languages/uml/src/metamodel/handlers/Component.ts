@@ -1,10 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Component, PackageableElement } from '../uml-metamodel'
+import { Component, ComponentRealization, PackageableElement } from '../uml-metamodel'
 
 export const ComponentHandler = Component.createHandler(
   (component, { onlyContainmentAssociations }) => {
+    const realizations = resolve(component, 'realization', { many: true, type: ComponentRealization })
     if (onlyContainmentAssociations) {
       return
     }
@@ -12,7 +14,7 @@ export const ComponentHandler = Component.createHandler(
       addEdge_packagedElement(component, child)
     })
     addEdge_provided(component)
-    addEdge_realization(component)
+    addEdge_realization(component, realizations)
     addEdge_required(component)
   },
   {
@@ -32,10 +34,12 @@ function addEdge_provided(_component: GraphNode) {
   // The Interfaces that the Component exposes to its environment.These Interfaces may be Realized by the Component or any of its realizingClassifiers, or they may be the Interfaces that are provided by its public Ports.
 }
 
-function addEdge_realization(_component: GraphNode) {
-  // TODO/Association
+function addEdge_realization(component: GraphNode, realizations: GraphNode[]) {
   // ♦ realization: ComponentRealization[0..*]{subsets Element:: ownedElement, subsets A_supplier_supplierDependency:: supplierDependency } (opposite ComponentRealization::abstraction)
   // The set of Realizations owned by the Component.Realizations reference the Classifiers of which the Component is an abstraction; i.e., that realize its behavior.
+  realizations.forEach((realization) => {
+    component.model.addEdge('realization', component, realization)
+  })
 }
 
 function addEdge_required(_component: GraphNode) {

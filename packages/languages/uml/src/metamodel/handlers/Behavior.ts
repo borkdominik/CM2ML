@@ -1,11 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Behavior, BehavioralFeature } from '../uml-metamodel'
 
 export const BehaviorHandler = Behavior.createHandler(
   (behavior, { onlyContainmentAssociations }) => {
+    const redefinedBehaviors = resolve(behavior, 'redefinedBehavior', { many: true, type: Behavior })
     const specification = resolveFromAttribute(behavior, 'specification', { type: BehavioralFeature })
     if (onlyContainmentAssociations) {
       return
@@ -16,7 +17,7 @@ export const BehaviorHandler = Behavior.createHandler(
     addEdge_postcondition(behavior)
     addEdge_precondition(behavior)
     addEdge_specification(behavior, specification)
-    addEdge_redefinedBehavior(behavior)
+    addEdge_redefinedBehavior(behavior, redefinedBehaviors)
   },
   {
     [Uml.Attributes.isReentrant]: 'true',
@@ -62,8 +63,10 @@ function addEdge_specification(behavior: GraphNode, specification: GraphNode | u
   behavior.model.addEdge('specification', behavior, specification)
 }
 
-function addEdge_redefinedBehavior(_behavior: GraphNode) {
-  // TODO/Association
+function addEdge_redefinedBehavior(behavior: GraphNode, redefinedBehaviors: GraphNode[]) {
   // redefinedBehavior : Behavior [0..*]{subsets Classifier::redefinedClassifier} (opposite A_redefinedBehavior_behavior::behavior)
   // References the Behavior that this Behavior redefines. A subtype of Behavior may redefine any other subtype of Behavior. If the Behavior implements a BehavioralFeature, it replaces the redefined Behavior. If the Behavior is a classifierBehavior, it extends the redefined Behavior.
+  redefinedBehaviors.forEach((redefinedBehavior) => {
+    behavior.model.addEdge('redefinedBehavior', behavior, redefinedBehavior)
+  })
 }

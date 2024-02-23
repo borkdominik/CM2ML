@@ -1,16 +1,17 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Artifact, Manifestation } from '../uml-metamodel'
 
 export const ArtifactHandler = Artifact.createHandler(
   (artifact, { onlyContainmentAssociations }) => {
-    const manifestations = resolveFromChild(artifact, 'manifestation', { many: true, type: Manifestation })
+    const manifestations = resolve(artifact, 'manifestation', { many: true, type: Manifestation })
+    const nestedArtifacts = resolve(artifact, 'nestedArtifact', { many: true, type: Artifact })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_manifestation(artifact, manifestations)
-    addEdge_nestedArtifact(artifact)
+    addEdge_nestedArtifact(artifact, nestedArtifacts)
     addEdge_ownedAttribute(artifact)
     addEdge_ownedOperation(artifact)
   },
@@ -24,10 +25,12 @@ function addEdge_manifestation(artifact: GraphNode, manifestations: GraphNode[])
   })
 }
 
-function addEdge_nestedArtifact(_artifact: GraphNode) {
-  // TODO/Association
+function addEdge_nestedArtifact(artifact: GraphNode, nestedArtifacts: GraphNode[]) {
   // ♦ nestedArtifact : Artifact [0..*]{subsets Namespace::ownedMember} (opposite A_nestedArtifact_artifact::artifact)
   // The Artifacts that are defined (nested) within the Artifact. The association is a specialization of the ownedMember association from Namespace to NamedElement.
+  nestedArtifacts.forEach((nestedArtifact) => {
+    artifact.model.addEdge('nestedArtifact', artifact, nestedArtifact)
+  })
 }
 
 function addEdge_ownedAttribute(_artifact: GraphNode) {

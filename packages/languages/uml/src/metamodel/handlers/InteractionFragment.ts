@@ -1,19 +1,19 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
-import { InteractionFragment } from '../uml-metamodel'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { GeneralOrdering, InteractionFragment } from '../uml-metamodel'
 
 export const InteractionFragmentHandler = InteractionFragment.createHandler(
   (interactionFragment, { onlyContainmentAssociations }) => {
     const covered = resolveFromAttribute(interactionFragment, 'covered', { many: true })
-    resolveFromAttribute(interactionFragment, 'event')
+    const generalOrderings = resolve(interactionFragment, 'generalOrdering', { many: true, type: GeneralOrdering })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_covered(interactionFragment, covered)
     addEdge_enclosingInteraction(interactionFragment)
     addEdge_enclosingOperand(interactionFragment)
-    addEdge_generalOrdering(interactionFragment)
+    addEdge_generalOrdering(interactionFragment, generalOrderings)
   },
 )
 
@@ -38,8 +38,10 @@ function addEdge_enclosingOperand(_interactionFragment: GraphNode) {
   // The operand enclosing this InteractionFragment (they may nest recursively).
 }
 
-function addEdge_generalOrdering(_interactionFragment: GraphNode) {
-  // TODO/Association
+function addEdge_generalOrdering(interactionFragment: GraphNode, generalOrderings: GraphNode[]) {
   // ♦ generalOrdering : GeneralOrdering [0..*]{subsets Element::ownedElement} (opposite A_generalOrdering_interactionFragment::interactionFragment)
   // The general ordering relationships contained in this fragment.
+  generalOrderings.forEach((generalOrdering) => {
+    interactionFragment.model.addEdge('generalOrdering', interactionFragment, generalOrdering)
+  })
 }

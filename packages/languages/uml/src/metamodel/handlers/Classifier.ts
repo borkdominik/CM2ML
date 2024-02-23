@@ -1,17 +1,18 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
+import { resolve, resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Classifier, CollaborationUse, UseCase } from '../uml-metamodel'
+import { Classifier, CollaborationUse, GeneralizationSet, UseCase } from '../uml-metamodel'
 
 export const ClassifierHandler = Classifier.createHandler(
   (classifier, { onlyContainmentAssociations }) => {
     const collaborationUses = resolveFromChild(classifier, 'collaborationUse', { many: true, type: CollaborationUse })
     const ownedUseCases = resolveFromChild(classifier, 'ownedUseCase', { many: true, type: UseCase })
+    const powertypeExtents = resolve(classifier, 'powertypeExtent', { many: true, type: GeneralizationSet })
     const redefinedClassifiers = resolveFromAttribute(classifier, 'redefinedClassifier', { many: true })
     const representation = resolveFromAttribute(classifier, 'representation')
     const templateParameter = resolveFromAttribute(classifier, 'templateParameter')
-    const useCases = resolveFromAttribute(classifier, 'useCase', { many: true })
+    const useCases = resolve(classifier, 'useCase', { many: true, type: UseCase })
     if (onlyContainmentAssociations) {
       return
     }
@@ -23,7 +24,7 @@ export const ClassifierHandler = Classifier.createHandler(
     addEdge_inheritedMember(classifier)
     addEdge_ownedTemplateSignature(classifier)
     addEdge_ownedUseCase(classifier, ownedUseCases)
-    addEdge_powertypeExtent(classifier)
+    addEdge_powertypeExtent(classifier, powertypeExtents)
     addEdge_redefinedClassifier(classifier, redefinedClassifiers)
     addEdge_representation(classifier, representation)
     addEdge_substitution(classifier)
@@ -88,10 +89,12 @@ function addEdge_ownedUseCase(classifier: GraphNode, ownedUseCases: GraphNode[])
   })
 }
 
-function addEdge_powertypeExtent(_classifier: GraphNode) {
-  // TODO/Association
+function addEdge_powertypeExtent(classifier: GraphNode, powertypeExtents: GraphNode[]) {
   // powertypeExtent : GeneralizationSet [0..*] (opposite GeneralizationSet::powertype)
   // The GeneralizationSet of which this Classifier is a power type.
+  powertypeExtents.forEach((powertypeExtent) => {
+    classifier.model.addEdge('powertypeExtent', classifier, powertypeExtent)
+  })
 }
 
 function addEdge_redefinedClassifier(classifier: GraphNode, redefinedClassifiers: GraphNode[]) {

@@ -1,25 +1,28 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { StateMachine } from '../uml-metamodel'
+import { Pseudostate, StateMachine } from '../uml-metamodel'
 
 export const StateMachineHandler = StateMachine.createHandler(
   (stateMachine, { onlyContainmentAssociations }) => {
+    const connectionPoints = resolve(stateMachine, 'connectionPoint', { many: true, type: Pseudostate })
     const submachineStates = resolve(stateMachine, 'submachineState', { many: true })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_connectionPoint(stateMachine)
+    addEdge_connectionPoint(stateMachine, connectionPoints)
     addEdge_extendedStateMachine(stateMachine)
     addEdge_region(stateMachine)
     addEdge_submachineState(stateMachine, submachineStates)
   },
 )
 
-function addEdge_connectionPoint(_stateMachine: GraphNode) {
-  // TODO/Association
+function addEdge_connectionPoint(stateMachine: GraphNode, connectionPoints: GraphNode[]) {
   // ♦ connectionPoint : Pseudostate [0..*]{subsets Namespace::ownedMember} (opposite Pseudostate::stateMachine)
   // The connection points defined for this StateMachine. They represent the interface of the StateMachine when used as part of submachine State.
+  connectionPoints.forEach((connectionPoint) => {
+    stateMachine.model.addEdge('connectionPoint', stateMachine, connectionPoint)
+  })
 }
 
 function addEdge_extendedStateMachine(_stateMachine: GraphNode) {

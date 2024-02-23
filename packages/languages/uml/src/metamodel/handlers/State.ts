@@ -1,17 +1,21 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromChild } from '../resolvers/resolve'
-import { Pseudostate, State, StateMachine, Trigger } from '../uml-metamodel'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { ConnectionPointReference, Pseudostate, State, StateMachine, Trigger } from '../uml-metamodel'
 
 export const StateHandler = State.createHandler(
   (state, { onlyContainmentAssociations }) => {
-    const connectionPoints = resolveFromChild(state, 'connectionPoint', { many: true, type: Pseudostate })
+    const connectionPoints = resolveFromAttribute(state, 'connectionPoint', { many: true, type: Pseudostate })
+    const connections = resolve(state, 'connection', { many: true, type: ConnectionPointReference })
     const deferrableTriggers = resolve(state, 'deferrableTrigger', { many: true, type: Trigger })
     const submachine = resolve(state, 'submachine', { type: StateMachine })
+    // TODO/Jan: Validate that the redefinedState is truly unspecified
+    // Remove unspecified attribute
+    resolveFromAttribute(state, 'redefinedState')
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_connection(state)
+    addEdge_connection(state, connections)
     addEdge_connectionPoint(state, connectionPoints)
     addEdge_deferrableTrigger(state, deferrableTriggers)
     addEdge_doActivity(state)
@@ -23,10 +27,12 @@ export const StateHandler = State.createHandler(
   },
 )
 
-function addEdge_connection(_state: GraphNode) {
-  // TODO/Association
+function addEdge_connection(state: GraphNode, connections: GraphNode[]) {
   // ♦ connection : ConnectionPointReference [0..*]{subsets Namespace::ownedMember} (opposite ConnectionPointReference::state)
   // The entry and exit connection points used in conjunction with this (submachine) State, i.e., as targets and sources, respectively, in the Region with the submachine State. A connection point reference references the corresponding definition of a connection point Pseudostate in the StateMachine referenced by the submachine State.
+  connections.forEach((connection) => {
+    state.model.addEdge('connection', state, connection)
+  })
 }
 
 function addEdge_connectionPoint(state: GraphNode, connectionPoints: GraphNode[]) {

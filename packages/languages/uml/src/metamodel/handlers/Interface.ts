@@ -1,15 +1,16 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { Classifier, Interface, Operation, Property, Reception } from '../uml-metamodel'
+import { Classifier, Interface, Operation, Property, ProtocolStateMachine, Reception } from '../uml-metamodel'
 
 export const InterfaceHandler = Interface.createHandler(
   (interface_, { onlyContainmentAssociations }) => {
     const ownedReceptions = resolve(interface_, 'ownedReception', { many: true, type: Reception })
+    const protocol = resolve(interface_, 'protocol', { type: ProtocolStateMachine })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_protocol(interface_)
+    addEdge_protocol(interface_, protocol)
     addEdge_redefinedInterface(interface_)
     interface_.children.forEach((child) => {
       // TODO/Jan: Refactor to use resolve
@@ -47,10 +48,13 @@ function addEdge_ownedReception(interface_: GraphNode, ownedReceptions: GraphNod
   })
 }
 
-function addEdge_protocol(_interface_: GraphNode) {
-  // TODO/Association
+function addEdge_protocol(interface_: GraphNode, protocol: GraphNode | undefined) {
   // ♦ protocol : ProtocolStateMachine [0..1]{subsets Namespace::ownedMember} (opposite A_protocol_interface::interface)
   // References a ProtocolStateMachine specifying the legal sequences of the invocation of the BehavioralFeatures described in the Interface.
+  if (!protocol) {
+    return
+  }
+  interface_.model.addEdge('protocol', interface_, protocol)
 }
 
 function addEdge_redefinedInterface(_interface_: GraphNode) {

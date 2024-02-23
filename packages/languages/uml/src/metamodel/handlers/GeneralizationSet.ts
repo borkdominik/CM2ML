@@ -1,17 +1,18 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { GeneralizationSet } from '../uml-metamodel'
+import { Classifier, Generalization, GeneralizationSet } from '../uml-metamodel'
 
 export const GeneralizationSetHandler = GeneralizationSet.createHandler(
   (generalizationSet, { onlyContainmentAssociations }) => {
-    const generalizations = resolveFromAttribute(generalizationSet, 'generalization', { many: true })
+    const generalizations = resolve(generalizationSet, 'generalization', { many: true, type: Generalization })
+    const powertype = resolve(generalizationSet, 'powertype', { type: Classifier })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_generalization(generalizationSet, generalizations)
-    addEdge_powertype(generalizationSet)
+    addEdge_powertype(generalizationSet, powertype)
   },
   {
     [Uml.Attributes.isCovering]: 'false',
@@ -27,8 +28,11 @@ function addEdge_generalization(generalizationSet: GraphNode, generalizations: G
   })
 }
 
-function addEdge_powertype(_generalizationSet: GraphNode) {
-  // TODO/Association
+function addEdge_powertype(generalizationSet: GraphNode, powertype: GraphNode | undefined) {
   // powertype : Classifier [0..1] (opposite Classifier::powertypeExtent)
   // Designates the Classifier that is defined as the power type for the associated GeneralizationSet, if there is one.
+  if (!powertype) {
+    return
+  }
+  generalizationSet.model.addEdge('powertype', generalizationSet, powertype)
 }
