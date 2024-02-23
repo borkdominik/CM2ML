@@ -1,14 +1,16 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { ObjectNode } from '../uml-metamodel'
+import { ObjectNode, State } from '../uml-metamodel'
 
 export const ObjectNodeHandler = ObjectNode.createHandler(
   (objectNode, { onlyContainmentAssociations }) => {
+    const inStates = resolve(objectNode, 'inState', { many: true, type: State })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_inState(objectNode)
+    addEdge_inState(objectNode, inStates)
     addEdge_selection(objectNode)
     addEdge_upperBound(objectNode)
   },
@@ -18,10 +20,12 @@ export const ObjectNodeHandler = ObjectNode.createHandler(
   },
 )
 
-function addEdge_inState(_objectNode: GraphNode) {
-  // TODO/Association
+function addEdge_inState(objectNode: GraphNode, inStates: GraphNode[]) {
   // inState : State [0..*] (opposite A_inState_objectNode::objectNode)
   // The States required to be associated with the values held by tokens on this ObjectNode.
+  inStates.forEach((inState) => {
+    objectNode.model.addEdge('inState', objectNode, inState)
+  })
 }
 
 function addEdge_selection(_objectNode: GraphNode) {

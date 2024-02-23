@@ -42,7 +42,7 @@ const UmlRefiner = definePlugin({
     },
   },
   invoke: (input: GraphModel, parameters) => {
-    removeUnsupportedElements(input)
+    removeUnsupportedNodes(input)
     const model = refine(input, parameters)
     generateIds(model)
     removeNonUmlAttributes(model)
@@ -60,13 +60,13 @@ function generateIds(model: GraphModel) {
   })
 }
 
-function removeUnsupportedElements(model: GraphModel) {
+function removeUnsupportedNodes(model: GraphModel) {
   // The following elements have been removed from the latest UML specification and are not supported by the UML metamodel
   const unsupportedTags = new Set(['eAnnotations', 'xmi:Documentation', 'xmi:Extension', 'XMI_20110701:Extension'])
-  const unsupportedTypes = new Set(['ExecutionEvent', 'ReceiveOperationEvent', 'SendOperationEvent', 'VariablesDeclaration'])
+  const unsupportedTypes = new Set(['DestructionEvent', 'ExecutionEvent', 'ReceiveOperationEvent', 'SendOperationEvent', 'VariablesDeclaration'])
   model.nodes.forEach((node) => {
     const nodeType = node.getAttribute(Uml.typeAttributeName)?.value.literal
-    if (unsupportedTags.has(node.tag) || (nodeType && unsupportedTypes.has(nodeType))) {
+    if (unsupportedTags.has(node.tag) || (nodeType && unsupportedTypes.has(nodeType)) || node.getAttribute('xsi:nil')?.value.literal === 'true') {
       model.removeNode(node)
     }
   })
@@ -78,7 +78,7 @@ function removeNonUmlAttributes(model: GraphModel) {
     if (name.startsWith('xmlns:')) {
       return true
     }
-    if (!(name in Uml.Attributes) && name.startsWith('xmi:')) {
+    if (!(name in Uml.Attributes) && (name.startsWith('xmi:') || name.startsWith('xsi'))) {
       return true
     }
     if (attributesToRemove.has(name)) {

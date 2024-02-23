@@ -6,7 +6,6 @@ import { Dependency, NamedElement, Namespace } from '../uml-metamodel'
 
 export const NamedElementHandler = NamedElement.createHandler(
   (namedElement, { onlyContainmentAssociations }) => {
-    setAttribute_name(namedElement)
     const clientDependency = resolve(namedElement, 'clientDependency', { many: true, type: Dependency })
     if (onlyContainmentAssociations) {
       return
@@ -16,20 +15,6 @@ export const NamedElementHandler = NamedElement.createHandler(
     addEdge_namespace(namedElement)
   },
 )
-
-function setAttribute_name(namedElement: GraphNode) {
-  const nameChild = namedElement.findChild((child) => child.tag === 'name')
-  if (!nameChild) {
-    return
-  }
-  const isNil = nameChild.getAttribute('xsi:nil')?.value.literal === 'true'
-  namedElement.model.removeNode(nameChild)
-  if (isNil) {
-    // return
-  }
-  // TODO: Parse an actual string name
-  // namedElement.addAttribute({ name: Uml.Attributes. name, value: { literal: 'TODO' } })
-}
 
 function addEdge_clientDependency(namedElement: GraphNode, clientDependency: GraphNode[]) {
   // /clientDependency : Dependency [0..*]{subsets A_source_directedRelationship::directedRelationship} (opposite Dependency::client)

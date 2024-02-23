@@ -1,13 +1,22 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { InformationFlow } from '../uml-metamodel'
+import { resolve } from '../resolvers/resolve'
+import { transformNodeToEdgeCallback } from '../uml'
+import { Classifier, InformationFlow, NamedElement } from '../uml-metamodel'
 
 export const InformationFlowHandler = InformationFlow.createHandler(
-  (informationFlow, { onlyContainmentAssociations }) => {
+  (informationFlow, { onlyContainmentAssociations, relationshipsAsEdges }) => {
+    const conveyed = resolve(informationFlow, 'conveyed', { many: true, type: Classifier })
+    // TODO/Jan: Fix -> source/target with many: true
+    const informationSource = resolve(informationFlow, 'informationSource', { type: NamedElement })
+    const informationTarget = resolve(informationFlow, 'informationTarget', { type: NamedElement })
+    if (relationshipsAsEdges) {
+      return transformNodeToEdgeCallback(informationFlow, informationSource, informationTarget)
+    }
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_conveyed(informationFlow)
+    addEdge_conveyed(informationFlow, conveyed)
     addEdge_informationSource(informationFlow)
     addEdge_informationTarget(informationFlow)
     addEdge_realization(informationFlow)
@@ -17,10 +26,12 @@ export const InformationFlowHandler = InformationFlow.createHandler(
   },
 )
 
-function addEdge_conveyed(_informationFlow: GraphNode) {
-  // TODO/Association
+function addEdge_conveyed(informationFlow: GraphNode, conveyed: GraphNode[]) {
   // conveyed : Classifier [1..*] (opposite A_conveyed_conveyingFlow::conveyingFlow)
   // Specifies the information items that may circulate on this information flow.
+  conveyed.forEach((classifier) => {
+    informationFlow.model.addEdge('conveyed', informationFlow, classifier)
+  })
 }
 
 function addEdge_informationSource(_informationFlow: GraphNode) {

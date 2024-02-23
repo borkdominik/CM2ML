@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { ActivityPartition } from '../uml-metamodel'
 
@@ -9,13 +9,14 @@ export const ActivityPartitionHandler = ActivityPartition.createHandler(
     const edges = resolveFromAttribute(activityPartition, 'edge', { many: true })
     const nodes = resolveFromAttribute(activityPartition, 'node', { many: true })
     const represents = resolveFromAttribute(activityPartition, 'represents')
+    const subpartition = resolve(activityPartition, 'subpartition', { many: true, type: ActivityPartition })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_edge(activityPartition, edges)
     addEdge_node(activityPartition, nodes)
     addEdge_represents(activityPartition, represents)
-    addEdge_subpartition(activityPartition)
+    addEdge_subpartition(activityPartition, subpartition)
     addEdge_superPartition(activityPartition)
   },
   {
@@ -50,10 +51,12 @@ function addEdge_represents(activityPartition: GraphNode, represents: GraphNode 
   activityPartition.model.addEdge('represents', activityPartition, represents)
 }
 
-function addEdge_subpartition(_activityPartition: GraphNode) {
-  // TODO/Association
+function addEdge_subpartition(activityPartition: GraphNode, subpartition: GraphNode[]) {
   // ♦ subpartition : ActivityPartition [0..*]{subsets ActivityGroup::subgroup} (opposite ActivityPartition::superPartition)
   // Other ActivityPartitions immediately contained in this ActivityPartition (as its subgroups).
+  subpartition.forEach((subpartition) => {
+    activityPartition.model.addEdge('subpartition', activityPartition, subpartition)
+  })
 }
 
 function addEdge_superPartition(_activityPartition: GraphNode) {

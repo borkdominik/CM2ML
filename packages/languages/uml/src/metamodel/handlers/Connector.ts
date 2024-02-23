@@ -1,18 +1,19 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { Connector, ConnectorEnd } from '../uml-metamodel'
+import { Association, Connector, ConnectorEnd } from '../uml-metamodel'
 
 export const ConnectorHandler = Connector.createHandler(
   (connector, { onlyContainmentAssociations }) => {
     const ends = resolve(connector, 'end', { many: true, type: ConnectorEnd })
+    const type = resolve(connector, 'type', { type: Association })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_contract(connector)
     addEdge_end(connector, ends)
     addEdge_redefinedConnector(connector)
-    addEdge_type(connector)
+    addEdge_type(connector, type)
   },
 )
 
@@ -36,8 +37,11 @@ function addEdge_redefinedConnector(_connector: GraphNode) {
   // A Connector may be redefined when its containing Classifier is specialized.The redefining Connector may have a type that specializes the type of the redefined Connector.The types of the ConnectorEnds of the redefining Connector may specialize the types of the ConnectorEnds of the redefined Connector.The properties of the ConnectorEnds of the redefining Connector may be replaced.
 }
 
-function addEdge_type(_connector: GraphNode) {
-  // TODO/Association
+function addEdge_type(connector: GraphNode, type: GraphNode | undefined) {
   // type: Association[0..1](opposite A_type_connector::connector)
   // An optional Association that classifies links corresponding to this Connector.
+  if (!type) {
+    return
+  }
+  connector.model.addEdge('type', connector, type)
 }

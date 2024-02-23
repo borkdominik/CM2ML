@@ -9,9 +9,7 @@ export const StateHandler = State.createHandler(
     const connections = resolve(state, 'connection', { many: true, type: ConnectionPointReference })
     const deferrableTriggers = resolve(state, 'deferrableTrigger', { many: true, type: Trigger })
     const submachine = resolve(state, 'submachine', { type: StateMachine })
-    // TODO/Jan: Validate that the redefinedState is truly unspecified
-    // Remove unspecified attribute
-    resolveFromAttribute(state, 'redefinedState')
+    removeUnsupportedRedefinedState(state)
     if (onlyContainmentAssociations) {
       return
     }
@@ -26,6 +24,13 @@ export const StateHandler = State.createHandler(
     addEdge_submachine(state, submachine)
   },
 )
+
+function removeUnsupportedRedefinedState(state: GraphNode) {
+  // TODO/Jan: Validate that the redefinedState is truly unspecified
+  // Remove unspecified attribute
+  const redefinedState = resolve(state, 'redefinedState')
+  redefinedState?.model.removeNode(redefinedState)
+}
 
 function addEdge_connection(state: GraphNode, connections: GraphNode[]) {
   // ♦ connection : ConnectionPointReference [0..*]{subsets Namespace::ownedMember} (opposite ConnectionPointReference::state)

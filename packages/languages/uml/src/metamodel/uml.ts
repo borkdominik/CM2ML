@@ -431,6 +431,7 @@ const relationshipToEdgeTag: Partial<Record<UmlType, string>> = {
   [Types.PackageMerge]: 'packageMerge',
   [Types.ProfileApplication]: 'profileApplication',
   [Types.ProtocolConformance]: 'protocolConformance', // TODO: Validate
+  [Types.ProtocolTransition]: 'protocolTransition', // TODO: Validate
   [Types.Realization]: 'realization',
   [Types.Substitution]: 'substitution',
   [Types.TemplateBinding]: 'templateBinding',
@@ -446,7 +447,7 @@ function getEdgeTagForRelationship(relationship: GraphNode) {
   const tag = relationshipToEdgeTag[type]
   if (!tag) {
     throw new Error(
-      `Could not determine edge tag for ${relationship.id} with original tag ${relationship.tag}`,
+      `Could not determine edge tag for ${relationship.id} with original tag ${relationship.tag} and type ${getType(relationship)}`,
     )
   }
   return tag

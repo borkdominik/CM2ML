@@ -25,7 +25,7 @@ function validateOnlyContainmentAssociations(
   if (!onlyContainmentAssociations) {
     return
   }
-  const whitelistedEdges = new Set(['owner', 'ownedElement', 'transition'])
+  const whitelistedEdges = new Set(['owner', 'ownedElement', 'protocolTransition', 'transition'])
   model.edges.forEach((edge) => {
     if (relationshipsAsEdges && Relationship.isAssignable(edge)) {
       return

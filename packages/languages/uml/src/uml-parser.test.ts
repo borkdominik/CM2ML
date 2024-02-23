@@ -5,10 +5,10 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
-// Green: 0-4999
+// Green: 0-9999
 
 const { validModels, invalidModels } = getFiles({
-  startIndex: 0,
+  startIndex: 5000,
   numberOfFiles: 5000,
   invalidModels: [
     '02ae79e9252059b1b9dda7355154f6631edc2bc7499d4a6ccd45621d4cffcd09.uml', // invalid "input" and "output" attributes on uml:Operation
@@ -19,8 +19,14 @@ const { validModels, invalidModels } = getFiles({
     '144edeee405de226d7726cd793d36383f895cf5f5950067c79ae98ef8bd25d6d.uml', // invalid "ownedTrigger" elements
     '1831658a2d93946723191887f0b2f33eb2cc05700b7cc45c9605a188a5b7478c.uml', // duplicate id
     '1a29a93587fccaa56c6e2747928bd4f9a83ea4fe94e51f9ed746e79718772d10.uml', // duplicate id
+    '1fade04ffc56a362995833908c552f7eadc314d25582607ca4c3338fb0f80b1a.uml', // uses abstract class Pin as instance type TODO/Jan: Check if abstract instances are allowed
+    '1fbcfb1cee242133b138d0017013cd495477440b05e8f8a7a56fe56737698ed7.uml', // duplicate id
+    '2a0f1e4a7394af04aacd525f376875bc28575470d55fd347e66324fa0155e49f.uml', // duplicate id
+    '2b61758478e971d0b65edb96511f5f4b286fb8cf0b8690139044864f9123c9ba.uml', // not actually UML
+    '2e5851e4f6b34f49cb272534e70489f0cfd9b3756b127a92cd2bb41cde98b464.uml', // uses abstract class Pin as instance type TODO/Jan: Check if abstract instances are allowed
+    '32fd7205f5ca476fe21aed299a9d511dc6da6363ce86235de0ce90163f222e87.uml', // duplicate id
   ],
-  // override: 3127,
+  // override: 5740,
 })
 
 const showDebugOutput = validModels.length === 1

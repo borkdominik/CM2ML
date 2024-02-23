@@ -2,25 +2,30 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { setBodyAttribute } from '../resolvers/body'
 import { setLanguageAttribute } from '../resolvers/language'
-import { OpaqueExpression } from '../uml-metamodel'
+import { resolve } from '../resolvers/resolve'
+import { Behavior, OpaqueExpression } from '../uml-metamodel'
 
 // TODO: Check that body attribute is parsed correctly
 export const OpaqueExpressionHandler = OpaqueExpression.createHandler(
   (opaqueExpression, { onlyContainmentAssociations }) => {
     setBodyAttribute(opaqueExpression)
     setLanguageAttribute(opaqueExpression)
+    const behavior = resolve(opaqueExpression, 'behavior', { type: Behavior })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_behavior(opaqueExpression)
+    addEdge_behavior(opaqueExpression, behavior)
     addEdge_result(opaqueExpression)
   },
 )
 
-function addEdge_behavior(_opaqueExpression: GraphNode) {
-  // TODO/Association
+function addEdge_behavior(opaqueExpression: GraphNode, behavior: GraphNode | undefined) {
   // behavior : Behavior [0..1] (opposite A_behavior_opaqueExpression::opaqueExpression)
   // Specifies the behavior of the OpaqueExpression as a UML Behavior.
+  if (!behavior) {
+    return
+  }
+  opaqueExpression.model.addEdge('behavior', opaqueExpression, behavior)
 }
 
 function addEdge_result(_opaqueExpression: GraphNode) {
