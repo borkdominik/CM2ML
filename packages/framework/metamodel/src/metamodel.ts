@@ -179,6 +179,7 @@ export class MetamodelElement<
     }
     if (this.type) {
       inferAndSaveType(node, this.type, this.configuration)
+      this.narrowType(node)
     }
     const propagation = this.handler?.(node, parameters)
     if (propagation === false) {
@@ -217,6 +218,26 @@ export class MetamodelElement<
       return handler(node, parameters)
     }
     return this
+  }
+
+  public narrowType(node: GraphNode) {
+    if (!this?.type) {
+    // No type information for narrowing
+      return
+    }
+    const currentType = this.configuration.getType(node)
+    if (!currentType) {
+    // No type set, set type to provided type
+      node.addAttribute({ name: this.configuration.typeAttributeName, value: { literal: this.type } })
+      return
+    }
+    const isNarrowable = [...this.generalizations.values()].find((generalization) => generalization.type === currentType) !== undefined
+    if (!isNarrowable) {
+      // Current type is not compatible with the provided type, we can't narrow further
+      return
+    }
+    // We can narrow the type further
+    node.addAttribute({ name: this.configuration.typeAttributeName, value: { literal: this.type } }, false)
   }
 
   private specialize(

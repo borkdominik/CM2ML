@@ -1,7 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getMessage } from '@cm2ml/utils'
 
-import { Uml } from '../uml'
 import type { UmlMetamodelElement } from '../uml-metamodel'
 
 import { matchTag, resolvePath } from './path'
@@ -12,34 +11,14 @@ export interface ResolverConfiguration {
   type?: UmlMetamodelElement
 }
 
-function narrowType(child: GraphNode, type: UmlMetamodelElement | undefined) {
-  if (!type?.type) {
-    // No type information for narrowing
-    return
-  }
-  const currentType = Uml.getType(child)
-  if (!currentType) {
-    // No type set, set type to provided type
-    child.addAttribute({ name: Uml.typeAttributeName, value: { literal: type.type } })
-    return
-  }
-  const generalization = [...type.generalizations.values()].find((generalization) => generalization.type === currentType)
-  if (!generalization) {
-    // Current type is not compatible with the provided type, we can't narrow further
-    return
-  }
-  // We can narrow the type further
-  child.addAttribute({ name: Uml.typeAttributeName, value: { literal: type.type } }, false)
-}
-
 function resolveNodeFromIdOrPath(node: GraphNode, pathOrId: string, type: UmlMetamodelElement | undefined) {
   const resolvedNode = node.model.getNodeById(pathOrId) ?? resolvePath(node.model, pathOrId)
   if (!resolvedNode) {
     return undefined
     // throw new Error(`Could not resolve ${pathOrId} from ${node.tag} node.`)
   }
-  if (resolvedNode && type?.type) {
-    narrowType(resolvedNode, type)
+  if (resolvedNode) {
+    type?.narrowType(resolvedNode)
   }
   return resolvedNode
 }
@@ -63,11 +42,11 @@ export function resolveFromChild(node: GraphNode, tag: string, { type, many = fa
     if (!child) {
       return undefined
     }
-    narrowType(child, type)
+    type?.narrowType(child)
     return tryFollowIdRef(child)
   }
   return node.findAllChildren(matchTag(tag)).map((child) => {
-    narrowType(child, type)
+    type?.narrowType(child)
     return tryFollowIdRef(child)
   })
 }
