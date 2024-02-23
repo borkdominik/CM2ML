@@ -1,4 +1,5 @@
 import type { Attributable, GraphEdge, GraphNode } from '@cm2ml/ir'
+import { transformNodeToEdge } from '@cm2ml/metamodel'
 import { parseNamespace } from '@cm2ml/utils'
 
 const Attributes = {
@@ -420,17 +421,20 @@ const relationshipToEdgeTag: Partial<Record<UmlType, string>> = {
   [Types.Dependency]: 'dependency',
   [Types.Deployment]: 'deployment', // TODO: Validate
   [Types.ElementImport]: 'elementImport',
-  [Types.Extend]: 'extend', // TODO: Validate
+  [Types.Extend]: 'extend',
   [Types.Generalization]: 'generalization',
-  [Types.Include]: 'include', // TODO: Validate
+  [Types.Include]: 'include',
   [Types.InformationFlow]: 'informationFlow', // TODO: Validate
   [Types.InterfaceRealization]: 'interfaceRealization',
   [Types.Manifestation]: 'manifestation', // TODO: Validate
   [Types.PackageImport]: 'packageImport',
   [Types.PackageMerge]: 'packageMerge',
+  [Types.ProfileApplication]: 'profileApplication',
   [Types.ProtocolConformance]: 'protocolConformance', // TODO: Validate
   [Types.Realization]: 'realization',
   [Types.Substitution]: 'substitution',
+  [Types.TemplateBinding]: 'templateBinding',
+  [Types.Transition]: 'transition',
   [Types.Usage]: 'usage',
 }
 
@@ -446,6 +450,13 @@ function getEdgeTagForRelationship(relationship: GraphNode) {
     )
   }
   return tag
+}
+
+export function transformNodeToEdgeCallback(node: GraphNode, source: GraphNode | undefined, target: GraphNode | undefined) {
+  const tag = getEdgeTagForRelationship(node)
+  return () => {
+    transformNodeToEdge(node, source, target, tag)
+  }
 }
 
 export const Uml = {

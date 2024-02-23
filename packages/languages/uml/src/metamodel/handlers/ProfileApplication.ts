@@ -1,8 +1,8 @@
 import type { GraphNode } from '@cm2ml/ir'
-import { getParentOfType, transformNodeToEdge } from '@cm2ml/metamodel'
+import { getParentOfType } from '@cm2ml/metamodel'
 
 import { resolve } from '../resolvers/resolve'
-import { Uml } from '../uml'
+import { Uml, transformNodeToEdgeCallback } from '../uml'
 import { Package, ProfileApplication } from '../uml-metamodel'
 
 export const ProfileApplicationHandler = ProfileApplication.createHandler(
@@ -11,8 +11,7 @@ export const ProfileApplicationHandler = ProfileApplication.createHandler(
     const applyingPackage = getParentOfType(profileApplication, Package)
     if (relationshipsAsEdges) {
       // TODO/Jan Validate edge direction
-      transformNodeToEdge(profileApplication, applyingPackage, appliedProfile, 'appliedProfile')
-      return false
+      return transformNodeToEdgeCallback(profileApplication, applyingPackage, appliedProfile)
     }
     if (onlyContainmentAssociations) {
       return

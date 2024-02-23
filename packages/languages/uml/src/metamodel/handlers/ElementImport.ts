@@ -1,11 +1,10 @@
 import type { GraphNode } from '@cm2ml/ir'
 import {
   getParentOfType,
-  transformNodeToEdge,
 } from '@cm2ml/metamodel'
 
 import { resolve } from '../resolvers/resolve'
-import { Uml } from '../uml'
+import { Uml, transformNodeToEdgeCallback } from '../uml'
 import { ElementImport, Namespace, PackageableElement } from '../uml-metamodel'
 
 export const ElementImportHandler = ElementImport.createHandler(
@@ -13,14 +12,7 @@ export const ElementImportHandler = ElementImport.createHandler(
     const importingNamespace = getParentOfType(elementImport, Namespace)
     const importedElement = resolve(elementImport, 'importedElement', { type: PackageableElement })
     if (relationshipsAsEdges) {
-      const edgeTag = Uml.getEdgeTagForRelationship(elementImport)
-      transformNodeToEdge(
-        elementImport,
-        importingNamespace,
-        importedElement,
-        edgeTag,
-      )
-      return false
+      return transformNodeToEdgeCallback(elementImport, importingNamespace, importedElement)
     }
     if (onlyContainmentAssociations) {
       return

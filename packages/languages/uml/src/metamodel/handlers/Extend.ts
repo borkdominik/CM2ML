@@ -1,7 +1,8 @@
 import type { GraphNode } from '@cm2ml/ir'
-import { getParentOfType, transformNodeToEdge } from '@cm2ml/metamodel'
+import { getParentOfType } from '@cm2ml/metamodel'
 
 import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { transformNodeToEdgeCallback } from '../uml'
 import { Constraint, Extend, UseCase } from '../uml-metamodel'
 
 export const ExtendHandler = Extend.createHandler(
@@ -12,8 +13,7 @@ export const ExtendHandler = Extend.createHandler(
     const extensionLocations = resolveFromAttribute(extend, 'extensionLocation', { many: true })
     if (relationshipsAsEdges) {
       // TODO/Jan: Validate direction
-      transformNodeToEdge(extend, extension, extendedCase, 'extend')
-      return false
+      return transformNodeToEdgeCallback(extend, extension, extendedCase)
     }
     if (onlyContainmentAssociations) {
       return

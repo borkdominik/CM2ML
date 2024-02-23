@@ -1,8 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
-import { transformNodeToEdge } from '@cm2ml/metamodel'
 
 import { resolve, resolveFromAttribute } from '../resolvers/resolve'
-import { Uml } from '../uml'
+import { transformNodeToEdgeCallback } from '../uml'
 import { Dependency } from '../uml-metamodel'
 
 export const DependencyHandler = Dependency.createHandler(
@@ -14,9 +13,7 @@ export const DependencyHandler = Dependency.createHandler(
     const client = resolveFromAttribute(dependency, 'client')
     const supplier = resolve(dependency, 'supplier')
     if (relationshipsAsEdges) {
-      const edgeTag = Uml.getEdgeTagForRelationship(dependency)
-      transformNodeToEdge(dependency, client, supplier, edgeTag)
-      return false
+      return transformNodeToEdgeCallback(dependency, client, supplier)
     }
     if (onlyContainmentAssociations) {
       return

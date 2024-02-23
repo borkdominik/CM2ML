@@ -1,7 +1,8 @@
 import type { GraphNode } from '@cm2ml/ir'
-import { getParentOfType, transformNodeToEdge } from '@cm2ml/metamodel'
+import { getParentOfType } from '@cm2ml/metamodel'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
+import { transformNodeToEdgeCallback } from '../uml'
 import { Include, UseCase } from '../uml-metamodel'
 
 export const IncludeHandler = Include.createHandler(
@@ -10,8 +11,7 @@ export const IncludeHandler = Include.createHandler(
     const includingCase = getParentOfType(include, UseCase)
     if (relationshipsAsEdges) {
       // TODO/Jan: Validate direction
-      transformNodeToEdge(include, includingCase, addition, 'include')
-      return false
+      return transformNodeToEdgeCallback(include, includingCase, addition)
     }
     if (onlyContainmentAssociations) {
       return

@@ -1,8 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
-import { transformNodeToEdge } from '@cm2ml/metamodel'
 
 import { resolve, resolveFromAttribute } from '../resolvers/resolve'
-import { Uml } from '../uml'
+import { Uml, transformNodeToEdgeCallback } from '../uml'
 import { Transition, Trigger, Vertex } from '../uml-metamodel'
 
 export const TransitionHandler = Transition.createHandler(
@@ -12,8 +11,7 @@ export const TransitionHandler = Transition.createHandler(
     const source = resolveFromAttribute(transition, 'source', { type: Vertex })
     const target = resolveFromAttribute(transition, 'target', { type: Vertex })
     if (relationshipsAsEdges) {
-      transformNodeToEdge(transition, source, target, 'transition')
-      return false
+      return transformNodeToEdgeCallback(transition, source, target)
     }
     if (onlyContainmentAssociations) {
       return

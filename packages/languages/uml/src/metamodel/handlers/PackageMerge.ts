@@ -1,11 +1,10 @@
 import type { GraphNode } from '@cm2ml/ir'
 import {
   getParentOfType,
-  transformNodeToEdge,
 } from '@cm2ml/metamodel'
 
 import { resolve } from '../resolvers/resolve'
-import { Uml } from '../uml'
+import { transformNodeToEdgeCallback } from '../uml'
 import { Package, PackageMerge } from '../uml-metamodel'
 
 export const PackageMergeHandler = PackageMerge.createHandler(
@@ -13,14 +12,7 @@ export const PackageMergeHandler = PackageMerge.createHandler(
     const receivingPackage = getParentOfType(packageMerge, Package)
     const mergedPackage = resolve(packageMerge, 'mergedPackage', { type: Package })
     if (relationshipsAsEdges) {
-      const edgeTag = Uml.getEdgeTagForRelationship(packageMerge)
-      transformNodeToEdge(
-        packageMerge,
-        receivingPackage,
-        mergedPackage,
-        edgeTag,
-      )
-      return false
+      return transformNodeToEdgeCallback(packageMerge, receivingPackage, mergedPackage)
     }
     if (onlyContainmentAssociations) {
       return
