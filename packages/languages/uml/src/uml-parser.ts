@@ -42,7 +42,7 @@ const UmlRefiner = definePlugin({
     },
   },
   invoke: (input: GraphModel, parameters) => {
-    removeLegacyElements(input)
+    removeUnsupportedElements(input)
     const model = refine(input, parameters)
     generateIds(model)
     removeNonUmlAttributes(model)
@@ -60,13 +60,13 @@ function generateIds(model: GraphModel) {
   })
 }
 
-function removeLegacyElements(model: GraphModel) {
+function removeUnsupportedElements(model: GraphModel) {
   // The following elements have been removed from the latest UML specification and are not supported by the UML metamodel
-  const legacyTags = new Set(['eAnnotations'])
-  const legacyTypes = new Set(['ReceiveOperationEvent', 'SendOperationEvent'])
+  const unsupportedTags = new Set(['eAnnotations', 'xmi:Documentation', 'xmi:Extension', 'XMI_20110701:Extension'])
+  const unsupportedTypes = new Set(['ExecutionEvent', 'ReceiveOperationEvent', 'SendOperationEvent', 'VariablesDeclaration'])
   model.nodes.forEach((node) => {
     const nodeType = node.getAttribute(Uml.typeAttributeName)?.value.literal
-    if (legacyTags.has(node.tag) || (nodeType && legacyTypes.has(nodeType))) {
+    if (unsupportedTags.has(node.tag) || (nodeType && unsupportedTypes.has(nodeType))) {
       model.removeNode(node)
     }
   })

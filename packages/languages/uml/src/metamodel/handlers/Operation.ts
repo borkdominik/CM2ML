@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import {
   Class,
@@ -12,20 +12,24 @@ import {
 
 export const OperationHandler = Operation.createHandler(
   (operation, { onlyContainmentAssociations }) => {
-    const redefinedOperations = resolveFromChild(operation, 'redefinedOperation', { many: true, type: Operation })
+    const bodyCondition = resolve(operation, 'bodyCondition')
+    const postconditions = resolve(operation, 'postcondition', { many: true })
+    const preconditions = resolve(operation, 'precondition', { many: true })
+    const raisedExceptions = resolve(operation, 'raisedException', { many: true })
+    const redefinedOperations = resolve(operation, 'redefinedOperation', { many: true, type: Operation })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_bodyCondition(operation)
+    addEdge_bodyCondition(operation, bodyCondition)
     addEdge_class(operation)
     addEdge_datatype(operation)
     addEdge_interface(operation)
     operation.children.forEach((child) => {
       addEdge_ownedParameter(operation, child)
     })
-    addEdge_postcondition(operation)
-    addEdge_precondition(operation)
-    addEdge_raisedException(operation)
+    addEdge_postcondition(operation, postconditions)
+    addEdge_precondition(operation, preconditions)
+    addEdge_raisedException(operation, raisedExceptions)
     addEdge_redefinedOperation(operation, redefinedOperations)
     addEdge_templateParameter(operation)
     addEdge_type(operation)
@@ -35,10 +39,13 @@ export const OperationHandler = Operation.createHandler(
   },
 )
 
-function addEdge_bodyCondition(_operation: GraphNode) {
-  // TODO/Association
+function addEdge_bodyCondition(operation: GraphNode, bodyCondition: GraphNode | undefined) {
   // ♦ bodyCondition : Constraint [0..1]{subsets Namespace::ownedRule} (opposite A_bodyCondition_bodyContext::bodyContext)
   // An optional Constraint on the result values of an invocation of this Operation.
+  if (!bodyCondition) {
+    return
+  }
+  operation.model.addEdge('bodyCondition', operation, bodyCondition)
 }
 
 function addEdge_class(operation: GraphNode) {
@@ -68,22 +75,28 @@ function addEdge_ownedParameter(operation: GraphNode, child: GraphNode) {
   }
 }
 
-function addEdge_postcondition(_operation: GraphNode) {
-  // TODO/Association
+function addEdge_postcondition(operation: GraphNode, postconditions: GraphNode[]) {
   // ♦ postcondition : Constraint [0..*]{subsets Namespace::ownedRule} (opposite A_postcondition_postContext::postContext)
   // An optional set of Constraints specifying the state of the system when the Operation is completed.
+  postconditions.forEach((postcondition) => {
+    operation.model.addEdge('postcondition', operation, postcondition)
+  })
 }
 
-function addEdge_precondition(_operation: GraphNode) {
-  // TODO/Association
+function addEdge_precondition(operation: GraphNode, preconditions: GraphNode[]) {
   // ♦ precondition : Constraint [0..*]{subsets Namespace::ownedRule} (opposite A_precondition_preContext::preContext)
   // An optional set of Constraints on the state of the system when the Operation is invoked.
+  preconditions.forEach((precondition) => {
+    operation.model.addEdge('precondition', operation, precondition)
+  })
 }
 
-function addEdge_raisedException(_operation: GraphNode) {
-  // TODO/Association
+function addEdge_raisedException(operation: GraphNode, raisedExceptions: GraphNode[]) {
   // raisedException : Type [0..*]{redefines BehavioralFeature::raisedException} (opposite A_raisedException_operation::operation)
   // The Types representing exceptions that may be raised during an invocation of this operation.
+  raisedExceptions.forEach((raisedException) => {
+    operation.model.addEdge('raisedException', operation, raisedException)
+  })
 }
 
 function addEdge_redefinedOperation(operation: GraphNode, redefinedOperations: GraphNode[]) {

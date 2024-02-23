@@ -8,13 +8,14 @@ export const ActionHandler = Action.createHandler(
   (action, { onlyContainmentAssociations }) => {
     const input = resolveFromAttribute(action, 'input', { many: true })
     const localPostconditions = resolveFromChild(action, 'localPostcondition', { many: true, type: Constraint })
+    const localPreconditions = resolveFromChild(action, 'localPrecondition', { many: true, type: Constraint })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_context(action)
     addEdge_input(action, input)
     addEdge_localPostcondition(action, localPostconditions)
-    addEdge_localPrecondition(action)
+    addEdge_localPrecondition(action, localPreconditions)
     addEdge_output(action)
   },
   {
@@ -44,10 +45,12 @@ function addEdge_localPostcondition(action: GraphNode, localPostconditions: Grap
   })
 }
 
-function addEdge_localPrecondition(_action: GraphNode) {
-  // TODO/Association
+function addEdge_localPrecondition(action: GraphNode, localPreconditions: GraphNode[]) {
   // ♦ localPrecondition : Constraint [0..*]{subsets Element::ownedElement} (opposite A_localPrecondition_action::action)
   // A Constraint that must be satisfied when execution of the Action is started.
+  localPreconditions.forEach((localPrecondition) => {
+    action.model.addEdge('localPrecondition', action, localPrecondition)
+  })
 }
 
 function addEdge_output(_action: GraphNode) {

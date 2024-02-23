@@ -1,15 +1,17 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { InteractionUse } from '../uml-metamodel'
 
 export const InteractionUseHandler = InteractionUse.createHandler(
   (interactionUse, { onlyContainmentAssociations }) => {
+    const refersTo = resolveFromAttribute(interactionUse, 'refersTo')
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_actualGate(interactionUse)
     addEdge_argument(interactionUse)
-    addEdge_refersTo(interactionUse)
+    addEdge_refersTo(interactionUse, refersTo)
     addEdge_returnValue(interactionUse)
     addEdge_returnValueRecipient(interactionUse)
   },
@@ -26,10 +28,13 @@ function addEdge_argument(_interactionUse: GraphNode) {
   // The actual arguments of the Interaction.
 }
 
-function addEdge_refersTo(_interactionUse: GraphNode) {
-  // TODO/Association
+function addEdge_refersTo(interactionUse: GraphNode, refersTo: GraphNode | undefined) {
   // refersTo : Interaction [1..1] (opposite A_refersTo_interactionUse::interactionUse)
   // Refers to the Interaction that defines its meaning.
+  if (!refersTo) {
+    return
+  }
+  interactionUse.model.addEdge('refersTo', interactionUse, refersTo)
 }
 
 function addEdge_returnValue(_interactionUse: GraphNode) {

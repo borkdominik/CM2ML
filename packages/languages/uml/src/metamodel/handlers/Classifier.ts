@@ -9,6 +9,7 @@ export const ClassifierHandler = Classifier.createHandler(
     const collaborationUses = resolveFromChild(classifier, 'collaborationUse', { many: true, type: CollaborationUse })
     const ownedUseCases = resolveFromChild(classifier, 'ownedUseCase', { many: true, type: UseCase })
     const redefinedClassifiers = resolveFromAttribute(classifier, 'redefinedClassifier', { many: true })
+    const representation = resolveFromAttribute(classifier, 'representation')
     const templateParameter = resolveFromAttribute(classifier, 'templateParameter')
     const useCases = resolveFromAttribute(classifier, 'useCase', { many: true })
     if (onlyContainmentAssociations) {
@@ -24,7 +25,7 @@ export const ClassifierHandler = Classifier.createHandler(
     addEdge_ownedUseCase(classifier, ownedUseCases)
     addEdge_powertypeExtent(classifier)
     addEdge_redefinedClassifier(classifier, redefinedClassifiers)
-    addEdge_representation(classifier)
+    addEdge_representation(classifier, representation)
     addEdge_substitution(classifier)
     addEdge_templateParameter(classifier, templateParameter)
     addEdge_useCase(classifier, useCases)
@@ -101,10 +102,13 @@ function addEdge_redefinedClassifier(classifier: GraphNode, redefinedClassifiers
   })
 }
 
-function addEdge_representation(_classifier: GraphNode) {
-  // TODO/Association
+function addEdge_representation(classifier: GraphNode, representation: GraphNode | undefined) {
   // representation : CollaborationUse [0..1]{subsets Classifier::collaborationUse} (opposite A_representation_classifier::classifier)
   // A CollaborationUse which indicates the Collaboration that represents this Classifier.
+  if (!representation) {
+    return
+  }
+  classifier.model.addEdge('representation', classifier, representation)
 }
 
 function addEdge_substitution(_classifier: GraphNode) {

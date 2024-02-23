@@ -1,20 +1,23 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Classifier, Interface, Operation, Property } from '../uml-metamodel'
+import { resolve } from '../resolvers/resolve'
+import { Classifier, Interface, Operation, Property, Reception } from '../uml-metamodel'
 
 export const InterfaceHandler = Interface.createHandler(
   (interface_, { onlyContainmentAssociations }) => {
+    const ownedReceptions = resolve(interface_, 'ownedReception', { many: true, type: Reception })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_protocol(interface_)
     addEdge_redefinedInterface(interface_)
     interface_.children.forEach((child) => {
+      // TODO/Jan: Refactor to use resolve
       addEdge_nestedClassifier(interface_, child)
       addEdge_ownedAttribute(interface_, child)
       addEdge_ownedOperation(interface_, child)
-      addEdge_ownedReception(interface_, child)
     })
+    addEdge_ownedReception(interface_, ownedReceptions)
   },
 )
 
@@ -36,10 +39,12 @@ function addEdge_ownedOperation(interface_: GraphNode, child: GraphNode) {
   }
 }
 
-function addEdge_ownedReception(_interface_: GraphNode, _child: GraphNode) {
-  // TODO/Association
+function addEdge_ownedReception(interface_: GraphNode, ownedReceptions: GraphNode[]) {
   // ♦ ownedReception : Reception [0..*]{subsets Classifier::feature, subsets Namespace::ownedMember} (opposite A_ownedReception_interface::interface)
   // Receptions that objects providing this Interface are willing to accept.
+  ownedReceptions.forEach((ownedReception) => {
+    interface_.model.addEdge('ownedReception', interface_, ownedReception)
+  })
 }
 
 function addEdge_protocol(_interface_: GraphNode) {

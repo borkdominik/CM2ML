@@ -1,17 +1,19 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
-import { State, StateMachine } from '../uml-metamodel'
+import { resolve, resolveFromChild } from '../resolvers/resolve'
+import { Pseudostate, State, StateMachine, Trigger } from '../uml-metamodel'
 
 export const StateHandler = State.createHandler(
   (state, { onlyContainmentAssociations }) => {
-    const submachine = resolveFromChild(state, 'submachine', { type: StateMachine })
+    const connectionPoints = resolveFromChild(state, 'connectionPoint', { many: true, type: Pseudostate })
+    const deferrableTriggers = resolve(state, 'deferrableTrigger', { many: true, type: Trigger })
+    const submachine = resolve(state, 'submachine', { type: StateMachine })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_connection(state)
-    addEdge_connectionPoint(state)
-    addEdge_deferrableTrigger(state)
+    addEdge_connectionPoint(state, connectionPoints)
+    addEdge_deferrableTrigger(state, deferrableTriggers)
     addEdge_doActivity(state)
     addEdge_entry(state)
     addEdge_exit(state)
@@ -27,16 +29,20 @@ function addEdge_connection(_state: GraphNode) {
   // The entry and exit connection points used in conjunction with this (submachine) State, i.e., as targets and sources, respectively, in the Region with the submachine State. A connection point reference references the corresponding definition of a connection point Pseudostate in the StateMachine referenced by the submachine State.
 }
 
-function addEdge_connectionPoint(_state: GraphNode) {
-  // TODO/Association
+function addEdge_connectionPoint(state: GraphNode, connectionPoints: GraphNode[]) {
   // ♦ connectionPoint : Pseudostate [0..*]{subsets Namespace::ownedMember} (opposite Pseudostate::state)
   // The entry and exit Pseudostates of a composite State. These can only be entry or exit Pseudostates, and they must have different names. They can only be defined for composite States.
+  connectionPoints.forEach((connectionPoint) => {
+    state.model.addEdge('connectionPoint', state, connectionPoint)
+  })
 }
 
-function addEdge_deferrableTrigger(_state: GraphNode) {
-  // TODO/Association
+function addEdge_deferrableTrigger(state: GraphNode, deferrableTriggers: GraphNode[]) {
   // ♦ deferrableTrigger : Trigger [0..*]{subsets Element::ownedElement} (opposite A_deferrableTrigger_state::state)
   // A list of Triggers that are candidates to be retained by the StateMachine if they trigger no Transitions out of the State (not consumed). A deferred Trigger is retained until the StateMachine reaches a State configuration where it is no longer deferred.
+  deferrableTriggers.forEach((deferrableTrigger) => {
+    state.model.addEdge('deferrableTrigger', state, deferrableTrigger)
+  })
 }
 
 function addEdge_doActivity(_state: GraphNode) {

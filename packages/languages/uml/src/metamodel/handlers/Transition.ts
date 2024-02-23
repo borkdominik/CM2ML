@@ -1,13 +1,14 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { transformNodeToEdge } from '@cm2ml/metamodel'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Transition, Trigger, Vertex } from '../uml-metamodel'
 
 export const TransitionHandler = Transition.createHandler(
   (transition, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const guard = resolveFromAttribute(transition, 'guard')
+    const redefinedTransition = resolve(transition, 'redefinedTransition', { type: Transition })
     const source = resolveFromAttribute(transition, 'source', { type: Vertex })
     const target = resolveFromAttribute(transition, 'target', { type: Vertex })
     if (relationshipsAsEdges) {
@@ -20,7 +21,7 @@ export const TransitionHandler = Transition.createHandler(
     addEdge_container(transition)
     addEdge_effect(transition)
     addEdge_guard(transition, guard)
-    addEdge_redefinedTransition(transition)
+    addEdge_redefinedTransition(transition, redefinedTransition)
     addEdge_redefinitionContext(transition)
     addEdge_source(transition, source)
     addEdge_target(transition, target)
@@ -55,10 +56,13 @@ function addEdge_guard(transition: GraphNode, guard: GraphNode | undefined) {
   transition.model.addEdge('guard', transition, guard)
 }
 
-function addEdge_redefinedTransition(_transition: GraphNode) {
-  // TODO/Association
+function addEdge_redefinedTransition(transition: GraphNode, redefinedTransition: GraphNode | undefined) {
   // redefinedTransition : Transition [0..1]{subsets RedefinableElement::redefinedElement} (opposite A_redefinedTransition_transition::transition)
   // The Transition that is redefined by this Transition.
+  if (!redefinedTransition) {
+    return
+  }
+  transition.model.addEdge('redefinedTransition', transition, redefinedTransition)
 }
 
 function addEdge_redefinitionContext(_transition: GraphNode) {

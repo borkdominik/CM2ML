@@ -1,14 +1,16 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { GeneralizationSet } from '../uml-metamodel'
 
 export const GeneralizationSetHandler = GeneralizationSet.createHandler(
   (generalizationSet, { onlyContainmentAssociations }) => {
+    const generalizations = resolveFromAttribute(generalizationSet, 'generalization', { many: true })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_generalization(generalizationSet)
+    addEdge_generalization(generalizationSet, generalizations)
     addEdge_powertype(generalizationSet)
   },
   {
@@ -17,10 +19,12 @@ export const GeneralizationSetHandler = GeneralizationSet.createHandler(
   },
 )
 
-function addEdge_generalization(_generalizationSet: GraphNode) {
-  // TODO/Association
+function addEdge_generalization(generalizationSet: GraphNode, generalizations: GraphNode[]) {
   // generalization : Generalization [0..*] (opposite Generalization::generalizationSet)
   // Designates the instances of Generalization that are members of this GeneralizationSet.
+  generalizations.forEach((generalization) => {
+    generalizationSet.model.addEdge('generalization', generalizationSet, generalization)
+  })
 }
 
 function addEdge_powertype(_generalizationSet: GraphNode) {

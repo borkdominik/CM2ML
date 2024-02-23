@@ -1,12 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType, transformNodeToEdge } from '@cm2ml/metamodel'
 
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Package, Profile, ProfileApplication } from '../uml-metamodel'
+import { Package, ProfileApplication } from '../uml-metamodel'
 
 export const ProfileApplicationHandler = ProfileApplication.createHandler(
   (profileApplication, { onlyContainmentAssociations, relationshipsAsEdges }) => {
-    const appliedProfile = profileApplication.findChild((child) => Profile.isAssignable(child))
+    const appliedProfile = resolve(profileApplication, 'appliedProfile')
     const applyingPackage = getParentOfType(profileApplication, Package)
     if (relationshipsAsEdges) {
       // TODO/Jan Validate edge direction
@@ -25,7 +26,6 @@ export const ProfileApplicationHandler = ProfileApplication.createHandler(
 )
 
 function addEdge_appliedProfile(profileApplication: GraphNode, appliedProfile: GraphNode | undefined) {
-  // TODO/Association
   // appliedProfile : Profile [1..1]{subsets DirectedRelationship::target} (opposite A_appliedProfile_profileApplication::profileApplication)
   // References the Profiles that are applied to a Package through this ProfileApplication.
   if (!appliedProfile) {
@@ -35,7 +35,6 @@ function addEdge_appliedProfile(profileApplication: GraphNode, appliedProfile: G
 }
 
 function addEdge_applyingPackage(profileApplication: GraphNode, applyingPackage: GraphNode | undefined) {
-  // TODO/Association
   // applyingPackage : Package [1..1]{subsets DirectedRelationship::source, subsets Element::owner} (opposite Package::profileApplication)
   // The package that owns the profile application.
   if (!applyingPackage) {

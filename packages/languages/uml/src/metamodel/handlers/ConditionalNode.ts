@@ -1,14 +1,16 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { ConditionalNode } from '../uml-metamodel'
+import { Clause, ConditionalNode } from '../uml-metamodel'
 
 export const ConditionalNodeHandler = ConditionalNode.createHandler(
   (conditionalNode, { onlyContainmentAssociations }) => {
+    const clauses = resolveFromChild(conditionalNode, 'clause', { many: true, type: Clause })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_clause(conditionalNode)
+    addEdge_clause(conditionalNode, clauses)
     addEdge_result(conditionalNode)
   },
   {
@@ -17,10 +19,12 @@ export const ConditionalNodeHandler = ConditionalNode.createHandler(
   },
 )
 
-function addEdge_clause(_conditionalNode: GraphNode) {
-  // TODO/Association
+function addEdge_clause(conditionalNode: GraphNode, clauses: GraphNode[]) {
   // ♦ clause : Clause [1..*]{subsets Element::ownedElement} (opposite A_clause_conditionalNode::conditionalNode)
   // The set of Clauses composing the ConditionalNode.
+  clauses.forEach((clause) => {
+    conditionalNode.model.addEdge('clause', conditionalNode, clause)
+  })
 }
 
 function addEdge_result(_conditionalNode: GraphNode) {

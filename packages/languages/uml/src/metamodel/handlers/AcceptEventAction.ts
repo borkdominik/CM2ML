@@ -1,14 +1,16 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { AcceptEventAction } from '../uml-metamodel'
+import { AcceptEventAction, OutputPin } from '../uml-metamodel'
 
 export const AcceptEventActionHandler = AcceptEventAction.createHandler(
   (acceptEventAction, { onlyContainmentAssociations }) => {
+    const results = resolve(acceptEventAction, 'result', { many: true, type: OutputPin })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_result(acceptEventAction)
+    addEdge_result(acceptEventAction, results)
     addEdge_trigger(acceptEventAction)
   },
   {
@@ -16,10 +18,12 @@ export const AcceptEventActionHandler = AcceptEventAction.createHandler(
   },
 )
 
-function addEdge_result(_acceptEventAction: GraphNode) {
-  // TODO/Association
+function addEdge_result(acceptEventAction: GraphNode, results: GraphNode[]) {
   // ♦ result : OutputPin [0..*]{ordered, subsets Action::output} (opposite A_result_acceptEventAction::acceptEventAction)
   // OutputPins holding the values received from an Event occurrence.
+  results.forEach((result) => {
+    acceptEventAction.model.addEdge('result', acceptEventAction, result)
+  })
 }
 
 function addEdge_trigger(_acceptEventAction: GraphNode) {

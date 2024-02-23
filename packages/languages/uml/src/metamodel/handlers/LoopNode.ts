@@ -1,15 +1,17 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { LoopNode } from '../uml-metamodel'
 
 export const LoopNodeHandler = LoopNode.createHandler(
   (loopNode, { onlyContainmentAssociations }) => {
+    const bodyParts = resolve(loopNode, 'bodyPart', { many: true })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_bodyOutput(loopNode)
-    addEdge_bodyPart(loopNode)
+    addEdge_bodyPart(loopNode, bodyParts)
     addEdge_decider(loopNode)
     addEdge_loopVariable(loopNode)
     addEdge_loopVariableInput(loopNode)
@@ -28,10 +30,12 @@ function addEdge_bodyOutput(_loopNode: GraphNode) {
   // The OutputPins on Actions within the bodyPart, the values of which are moved to the loopVariable OutputPins after the completion of each execution of the bodyPart, before the next iteration of the loop begins or before the loop exits.
 }
 
-function addEdge_bodyPart(_loopNode: GraphNode) {
-  // TODO/Association
+function addEdge_bodyPart(loopNode: GraphNode, bodyParts: GraphNode[]) {
   // bodyPart : ExecutableNode [0..*] (opposite A_bodyPart_loopNode::loopNode)
   // The set of ExecutableNodes that perform the repetitive computations of the loop. The bodyPart is executed as long as the test section produces a true value.
+  bodyParts.forEach((bodyPart) => {
+    loopNode.model.addEdge('bodyPart', loopNode, bodyPart)
+  })
 }
 
 function addEdge_decider(_loopNode: GraphNode) {

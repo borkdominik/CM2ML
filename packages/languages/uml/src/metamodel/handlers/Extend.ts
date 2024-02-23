@@ -1,11 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType, transformNodeToEdge } from '@cm2ml/metamodel'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
-import { Extend, UseCase } from '../uml-metamodel'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { Constraint, Extend, UseCase } from '../uml-metamodel'
 
 export const ExtendHandler = Extend.createHandler(
   (extend, { onlyContainmentAssociations, relationshipsAsEdges }) => {
+    const condition = resolve(extend, 'condition', { type: Constraint })
     const extendedCase = resolveFromAttribute(extend, 'extendedCase')
     const extension = getParentOfType(extend, UseCase)
     const extensionLocations = resolveFromAttribute(extend, 'extensionLocation', { many: true })
@@ -17,17 +18,20 @@ export const ExtendHandler = Extend.createHandler(
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_condition(extend)
+    addEdge_condition(extend, condition)
     addEdge_extendedCase(extend, extendedCase)
     addEdge_extension(extend, extension)
     addEdge_extensionLocation(extend, extensionLocations)
   },
 )
 
-function addEdge_condition(_extend: GraphNode) {
-  // TODO/Association
+function addEdge_condition(extend: GraphNode, condition: GraphNode | undefined) {
   // ♦ condition : Constraint [0..1]{subsets Element::ownedElement} (opposite A_condition_extend::extend)
   // References the condition that must hold when the first ExtensionPoint is reached for the extension to take place. If no constraint is associated with the Extend relationship, the extension is unconditional.
+  if (!condition) {
+    return
+  }
+  extend.model.addEdge('condition', extend, condition)
 }
 
 function addEdge_extendedCase(extend: GraphNode, extendedCase: GraphNode | undefined) {

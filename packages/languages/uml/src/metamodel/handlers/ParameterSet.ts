@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
-import { ParameterSet } from '../uml-metamodel'
+import { resolve } from '../resolvers/resolve'
+import { Parameter, ParameterSet } from '../uml-metamodel'
 
 export const ParameterSetHandler = ParameterSet.createHandler(
   (parameterSet, { onlyContainmentAssociations }) => {
-    const parameters = resolveFromAttribute(parameterSet, 'parameter', { many: true })
+    const parameters = resolve(parameterSet, 'parameter', { many: true, type: Parameter })
     if (onlyContainmentAssociations) {
       return
     }

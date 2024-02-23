@@ -15,7 +15,7 @@ export const PropertyHandler = Property.createHandler(
   (property, { onlyContainmentAssociations }) => {
     const association = resolveFromAttribute(property, 'association', { type: Association })
     const qualifiers = resolveFromChild(property, 'qualifier', { many: true, type: Property })
-    const redefinedProperties = resolveFromChild(property, 'redefinedProperty', { many: true, type: Property })
+    const redefinedProperties = resolve(property, 'redefinedProperty', { many: true, type: Property })
     const subsettedProperties = resolve(property, 'subsettedProperty', { many: true, type: Property })
     if (onlyContainmentAssociations) {
       return

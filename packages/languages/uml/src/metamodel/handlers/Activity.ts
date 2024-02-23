@@ -2,13 +2,14 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Activity, Variable } from '../uml-metamodel'
+import { Activity, StructuredActivityNode, Variable } from '../uml-metamodel'
 
 export const ActivityHandler = Activity.createHandler(
   (activity, { onlyContainmentAssociations }) => {
     const groups = resolveFromAttribute(activity, 'group', { many: true })
     const nodes = resolveFromAttribute(activity, 'node', { many: true })
     const partitions = resolveFromAttribute(activity, 'partition', { many: true })
+    const structuredNodes = resolveFromChild(activity, 'structuredNode', { many: true, type: StructuredActivityNode })
     const variables = resolveFromChild(activity, 'variable', { many: true, type: Variable })
     if (onlyContainmentAssociations) {
       return
@@ -17,7 +18,7 @@ export const ActivityHandler = Activity.createHandler(
     addEdge_group(activity, groups)
     addEdge_node(activity, nodes)
     addEdge_partition(activity, partitions)
-    addEdge_structuredNode(activity)
+    addEdge_structuredNode(activity, structuredNodes)
     addEdge_variable(activity, variables)
   },
   {
@@ -59,10 +60,12 @@ function addEdge_partition(activity: GraphNode, partitions: GraphNode[]) {
   })
 }
 
-function addEdge_structuredNode(_activity: GraphNode) {
-  // TODO/Association
+function addEdge_structuredNode(activity: GraphNode, structuredNodes: GraphNode[]) {
   // ♦ structuredNode : StructuredActivityNode [0..*]{subsets Activity::group, subsets Activity::node} (opposite StructuredActivityNode::activity)
   // Top-level StructuredActivityNodes in the Activity.
+  structuredNodes.forEach((structuredNode) => {
+    activity.model.addEdge('structuredNode', activity, structuredNode)
+  })
 }
 
 function addEdge_variable(activity: GraphNode, variables: GraphNode[]) {

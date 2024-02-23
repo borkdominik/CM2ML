@@ -1,24 +1,28 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
-import { StructuralFeatureAction } from '../uml-metamodel'
+import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
+import { InputPin, StructuralFeatureAction } from '../uml-metamodel'
 
 export const StructuralFeatureActionHandler =
   StructuralFeatureAction.createHandler(
     (structuralFeatureAction, { onlyContainmentAssociations }) => {
+      const object = resolveFromChild(structuralFeatureAction, 'object', { type: InputPin })
       const structuralFeature = resolveFromAttribute(structuralFeatureAction, 'structuralFeature')
       if (onlyContainmentAssociations) {
         return
       }
-      addEdge_object(structuralFeatureAction)
+      addEdge_object(structuralFeatureAction, object)
       addEdge_structuralFeature(structuralFeatureAction, structuralFeature)
     },
   )
 
-function addEdge_object(_structuralFeatureAction: GraphNode) {
-  // TODO/Association
+function addEdge_object(structuralFeatureAction: GraphNode, object: GraphNode | undefined) {
   // ♦ object : InputPin [1..1]{subsets Action::input} (opposite A_object_structuralFeatureAction::structuralFeatureAction)
   // The InputPin from which the object whose StructuralFeature is to be read or written is obtained.
+  if (!object) {
+    return
+  }
+  structuralFeatureAction.model.addEdge('object', structuralFeatureAction, object)
 }
 
 function addEdge_structuralFeature(structuralFeatureAction: GraphNode, structuralFeature: GraphNode | undefined) {

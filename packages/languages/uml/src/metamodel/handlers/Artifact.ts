@@ -1,23 +1,27 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { Artifact } from '../uml-metamodel'
+import { resolveFromChild } from '../resolvers/resolve'
+import { Artifact, Manifestation } from '../uml-metamodel'
 
 export const ArtifactHandler = Artifact.createHandler(
   (artifact, { onlyContainmentAssociations }) => {
+    const manifestations = resolveFromChild(artifact, 'manifestation', { many: true, type: Manifestation })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_manifestation(artifact)
+    addEdge_manifestation(artifact, manifestations)
     addEdge_nestedArtifact(artifact)
     addEdge_ownedAttribute(artifact)
     addEdge_ownedOperation(artifact)
   },
 )
 
-function addEdge_manifestation(_artifact: GraphNode) {
-  // TODO/Association
+function addEdge_manifestation(artifact: GraphNode, manifestations: GraphNode[]) {
   // ♦ manifestation : Manifestation [0..*]{subsets Element::ownedElement, subsets NamedElement::clientDependency} (opposite A_manifestation_artifact::artifact)
   // The set of model elements that are manifested in the Artifact. That is, these model elements are utilized in the construction (or generation) of the artifact.
+  manifestations.forEach((manifestation) => {
+    artifact.model.addEdge('manifestation', artifact, manifestation)
+  })
 }
 
 function addEdge_nestedArtifact(_artifact: GraphNode) {
