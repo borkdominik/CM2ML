@@ -1,19 +1,24 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { DeploymentSpecification } from '../uml-metamodel'
+import { resolve } from '../resolvers/resolve'
+import { Deployment, DeploymentSpecification } from '../uml-metamodel'
 
 export const DeploymentSpecificationHandler =
   DeploymentSpecification.createHandler(
     (deploymentSpecification, { onlyContainmentAssociations }) => {
+      const deployment = resolve(deploymentSpecification, 'deployment', { type: Deployment })
       if (onlyContainmentAssociations) {
         return
       }
-      addEdge_deployment(deploymentSpecification)
+      addEdge_deployment(deploymentSpecification, deployment)
     },
   )
 
-function addEdge_deployment(_deploymentSpecification: GraphNode) {
-  // TODO/Association
+function addEdge_deployment(deploymentSpecification: GraphNode, deployment: GraphNode | undefined) {
   // deployment : Deployment [0..1]{subsets Element::owner} (opposite Deployment::configuration)
   // The deployment with which the DeploymentSpecification is associated.
+  if (!deployment) {
+    return
+  }
+  deploymentSpecification.model.addEdge('deployment', deploymentSpecification, deployment)
 }

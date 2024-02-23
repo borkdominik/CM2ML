@@ -1,14 +1,16 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolve } from '../resolvers/resolve'
 import { ParameterableElement } from '../uml-metamodel'
 
 export const ParameterableElementHandler = ParameterableElement.createHandler(
   (parameterableElement, { onlyContainmentAssociations }) => {
+    const templateParameter = resolve(parameterableElement, 'templateParameter')
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_owningTemplateParameter(parameterableElement)
-    addEdge_templateParameter(parameterableElement)
+    addEdge_templateParameter(parameterableElement, templateParameter)
   },
 )
 
@@ -18,8 +20,11 @@ function addEdge_owningTemplateParameter(_parameterableElement: GraphNode) {
   // The formal TemplateParameter that owns this ParameterableElement.
 }
 
-function addEdge_templateParameter(_parameterableElement: GraphNode) {
-  // TODO/Association
+function addEdge_templateParameter(parameterableElement: GraphNode, templateParameter: GraphNode | undefined) {
   // templateParameter : TemplateParameter [0..1] (opposite TemplateParameter::parameteredElement)
   // The TemplateParameter that exposes this ParameterableElement as a formal parameter.
+  if (!templateParameter) {
+    return
+  }
+  parameterableElement.model.addEdge('templateParameter', parameterableElement, templateParameter)
 }

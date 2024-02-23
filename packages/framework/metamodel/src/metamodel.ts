@@ -302,27 +302,3 @@ export function getParentOfType<
   }
   return node.parent
 }
-
-export function requireImmediateParentOfType<
-  Type extends string,
-  AbstractType extends string,
-  Tag extends string,
-  HandlerParameters extends HandlerPropagation,
->(
-  node: GraphNode,
-  type: MetamodelElement<Type, AbstractType, Tag, HandlerParameters>,
-) {
-  if (!node.parent) {
-    throw new Error(
-      `Missing parent for node ${node.tag} (${
-        node.id
-      }) of type ${type.configuration.getType(node)}`,
-    )
-  }
-  if (!type.isAssignable(node.parent)) {
-    throw new Error(
-      `Parent ${node.parent.tag} (${node.parent.id}) of node ${node.tag} (${node.id}) is not of type ${type.name}`,
-    )
-  }
-  return node.parent
-}

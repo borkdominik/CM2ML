@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Connector, ConnectorEnd } from '../uml-metamodel'
 
 export const ConnectorHandler = Connector.createHandler(
   (connector, { onlyContainmentAssociations }) => {
-    const ends = resolveFromChild(connector, 'end', { many: true, type: ConnectorEnd })
+    const ends = resolve(connector, 'end', { many: true, type: ConnectorEnd })
     if (onlyContainmentAssociations) {
       return
     }

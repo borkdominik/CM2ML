@@ -8,11 +8,11 @@ export const OperationTemplateParameterHandler =
       if (onlyContainmentAssociations) {
         return
       }
-      addEdge_operation(operationTemplateParameter)
+      addEdge_parameteredElement(operationTemplateParameter)
     },
   )
 
-function addEdge_operation(_operationTemplateParameter: GraphNode) {
+function addEdge_parameteredElement(_operationTemplateParameter: GraphNode) {
   // TODO/Association
   // parameteredElement : Operation [1..1]{redefines TemplateParameter::parameteredElement} (opposite Operation::templateParameter)
   // The Operation exposed by this OperationTemplateParameter.

@@ -2,12 +2,12 @@ import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
 import { resolve } from '../resolvers/resolve'
-import { NamedElement, Namespace } from '../uml-metamodel'
+import { Dependency, NamedElement, Namespace } from '../uml-metamodel'
 
 export const NamedElementHandler = NamedElement.createHandler(
   (namedElement, { onlyContainmentAssociations }) => {
     setAttribute_name(namedElement)
-    const clientDependency = resolve(namedElement, 'clientDependency', { many: true })
+    const clientDependency = resolve(namedElement, 'clientDependency', { many: true, type: Dependency })
     if (onlyContainmentAssociations) {
       return
     }

@@ -1,22 +1,22 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
-import { BehavioredClassifier } from '../uml-metamodel'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { BehavioredClassifier, InterfaceRealization } from '../uml-metamodel'
 
 export const BehavioredClassifierHandler = BehavioredClassifier.createHandler(
   (behavioredClassifier, { onlyContainmentAssociations }) => {
     const classifierBehavior = resolveFromAttribute(behavioredClassifier, 'classifierBehavior')
+    const interfaceRealizations = resolve(behavioredClassifier, 'interfaceRealization', { many: true, type: InterfaceRealization })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_classifierBehavior(behavioredClassifier, classifierBehavior)
-    addEdge_interfaceRealization(behavioredClassifier)
+    addEdge_interfaceRealization(behavioredClassifier, interfaceRealizations)
     addEdge_ownedBehavior(behavioredClassifier)
   },
 )
 
 function addEdge_classifierBehavior(behavioredClassifier: GraphNode, classifierBehavior: GraphNode | undefined) {
-  // TODO/Association
   // classifierBehavior : Behavior [0..1]{subsets BehavioredClassifier::ownedBehavior} (opposite A_classifierBehavior_behavioredClassifier::behavioredClassifier )
   // A Behavior that specifies the behavior of the BehavioredClassifier itself.
   if (!classifierBehavior) {
@@ -25,10 +25,12 @@ function addEdge_classifierBehavior(behavioredClassifier: GraphNode, classifierB
   behavioredClassifier.model.addEdge('classifierBehavior', behavioredClassifier, classifierBehavior)
 }
 
-function addEdge_interfaceRealization(_behavioredClassifier: GraphNode) {
-  // TODO/Association
+function addEdge_interfaceRealization(behavioredClassifier: GraphNode, interfaceRealizations: GraphNode[]) {
   // ♦ interfaceRealization : InterfaceRealization [0..*]{subsets Element::ownedElement, subsets NamedElement::clientDependency} (opposite InterfaceRealization::implementingClassifier)
   // The set of InterfaceRealizations owned by the BehavioredClassifier. Interface realizations reference the Interfaces of which the BehavioredClassifier is an implementation.
+  interfaceRealizations.forEach((interfaceRealization) => {
+    behavioredClassifier.model.addEdge('interfaceRealization', behavioredClassifier, interfaceRealization)
+  })
 }
 
 function addEdge_ownedBehavior(_behavioredClassifier: GraphNode) {

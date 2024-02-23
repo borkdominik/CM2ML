@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 import {
-  requireImmediateParentOfType,
+  getParentOfType,
   transformNodeToEdge,
 } from '@cm2ml/metamodel'
 
@@ -10,7 +10,7 @@ import { Package, PackageMerge } from '../uml-metamodel'
 
 export const PackageMergeHandler = PackageMerge.createHandler(
   (packageMerge, { onlyContainmentAssociations, relationshipsAsEdges }) => {
-    const receivingPackage = getReceivingPackage(packageMerge)
+    const receivingPackage = getParentOfType(packageMerge, Package)
     const mergedPackage = resolve(packageMerge, 'mergedPackage', { type: Package })
     if (relationshipsAsEdges) {
       const edgeTag = Uml.getEdgeTagForRelationship(packageMerge)
@@ -30,10 +30,6 @@ export const PackageMergeHandler = PackageMerge.createHandler(
   },
 )
 
-function getReceivingPackage(packageMerge: GraphNode) {
-  return requireImmediateParentOfType(packageMerge, Package)
-}
-
 function addEdge_mergedPackage(packageMerge: GraphNode, mergedPackage: GraphNode | undefined) {
   if (!mergedPackage) {
     return
@@ -41,6 +37,9 @@ function addEdge_mergedPackage(packageMerge: GraphNode, mergedPackage: GraphNode
   packageMerge.model.addEdge('mergedPackage', packageMerge, mergedPackage)
 }
 
-function addEdge_receivingPackage(packageMerge: GraphNode, receivingPackage: GraphNode) {
+function addEdge_receivingPackage(packageMerge: GraphNode, receivingPackage: GraphNode | undefined) {
+  if (!receivingPackage) {
+    return
+  }
   packageMerge.model.addEdge('receivingPackage', packageMerge, receivingPackage)
 }
