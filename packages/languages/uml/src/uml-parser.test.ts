@@ -5,17 +5,18 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
-// Green: 0-1999
+// Green: 0-2999
 
 const { validModels, invalidModels } = getFiles({
-  startIndex: 1800,
-  numberOfFiles: 200,
+  startIndex: 0,
+  numberOfFiles: 3000,
   invalidModels: [
     '02ae79e9252059b1b9dda7355154f6631edc2bc7499d4a6ccd45621d4cffcd09.uml', // invalid "input" and "output" attributes on uml:Operation
     '0390aa780981baeb9c88926789a9a864e3dbae961118a2f17f3a87a0cc3bb493.uml', // duplicate id
     '086943006eec3dd2a28d9d053703ea1faf80f8aacdef0b993bb213ea3c38d304.uml', // uses abstract class Pin as instance type TODO/Jan: Check if abstract instances are allowed
+    '0d5912ac87d1559fed1297cffbb53ebb6393878e4829bb85e64b50ff894e020a.uml', // duplicate id
   ],
-  // override: 1569,
+  // override: 2822,
 })
 
 const showDebugOutput = validModels.length === 1

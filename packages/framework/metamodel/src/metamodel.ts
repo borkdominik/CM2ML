@@ -116,7 +116,6 @@ export class MetamodelElement<
       this.#assignableTypes.add(this.type)
     }
     generalizations?.forEach((parent) => {
-      this.#generalizations.add(parent)
       parent.specialize(this)
     })
   }
@@ -240,6 +239,7 @@ export class MetamodelElement<
       HandlerParameters
     >,
   ) {
+    specialization.#generalizations.add(this)
     specialization.allAssignableTags.forEach((tag) =>
       this.#assignableTags.add(tag),
     )

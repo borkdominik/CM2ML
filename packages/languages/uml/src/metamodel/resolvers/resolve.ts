@@ -12,6 +12,26 @@ export interface ResolverConfiguration {
   type?: UmlMetamodelElement
 }
 
+function narrowType(child: GraphNode, type: UmlMetamodelElement | undefined) {
+  if (!type?.type) {
+    // No type information for narrowing
+    return
+  }
+  const currentType = Uml.getType(child)
+  if (!currentType) {
+    // No type set, set type to provided type
+    child.addAttribute({ name: Uml.typeAttributeName, value: { literal: type.type } })
+    return
+  }
+  const generalization = [...type.generalizations.values()].find((generalization) => generalization.type === currentType)
+  if (!generalization) {
+    // Current type is not compatible with the provided type, we can't narrow further
+    return
+  }
+  // We can narrow the type further
+  child.addAttribute({ name: Uml.typeAttributeName, value: { literal: type.type } }, false)
+}
+
 function resolveNodeFromIdOrPath(node: GraphNode, pathOrId: string, type: UmlMetamodelElement | undefined) {
   const resolvedNode = node.model.getNodeById(pathOrId) ?? resolvePath(node.model, pathOrId)
   if (!resolvedNode) {
@@ -19,9 +39,7 @@ function resolveNodeFromIdOrPath(node: GraphNode, pathOrId: string, type: UmlMet
     // throw new Error(`Could not resolve ${pathOrId} from ${node.tag} node.`)
   }
   if (resolvedNode && type?.type) {
-    if (!Uml.getType(resolvedNode)) {
-      resolvedNode.addAttribute({ name: Uml.typeAttributeName, value: { literal: type.type } })
-    }
+    narrowType(resolvedNode, type)
   }
   return resolvedNode
 }
@@ -40,21 +58,16 @@ export function resolve(node: GraphNode, name: string, configuration?: ResolverC
 export function resolveFromChild(node: GraphNode, tag: string, configuration: ResolverConfiguration & { many: true }): GraphNode[]
 export function resolveFromChild(node: GraphNode, tag: string, configuration?: ResolverConfiguration): GraphNode | undefined
 export function resolveFromChild(node: GraphNode, tag: string, { type, many = false }: ResolverConfiguration = {}) {
-  function setFallbackType(child: GraphNode) {
-    if (type?.type && !Uml.getType(child)) {
-      child.addAttribute({ name: Uml.typeAttributeName, value: { literal: type.type } })
-    }
-  }
   if (!many) {
     const child = node.findChild(matchTag(tag))
     if (!child) {
       return undefined
     }
-    setFallbackType(child)
+    narrowType(child, type)
     return tryFollowIdRef(child)
   }
   return node.findAllChildren(matchTag(tag)).map((child) => {
-    setFallbackType(child)
+    narrowType(child, type)
     return tryFollowIdRef(child)
   })
 }
