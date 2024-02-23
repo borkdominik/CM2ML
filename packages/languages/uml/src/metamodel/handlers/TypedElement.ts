@@ -14,6 +14,7 @@ export const TypedElementHandler = TypedElement.createHandler(
   },
 )
 
+// TODO/Jan: Replace with resolve
 function getType(typedElement: GraphNode) {
   const type = resolve(typedElement, 'type')
   if (type && !Uml.getType(type)) {

@@ -31,10 +31,8 @@ export function resolve(node: GraphNode, name: string, configuration?: ResolverC
 export function resolve(node: GraphNode, name: string, configuration?: ResolverConfiguration): GraphNode | GraphNode[] | undefined {
   if (configuration?.many === true) {
     const resolvedFromAttribute = resolveFromAttribute(node, name, { ...configuration, many: true })
-    if (resolvedFromAttribute.length > 0) {
-      return resolvedFromAttribute
-    }
-    return resolveFromChild(node, name, { ...configuration, many: true })
+    const resolvedFromChild = resolveFromChild(node, name, { ...configuration, many: true })
+    return resolvedFromAttribute.concat(resolvedFromChild)
   }
   return resolveFromAttribute(node, name, configuration) ?? resolveFromChild(node, name, configuration)
 }
@@ -50,14 +48,27 @@ export function resolveFromChild(node: GraphNode, tag: string, { type, many = fa
   if (!many) {
     const child = node.findChild(matchTag(tag))
     if (!child) {
-      return
+      return undefined
     }
     setFallbackType(child)
-    return child
+    return tryFollowIdRef(child)
   }
-  const children = node.findAllChildren(matchTag(tag))
-  children.forEach(setFallbackType)
-  return children
+  return node.findAllChildren(matchTag(tag)).map((child) => {
+    setFallbackType(child)
+    return tryFollowIdRef(child)
+  })
+}
+
+function tryFollowIdRef(node: GraphNode) {
+  const idRef = node.getAttribute('xmi:idref')?.value.literal
+  if (!idRef) {
+    return node
+  }
+  const referencedElement = node.model.getNodeById(idRef)
+  if (referencedElement) {
+    node.model.removeNode(node)
+  }
+  return referencedElement ?? node
 }
 
 export function resolveFromAttribute(node: GraphNode, name: string, configuration: ResolverConfiguration & { many: true }): GraphNode[]
