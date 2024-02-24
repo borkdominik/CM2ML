@@ -1,15 +1,17 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { ExceptionHandler } from '../uml-metamodel'
+import { resolve } from '../resolvers/resolve'
+import { ExceptionHandler, ExecutableNode } from '../uml-metamodel'
 
 export const ExceptionHandlerHandler = ExceptionHandler.createHandler(
   (exceptionHandler, { onlyContainmentAssociations }) => {
+    const handlerBody = resolve(exceptionHandler, 'handlerBody', { type: ExecutableNode })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_exceptionInput(exceptionHandler)
     addEdge_exceptionType(exceptionHandler)
-    addEdge_handlerBody(exceptionHandler)
+    addEdge_handlerBody(exceptionHandler, handlerBody)
     addEdge_protectedNode(exceptionHandler)
   },
 )
@@ -25,10 +27,13 @@ function addEdge_exceptionType(_exceptionHandler: GraphNode) {
   // The Classifiers whose instances the ExceptionHandler catches as exceptions. If an exception occurs whose type is any exceptionType, the ExceptionHandler catches the exception and executes the handlerBody.
 }
 
-function addEdge_handlerBody(_exceptionHandler: GraphNode) {
-  // TODO/Association
+function addEdge_handlerBody(exceptionHandler: GraphNode, handlerBody: GraphNode | undefined) {
   // handlerBody : ExecutableNode [1..1] (opposite A_handlerBody_exceptionHandler::exceptionHandler)
   // An ExecutableNode that is executed if the ExceptionHandler catches an exception.
+  if (!handlerBody) {
+    return
+  }
+  exceptionHandler.model.addEdge('handlerBody', exceptionHandler, handlerBody)
 }
 
 function addEdge_protectedNode(_exceptionHandler: GraphNode) {
