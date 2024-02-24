@@ -1,16 +1,17 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
-import { Interaction, Message } from '../uml-metamodel'
+import { resolve } from '../resolvers/resolve'
+import { Gate, Interaction, Message } from '../uml-metamodel'
 
 export const InteractionHandler = Interaction.createHandler(
   (interaction, { onlyContainmentAssociations }) => {
-    const messages = resolveFromChild(interaction, 'message', { many: true, type: Message })
+    const formalGates = resolve(interaction, 'formalGate', { many: true, type: Gate })
+    const messages = resolve(interaction, 'message', { many: true, type: Message })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_action(interaction)
-    addEdge_formalGate(interaction)
+    addEdge_formalGate(interaction, formalGates)
     addEdge_fragment(interaction)
     addEdge_lifeline(interaction)
     addEdge_message(interaction, messages)
@@ -23,10 +24,12 @@ function addEdge_action(_interaction: GraphNode) {
   // Actions owned by the Interaction.
 }
 
-function addEdge_formalGate(_interaction: GraphNode) {
-  // TODO/Association
+function addEdge_formalGate(interaction: GraphNode, formalGates: GraphNode[]) {
   // ♦ formalGate : Gate [0..*]{subsets Namespace::ownedMember} (opposite A_formalGate_interaction::interaction)
-  // Specifies the gates that form the message interface between this Interaction and any InteractionUses which reference it.
+  // Specifies the gates that form the message interface between this Interaction and any InteractionUses which reference it.\
+  formalGates.forEach((formalGate) => {
+    interaction.model.addEdge('formalGate', interaction, formalGate)
+  })
 }
 
 function addEdge_fragment(_interaction: GraphNode) {
