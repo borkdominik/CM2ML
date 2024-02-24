@@ -63,7 +63,7 @@ function generateIds(model: GraphModel) {
 function removeUnsupportedNodes(model: GraphModel) {
   // The following elements have been removed from the latest UML specification and are not supported by the UML metamodel
   const unsupportedTags = new Set(['eAnnotations', 'xmi:Documentation', 'xmi:Extension', 'XMI_20110701:Extension'])
-  const unsupportedTypes = new Set(['DestructionEvent', 'ExecutionEvent', 'ReceiveOperationEvent', 'SendOperationEvent', 'VariablesDeclaration'])
+  const unsupportedTypes = new Set(['CreationEvent', 'DestructionEvent', 'ExecutionEvent', 'ReceiveOperationEvent', 'SendOperationEvent', 'SendSignalEvent', 'VariablesDeclaration'])
   model.nodes.forEach((node) => {
     const nodeType = node.getAttribute(Uml.typeAttributeName)?.value.literal
     if (unsupportedTags.has(node.tag) || (nodeType && unsupportedTypes.has(nodeType)) || node.getAttribute('xsi:nil')?.value.literal === 'true') {

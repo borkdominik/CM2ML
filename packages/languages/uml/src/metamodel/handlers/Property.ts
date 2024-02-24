@@ -1,7 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
-import { getParentOfType } from '@cm2ml/metamodel'
 
-import { resolve, resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import {
   Association,
@@ -13,8 +12,9 @@ import {
 
 export const PropertyHandler = Property.createHandler(
   (property, { onlyContainmentAssociations }) => {
-    const association = resolveFromAttribute(property, 'association', { type: Association })
-    const qualifiers = resolveFromChild(property, 'qualifier', { many: true, type: Property })
+    const association = resolve(property, 'association', { type: Association })
+    const owningAssociations = resolve(property, 'owningAssociation', { many: true, type: Association })
+    const qualifiers = resolve(property, 'qualifier', { many: true, type: Property })
     const redefinedProperties = resolve(property, 'redefinedProperty', { many: true, type: Property })
     const subsettedProperties = resolve(property, 'subsettedProperty', { many: true, type: Property })
     if (onlyContainmentAssociations) {
@@ -27,6 +27,7 @@ export const PropertyHandler = Property.createHandler(
     addEdge_defaultValue(property)
     addEdge_interface(property)
     addEdge_opposite(property)
+    addEdge_owningAssociation(property, owningAssociations)
     addEdge_qualifier(property, qualifiers)
     addEdge_redefinedProperty(property, redefinedProperties)
     addEdge_subsettedProperty(property, subsettedProperties)
@@ -50,7 +51,6 @@ function addEdge_association(
     return
   }
   property.model.addEdge('association', property, association)
-  addEdge_owningAssociation(property, association)
 }
 
 function addEdge_associationEnd(_property: GraphNode) {
@@ -94,16 +94,13 @@ function addEdge_opposite(_property: GraphNode) {
 
 function addEdge_owningAssociation(
   property: GraphNode,
-  association: GraphNode,
+  owningAssociations: GraphNode[],
 ) {
-  // TODO
   // owningAssociation : Association [0..1]{subsets Feature::featuringClassifier, subsets NamedElement::namespace, subsets Property::association, subsets RedefinableElement::redefinitionContext} (opposite Association::ownedEnd)
   // The owning association of this property, if any.
-  const parentAssociation = getParentOfType(property, Association)
-  if (parentAssociation !== association) {
-    return
-  }
-  property.model.addEdge('owningAssociation', property, association)
+  owningAssociations.forEach((owningAssociation) => {
+    property.model.addEdge('owningAssociation', property, owningAssociation)
+  })
 }
 
 function addEdge_qualifier(property: GraphNode, qualifiers: GraphNode[]) {

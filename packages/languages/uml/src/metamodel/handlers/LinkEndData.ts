@@ -1,22 +1,27 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { LinkEndData } from '../uml-metamodel'
+import { resolve } from '../resolvers/resolve'
+import { LinkEndData, Property } from '../uml-metamodel'
 
 export const LinkEndDataHandler = LinkEndData.createHandler(
   (linkEndData, { onlyContainmentAssociations }) => {
+    const end = resolve(linkEndData, 'end', { type: Property })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_end(linkEndData)
+    addEdge_end(linkEndData, end)
     addEdge_qualifier(linkEndData)
     addEdge_value(linkEndData)
   },
 )
 
-function addEdge_end(_linkEndData: GraphNode) {
-  // TODO/Association
+function addEdge_end(linkEndData: GraphNode, end: GraphNode | undefined) {
   // end : Property [1..1] (opposite A_end_linkEndData::linkEndData)
   // The Association end for which this LinkEndData specifies values.
+  if (!end) {
+    return
+  }
+  linkEndData.model.addEdge('end', linkEndData, end)
 }
 
 function addEdge_qualifier(_linkEndData: GraphNode) {

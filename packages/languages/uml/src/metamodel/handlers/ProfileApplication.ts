@@ -8,7 +8,7 @@ import { Package, ProfileApplication } from '../uml-metamodel'
 export const ProfileApplicationHandler = ProfileApplication.createHandler(
   (profileApplication, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const appliedProfile = resolve(profileApplication, 'appliedProfile')
-    const applyingPackage = getParentOfType(profileApplication, Package)
+    const applyingPackage = resolve(profileApplication, 'applyingPackage', { type: Package }) ?? getParentOfType(profileApplication, Package)
     if (relationshipsAsEdges) {
       // TODO/Jan Validate edge direction
       return transformNodeToEdgeCallback(profileApplication, applyingPackage, appliedProfile)

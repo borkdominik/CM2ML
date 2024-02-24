@@ -1,16 +1,18 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Port } from '../uml-metamodel'
 
 export const PortHandler = Port.createHandler(
   (port, { onlyContainmentAssociations }) => {
+    const redefinedPorts = resolve(port, 'redefinedPort', { many: true, type: Port })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_protocol(port)
     addEdge_provivded(port)
-    addEdge_redefinedPort(port)
+    addEdge_redefinedPort(port, redefinedPorts)
     addEdge_required(port)
   },
   {
@@ -32,10 +34,12 @@ function addEdge_provivded(_port: GraphNode) {
   // The Interfaces specifying the set of Operations and Receptions that the EncapsulatedClassifier offers to its environment via this Port, and which it will handle either directly or by forwarding it to a part of its internal structure.This association is derived according to the value of isConjugated.If isConjugated is false, provided is derived as the union of the sets of Interfaces realized by the type of the port and its supertypes, or directly from the type of the Port if the Port is typed by an Interface.If isConjugated is true, it is derived as the union of the sets of Interfaces used by the type of the Port and its supertypes.
 }
 
-function addEdge_redefinedPort(_port: GraphNode) {
-  // TODO/Association
+function addEdge_redefinedPort(port: GraphNode, redefinedPorts: GraphNode[]) {
   // redefinedPort: Port[0..*]{subsets Property:: redefinedProperty } (opposite A_redefinedPort_port::port)
   // A Port may be redefined when its containing EncapsulatedClassifier is specialized.The redefining Port may have additional Interfaces to those that are associated with the redefined Port or it may replace an Interface by one of its subtypes.
+  redefinedPorts.forEach((redefinedPort) => {
+    port.model.addEdge('redefinedPort', port, redefinedPort)
+  })
 }
 
 function addEdge_required(_port: GraphNode) {

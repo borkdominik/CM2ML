@@ -2,10 +2,12 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve, resolveFromAttribute } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Behavior, BehavioralFeature } from '../uml-metamodel'
+import { Behavior, BehavioralFeature, Constraint } from '../uml-metamodel'
 
 export const BehaviorHandler = Behavior.createHandler(
   (behavior, { onlyContainmentAssociations }) => {
+    const postconditions = resolve(behavior, 'postcondition', { many: true, type: Constraint })
+    const preconditions = resolve(behavior, 'precondition', { many: true, type: Constraint })
     const redefinedBehaviors = resolve(behavior, 'redefinedBehavior', { many: true, type: Behavior })
     const specification = resolveFromAttribute(behavior, 'specification', { type: BehavioralFeature })
     if (onlyContainmentAssociations) {
@@ -14,8 +16,8 @@ export const BehaviorHandler = Behavior.createHandler(
     addEdge_context(behavior)
     addEdge_ownedParameter(behavior)
     addEdge_ownedParameterSet(behavior)
-    addEdge_postcondition(behavior)
-    addEdge_precondition(behavior)
+    addEdge_postcondition(behavior, postconditions)
+    addEdge_precondition(behavior, preconditions)
     addEdge_specification(behavior, specification)
     addEdge_redefinedBehavior(behavior, redefinedBehaviors)
   },
@@ -42,16 +44,20 @@ function addEdge_ownedParameterSet(_behavior: GraphNode) {
   // The ParameterSets owned by this Behavior.
 }
 
-function addEdge_postcondition(_behavior: GraphNode) {
-  // TODO/Association
+function addEdge_postcondition(behavior: GraphNode, postconditions: GraphNode[]) {
   // ♦ postcondition : Constraint [0..*]{subsets Namespace::ownedRule} (opposite A_postcondition_behavior::behavior)
   // An optional set of Constraints specifying what is fulfilled after the execution of the Behavior is completed, if its precondition was fulfilled before its invocation.
+  postconditions.forEach((postcondition) => {
+    behavior.model.addEdge('postcondition', behavior, postcondition)
+  })
 }
 
-function addEdge_precondition(_behavior: GraphNode) {
-  // TODO/Association
+function addEdge_precondition(behavior: GraphNode, preconditions: GraphNode[]) {
   // ♦ precondition : Constraint [0..*]{subsets Namespace::ownedRule} (opposite A_precondition_behavior::behavior)
   // An optional set of Constraints specifying what must be fulfilled before the Behavior is invoked.
+  preconditions.forEach((precondition) => {
+    behavior.model.addEdge('precondition', behavior, precondition)
+  })
 }
 
 function addEdge_specification(behavior: GraphNode, specification: GraphNode | undefined) {

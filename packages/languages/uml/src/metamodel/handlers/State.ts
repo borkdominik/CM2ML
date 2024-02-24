@@ -1,13 +1,14 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve, resolveFromAttribute } from '../resolvers/resolve'
-import { ConnectionPointReference, Pseudostate, State, StateMachine, Trigger } from '../uml-metamodel'
+import { ConnectionPointReference, Constraint, Pseudostate, State, StateMachine, Trigger } from '../uml-metamodel'
 
 export const StateHandler = State.createHandler(
   (state, { onlyContainmentAssociations }) => {
     const connectionPoints = resolveFromAttribute(state, 'connectionPoint', { many: true, type: Pseudostate })
     const connections = resolve(state, 'connection', { many: true, type: ConnectionPointReference })
     const deferrableTriggers = resolve(state, 'deferrableTrigger', { many: true, type: Trigger })
+    const stateInvariant = resolve(state, 'stateInvariant', { type: Constraint })
     const submachine = resolve(state, 'submachine', { type: StateMachine })
     removeUnsupportedRedefinedState(state)
     if (onlyContainmentAssociations) {
@@ -20,7 +21,7 @@ export const StateHandler = State.createHandler(
     addEdge_entry(state)
     addEdge_exit(state)
     addEdge_region(state)
-    addEdge_stateInvariant(state)
+    addEdge_stateInvariant(state, stateInvariant)
     addEdge_submachine(state, submachine)
   },
 )
@@ -80,10 +81,13 @@ function addEdge_region(_state: GraphNode) {
   // The Regions owned directly by the State.
 }
 
-function addEdge_stateInvariant(_state: GraphNode) {
-  // TODO/Association
+function addEdge_stateInvariant(state: GraphNode, stateInvariant: GraphNode | undefined) {
   // ♦ stateInvariant : Constraint [0..1]{subsets Namespace::ownedRule} (opposite A_stateInvariant_owningState::owningState)
   // Specifies conditions that are always true when this State is the current State. In ProtocolStateMachines state invariants are additional conditions to the preconditions of the outgoing Transitions, and to the postcondition of the incoming Transitions.
+  if (!stateInvariant) {
+    return
+  }
+  state.model.addEdge('stateInvariant', state, stateInvariant)
 }
 
 function addEdge_submachine(state: GraphNode, submachine: GraphNode | undefined) {

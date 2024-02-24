@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromAttribute } from '../resolvers/resolve'
-import { Trigger } from '../uml-metamodel'
+import { resolve } from '../resolvers/resolve'
+import { Event, Port, Trigger } from '../uml-metamodel'
 
 export const TriggerHandler = Trigger.createHandler(
   (trigger, { onlyContainmentAssociations }) => {
-    const event = resolveFromAttribute(trigger, 'event')
-    const ports = resolve(trigger, 'port', { many: true })
+    const event = resolve(trigger, 'event', { type: Event })
+    const ports = resolve(trigger, 'port', { many: true, type: Port })
     if (onlyContainmentAssociations) {
       return
     }

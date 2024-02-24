@@ -1,17 +1,18 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { Pseudostate, StateMachine } from '../uml-metamodel'
+import { Pseudostate, State, StateMachine } from '../uml-metamodel'
 
 export const StateMachineHandler = StateMachine.createHandler(
   (stateMachine, { onlyContainmentAssociations }) => {
     const connectionPoints = resolve(stateMachine, 'connectionPoint', { many: true, type: Pseudostate })
-    const submachineStates = resolve(stateMachine, 'submachineState', { many: true })
+    const extendedStateMachines = resolve(stateMachine, 'extendedStateMachine', { many: true, type: StateMachine })
+    const submachineStates = resolve(stateMachine, 'submachineState', { many: true, type: State })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_connectionPoint(stateMachine, connectionPoints)
-    addEdge_extendedStateMachine(stateMachine)
+    addEdge_extendedStateMachine(stateMachine, extendedStateMachines)
     addEdge_region(stateMachine)
     addEdge_submachineState(stateMachine, submachineStates)
   },
@@ -25,10 +26,12 @@ function addEdge_connectionPoint(stateMachine: GraphNode, connectionPoints: Grap
   })
 }
 
-function addEdge_extendedStateMachine(_stateMachine: GraphNode) {
-  // TODO/Association
+function addEdge_extendedStateMachine(stateMachine: GraphNode, extendedStateMachines: GraphNode[]) {
   // extendedStateMachine : StateMachine [0..*]{redefines Behavior::redefinedBehavio
   // The StateMachines of which this is an extension.
+  extendedStateMachines.forEach((extendedStateMachine) => {
+    stateMachine.model.addEdge('extendedStateMachine', stateMachine, extendedStateMachine)
+  })
 }
 
 function addEdge_region(_stateMachine: GraphNode) {
