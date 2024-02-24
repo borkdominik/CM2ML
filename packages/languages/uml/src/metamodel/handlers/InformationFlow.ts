@@ -2,7 +2,7 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { transformNodeToEdgeCallback } from '../uml'
-import { Classifier, InformationFlow, NamedElement } from '../uml-metamodel'
+import { Classifier, Connector, InformationFlow, NamedElement } from '../uml-metamodel'
 
 export const InformationFlowHandler = InformationFlow.createHandler(
   (informationFlow, { onlyContainmentAssociations, relationshipsAsEdges }) => {
@@ -10,6 +10,7 @@ export const InformationFlowHandler = InformationFlow.createHandler(
     // TODO/Jan: Fix -> source/target with many: true
     const informationSource = resolve(informationFlow, 'informationSource', { type: NamedElement })
     const informationTarget = resolve(informationFlow, 'informationTarget', { type: NamedElement })
+    const realizingConnectors = resolve(informationFlow, 'realizingConnector', { many: true, type: Connector })
     if (relationshipsAsEdges) {
       return transformNodeToEdgeCallback(informationFlow, informationSource, informationTarget)
     }
@@ -21,7 +22,7 @@ export const InformationFlowHandler = InformationFlow.createHandler(
     addEdge_informationTarget(informationFlow)
     addEdge_realization(informationFlow)
     addEdge_realizingActivityEdge(informationFlow)
-    addEdge_realizingConnector(informationFlow)
+    addEdge_realizingConnector(informationFlow, realizingConnectors)
     addEdge_realizingMessage(informationFlow)
   },
 )
@@ -58,10 +59,12 @@ function addEdge_realizingActivityEdge(_informationFlow: GraphNode) {
   // Determines which ActivityEdges will realize the specified flow.
 }
 
-function addEdge_realizingConnector(_informationFlow: GraphNode) {
-  // TODO/Association
+function addEdge_realizingConnector(informationFlow: GraphNode, realizingConnectors: GraphNode[]) {
   // realizingConnector : Connector [0..*] (opposite A_realizingConnector_informationFlow::informationFlow)
   // Determines which Connectors will realize the specified flow.
+  realizingConnectors.forEach((connector) => {
+    informationFlow.model.addEdge('realizingConnector', informationFlow, connector)
+  })
 }
 
 function addEdge_realizingMessage(_informationFlow: GraphNode) {

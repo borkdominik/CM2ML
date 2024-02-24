@@ -1,22 +1,26 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { OutputPin, ReadExtentAction } from '../uml-metamodel'
+import { Classifier, OutputPin, ReadExtentAction } from '../uml-metamodel'
 
 export const ReadExtentActionHandler = ReadExtentAction.createHandler(
   (readExtentAction, { onlyContainmentAssociations }) => {
+    const classifier = resolve(readExtentAction, 'classifier', { type: Classifier })
     const result = resolve(readExtentAction, 'result', { type: OutputPin })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_classifier(readExtentAction)
+    addEdge_classifier(readExtentAction, classifier)
     addEdge_result(readExtentAction, result)
   },
 )
-function addEdge_classifier(_readExtentAction: GraphNode) {
-  // TODO/Association
+function addEdge_classifier(readExtentAction: GraphNode, classifier: GraphNode | undefined) {
   // classifier : Classifier [1..1] (opposite A_classifier_readExtentAction::readExtentAction)
   // The Classifier whose instances are to be retrieved.
+  if (!classifier) {
+    return
+  }
+  readExtentAction.model.addEdge('classifier', readExtentAction, classifier)
 }
 
 function addEdge_result(readExtentAction: GraphNode, result: GraphNode | undefined) {

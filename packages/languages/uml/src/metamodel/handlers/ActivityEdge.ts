@@ -1,12 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
 import { ActivityEdge } from '../uml-metamodel'
 
 export const ActivityEdgeHandler = ActivityEdge.createHandler(
   (activityEdge, { onlyContainmentAssociations }) => {
     const inPartitions = resolveFromAttribute(activityEdge, 'inPartition', { many: true })
     const interrupts = resolveFromAttribute(activityEdge, 'interrupts')
+    const redefinedEdges = resolve(activityEdge, 'redefinedEdge', { many: true, type: ActivityEdge })
     const source = resolveFromAttribute(activityEdge, 'source')
     const target = resolveFromAttribute(activityEdge, 'target')
     if (onlyContainmentAssociations) {
@@ -18,7 +19,7 @@ export const ActivityEdgeHandler = ActivityEdge.createHandler(
     addEdge_inPartition(activityEdge, inPartitions)
     addEdge_inStructuredNode(activityEdge)
     addEdge_interrupts(activityEdge, interrupts)
-    addEdge_redefinedEdge(activityEdge)
+    addEdge_redefinedEdge(activityEdge, redefinedEdges)
     addEdge_source(activityEdge, source)
     addEdge_target(activityEdge, target)
     addEdge_weight(activityEdge)
@@ -66,10 +67,12 @@ function addEdge_interrupts(activityEdge: GraphNode, interrupts: GraphNode | und
   activityEdge.model.addEdge('interrupts', activityEdge, interrupts)
 }
 
-function addEdge_redefinedEdge(_activityEdge: GraphNode) {
-  // TODO/Association
+function addEdge_redefinedEdge(activityEdge: GraphNode, redefinedEdges: GraphNode[]) {
   // redefinedEdge : ActivityEdge [0..*]{subsets RedefinableElement::redefinedElement} (opposite A_redefinedEdge_activityEdge::activityEdge)
   // ActivityEdges from a generalization of the Activity containing this ActivityEdge that are redefined by this ActivityEdge.
+  redefinedEdges.forEach((redefinedEdge) => {
+    activityEdge.model.addEdge('redefinedEdge', activityEdge, redefinedEdge)
+  })
 }
 
 function addEdge_source(activityEdge: GraphNode, source: GraphNode | undefined) {

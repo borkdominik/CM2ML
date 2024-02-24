@@ -2,7 +2,7 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve, resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Classifier, CollaborationUse, GeneralizationSet, UseCase } from '../uml-metamodel'
+import { Classifier, CollaborationUse, GeneralizationSet, Substitution, UseCase } from '../uml-metamodel'
 
 export const ClassifierHandler = Classifier.createHandler(
   (classifier, { onlyContainmentAssociations }) => {
@@ -11,6 +11,7 @@ export const ClassifierHandler = Classifier.createHandler(
     const powertypeExtents = resolve(classifier, 'powertypeExtent', { many: true, type: GeneralizationSet })
     const redefinedClassifiers = resolveFromAttribute(classifier, 'redefinedClassifier', { many: true })
     const representation = resolveFromAttribute(classifier, 'representation')
+    const substitutions = resolve(classifier, 'substitution', { many: true, type: Substitution })
     const templateParameter = resolveFromAttribute(classifier, 'templateParameter')
     const useCases = resolve(classifier, 'useCase', { many: true, type: UseCase })
     if (onlyContainmentAssociations) {
@@ -27,7 +28,7 @@ export const ClassifierHandler = Classifier.createHandler(
     addEdge_powertypeExtent(classifier, powertypeExtents)
     addEdge_redefinedClassifier(classifier, redefinedClassifiers)
     addEdge_representation(classifier, representation)
-    addEdge_substitution(classifier)
+    addEdge_substitution(classifier, substitutions)
     addEdge_templateParameter(classifier, templateParameter)
     addEdge_useCase(classifier, useCases)
   },
@@ -114,10 +115,12 @@ function addEdge_representation(classifier: GraphNode, representation: GraphNode
   classifier.model.addEdge('representation', classifier, representation)
 }
 
-function addEdge_substitution(_classifier: GraphNode) {
-  // TODO/Association
+function addEdge_substitution(classifier: GraphNode, substitutions: GraphNode[]) {
   // ♦ substitution : Substitution [0..*]{subsets Element::ownedElement, subsets NamedElement::clientDependency} (opposite Substitution::substitutingClassifier)
   // The Substitutions owned by this Classifier.
+  substitutions.forEach((substitution) => {
+    classifier.model.addEdge('substitution', classifier, substitution)
+  })
 }
 
 function addEdge_templateParameter(classifier: GraphNode, templateParameter: GraphNode | undefined) {

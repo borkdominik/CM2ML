@@ -38,8 +38,11 @@ const { validModels, invalidModels } = getFiles({
     '60e0ac8d81acbde335a91ae83013f9455cb20de6d959d77688c3f797a6ac0fdd.uml', // invalid "ownedTrigger" elements
     '64a09e0475267e1d0a88c409d9c4a55c35113471292d53d43ee45b0a24f6f4cf.uml', // uses abstract class Pin as instance type TODO/Jan: Check if abstract instances are allowed
     '6830b29249843c656edf64e6dfe6b91d0ddc4e669730b99238880e9e323b1253.uml', // uses abstract class Pin as instance type TODO/Jan: Check if abstract instances are allowed
+    '7fc541e9043b7e86dbb1fa20a670dbc3d727096b16de143f940e471f7f7592d0.uml', // uses abstract class Pin as instance type TODO/Jan: Check if abstract instances are allowed
+    '84cb37f59c916b05d4a36a8b28f9bc1ccd1a59230be0bd1f7caa0c327f58cd31.uml', // duplicate id
+    '84d05a51d42aaae8d4506a805ea75be01f304375914c747bfc529843a71715fb.uml', // duplicate id
   ],
-  // override: 17001,
+  // override: 23150,
 })
 
 const showDebugOutput = validModels.length === 1

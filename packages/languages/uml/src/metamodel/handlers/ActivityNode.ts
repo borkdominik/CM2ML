@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
 import { ActivityNode } from '../uml-metamodel'
 
 export const ActivityNodeHandler = ActivityNode.createHandler(
@@ -9,6 +9,7 @@ export const ActivityNodeHandler = ActivityNode.createHandler(
     const inPartition = resolveFromAttribute(activityNode, 'inPartition', { many: true })
     const incoming = resolveFromAttribute(activityNode, 'incoming', { many: true })
     const outgoing = resolveFromAttribute(activityNode, 'outgoing', { many: true })
+    const redefinedNodes = resolve(activityNode, 'redefinedNode', { many: true, type: ActivityNode })
     if (onlyContainmentAssociations) {
       return
     }
@@ -19,7 +20,7 @@ export const ActivityNodeHandler = ActivityNode.createHandler(
     addEdge_inStructuredNode(activityNode)
     addEdge_incoming(activityNode, incoming)
     addEdge_outgoing(activityNode, outgoing)
-    addEdge_redefinedNode(activityNode)
+    addEdge_redefinedNode(activityNode, redefinedNodes)
   },
 )
 
@@ -73,8 +74,10 @@ function addEdge_outgoing(activityNode: GraphNode, outgoing: GraphNode[]) {
   })
 }
 
-function addEdge_redefinedNode(_activityNode: GraphNode) {
-  // TODO/Association
+function addEdge_redefinedNode(activityNode: GraphNode, redefinedNodes: GraphNode[]) {
   // redefinedNode : ActivityNode [0..*]{subsets RedefinableElement::redefinedElement} (opposite A_redefinedNode_activityNode::activityNode)
   // ActivityNodes from a generalization of the Activity containining this ActivityNode that are redefined by this ActivityNode.
+  redefinedNodes.forEach((redefinedNode) => {
+    activityNode.model.addEdge('redefinedNode', activityNode, redefinedNode)
+  })
 }
