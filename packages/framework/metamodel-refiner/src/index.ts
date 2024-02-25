@@ -1,5 +1,6 @@
 import type { GraphModel, GraphNode } from '@cm2ml/ir'
 import type {
+  Callback,
   HandlerPropagation,
   MetamodelConfiguration,
   MetamodelElement,
@@ -24,10 +25,12 @@ export function createRefiner<
     handlerParameters: HandlerParameters,
   ): GraphModel {
     removeNonModelNodes(model)
-    refineNodesRecursively(model.root, handlerParameters)
+    const callbacks = refineNodesRecursively(model.root, handlerParameters).toArray()
+    callbacks.forEach((callback) => callback())
     replaceTagsWithTypes(model)
     return model
   }
+
   function findModelRoot(node: GraphNode): GraphNode | undefined {
     if (configuration.getType(node) !== undefined) {
       return node
@@ -59,7 +62,7 @@ export function createRefiner<
   function refineNodesRecursively(
     node: GraphNode,
     handlerParameters: HandlerParameters,
-  ) {
+  ): Stream<Callback> {
     const handler = inferHandler(node)
     if (!handler) {
       const message = `No handler for node with tag ${
@@ -70,19 +73,18 @@ export function createRefiner<
       } else {
         node.model.debug(message)
       }
-      return
+      return Stream.empty()
     }
     try {
-      handler.handle(node, handlerParameters)
+      const callbacks = handler.handle(node, handlerParameters)
+      return Stream.from(node.children).flatMap((child) => refineNodesRecursively(child, handlerParameters)).concat(callbacks)
     } catch (error) {
       node.model.debug(getMessage(error))
       if (node.model.settings.strict) {
         throw error
       }
+      return Stream.empty()
     }
-    Stream.from(node.children).forEach((child) =>
-      refineNodesRecursively(child, handlerParameters),
-    )
   }
 
   function replaceTagsWithTypes(model: GraphModel) {

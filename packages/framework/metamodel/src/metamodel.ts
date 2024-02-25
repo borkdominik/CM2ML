@@ -51,10 +51,12 @@ export function transformNodeToEdge(
   return edge
 }
 
+export type Callback = () => void
+
 export type Handler<HandlerParameters extends HandlerPropagation> = (
   node: GraphNode,
   parameters: HandlerParameters,
-) => void | (() => void)
+) => void | Callback
 
 export interface HandlerPropagation {}
 
@@ -166,9 +168,9 @@ export class MetamodelElement<
     visited = new Set<
       MetamodelElement<Type, AbstractType, Tag, HandlerParameters>
     >(),
-  ): void {
+  ): Callback[] {
     if (visited.has(this)) {
-      return
+      return []
     }
     if (!this.handler) {
       const message = `Missing handler defined for metamodel element ${this.name}`
@@ -183,12 +185,13 @@ export class MetamodelElement<
     }
     const callback = this.handler?.(node, parameters)
     visited.add(this)
-    this.generalizations.forEach((parent) => {
-      parent.handle(node, parameters, visited)
+    const callbacks = [...this.generalizations].flatMap((parent) => {
+      return parent.handle(node, parameters, visited)
     })
     if (typeof callback === 'function') {
-      callback()
+      callbacks.unshift(callback)
     }
+    return callbacks
   }
 
   /**

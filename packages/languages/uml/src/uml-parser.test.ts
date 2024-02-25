@@ -5,11 +5,11 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
-// Green: 0-19999
+// Green: 0-24999
 
 const { validModels, invalidModels } = getFiles({
-  startIndex: 20000,
-  numberOfFiles: 5000,
+  startIndex: 0,
+  numberOfFiles: 25000,
   invalidModels: [
     '02ae79e9252059b1b9dda7355154f6631edc2bc7499d4a6ccd45621d4cffcd09.uml', // invalid "input" and "output" attributes on uml:Operation
     '0390aa780981baeb9c88926789a9a864e3dbae961118a2f17f3a87a0cc3bb493.uml', // duplicate id
@@ -44,7 +44,7 @@ const { validModels, invalidModels } = getFiles({
     '84cb37f59c916b05d4a36a8b28f9bc1ccd1a59230be0bd1f7caa0c327f58cd31.uml', // duplicate id
     '84d05a51d42aaae8d4506a805ea75be01f304375914c747bfc529843a71715fb.uml', // duplicate id
   ],
-  // override: 24653,
+  // override: 28151,
 })
 
 const showDebugOutput = validModels.length === 1
