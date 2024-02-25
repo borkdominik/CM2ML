@@ -1,24 +1,27 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
-import { Deployment } from '../uml-metamodel'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { Deployment, DeploymentSpecification } from '../uml-metamodel'
 
 export const DeploymentHandler = Deployment.createHandler(
   (deployment, { onlyContainmentAssociations }) => {
+    const configurations = resolve(deployment, 'configuration', { many: true, type: DeploymentSpecification })
     const deployedArtifacts = resolveFromAttribute(deployment, 'deployedArtifact', { many: true })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_configuration(deployment)
+    addEdge_configuration(deployment, configurations)
     addEdge_deployedArtifact(deployment, deployedArtifacts)
     addEdge_location(deployment)
   },
 )
 
-function addEdge_configuration(_deployment: GraphNode) {
-  // TODO/Association
+function addEdge_configuration(deployment: GraphNode, configurations: GraphNode[]) {
   // ♦ configuration : DeploymentSpecification [0..*]{subsets Element::ownedElement} (opposite DeploymentSpecification::deployment)
   // The specification of properties that parameterize the deployment and execution of one or more Artifacts.
+  configurations.forEach((configuration) => {
+    deployment.model.addEdge('configuration', deployment, configuration)
+  })
 }
 
 function addEdge_deployedArtifact(deployment: GraphNode, deployedArtifacts: GraphNode[]) {

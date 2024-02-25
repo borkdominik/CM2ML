@@ -12,6 +12,7 @@ import {
 
 export const OperationHandler = Operation.createHandler(
   (operation, { onlyContainmentAssociations }) => {
+    removeInvalidInputOutputAttributes(operation)
     const bodyCondition = resolve(operation, 'bodyCondition')
     const postconditions = resolve(operation, 'postcondition', { many: true })
     const preconditions = resolve(operation, 'precondition', { many: true })
@@ -38,6 +39,11 @@ export const OperationHandler = Operation.createHandler(
     [Uml.Attributes.isQuery]: 'false',
   },
 )
+
+function removeInvalidInputOutputAttributes(operation: GraphNode) {
+  operation.removeAttribute('input')
+  operation.removeAttribute('output')
+}
 
 function addEdge_bodyCondition(operation: GraphNode, bodyCondition: GraphNode | undefined) {
   // ♦ bodyCondition : Constraint [0..1]{subsets Namespace::ownedRule} (opposite A_bodyCondition_bodyContext::bodyContext)

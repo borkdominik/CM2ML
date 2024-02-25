@@ -1,25 +1,28 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
-import { InteractionUse } from '../uml-metamodel'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { Gate, InteractionUse } from '../uml-metamodel'
 
 export const InteractionUseHandler = InteractionUse.createHandler(
   (interactionUse, { onlyContainmentAssociations }) => {
+    const actualGates = resolve(interactionUse, 'actualGate', { many: true, type: Gate })
     const refersTo = resolveFromAttribute(interactionUse, 'refersTo')
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_actualGate(interactionUse)
+    addEdge_actualGate(interactionUse, actualGates)
     addEdge_argument(interactionUse)
     addEdge_refersTo(interactionUse, refersTo)
     addEdge_returnValue(interactionUse)
     addEdge_returnValueRecipient(interactionUse)
   },
 )
-function addEdge_actualGate(_interactionUse: GraphNode) {
-  // TODO/Association
+function addEdge_actualGate(interactionUse: GraphNode, actualGates: GraphNode[]) {
   // ♦ actualGate : Gate [0..*]{subsets Element::ownedElement} (opposite A_actualGate_interactionUse::interactionUse)
   // The actual gates of the InteractionUse.
+  actualGates.forEach((actualGate) => {
+    interactionUse.model.addEdge('actualGate', interactionUse, actualGate)
+  })
 }
 
 function addEdge_argument(_interactionUse: GraphNode) {

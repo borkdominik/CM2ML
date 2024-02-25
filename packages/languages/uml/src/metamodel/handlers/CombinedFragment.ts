@@ -1,16 +1,17 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { CombinedFragment, InteractionOperand } from '../uml-metamodel'
+import { CombinedFragment, Gate, InteractionOperand } from '../uml-metamodel'
 
 export const CombinedFragmentHandler = CombinedFragment.createHandler(
   (combinedFragment, { onlyContainmentAssociations }) => {
+    const cfragmentGates = resolve(combinedFragment, 'cfragmentGate', { many: true, type: Gate })
     const operands = resolveFromChild(combinedFragment, 'operand', { many: true, type: InteractionOperand })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_cfragmentGate(combinedFragment)
+    addEdge_cfragmentGate(combinedFragment, cfragmentGates)
     addEdge_operand(combinedFragment, operands)
   },
   {
@@ -18,10 +19,12 @@ export const CombinedFragmentHandler = CombinedFragment.createHandler(
   },
 )
 
-function addEdge_cfragmentGate(_combinedFragment: GraphNode) {
-  // TODO/Association
+function addEdge_cfragmentGate(combinedFragment: GraphNode, cfragmentGates: GraphNode[]) {
   // ♦ cfragmentGate : Gate [0..*]{subsets Element::ownedElement} (opposite A_cfragmentGate_combinedFragment::combinedFragment)
   // Specifies the gates that form the interface between this CombinedFragment and its surroundings
+  cfragmentGates.forEach((cfragmentGate) => {
+    combinedFragment.model.addEdge('cfragmentGate', combinedFragment, cfragmentGate)
+  })
 }
 
 function addEdge_operand(combinedFragment: GraphNode, operands: GraphNode[]) {

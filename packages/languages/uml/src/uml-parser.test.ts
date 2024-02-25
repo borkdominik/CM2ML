@@ -5,13 +5,12 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
-// Green: 0-24999
+// Green: 0-29999
 
 const { validModels, invalidModels } = getFiles({
-  startIndex: 0,
-  numberOfFiles: 25000,
+  startIndex: 25000,
+  numberOfFiles: 5000,
   invalidModels: [
-    '02ae79e9252059b1b9dda7355154f6631edc2bc7499d4a6ccd45621d4cffcd09.uml', // invalid "input" and "output" attributes on uml:Operation
     '0390aa780981baeb9c88926789a9a864e3dbae961118a2f17f3a87a0cc3bb493.uml', // duplicate id
     '086943006eec3dd2a28d9d053703ea1faf80f8aacdef0b993bb213ea3c38d304.uml', // uses abstract class Pin as instance type TODO/Jan: Check if abstract instances are allowed
     '0d5912ac87d1559fed1297cffbb53ebb6393878e4829bb85e64b50ff894e020a.uml', // duplicate id
@@ -26,12 +25,10 @@ const { validModels, invalidModels } = getFiles({
     '2e5851e4f6b34f49cb272534e70489f0cfd9b3756b127a92cd2bb41cde98b464.uml', // uses abstract class Pin as instance type TODO/Jan: Check if abstract instances are allowed
     '32fd7205f5ca476fe21aed299a9d511dc6da6363ce86235de0ce90163f222e87.uml', // duplicate id
     '3807e34fc85f8809dc5c50a60191724554649c8de42af4dfcccf39329a84d890.uml', // duplicate id
-    '3a88c174e886a0e2c6441895520d457a473961e18b4a5ae5f16b27519ab4c034.uml', // invalid "input" and "output" attributes on uml:Operation
     '3b7c2b547b19aa3bf242b10bbfa3f809c8684a51d806be496a4e0e4a28f00410.uml', // duplicate id
     '3d09b512c4b31971960d5805a6bd6d59307bbae75d4706fc5242c5dc437bde17.uml', // duplicate id
     '470ecc0168d34cede4c836f64afd5a5718a604973e87e35ce3898dd06c5780f6.uml', // invalid UML
     '480b03d525aa50a0d02596ebfa4e7175ee396e59634002d51e320f3b52c9c427.uml', // duplicate id
-    '4e97c43b4f1fdd89f753c97e154e6958f6c66e808b209917d0c98923271dabf9.uml', // invalid "input" and "output" attributes on uml:Operation
     '5d0796573a2811bbbd67ab9ee58cef85529fb277dfd96e6f8957fa22ed503fe1.uml', // duplicate id
     '5e19e6b9d29840bc07c1a67ad0237b85e0d40524b53eca316796f0af9213ca5c.uml', // duplicate id
     '5ea112d943e8825da525c48e2a673ab0fac03004c644d66322e30ce195a55d7e.uml', // uses abstract class Pin as instance type TODO/Jan: Check if abstract instances are allowed
@@ -43,8 +40,11 @@ const { validModels, invalidModels } = getFiles({
     '7fc541e9043b7e86dbb1fa20a670dbc3d727096b16de143f940e471f7f7592d0.uml', // uses abstract class Pin as instance type TODO/Jan: Check if abstract instances are allowed
     '84cb37f59c916b05d4a36a8b28f9bc1ccd1a59230be0bd1f7caa0c327f58cd31.uml', // duplicate id
     '84d05a51d42aaae8d4506a805ea75be01f304375914c747bfc529843a71715fb.uml', // duplicate id
+    '8beee7e0fd2e9f74d26dc7e8c3905f8e7e4e8a48064a52a26e70917f9184deef.uml', // duplicate id
+    'a0781c0e549192e20ecdbd8e452b5314779e10cdd9eff0d47580d755cb13bcb5.uml', // invalid UML
+    'a4f7a328882535dd39a40de29e2ab479243500b223d7fc31fd964fd5ed1f685e.uml', // duplicate id
   ],
-  // override: 28151,
+  // override: 25346,
 })
 
 const showDebugOutput = validModels.length === 1
