@@ -7,7 +7,7 @@ function resolveBodies(node: GraphNode) {
   const bodyChildren = node.findAllChildren((child) => child.tag === 'body')
   return Stream.from(bodyChildren).forEach((body) => {
     node.model.removeNode(body)
-  }).map((body) => body.getAttribute(Uml.Attributes.body))
+  }).map((body) => body.getAttribute(Uml.Attributes.body)?.value.literal).filterNonNull()
 }
 
 export function setBodyAttribute(node: GraphNode) {

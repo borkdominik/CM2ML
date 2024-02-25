@@ -7,7 +7,7 @@ function resolveLanguages(node: GraphNode) {
   const languageChildren = node.findAllChildren((child) => child.tag === 'language')
   return Stream.from(languageChildren).forEach((language) => {
     node.model.removeNode(language)
-  }).map((language) => language.getAttribute(Uml.Attributes.language))
+  }).map((language) => language.getAttribute(Uml.Attributes.language)?.value.literal).filterNonNull()
 }
 
 export function setLanguageAttribute(node: GraphNode) {
