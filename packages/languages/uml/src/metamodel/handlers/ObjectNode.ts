@@ -2,16 +2,17 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { ObjectNode, State } from '../uml-metamodel'
+import { Behavior, ObjectNode, State } from '../uml-metamodel'
 
 export const ObjectNodeHandler = ObjectNode.createHandler(
   (objectNode, { onlyContainmentAssociations }) => {
+    const selection = resolve(objectNode, 'selection', { type: Behavior })
     const inStates = resolve(objectNode, 'inState', { many: true, type: State })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_inState(objectNode, inStates)
-    addEdge_selection(objectNode)
+    addEdge_selection(objectNode, selection)
     addEdge_upperBound(objectNode)
   },
   {
@@ -28,10 +29,13 @@ function addEdge_inState(objectNode: GraphNode, inStates: GraphNode[]) {
   })
 }
 
-function addEdge_selection(_objectNode: GraphNode) {
-  // TODO/Association
+function addEdge_selection(objectNode: GraphNode, selection: GraphNode | undefined) {
   // selection : Behavior [0..1] (opposite A_selection_objectNode::objectNode)
   // A Behavior used to select tokens to be offered on outgoing ActivityEdges.
+  if (!selection) {
+    return
+  }
+  objectNode.model.addEdge('selection', objectNode, selection)
 }
 
 function addEdge_upperBound(_objectNode: GraphNode) {

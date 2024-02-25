@@ -12,6 +12,7 @@ import {
 
 export const PropertyHandler = Property.createHandler(
   (property, { onlyContainmentAssociations }) => {
+    removeInvalidIsNavigableAttribute(property)
     const association = resolve(property, 'association', { type: Association })
     const owningAssociations = resolve(property, 'owningAssociation', { many: true, type: Association })
     const qualifiers = resolve(property, 'qualifier', { many: true, type: Property })
@@ -40,6 +41,10 @@ export const PropertyHandler = Property.createHandler(
     [Uml.Attributes.isID]: 'false',
   },
 )
+
+function removeInvalidIsNavigableAttribute(property: GraphNode) {
+  property.removeAttribute('isNavigable')
+}
 
 function addEdge_association(
   property: GraphNode,

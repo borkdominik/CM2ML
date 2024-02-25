@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { ConnectionPointReference, Constraint, Pseudostate, State, StateMachine, Trigger } from '../uml-metamodel'
 
 export const StateHandler = State.createHandler(
   (state, { onlyContainmentAssociations }) => {
-    const connectionPoints = resolveFromAttribute(state, 'connectionPoint', { many: true, type: Pseudostate })
+    const connectionPoints = resolve(state, 'connectionPoint', { many: true, type: Pseudostate })
     const connections = resolve(state, 'connection', { many: true, type: ConnectionPointReference })
     const deferrableTriggers = resolve(state, 'deferrableTrigger', { many: true, type: Trigger })
     const stateInvariant = resolve(state, 'stateInvariant', { type: Constraint })

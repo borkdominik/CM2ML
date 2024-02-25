@@ -11,7 +11,7 @@ export function resolvePath(model: GraphModel, path: string) {
 }
 
 function resolveAbsolutePath(model: GraphModel, path: string) {
-  const segments = path.replace('//', '').split('/')
+  const segments = path.replace('//', '').split('/').map(decodeURIComponent)
   const root = model.root
   return resolveSegments(root, segments)
 }

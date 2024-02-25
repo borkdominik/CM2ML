@@ -11,7 +11,7 @@ function resolveBodies(node: GraphNode) {
 }
 
 export function setBodyAttribute(node: GraphNode) {
-  // TODO/Jan: How to handle multiple languages?
+  // TODO/Jan: How to handle multiple bodies?
   const body = resolveBodies(node).join('\n').trim()
   if (!body) {
     return

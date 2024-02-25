@@ -2,13 +2,14 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { InputPin, OutputPin, StructuredActivityNode } from '../uml-metamodel'
+import { InputPin, OutputPin, StructuredActivityNode, Variable } from '../uml-metamodel'
 
 export const StructuredActivityNodeHandler =
   StructuredActivityNode.createHandler(
     (structuredActivityNode, { onlyContainmentAssociations }) => {
       const structuredNodeInputs = resolve(structuredActivityNode, 'structuredNodeInput', { many: true, type: InputPin })
       const structuredNodeOutputs = resolve(structuredActivityNode, 'structuredNodeOutput', { many: true, type: OutputPin })
+      const variables = resolve(structuredActivityNode, 'variable', { many: true, type: Variable })
       if (onlyContainmentAssociations) {
         return
       }
@@ -17,7 +18,7 @@ export const StructuredActivityNodeHandler =
       addEdge_node(structuredActivityNode)
       addEdge_structuredNodeInput(structuredActivityNode, structuredNodeInputs)
       addEdge_structuredNodeOutput(structuredActivityNode, structuredNodeOutputs)
-      addEdge_variable(structuredActivityNode)
+      addEdge_variable(structuredActivityNode, variables)
     },
     {
       [Uml.Attributes.mustIsolate]: 'false',
@@ -58,8 +59,10 @@ function addEdge_structuredNodeOutput(structuredActivityNode: GraphNode, structu
   })
 }
 
-function addEdge_variable(_structuredActivityNode: GraphNode) {
-  // TODO/Association
+function addEdge_variable(structuredActivityNode: GraphNode, variables: GraphNode[]) {
   // ♦ variable : Variable [0..*]{subsets Namespace::ownedMember} (opposite Variable::scope)
   // The Variables defined in the scope of the StructuredActivityNode.
+  variables.forEach((variable) => {
+    structuredActivityNode.model.addEdge('variable', structuredActivityNode, variable)
+  })
 }
