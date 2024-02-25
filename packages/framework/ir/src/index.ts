@@ -228,7 +228,6 @@ export class GraphNode implements Attributable, ModelMember, Show {
       if (predicate(child)) {
         result.push(child)
       }
-      result.push(...child.findAllChildren(predicate))
     }
     return result
   }
