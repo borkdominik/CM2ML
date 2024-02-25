@@ -1,10 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
-import { Clause } from '../uml-metamodel'
+import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { Clause, ExecutableNode, OutputPin } from '../uml-metamodel'
 
 export const ClauseHandler = Clause.createHandler(
   (clause, { onlyContainmentAssociations }) => {
+    const bodies = resolve(clause, 'body', { many: true, type: ExecutableNode })
+    const bodyOutputs = resolve(clause, 'bodyOutput', { many: true, type: OutputPin })
     const decider = resolveFromAttribute(clause, 'decider')
     const predecessorClauses = resolveFromAttribute(clause, 'predecessorClause', { many: true })
     const successorClauses = resolveFromAttribute(clause, 'successorClause', { many: true })
@@ -12,8 +14,8 @@ export const ClauseHandler = Clause.createHandler(
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_body(clause)
-    addEdge_bodyOutput(clause)
+    addEdge_body(clause, bodies)
+    addEdge_bodyOutput(clause, bodyOutputs)
     addEdge_decider(clause, decider)
     addEdge_predecessorClause(clause, predecessorClauses)
     addEdge_successorClause(clause, successorClauses)
@@ -21,16 +23,20 @@ export const ClauseHandler = Clause.createHandler(
   },
 )
 
-function addEdge_body(_clause: GraphNode) {
-  // TODO/Association
+function addEdge_body(clause: GraphNode, bodies: GraphNode[]) {
   // body : ExecutableNode [0..*] (opposite A_body_clause::clause)
   // The set of ExecutableNodes that are executed if the test evaluates to true and the Clause is chosen over other Clauses within the ConditionalNode that also have tests that evaluate to true.
+  bodies.forEach((body) => {
+    clause.model.addEdge('body', clause, body)
+  })
 }
 
-function addEdge_bodyOutput(_clause: GraphNode) {
-  // TODO/Association
+function addEdge_bodyOutput(clause: GraphNode, bodyOutputs: GraphNode[]) {
   // bodyOutput : OutputPin [0..*]{ordered} (opposite A_bodyOutput_clause::clause)
   // The OutputPins on Actions within the body section whose values are moved to the result OutputPins of the containing ConditionalNode after execution of the body.
+  bodyOutputs.forEach((bodyOutput) => {
+    clause.model.addEdge('bodyOutput', clause, bodyOutput)
+  })
 }
 
 function addEdge_decider(clause: GraphNode, decider: GraphNode | undefined) {

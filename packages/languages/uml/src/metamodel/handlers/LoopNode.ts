@@ -2,10 +2,11 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { LoopNode } from '../uml-metamodel'
+import { LoopNode, OutputPin } from '../uml-metamodel'
 
 export const LoopNodeHandler = LoopNode.createHandler(
   (loopNode, { onlyContainmentAssociations }) => {
+    const bodyOutputs = resolve(loopNode, 'bodyOutput', { many: true, type: OutputPin })
     const bodyParts = resolve(loopNode, 'bodyPart', { many: true })
     const decider = resolve(loopNode, 'decider')
     const loopVariables = resolve(loopNode, 'loopVariable', { many: true })
@@ -14,7 +15,7 @@ export const LoopNodeHandler = LoopNode.createHandler(
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_bodyOutput(loopNode)
+    addEdge_bodyOutput(loopNode, bodyOutputs)
     addEdge_bodyPart(loopNode, bodyParts)
     addEdge_decider(loopNode, decider)
     addEdge_loopVariable(loopNode, loopVariables)
@@ -28,10 +29,12 @@ export const LoopNodeHandler = LoopNode.createHandler(
   },
 )
 
-function addEdge_bodyOutput(_loopNode: GraphNode) {
-  // TODO/Association
+function addEdge_bodyOutput(loopNode: GraphNode, bodyOutputs: GraphNode[]) {
   // bodyOutput : OutputPin [0..*]{ordered} (opposite A_bodyOutput_loopNode::loopNode)
   // The OutputPins on Actions within the bodyPart, the values of which are moved to the loopVariable OutputPins after the completion of each execution of the bodyPart, before the next iteration of the loop begins or before the loop exits.
+  bodyOutputs.forEach((bodyOutput) => {
+    loopNode.model.addEdge('bodyOutput', loopNode, bodyOutput)
+  })
 }
 
 function addEdge_bodyPart(loopNode: GraphNode, bodyParts: GraphNode[]) {
