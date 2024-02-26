@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
-import { Slot } from '../uml-metamodel'
+import { Slot, StructuralFeature } from '../uml-metamodel'
 
 export const SlotHandler = Slot.createHandler(
   (slot, { onlyContainmentAssociations }) => {
-    const definingFeature = resolveFromAttribute(slot, 'definingFeature')
+    const definingFeature = resolveFromAttribute(slot, 'definingFeature', { type: StructuralFeature })
     if (onlyContainmentAssociations) {
       return
     }

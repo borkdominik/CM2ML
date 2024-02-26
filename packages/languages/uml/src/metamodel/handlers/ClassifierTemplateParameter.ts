@@ -8,7 +8,7 @@ export const ClassifierTemplateParameterHandler =
   ClassifierTemplateParameter.createHandler(
     (classifierTemplateParameter, { onlyContainmentAssociations }) => {
       const constrainingClassifiers = resolve(classifierTemplateParameter, 'constrainingClassifier', { many: true, type: Classifier })
-      const parameteredElement = resolveFromAttribute(classifierTemplateParameter, 'parameteredElement')
+      const parameteredElement = resolveFromAttribute(classifierTemplateParameter, 'parameteredElement', { type: Classifier })
       if (onlyContainmentAssociations) {
         return
       }

@@ -1,26 +1,25 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
-import { Constraint } from '../uml-metamodel'
+import { Constraint, Element } from '../uml-metamodel'
 
 export const ConstraintHandler = Constraint.createHandler(
   (constraint, { onlyContainmentAssociations }) => {
-    const constrainedElement = resolveFromAttribute(constraint, 'constrainedElement', { many: true })
+    const constrainedElements = resolveFromAttribute(constraint, 'constrainedElement', { many: true, type: Element })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_constrainedElement(constraint, constrainedElement)
+    addEdge_constrainedElement(constraint, constrainedElements)
     addEdge_context(constraint)
     addEdge_specification(constraint)
   },
 )
 
-function addEdge_constrainedElement(constraint: GraphNode, constrainedElement: GraphNode[]) {
-  // TODO/Association
+function addEdge_constrainedElement(constraint: GraphNode, constrainedElements: GraphNode[]) {
   // constrainedElement : Element [0..*]{ordered} (opposite A_constrainedElement_constraint::constraint)
   // The ordered set of Elements referenced by this Constraint.
-  constrainedElement.forEach((element) => {
-    constraint.model.addEdge('constrainedElement', constraint, element)
+  constrainedElements.forEach((constrainedElement) => {
+    constraint.model.addEdge('constrainedElement', constraint, constrainedElement)
   })
 }
 

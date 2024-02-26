@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
-import { Vertex } from '../uml-metamodel'
+import { Transition, Vertex } from '../uml-metamodel'
 
 export const VertexHandler = Vertex.createHandler(
   (vertex, { onlyContainmentAssociations }) => {
-    const incoming = resolveFromAttribute(vertex, 'incoming', { many: true })
-    const outgoing = resolveFromAttribute(vertex, 'outgoing', { many: true })
+    const incoming = resolveFromAttribute(vertex, 'incoming', { many: true, type: Transition })
+    const outgoing = resolveFromAttribute(vertex, 'outgoing', { many: true, type: Transition })
     if (onlyContainmentAssociations) {
       return
     }

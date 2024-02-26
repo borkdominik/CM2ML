@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve, resolveFromAttribute } from '../resolvers/resolve'
-import { BehavioredClassifier, InterfaceRealization } from '../uml-metamodel'
+import { Behavior, BehavioredClassifier, InterfaceRealization } from '../uml-metamodel'
 
 export const BehavioredClassifierHandler = BehavioredClassifier.createHandler(
   (behavioredClassifier, { onlyContainmentAssociations }) => {
-    const classifierBehavior = resolveFromAttribute(behavioredClassifier, 'classifierBehavior')
+    const classifierBehavior = resolveFromAttribute(behavioredClassifier, 'classifierBehavior', { type: Behavior })
     const interfaceRealizations = resolve(behavioredClassifier, 'interfaceRealization', { many: true, type: InterfaceRealization })
     if (onlyContainmentAssociations) {
       return

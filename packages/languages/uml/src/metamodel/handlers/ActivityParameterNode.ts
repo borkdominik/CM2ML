@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
-import { ActivityParameterNode } from '../uml-metamodel'
+import { ActivityParameterNode, Parameter } from '../uml-metamodel'
 
 export const ActivityParameterNodeHandler = ActivityParameterNode.createHandler(
   (activityParameterNode, { onlyContainmentAssociations }) => {
-    const parameter = resolveFromAttribute(activityParameterNode, 'parameter')
+    const parameter = resolveFromAttribute(activityParameterNode, 'parameter', { type: Parameter })
     if (onlyContainmentAssociations) {
       return
     }

@@ -8,7 +8,7 @@ import { matchTag, resolvePath } from './path'
 export interface ResolverConfiguration {
   many?: boolean
   removeAttribute?: boolean
-  type?: UmlMetamodelElement
+  type: UmlMetamodelElement
 }
 
 function resolveNodeFromIdOrPath(node: GraphNode, pathOrId: string, type: UmlMetamodelElement | undefined) {
@@ -24,8 +24,8 @@ function resolveNodeFromIdOrPath(node: GraphNode, pathOrId: string, type: UmlMet
 }
 
 export function resolve(node: GraphNode, name: string, configuration: ResolverConfiguration & { many: true }): GraphNode[]
-export function resolve(node: GraphNode, name: string, configuration?: ResolverConfiguration): GraphNode | undefined
-export function resolve(node: GraphNode, name: string, configuration?: ResolverConfiguration): GraphNode | GraphNode[] | undefined {
+export function resolve(node: GraphNode, name: string, configuration: ResolverConfiguration): GraphNode | undefined
+export function resolve(node: GraphNode, name: string, configuration: ResolverConfiguration): GraphNode | GraphNode[] | undefined {
   if (configuration?.many === true) {
     const resolvedFromAttribute = resolveFromAttribute(node, name, { ...configuration, many: true })
     const resolvedFromChild = resolveFromChild(node, name, { ...configuration, many: true })
@@ -35,8 +35,8 @@ export function resolve(node: GraphNode, name: string, configuration?: ResolverC
 }
 
 export function resolveFromChild(node: GraphNode, tag: string, configuration: ResolverConfiguration & { many: true }): GraphNode[]
-export function resolveFromChild(node: GraphNode, tag: string, configuration?: ResolverConfiguration): GraphNode | undefined
-export function resolveFromChild(node: GraphNode, tag: string, { type, many = false }: ResolverConfiguration = {}) {
+export function resolveFromChild(node: GraphNode, tag: string, configuration: ResolverConfiguration): GraphNode | undefined
+export function resolveFromChild(node: GraphNode, tag: string, { type, many = false }: ResolverConfiguration) {
   if (!many) {
     const child = node.findChild(matchTag(tag))
     if (!child) {
@@ -64,8 +64,8 @@ function tryFollowIdRef(node: GraphNode) {
 }
 
 export function resolveFromAttribute(node: GraphNode, name: string, configuration: ResolverConfiguration & { many: true }): GraphNode[]
-export function resolveFromAttribute(node: GraphNode, name: string, configuration?: ResolverConfiguration): GraphNode | undefined
-export function resolveFromAttribute(node: GraphNode, name: string, { type, many = false, removeAttribute = true }: ResolverConfiguration = {}) {
+export function resolveFromAttribute(node: GraphNode, name: string, configuration: ResolverConfiguration): GraphNode | undefined
+export function resolveFromAttribute(node: GraphNode, name: string, { type, many = false, removeAttribute = true }: ResolverConfiguration) {
   const attribute = node.getAttribute(name)?.value.literal
   if (!attribute) {
     return many ? [] : undefined

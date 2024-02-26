@@ -3,14 +3,14 @@ import { getParentOfType } from '@cm2ml/metamodel'
 
 import { resolve, resolveFromAttribute } from '../resolvers/resolve'
 import { transformNodeToEdgeCallback } from '../uml'
-import { Constraint, Extend, UseCase } from '../uml-metamodel'
+import { Constraint, Extend, ExtensionPoint, UseCase } from '../uml-metamodel'
 
 export const ExtendHandler = Extend.createHandler(
   (extend, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const condition = resolve(extend, 'condition', { type: Constraint })
-    const extendedCase = resolveFromAttribute(extend, 'extendedCase')
+    const extendedCase = resolveFromAttribute(extend, 'extendedCase', { type: UseCase })
     const extension = getParentOfType(extend, UseCase)
-    const extensionLocations = resolveFromAttribute(extend, 'extensionLocation', { many: true })
+    const extensionLocations = resolveFromAttribute(extend, 'extensionLocation', { many: true, type: ExtensionPoint })
     if (relationshipsAsEdges) {
       // TODO/Jan: Validate direction
       return transformNodeToEdgeCallback(extend, extension, extendedCase)

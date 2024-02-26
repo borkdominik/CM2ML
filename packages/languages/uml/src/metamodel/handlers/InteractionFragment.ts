@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve, resolveFromAttribute } from '../resolvers/resolve'
-import { GeneralOrdering, InteractionFragment } from '../uml-metamodel'
+import { GeneralOrdering, InteractionFragment, Lifeline } from '../uml-metamodel'
 
 export const InteractionFragmentHandler = InteractionFragment.createHandler(
   (interactionFragment, { onlyContainmentAssociations }) => {
-    const covered = resolveFromAttribute(interactionFragment, 'covered', { many: true })
+    const covered = resolveFromAttribute(interactionFragment, 'covered', { many: true, type: Lifeline })
     const generalOrderings = resolve(interactionFragment, 'generalOrdering', { many: true, type: GeneralOrdering })
     if (onlyContainmentAssociations) {
       return

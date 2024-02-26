@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
-import { MessageEnd } from '../uml-metamodel'
+import { Message, MessageEnd } from '../uml-metamodel'
 
 export const MessageEndHandler = MessageEnd.createHandler(
   (messageEnd, { onlyContainmentAssociations }) => {
-    const message = resolveFromAttribute(messageEnd, 'message')
+    const message = resolveFromAttribute(messageEnd, 'message', { type: Message })
     if (onlyContainmentAssociations) {
       return
     }
@@ -14,7 +14,6 @@ export const MessageEndHandler = MessageEnd.createHandler(
 )
 
 function addEdge_message(messageEnd: GraphNode, message: GraphNode | undefined) {
-  // TODO/Association
   // message : Message [0..1] (opposite A_message_messageEnd::messageEnd)
   // References a Message.
   if (!message) {

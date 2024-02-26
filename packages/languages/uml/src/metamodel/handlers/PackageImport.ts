@@ -5,12 +5,12 @@ import {
 
 import { resolve } from '../resolvers/resolve'
 import { Uml, transformNodeToEdgeCallback } from '../uml'
-import { Namespace, PackageImport } from '../uml-metamodel'
+import { Namespace, Package, PackageImport } from '../uml-metamodel'
 
 export const PackageImportHandler = PackageImport.createHandler(
   (packageImport, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const importingNamespace = getParentOfType(packageImport, Namespace)
-    const importedPackage = resolve(packageImport, 'importedPackage')
+    const importedPackage = resolve(packageImport, 'importedPackage', { type: Package })
     if (relationshipsAsEdges) {
       return transformNodeToEdgeCallback(packageImport, importingNamespace, importedPackage)
     }
@@ -26,6 +26,7 @@ export const PackageImportHandler = PackageImport.createHandler(
 )
 
 function addEdge_importedPackage(packageImport: GraphNode, importedPackage: GraphNode | undefined) {
+  // importedPackage : Package [1..1]{subsets DirectedRelationship::target} (opposite A_importedPackage_packageImport::packageImport)
   if (!importedPackage) {
     return
   }
@@ -33,6 +34,7 @@ function addEdge_importedPackage(packageImport: GraphNode, importedPackage: Grap
 }
 
 function addEdge_importingNamespace(packageImport: GraphNode, importingNamespace: GraphNode | undefined) {
+  // importingNamespace : Namespace [1..1]{subsets DirectedRelationship::source, subsets Element::owner} (opposite Namespace::packageImport)
   if (!importingNamespace) {
     return
   }

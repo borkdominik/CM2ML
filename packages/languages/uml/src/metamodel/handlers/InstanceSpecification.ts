@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
-import { InstanceSpecification } from '../uml-metamodel'
+import { Classifier, InstanceSpecification } from '../uml-metamodel'
 
 export const InstanceSpecificationHandler = InstanceSpecification.createHandler(
   (instanceSpecification, { onlyContainmentAssociations }) => {
-    const classifier = resolveFromAttribute(instanceSpecification, 'classifier', { many: true })
+    const classifier = resolveFromAttribute(instanceSpecification, 'classifier', { many: true, type: Classifier })
     if (onlyContainmentAssociations) {
       return
     }

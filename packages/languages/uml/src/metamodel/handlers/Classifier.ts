@@ -2,17 +2,17 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve, resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Classifier, CollaborationUse, GeneralizationSet, Substitution, UseCase } from '../uml-metamodel'
+import { Classifier, ClassifierTemplateParameter, CollaborationUse, GeneralizationSet, Substitution, UseCase } from '../uml-metamodel'
 
 export const ClassifierHandler = Classifier.createHandler(
   (classifier, { onlyContainmentAssociations }) => {
     const collaborationUses = resolveFromChild(classifier, 'collaborationUse', { many: true, type: CollaborationUse })
     const ownedUseCases = resolveFromChild(classifier, 'ownedUseCase', { many: true, type: UseCase })
     const powertypeExtents = resolve(classifier, 'powertypeExtent', { many: true, type: GeneralizationSet })
-    const redefinedClassifiers = resolveFromAttribute(classifier, 'redefinedClassifier', { many: true })
-    const representation = resolveFromAttribute(classifier, 'representation')
+    const redefinedClassifiers = resolveFromAttribute(classifier, 'redefinedClassifier', { many: true, type: Classifier })
+    const representation = resolveFromAttribute(classifier, 'representation', { type: CollaborationUse })
     const substitutions = resolve(classifier, 'substitution', { many: true, type: Substitution })
-    const templateParameter = resolveFromAttribute(classifier, 'templateParameter')
+    const templateParameter = resolveFromAttribute(classifier, 'templateParameter', { type: ClassifierTemplateParameter })
     const useCases = resolve(classifier, 'useCase', { many: true, type: UseCase })
     if (onlyContainmentAssociations) {
       return

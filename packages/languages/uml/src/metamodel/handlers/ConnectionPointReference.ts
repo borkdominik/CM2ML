@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { ConnectionPointReference } from '../uml-metamodel'
+import { ConnectionPointReference, Pseudostate } from '../uml-metamodel'
 
 export const ConnectionPointReferenceHandler =
   ConnectionPointReference.createHandler(
     (connectionPointReference, { onlyContainmentAssociations }) => {
-      const entry = resolve(connectionPointReference, 'entry')
-      const exit = resolve(connectionPointReference, 'exit')
+      const entry = resolve(connectionPointReference, 'entry', { type: Pseudostate })
+      const exit = resolve(connectionPointReference, 'exit', { type: Pseudostate })
       if (onlyContainmentAssociations) {
         return
       }

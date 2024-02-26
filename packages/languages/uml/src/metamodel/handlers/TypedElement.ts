@@ -2,7 +2,7 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { TypedElement } from '../uml-metamodel'
+import { Type, TypedElement } from '../uml-metamodel'
 
 export const TypedElementHandler = TypedElement.createHandler(
   (typedElement, { onlyContainmentAssociations }) => {
@@ -14,19 +14,17 @@ export const TypedElementHandler = TypedElement.createHandler(
   },
 )
 
-// TODO/Jan: Replace with resolve
 function getType(typedElement: GraphNode) {
-  const type = resolve(typedElement, 'type')
-  if (type && !Uml.getType(type)) {
-    // The type can be present without an actual type (e.g., <type xmi:idref="Object" />)
-    // We remove those nodes since they don't relate to types of the metamodel
-    typedElement.model.removeNode(type)
-    return undefined
+  const type = resolve(typedElement, 'type', { type: Type })
+  if (!type || Uml.getType(type) !== undefined) {
+    return type
   }
-  return type
+  type.model.removeNode(type)
+  return undefined
 }
 
 function addEdge_type(typedElement: GraphNode, type: GraphNode | undefined) {
+  // type : Type [0..1] (opposite A_type_typedElement::typedElement)
   if (!type) {
     return
   }

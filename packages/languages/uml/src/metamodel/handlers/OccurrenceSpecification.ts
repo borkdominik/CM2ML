@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { GeneralOrdering, OccurrenceSpecification } from '../uml-metamodel'
 
 export const OccurrenceSpecificationHandler =
@@ -8,9 +8,7 @@ export const OccurrenceSpecificationHandler =
     (occurrenceSpecification, { onlyContainmentAssociations }) => {
       const toAfters = resolve(occurrenceSpecification, 'toAfter', { many: true, type: GeneralOrdering })
       const toBefores = resolve(occurrenceSpecification, 'toBefore', { many: true, type: GeneralOrdering })
-      // TODO/Jan: Validate that the event is truly unspecified
-      // Remove unspecified attribute
-      resolveFromAttribute(occurrenceSpecification, 'event')
+      removeInvalidEventAttribute(occurrenceSpecification)
       if (onlyContainmentAssociations) {
         return
       }
@@ -19,6 +17,11 @@ export const OccurrenceSpecificationHandler =
       addEdge_toBefore(occurrenceSpecification, toBefores)
     },
   )
+
+function removeInvalidEventAttribute(occurrenceSpecification: GraphNode) {
+  // TODO/Jan: Validate that the event is truly unspecified
+  occurrenceSpecification.removeAttribute('event')
+}
 
 function addEdge_covered(_occurrenceSpecification: GraphNode) {
   // TODO/Association

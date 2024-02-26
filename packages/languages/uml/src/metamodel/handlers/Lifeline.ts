@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
-import { Lifeline } from '../uml-metamodel'
+import { ConnectableElement, InteractionFragment, Lifeline, PartDecomposition } from '../uml-metamodel'
 
 export const LifelineHandler = Lifeline.createHandler(
   (lifeline, { onlyContainmentAssociations }) => {
-    const coveredBy = resolveFromAttribute(lifeline, 'coveredBy', { many: true })
-    const decomposedAs = resolveFromAttribute(lifeline, 'decomposedAs')
-    const represents = resolveFromAttribute(lifeline, 'represents')
+    const coveredBy = resolveFromAttribute(lifeline, 'coveredBy', { many: true, type: InteractionFragment })
+    const decomposedAs = resolveFromAttribute(lifeline, 'decomposedAs', { type: PartDecomposition })
+    const represents = resolveFromAttribute(lifeline, 'represents', { type: ConnectableElement })
     if (onlyContainmentAssociations) {
       return
     }

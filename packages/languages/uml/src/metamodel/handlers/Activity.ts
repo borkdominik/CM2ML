@@ -2,13 +2,13 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Activity, StructuredActivityNode, Variable } from '../uml-metamodel'
+import { Activity, ActivityGroup, ActivityNode, ActivityPartition, StructuredActivityNode, Variable } from '../uml-metamodel'
 
 export const ActivityHandler = Activity.createHandler(
   (activity, { onlyContainmentAssociations }) => {
-    const groups = resolveFromAttribute(activity, 'group', { many: true })
-    const nodes = resolveFromAttribute(activity, 'node', { many: true })
-    const partitions = resolveFromAttribute(activity, 'partition', { many: true })
+    const groups = resolveFromAttribute(activity, 'group', { many: true, type: ActivityGroup })
+    const nodes = resolveFromAttribute(activity, 'node', { many: true, type: ActivityNode })
+    const partitions = resolveFromAttribute(activity, 'partition', { many: true, type: ActivityPartition })
     const structuredNodes = resolveFromChild(activity, 'structuredNode', { many: true, type: StructuredActivityNode })
     const variables = resolveFromChild(activity, 'variable', { many: true, type: Variable })
     if (onlyContainmentAssociations) {

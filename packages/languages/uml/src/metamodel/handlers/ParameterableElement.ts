@@ -6,7 +6,7 @@ import { ParameterableElement, TemplateParameter } from '../uml-metamodel'
 export const ParameterableElementHandler = ParameterableElement.createHandler(
   (parameterableElement, { onlyContainmentAssociations }) => {
     const owningTemplateParameter = resolve(parameterableElement, 'owningTemplateParameter', { type: TemplateParameter })
-    const templateParameter = resolve(parameterableElement, 'templateParameter')
+    const templateParameter = resolve(parameterableElement, 'templateParameter', { type: TemplateParameter })
     if (onlyContainmentAssociations) {
       return
     }

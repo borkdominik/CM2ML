@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
-import { TemplateParameter } from '../uml-metamodel'
+import { ParameterableElement, TemplateParameter } from '../uml-metamodel'
 
 export const TemplateParameterHandler = TemplateParameter.createHandler(
   (templateParameter, { onlyContainmentAssociations }) => {
-    const parameteredElement = resolveFromAttribute(templateParameter, 'parameteredElement')
-    const ownedParameteredElement = resolveFromChild(templateParameter, 'ownedParameteredElement')
+    const parameteredElement = resolveFromAttribute(templateParameter, 'parameteredElement', { type: ParameterableElement })
+    const ownedParameteredElement = resolveFromChild(templateParameter, 'ownedParameteredElement', { type: ParameterableElement })
     if (onlyContainmentAssociations) {
       return
     }

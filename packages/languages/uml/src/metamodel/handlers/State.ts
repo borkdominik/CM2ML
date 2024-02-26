@@ -29,7 +29,7 @@ export const StateHandler = State.createHandler(
 function removeUnsupportedRedefinedState(state: GraphNode) {
   // TODO/Jan: Validate that the redefinedState is truly unspecified
   // Remove unspecified attribute
-  const redefinedState = resolve(state, 'redefinedState')
+  const redefinedState = resolve(state, 'redefinedState', { type: State })
   redefinedState?.model.removeNode(redefinedState)
 }
 

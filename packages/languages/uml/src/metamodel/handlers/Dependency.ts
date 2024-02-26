@@ -2,16 +2,16 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { transformNodeToEdgeCallback } from '../uml'
-import { Dependency } from '../uml-metamodel'
+import { Dependency, NamedElement } from '../uml-metamodel'
 
 export const DependencyHandler = Dependency.createHandler(
   (
     dependency: GraphNode,
     { onlyContainmentAssociations, relationshipsAsEdges },
   ) => {
-    // TODO/Jan: Add type config
-    const client = resolve(dependency, 'client')
-    const supplier = resolve(dependency, 'supplier')
+    // TODO/Jan: Handle multiple clients/suppliers
+    const client = resolve(dependency, 'client', { type: NamedElement })
+    const supplier = resolve(dependency, 'supplier', { type: NamedElement })
     if (relationshipsAsEdges) {
       return transformNodeToEdgeCallback(dependency, client, supplier)
     }
@@ -24,6 +24,7 @@ export const DependencyHandler = Dependency.createHandler(
 )
 
 function addEdge_client(dependency: GraphNode, client: GraphNode | undefined) {
+  // client : NamedElement [1..*]{subsets DirectedRelationship::source} (opposite NamedElement::clientDependency)
   if (!client) {
     return
   }
@@ -31,6 +32,7 @@ function addEdge_client(dependency: GraphNode, client: GraphNode | undefined) {
 }
 
 function addEdge_supplier(dependency: GraphNode, supplier: GraphNode | undefined) {
+  // supplier : NamedElement [1..*]{subsets DirectedRelationship::target} (opposite A_supplier_supplierDependency::supplierDependency)
   if (!supplier) {
     return
   }

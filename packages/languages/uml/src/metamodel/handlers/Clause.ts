@@ -7,10 +7,10 @@ export const ClauseHandler = Clause.createHandler(
   (clause, { onlyContainmentAssociations }) => {
     const bodies = resolve(clause, 'body', { many: true, type: ExecutableNode })
     const bodyOutputs = resolve(clause, 'bodyOutput', { many: true, type: OutputPin })
-    const decider = resolveFromAttribute(clause, 'decider')
-    const predecessorClauses = resolveFromAttribute(clause, 'predecessorClause', { many: true })
-    const successorClauses = resolveFromAttribute(clause, 'successorClause', { many: true })
-    const tests = resolveFromAttribute(clause, 'test', { many: true })
+    const decider = resolveFromAttribute(clause, 'decider', { type: OutputPin })
+    const predecessorClauses = resolveFromAttribute(clause, 'predecessorClause', { many: true, type: Clause })
+    const successorClauses = resolveFromAttribute(clause, 'successorClause', { many: true, type: Clause })
+    const tests = resolveFromAttribute(clause, 'test', { many: true, type: ExecutableNode })
     if (onlyContainmentAssociations) {
       return
     }

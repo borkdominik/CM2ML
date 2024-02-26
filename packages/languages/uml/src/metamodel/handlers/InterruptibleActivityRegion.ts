@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
-import { InterruptibleActivityRegion } from '../uml-metamodel'
+import { ActivityEdge, ActivityNode, InterruptibleActivityRegion } from '../uml-metamodel'
 
 export const InterruptibleActivityRegionHandler =
   InterruptibleActivityRegion.createHandler(
     (interruptibleActivityRegion, { onlyContainmentAssociations }) => {
-      const interruptingEdges = resolveFromAttribute(interruptibleActivityRegion, 'interruptingEdge', { many: true })
-      const nodes = resolveFromAttribute(interruptibleActivityRegion, 'node', { many: true })
+      const interruptingEdges = resolveFromAttribute(interruptibleActivityRegion, 'interruptingEdge', { many: true, type: ActivityEdge })
+      const nodes = resolveFromAttribute(interruptibleActivityRegion, 'node', { many: true, type: ActivityNode })
       if (onlyContainmentAssociations) {
         return
       }

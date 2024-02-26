@@ -42,25 +42,6 @@ function addEdge_member(namespace: GraphNode, child: GraphNode) {
   if (NamedElement.isAssignable(child)) {
     namespace.model.addEdge('member', namespace, child)
   }
-  // TODO/Jan Consider removal
-  // if (PackageImport.isAssignable(child)) {
-  //   const importedPackage = resolveImportedPackage(child)
-  //   namespace.model.addEdge('member', namespace, importedPackage)
-  // }
-  // if (ElementImport.isAssignable(child)) {
-  //   const importedElementId = child.getAttribute('importedElement')
-  //     ?.value.literal
-  //   if (!importedElementId) {
-  //     throw new Error('Missing importedElement attribute on ElementImport')
-  //   }
-  //   const importedElement = child.model.getNodeById(importedElementId)
-  //   if (!importedElement) {
-  //     throw new Error(
-  //       `Missing importedElement with id ${importedElementId} for ElementImport`,
-  //     )
-  //   }
-  //   namespace.model.addEdge('member', namespace, importedElement)
-  // }
 }
 
 function addEdge_ownedMember(namespace: GraphNode, child: GraphNode) {
@@ -70,7 +51,6 @@ function addEdge_ownedMember(namespace: GraphNode, child: GraphNode) {
 }
 
 function addEdge_ownedRule(namespace: GraphNode, ownedRules: GraphNode[]) {
-  // TODO/Association
   // ♦ ownedRule : Constraint [0..*]{subsets Namespace::ownedMember} (opposite Constraint::context)
   // Specifies a set of Constraints owned by this Namespace.
   ownedRules.forEach((ownedRule) => {

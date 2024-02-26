@@ -2,16 +2,16 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { LoopNode, OutputPin } from '../uml-metamodel'
+import { ExecutableNode, LoopNode, OutputPin } from '../uml-metamodel'
 
 export const LoopNodeHandler = LoopNode.createHandler(
   (loopNode, { onlyContainmentAssociations }) => {
     const bodyOutputs = resolve(loopNode, 'bodyOutput', { many: true, type: OutputPin })
-    const bodyParts = resolve(loopNode, 'bodyPart', { many: true })
-    const decider = resolve(loopNode, 'decider')
-    const loopVariables = resolve(loopNode, 'loopVariable', { many: true })
-    const setupParts = resolve(loopNode, 'setupPart', { many: true })
-    const tests = resolve(loopNode, 'test', { many: true })
+    const bodyParts = resolve(loopNode, 'bodyPart', { many: true, type: ExecutableNode })
+    const decider = resolve(loopNode, 'decider', { type: OutputPin })
+    const loopVariables = resolve(loopNode, 'loopVariable', { many: true, type: OutputPin })
+    const setupParts = resolve(loopNode, 'setupPart', { many: true, type: ExecutableNode })
+    const tests = resolve(loopNode, 'test', { many: true, type: ExecutableNode })
     if (onlyContainmentAssociations) {
       return
     }

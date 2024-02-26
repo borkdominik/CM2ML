@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
-import { TemplateParameterSubstitution } from '../uml-metamodel'
+import { ParameterableElement, TemplateParameter, TemplateParameterSubstitution } from '../uml-metamodel'
 
 export const TemplateParameterSubstitutionHandler =
   TemplateParameterSubstitution.createHandler(
     (templateParameterSubstitution, { onlyContainmentAssociations }) => {
-      const actual = resolveFromAttribute(templateParameterSubstitution, 'actual')
-      const formal = resolveFromAttribute(templateParameterSubstitution, 'formal')
+      const actual = resolveFromAttribute(templateParameterSubstitution, 'actual', { type: ParameterableElement })
+      const formal = resolveFromAttribute(templateParameterSubstitution, 'formal', { type: TemplateParameter })
       if (onlyContainmentAssociations) {
         return
       }

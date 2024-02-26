@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { CollaborationUse, Dependency } from '../uml-metamodel'
+import { Collaboration, CollaborationUse, Dependency } from '../uml-metamodel'
 
 export const CollaborationUseHandler = CollaborationUse.createHandler(
   (collaborationUse, { onlyContainmentAssociations }) => {
     const collaborationUseRoleBindings = resolve(collaborationUse, 'roleBinding', { many: true, type: Dependency })
-    const type = resolve(collaborationUse, 'type')
+    const type = resolve(collaborationUse, 'type', { type: Collaboration })
     if (onlyContainmentAssociations) {
       return
     }

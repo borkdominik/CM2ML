@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { VariableAction } from '../uml-metamodel'
+import { Variable, VariableAction } from '../uml-metamodel'
 
 export const VariableActionHandler = VariableAction.createHandler(
   (variableAction, { onlyContainmentAssociations }) => {
-    const variable = resolve(variableAction, 'variable')
+    const variable = resolve(variableAction, 'variable', { type: Variable })
     if (onlyContainmentAssociations) {
       return
     }

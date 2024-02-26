@@ -3,11 +3,11 @@ import { getParentOfType } from '@cm2ml/metamodel'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml, transformNodeToEdgeCallback } from '../uml'
-import { Package, ProfileApplication } from '../uml-metamodel'
+import { Package, Profile, ProfileApplication } from '../uml-metamodel'
 
 export const ProfileApplicationHandler = ProfileApplication.createHandler(
   (profileApplication, { onlyContainmentAssociations, relationshipsAsEdges }) => {
-    const appliedProfile = resolve(profileApplication, 'appliedProfile')
+    const appliedProfile = resolve(profileApplication, 'appliedProfile', { type: Profile })
     const applyingPackage = resolve(profileApplication, 'applyingPackage', { type: Package }) ?? getParentOfType(profileApplication, Package)
     if (relationshipsAsEdges) {
       // TODO/Jan Validate edge direction

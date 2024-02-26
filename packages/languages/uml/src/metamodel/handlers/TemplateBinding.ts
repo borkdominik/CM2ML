@@ -3,13 +3,13 @@ import { getParentOfType } from '@cm2ml/metamodel'
 
 import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { transformNodeToEdgeCallback } from '../uml'
-import { TemplateBinding, TemplateableElement } from '../uml-metamodel'
+import { TemplateBinding, TemplateParameterSubstitution, TemplateSignature, TemplateableElement } from '../uml-metamodel'
 
 export const TemplateBindingHandler = TemplateBinding.createHandler(
   (templateBinding, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const boundElement = getParentOfType(templateBinding, TemplateableElement)
-    const parameterSubstitutions = resolveFromChild(templateBinding, 'parameterSubstitution', { many: true })
-    const signature = resolveFromAttribute(templateBinding, 'signature')
+    const parameterSubstitutions = resolveFromChild(templateBinding, 'parameterSubstitution', { many: true, type: TemplateParameterSubstitution })
+    const signature = resolveFromAttribute(templateBinding, 'signature', { type: TemplateSignature })
     if (relationshipsAsEdges) {
       return transformNodeToEdgeCallback(templateBinding, boundElement, signature)
     }

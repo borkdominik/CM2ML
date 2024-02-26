@@ -2,11 +2,11 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Action, Constraint } from '../uml-metamodel'
+import { Action, Constraint, InputPin } from '../uml-metamodel'
 
 export const ActionHandler = Action.createHandler(
   (action, { onlyContainmentAssociations }) => {
-    const input = resolveFromAttribute(action, 'input', { many: true })
+    const input = resolveFromAttribute(action, 'input', { many: true, type: InputPin })
     const localPostconditions = resolveFromChild(action, 'localPostcondition', { many: true, type: Constraint })
     const localPreconditions = resolveFromChild(action, 'localPrecondition', { many: true, type: Constraint })
     if (onlyContainmentAssociations) {

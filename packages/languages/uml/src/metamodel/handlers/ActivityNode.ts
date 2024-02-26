@@ -1,14 +1,14 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve, resolveFromAttribute } from '../resolvers/resolve'
-import { ActivityNode } from '../uml-metamodel'
+import { ActivityEdge, ActivityNode, ActivityPartition, InterruptibleActivityRegion } from '../uml-metamodel'
 
 export const ActivityNodeHandler = ActivityNode.createHandler(
   (activityNode, { onlyContainmentAssociations }) => {
-    const inInterruptibleRegions = resolveFromAttribute(activityNode, 'inInterruptibleRegion', { many: true })
-    const inPartition = resolveFromAttribute(activityNode, 'inPartition', { many: true })
-    const incoming = resolveFromAttribute(activityNode, 'incoming', { many: true })
-    const outgoing = resolveFromAttribute(activityNode, 'outgoing', { many: true })
+    const inInterruptibleRegions = resolveFromAttribute(activityNode, 'inInterruptibleRegion', { many: true, type: InterruptibleActivityRegion })
+    const inPartition = resolveFromAttribute(activityNode, 'inPartition', { many: true, type: ActivityPartition })
+    const incoming = resolveFromAttribute(activityNode, 'incoming', { many: true, type: ActivityEdge })
+    const outgoing = resolveFromAttribute(activityNode, 'outgoing', { many: true, type: ActivityEdge })
     const redefinedNodes = resolve(activityNode, 'redefinedNode', { many: true, type: ActivityNode })
     if (onlyContainmentAssociations) {
       return

@@ -1,13 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
-import { InterfaceRealization } from '../uml-metamodel'
+import { resolve } from '../resolvers/resolve'
+import { BehavioredClassifier, Interface, InterfaceRealization } from '../uml-metamodel'
 
 export const InterfaceRealizationHandler = InterfaceRealization.createHandler(
   (interfaceRealization, { onlyContainmentAssociations }) => {
-    // TODO/Jan: Add type config
-    const contract = resolveFromAttribute(interfaceRealization, 'contract')
-    const implementingClassifier = resolveFromAttribute(interfaceRealization, 'client', { removeAttribute: false })
+    const contract = resolve(interfaceRealization, 'contract', { type: Interface })
+    const implementingClassifier = resolve(interfaceRealization, 'client', { removeAttribute: false, type: BehavioredClassifier })
     if (onlyContainmentAssociations) {
       return
     }

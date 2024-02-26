@@ -4,19 +4,21 @@ import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import {
   Class,
+  Constraint,
   DataType,
   Interface,
   Operation,
   Parameter,
+  Type,
 } from '../uml-metamodel'
 
 export const OperationHandler = Operation.createHandler(
   (operation, { onlyContainmentAssociations }) => {
     removeInvalidInputOutputAttributes(operation)
-    const bodyCondition = resolve(operation, 'bodyCondition')
-    const postconditions = resolve(operation, 'postcondition', { many: true })
-    const preconditions = resolve(operation, 'precondition', { many: true })
-    const raisedExceptions = resolve(operation, 'raisedException', { many: true })
+    const bodyCondition = resolve(operation, 'bodyCondition', { type: Constraint })
+    const postconditions = resolve(operation, 'postcondition', { many: true, type: Constraint })
+    const preconditions = resolve(operation, 'precondition', { many: true, type: Constraint })
+    const raisedExceptions = resolve(operation, 'raisedException', { many: true, type: Type })
     const redefinedOperations = resolve(operation, 'redefinedOperation', { many: true, type: Operation })
     if (onlyContainmentAssociations) {
       return

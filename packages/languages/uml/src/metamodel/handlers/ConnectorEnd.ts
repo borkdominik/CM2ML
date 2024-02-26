@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolveFromAttribute } from '../resolvers/resolve'
-import { ConnectorEnd } from '../uml-metamodel'
+import { ConnectableElement, ConnectorEnd, Property } from '../uml-metamodel'
 
 export const ConnectorEndHandler = ConnectorEnd.createHandler(
   (connectorEnd, { onlyContainmentAssociations }) => {
-    const partWithPort = resolveFromAttribute(connectorEnd, 'partWithPort')
-    const role = resolveFromAttribute(connectorEnd, 'role')
+    const partWithPort = resolveFromAttribute(connectorEnd, 'partWithPort', { type: Property })
+    const role = resolveFromAttribute(connectorEnd, 'role', { type: ConnectableElement })
     if (onlyContainmentAssociations) {
       return
     }

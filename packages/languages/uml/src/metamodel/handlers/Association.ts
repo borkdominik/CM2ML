@@ -7,7 +7,7 @@ import { Association, Extension, Property } from '../uml-metamodel'
 export const AssociationHandler = Association.createHandler(
   (association, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const memberEnds = resolve(association, 'memberEnd', { many: true, type: Property })
-    const navigableOwnedEnds = resolveFromAttribute(association, 'navigableOwnedEnd', { many: true })
+    const navigableOwnedEnds = resolveFromAttribute(association, 'navigableOwnedEnd', { many: true, type: Property })
     const ownedEnds = getOwnedEnds(association)
     if (relationshipsAsEdges) {
       // TODO: Include associations at all?
