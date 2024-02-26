@@ -460,6 +460,11 @@ function getEdgeTagForRelationship(relationship: GraphNode) {
 export function transformNodeToEdgeCallback(node: GraphNode, source: GraphNode | undefined, target: GraphNode | undefined) {
   const tag = getEdgeTagForRelationship(node)
   return () => {
+    const children = node.children
+    children.forEach((child) => {
+      node.removeChild(child)
+      node.parent?.addChild(child)
+    })
     transformNodeToEdge(node, source, target, tag)
   }
 }
