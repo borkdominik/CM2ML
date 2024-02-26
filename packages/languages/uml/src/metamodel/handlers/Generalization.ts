@@ -1,14 +1,14 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml, transformNodeToEdgeCallback } from '../uml'
 import { Classifier, Generalization, GeneralizationSet } from '../uml-metamodel'
 
 export const GeneralizationHandler = Generalization.createHandler(
   (generalization, { onlyContainmentAssociations, relationshipsAsEdges }) => {
-    const general = resolveFromAttribute(generalization, 'general', { type: Classifier })
-    const generalizationSets = resolveFromAttribute(generalization, 'generalizationSet', { many: true, type: GeneralizationSet })
+    const general = resolve(generalization, 'general', { type: Classifier })
+    const generalizationSets = resolve(generalization, 'generalizationSet', { many: true, type: GeneralizationSet })
     const specific = getParentOfType(generalization, Classifier)
     if (relationshipsAsEdges) {
       return transformNodeToEdgeCallback(generalization, general, specific)

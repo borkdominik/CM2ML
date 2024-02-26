@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Message, MessageEnd } from '../uml-metamodel'
 
 export const MessageEndHandler = MessageEnd.createHandler(
   (messageEnd, { onlyContainmentAssociations }) => {
-    const message = resolveFromAttribute(messageEnd, 'message', { type: Message })
+    const message = resolve(messageEnd, 'message', { type: Message })
     if (onlyContainmentAssociations) {
       return
     }

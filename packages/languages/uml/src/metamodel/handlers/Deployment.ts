@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { DeployedArtifact, Deployment, DeploymentSpecification } from '../uml-metamodel'
 
 export const DeploymentHandler = Deployment.createHandler(
   (deployment, { onlyContainmentAssociations }) => {
     const configurations = resolve(deployment, 'configuration', { many: true, type: DeploymentSpecification })
-    const deployedArtifacts = resolveFromAttribute(deployment, 'deployedArtifact', { many: true, type: DeployedArtifact })
+    const deployedArtifacts = resolve(deployment, 'deployedArtifact', { many: true, type: DeployedArtifact })
     if (onlyContainmentAssociations) {
       return
     }

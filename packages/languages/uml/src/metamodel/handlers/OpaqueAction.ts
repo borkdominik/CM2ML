@@ -2,15 +2,15 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { setBodyAttribute } from '../resolvers/body'
 import { setLanguageAttribute } from '../resolvers/language'
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { InputPin, OpaqueAction, OutputPin } from '../uml-metamodel'
 
 export const OpaqueActionHandler = OpaqueAction.createHandler(
   (opaqueAction, { onlyContainmentAssociations }) => {
     setBodyAttribute(opaqueAction)
     setLanguageAttribute(opaqueAction)
-    const inputValues = resolveFromChild(opaqueAction, 'inputValue', { many: true, type: InputPin })
-    const outputValues = resolveFromChild(opaqueAction, 'outputValue', { many: true, type: OutputPin })
+    const inputValues = resolve(opaqueAction, 'inputValue', { many: true, type: InputPin })
+    const outputValues = resolve(opaqueAction, 'outputValue', { many: true, type: OutputPin })
     if (onlyContainmentAssociations) {
       return
     }

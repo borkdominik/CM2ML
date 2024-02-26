@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { ExpansionNode, ExpansionRegion } from '../uml-metamodel'
 
 export const ExpansionRegionHandler = ExpansionRegion.createHandler(
   (expansionRegion, { onlyContainmentAssociations }) => {
-    const inputElement = resolveFromAttribute(expansionRegion, 'inputElement', { many: true, type: ExpansionNode })
-    const outputElement = resolveFromAttribute(expansionRegion, 'outputElement', { many: true, type: ExpansionNode })
+    const inputElement = resolve(expansionRegion, 'inputElement', { many: true, type: ExpansionNode })
+    const outputElement = resolve(expansionRegion, 'outputElement', { many: true, type: ExpansionNode })
     if (onlyContainmentAssociations) {
       return
     }

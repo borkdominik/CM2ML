@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Manifestation, PackageableElement } from '../uml-metamodel'
 
 export const ManifestationHandler = Manifestation.createHandler(
   (manifestation, { onlyContainmentAssociations }) => {
-    const utilizedElement = resolveFromAttribute(manifestation, 'utilizedElement', { type: PackageableElement })
+    const utilizedElement = resolve(manifestation, 'utilizedElement', { type: PackageableElement })
     if (onlyContainmentAssociations) {
       return
     }

@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { TimeEvent, TimeExpression } from '../uml-metamodel'
 
 export const TimeEventHandler = TimeEvent.createHandler(
   (timeEvent, { onlyContainmentAssociations }) => {
-    const when = resolveFromChild(timeEvent, 'when', { type: TimeExpression })
+    const when = resolve(timeEvent, 'when', { type: TimeExpression })
     if (onlyContainmentAssociations) {
       return
     }

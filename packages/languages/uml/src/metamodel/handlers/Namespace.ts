@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import {
   Constraint,
   ElementImport,
@@ -11,7 +11,7 @@ import {
 
 export const NamespaceHandler = Namespace.createHandler(
   (namespace, { onlyContainmentAssociations }) => {
-    const ownedRules = resolveFromChild(namespace, 'ownedRule', { many: true, type: Constraint })
+    const ownedRules = resolve(namespace, 'ownedRule', { many: true, type: Constraint })
     if (onlyContainmentAssociations) {
       return
     }

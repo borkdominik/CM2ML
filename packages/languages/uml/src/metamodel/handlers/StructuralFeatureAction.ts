@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { InputPin, StructuralFeature, StructuralFeatureAction } from '../uml-metamodel'
 
 export const StructuralFeatureActionHandler =
   StructuralFeatureAction.createHandler(
     (structuralFeatureAction, { onlyContainmentAssociations }) => {
-      const object = resolveFromChild(structuralFeatureAction, 'object', { type: InputPin })
-      const structuralFeature = resolveFromAttribute(structuralFeatureAction, 'structuralFeature', { type: StructuralFeature })
+      const object = resolve(structuralFeatureAction, 'object', { type: InputPin })
+      const structuralFeature = resolve(structuralFeatureAction, 'structuralFeature', { type: StructuralFeature })
       if (onlyContainmentAssociations) {
         return
       }

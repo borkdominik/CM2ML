@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Enumeration, EnumerationLiteral } from '../uml-metamodel'
 
 export const EnumerationLiteralHandler = EnumerationLiteral.createHandler(
   (enumerationLiteral, { onlyContainmentAssociations }) => {
     // TODO/Jan: Use parent only as fallback for classifier
-    const classifier = resolveFromAttribute(enumerationLiteral, 'classifier', { type: Enumeration })
+    const classifier = resolve(enumerationLiteral, 'classifier', { type: Enumeration })
     const enumeration = getParentOfType(
       enumerationLiteral,
       Enumeration,

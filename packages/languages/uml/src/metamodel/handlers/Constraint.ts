@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Constraint, Element } from '../uml-metamodel'
 
 export const ConstraintHandler = Constraint.createHandler(
   (constraint, { onlyContainmentAssociations }) => {
-    const constrainedElements = resolveFromAttribute(constraint, 'constrainedElement', { many: true, type: Element })
+    const constrainedElements = resolve(constraint, 'constrainedElement', { many: true, type: Element })
     if (onlyContainmentAssociations) {
       return
     }

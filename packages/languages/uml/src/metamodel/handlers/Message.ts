@@ -1,15 +1,15 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Connector, Message, MessageEnd, NamedElement } from '../uml-metamodel'
 
 export const MessageHandler = Message.createHandler(
   (message, { onlyContainmentAssociations }) => {
-    const connector = resolveFromAttribute(message, 'connector', { type: Connector })
-    const receiveEvent = resolveFromAttribute(message, 'receiveEvent', { type: MessageEnd })
-    const sendEvent = resolveFromAttribute(message, 'sendEvent', { type: MessageEnd })
-    const signature = resolveFromAttribute(message, 'signature', { type: NamedElement })
+    const connector = resolve(message, 'connector', { type: Connector })
+    const receiveEvent = resolve(message, 'receiveEvent', { type: MessageEnd })
+    const sendEvent = resolve(message, 'sendEvent', { type: MessageEnd })
+    const signature = resolve(message, 'signature', { type: NamedElement })
     if (onlyContainmentAssociations) {
       return
     }

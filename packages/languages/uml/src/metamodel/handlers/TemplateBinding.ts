@@ -1,15 +1,15 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
-import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { transformNodeToEdgeCallback } from '../uml'
 import { TemplateBinding, TemplateParameterSubstitution, TemplateSignature, TemplateableElement } from '../uml-metamodel'
 
 export const TemplateBindingHandler = TemplateBinding.createHandler(
   (templateBinding, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const boundElement = getParentOfType(templateBinding, TemplateableElement)
-    const parameterSubstitutions = resolveFromChild(templateBinding, 'parameterSubstitution', { many: true, type: TemplateParameterSubstitution })
-    const signature = resolveFromAttribute(templateBinding, 'signature', { type: TemplateSignature })
+    const parameterSubstitutions = resolve(templateBinding, 'parameterSubstitution', { many: true, type: TemplateParameterSubstitution })
+    const signature = resolve(templateBinding, 'signature', { type: TemplateSignature })
     if (relationshipsAsEdges) {
       return transformNodeToEdgeCallback(templateBinding, boundElement, signature)
     }

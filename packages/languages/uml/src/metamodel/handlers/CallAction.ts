@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { CallAction, OutputPin } from '../uml-metamodel'
 
 export const CallActionHandler = CallAction.createHandler(
   (callAction, { onlyContainmentAssociations }) => {
-    const results = resolveFromChild(callAction, 'result', { many: true, type: OutputPin })
+    const results = resolve(callAction, 'result', { many: true, type: OutputPin })
     if (onlyContainmentAssociations) {
       return
     }

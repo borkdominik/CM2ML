@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { OutputPin, ReadSelfAction } from '../uml-metamodel'
 
 export const ReadSelfActionHandler = ReadSelfAction.createHandler(
   (readSelfAction, { onlyContainmentAssociations }) => {
-    const result = resolveFromChild(readSelfAction, 'result', { type: OutputPin })
+    const result = resolve(readSelfAction, 'result', { type: OutputPin })
     if (onlyContainmentAssociations) {
       return
     }

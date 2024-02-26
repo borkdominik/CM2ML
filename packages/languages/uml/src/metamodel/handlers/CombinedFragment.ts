@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { CombinedFragment, Gate, InteractionOperand } from '../uml-metamodel'
 
 export const CombinedFragmentHandler = CombinedFragment.createHandler(
   (combinedFragment, { onlyContainmentAssociations }) => {
     const cfragmentGates = resolve(combinedFragment, 'cfragmentGate', { many: true, type: Gate })
-    const operands = resolveFromChild(combinedFragment, 'operand', { many: true, type: InteractionOperand })
+    const operands = resolve(combinedFragment, 'operand', { many: true, type: InteractionOperand })
     if (onlyContainmentAssociations) {
       return
     }

@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Behavior, BehavioralFeature } from '../uml-metamodel'
 
 export const BehavioralFeatureHandler = BehavioralFeature.createHandler(
   (behavioralFeature, { onlyContainmentAssociations }) => {
-    const method = resolveFromAttribute(behavioralFeature, 'method', { type: Behavior })
+    const method = resolve(behavioralFeature, 'method', { type: Behavior })
     if (onlyContainmentAssociations) {
       return
     }

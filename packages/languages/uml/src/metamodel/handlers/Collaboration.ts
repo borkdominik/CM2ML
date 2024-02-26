@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Collaboration, ConnectableElement } from '../uml-metamodel'
 
 export const CollaborationHandler = Collaboration.createHandler(
   (collaboration, { onlyContainmentAssociations }) => {
-    const collaborationRoles = resolveFromAttribute(collaboration, 'collaborationRole', { many: true, type: ConnectableElement })
+    const collaborationRoles = resolve(collaboration, 'collaborationRole', { many: true, type: ConnectableElement })
     if (onlyContainmentAssociations) {
       return
     }

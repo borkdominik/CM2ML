@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { SendSignalAction, Signal } from '../uml-metamodel'
 
 export const SendSignalActionHandler = SendSignalAction.createHandler(
   (sendSignalAction, { onlyContainmentAssociations }) => {
-    const signal = resolveFromAttribute(sendSignalAction, 'signal', { type: Signal })
+    const signal = resolve(sendSignalAction, 'signal', { type: Signal })
     if (onlyContainmentAssociations) {
       return
     }

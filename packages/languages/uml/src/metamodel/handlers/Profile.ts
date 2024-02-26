@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { ElementImport, PackageImport, Profile } from '../uml-metamodel'
 
 export const ProfileHandler = Profile.createHandler(
   (profile, { onlyContainmentAssociations }) => {
-    const metaclassReferences = resolveFromAttribute(profile, 'metaclassReference', { many: true, type: ElementImport })
-    const metamodelReferences = resolveFromAttribute(profile, 'metamodelReference', { many: true, type: PackageImport })
+    const metaclassReferences = resolve(profile, 'metaclassReference', { many: true, type: ElementImport })
+    const metamodelReferences = resolve(profile, 'metamodelReference', { many: true, type: PackageImport })
     if (onlyContainmentAssociations) {
       return
     }

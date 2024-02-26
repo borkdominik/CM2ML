@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { ExecutionSpecification, OccurrenceSpecification } from '../uml-metamodel'
 
 export const ExecutionSpecificationHandler =
   ExecutionSpecification.createHandler(
     (executionSpecification, { onlyContainmentAssociations }) => {
-      const finish = resolveFromAttribute(executionSpecification, 'finish', { type: OccurrenceSpecification })
-      const start = resolveFromAttribute(executionSpecification, 'start', { type: OccurrenceSpecification })
+      const finish = resolve(executionSpecification, 'finish', { type: OccurrenceSpecification })
+      const start = resolve(executionSpecification, 'start', { type: OccurrenceSpecification })
       if (onlyContainmentAssociations) {
         return
       }

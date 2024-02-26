@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { TemplateBinding, TemplateSignature, TemplateableElement } from '../uml-metamodel'
 
 export const TemplateableElementHandler = TemplateableElement.createHandler(
   (templateableElement, { onlyContainmentAssociations }) => {
     const ownedTemplateSignature = resolve(templateableElement, 'ownedTemplateSignature', { type: TemplateSignature })
-    const templateBinding = resolveFromChild(templateableElement, 'templateBinding', { many: true, type: TemplateBinding })
+    const templateBinding = resolve(templateableElement, 'templateBinding', { many: true, type: TemplateBinding })
     if (onlyContainmentAssociations) {
       return
     }

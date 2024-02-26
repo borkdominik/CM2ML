@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { InteractionConstraint, InteractionOperand } from '../uml-metamodel'
 
 export const InteractionOperandHandler = InteractionOperand.createHandler(
   (interactionOperand, { onlyContainmentAssociations }) => {
-    const guards = resolveFromChild(interactionOperand, 'guard', { type: InteractionConstraint })
+    const guards = resolve(interactionOperand, 'guard', { type: InteractionConstraint })
     if (onlyContainmentAssociations) {
       return
     }

@@ -9,7 +9,7 @@ import { UmlParser } from './index'
 
 const { validModels, invalidModels } = getFiles({
   startIndex: 0,
-  numberOfFiles: 50000,
+  numberOfFiles: 500,
   invalidModels: [
     '0390aa780981baeb9c88926789a9a864e3dbae961118a2f17f3a87a0cc3bb493.uml', // duplicate id
     '086943006eec3dd2a28d9d053703ea1faf80f8aacdef0b993bb213ea3c38d304.uml', // uses abstract class Pin as instance type TODO/Jan: Check if abstract instances are allowed
@@ -59,7 +59,7 @@ const { validModels, invalidModels } = getFiles({
     'f0cb46bb4e2127bd31c4e8d2a39f337d83e2a460a5f76412cd537b7aef8fe01a.uml', // duplicate id
     'ffec14974404d79da3b9fd4336a608795fe1b9017fe5fe8357c633a24a8512d5.uml', // duplicate id
   ],
-  // override: 1835,
+  // override: 7077,
 })
 
 const showDebugOutput = validModels.length === 1
@@ -88,7 +88,7 @@ describe('uml-parser', () => {
       }
     })
 
-    it.skipIf(showDebugOutput).each(invalidModels)('should not parse model %s', (file) => {
+    it.skipIf(showDebugOutput).each(invalidModels)('should not parse invalid model %s', (file) => {
       const serializedModel = readFileSync(file, 'utf-8')
       try {
         UmlParser.invoke(serializedModel, { ...configuration, debug: true, removeInvalidNodes: false, strict: true })

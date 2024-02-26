@@ -1,16 +1,16 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Clause, ExecutableNode, OutputPin } from '../uml-metamodel'
 
 export const ClauseHandler = Clause.createHandler(
   (clause, { onlyContainmentAssociations }) => {
     const bodies = resolve(clause, 'body', { many: true, type: ExecutableNode })
     const bodyOutputs = resolve(clause, 'bodyOutput', { many: true, type: OutputPin })
-    const decider = resolveFromAttribute(clause, 'decider', { type: OutputPin })
-    const predecessorClauses = resolveFromAttribute(clause, 'predecessorClause', { many: true, type: Clause })
-    const successorClauses = resolveFromAttribute(clause, 'successorClause', { many: true, type: Clause })
-    const tests = resolveFromAttribute(clause, 'test', { many: true, type: ExecutableNode })
+    const decider = resolve(clause, 'decider', { type: OutputPin })
+    const predecessorClauses = resolve(clause, 'predecessorClause', { many: true, type: Clause })
+    const successorClauses = resolve(clause, 'successorClause', { many: true, type: Clause })
+    const tests = resolve(clause, 'test', { many: true, type: ExecutableNode })
     if (onlyContainmentAssociations) {
       return
     }

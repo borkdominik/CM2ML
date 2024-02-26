@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Behavior, BehavioralFeature, Constraint } from '../uml-metamodel'
 
@@ -9,7 +9,7 @@ export const BehaviorHandler = Behavior.createHandler(
     const postconditions = resolve(behavior, 'postcondition', { many: true, type: Constraint })
     const preconditions = resolve(behavior, 'precondition', { many: true, type: Constraint })
     const redefinedBehaviors = resolve(behavior, 'redefinedBehavior', { many: true, type: Behavior })
-    const specification = resolveFromAttribute(behavior, 'specification', { type: BehavioralFeature })
+    const specification = resolve(behavior, 'specification', { type: BehavioralFeature })
     if (onlyContainmentAssociations) {
       return
     }

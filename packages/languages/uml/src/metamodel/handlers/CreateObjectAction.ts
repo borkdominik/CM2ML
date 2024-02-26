@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Classifier, CreateObjectAction, OutputPin } from '../uml-metamodel'
 
 export const CreateObjectActionHandler = CreateObjectAction.createHandler(
   (createObjectAction, { onlyContainmentAssociations }) => {
-    const classifier = resolveFromAttribute(createObjectAction, 'classifier', { type: Classifier })
-    const result = resolveFromChild(createObjectAction, 'result', { type: OutputPin })
+    const classifier = resolve(createObjectAction, 'classifier', { type: Classifier })
+    const result = resolve(createObjectAction, 'result', { type: OutputPin })
     if (onlyContainmentAssociations) {
       return
     }

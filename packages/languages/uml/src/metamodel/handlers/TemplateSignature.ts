@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { TemplateParameter, TemplateSignature } from '../uml-metamodel'
 
 export const TemplateSignatureHandler = TemplateSignature.createHandler(
   (templateSignature, { onlyContainmentAssociations }) => {
-    const parameters = resolveFromAttribute(templateSignature, 'parameter', { many: true, type: TemplateParameter })
+    const parameters = resolve(templateSignature, 'parameter', { many: true, type: TemplateParameter })
     if (onlyContainmentAssociations) {
       return
     }

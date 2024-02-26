@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Clause, ConditionalNode } from '../uml-metamodel'
 
 export const ConditionalNodeHandler = ConditionalNode.createHandler(
   (conditionalNode, { onlyContainmentAssociations }) => {
-    const clauses = resolveFromChild(conditionalNode, 'clause', { many: true, type: Clause })
+    const clauses = resolve(conditionalNode, 'clause', { many: true, type: Clause })
     if (onlyContainmentAssociations) {
       return
     }

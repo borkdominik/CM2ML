@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Behavior, DecisionNode, ObjectFlow } from '../uml-metamodel'
 
 export const DecisionNodeHandler = DecisionNode.createHandler(
   (decisionNode, { onlyContainmentAssociations }) => {
     const decisionInput = resolve(decisionNode, 'decisionInput', { type: Behavior })
-    const decisionInputFlow = resolveFromAttribute(decisionNode, 'decisionInputFlow', { type: ObjectFlow })
+    const decisionInputFlow = resolve(decisionNode, 'decisionInputFlow', { type: ObjectFlow })
     if (onlyContainmentAssociations) {
       return
     }

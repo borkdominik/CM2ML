@@ -1,14 +1,14 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { ActivityEdge, ActivityNode, ActivityPartition, Element } from '../uml-metamodel'
 
 export const ActivityPartitionHandler = ActivityPartition.createHandler(
   (activityPartition, { onlyContainmentAssociations }) => {
-    const edges = resolveFromAttribute(activityPartition, 'edge', { many: true, type: ActivityEdge })
-    const nodes = resolveFromAttribute(activityPartition, 'node', { many: true, type: ActivityNode })
-    const represents = resolveFromAttribute(activityPartition, 'represents', { type: Element })
+    const edges = resolve(activityPartition, 'edge', { many: true, type: ActivityEdge })
+    const nodes = resolve(activityPartition, 'node', { many: true, type: ActivityNode })
+    const represents = resolve(activityPartition, 'represents', { type: Element })
     const subpartition = resolve(activityPartition, 'subpartition', { many: true, type: ActivityPartition })
     if (onlyContainmentAssociations) {
       return
@@ -26,7 +26,6 @@ export const ActivityPartitionHandler = ActivityPartition.createHandler(
 )
 
 function addEdge_edge(activityPartition: GraphNode, edges: GraphNode[]) {
-  // TODO/Association
   // edge : ActivityEdge [0..*]{subsets ActivityGroup::containedEdge} (opposite ActivityEdge::inPartition)
   // ActivityEdges immediately contained in the ActivityPartition.
   edges.forEach((edge) => {

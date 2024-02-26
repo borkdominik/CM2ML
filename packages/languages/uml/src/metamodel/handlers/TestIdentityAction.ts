@@ -1,13 +1,13 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { InputPin, OutputPin, TestIdentityAction } from '../uml-metamodel'
 
 export const TestIdentityActionHandler = TestIdentityAction.createHandler(
   (testIdentityAction, { onlyContainmentAssociations }) => {
-    const first = resolveFromChild(testIdentityAction, 'first', { type: InputPin })
-    const result = resolveFromChild(testIdentityAction, 'result', { type: OutputPin })
-    const second = resolveFromChild(testIdentityAction, 'second', { type: InputPin })
+    const first = resolve(testIdentityAction, 'first', { type: InputPin })
+    const result = resolve(testIdentityAction, 'result', { type: OutputPin })
+    const second = resolve(testIdentityAction, 'second', { type: InputPin })
     if (onlyContainmentAssociations) {
       return
     }

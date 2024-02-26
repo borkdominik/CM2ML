@@ -29,14 +29,14 @@ export function resolve(node: GraphNode, name: string, configuration: ResolverCo
   if (configuration?.many === true) {
     const resolvedFromAttribute = resolveFromAttribute(node, name, { ...configuration, many: true })
     const resolvedFromChild = resolveFromChild(node, name, { ...configuration, many: true })
-    return resolvedFromAttribute.concat(resolvedFromChild)
+    return [...new Set([...resolvedFromAttribute, ...resolvedFromChild])]
   }
   return resolveFromAttribute(node, name, configuration) ?? resolveFromChild(node, name, configuration)
 }
 
-export function resolveFromChild(node: GraphNode, tag: string, configuration: ResolverConfiguration & { many: true }): GraphNode[]
-export function resolveFromChild(node: GraphNode, tag: string, configuration: ResolverConfiguration): GraphNode | undefined
-export function resolveFromChild(node: GraphNode, tag: string, { type, many = false }: ResolverConfiguration) {
+function resolveFromChild(node: GraphNode, tag: string, configuration: ResolverConfiguration & { many: true }): GraphNode[]
+function resolveFromChild(node: GraphNode, tag: string, configuration: ResolverConfiguration): GraphNode | undefined
+function resolveFromChild(node: GraphNode, tag: string, { type, many = false }: ResolverConfiguration) {
   if (!many) {
     const child = node.findChild(matchTag(tag))
     if (!child) {
@@ -63,9 +63,9 @@ function tryFollowIdRef(node: GraphNode) {
   return referencedElement ?? node
 }
 
-export function resolveFromAttribute(node: GraphNode, name: string, configuration: ResolverConfiguration & { many: true }): GraphNode[]
-export function resolveFromAttribute(node: GraphNode, name: string, configuration: ResolverConfiguration): GraphNode | undefined
-export function resolveFromAttribute(node: GraphNode, name: string, { type, many = false, removeAttribute = true }: ResolverConfiguration) {
+function resolveFromAttribute(node: GraphNode, name: string, configuration: ResolverConfiguration & { many: true }): GraphNode[]
+function resolveFromAttribute(node: GraphNode, name: string, configuration: ResolverConfiguration): GraphNode | undefined
+function resolveFromAttribute(node: GraphNode, name: string, { type, many = false, removeAttribute = true }: ResolverConfiguration) {
   const attribute = node.getAttribute(name)?.value.literal
   if (!attribute) {
     return many ? [] : undefined

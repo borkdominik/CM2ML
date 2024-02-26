@@ -1,25 +1,32 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
-import { Classifier, InstanceSpecification } from '../uml-metamodel'
+import { resolve } from '../resolvers/resolve'
+import { Classifier, EnumerationLiteral, InstanceSpecification } from '../uml-metamodel'
 
 export const InstanceSpecificationHandler = InstanceSpecification.createHandler(
   (instanceSpecification, { onlyContainmentAssociations }) => {
-    const classifier = resolveFromAttribute(instanceSpecification, 'classifier', { many: true, type: Classifier })
+    const classifiers = getClassifiers(instanceSpecification)
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_classifier(instanceSpecification, classifier)
+    addEdge_classifier(instanceSpecification, classifiers)
     addEdge_slot(instanceSpecification)
     addEdge_specification(instanceSpecification)
   },
 )
 
-function addEdge_classifier(instanceSpecification: GraphNode, classifier: GraphNode[]) {
-  // TODO/Association
+function getClassifiers(instanceSpecification: GraphNode) {
+  if (EnumerationLiteral.isAssignable(instanceSpecification)) {
+    // EnumerationLiteral redefines InstanceSpecification::classifier
+    return []
+  }
+  return resolve(instanceSpecification, 'classifier', { many: true, type: Classifier })
+}
+
+function addEdge_classifier(instanceSpecification: GraphNode, classifiers: GraphNode[]) {
   // classifier : Classifier [0..*] (opposite A_classifier_instanceSpecification::instanceSpecification)
   // The Classifier or Classifiers of the represented instance. If multiple Classifiers are specified, the instance is classified by all of them.
-  classifier.forEach((classifier) => {
+  classifiers.forEach((classifier) => {
     instanceSpecification.model.addEdge('classifier', instanceSpecification, classifier)
   })
 }

@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { NamedElement, TimeObservation } from '../uml-metamodel'
 
 export const TimeObservationHandler = TimeObservation.createHandler(
   (timeObservation, { onlyContainmentAssociations }) => {
-    const event = resolveFromAttribute(timeObservation, 'event', { type: NamedElement })
+    const event = resolve(timeObservation, 'event', { type: NamedElement })
     if (onlyContainmentAssociations) {
       return
     }

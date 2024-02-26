@@ -1,11 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Extension, ExtensionEnd } from '../uml-metamodel'
 
 export const ExtensionHandler = Extension.createHandler(
   (extension, { onlyContainmentAssociations }) => {
-    const ownedEnds = resolveFromChild(extension, 'ownedEnd', { many: true, type: ExtensionEnd })
+    const ownedEnds = resolve(extension, 'ownedEnd', { many: true, type: ExtensionEnd })
     if (onlyContainmentAssociations) {
       return
     }

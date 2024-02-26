@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Gate, Interaction, InteractionUse } from '../uml-metamodel'
 
 export const InteractionUseHandler = InteractionUse.createHandler(
   (interactionUse, { onlyContainmentAssociations }) => {
     const actualGates = resolve(interactionUse, 'actualGate', { many: true, type: Gate })
-    const refersTo = resolveFromAttribute(interactionUse, 'refersTo', { type: Interaction })
+    const refersTo = resolve(interactionUse, 'refersTo', { type: Interaction })
     if (onlyContainmentAssociations) {
       return
     }

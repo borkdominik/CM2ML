@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { OutputPin, ValueSpecificationAction } from '../uml-metamodel'
 
 export const ValueSpecificationActionHandler =
   ValueSpecificationAction.createHandler(
     (valueSpecificationAction, { onlyContainmentAssociations }) => {
-      const result = resolveFromChild(valueSpecificationAction, 'result', { type: OutputPin })
+      const result = resolve(valueSpecificationAction, 'result', { type: OutputPin })
       if (onlyContainmentAssociations) {
         return
       }

@@ -1,16 +1,16 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Activity, ActivityGroup, ActivityNode, ActivityPartition, StructuredActivityNode, Variable } from '../uml-metamodel'
 
 export const ActivityHandler = Activity.createHandler(
   (activity, { onlyContainmentAssociations }) => {
-    const groups = resolveFromAttribute(activity, 'group', { many: true, type: ActivityGroup })
-    const nodes = resolveFromAttribute(activity, 'node', { many: true, type: ActivityNode })
-    const partitions = resolveFromAttribute(activity, 'partition', { many: true, type: ActivityPartition })
-    const structuredNodes = resolveFromChild(activity, 'structuredNode', { many: true, type: StructuredActivityNode })
-    const variables = resolveFromChild(activity, 'variable', { many: true, type: Variable })
+    const groups = resolve(activity, 'group', { many: true, type: ActivityGroup })
+    const nodes = resolve(activity, 'node', { many: true, type: ActivityNode })
+    const partitions = resolve(activity, 'partition', { many: true, type: ActivityPartition })
+    const structuredNodes = resolve(activity, 'structuredNode', { many: true, type: StructuredActivityNode })
+    const variables = resolve(activity, 'variable', { many: true, type: Variable })
     if (onlyContainmentAssociations) {
       return
     }
@@ -34,7 +34,6 @@ function addEdge_edge(_activity: GraphNode) {
 }
 
 function addEdge_group(activity: GraphNode, groups: GraphNode[]) {
-  // TODO/Association
   // ♦ group : ActivityGroup [0..*]{subsets Element::ownedElement} (opposite ActivityGroup::inActivity)
   // Top-level ActivityGroups in the Activity.
   groups.forEach((group) => {
@@ -43,7 +42,6 @@ function addEdge_group(activity: GraphNode, groups: GraphNode[]) {
 }
 
 function addEdge_node(activity: GraphNode, nodes: GraphNode[]) {
-  // TODO/Association
   // ♦ node : ActivityNode [0..*]{subsets Element::ownedElement} (opposite ActivityNode::activity)
   // ActivityNodes coordinated by the Activity.
   nodes.forEach((node) => {
@@ -52,7 +50,6 @@ function addEdge_node(activity: GraphNode, nodes: GraphNode[]) {
 }
 
 function addEdge_partition(activity: GraphNode, partitions: GraphNode[]) {
-  // TODO/Association
   // partition : ActivityPartition [0..*]{subsets Activity::group} (opposite A_partition_activity::activity)
   // Top-level ActivityPartitions in the Activity.
   partitions.forEach((partition) => {
@@ -69,7 +66,6 @@ function addEdge_structuredNode(activity: GraphNode, structuredNodes: GraphNode[
 }
 
 function addEdge_variable(activity: GraphNode, variables: GraphNode[]) {
-  // TODO/Association
   // ♦ variable : Variable [0..*]{subsets Namespace::ownedMember} (opposite Variable::activityScope)
   // Top-level Variables defined by the Activity.
   variables.forEach((variable) => {

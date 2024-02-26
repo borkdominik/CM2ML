@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolve, resolveFromAttribute } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Classifier, ClassifierTemplateParameter } from '../uml-metamodel'
 
@@ -8,7 +8,7 @@ export const ClassifierTemplateParameterHandler =
   ClassifierTemplateParameter.createHandler(
     (classifierTemplateParameter, { onlyContainmentAssociations }) => {
       const constrainingClassifiers = resolve(classifierTemplateParameter, 'constrainingClassifier', { many: true, type: Classifier })
-      const parameteredElement = resolveFromAttribute(classifierTemplateParameter, 'parameteredElement', { type: Classifier })
+      const parameteredElement = resolve(classifierTemplateParameter, 'parameteredElement', { type: Classifier })
       if (onlyContainmentAssociations) {
         return
       }

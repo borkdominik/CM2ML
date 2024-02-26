@@ -1,12 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import { resolveFromAttribute, resolveFromChild } from '../resolvers/resolve'
+import { resolve } from '../resolvers/resolve'
 import { Classifier, Extend, UseCase } from '../uml-metamodel'
 
 export const UseCaseHandler = UseCase.createHandler(
   (useCase, { onlyContainmentAssociations }) => {
-    const extends_ = resolveFromChild(useCase, 'extend', { many: true, type: Extend })
-    const subjects = resolveFromAttribute(useCase, 'subject', { many: true, type: Classifier })
+    const extends_ = resolve(useCase, 'extend', { many: true, type: Extend })
+    const subjects = resolve(useCase, 'subject', { many: true, type: Classifier })
     if (onlyContainmentAssociations) {
       return
     }
