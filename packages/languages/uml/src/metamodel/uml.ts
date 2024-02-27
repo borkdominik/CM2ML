@@ -1,4 +1,5 @@
 import type { Attributable, GraphEdge, GraphNode } from '@cm2ml/ir'
+import type { Callback } from '@cm2ml/metamodel'
 import { transformNodeToEdge } from '@cm2ml/metamodel'
 import { parseNamespace } from '@cm2ml/utils'
 
@@ -457,7 +458,9 @@ function getEdgeTagForRelationship(relationship: GraphNode) {
   return tag
 }
 
-export function transformNodeToEdgeCallback(node: GraphNode, source: GraphNode | undefined, target: GraphNode | undefined) {
+export function transformNodeToEdgeCallback(node: GraphNode, sources: GraphNode | GraphNode[] = [], targets: GraphNode | GraphNode[] = []): Callback {
+  const edgeSources = Array.isArray(sources) ? sources : [sources]
+  const edgeTargets = Array.isArray(targets) ? targets : [targets]
   const tag = getEdgeTagForRelationship(node)
   return () => {
     const children = node.children
@@ -465,7 +468,7 @@ export function transformNodeToEdgeCallback(node: GraphNode, source: GraphNode |
       node.removeChild(child)
       node.parent?.addChild(child)
     })
-    transformNodeToEdge(node, source, target, tag)
+    transformNodeToEdge(node, edgeSources, edgeTargets, tag)
   }
 }
 

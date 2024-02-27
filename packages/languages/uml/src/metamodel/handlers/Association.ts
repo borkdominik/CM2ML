@@ -10,8 +10,7 @@ export const AssociationHandler = Association.createHandler(
     const navigableOwnedEnds = resolve(association, 'navigableOwnedEnd', { many: true, type: Property })
     const ownedEnds = getOwnedEnds(association)
     if (relationshipsAsEdges) {
-      // TODO: Include associations at all?
-      return transformNodeToEdgeCallback(association, memberEnds[0], memberEnds[1])
+      return transformNodeToEdgeCallback(association, memberEnds, memberEnds)
     }
     if (onlyContainmentAssociations) {
       return
