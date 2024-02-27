@@ -42,7 +42,8 @@ export function transformNodeToEdge(
   tag: string,
 ) {
   if (!source || !target) {
-    return
+    node.model.removeNode(node)
+    return undefined
   }
   const edge = node.model.addEdge(tag, source, target)
   copyAttributes(node, edge)
@@ -50,10 +51,12 @@ export function transformNodeToEdge(
   return edge
 }
 
+export type Callback = () => void
+
 export type Handler<HandlerParameters extends HandlerPropagation> = (
   node: GraphNode,
   parameters: HandlerParameters,
-) => void | false
+) => void | Callback
 
 export interface HandlerPropagation {}
 
@@ -115,7 +118,6 @@ export class MetamodelElement<
       this.#assignableTypes.add(this.type)
     }
     generalizations?.forEach((parent) => {
-      this.#generalizations.add(parent)
       parent.specialize(this)
     })
   }
@@ -166,9 +168,9 @@ export class MetamodelElement<
     visited = new Set<
       MetamodelElement<Type, AbstractType, Tag, HandlerParameters>
     >(),
-  ): void {
+  ): Callback[] {
     if (visited.has(this)) {
-      return
+      return []
     }
     if (!this.handler) {
       const message = `Missing handler defined for metamodel element ${this.name}`
@@ -179,21 +181,23 @@ export class MetamodelElement<
     }
     if (this.type) {
       inferAndSaveType(node, this.type, this.configuration)
+      this.narrowType(node)
     }
-    const propagation = this.handler?.(node, parameters)
-    if (propagation === false) {
-      return
-    }
+    const callback = this.handler?.(node, parameters)
     visited.add(this)
-    this.generalizations.forEach((parent) => {
-      parent.handle(node, parameters, visited)
+    const callbacks = [...this.generalizations].flatMap((parent) => {
+      return parent.handle(node, parameters, visited)
     })
+    if (typeof callback === 'function') {
+      callbacks.unshift(callback)
+    }
+    return callbacks
   }
 
   /**
    * Create a handler for a metamodel element without additional associations over its generalizations.
    * @param attributeDefaults - Can be used to set default values for attributes
-   * @returns
+   * @returns The created handler
    */
   public createPassthroughHandler(
     attributeDefaults: Record<string, string> = {},
@@ -219,6 +223,26 @@ export class MetamodelElement<
     return this
   }
 
+  public narrowType(node: GraphNode) {
+    if (!this?.type) {
+    // No type information for narrowing
+      return
+    }
+    const currentType = this.configuration.getType(node)
+    if (!currentType) {
+    // No type set, set type to provided type
+      node.addAttribute({ name: this.configuration.typeAttributeName, value: { literal: this.type } })
+      return
+    }
+    const isNarrowable = [...this.generalizations.values()].find((generalization) => generalization.type === currentType) !== undefined
+    if (!isNarrowable) {
+      // Current type is not compatible with the provided type, we can't narrow further
+      return
+    }
+    // We can narrow the type further
+    node.addAttribute({ name: this.configuration.typeAttributeName, value: { literal: this.type } }, false)
+  }
+
   private specialize(
     specialization: MetamodelElement<
       Type,
@@ -239,6 +263,7 @@ export class MetamodelElement<
       HandlerParameters
     >,
   ) {
+    specialization.#generalizations.add(this)
     specialization.allAssignableTags.forEach((tag) =>
       this.#assignableTags.add(tag),
     )
@@ -298,30 +323,6 @@ export function getParentOfType<
   }
   if (!type.isAssignable(node.parent)) {
     return getParentOfType(node.parent, type)
-  }
-  return node.parent
-}
-
-export function requireImmediateParentOfType<
-  Type extends string,
-  AbstractType extends string,
-  Tag extends string,
-  HandlerParameters extends HandlerPropagation,
->(
-  node: GraphNode,
-  type: MetamodelElement<Type, AbstractType, Tag, HandlerParameters>,
-) {
-  if (!node.parent) {
-    throw new Error(
-      `Missing parent for node ${node.tag} (${
-        node.id
-      }) of type ${type.configuration.getType(node)}`,
-    )
-  }
-  if (!type.isAssignable(node.parent)) {
-    throw new Error(
-      `Parent ${node.parent.tag} (${node.parent.id}) of node ${node.tag} (${node.id}) is not of type ${type.name}`,
-    )
   }
   return node.parent
 }

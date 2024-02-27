@@ -99,7 +99,9 @@ function pluginActionHandler<Out, Parameters extends ParameterMetadata>(
       .map(([name, parameter]) => {
         if (Array.isArray(parameter)) {
           return [name, parameter[0]]
-        } else return [name, parameter]
+        } else {
+          return [name, parameter]
+        }
       })
       .toRecord(
         ([name]) => name,

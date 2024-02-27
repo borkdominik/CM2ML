@@ -32,10 +32,10 @@
 - [@cm2ml/rest-adapter](./packages/framework/rest-adapter)
 - [@cm2ml/xmi-parser](./packages/framework/xmi-parser)
 
-## Uml
+## Languages
 
-- [@cm2ml/uml-metamodel](./packages/uml/uml-metamodel)
-- [@cm2ml/uml-parser](./packages/uml/uml-parser)
+- [@cm2ml/ecore](./packages/languages/ecore)
+- [@cm2ml/uml](./packages/languages/uml)
 
 ## Other
 

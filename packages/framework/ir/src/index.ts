@@ -4,7 +4,7 @@ import { AttributeDelegate } from './attributes'
 export * from './attributes'
 
 export interface Show {
-  show(indent?: number): string
+  show: (indent?: number) => string
 }
 
 export interface ModelMember {
@@ -220,6 +220,18 @@ export class GraphNode implements Attributable, ModelMember, Show {
     return undefined
   }
 
+  public findAllChildren(
+    predicate: (child: GraphNode) => boolean,
+  ): GraphNode[] {
+    const result: GraphNode[] = []
+    for (const child of this.children) {
+      if (predicate(child)) {
+        result.push(child)
+      }
+    }
+    return result
+  }
+
   /**
    * Also sets the parent of the child to null.
    */
@@ -275,8 +287,8 @@ export class GraphNode implements Attributable, ModelMember, Show {
     this.#attributeDelegate.addAttribute(attribute, preventOverwrite)
   }
 
-  public removeAttribute(name: AttributeName): void {
-    this.#attributeDelegate.removeAttribute(name)
+  public removeAttribute(name: AttributeName) {
+    return this.#attributeDelegate.removeAttribute(name)
   }
 
   public show(indent: number = 0): string {
@@ -327,8 +339,8 @@ export class GraphEdge implements Attributable, ModelMember {
     this.#attributeDelegate.addAttribute(attribute, preventOverwrite)
   }
 
-  public removeAttribute(name: AttributeName): void {
-    this.#attributeDelegate.removeAttribute(name)
+  public removeAttribute(name: AttributeName) {
+    return this.#attributeDelegate.removeAttribute(name)
   }
 }
 

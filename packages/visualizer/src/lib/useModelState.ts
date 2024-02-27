@@ -70,10 +70,10 @@ export const useModelState = createSelectors(
           } = get()
           const newParameters = parser
             ? getNewParameters(
-                parser.parameters,
-                oldParameters,
-                oldParser?.parameters,
-              )
+              parser.parameters,
+              oldParameters,
+              oldParser?.parameters,
+            )
             : oldParameters
           const { model, error } = tryParse(
             parser,

@@ -7,7 +7,11 @@
     "url": "https://github.com/DerYeger"
   },
   "license": "MIT",
-  "repository": "github:borkdominik/CM2ML",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borkdominik/CM2ML.git",
+    "directory": "packages/framework/xmi-parser"
+  },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"
   },
@@ -36,7 +40,7 @@
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/utils": "workspace:*",
-    "@yeger/streams": "1.1.4",
+    "@yeger/streams": "1.1.6",
     "domhandler": "5.0.3",
     "htmlparser2": "9.1.0"
   },
@@ -44,8 +48,8 @@
     "@cm2ml/tsconfig": "workspace:*",
     "@types/jsdom": "21.1.6",
     "typescript": "5.3.3",
-    "vite": "5.0.12",
-    "vite-plugin-lib": "2.0.6"
+    "vite": "5.1.4",
+    "vite-plugin-lib": "2.0.8"
   },
   "publishConfig": {
     "access": "public"

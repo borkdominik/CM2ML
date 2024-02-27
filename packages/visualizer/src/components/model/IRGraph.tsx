@@ -29,11 +29,13 @@ export function IRGraph({ model }: Props) {
         ref={containerRef}
         className={cn({ 'h-full': true, 'opacity-0': !isReady })}
       />
-      {!isReady ? (
-        <div className="absolute inset-0 flex items-center justify-center p-2">
-          <Progress value={progress} className="max-w-56" />
-        </div>
-      ) : null}
+      {!isReady
+        ? (
+          <div className="absolute inset-0 flex items-center justify-center p-2">
+            <Progress value={progress} className="max-w-56" />
+          </div>
+          )
+        : null}
     </div>
   )
 }
@@ -138,7 +140,7 @@ function useVisNetwok(
     }
     network.on(
       'stabilizationProgress',
-      (params: { iterations: number; total: number }) => {
+      (params: { iterations: number, total: number }) => {
         setStabilizationProgress((100 * params.iterations) / params.total)
       },
     )
@@ -178,6 +180,7 @@ function useVisNetwok(
       network.destroy()
       resizeObserver.disconnect()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [container])
 
   useEffect(() => {

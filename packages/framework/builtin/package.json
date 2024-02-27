@@ -7,7 +7,11 @@
     "url": "https://github.com/DerYeger"
   },
   "license": "MIT",
-  "repository": "github:borkdominik/CM2ML",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borkdominik/CM2ML.git",
+    "directory": "packages/framework/builtin"
+  },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"
   },
@@ -33,20 +37,20 @@
   },
   "dependencies": {
     "@cm2ml/archimate-parser": "workspace:*",
-    "@cm2ml/ecore-parser": "workspace:*",
+    "@cm2ml/ecore": "workspace:*",
     "@cm2ml/graph-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/one-hot-encoder": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/tree-encoder": "workspace:*",
-    "@cm2ml/uml-parser": "workspace:*",
+    "@cm2ml/uml": "workspace:*",
     "@cm2ml/xmi-parser": "workspace:*"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
     "typescript": "5.3.3",
-    "vite": "5.0.12",
-    "vite-plugin-lib": "2.0.6"
+    "vite": "5.1.4",
+    "vite-plugin-lib": "2.0.8"
   },
   "publishConfig": {
     "access": "public"

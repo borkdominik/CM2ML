@@ -99,13 +99,15 @@ export function ModelForm() {
         </Select>
       </CardHeader>
       <CardContent className="flex flex-col gap-6">
-        {parser ? (
-          <Parameters
-            parameters={parser.parameters}
-            values={parameters}
-            setValues={setParameters}
-          />
-        ) : null}
+        {parser
+          ? (
+            <Parameters
+              parameters={parser.parameters}
+              values={parameters}
+              setValues={setParameters}
+            />
+            )
+          : null}
         <div className="flex flex-col gap-2">
           <Label htmlFor="model" className="select-none">
             Model
@@ -138,15 +140,17 @@ export function ModelForm() {
           {modelError ? <Error error={modelError} /> : null}
         </div>
         {error ? <Error error={error} /> : null}
-        {layout === 'compact' ? (
-          <Button
-            disabled={!model}
-            onClick={() => setIsEditing(false)}
-            className="select-none"
-          >
-            Submit
-          </Button>
-        ) : null}
+        {layout === 'compact'
+          ? (
+            <Button
+              disabled={!model}
+              onClick={() => setIsEditing(false)}
+              className="select-none"
+            >
+              Submit
+            </Button>
+            )
+          : null}
       </CardContent>
     </Card>
   )

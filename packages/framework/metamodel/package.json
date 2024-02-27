@@ -7,7 +7,11 @@
     "url": "https://github.com/DerYeger"
   },
   "license": "MIT",
-  "repository": "github:borkdominik/CM2ML",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borkdominik/CM2ML.git",
+    "directory": "packages/framework/metamodel"
+  },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"
   },
@@ -37,8 +41,8 @@
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
     "typescript": "5.3.3",
-    "vite": "5.0.12",
-    "vite-plugin-lib": "2.0.6"
+    "vite": "5.1.4",
+    "vite-plugin-lib": "2.0.8"
   },
   "publishConfig": {
     "access": "public"
