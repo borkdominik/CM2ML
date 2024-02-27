@@ -5,3 +5,4 @@
 
 declare const __SOURCE_URL: string
 declare const __EXAMPLE_MODEL: string
+declare const __ARCHIMATE_EXAMPLE_MODEL: string

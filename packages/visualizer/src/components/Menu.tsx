@@ -1,6 +1,6 @@
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
 
-import { exampleModel } from '../lib/exampleModel'
+import { archimateExampleModel, exampleModel } from '../lib/exampleModel'
 import { useEncoderState } from '../lib/useEncoderState'
 import { useModelState } from '../lib/useModelState'
 import { useSelection } from '../lib/useSelection'
@@ -38,6 +38,7 @@ function ModelMenu() {
       <MenubarTrigger>Model</MenubarTrigger>
       <MenubarContent>
         <LoadExampleModelMenuItem />
+        <LoadArchimateExampleModelMenuItem />
         <MenubarSeparator />
         <EditModelMenuItem />
         <MenubarSeparator />
@@ -57,6 +58,18 @@ function LoadExampleModelMenuItem() {
     setParser(exampleModel.parser)
   }
   return <MenubarItem onClick={loadExample}>Load Example</MenubarItem>
+}
+
+function LoadArchimateExampleModelMenuItem() {
+  const setSerializedModel = useModelState.use.setSerializedModel()
+  const setParameters = useModelState.use.setParameters()
+  const setParser = useModelState.use.setParser()
+  function loadExample() {
+    setSerializedModel(archimateExampleModel.serializedModel)
+    setParameters(archimateExampleModel.parameters)
+    setParser(archimateExampleModel.parser)
+  }
+  return <MenubarItem onClick={loadExample}>Load ArchiMate Example</MenubarItem>
 }
 
 function EditModelMenuItem() {

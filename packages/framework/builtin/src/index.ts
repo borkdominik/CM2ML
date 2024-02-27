@@ -2,12 +2,15 @@ import { ArchimateParser } from '@cm2ml/archimate-parser'
 import { EcoreParser } from '@cm2ml/ecore-parser'
 import { GraphEncoder } from '@cm2ml/graph-encoder'
 import type { GraphModel } from '@cm2ml/ir'
+import { OneHotEncoder } from '@cm2ml/one-hot-encoder'
 import { type Plugin, compose } from '@cm2ml/plugin'
 import { TreeEncoder } from '@cm2ml/tree-encoder'
 import { UmlParser } from '@cm2ml/uml-parser'
 
+export * from '@cm2ml/archimate-parser'
 export * from '@cm2ml/ecore-parser'
 export * from '@cm2ml/graph-encoder'
+export * from '@cm2ml/one-hot-encoder'
 export * from '@cm2ml/tree-encoder'
 export * from '@cm2ml/uml-parser'
 export * from '@cm2ml/xmi-parser'
@@ -24,11 +27,12 @@ export const parserMap = {
 
 export type Encoder = Plugin<GraphModel, unknown, any>
 
-export const encoders: Encoder[] = [GraphEncoder, TreeEncoder]
+export const encoders: Encoder[] = [GraphEncoder, TreeEncoder, OneHotEncoder]
 
 export const encoderMap = {
   [GraphEncoder.name]: GraphEncoder,
   [TreeEncoder.name]: TreeEncoder,
+  [OneHotEncoder.name]: OneHotEncoder
 }
 
 export const plugins = parsers.flatMap((parser) =>

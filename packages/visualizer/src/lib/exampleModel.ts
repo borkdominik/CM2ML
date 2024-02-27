@@ -1,4 +1,4 @@
-import { UmlParser } from '@cm2ml/builtin'
+import { UmlParser, ArchimateParser } from '@cm2ml/builtin'
 
 export const exampleModel = {
   serializedModel: __EXAMPLE_MODEL,
@@ -11,4 +11,13 @@ export const exampleModel = {
     strict: true,
   },
   parser: UmlParser,
+}
+
+export const archimateExampleModel = {
+  serializedModel: __ARCHIMATE_EXAMPLE_MODEL,
+  parameters: {
+    debug: false,
+    idAttribute: 'id'
+  },
+  parser: ArchimateParser
 }

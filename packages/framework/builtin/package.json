@@ -36,6 +36,7 @@
     "@cm2ml/ecore-parser": "workspace:*",
     "@cm2ml/graph-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
+    "@cm2ml/one-hot-encoder": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/tree-encoder": "workspace:*",
     "@cm2ml/uml-parser": "workspace:*",
