@@ -55,7 +55,7 @@ export default defineConfig({
       packageJson.repository.url.replace('git+', '').replace('.git', ''),
     ),
     __EXAMPLE_MODEL: JSON.stringify(readFileSync('../../models/uml/clazz.uml', 'utf-8')),
-    __ARCHIMATE_EXAMPLE_MODEL: JSON.stringify(readFileSync('../../Example.archimate', 'utf-8')),
+    __ARCHIMATE_EXAMPLE_MODEL: JSON.stringify(readFileSync('../../models/archimate/Example.archimate', 'utf-8')),
   },
   resolve: {
     alias: {
