@@ -13,6 +13,7 @@
 ## Encoder
 
 - [@cm2ml/graph-encoder](./packages/encoder/graph-encoder)
+- [@cm2ml/one-hot-encoder](./packages/encoder/one-hot-encoder)
 - [@cm2ml/tree-encoder](./packages/encoder/tree-encoder)
 
 ## Framework

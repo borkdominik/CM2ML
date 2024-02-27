@@ -233,6 +233,31 @@ importers:
         specifier: 2.0.6
         version: 2.0.6(@types/node@20.11.8)(typescript@5.3.3)(vite@5.0.12)
 
+  packages/encoder/one-hot-encoder:
+    dependencies:
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../../framework/ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../../framework/plugin
+      '@yeger/streams':
+        specifier: 1.1.4
+        version: 1.1.4
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
+      vite:
+        specifier: 5.0.12
+        version: 5.0.12(@types/node@20.11.8)
+      vite-plugin-lib:
+        specifier: 2.0.6
+        version: 2.0.6(@types/node@20.11.8)(typescript@5.3.3)(vite@5.0.12)
+
   packages/encoder/tree-encoder:
     dependencies:
       '@cm2ml/ir':
@@ -269,6 +294,9 @@ importers:
       '@cm2ml/ir':
         specifier: workspace:*
         version: link:../ir
+      '@cm2ml/one-hot-encoder':
+        specifier: workspace:*
+        version: link:../../encoder/one-hot-encoder
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
