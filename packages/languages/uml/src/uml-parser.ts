@@ -60,7 +60,7 @@ function generateIds(model: GraphModel) {
     }
   })
   if (id > 0) {
-    model.debug(`Generated ${id} ids`)
+    model.debug('Parser', `Generated ${id} ids`)
   }
 }
 
@@ -74,13 +74,13 @@ function removeUnsupportedNodes(model: GraphModel) {
   model.nodes.forEach((node) => {
     const nodeType = node.getAttribute(Uml.typeAttributeName)?.value.literal
     if (unsupportedTags.has(node.tag)) {
-      model.debug(`Removing unsupported node with tag ${node.tag}`)
+      model.debug('Parser', `Removing unsupported node with tag ${node.tag}`)
       model.removeNode(node)
     } else if (nodeType && unsupportedTypes.has(nodeType)) {
-      model.debug(`Removing unsupported node with type ${nodeType}`)
+      model.debug('Parser', `Removing unsupported node with type ${nodeType}`)
       model.removeNode(node)
     } else if (isNil(node)) {
-      model.debug(`Removing nil node with tag ${node.tag}`)
+      model.debug('Parser', `Removing nil node with tag ${node.tag}`)
       model.removeNode(node)
     }
   })
@@ -103,7 +103,7 @@ function removeNonUmlAttributes(model: GraphModel) {
   ;[...model.nodes, ...model.edges].forEach((attributable) => {
     attributable.attributes.forEach(({ name }) => {
       if (shouldRemoveAttribute(name)) {
-        model.debug(`Removing non-UML attribute ${name} from ${attributable instanceof GraphNode ? 'node' : 'edge'} ${attributable.getAttribute(model.settings.idAttribute)?.value.literal ?? attributable.tag}`)
+        model.debug('Parser', `Removing non-UML attribute ${name} from ${attributable instanceof GraphNode ? 'node' : 'edge'} ${attributable.getAttribute(model.settings.idAttribute)?.value.literal ?? attributable.tag}`)
         attributable.removeAttribute(name)
       }
     })

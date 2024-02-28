@@ -9,6 +9,6 @@ export function validateEcoreModel(
   if (!model.settings.strict) {
     return
   }
-  model.debug('Validating Ecore model')
-  model.debug('All Ecore validations passed')
+  model.debug('Parser', 'Validating Ecore model')
+  model.debug('Parser', 'All Ecore validations passed')
 }

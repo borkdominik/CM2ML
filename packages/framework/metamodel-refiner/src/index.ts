@@ -51,11 +51,9 @@ export function createRefiner<
     if (!newRoot) {
       return
     }
-    model.debug(
-      `Re-rooted model with new root ${configuration.getType(newRoot)} (${
+    model.debug('Parser', `Re-rooted model with new root ${configuration.getType(newRoot)} (${
         newRoot.id
-      })`,
-    )
+      })`)
     model.root = newRoot
   }
 
@@ -71,7 +69,7 @@ export function createRefiner<
       if (node.model.settings.strict) {
         throw new Error(message)
       } else {
-        node.model.debug(message)
+        node.model.debug('Parser', message)
       }
       return Stream.empty()
     }
@@ -79,7 +77,7 @@ export function createRefiner<
       const callbacks = handler.handle(node, handlerParameters)
       return Stream.from(node.children).flatMap((child) => refineNodesRecursively(child, handlerParameters)).concat(callbacks)
     } catch (error) {
-      node.model.debug(getMessage(error))
+      node.model.debug('Parser', getMessage(error))
       if (node.model.settings.strict) {
         throw error
       }

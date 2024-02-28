@@ -17,6 +17,8 @@ export interface Settings {
   readonly strict: boolean
 }
 
+export type DebugPrefix = 'Parser' | 'IR' | 'Encoder'
+
 export class GraphModel implements Show {
   readonly #nodes = new Set<GraphNode>()
   readonly #nodeMap: Map<string, GraphNode> = new Map()
@@ -115,10 +117,10 @@ export class GraphModel implements Show {
     this.#edges.delete(edge)
   }
 
-  public debug(message: string | (() => string)) {
+  public debug(prefix: DebugPrefix, message: string | (() => string)) {
     if (this.settings.debug) {
       // eslint-disable-next-line no-console
-      console.log(typeof message === 'string' ? message : message())
+      console.log(`${prefix}: ${typeof message === 'string' ? message : message()}`)
     }
   }
 

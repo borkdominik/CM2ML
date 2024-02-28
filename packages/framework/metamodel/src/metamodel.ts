@@ -185,7 +185,7 @@ export class MetamodelElement<
       if (node.model.settings.strict) {
         throw new Error(message)
       }
-      node.model.debug(message)
+      node.model.debug('Parser', message)
     }
     if (this.type) {
       inferAndSaveType(node, this.type, this.configuration)

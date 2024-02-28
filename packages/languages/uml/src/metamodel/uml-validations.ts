@@ -11,11 +11,11 @@ export function validateUmlModel(
   if (!model.settings.strict || !model.settings.debug) {
     return
   }
-  model.debug('Validating UML model')
+  model.debug('Parser', 'Validating UML model')
   validateOnlyContainmentAssociations(model, handlerParameters)
   validateRelationshipTransformation(model, handlerParameters)
   allAttributesAreKnown(model)
-  model.debug('All UML validations passed')
+  model.debug('Parser', 'All UML validations passed')
 }
 
 function validateOnlyContainmentAssociations(
