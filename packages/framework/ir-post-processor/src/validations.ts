@@ -5,7 +5,7 @@ export function validateModel(model: GraphModel) {
   if (!model.settings.strict || !model.settings.debug) {
     return
   }
-  model.debug('Validating model')
+  model.debug('Validating IR')
   validateNodeIdentifiability(model)
   validateEdgeUniqueness(model)
   model.debug('All validations passed')
