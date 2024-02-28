@@ -8,7 +8,7 @@ export function validateUmlModel(
   model: GraphModel,
   handlerParameters: UmlHandlerParameters,
 ) {
-  if (!model.settings.strict) {
+  if (!model.settings.strict || !model.settings.debug) {
     return
   }
   model.debug('Validating UML model')
