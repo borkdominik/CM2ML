@@ -70,7 +70,7 @@ describe('uml-parser', () => {
     it.each(validModels)('should parse model $index', ({ file }) => {
       const serializedModel = readFileSync(file, 'utf-8')
       try {
-        const result = UmlParser.invoke(serializedModel, { ...configuration, debug: true, removeInvalidNodes: false, strict: true })
+        const result = UmlParser.invoke(serializedModel, { ...configuration, debug: true, strict: true })
         expect(result).toBeDefined()
         if (showDebugOutput) {
           // eslint-disable-next-line no-console
@@ -92,7 +92,7 @@ describe('uml-parser', () => {
     it.skipIf(showDebugOutput).each(invalidModels)('should not parse invalid model %s', (file) => {
       const serializedModel = readFileSync(file, 'utf-8')
       try {
-        UmlParser.invoke(serializedModel, { ...configuration, debug: true, removeInvalidNodes: false, strict: true })
+        UmlParser.invoke(serializedModel, { ...configuration, debug: true, strict: true })
         throw new Error(`Model ${file} was parsed successfully but should not have been.`)
       } catch (error) {
       }
