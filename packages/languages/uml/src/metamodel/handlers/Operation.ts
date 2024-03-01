@@ -3,10 +3,7 @@ import type { GraphNode } from '@cm2ml/ir'
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import {
-  Class,
   Constraint,
-  DataType,
-  Interface,
   Operation,
   Parameter,
   Type,
@@ -16,6 +13,7 @@ export const OperationHandler = Operation.createHandler(
   (operation, { onlyContainmentAssociations }) => {
     removeInvalidInputOutputAttributes(operation)
     const bodyCondition = resolve(operation, 'bodyCondition', { type: Constraint })
+    const ownedParameters = resolve(operation, 'ownedParameter', { many: true, type: Parameter })
     const postconditions = resolve(operation, 'postcondition', { many: true, type: Constraint })
     const preconditions = resolve(operation, 'precondition', { many: true, type: Constraint })
     const raisedExceptions = resolve(operation, 'raisedException', { many: true, type: Type })
@@ -27,9 +25,7 @@ export const OperationHandler = Operation.createHandler(
     addEdge_class(operation)
     addEdge_datatype(operation)
     addEdge_interface(operation)
-    operation.children.forEach((child) => {
-      addEdge_ownedParameter(operation, child)
-    })
+    addEdge_ownedParameter(operation, ownedParameters)
     addEdge_postcondition(operation, postconditions)
     addEdge_precondition(operation, preconditions)
     addEdge_raisedException(operation, raisedExceptions)
@@ -56,31 +52,33 @@ function addEdge_bodyCondition(operation: GraphNode, bodyCondition: GraphNode | 
   operation.model.addEdge('bodyCondition', operation, bodyCondition)
 }
 
-function addEdge_class(operation: GraphNode) {
-  const parent = operation.parent
-  if (parent && Class.isAssignable(parent)) {
-    operation.model.addEdge('class', operation, parent)
-  }
+function addEdge_class(_operation: GraphNode) {
+  // class : Class [0..1]{subsets Feature::featuringClassifier, subsets NamedElement::namespace, subsets RedefinableElement::redefinitionContext} (opposite Class::ownedOperation)
+  // The Class that owns this operation, if any.
+
+  // Added by ClassHandler::addEdge_ownedOperations
 }
 
-function addEdge_datatype(operation: GraphNode) {
-  const parent = operation.parent
-  if (parent && DataType.isAssignable(parent)) {
-    operation.model.addEdge('datatype', operation, parent)
-  }
+function addEdge_datatype(_operation: GraphNode) {
+  // datatype : DataType [0..1]{subsets Feature::featuringClassifier, subsets NamedElement::namespace, subsets RedefinableElement::redefinitionContext} (opposite DataType::ownedOperation)
+  // The DataType that owns this Operation, if any.
+
+  // Added by DataTypeHandler::addEdge_ownedOperation
 }
 
-function addEdge_interface(operation: GraphNode) {
-  const parent = operation.parent
-  if (parent && Interface.isAssignable(parent)) {
-    operation.model.addEdge('interface', operation, parent)
-  }
+function addEdge_interface(_operation: GraphNode) {
+  // interface : Interface [0..1]{subsets Feature::featuringClassifier, subsets NamedElement::namespace, subsets RedefinableElement::redefinitionContext} (opposite Interface::ownedOperation)
+  // The Interface that owns this Operation, if any.
+
+  // Added by InterfaceHandler::addEdge_ownedOperation
 }
 
-function addEdge_ownedParameter(operation: GraphNode, child: GraphNode) {
-  if (Parameter.isAssignable(child)) {
-    operation.model.addEdge('ownedParameter', operation, child)
-  }
+function addEdge_ownedParameter(operation: GraphNode, ownedParameters: GraphNode[]) {
+  // ♦ ownedParameter : Parameter [0..*]{ordered, redefines BehavioralFeature::ownedParameter} (opposite Parameter::operation)
+  // The parameters owned by this Operation.
+  ownedParameters.forEach((ownedParameter) => {
+    operation.model.addEdge('ownedParameter', operation, ownedParameter)
+  })
 }
 
 function addEdge_postcondition(operation: GraphNode, postconditions: GraphNode[]) {
@@ -108,7 +106,6 @@ function addEdge_raisedException(operation: GraphNode, raisedExceptions: GraphNo
 }
 
 function addEdge_redefinedOperation(operation: GraphNode, redefinedOperations: GraphNode[]) {
-  // TODO/Association
   // redefinedOperation : Operation [0..*]{subsets RedefinableElement::redefinedElement} (opposite A_redefinedOperation_operation::operation)
   // The Operations that are redefined by this Operation.
   redefinedOperations.forEach((redefinedOperation) => {

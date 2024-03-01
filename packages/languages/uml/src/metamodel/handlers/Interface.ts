@@ -5,39 +5,48 @@ import { Classifier, Interface, Operation, Property, ProtocolStateMachine, Recep
 
 export const InterfaceHandler = Interface.createHandler(
   (interface_, { onlyContainmentAssociations }) => {
+    const ownedAttributes = resolve(interface_, 'ownedAttribute', { many: true, type: Property })
+    const ownedOperations = resolve(interface_, 'ownedOperation', { many: true, type: Operation })
     const ownedReceptions = resolve(interface_, 'ownedReception', { many: true, type: Reception })
     const protocol = resolve(interface_, 'protocol', { type: ProtocolStateMachine })
     if (onlyContainmentAssociations) {
       return
     }
+
+    interface_.children.forEach((child) => {
+      addEdge_nestedClassifier(interface_, child)
+    })
+    addEdge_ownedAttribute(interface_, ownedAttributes)
+    addEdge_ownedOperation(interface_, ownedOperations)
+    addEdge_ownedReception(interface_, ownedReceptions)
     addEdge_protocol(interface_, protocol)
     addEdge_redefinedInterface(interface_)
-    interface_.children.forEach((child) => {
-      // TODO/Jan: Refactor to use resolve
-      addEdge_nestedClassifier(interface_, child)
-      addEdge_ownedAttribute(interface_, child)
-      addEdge_ownedOperation(interface_, child)
-    })
-    addEdge_ownedReception(interface_, ownedReceptions)
   },
 )
 
 function addEdge_nestedClassifier(interface_: GraphNode, child: GraphNode) {
+  // ♦ nestedClassifier : Classifier [0..*]{ordered, subsets A_redefinitionContext_redefinableElement::redefinableElement, subsets Namespace::ownedMember} (opposite A_nestedClassifier_interface::interface)
+  // References all the Classifiers that are defined (nested) within the Interface.
   if (Classifier.isAssignable(child)) {
     interface_.model.addEdge('nestedClassifier', interface_, child)
   }
 }
 
-function addEdge_ownedAttribute(interface_: GraphNode, child: GraphNode) {
-  if (Property.isAssignable(child)) {
-    interface_.model.addEdge('ownedAttribute', interface_, child)
-  }
+function addEdge_ownedAttribute(interface_: GraphNode, ownedAttributes: GraphNode[]) {
+  // ♦ ownedAttribute : Property [0..*]{ordered, subsets Classifier::attribute, subsets Namespace::ownedMember} (opposite Property::interface)
+  // The attributes (i.e., the Properties) owned by the Interface.
+  ownedAttributes.forEach((ownedAttribute) => {
+    interface_.model.addEdge('ownedAttribute', interface_, ownedAttribute)
+  })
 }
 
-function addEdge_ownedOperation(interface_: GraphNode, child: GraphNode) {
-  if (Operation.isAssignable(child)) {
-    interface_.model.addEdge('ownedOperation', interface_, child)
-  }
+function addEdge_ownedOperation(interface_: GraphNode, ownedOperations: GraphNode[]) {
+  // ♦ ownedOperation : Operation [0..*]{ordered, subsets Classifier::feature, subsets A_redefinitionContext_redefinableElement::redefinableElement, subsets Namespace::ownedMember} (opposite Operation::interface)
+  // The Operations owned by the Interface.
+  ownedOperations.forEach((ownedOperation) => {
+    interface_.model.addEdge('ownedOperation', interface_, ownedOperation)
+    ownedOperation.model.addEdge('interface', ownedOperation, interface_)
+  })
 }
 
 function addEdge_ownedReception(interface_: GraphNode, ownedReceptions: GraphNode[]) {

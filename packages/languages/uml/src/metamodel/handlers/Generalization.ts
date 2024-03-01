@@ -3,7 +3,7 @@ import { getParentOfType } from '@cm2ml/metamodel'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml, transformNodeToEdgeCallback } from '../uml'
-import { Classifier, Generalization, GeneralizationSet } from '../uml-metamodel'
+import { Class, Classifier, Generalization, GeneralizationSet } from '../uml-metamodel'
 
 export const GeneralizationHandler = Generalization.createHandler(
   (generalization, { onlyContainmentAssociations, relationshipsAsEdges }) => {
@@ -18,7 +18,7 @@ export const GeneralizationHandler = Generalization.createHandler(
     }
     addEdge_general(generalization, general)
     addEdge_generalizationSet(generalization, generalizationSets)
-    addEdge_specific(generalization, specific)
+    addEdge_specific(generalization, specific, general)
   },
   {
     [Uml.Attributes.isSubstitutable]: 'true',
@@ -26,6 +26,8 @@ export const GeneralizationHandler = Generalization.createHandler(
 )
 
 function addEdge_general(generalization: GraphNode, general: GraphNode | undefined) {
+  // general : Classifier [1..1]{subsets DirectedRelationship::target} (opposite A_general_generalization::generalization)
+  // The general classifier in the Generalization relationship.
   if (!general) {
     return
   }
@@ -40,9 +42,17 @@ function addEdge_generalizationSet(generalization: GraphNode, generalizationSets
   })
 }
 
-function addEdge_specific(generalization: GraphNode, specific: GraphNode | undefined) {
+function addEdge_specific(generalization: GraphNode, specific: GraphNode | undefined, general: GraphNode | undefined) {
+  // specific : Classifier [1..1]{subsets DirectedRelationship::source, subsets Element::owner} (opposite Classifier::generalization)
+  // The specializing Classifier in the Generalization relationship.
   if (!specific) {
     return
   }
   generalization.model.addEdge('specific', generalization, specific)
+  if (!general) {
+    return
+  }
+  if (Class.isAssignable(specific) && Class.isAssignable(general)) {
+    generalization.model.addEdge('superClass', specific, general)
+  }
 }

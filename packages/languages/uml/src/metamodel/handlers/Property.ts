@@ -59,9 +59,10 @@ function addEdge_association(
 }
 
 function addEdge_associationEnd(_property: GraphNode) {
-  // TODO/Association
   // associationEnd : Property [0..1]{subsets Element::owner} (opposite Property::qualifier)
   // Designates the optional association end that owns a qualifier attribute.
+
+  // Added by addEdge_qualifier
 }
 
 function addEdge_class(property: GraphNode) {
@@ -113,6 +114,7 @@ function addEdge_qualifier(property: GraphNode, qualifiers: GraphNode[]) {
   // An optional list of ordered qualifier attributes for the end.
   qualifiers.forEach((qualifier) => {
     property.model.addEdge('qualifier', property, qualifier)
+    qualifier.model.addEdge('associationEnd', qualifier, property)
   })
 }
 
