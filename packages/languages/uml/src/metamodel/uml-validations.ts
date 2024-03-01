@@ -1,8 +1,10 @@
 import type { GraphModel, GraphNode } from '@cm2ml/ir'
 
+import { resolve } from './resolvers/resolve'
+import type { UmlType } from './uml'
 import { Uml } from './uml'
 import type { UmlHandlerParameters } from './uml-metamodel'
-import { Relationship } from './uml-metamodel'
+import { Element, Relationship } from './uml-metamodel'
 
 export function validateUmlModel(
   model: GraphModel,
@@ -14,7 +16,7 @@ export function validateUmlModel(
   model.debug('Parser', 'Validating UML model')
   validateOnlyContainmentAssociations(model, handlerParameters)
   validateRelationshipTransformation(model, handlerParameters)
-  allAttributesAreKnown(model)
+  validateAttributes(model)
   model.debug('Parser', 'All UML validations passed')
 }
 
@@ -52,13 +54,26 @@ function validateRelationshipTransformation(
   })
 }
 
-function allAttributesAreKnown(model: GraphModel) {
+function validateAttributes(model: GraphModel) {
+  const alwaysResolvableAttributes = new Set<string>([Uml.Attributes.name, Uml.Attributes['xmi:type'], Uml.Attributes['xsi:type']])
+  const typesWithBodyAttribute = new Set<UmlType>([Uml.Types.Comment, Uml.Types.OpaqueAction, Uml.Types.OpaqueBehavior, Uml.Types.OpaqueExpression])
   model.nodes.forEach((node) => {
+    const nodeType = Uml.getType(node)
     node.attributes.forEach(({ name }) => {
+      if (name === model.settings.idAttribute) {
+        return
+      }
       if (!(name in Uml.Attributes)) {
         throw new Error(
           `Attribute ${name} of node ${formatElement(node)} is unknown`,
         )
+      }
+      if (alwaysResolvableAttributes.has(name) || (name === Uml.Attributes.body && nodeType !== undefined && typesWithBodyAttribute.has(nodeType))) {
+        return
+      }
+      const resolvedNodes = resolve(node, name, { removeAttribute: false, many: true, type: Element })
+      if (resolvedNodes.length > 0) {
+        throw new Error(`Attribute ${name} of node ${formatElement(node)} is not resolved`)
       }
     })
   })

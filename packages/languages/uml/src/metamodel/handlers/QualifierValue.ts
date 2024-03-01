@@ -1,16 +1,17 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { Property, QualifierValue } from '../uml-metamodel'
+import { InputPin, Property, QualifierValue } from '../uml-metamodel'
 
 export const QualifierValueHandler = QualifierValue.createHandler(
   (qualifierValue, { onlyContainmentAssociations }) => {
     const qualifier = resolve(qualifierValue, 'qualifier', { type: Property })
+    const value = resolve(qualifierValue, 'value', { type: InputPin })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_qualifer(qualifierValue, qualifier)
-    addEdge_value(qualifierValue)
+    addEdge_value(qualifierValue, value)
   },
 )
 function addEdge_qualifer(qualifierValue: GraphNode, qualifier: GraphNode | undefined) {
@@ -22,8 +23,11 @@ function addEdge_qualifer(qualifierValue: GraphNode, qualifier: GraphNode | unde
   qualifierValue.model.addEdge('qualifier', qualifierValue, qualifier)
 }
 
-function addEdge_value(_qualifierValue: GraphNode) {
-  // TODO/Association
+function addEdge_value(qualifierValue: GraphNode, value: GraphNode | undefined) {
   // value : InputPin [1..1] (opposite A_value_qualifierValue::qualifierValue)
   // The InputPin from which the specified value for the qualifier is taken.
+  if (!value) {
+    return
+  }
+  qualifierValue.model.addEdge('value', qualifierValue, value)
 }

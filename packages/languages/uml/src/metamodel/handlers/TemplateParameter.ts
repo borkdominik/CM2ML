@@ -5,12 +5,13 @@ import { ParameterableElement, TemplateParameter } from '../uml-metamodel'
 
 export const TemplateParameterHandler = TemplateParameter.createHandler(
   (templateParameter, { onlyContainmentAssociations }) => {
+    const default_ = resolve(templateParameter, 'default', { type: ParameterableElement })
     const parameteredElement = resolve(templateParameter, 'parameteredElement', { type: ParameterableElement })
     const ownedParameteredElement = resolve(templateParameter, 'ownedParameteredElement', { type: ParameterableElement })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_default(templateParameter)
+    addEdge_default(templateParameter, default_)
     addEdge_ownedDefault(templateParameter)
     addEdge_ownedParameteredElement(templateParameter, ownedParameteredElement)
     addEdge_parameteredElement(templateParameter, parameteredElement)
@@ -18,10 +19,13 @@ export const TemplateParameterHandler = TemplateParameter.createHandler(
   },
 )
 
-function addEdge_default(_templateParameter: GraphNode) {
-  // TODO/Association
+function addEdge_default(templateParameter: GraphNode, default_: GraphNode | undefined) {
   // default : ParameterableElement [0..1] (opposite A_default_templateParameter::templateParameter)
   // The ParameterableElement that is the default for this formal TemplateParameter.
+  if (!default_) {
+    return
+  }
+  templateParameter.model.addEdge('default', templateParameter, default_)
 }
 
 function addEdge_ownedDefault(_templateParameter: GraphNode) {

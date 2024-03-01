@@ -38,7 +38,7 @@ const UmlRefiner = definePlugin({
     },
     relationshipsAsEdges: {
       type: 'boolean',
-      defaultValue: true,
+      defaultValue: false,
       description: 'Treat relationships as edges.',
     },
   },
