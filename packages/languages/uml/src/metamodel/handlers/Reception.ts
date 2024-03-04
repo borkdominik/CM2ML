@@ -14,7 +14,6 @@ export const ReceptionHandler = Reception.createHandler(
 )
 
 function addEdge_signal(reception: GraphNode, signal: GraphNode | undefined) {
-  // TODO/Association
   // signal : Signal [1..1] (opposite A_signal_reception::reception)
   // The Signal that this Reception handles.
   if (!signal) {

@@ -38,12 +38,14 @@ function addEdge_importedMember(namespace: GraphNode, child: GraphNode) {
   }
 }
 
+// TODO/Jan: Set with opposite (i.e., namespace)?
 function addEdge_member(namespace: GraphNode, child: GraphNode) {
   if (NamedElement.isAssignable(child)) {
     namespace.model.addEdge('member', namespace, child)
   }
 }
 
+// TODO/Jan: Use resolve?
 function addEdge_ownedMember(namespace: GraphNode, child: GraphNode) {
   if (NamedElement.isAssignable(child)) {
     namespace.model.addEdge('ownedMember', namespace, child)
