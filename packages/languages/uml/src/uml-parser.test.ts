@@ -115,13 +115,13 @@ describe('uml-parser', () => {
     })
   })
 
-  describe.skipIf(showDebugOutput)('invalid models', () => {
+  describe.skipIf(showDebugOutput || invalidModels.length === 0)('invalid models', () => {
     it.each(invalidModels)('should not parse invalid model %s', (file) => {
       const serializedModel = readFileSync(file, 'utf-8')
       // At least one configuration must result in an error
       expect(() => getConfigurations().forEach((configuration) => {
         UmlParser.invoke(serializedModel, { ...configuration, debug: true, strict: true })
-      })).toThrowError()
+      })).toThrowErrorMatchingSnapshot()
     })
   })
 })
