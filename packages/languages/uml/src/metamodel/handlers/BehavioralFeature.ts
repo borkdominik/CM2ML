@@ -2,17 +2,19 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Behavior, BehavioralFeature } from '../uml-metamodel'
+import { Behavior, BehavioralFeature, Operation, Parameter, ParameterSet } from '../uml-metamodel'
 
 export const BehavioralFeatureHandler = BehavioralFeature.createHandler(
   (behavioralFeature, { onlyContainmentAssociations }) => {
     const method = resolve(behavioralFeature, 'method', { type: Behavior })
+    const ownedParameters = resolve(behavioralFeature, 'ownedParameter', { many: true, type: Parameter })
+    const ownedParameterSet = resolve(behavioralFeature, 'ownedParameterSet', { many: true, type: ParameterSet })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_method(behavioralFeature, method)
-    addEdge_ownedParameter(behavioralFeature)
-    addEdge_ownedParameterSet(behavioralFeature)
+    addEdge_ownedParameter(behavioralFeature, ownedParameters)
+    addEdge_ownedParameterSet(behavioralFeature, ownedParameterSet)
     addEdge_raisedException(behavioralFeature)
   },
   {
@@ -30,16 +32,24 @@ function addEdge_method(behavioralFeature: GraphNode, method: GraphNode | undefi
   behavioralFeature.model.addEdge('method', behavioralFeature, method)
 }
 
-function addEdge_ownedParameter(_behavioralFeature: GraphNode) {
-  // TODO/Association
+function addEdge_ownedParameter(behavioralFeature: GraphNode, ownedParameters: GraphNode[]) {
   // ♦ ownedParameter : Parameter [0..*]{ordered, subsets Namespace::ownedMember} (opposite A_ownedParameter_ownerFormalParam::ownerFormalParam )
   // The ordered set of formal Parameters of this BehavioralFeature.
+  if (Operation.isAssignable(behavioralFeature)) {
+    // OperationHandler already adds ownedParameter edges
+    return
+  }
+  ownedParameters.forEach((ownedParameter) => {
+    behavioralFeature.model.addEdge('ownedParameter', behavioralFeature, ownedParameter)
+  })
 }
 
-function addEdge_ownedParameterSet(_behavioralFeature: GraphNode) {
-  // TODO/Association
+function addEdge_ownedParameterSet(behavioralFeature: GraphNode, ownedParameterSet: GraphNode[]) {
   // ♦ ownedParameterSet : ParameterSet [0..*]{subsets Namespace::ownedMember} (opposite A_ownedParameterSet_behavioralFeature::behavioralFeature )
   // The ParameterSets owned by this BehavioralFeature.
+  ownedParameterSet.forEach((parameterSet) => {
+    behavioralFeature.model.addEdge('ownedParameterSet', behavioralFeature, parameterSet)
+  })
 }
 
 function addEdge_raisedException(_behavioralFeature: GraphNode) {

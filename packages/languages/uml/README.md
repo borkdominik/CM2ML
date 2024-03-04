@@ -22,7 +22,7 @@ Since the complexity of the UML metamodel is high, only the following metamodel 
 - [x] Element
 - [x] Feature
 - [x] MultiplicityElement
-- [ ] NamedElement
+- [x] NamedElement
 - [ ] Namespace
 - [x] PackageableElement
 - [x] ParameterableElement

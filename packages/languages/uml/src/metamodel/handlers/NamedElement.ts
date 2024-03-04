@@ -2,16 +2,17 @@ import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
 import { resolve } from '../resolvers/resolve'
-import { Dependency, NamedElement, Namespace } from '../uml-metamodel'
+import { Dependency, NamedElement, Namespace, StringExpression } from '../uml-metamodel'
 
 export const NamedElementHandler = NamedElement.createHandler(
   (namedElement, { onlyContainmentAssociations }) => {
     const clientDependency = resolve(namedElement, 'clientDependency', { many: true, type: Dependency })
+    const nameExpression = resolve(namedElement, 'nameExpression', { type: StringExpression })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_clientDependency(namedElement, clientDependency)
-    addEdge_nameExpression(namedElement)
+    addEdge_nameExpression(namedElement, nameExpression)
     addEdge_namespace(namedElement)
   },
 )
@@ -24,10 +25,13 @@ function addEdge_clientDependency(namedElement: GraphNode, clientDependency: Gra
   })
 }
 
-function addEdge_nameExpression(_namedElement: GraphNode) {
-  // TODO/Association
+function addEdge_nameExpression(namedElement: GraphNode, nameExpression: GraphNode | undefined) {
   // ♦ nameExpression : StringExpression [0..1]{subsets Element::ownedElement} (opposite A_nameExpression_namedElement::namedElement)
   // The StringExpression used to define the name of this NamedElement.
+  if (!nameExpression) {
+    return
+  }
+  namedElement.model.addEdge('nameExpression', namedElement, nameExpression)
 }
 
 function addEdge_namespace(namedElement: GraphNode) {

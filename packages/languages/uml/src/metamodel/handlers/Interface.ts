@@ -14,6 +14,7 @@ export const InterfaceHandler = Interface.createHandler(
     }
 
     interface_.children.forEach((child) => {
+      // TODO/Jan: Only set via resolve('nestedClassifier')? Ref. model 4234
       addEdge_nestedClassifier(interface_, child)
     })
     addEdge_ownedAttribute(interface_, ownedAttributes)

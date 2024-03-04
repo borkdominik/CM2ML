@@ -34,6 +34,7 @@ function addEdge_extension(_class_: GraphNode) {
   // Added by ExtensionHandler::addEdge_metaclass
 }
 
+// TODO/Jan: Use resolve with 'nestedClassifier' name?
 function addEdge_nestedClassifier(class_: GraphNode, child: GraphNode) {
   // ♦ nestedClassifier : Classifier [0..*]{ordered, subsets A_redefinitionContext_redefinableElement::redefinableElement, subsets Namespace::ownedMember} (opposite A_nestedClassifier_nestingClass::nestingClass)
   // The Classifiers owned by the Class that are not ownedBehaviors.

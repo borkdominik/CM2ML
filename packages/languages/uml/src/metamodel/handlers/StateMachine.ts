@@ -1,19 +1,20 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { Pseudostate, State, StateMachine } from '../uml-metamodel'
+import { Pseudostate, Region, State, StateMachine } from '../uml-metamodel'
 
 export const StateMachineHandler = StateMachine.createHandler(
   (stateMachine, { onlyContainmentAssociations }) => {
     const connectionPoints = resolve(stateMachine, 'connectionPoint', { many: true, type: Pseudostate })
     const extendedStateMachines = resolve(stateMachine, 'extendedStateMachine', { many: true, type: StateMachine })
+    const regions = resolve(stateMachine, 'region', { many: true, type: Region })
     const submachineStates = resolve(stateMachine, 'submachineState', { many: true, type: State })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_connectionPoint(stateMachine, connectionPoints)
     addEdge_extendedStateMachine(stateMachine, extendedStateMachines)
-    addEdge_region(stateMachine)
+    addEdge_region(stateMachine, regions)
     addEdge_submachineState(stateMachine, submachineStates)
   },
 )
@@ -34,10 +35,12 @@ function addEdge_extendedStateMachine(stateMachine: GraphNode, extendedStateMach
   })
 }
 
-function addEdge_region(_stateMachine: GraphNode) {
-  // TODO/Association
+function addEdge_region(stateMachine: GraphNode, regions: GraphNode[]) {
   // ♦ region : Region [1..*]{subsets Namespace::ownedMember} (opposite Region::stateMachine)
   // The Regions owned directly by the StateMachine.
+  regions.forEach((region) => {
+    stateMachine.model.addEdge('region', stateMachine, region)
+  })
 }
 
 function addEdge_submachineState(stateMachine: GraphNode, submachineStates: GraphNode[]) {

@@ -11,6 +11,7 @@ export const GeneralizationHandler = Generalization.createHandler(
     const generalizationSets = resolve(generalization, 'generalizationSet', { many: true, type: GeneralizationSet })
     const specific = getParentOfType(generalization, Classifier)
     if (relationshipsAsEdges) {
+      // TODO/Jan: Move relationship callbacks to bottom
       return transformNodeToEdgeCallback(generalization, general, specific)
     }
     if (onlyContainmentAssociations) {

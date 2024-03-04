@@ -2,11 +2,12 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Classifier, ClassifierTemplateParameter, CollaborationUse, GeneralizationSet, Substitution, UseCase } from '../uml-metamodel'
+import { Classifier, ClassifierTemplateParameter, CollaborationUse, Generalization, GeneralizationSet, Substitution, UseCase } from '../uml-metamodel'
 
 export const ClassifierHandler = Classifier.createHandler(
   (classifier, { onlyContainmentAssociations }) => {
     const collaborationUses = resolve(classifier, 'collaborationUse', { many: true, type: CollaborationUse })
+    const generalizations = resolve(classifier, 'generalization', { many: true, type: Generalization })
     const ownedUseCases = resolve(classifier, 'ownedUseCase', { many: true, type: UseCase })
     const powertypeExtents = resolve(classifier, 'powertypeExtent', { many: true, type: GeneralizationSet })
     const redefinedClassifiers = resolve(classifier, 'redefinedClassifier', { many: true, type: Classifier })
@@ -21,7 +22,7 @@ export const ClassifierHandler = Classifier.createHandler(
     addEdge_collaborationUse(classifier, collaborationUses)
     addEdge_feature(classifier)
     addEdge_general(classifier)
-    addEdge_generalization(classifier)
+    addEdge_generalization(classifier, generalizations)
     addEdge_inheritedMember(classifier)
     addEdge_ownedTemplateSignature(classifier)
     addEdge_ownedUseCase(classifier, ownedUseCases)
@@ -64,10 +65,12 @@ function addEdge_general(_classifier: GraphNode) {
   // The generalizing Classifiers for this Classifier.
 }
 
-function addEdge_generalization(_classifier: GraphNode) {
-  // TODO/Association
+function addEdge_generalization(classifier: GraphNode, generalizations: GraphNode[]) {
   // ♦ generalization : Generalization [0..*]{subsets Element::ownedElement, subsets A_source_directedRelationship::directedRelationship} (opposite Generalization::specific)
   // The Generalization relationships for this Classifier. These Generalizations navigate to more general Classifiers in the generalization hierarchy.
+  generalizations.forEach((generalization) => {
+    classifier.model.addEdge('generalization', classifier, generalization)
+  })
 }
 
 function addEdge_inheritedMember(_classifier: GraphNode) {

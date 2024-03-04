@@ -2,10 +2,12 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Behavior, BehavioralFeature, Constraint } from '../uml-metamodel'
+import { Behavior, BehavioralFeature, Constraint, Parameter, ParameterSet } from '../uml-metamodel'
 
 export const BehaviorHandler = Behavior.createHandler(
   (behavior, { onlyContainmentAssociations }) => {
+    const ownedParameters = resolve(behavior, 'ownedParameter', { many: true, type: Parameter })
+    const ownedParameterSets = resolve(behavior, 'ownedParameterSet', { many: true, type: ParameterSet })
     const postconditions = resolve(behavior, 'postcondition', { many: true, type: Constraint })
     const preconditions = resolve(behavior, 'precondition', { many: true, type: Constraint })
     const redefinedBehaviors = resolve(behavior, 'redefinedBehavior', { many: true, type: Behavior })
@@ -14,8 +16,8 @@ export const BehaviorHandler = Behavior.createHandler(
       return
     }
     addEdge_context(behavior)
-    addEdge_ownedParameter(behavior)
-    addEdge_ownedParameterSet(behavior)
+    addEdge_ownedParameter(behavior, ownedParameters)
+    addEdge_ownedParameterSet(behavior, ownedParameterSets)
     addEdge_postcondition(behavior, postconditions)
     addEdge_precondition(behavior, preconditions)
     addEdge_specification(behavior, specification)
@@ -32,16 +34,20 @@ function addEdge_context(_behavior: GraphNode) {
   // The BehavioredClassifier that is the context for the execution of the Behavior. A Behavior that is directly owned as a nestedClassifier does not have a context. Otherwise, to determine the context of a Behavior, find the first BehavioredClassifier reached by following the chain of owner relationships from the Behavior, if any. If there is such a BehavioredClassifier, then it is the context, unless it is itself a Behavior with a non-empty context, in which case that is also the context for the original Behavior. For example, following this algorithm, the context of an entry Behavior in a StateMachine is the BehavioredClassifier that owns the StateMachine. The features of the context BehavioredClassifier as well as the Elements visible to the context Classifier are visible to the Behavior.
 }
 
-function addEdge_ownedParameter(_behavior: GraphNode) {
-  // TODO/Association
+function addEdge_ownedParameter(behavior: GraphNode, ownedParameters: GraphNode[]) {
   // ♦ ownedParameter : Parameter [0..*]{ordered, subsets Namespace::ownedMember} (opposite A_ownedParameter_behavior::behavior)
   // References a list of Parameters to the Behavior which describes the order and type of arguments that can be given when the Behavior is invoked and of the values which will be returned when the Behavior completes its execution.
+  ownedParameters.forEach((ownedParameter) => {
+    behavior.model.addEdge('ownedParameter', behavior, ownedParameter)
+  })
 }
 
-function addEdge_ownedParameterSet(_behavior: GraphNode) {
-  // TODO/Association
+function addEdge_ownedParameterSet(behavior: GraphNode, ownedParameterSets: GraphNode[]) {
   // ♦ ownedParameterSet : ParameterSet [0..*]{subsets Namespace::ownedMember} (opposite A_ownedParameterSet_behavior::behavior)
   // The ParameterSets owned by this Behavior.
+  ownedParameterSets.forEach((ownedParameterSet) => {
+    behavior.model.addEdge('ownedParameterSet', behavior, ownedParameterSet)
+  })
 }
 
 function addEdge_postcondition(behavior: GraphNode, postconditions: GraphNode[]) {

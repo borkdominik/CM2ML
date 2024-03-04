@@ -125,7 +125,9 @@ export class GraphModel implements Show {
   }
 
   public show(): string {
-    return this.root.show(0)
+    const nodes = this.root.show(0)
+    const edges = [...this.edges.values()].map((edge) => edge.show()).sort().join('\n')
+    return `${nodes}\n${edges}`.trim()
   }
 }
 
@@ -295,7 +297,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
 
   public show(indent: number = 0): string {
     const attributes = [...this.attributes.values()]
-      .map((attribute) => this.showAttribute(attribute))
+      .map((attribute) => showAttribute(attribute))
       .join('')
 
     if (this.children.size === 0) {
@@ -310,16 +312,9 @@ export class GraphNode implements Attributable, ModelMember, Show {
       this.tag
     }${attributes}>\n${children}\n${createIndent(indent)}</${this.tag}>`
   }
-
-  private showAttribute(attribute: Attribute) {
-    const value = attribute.value.literal.includes('\n')
-      ? '{{omitted}}'
-      : attribute.value.literal
-    return ` ${attribute.name}="${value}"`
-  }
 }
 
-export class GraphEdge implements Attributable, ModelMember {
+export class GraphEdge implements Attributable, ModelMember, Show {
   readonly #attributeDelegate = new AttributeDelegate(undefined)
   public readonly attributes = this.#attributeDelegate.attributes
 
@@ -344,6 +339,14 @@ export class GraphEdge implements Attributable, ModelMember {
   public removeAttribute(name: AttributeName) {
     return this.#attributeDelegate.removeAttribute(name)
   }
+
+  public show(): string {
+    const attributes = [...this.attributes.values()]
+      .map((attribute) => showAttribute(attribute))
+      .join('')
+
+    return `${this.source.id} -> <${this.tag}${attributes} /> -> ${this.target.id}`
+  }
 }
 
 function requireSameModel(
@@ -355,6 +358,13 @@ function requireSameModel(
   if (firstModel !== secondModel) {
     throw new Error('Both entities must be members of the same model')
   }
+}
+
+function showAttribute(attribute: Attribute) {
+  const value = attribute.value.literal.includes('\n')
+    ? '{{omitted}}'
+    : attribute.value.literal
+  return ` ${attribute.name}="${value}"`
 }
 
 function createIndent(indent: number): string {

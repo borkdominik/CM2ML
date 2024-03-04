@@ -11,25 +11,27 @@ import {
 
 export const NamespaceHandler = Namespace.createHandler(
   (namespace, { onlyContainmentAssociations }) => {
+    const elementImports = resolve(namespace, 'elementImport', { many: true, type: ElementImport })
+    const packageImports = resolve(namespace, 'packageImport', { many: true, type: PackageImport })
     const ownedRules = resolve(namespace, 'ownedRule', { many: true, type: Constraint })
     if (onlyContainmentAssociations) {
       return
     }
     namespace.children.forEach((child) => {
-      addEdge_elementImport(namespace, child)
       addEdge_importedMember(namespace, child)
       addEdge_member(namespace, child)
       addEdge_ownedMember(namespace, child)
-      addEdge_packageImport(namespace, child)
     })
+    addEdge_elementImport(namespace, elementImports)
+    addEdge_packageImport(namespace, packageImports)
     addEdge_ownedRule(namespace, ownedRules)
   },
 )
 
-function addEdge_elementImport(namespace: GraphNode, child: GraphNode) {
-  if (ElementImport.isAssignable(child)) {
-    namespace.model.addEdge('elementImport', namespace, child)
-  }
+function addEdge_elementImport(namespace: GraphNode, elementImports: GraphNode[]) {
+  elementImports.forEach((elementImport) => {
+    namespace.model.addEdge('elementImport', namespace, elementImport)
+  })
 }
 
 function addEdge_importedMember(namespace: GraphNode, child: GraphNode) {
@@ -60,8 +62,8 @@ function addEdge_ownedRule(namespace: GraphNode, ownedRules: GraphNode[]) {
   })
 }
 
-function addEdge_packageImport(namespace: GraphNode, child: GraphNode) {
-  if (PackageImport.isAssignable(child)) {
-    namespace.model.addEdge('packageImport', namespace, child)
-  }
+function addEdge_packageImport(namespace: GraphNode, packageImports: GraphNode[]) {
+  packageImports.forEach((packageImport) => {
+    namespace.model.addEdge('packageImport', namespace, packageImport)
+  })
 }
