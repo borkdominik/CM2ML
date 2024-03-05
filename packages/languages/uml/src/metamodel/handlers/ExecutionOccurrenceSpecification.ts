@@ -15,7 +15,6 @@ export const ExecutionOccurrenceSpecificationHandler =
   )
 
 function addEdge_execution(executionOccurrenceSpecification: GraphNode, execution: GraphNode | undefined) {
-  // TODO/Association
   // execution : ExecutionSpecification [1..1] (opposite A_execution_executionOccurrenceSpecification::executionOccurrenceSpecification )
   // References the execution specification describing the execution that is started or finished at this execution event.
   if (!execution) {

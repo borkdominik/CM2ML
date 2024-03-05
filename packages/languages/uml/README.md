@@ -4,7 +4,7 @@
 
 Since the complexity of the UML metamodel is high, only the following metamodel elements (and their generalizations) of the `Classes` diagram type will be implemented in their entirety:
 
-- [ ] BehavioredClassifier
+- [x] BehavioredClassifier
 - [x] Class
 - [ ] Classifier
 - [ ] EncapsulatedClassifier

@@ -7,12 +7,13 @@ export const BehavioredClassifierHandler = BehavioredClassifier.createHandler(
   (behavioredClassifier, { onlyContainmentAssociations }) => {
     const classifierBehavior = resolve(behavioredClassifier, 'classifierBehavior', { type: Behavior })
     const interfaceRealizations = resolve(behavioredClassifier, 'interfaceRealization', { many: true, type: InterfaceRealization })
+    const ownedBehaviors = resolve(behavioredClassifier, 'ownedBehavior', { many: true, type: Behavior })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_classifierBehavior(behavioredClassifier, classifierBehavior)
     addEdge_interfaceRealization(behavioredClassifier, interfaceRealizations)
-    addEdge_ownedBehavior(behavioredClassifier)
+    addEdge_ownedBehavior(behavioredClassifier, ownedBehaviors)
   },
 )
 
@@ -33,8 +34,10 @@ function addEdge_interfaceRealization(behavioredClassifier: GraphNode, interface
   })
 }
 
-function addEdge_ownedBehavior(_behavioredClassifier: GraphNode) {
-  // TODO/Association
+function addEdge_ownedBehavior(behavioredClassifier: GraphNode, ownedBehaviors: GraphNode[]) {
   // ♦ ownedBehavior : Behavior [0..*]{subsets Namespace::ownedMember} (opposite A_ownedBehavior_behavioredClassifier::behavioredClassifier )
   // Behaviors owned by a BehavioredClassifier.
+  ownedBehaviors.forEach((ownedBehavior) => {
+    behavioredClassifier.model.addEdge('ownedBehavior', behavioredClassifier, ownedBehavior)
+  })
 }

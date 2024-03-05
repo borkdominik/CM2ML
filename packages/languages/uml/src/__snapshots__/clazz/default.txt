@@ -1,0 +1,654 @@
+<Model xmi:id="_Cfp0UGmxEe2kLe5KTNzRtw" name="clazz" xmi:type="Model" visibility="public">
+  <Class xmi:type="Class" xmi:id="_QE0EkK7gEe2EZoZ5sgiBCg" name="asd" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
+    <Property xmi:id="_bM_S4K7gEe2EZoZ5sgiBCg" name="NewProperty1" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="3" upper="4" isStatic="false" isLeaf="false">
+      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_bM_58K7gEe2EZoZ5sgiBCg" value="3" visibility="public" />
+      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_bNAhAK7gEe2EZoZ5sgiBCg" value="4" visibility="public" />
+    </Property>
+    <Property xmi:id="_g69BoK7oEe2EZoZ5sgiBCg" name="NewProperty2" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="*" isStatic="false" isLeaf="false">
+      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_g69Boa7oEe2EZoZ5sgiBCg" value="1" visibility="public" />
+      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_g69Boq7oEe2EZoZ5sgiBCg" value="*" visibility="public" />
+    </Property>
+    <Property xmi:id="_O3oC8bK1Ee24ffphK9Na6g" name="NewClass1" aggregation="shared" xmi:type="Property" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
+      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_O3oqALK1Ee24ffphK9Na6g" value="1" visibility="public" />
+      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_O3oqAbK1Ee24ffphK9Na6g" value="1" visibility="public" />
+    </Property>
+    <Property xmi:id="_UahDwbK1Ee24ffphK9Na6g" name="NewClass3" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
+      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_Uahq0LK1Ee24ffphK9Na6g" value="1" visibility="public" />
+      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_Uahq0bK1Ee24ffphK9Na6g" value="1" visibility="public" />
+    </Property>
+    <Property xmi:id="_VYMM8bK1Ee24ffphK9Na6g" name="new Class 4" aggregation="composite" xmi:type="Property" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
+      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_VYM0ALK1Ee24ffphK9Na6g" value="1" visibility="public" />
+      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_VYM0AbK1Ee24ffphK9Na6g" value="1" visibility="public" />
+    </Property>
+    <InterfaceRealization xmi:id="_ay8lcLK1Ee24ffphK9Na6g" xmi:type="InterfaceRealization" visibility="public" />
+    <Operation xmi:id="_Cr6ZsK70Ee2EZoZ5sgiBCg" name="NewOperation3" xmi:type="Operation" isQuery="false" concurrency="sequential" isAbstract="false" isStatic="false" isLeaf="false" />
+    <Operation xmi:id="_r0YL0K70Ee2EZoZ5sgiBCg" name="NewOperation1" xmi:type="Operation" isQuery="false" concurrency="sequential" isAbstract="false" isStatic="false" isLeaf="false">
+      <Parameter xmi:id="_Pf5kMbFSEe2z_s-Al402-w" name="NewParameter1" direction="return" xmi:type="Parameter" isException="false" isStream="false" isOrdered="false" isUnique="true" />
+      <Parameter xmi:id="_TnD78LFUEe2z_s-Al402-w" name="NewParameter2" direction="return" xmi:type="Parameter" isException="false" isStream="false" isOrdered="false" isUnique="true" />
+      <Parameter xmi:id="_YG02YLFVEe2z_s-Al402-w" name="NewParameter3" xmi:type="Parameter" direction="in" isException="false" isStream="false" isOrdered="false" isUnique="true" />
+      <Parameter xmi:id="_huGJQbFuEe21bf9NlKs9Kg" name="NewParameter4" xmi:type="Parameter" direction="in" isException="false" isStream="false" isOrdered="false" isUnique="true" />
+    </Operation>
+  </Class>
+  <DataType xmi:type="DataType" xmi:id="_W7vZ8K79Ee2EZoZ5sgiBCg" name="NewDataType1" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  <Class xmi:type="Class" xmi:id="_7Y-R4LK0Ee24ffphK9Na6g" name="NewClass2" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  <Enumeration xmi:type="Enumeration" xmi:id="_8Q6mgLK0Ee24ffphK9Na6g" name="NewEnumeration1" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
+    <EnumerationLiteral xmi:id="__G-0sLK0Ee24ffphK9Na6g" name="NewEnumerationLiteral1" xmi:type="EnumerationLiteral" visibility="public" />
+  </Enumeration>
+  <Interface xmi:type="Interface" xmi:id="_9pVK8LK0Ee24ffphK9Na6g" name="NewInterface1" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  <Package xmi:type="Package" xmi:id="_99xw8LK0Ee24ffphK9Na6g" name="NewPackage3" visibility="public">
+    <PackageImport xmi:id="_dxJb8LK1Ee24ffphK9Na6g" xmi:type="PackageImport" visibility="public" />
+    <PackageMerge xmi:id="_e5mRwLK1Ee24ffphK9Na6g" xmi:type="PackageMerge" />
+    <Package xmi:type="Package" xmi:id="_AmwlYLK1Ee24ffphK9Na6g" name="NewPackage1" visibility="public" />
+  </Package>
+  <PrimitiveType xmi:type="PrimitiveType" xmi:id="_-da6ULK0Ee24ffphK9Na6g" name="NewPrimitiveType1" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
+    <Property xmi:id="_ipeAULK2Ee24ffphK9Na6g" name="NewProperty1" isStatic="true" isDerived="true" xmi:type="Property" aggregation="none" isComposite="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isLeaf="false">
+      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_ipenYLK2Ee24ffphK9Na6g" value="1" visibility="public" />
+      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_ipenYbK2Ee24ffphK9Na6g" value="1" visibility="public" />
+    </Property>
+  </PrimitiveType>
+  <Abstraction xmi:type="Abstraction" xmi:id="_J2H38LK1Ee24ffphK9Na6g" visibility="public" />
+  <Class xmi:type="Class" xmi:id="_MHjIALK1Ee24ffphK9Na6g" name="NewClass1" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
+    <Property xmi:id="_O3oqArK1Ee24ffphK9Na6g" name="asd" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
+      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_O3oqA7K1Ee24ffphK9Na6g" value="1" visibility="public" />
+      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_O3oqBLK1Ee24ffphK9Na6g" value="1" visibility="public" />
+    </Property>
+  </Class>
+  <Class xmi:type="Class" xmi:id="_Mg74YLK1Ee24ffphK9Na6g" name="NewClass3" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
+    <Property xmi:id="_UaiR4LK1Ee24ffphK9Na6g" name="asd" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
+      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_UaiR4bK1Ee24ffphK9Na6g" value="1" visibility="public" />
+      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_UaiR4rK1Ee24ffphK9Na6g" value="1" visibility="public" />
+    </Property>
+  </Class>
+  <Class xmi:type="Class" xmi:id="_M-U_ALK1Ee24ffphK9Na6g" name="NewClass4" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
+    <Substitution xmi:id="_Gt7igLK2Ee24ffphK9Na6g" xmi:type="Substitution" visibility="public" />
+    <Property xmi:id="_VYM0ArK1Ee24ffphK9Na6g" name="asd" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
+      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_VYNbELK1Ee24ffphK9Na6g" value="1" visibility="public" />
+      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_VYNbEbK1Ee24ffphK9Na6g" value="1" visibility="public" />
+    </Property>
+  </Class>
+  <Class xmi:type="Class" xmi:id="_Nbk7sLK1Ee24ffphK9Na6g" name="NewClass5" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  <Association xmi:type="Association" xmi:id="_O3oC8LK1Ee24ffphK9Na6g" isDerived="false" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  <Association xmi:type="Association" xmi:id="_UahDwLK1Ee24ffphK9Na6g" isDerived="false" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  <Association xmi:type="Association" xmi:id="_VYMM8LK1Ee24ffphK9Na6g" isDerived="false" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  <Dependency xmi:type="Dependency" xmi:id="_XCaTELK1Ee24ffphK9Na6g" visibility="public" />
+  <Package xmi:type="Package" xmi:id="_dDtuMLK1Ee24ffphK9Na6g" name="NewPackage1" visibility="public">
+    <PackageImport xmi:id="_wZ60QLK9Ee2fn9jN03lZYw" xmi:type="PackageImport" visibility="public" />
+  </Package>
+  <Package xmi:type="Package" xmi:id="_ed5NMLK1Ee24ffphK9Na6g" name="NewPackage2" visibility="public" />
+  <Realization xmi:type="Realization" xmi:id="_ghLTkLK1Ee24ffphK9Na6g" visibility="public" />
+  <Class xmi:type="Class" xmi:id="_D0YigLK2Ee24ffphK9Na6g" name="NewClass6" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  <Class xmi:type="Class" xmi:id="_EWMPELK2Ee24ffphK9Na6g" name="NewClass7" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  <Usage xmi:type="Usage" xmi:id="_FGLhkLK2Ee24ffphK9Na6g" visibility="public" />
+  <Class xmi:type="Class" xmi:id="_LjfcIbSLEe2pkZx4lGC8Ew" name="asd2" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
+    <Property xmi:id="_ItfSANIcEe2rY5KN6ehSig" name="NewClass8" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
+      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_Itf5ENIcEe2rY5KN6ehSig" value="1" visibility="public" />
+      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_ItggINIcEe2rY5KN6ehSig" value="1" visibility="public" />
+    </Property>
+  </Class>
+  <Class xmi:type="Class" xmi:id="_j12MQL0cEe2besM683MlUA" name="NewClass8" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
+    <Property xmi:id="_ItggIdIcEe2rY5KN6ehSig" name="asd2" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
+      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_ItggItIcEe2rY5KN6ehSig" value="1" visibility="public" />
+      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_IthHMNIcEe2rY5KN6ehSig" value="1" visibility="public" />
+    </Property>
+  </Class>
+  <Class xmi:type="Class" xmi:id="_Uk2g0cymEe2SqIqlz0mqiA" name="NewClass9" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
+    <Property xmi:id="_uKNqAc1tEe2aWMTUBOnCiQ" name="NewProperty1" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="3" upper="5" isStatic="false" isLeaf="false">
+      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_uK1VEM1tEe2aWMTUBOnCiQ" value="3" visibility="public" />
+      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_uK1VEc1tEe2aWMTUBOnCiQ" value="5" visibility="public" />
+    </Property>
+    <Operation xmi:id="_45WxkM5PEe2J1pPdCxXkdw" name="NewOperation1" visibility="public" xmi:type="Operation" isQuery="false" concurrency="sequential" isAbstract="false" isStatic="false" isLeaf="false">
+      <Parameter xmi:id="_8YNeEM5PEe2J1pPdCxXkdw" name="NewParameter1" xmi:type="Parameter" direction="in" isException="false" isStream="false" isOrdered="false" isUnique="true" />
+      <Parameter xmi:id="_e-0x0dI3Ee2XPc95mjsJSg" name="NewParameter2" direction="return" xmi:type="Parameter" isException="false" isStream="false" isOrdered="false" isUnique="true" />
+    </Operation>
+  </Class>
+  <Association xmi:type="Association" xmi:id="_ItM-INIcEe2rY5KN6ehSig" isDerived="false" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+</Model>
+_-da6ULK0Ee24ffphK9Na6g -> <member /> -> _ipeAULK2Ee24ffphK9Na6g
+_-da6ULK0Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_-da6ULK0Ee24ffphK9Na6g -> <ownedAttribute /> -> _ipeAULK2Ee24ffphK9Na6g
+_-da6ULK0Ee24ffphK9Na6g -> <ownedElement /> -> _ipeAULK2Ee24ffphK9Na6g
+_-da6ULK0Ee24ffphK9Na6g -> <ownedMember /> -> _ipeAULK2Ee24ffphK9Na6g
+_-da6ULK0Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_-da6ULK0Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_45WxkM5PEe2J1pPdCxXkdw -> <class /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_45WxkM5PEe2J1pPdCxXkdw -> <featuringClassifier /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_45WxkM5PEe2J1pPdCxXkdw -> <member /> -> _8YNeEM5PEe2J1pPdCxXkdw
+_45WxkM5PEe2J1pPdCxXkdw -> <member /> -> _e-0x0dI3Ee2XPc95mjsJSg
+_45WxkM5PEe2J1pPdCxXkdw -> <namespace /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_45WxkM5PEe2J1pPdCxXkdw -> <ownedElement /> -> _8YNeEM5PEe2J1pPdCxXkdw
+_45WxkM5PEe2J1pPdCxXkdw -> <ownedElement /> -> _e-0x0dI3Ee2XPc95mjsJSg
+_45WxkM5PEe2J1pPdCxXkdw -> <ownedMember /> -> _8YNeEM5PEe2J1pPdCxXkdw
+_45WxkM5PEe2J1pPdCxXkdw -> <ownedMember /> -> _e-0x0dI3Ee2XPc95mjsJSg
+_45WxkM5PEe2J1pPdCxXkdw -> <ownedParameter /> -> _8YNeEM5PEe2J1pPdCxXkdw
+_45WxkM5PEe2J1pPdCxXkdw -> <ownedParameter /> -> _e-0x0dI3Ee2XPc95mjsJSg
+_45WxkM5PEe2J1pPdCxXkdw -> <owner /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_7Y-R4LK0Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_7Y-R4LK0Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_7Y-R4LK0Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_8Q6mgLK0Ee24ffphK9Na6g -> <member /> -> __G-0sLK0Ee24ffphK9Na6g
+_8Q6mgLK0Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_8Q6mgLK0Ee24ffphK9Na6g -> <ownedElement /> -> __G-0sLK0Ee24ffphK9Na6g
+_8Q6mgLK0Ee24ffphK9Na6g -> <ownedLiteral /> -> __G-0sLK0Ee24ffphK9Na6g
+_8Q6mgLK0Ee24ffphK9Na6g -> <ownedMember /> -> __G-0sLK0Ee24ffphK9Na6g
+_8Q6mgLK0Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_8Q6mgLK0Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_8YNeEM5PEe2J1pPdCxXkdw -> <namespace /> -> _45WxkM5PEe2J1pPdCxXkdw
+_8YNeEM5PEe2J1pPdCxXkdw -> <operation /> -> _45WxkM5PEe2J1pPdCxXkdw
+_8YNeEM5PEe2J1pPdCxXkdw -> <owner /> -> _45WxkM5PEe2J1pPdCxXkdw
+_8YNeEM5PEe2J1pPdCxXkdw -> <type /> -> _MHjIALK1Ee24ffphK9Na6g
+_99xw8LK0Ee24ffphK9Na6g -> <importedMember /> -> _dxJb8LK1Ee24ffphK9Na6g
+_99xw8LK0Ee24ffphK9Na6g -> <member /> -> _AmwlYLK1Ee24ffphK9Na6g
+_99xw8LK0Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_99xw8LK0Ee24ffphK9Na6g -> <nestedPackage /> -> _AmwlYLK1Ee24ffphK9Na6g
+_99xw8LK0Ee24ffphK9Na6g -> <nestingPackage /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_99xw8LK0Ee24ffphK9Na6g -> <ownedElement /> -> _AmwlYLK1Ee24ffphK9Na6g
+_99xw8LK0Ee24ffphK9Na6g -> <ownedElement /> -> _dxJb8LK1Ee24ffphK9Na6g
+_99xw8LK0Ee24ffphK9Na6g -> <ownedElement /> -> _e5mRwLK1Ee24ffphK9Na6g
+_99xw8LK0Ee24ffphK9Na6g -> <ownedMember /> -> _AmwlYLK1Ee24ffphK9Na6g
+_99xw8LK0Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_99xw8LK0Ee24ffphK9Na6g -> <packageImport /> -> _dxJb8LK1Ee24ffphK9Na6g
+_99xw8LK0Ee24ffphK9Na6g -> <packageMerge /> -> _e5mRwLK1Ee24ffphK9Na6g
+_99xw8LK0Ee24ffphK9Na6g -> <packagedElement /> -> _AmwlYLK1Ee24ffphK9Na6g
+_9pVK8LK0Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_9pVK8LK0Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_9pVK8LK0Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_AmwlYLK1Ee24ffphK9Na6g -> <namespace /> -> _99xw8LK0Ee24ffphK9Na6g
+_AmwlYLK1Ee24ffphK9Na6g -> <nestingPackage /> -> _99xw8LK0Ee24ffphK9Na6g
+_AmwlYLK1Ee24ffphK9Na6g -> <owner /> -> _99xw8LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _-da6ULK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _7Y-R4LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _8Q6mgLK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _99xw8LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _9pVK8LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _D0YigLK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _EWMPELK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _FGLhkLK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _ItM-INIcEe2rY5KN6ehSig
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _J2H38LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _M-U_ALK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _MHjIALK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _Mg74YLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _Nbk7sLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _O3oC8LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _UahDwLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _VYMM8LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _W7vZ8K79Ee2EZoZ5sgiBCg
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _XCaTELK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _dDtuMLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _ed5NMLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _ghLTkLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <member /> -> _j12MQL0cEe2besM683MlUA
+_Cfp0UGmxEe2kLe5KTNzRtw -> <nestedPackage /> -> _99xw8LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <nestedPackage /> -> _dDtuMLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <nestedPackage /> -> _ed5NMLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _-da6ULK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _7Y-R4LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _8Q6mgLK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _99xw8LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _9pVK8LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _D0YigLK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _EWMPELK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _FGLhkLK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _ItM-INIcEe2rY5KN6ehSig
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _J2H38LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _M-U_ALK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _MHjIALK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _Mg74YLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _Nbk7sLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _O3oC8LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _UahDwLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _VYMM8LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _W7vZ8K79Ee2EZoZ5sgiBCg
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _XCaTELK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _dDtuMLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _ed5NMLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _ghLTkLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedElement /> -> _j12MQL0cEe2besM683MlUA
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _-da6ULK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _7Y-R4LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _8Q6mgLK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _99xw8LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _9pVK8LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _D0YigLK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _EWMPELK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _FGLhkLK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _ItM-INIcEe2rY5KN6ehSig
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _J2H38LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _M-U_ALK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _MHjIALK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _Mg74YLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _Nbk7sLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _O3oC8LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _UahDwLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _VYMM8LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _W7vZ8K79Ee2EZoZ5sgiBCg
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _XCaTELK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _dDtuMLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _ed5NMLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _ghLTkLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedMember /> -> _j12MQL0cEe2besM683MlUA
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _-da6ULK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _7Y-R4LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _8Q6mgLK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _9pVK8LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _D0YigLK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _EWMPELK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _ItM-INIcEe2rY5KN6ehSig
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _M-U_ALK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _MHjIALK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _Mg74YLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _Nbk7sLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _O3oC8LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _UahDwLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _VYMM8LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _W7vZ8K79Ee2EZoZ5sgiBCg
+_Cfp0UGmxEe2kLe5KTNzRtw -> <ownedType /> -> _j12MQL0cEe2besM683MlUA
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _-da6ULK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _7Y-R4LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _8Q6mgLK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _99xw8LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _9pVK8LK0Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _D0YigLK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _EWMPELK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _FGLhkLK2Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _ItM-INIcEe2rY5KN6ehSig
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _J2H38LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _M-U_ALK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _MHjIALK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _Mg74YLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _Nbk7sLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _O3oC8LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _UahDwLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _VYMM8LK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _W7vZ8K79Ee2EZoZ5sgiBCg
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _XCaTELK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _dDtuMLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _ed5NMLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _ghLTkLK1Ee24ffphK9Na6g
+_Cfp0UGmxEe2kLe5KTNzRtw -> <packagedElement /> -> _j12MQL0cEe2besM683MlUA
+_Cr6ZsK70Ee2EZoZ5sgiBCg -> <class /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_Cr6ZsK70Ee2EZoZ5sgiBCg -> <featuringClassifier /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_Cr6ZsK70Ee2EZoZ5sgiBCg -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_Cr6ZsK70Ee2EZoZ5sgiBCg -> <owner /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_D0YigLK2Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_D0YigLK2Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_D0YigLK2Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_EWMPELK2Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_EWMPELK2Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_EWMPELK2Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_FGLhkLK2Ee24ffphK9Na6g -> <client /> -> _Mg74YLK1Ee24ffphK9Na6g
+_FGLhkLK2Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_FGLhkLK2Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_FGLhkLK2Ee24ffphK9Na6g -> <supplier /> -> _D0YigLK2Ee24ffphK9Na6g
+_Gt7igLK2Ee24ffphK9Na6g -> <client /> -> _M-U_ALK1Ee24ffphK9Na6g
+_Gt7igLK2Ee24ffphK9Na6g -> <contract /> -> _EWMPELK2Ee24ffphK9Na6g
+_Gt7igLK2Ee24ffphK9Na6g -> <namespace /> -> _M-U_ALK1Ee24ffphK9Na6g
+_Gt7igLK2Ee24ffphK9Na6g -> <owner /> -> _M-U_ALK1Ee24ffphK9Na6g
+_Gt7igLK2Ee24ffphK9Na6g -> <substitutingClassifier /> -> _M-U_ALK1Ee24ffphK9Na6g
+_Gt7igLK2Ee24ffphK9Na6g -> <supplier /> -> _EWMPELK2Ee24ffphK9Na6g
+_ItM-INIcEe2rY5KN6ehSig -> <memberEnd /> -> _ItfSANIcEe2rY5KN6ehSig
+_ItM-INIcEe2rY5KN6ehSig -> <memberEnd /> -> _ItggIdIcEe2rY5KN6ehSig
+_ItM-INIcEe2rY5KN6ehSig -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_ItM-INIcEe2rY5KN6ehSig -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_ItM-INIcEe2rY5KN6ehSig -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_Itf5ENIcEe2rY5KN6ehSig -> <namespace /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_Itf5ENIcEe2rY5KN6ehSig -> <owner /> -> _ItfSANIcEe2rY5KN6ehSig
+_ItfSANIcEe2rY5KN6ehSig -> <association /> -> _ItM-INIcEe2rY5KN6ehSig
+_ItfSANIcEe2rY5KN6ehSig -> <class /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_ItfSANIcEe2rY5KN6ehSig -> <featuringClassifier /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_ItfSANIcEe2rY5KN6ehSig -> <lowerValue /> -> _Itf5ENIcEe2rY5KN6ehSig
+_ItfSANIcEe2rY5KN6ehSig -> <namespace /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_ItfSANIcEe2rY5KN6ehSig -> <ownedElement /> -> _Itf5ENIcEe2rY5KN6ehSig
+_ItfSANIcEe2rY5KN6ehSig -> <ownedElement /> -> _ItggINIcEe2rY5KN6ehSig
+_ItfSANIcEe2rY5KN6ehSig -> <owner /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_ItfSANIcEe2rY5KN6ehSig -> <type /> -> _j12MQL0cEe2besM683MlUA
+_ItfSANIcEe2rY5KN6ehSig -> <upperValue /> -> _ItggINIcEe2rY5KN6ehSig
+_ItggINIcEe2rY5KN6ehSig -> <namespace /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_ItggINIcEe2rY5KN6ehSig -> <owner /> -> _ItfSANIcEe2rY5KN6ehSig
+_ItggIdIcEe2rY5KN6ehSig -> <association /> -> _ItM-INIcEe2rY5KN6ehSig
+_ItggIdIcEe2rY5KN6ehSig -> <class /> -> _j12MQL0cEe2besM683MlUA
+_ItggIdIcEe2rY5KN6ehSig -> <featuringClassifier /> -> _j12MQL0cEe2besM683MlUA
+_ItggIdIcEe2rY5KN6ehSig -> <lowerValue /> -> _ItggItIcEe2rY5KN6ehSig
+_ItggIdIcEe2rY5KN6ehSig -> <namespace /> -> _j12MQL0cEe2besM683MlUA
+_ItggIdIcEe2rY5KN6ehSig -> <ownedElement /> -> _ItggItIcEe2rY5KN6ehSig
+_ItggIdIcEe2rY5KN6ehSig -> <ownedElement /> -> _IthHMNIcEe2rY5KN6ehSig
+_ItggIdIcEe2rY5KN6ehSig -> <owner /> -> _j12MQL0cEe2besM683MlUA
+_ItggIdIcEe2rY5KN6ehSig -> <type /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_ItggIdIcEe2rY5KN6ehSig -> <upperValue /> -> _IthHMNIcEe2rY5KN6ehSig
+_ItggItIcEe2rY5KN6ehSig -> <namespace /> -> _j12MQL0cEe2besM683MlUA
+_ItggItIcEe2rY5KN6ehSig -> <owner /> -> _ItggIdIcEe2rY5KN6ehSig
+_IthHMNIcEe2rY5KN6ehSig -> <namespace /> -> _j12MQL0cEe2besM683MlUA
+_IthHMNIcEe2rY5KN6ehSig -> <owner /> -> _ItggIdIcEe2rY5KN6ehSig
+_J2H38LK1Ee24ffphK9Na6g -> <client /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_J2H38LK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_J2H38LK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_J2H38LK1Ee24ffphK9Na6g -> <supplier /> -> _7Y-R4LK0Ee24ffphK9Na6g
+_LjfcIbSLEe2pkZx4lGC8Ew -> <member /> -> _ItfSANIcEe2rY5KN6ehSig
+_LjfcIbSLEe2pkZx4lGC8Ew -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_LjfcIbSLEe2pkZx4lGC8Ew -> <ownedAttribute /> -> _ItfSANIcEe2rY5KN6ehSig
+_LjfcIbSLEe2pkZx4lGC8Ew -> <ownedElement /> -> _ItfSANIcEe2rY5KN6ehSig
+_LjfcIbSLEe2pkZx4lGC8Ew -> <ownedMember /> -> _ItfSANIcEe2rY5KN6ehSig
+_LjfcIbSLEe2pkZx4lGC8Ew -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_LjfcIbSLEe2pkZx4lGC8Ew -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_M-U_ALK1Ee24ffphK9Na6g -> <member /> -> _Gt7igLK2Ee24ffphK9Na6g
+_M-U_ALK1Ee24ffphK9Na6g -> <member /> -> _VYM0ArK1Ee24ffphK9Na6g
+_M-U_ALK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_M-U_ALK1Ee24ffphK9Na6g -> <ownedAttribute /> -> _VYM0ArK1Ee24ffphK9Na6g
+_M-U_ALK1Ee24ffphK9Na6g -> <ownedElement /> -> _Gt7igLK2Ee24ffphK9Na6g
+_M-U_ALK1Ee24ffphK9Na6g -> <ownedElement /> -> _VYM0ArK1Ee24ffphK9Na6g
+_M-U_ALK1Ee24ffphK9Na6g -> <ownedMember /> -> _Gt7igLK2Ee24ffphK9Na6g
+_M-U_ALK1Ee24ffphK9Na6g -> <ownedMember /> -> _VYM0ArK1Ee24ffphK9Na6g
+_M-U_ALK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_M-U_ALK1Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_M-U_ALK1Ee24ffphK9Na6g -> <substitution /> -> _Gt7igLK2Ee24ffphK9Na6g
+_MHjIALK1Ee24ffphK9Na6g -> <member /> -> _O3oqArK1Ee24ffphK9Na6g
+_MHjIALK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_MHjIALK1Ee24ffphK9Na6g -> <ownedAttribute /> -> _O3oqArK1Ee24ffphK9Na6g
+_MHjIALK1Ee24ffphK9Na6g -> <ownedElement /> -> _O3oqArK1Ee24ffphK9Na6g
+_MHjIALK1Ee24ffphK9Na6g -> <ownedMember /> -> _O3oqArK1Ee24ffphK9Na6g
+_MHjIALK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_MHjIALK1Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_Mg74YLK1Ee24ffphK9Na6g -> <member /> -> _UaiR4LK1Ee24ffphK9Na6g
+_Mg74YLK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_Mg74YLK1Ee24ffphK9Na6g -> <ownedAttribute /> -> _UaiR4LK1Ee24ffphK9Na6g
+_Mg74YLK1Ee24ffphK9Na6g -> <ownedElement /> -> _UaiR4LK1Ee24ffphK9Na6g
+_Mg74YLK1Ee24ffphK9Na6g -> <ownedMember /> -> _UaiR4LK1Ee24ffphK9Na6g
+_Mg74YLK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_Mg74YLK1Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_Nbk7sLK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_Nbk7sLK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_Nbk7sLK1Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_O3oC8LK1Ee24ffphK9Na6g -> <memberEnd /> -> _O3oC8bK1Ee24ffphK9Na6g
+_O3oC8LK1Ee24ffphK9Na6g -> <memberEnd /> -> _O3oqArK1Ee24ffphK9Na6g
+_O3oC8LK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_O3oC8LK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_O3oC8LK1Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_O3oC8bK1Ee24ffphK9Na6g -> <association /> -> _O3oC8LK1Ee24ffphK9Na6g
+_O3oC8bK1Ee24ffphK9Na6g -> <class /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_O3oC8bK1Ee24ffphK9Na6g -> <featuringClassifier /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_O3oC8bK1Ee24ffphK9Na6g -> <lowerValue /> -> _O3oqALK1Ee24ffphK9Na6g
+_O3oC8bK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_O3oC8bK1Ee24ffphK9Na6g -> <ownedElement /> -> _O3oqALK1Ee24ffphK9Na6g
+_O3oC8bK1Ee24ffphK9Na6g -> <ownedElement /> -> _O3oqAbK1Ee24ffphK9Na6g
+_O3oC8bK1Ee24ffphK9Na6g -> <owner /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_O3oC8bK1Ee24ffphK9Na6g -> <type /> -> _MHjIALK1Ee24ffphK9Na6g
+_O3oC8bK1Ee24ffphK9Na6g -> <upperValue /> -> _O3oqAbK1Ee24ffphK9Na6g
+_O3oqA7K1Ee24ffphK9Na6g -> <namespace /> -> _MHjIALK1Ee24ffphK9Na6g
+_O3oqA7K1Ee24ffphK9Na6g -> <owner /> -> _O3oqArK1Ee24ffphK9Na6g
+_O3oqALK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_O3oqALK1Ee24ffphK9Na6g -> <owner /> -> _O3oC8bK1Ee24ffphK9Na6g
+_O3oqAbK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_O3oqAbK1Ee24ffphK9Na6g -> <owner /> -> _O3oC8bK1Ee24ffphK9Na6g
+_O3oqArK1Ee24ffphK9Na6g -> <association /> -> _O3oC8LK1Ee24ffphK9Na6g
+_O3oqArK1Ee24ffphK9Na6g -> <class /> -> _MHjIALK1Ee24ffphK9Na6g
+_O3oqArK1Ee24ffphK9Na6g -> <featuringClassifier /> -> _MHjIALK1Ee24ffphK9Na6g
+_O3oqArK1Ee24ffphK9Na6g -> <lowerValue /> -> _O3oqA7K1Ee24ffphK9Na6g
+_O3oqArK1Ee24ffphK9Na6g -> <namespace /> -> _MHjIALK1Ee24ffphK9Na6g
+_O3oqArK1Ee24ffphK9Na6g -> <ownedElement /> -> _O3oqA7K1Ee24ffphK9Na6g
+_O3oqArK1Ee24ffphK9Na6g -> <ownedElement /> -> _O3oqBLK1Ee24ffphK9Na6g
+_O3oqArK1Ee24ffphK9Na6g -> <owner /> -> _MHjIALK1Ee24ffphK9Na6g
+_O3oqArK1Ee24ffphK9Na6g -> <type /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_O3oqArK1Ee24ffphK9Na6g -> <upperValue /> -> _O3oqBLK1Ee24ffphK9Na6g
+_O3oqBLK1Ee24ffphK9Na6g -> <namespace /> -> _MHjIALK1Ee24ffphK9Na6g
+_O3oqBLK1Ee24ffphK9Na6g -> <owner /> -> _O3oqArK1Ee24ffphK9Na6g
+_Pf5kMbFSEe2z_s-Al402-w -> <namespace /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_Pf5kMbFSEe2z_s-Al402-w -> <operation /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_Pf5kMbFSEe2z_s-Al402-w -> <owner /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_Pf5kMbFSEe2z_s-Al402-w -> <type /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <interfaceRealization /> -> _ay8lcLK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <member /> -> _Cr6ZsK70Ee2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <member /> -> _O3oC8bK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <member /> -> _UahDwbK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <member /> -> _VYMM8bK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <member /> -> _ay8lcLK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <member /> -> _bM_S4K7gEe2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <member /> -> _g69BoK7oEe2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <member /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedAttribute /> -> _O3oC8bK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedAttribute /> -> _UahDwbK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedAttribute /> -> _VYMM8bK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedAttribute /> -> _bM_S4K7gEe2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedAttribute /> -> _g69BoK7oEe2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedElement /> -> _Cr6ZsK70Ee2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedElement /> -> _O3oC8bK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedElement /> -> _UahDwbK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedElement /> -> _VYMM8bK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedElement /> -> _ay8lcLK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedElement /> -> _bM_S4K7gEe2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedElement /> -> _g69BoK7oEe2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedElement /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedMember /> -> _Cr6ZsK70Ee2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedMember /> -> _O3oC8bK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedMember /> -> _UahDwbK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedMember /> -> _VYMM8bK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedMember /> -> _ay8lcLK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedMember /> -> _bM_S4K7gEe2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedMember /> -> _g69BoK7oEe2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedMember /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedOperation /> -> _Cr6ZsK70Ee2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <ownedOperation /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_QE0EkK7gEe2EZoZ5sgiBCg -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_TnD78LFUEe2z_s-Al402-w -> <namespace /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_TnD78LFUEe2z_s-Al402-w -> <operation /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_TnD78LFUEe2z_s-Al402-w -> <owner /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_TnD78LFUEe2z_s-Al402-w -> <type /> -> _W7vZ8K79Ee2EZoZ5sgiBCg
+_UahDwLK1Ee24ffphK9Na6g -> <memberEnd /> -> _UahDwbK1Ee24ffphK9Na6g
+_UahDwLK1Ee24ffphK9Na6g -> <memberEnd /> -> _UaiR4LK1Ee24ffphK9Na6g
+_UahDwLK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_UahDwLK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_UahDwLK1Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_UahDwbK1Ee24ffphK9Na6g -> <association /> -> _UahDwLK1Ee24ffphK9Na6g
+_UahDwbK1Ee24ffphK9Na6g -> <class /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_UahDwbK1Ee24ffphK9Na6g -> <featuringClassifier /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_UahDwbK1Ee24ffphK9Na6g -> <lowerValue /> -> _Uahq0LK1Ee24ffphK9Na6g
+_UahDwbK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_UahDwbK1Ee24ffphK9Na6g -> <ownedElement /> -> _Uahq0LK1Ee24ffphK9Na6g
+_UahDwbK1Ee24ffphK9Na6g -> <ownedElement /> -> _Uahq0bK1Ee24ffphK9Na6g
+_UahDwbK1Ee24ffphK9Na6g -> <owner /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_UahDwbK1Ee24ffphK9Na6g -> <type /> -> _Mg74YLK1Ee24ffphK9Na6g
+_UahDwbK1Ee24ffphK9Na6g -> <upperValue /> -> _Uahq0bK1Ee24ffphK9Na6g
+_Uahq0LK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_Uahq0LK1Ee24ffphK9Na6g -> <owner /> -> _UahDwbK1Ee24ffphK9Na6g
+_Uahq0bK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_Uahq0bK1Ee24ffphK9Na6g -> <owner /> -> _UahDwbK1Ee24ffphK9Na6g
+_UaiR4LK1Ee24ffphK9Na6g -> <association /> -> _UahDwLK1Ee24ffphK9Na6g
+_UaiR4LK1Ee24ffphK9Na6g -> <class /> -> _Mg74YLK1Ee24ffphK9Na6g
+_UaiR4LK1Ee24ffphK9Na6g -> <featuringClassifier /> -> _Mg74YLK1Ee24ffphK9Na6g
+_UaiR4LK1Ee24ffphK9Na6g -> <lowerValue /> -> _UaiR4bK1Ee24ffphK9Na6g
+_UaiR4LK1Ee24ffphK9Na6g -> <namespace /> -> _Mg74YLK1Ee24ffphK9Na6g
+_UaiR4LK1Ee24ffphK9Na6g -> <ownedElement /> -> _UaiR4bK1Ee24ffphK9Na6g
+_UaiR4LK1Ee24ffphK9Na6g -> <ownedElement /> -> _UaiR4rK1Ee24ffphK9Na6g
+_UaiR4LK1Ee24ffphK9Na6g -> <owner /> -> _Mg74YLK1Ee24ffphK9Na6g
+_UaiR4LK1Ee24ffphK9Na6g -> <type /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_UaiR4LK1Ee24ffphK9Na6g -> <upperValue /> -> _UaiR4rK1Ee24ffphK9Na6g
+_UaiR4bK1Ee24ffphK9Na6g -> <namespace /> -> _Mg74YLK1Ee24ffphK9Na6g
+_UaiR4bK1Ee24ffphK9Na6g -> <owner /> -> _UaiR4LK1Ee24ffphK9Na6g
+_UaiR4rK1Ee24ffphK9Na6g -> <namespace /> -> _Mg74YLK1Ee24ffphK9Na6g
+_UaiR4rK1Ee24ffphK9Na6g -> <owner /> -> _UaiR4LK1Ee24ffphK9Na6g
+_Uk2g0cymEe2SqIqlz0mqiA -> <member /> -> _45WxkM5PEe2J1pPdCxXkdw
+_Uk2g0cymEe2SqIqlz0mqiA -> <member /> -> _uKNqAc1tEe2aWMTUBOnCiQ
+_Uk2g0cymEe2SqIqlz0mqiA -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_Uk2g0cymEe2SqIqlz0mqiA -> <ownedAttribute /> -> _uKNqAc1tEe2aWMTUBOnCiQ
+_Uk2g0cymEe2SqIqlz0mqiA -> <ownedElement /> -> _45WxkM5PEe2J1pPdCxXkdw
+_Uk2g0cymEe2SqIqlz0mqiA -> <ownedElement /> -> _uKNqAc1tEe2aWMTUBOnCiQ
+_Uk2g0cymEe2SqIqlz0mqiA -> <ownedMember /> -> _45WxkM5PEe2J1pPdCxXkdw
+_Uk2g0cymEe2SqIqlz0mqiA -> <ownedMember /> -> _uKNqAc1tEe2aWMTUBOnCiQ
+_Uk2g0cymEe2SqIqlz0mqiA -> <ownedOperation /> -> _45WxkM5PEe2J1pPdCxXkdw
+_Uk2g0cymEe2SqIqlz0mqiA -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_Uk2g0cymEe2SqIqlz0mqiA -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_VYM0ALK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_VYM0ALK1Ee24ffphK9Na6g -> <owner /> -> _VYMM8bK1Ee24ffphK9Na6g
+_VYM0AbK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_VYM0AbK1Ee24ffphK9Na6g -> <owner /> -> _VYMM8bK1Ee24ffphK9Na6g
+_VYM0ArK1Ee24ffphK9Na6g -> <association /> -> _VYMM8LK1Ee24ffphK9Na6g
+_VYM0ArK1Ee24ffphK9Na6g -> <class /> -> _M-U_ALK1Ee24ffphK9Na6g
+_VYM0ArK1Ee24ffphK9Na6g -> <featuringClassifier /> -> _M-U_ALK1Ee24ffphK9Na6g
+_VYM0ArK1Ee24ffphK9Na6g -> <lowerValue /> -> _VYNbELK1Ee24ffphK9Na6g
+_VYM0ArK1Ee24ffphK9Na6g -> <namespace /> -> _M-U_ALK1Ee24ffphK9Na6g
+_VYM0ArK1Ee24ffphK9Na6g -> <ownedElement /> -> _VYNbELK1Ee24ffphK9Na6g
+_VYM0ArK1Ee24ffphK9Na6g -> <ownedElement /> -> _VYNbEbK1Ee24ffphK9Na6g
+_VYM0ArK1Ee24ffphK9Na6g -> <owner /> -> _M-U_ALK1Ee24ffphK9Na6g
+_VYM0ArK1Ee24ffphK9Na6g -> <type /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_VYM0ArK1Ee24ffphK9Na6g -> <upperValue /> -> _VYNbEbK1Ee24ffphK9Na6g
+_VYMM8LK1Ee24ffphK9Na6g -> <memberEnd /> -> _VYM0ArK1Ee24ffphK9Na6g
+_VYMM8LK1Ee24ffphK9Na6g -> <memberEnd /> -> _VYMM8bK1Ee24ffphK9Na6g
+_VYMM8LK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_VYMM8LK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_VYMM8LK1Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_VYMM8bK1Ee24ffphK9Na6g -> <association /> -> _VYMM8LK1Ee24ffphK9Na6g
+_VYMM8bK1Ee24ffphK9Na6g -> <class /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_VYMM8bK1Ee24ffphK9Na6g -> <featuringClassifier /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_VYMM8bK1Ee24ffphK9Na6g -> <lowerValue /> -> _VYM0ALK1Ee24ffphK9Na6g
+_VYMM8bK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_VYMM8bK1Ee24ffphK9Na6g -> <ownedElement /> -> _VYM0ALK1Ee24ffphK9Na6g
+_VYMM8bK1Ee24ffphK9Na6g -> <ownedElement /> -> _VYM0AbK1Ee24ffphK9Na6g
+_VYMM8bK1Ee24ffphK9Na6g -> <owner /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_VYMM8bK1Ee24ffphK9Na6g -> <type /> -> _M-U_ALK1Ee24ffphK9Na6g
+_VYMM8bK1Ee24ffphK9Na6g -> <upperValue /> -> _VYM0AbK1Ee24ffphK9Na6g
+_VYNbELK1Ee24ffphK9Na6g -> <namespace /> -> _M-U_ALK1Ee24ffphK9Na6g
+_VYNbELK1Ee24ffphK9Na6g -> <owner /> -> _VYM0ArK1Ee24ffphK9Na6g
+_VYNbEbK1Ee24ffphK9Na6g -> <namespace /> -> _M-U_ALK1Ee24ffphK9Na6g
+_VYNbEbK1Ee24ffphK9Na6g -> <owner /> -> _VYM0ArK1Ee24ffphK9Na6g
+_W7vZ8K79Ee2EZoZ5sgiBCg -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_W7vZ8K79Ee2EZoZ5sgiBCg -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_W7vZ8K79Ee2EZoZ5sgiBCg -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_XCaTELK1Ee24ffphK9Na6g -> <client /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_XCaTELK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_XCaTELK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_XCaTELK1Ee24ffphK9Na6g -> <supplier /> -> _Nbk7sLK1Ee24ffphK9Na6g
+_YG02YLFVEe2z_s-Al402-w -> <namespace /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_YG02YLFVEe2z_s-Al402-w -> <operation /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_YG02YLFVEe2z_s-Al402-w -> <owner /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_YG02YLFVEe2z_s-Al402-w -> <type /> -> _9pVK8LK0Ee24ffphK9Na6g
+__G-0sLK0Ee24ffphK9Na6g -> <enumeration /> -> _8Q6mgLK0Ee24ffphK9Na6g
+__G-0sLK0Ee24ffphK9Na6g -> <namespace /> -> _8Q6mgLK0Ee24ffphK9Na6g
+__G-0sLK0Ee24ffphK9Na6g -> <owner /> -> _8Q6mgLK0Ee24ffphK9Na6g
+_ay8lcLK1Ee24ffphK9Na6g -> <client /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_ay8lcLK1Ee24ffphK9Na6g -> <contract /> -> _9pVK8LK0Ee24ffphK9Na6g
+_ay8lcLK1Ee24ffphK9Na6g -> <implementingClassifier /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_ay8lcLK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_ay8lcLK1Ee24ffphK9Na6g -> <owner /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_ay8lcLK1Ee24ffphK9Na6g -> <supplier /> -> _9pVK8LK0Ee24ffphK9Na6g
+_bM_58K7gEe2EZoZ5sgiBCg -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_bM_58K7gEe2EZoZ5sgiBCg -> <owner /> -> _bM_S4K7gEe2EZoZ5sgiBCg
+_bM_S4K7gEe2EZoZ5sgiBCg -> <class /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_bM_S4K7gEe2EZoZ5sgiBCg -> <featuringClassifier /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_bM_S4K7gEe2EZoZ5sgiBCg -> <lowerValue /> -> _bM_58K7gEe2EZoZ5sgiBCg
+_bM_S4K7gEe2EZoZ5sgiBCg -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_bM_S4K7gEe2EZoZ5sgiBCg -> <ownedElement /> -> _bM_58K7gEe2EZoZ5sgiBCg
+_bM_S4K7gEe2EZoZ5sgiBCg -> <ownedElement /> -> _bNAhAK7gEe2EZoZ5sgiBCg
+_bM_S4K7gEe2EZoZ5sgiBCg -> <owner /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_bM_S4K7gEe2EZoZ5sgiBCg -> <type /> -> _9pVK8LK0Ee24ffphK9Na6g
+_bM_S4K7gEe2EZoZ5sgiBCg -> <upperValue /> -> _bNAhAK7gEe2EZoZ5sgiBCg
+_bNAhAK7gEe2EZoZ5sgiBCg -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_bNAhAK7gEe2EZoZ5sgiBCg -> <owner /> -> _bM_S4K7gEe2EZoZ5sgiBCg
+_dDtuMLK1Ee24ffphK9Na6g -> <importedMember /> -> _wZ60QLK9Ee2fn9jN03lZYw
+_dDtuMLK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_dDtuMLK1Ee24ffphK9Na6g -> <nestingPackage /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_dDtuMLK1Ee24ffphK9Na6g -> <ownedElement /> -> _wZ60QLK9Ee2fn9jN03lZYw
+_dDtuMLK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_dDtuMLK1Ee24ffphK9Na6g -> <packageImport /> -> _wZ60QLK9Ee2fn9jN03lZYw
+_dxJb8LK1Ee24ffphK9Na6g -> <importedPackage /> -> _dDtuMLK1Ee24ffphK9Na6g
+_dxJb8LK1Ee24ffphK9Na6g -> <importingNamespace /> -> _99xw8LK0Ee24ffphK9Na6g
+_dxJb8LK1Ee24ffphK9Na6g -> <owner /> -> _99xw8LK0Ee24ffphK9Na6g
+_e-0x0dI3Ee2XPc95mjsJSg -> <namespace /> -> _45WxkM5PEe2J1pPdCxXkdw
+_e-0x0dI3Ee2XPc95mjsJSg -> <operation /> -> _45WxkM5PEe2J1pPdCxXkdw
+_e-0x0dI3Ee2XPc95mjsJSg -> <owner /> -> _45WxkM5PEe2J1pPdCxXkdw
+_e-0x0dI3Ee2XPc95mjsJSg -> <type /> -> _j12MQL0cEe2besM683MlUA
+_e5mRwLK1Ee24ffphK9Na6g -> <mergedPackage /> -> _ed5NMLK1Ee24ffphK9Na6g
+_e5mRwLK1Ee24ffphK9Na6g -> <owner /> -> _99xw8LK0Ee24ffphK9Na6g
+_e5mRwLK1Ee24ffphK9Na6g -> <receivingPackage /> -> _99xw8LK0Ee24ffphK9Na6g
+_ed5NMLK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_ed5NMLK1Ee24ffphK9Na6g -> <nestingPackage /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_ed5NMLK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_g69BoK7oEe2EZoZ5sgiBCg -> <class /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_g69BoK7oEe2EZoZ5sgiBCg -> <featuringClassifier /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_g69BoK7oEe2EZoZ5sgiBCg -> <lowerValue /> -> _g69Boa7oEe2EZoZ5sgiBCg
+_g69BoK7oEe2EZoZ5sgiBCg -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_g69BoK7oEe2EZoZ5sgiBCg -> <ownedElement /> -> _g69Boa7oEe2EZoZ5sgiBCg
+_g69BoK7oEe2EZoZ5sgiBCg -> <ownedElement /> -> _g69Boq7oEe2EZoZ5sgiBCg
+_g69BoK7oEe2EZoZ5sgiBCg -> <owner /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_g69BoK7oEe2EZoZ5sgiBCg -> <upperValue /> -> _g69Boq7oEe2EZoZ5sgiBCg
+_g69Boa7oEe2EZoZ5sgiBCg -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_g69Boa7oEe2EZoZ5sgiBCg -> <owner /> -> _g69BoK7oEe2EZoZ5sgiBCg
+_g69Boq7oEe2EZoZ5sgiBCg -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_g69Boq7oEe2EZoZ5sgiBCg -> <owner /> -> _g69BoK7oEe2EZoZ5sgiBCg
+_ghLTkLK1Ee24ffphK9Na6g -> <client /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_ghLTkLK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_ghLTkLK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_ghLTkLK1Ee24ffphK9Na6g -> <supplier /> -> _9pVK8LK0Ee24ffphK9Na6g
+_huGJQbFuEe21bf9NlKs9Kg -> <namespace /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_huGJQbFuEe21bf9NlKs9Kg -> <operation /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_huGJQbFuEe21bf9NlKs9Kg -> <owner /> -> _r0YL0K70Ee2EZoZ5sgiBCg
+_ipeAULK2Ee24ffphK9Na6g -> <datatype /> -> _-da6ULK0Ee24ffphK9Na6g
+_ipeAULK2Ee24ffphK9Na6g -> <featuringClassifier /> -> _-da6ULK0Ee24ffphK9Na6g
+_ipeAULK2Ee24ffphK9Na6g -> <lowerValue /> -> _ipenYLK2Ee24ffphK9Na6g
+_ipeAULK2Ee24ffphK9Na6g -> <namespace /> -> _-da6ULK0Ee24ffphK9Na6g
+_ipeAULK2Ee24ffphK9Na6g -> <ownedElement /> -> _ipenYLK2Ee24ffphK9Na6g
+_ipeAULK2Ee24ffphK9Na6g -> <ownedElement /> -> _ipenYbK2Ee24ffphK9Na6g
+_ipeAULK2Ee24ffphK9Na6g -> <owner /> -> _-da6ULK0Ee24ffphK9Na6g
+_ipeAULK2Ee24ffphK9Na6g -> <upperValue /> -> _ipenYbK2Ee24ffphK9Na6g
+_ipenYLK2Ee24ffphK9Na6g -> <namespace /> -> _-da6ULK0Ee24ffphK9Na6g
+_ipenYLK2Ee24ffphK9Na6g -> <owner /> -> _ipeAULK2Ee24ffphK9Na6g
+_ipenYbK2Ee24ffphK9Na6g -> <namespace /> -> _-da6ULK0Ee24ffphK9Na6g
+_ipenYbK2Ee24ffphK9Na6g -> <owner /> -> _ipeAULK2Ee24ffphK9Na6g
+_j12MQL0cEe2besM683MlUA -> <member /> -> _ItggIdIcEe2rY5KN6ehSig
+_j12MQL0cEe2besM683MlUA -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_j12MQL0cEe2besM683MlUA -> <ownedAttribute /> -> _ItggIdIcEe2rY5KN6ehSig
+_j12MQL0cEe2besM683MlUA -> <ownedElement /> -> _ItggIdIcEe2rY5KN6ehSig
+_j12MQL0cEe2besM683MlUA -> <ownedMember /> -> _ItggIdIcEe2rY5KN6ehSig
+_j12MQL0cEe2besM683MlUA -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_j12MQL0cEe2besM683MlUA -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_r0YL0K70Ee2EZoZ5sgiBCg -> <class /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_r0YL0K70Ee2EZoZ5sgiBCg -> <featuringClassifier /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_r0YL0K70Ee2EZoZ5sgiBCg -> <member /> -> _Pf5kMbFSEe2z_s-Al402-w
+_r0YL0K70Ee2EZoZ5sgiBCg -> <member /> -> _TnD78LFUEe2z_s-Al402-w
+_r0YL0K70Ee2EZoZ5sgiBCg -> <member /> -> _YG02YLFVEe2z_s-Al402-w
+_r0YL0K70Ee2EZoZ5sgiBCg -> <member /> -> _huGJQbFuEe21bf9NlKs9Kg
+_r0YL0K70Ee2EZoZ5sgiBCg -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_r0YL0K70Ee2EZoZ5sgiBCg -> <ownedElement /> -> _Pf5kMbFSEe2z_s-Al402-w
+_r0YL0K70Ee2EZoZ5sgiBCg -> <ownedElement /> -> _TnD78LFUEe2z_s-Al402-w
+_r0YL0K70Ee2EZoZ5sgiBCg -> <ownedElement /> -> _YG02YLFVEe2z_s-Al402-w
+_r0YL0K70Ee2EZoZ5sgiBCg -> <ownedElement /> -> _huGJQbFuEe21bf9NlKs9Kg
+_r0YL0K70Ee2EZoZ5sgiBCg -> <ownedMember /> -> _Pf5kMbFSEe2z_s-Al402-w
+_r0YL0K70Ee2EZoZ5sgiBCg -> <ownedMember /> -> _TnD78LFUEe2z_s-Al402-w
+_r0YL0K70Ee2EZoZ5sgiBCg -> <ownedMember /> -> _YG02YLFVEe2z_s-Al402-w
+_r0YL0K70Ee2EZoZ5sgiBCg -> <ownedMember /> -> _huGJQbFuEe21bf9NlKs9Kg
+_r0YL0K70Ee2EZoZ5sgiBCg -> <ownedParameter /> -> _Pf5kMbFSEe2z_s-Al402-w
+_r0YL0K70Ee2EZoZ5sgiBCg -> <ownedParameter /> -> _TnD78LFUEe2z_s-Al402-w
+_r0YL0K70Ee2EZoZ5sgiBCg -> <ownedParameter /> -> _YG02YLFVEe2z_s-Al402-w
+_r0YL0K70Ee2EZoZ5sgiBCg -> <ownedParameter /> -> _huGJQbFuEe21bf9NlKs9Kg
+_r0YL0K70Ee2EZoZ5sgiBCg -> <owner /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_uK1VEM1tEe2aWMTUBOnCiQ -> <namespace /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_uK1VEM1tEe2aWMTUBOnCiQ -> <owner /> -> _uKNqAc1tEe2aWMTUBOnCiQ
+_uK1VEc1tEe2aWMTUBOnCiQ -> <namespace /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_uK1VEc1tEe2aWMTUBOnCiQ -> <owner /> -> _uKNqAc1tEe2aWMTUBOnCiQ
+_uKNqAc1tEe2aWMTUBOnCiQ -> <class /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_uKNqAc1tEe2aWMTUBOnCiQ -> <featuringClassifier /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_uKNqAc1tEe2aWMTUBOnCiQ -> <lowerValue /> -> _uK1VEM1tEe2aWMTUBOnCiQ
+_uKNqAc1tEe2aWMTUBOnCiQ -> <namespace /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_uKNqAc1tEe2aWMTUBOnCiQ -> <ownedElement /> -> _uK1VEM1tEe2aWMTUBOnCiQ
+_uKNqAc1tEe2aWMTUBOnCiQ -> <ownedElement /> -> _uK1VEc1tEe2aWMTUBOnCiQ
+_uKNqAc1tEe2aWMTUBOnCiQ -> <owner /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_uKNqAc1tEe2aWMTUBOnCiQ -> <type /> -> _j12MQL0cEe2besM683MlUA
+_uKNqAc1tEe2aWMTUBOnCiQ -> <upperValue /> -> _uK1VEc1tEe2aWMTUBOnCiQ
+_wZ60QLK9Ee2fn9jN03lZYw -> <importedPackage /> -> _ed5NMLK1Ee24ffphK9Na6g
+_wZ60QLK9Ee2fn9jN03lZYw -> <importingNamespace /> -> _dDtuMLK1Ee24ffphK9Na6g
+_wZ60QLK9Ee2fn9jN03lZYw -> <owner /> -> _dDtuMLK1Ee24ffphK9Na6g

@@ -31,7 +31,6 @@ function addEdge_addition(include: GraphNode, addition: GraphNode | undefined) {
 }
 
 function addEdge_includingCase(include: GraphNode, includingCase: GraphNode | undefined) {
-  // TODO/Association
   // includingCase : UseCase [1..1]{subsets NamedElement::namespace, subsets DirectedRelationship::source} (opposite UseCase::include)
   // The UseCase which includes the addition and owns the Include relationship.
   if (!includingCase) {

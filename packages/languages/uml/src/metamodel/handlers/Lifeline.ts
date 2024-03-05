@@ -20,7 +20,6 @@ export const LifelineHandler = Lifeline.createHandler(
 )
 
 function addEdge_coveredBy(lifeline: GraphNode, coveredBy: GraphNode[]) {
-  // TODO/Association
   // coveredBy : InteractionFragment [0..*] (opposite InteractionFragment::covered)
   // References the InteractionFragments in which this Lifeline takes part.
   coveredBy.forEach((coveredBy) => {
@@ -29,7 +28,6 @@ function addEdge_coveredBy(lifeline: GraphNode, coveredBy: GraphNode[]) {
 }
 
 function addEdge_decomposedAs(lifeline: GraphNode, decomposedAs: GraphNode | undefined) {
-  // TODO/Association
   // decomposedAs : PartDecomposition [0..1] (opposite A_decomposedAs_lifeline::lifeline)
   // References the Interaction that represents the decomposition.
   if (!decomposedAs) {
@@ -45,7 +43,6 @@ function addEdge_interaction(_lifeline: GraphNode) {
 }
 
 function addEdge_represents(lifeline: GraphNode, represents: GraphNode | undefined) {
-  // TODO/Association
   // represents : ConnectableElement [0..1] (opposite A_represents_lifeline::lifeline)
   // References the ConnectableElement within the classifier that contains the enclosing interaction.
   if (!represents) {

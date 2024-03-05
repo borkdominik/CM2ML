@@ -18,7 +18,6 @@ export const CallActionHandler = CallAction.createHandler(
 )
 
 function addEdge_result(callAction: GraphNode, results: GraphNode[]) {
-  // TODO/Association
   // ♦ result : OutputPin [0..*]{ordered, subsets Action::output} (opposite A_result_callAction::callAction)
   // The OutputPins on which the reply values from the invocation are placed (if the call is synchronous).
   results.forEach((result) => {

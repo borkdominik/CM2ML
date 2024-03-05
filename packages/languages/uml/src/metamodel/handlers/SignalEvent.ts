@@ -14,7 +14,6 @@ export const SignalEventHandler = SignalEvent.createHandler(
 )
 
 function addEdge_signal(signalEvent: GraphNode, signal: GraphNode | undefined) {
-  // TODO/Association
   // signal : Signal [1..1] (opposite A_signal_signalEvent::signalEvent)
   // The specific Signal that is associated with this SignalEvent.
   if (!signal) {

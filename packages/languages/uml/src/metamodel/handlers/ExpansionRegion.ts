@@ -6,32 +6,30 @@ import { ExpansionNode, ExpansionRegion } from '../uml-metamodel'
 
 export const ExpansionRegionHandler = ExpansionRegion.createHandler(
   (expansionRegion, { onlyContainmentAssociations }) => {
-    const inputElement = resolve(expansionRegion, 'inputElement', { many: true, type: ExpansionNode })
-    const outputElement = resolve(expansionRegion, 'outputElement', { many: true, type: ExpansionNode })
+    const inputElements = resolve(expansionRegion, 'inputElement', { many: true, type: ExpansionNode })
+    const outputElements = resolve(expansionRegion, 'outputElement', { many: true, type: ExpansionNode })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_inputElement(expansionRegion, inputElement)
-    addEdge_outputElement(expansionRegion, outputElement)
+    addEdge_inputElement(expansionRegion, inputElements)
+    addEdge_outputElement(expansionRegion, outputElements)
   },
   {
     [Uml.Attributes.mode]: 'iterative',
   },
 )
-function addEdge_inputElement(expansionRegion: GraphNode, inputElement: GraphNode[]) {
-  // TODO/Association
+function addEdge_inputElement(expansionRegion: GraphNode, inputElements: GraphNode[]) {
   // inputElement : ExpansionNode [1..*] (opposite ExpansionNode::regionAsInput)
   // The ExpansionNodes that hold the input collections for the ExpansionRegion.
-  inputElement.forEach((inputElement) => {
+  inputElements.forEach((inputElement) => {
     expansionRegion.model.addEdge('inputElement', expansionRegion, inputElement)
   })
 }
 
-function addEdge_outputElement(expansionRegion: GraphNode, outputElement: GraphNode[]) {
-  // TODO/Association
+function addEdge_outputElement(expansionRegion: GraphNode, outputElements: GraphNode[]) {
   // outputElement : ExpansionNode [0..*] (opposite ExpansionNode::regionAsOutput)
   // The ExpansionNodes that form the output collections of the ExpansionRegion.
-  outputElement.forEach((outputElement) => {
+  outputElements.forEach((outputElement) => {
     expansionRegion.model.addEdge('outputElement', expansionRegion, outputElement)
   })
 }

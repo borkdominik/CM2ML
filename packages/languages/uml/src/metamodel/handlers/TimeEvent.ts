@@ -18,7 +18,6 @@ export const TimeEventHandler = TimeEvent.createHandler(
 )
 
 function addEdge_when(timeEvent: GraphNode, when: GraphNode | undefined) {
-  // TODO/Association
   // ♦ when : TimeExpression [1..1]{subsets Element::ownedElement} (opposite A_when_timeEvent::timeEvent)
   // Specifies the time of the TimeEvent.
   if (!when) {

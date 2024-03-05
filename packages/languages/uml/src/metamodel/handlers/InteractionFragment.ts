@@ -18,7 +18,6 @@ export const InteractionFragmentHandler = InteractionFragment.createHandler(
 )
 
 function addEdge_covered(interactionFragment: GraphNode, covered: GraphNode[]) {
-  // TODO/Association
   // covered : Lifeline [0..*] (opposite Lifeline::coveredBy)
   // References the Lifelines that the InteractionFragment involves.
   covered.forEach((covered) => {

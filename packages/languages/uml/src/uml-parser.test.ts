@@ -7,6 +7,8 @@ import { UmlParser } from './index'
 
 // Green: 0-46662 -> 100%
 
+const umlModelDir = '../../../models/uml'
+
 const { validModels, invalidModels } = getFiles({
   startIndex: 0,
   numberOfFiles: 500,
@@ -95,7 +97,7 @@ describe('uml-parser', () => {
         const result = UmlParser.invoke(serializedModel, { ...configuration, debug: true, strict: true })
         expect(result).toBeDefined()
         if (snapshot) {
-          expect(result.show()).toMatchSnapshot()
+          expect(result.show()).toMatchFileSnapshot(`./__snapshots__/${file.replace(umlModelDir, '').replace('.uml', '')}/${configuration.name.replaceAll(' ', '-')}.txt`)
         }
         if (showDebugOutput) {
           // eslint-disable-next-line no-console
@@ -128,7 +130,6 @@ describe('uml-parser', () => {
 
 function getFiles({ startIndex = 0, numberOfFiles, invalidModels = [], override }: { startIndex?: number, numberOfFiles?: number, override?: number, invalidModels?: string[] }) {
   const invalidModelSet = new Set(invalidModels)
-  const umlModelDir = '../../../models/uml'
   const datasetDir = `${umlModelDir}/dataset`
   const preparedFiles = readdirSync(umlModelDir).filter((file) => file.endsWith('.uml')).map((file) => `${umlModelDir}/${file}`).map((file, index) => ({ file, index, snapshot: true }))
   const datasetFiles = readdirSync(datasetDir).filter((file) => file.endsWith('.uml'))

@@ -76,7 +76,6 @@ function addEdge_redefinedEdge(activityEdge: GraphNode, redefinedEdges: GraphNod
 }
 
 function addEdge_source(activityEdge: GraphNode, source: GraphNode | undefined) {
-  // TODO/Association
   // source : ActivityNode [1..1] (opposite ActivityNode::outgoing)
   // The ActivityNode from which tokens are taken when they traverse the ActivityEdge.
   if (!source) {
@@ -86,7 +85,6 @@ function addEdge_source(activityEdge: GraphNode, source: GraphNode | undefined) 
 }
 
 function addEdge_target(activityEdge: GraphNode, target: GraphNode | undefined) {
-  // TODO/Association
   // target : ActivityNode [1..1] (opposite ActivityNode::incoming)
   // The ActivityNode to which tokens are put when they traverse the ActivityEdge.
   if (!target) {
