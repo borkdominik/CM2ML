@@ -16,7 +16,7 @@
       <LiteralInteger xmi:type="LiteralInteger" xmi:id="_Uahq0LK1Ee24ffphK9Na6g" value="1" visibility="public" />
       <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_Uahq0bK1Ee24ffphK9Na6g" value="1" visibility="public" />
     </Property>
-    <Property xmi:id="_VYMM8bK1Ee24ffphK9Na6g" name="new Class 4" aggregation="composite" xmi:type="Property" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
+    <Property xmi:id="_VYMM8bK1Ee24ffphK9Na6g" name="new Class 4" aggregation="composite" xmi:type="Property" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
       <LiteralInteger xmi:type="LiteralInteger" xmi:id="_VYM0ALK1Ee24ffphK9Na6g" value="1" visibility="public" />
       <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_VYM0AbK1Ee24ffphK9Na6g" value="1" visibility="public" />
     </Property>
@@ -108,6 +108,7 @@ _45WxkM5PEe2J1pPdCxXkdw -> <ownedMember /> -> _e-0x0dI3Ee2XPc95mjsJSg
 _45WxkM5PEe2J1pPdCxXkdw -> <ownedParameter /> -> _8YNeEM5PEe2J1pPdCxXkdw
 _45WxkM5PEe2J1pPdCxXkdw -> <ownedParameter /> -> _e-0x0dI3Ee2XPc95mjsJSg
 _45WxkM5PEe2J1pPdCxXkdw -> <owner /> -> _Uk2g0cymEe2SqIqlz0mqiA
+_45WxkM5PEe2J1pPdCxXkdw -> <type /> -> _j12MQL0cEe2besM683MlUA
 _7Y-R4LK0Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _7Y-R4LK0Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _7Y-R4LK0Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
@@ -533,6 +534,7 @@ _r0YL0K70Ee2EZoZ5sgiBCg -> <ownedParameter /> -> _TnD78LFUEe2z_s-Al402-w
 _r0YL0K70Ee2EZoZ5sgiBCg -> <ownedParameter /> -> _YG02YLFVEe2z_s-Al402-w
 _r0YL0K70Ee2EZoZ5sgiBCg -> <ownedParameter /> -> _huGJQbFuEe21bf9NlKs9Kg
 _r0YL0K70Ee2EZoZ5sgiBCg -> <owner /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_r0YL0K70Ee2EZoZ5sgiBCg -> <type /> -> _QE0EkK7gEe2EZoZ5sgiBCg
 _uK1VEM1tEe2aWMTUBOnCiQ -> <namespace /> -> _Uk2g0cymEe2SqIqlz0mqiA
 _uK1VEM1tEe2aWMTUBOnCiQ -> <owner /> -> _uKNqAc1tEe2aWMTUBOnCiQ
 _uK1VEc1tEe2aWMTUBOnCiQ -> <namespace /> -> _Uk2g0cymEe2SqIqlz0mqiA

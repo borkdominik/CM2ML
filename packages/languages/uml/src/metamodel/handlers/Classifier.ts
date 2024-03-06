@@ -2,12 +2,13 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Classifier, ClassifierTemplateParameter, CollaborationUse, Generalization, GeneralizationSet, Substitution, UseCase } from '../uml-metamodel'
+import { Classifier, ClassifierTemplateParameter, CollaborationUse, Generalization, GeneralizationSet, RedefinableTemplateSignature, Substitution, UseCase } from '../uml-metamodel'
 
 export const ClassifierHandler = Classifier.createHandler(
   (classifier, { onlyContainmentAssociations }) => {
     const collaborationUses = resolve(classifier, 'collaborationUse', { many: true, type: CollaborationUse })
     const generalizations = resolve(classifier, 'generalization', { many: true, type: Generalization })
+    const ownedTemplateSignature = resolve(classifier, 'ownedTemplateSignature', { type: RedefinableTemplateSignature })
     const ownedUseCases = resolve(classifier, 'ownedUseCase', { many: true, type: UseCase })
     const powertypeExtents = resolve(classifier, 'powertypeExtent', { many: true, type: GeneralizationSet })
     const redefinedClassifiers = resolve(classifier, 'redefinedClassifier', { many: true, type: Classifier })
@@ -24,7 +25,7 @@ export const ClassifierHandler = Classifier.createHandler(
     addEdge_general(classifier)
     addEdge_generalization(classifier, generalizations)
     addEdge_inheritedMember(classifier)
-    addEdge_ownedTemplateSignature(classifier)
+    addEdge_ownedTemplateSignature(classifier, ownedTemplateSignature)
     addEdge_ownedUseCase(classifier, ownedUseCases)
     addEdge_powertypeExtent(classifier, powertypeExtents)
     addEdge_redefinedClassifier(classifier, redefinedClassifiers)
@@ -79,10 +80,13 @@ function addEdge_inheritedMember(_classifier: GraphNode) {
   // All elements inherited by this Classifier from its general Classifiers.
 }
 
-function addEdge_ownedTemplateSignature(_classifier: GraphNode) {
-  // TODO/Association
+function addEdge_ownedTemplateSignature(classifier: GraphNode, ownedTemplateSignature: GraphNode | undefined) {
   // ♦ ownedTemplateSignature : RedefinableTemplateSignature [0..1]{subsets A_redefinitionContext_redefinableElement::redefinableElement, redefines TemplateableElement::ownedTemplateSignature} (opposite RedefinableTemplateSignature::classifier)
   // The optional RedefinableTemplateSignature specifying the formal template parameters.
+  if (!ownedTemplateSignature) {
+    return
+  }
+  classifier.model.addEdge('ownedTemplateSignature', classifier, ownedTemplateSignature)
 }
 
 function addEdge_ownedUseCase(classifier: GraphNode, ownedUseCases: GraphNode[]) {

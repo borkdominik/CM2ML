@@ -7,10 +7,10 @@ Since the complexity of the UML metamodel is high, only the following metamodel 
 - [x] BehavioredClassifier
 - [x] Class
 - [ ] Classifier
-- [ ] EncapsulatedClassifier
+- [x] EncapsulatedClassifier
 - [x] Extension
-- [ ] Property
-- [ ] Operation
+- [x] Property
+- [x] Operation
 - [x] Reception
 
 ### Transitive
@@ -30,7 +30,7 @@ Since the complexity of the UML metamodel is high, only the following metamodel 
 - [ ] Relationship
 - [x] StructuralFeature
 - [ ] StructuredClassifier
-- [ ] TemplateableElement
+- [x] TemplateableElement
 - [x] Type
 - [x] TypedElement
 

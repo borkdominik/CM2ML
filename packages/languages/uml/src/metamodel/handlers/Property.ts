@@ -8,12 +8,15 @@ import {
   DataType,
   Interface,
   Property,
+  ValueSpecification,
 } from '../uml-metamodel'
 
 export const PropertyHandler = Property.createHandler(
   (property, { onlyContainmentAssociations }) => {
     removeInvalidIsNavigableAttribute(property)
+    setAttribute_isComposite(property)
     const association = resolve(property, 'association', { type: Association })
+    const defaultValue = resolve(property, 'defaultValue', { type: ValueSpecification })
     const owningAssociations = resolve(property, 'owningAssociation', { many: true, type: Association })
     const qualifiers = resolve(property, 'qualifier', { many: true, type: Property })
     const redefinedProperties = resolve(property, 'redefinedProperty', { many: true, type: Property })
@@ -25,7 +28,7 @@ export const PropertyHandler = Property.createHandler(
     addEdge_associationEnd(property)
     addEdge_class(property)
     addEdge_datatype(property)
-    addEdge_defaultValue(property)
+    addEdge_defaultValue(property, defaultValue)
     addEdge_interface(property)
     addEdge_opposite(property)
     addEdge_owningAssociation(property, owningAssociations)
@@ -44,6 +47,14 @@ export const PropertyHandler = Property.createHandler(
 
 function removeInvalidIsNavigableAttribute(property: GraphNode) {
   property.removeAttribute('isNavigable')
+}
+
+function setAttribute_isComposite(property: GraphNode) {
+  const isComposite = property.getAttribute(Uml.Attributes.aggregation)?.value.literal === 'composite'
+  if (!isComposite) {
+    return
+  }
+  property.addAttribute({ name: Uml.Attributes.isComposite, value: { literal: 'true' } }, false)
 }
 
 function addEdge_association(
@@ -79,10 +90,13 @@ function addEdge_datatype(property: GraphNode) {
   }
 }
 
-function addEdge_defaultValue(_property: GraphNode) {
-  // TODO/Association
+function addEdge_defaultValue(property: GraphNode, defaultValue: GraphNode | undefined) {
   // ♦ defaultValue : ValueSpecification [0..1]{subsets Element::ownedElement} (opposite A_defaultValue_owningProperty::owningProperty)
   // A ValueSpecification that is evaluated to give a default value for the Property when an instance of the owning Classifier is instantiated.
+  if (!defaultValue) {
+    return
+  }
+  property.model.addEdge('defaultValue', property, defaultValue)
 }
 
 function addEdge_interface(property: GraphNode) {
@@ -93,9 +107,10 @@ function addEdge_interface(property: GraphNode) {
 }
 
 function addEdge_opposite(_property: GraphNode) {
-  // TODO/Association
   // /opposite : Property [0..1] (opposite A_opposite_property::property)
   // In the case where the Property is one end of a binary association this gives the other end.
+
+  // Added by Association::addEdge_memberEnd
 }
 
 function addEdge_owningAssociation(

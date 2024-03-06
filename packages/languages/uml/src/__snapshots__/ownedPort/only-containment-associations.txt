@@ -1,0 +1,44 @@
+<Model xmi:id="_yoiHINu2Ee65YvY_tzBAgQ" name="ownedPort" xmi:type="Model" visibility="public">
+  <PackageImport xmi:type="PackageImport" xmi:id="_yxEYENu2Ee65YvY_tzBAgQ" visibility="public">
+    <Model xmi:type="Model" visibility="public" xmi:id="eu.yeger#generated-id-0" />
+  </PackageImport>
+  <Class xmi:type="Class" xmi:id="_7gC6YNu2Ee65YvY_tzBAgQ" name="TestClass" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
+    <Port xmi:type="Port" xmi:id="_-IKzMNu2Ee65YvY_tzBAgQ" name="TestPort" visibility="public" aggregation="composite" isBehavior="false" isConjugated="false" isService="true" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false" />
+    <Property xmi:type="Property" xmi:id="_Q2FY8Nu5Ee65YvY_tzBAgQ" name="TestProperty" visibility="package" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false">
+      <TimeInterval xmi:type="TimeInterval" xmi:id="_zNKW0Nu5Ee65YvY_tzBAgQ" name="TestTimeInterval" visibility="public" />
+    </Property>
+    <Operation xmi:type="Operation" xmi:id="_ZNSfANu6Ee65YvY_tzBAgQ" name="TestOperation" isQuery="false" concurrency="sequential" isAbstract="false" isStatic="false" isLeaf="false">
+      <Parameter xmi:type="Parameter" xmi:id="_fmHpUNu6Ee65YvY_tzBAgQ" name="TestReturnParameter" visibility="public" direction="return" effect="create" isException="false" isStream="false" isOrdered="false" isUnique="true" upper="*">
+        <LiteralInteger xmi:type="LiteralInteger" xmi:id="_jaGRQNu6Ee65YvY_tzBAgQ" value="0" visibility="public" />
+        <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_jZl68Nu6Ee65YvY_tzBAgQ" value="*" visibility="public" />
+      </Parameter>
+      <TemplateSignature xmi:type="TemplateSignature" xmi:id="_adJScNu8Ee65YvY_tzBAgQ">
+        <OperationTemplateParameter xmi:type="OperationTemplateParameter" xmi:id="_cJ36ANu8Ee65YvY_tzBAgQ" />
+      </TemplateSignature>
+    </Operation>
+  </Class>
+</Model>
+_-IKzMNu2Ee65YvY_tzBAgQ -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_7gC6YNu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _-IKzMNu2Ee65YvY_tzBAgQ
+_7gC6YNu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _Q2FY8Nu5Ee65YvY_tzBAgQ
+_7gC6YNu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _ZNSfANu6Ee65YvY_tzBAgQ
+_7gC6YNu2Ee65YvY_tzBAgQ -> <owner /> -> _yoiHINu2Ee65YvY_tzBAgQ
+_Q2FY8Nu5Ee65YvY_tzBAgQ -> <ownedElement /> -> _zNKW0Nu5Ee65YvY_tzBAgQ
+_Q2FY8Nu5Ee65YvY_tzBAgQ -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_ZNSfANu6Ee65YvY_tzBAgQ -> <ownedElement /> -> _adJScNu8Ee65YvY_tzBAgQ
+_ZNSfANu6Ee65YvY_tzBAgQ -> <ownedElement /> -> _fmHpUNu6Ee65YvY_tzBAgQ
+_ZNSfANu6Ee65YvY_tzBAgQ -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_adJScNu8Ee65YvY_tzBAgQ -> <ownedElement /> -> _cJ36ANu8Ee65YvY_tzBAgQ
+_adJScNu8Ee65YvY_tzBAgQ -> <owner /> -> _ZNSfANu6Ee65YvY_tzBAgQ
+_cJ36ANu8Ee65YvY_tzBAgQ -> <owner /> -> _adJScNu8Ee65YvY_tzBAgQ
+_fmHpUNu6Ee65YvY_tzBAgQ -> <ownedElement /> -> _jZl68Nu6Ee65YvY_tzBAgQ
+_fmHpUNu6Ee65YvY_tzBAgQ -> <ownedElement /> -> _jaGRQNu6Ee65YvY_tzBAgQ
+_fmHpUNu6Ee65YvY_tzBAgQ -> <owner /> -> _ZNSfANu6Ee65YvY_tzBAgQ
+_jZl68Nu6Ee65YvY_tzBAgQ -> <owner /> -> _fmHpUNu6Ee65YvY_tzBAgQ
+_jaGRQNu6Ee65YvY_tzBAgQ -> <owner /> -> _fmHpUNu6Ee65YvY_tzBAgQ
+_yoiHINu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_yoiHINu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _yxEYENu2Ee65YvY_tzBAgQ
+_yxEYENu2Ee65YvY_tzBAgQ -> <ownedElement /> -> eu.yeger#generated-id-0
+_yxEYENu2Ee65YvY_tzBAgQ -> <owner /> -> _yoiHINu2Ee65YvY_tzBAgQ
+_zNKW0Nu5Ee65YvY_tzBAgQ -> <owner /> -> _Q2FY8Nu5Ee65YvY_tzBAgQ
+eu.yeger#generated-id-0 -> <owner /> -> _yxEYENu2Ee65YvY_tzBAgQ

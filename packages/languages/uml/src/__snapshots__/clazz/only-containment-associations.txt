@@ -16,7 +16,7 @@
       <LiteralInteger xmi:type="LiteralInteger" xmi:id="_Uahq0LK1Ee24ffphK9Na6g" value="1" visibility="public" />
       <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_Uahq0bK1Ee24ffphK9Na6g" value="1" visibility="public" />
     </Property>
-    <Property xmi:id="_VYMM8bK1Ee24ffphK9Na6g" name="new Class 4" aggregation="composite" xmi:type="Property" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
+    <Property xmi:id="_VYMM8bK1Ee24ffphK9Na6g" name="new Class 4" aggregation="composite" xmi:type="Property" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
       <LiteralInteger xmi:type="LiteralInteger" xmi:id="_VYM0ALK1Ee24ffphK9Na6g" value="1" visibility="public" />
       <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_VYM0AbK1Ee24ffphK9Na6g" value="1" visibility="public" />
     </Property>

@@ -42,9 +42,15 @@ function addEdge_endType(_association: GraphNode) {
 function addEdge_memberEnd(association: GraphNode, memberEnds: GraphNode[]) {
   // memberEnd: Property[2..*]{ ordered, subsets Namespace:: member } (opposite Property::association)
   // Each end represents participation of instances of the Classifier connected to the end in links of the Association.
-  memberEnds.forEach((memberEnd) =>
-    association.model.addEdge('memberEnd', association, memberEnd),
-  )
+  memberEnds.forEach((memberEnd) => {
+    association.model.addEdge('memberEnd', association, memberEnd)
+  })
+  const [first, second] = memberEnds
+  const isBinary = memberEnds.length === 2 && first !== undefined && second !== undefined
+  if (isBinary) {
+    first.model.addEdge('opposite', first, second)
+    second.model.addEdge('opposite', second, first)
+  }
 }
 
 function addEdge_navigableOwnedEnd(association: GraphNode, navigableOwnedEnds: GraphNode[]) {

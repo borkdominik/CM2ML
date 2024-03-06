@@ -438,10 +438,10 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
     </Property>
   </Stereotype>
   <Extension xmi:type="Extension" xmi:id="_Qpq6sC5lEeaF_sH3mLTVKg" name="E_CoreDirectAcyclicGraph_Class1" isDerived="false" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <ExtensionEnd xmi:type="ExtensionEnd" xmi:id="_QpsI0C5lEeaF_sH3mLTVKg" name="extension_CoreDirectAcyclicGraph" aggregation="composite" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false" />
+    <ExtensionEnd xmi:type="ExtensionEnd" xmi:id="_QpsI0C5lEeaF_sH3mLTVKg" name="extension_CoreDirectAcyclicGraph" aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false" />
   </Extension>
   <Extension xmi:type="Extension" xmi:id="_DHOXcC5nEeaF_sH3mLTVKg" name="E_CoreData_Class1" isDerived="false" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <ExtensionEnd xmi:type="ExtensionEnd" xmi:id="_DHOXcS5nEeaF_sH3mLTVKg" name="extension_CoreData" aggregation="composite" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false" />
+    <ExtensionEnd xmi:type="ExtensionEnd" xmi:id="_DHOXcS5nEeaF_sH3mLTVKg" name="extension_CoreData" aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false" />
   </Extension>
 </Package> is unknown]
 `;

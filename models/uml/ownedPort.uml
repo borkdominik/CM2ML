@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_yoiHINu2Ee65YvY_tzBAgQ" name="ownedPort">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_yxEYENu2Ee65YvY_tzBAgQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_7gC6YNu2Ee65YvY_tzBAgQ" name="TestClass">
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_-IKzMNu2Ee65YvY_tzBAgQ" name="TestPort" visibility="public" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Q2FY8Nu5Ee65YvY_tzBAgQ" name="TestProperty" visibility="package">
+      <defaultValue xmi:type="uml:TimeInterval" xmi:id="_zNKW0Nu5Ee65YvY_tzBAgQ" name="TestTimeInterval"/>
+    </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_ZNSfANu6Ee65YvY_tzBAgQ" name="TestOperation" templateParameter="_cJ36ANu8Ee65YvY_tzBAgQ">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_fmHpUNu6Ee65YvY_tzBAgQ" name="TestReturnParameter" visibility="public" type="_7gC6YNu2Ee65YvY_tzBAgQ" direction="return" effect="create">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jaGRQNu6Ee65YvY_tzBAgQ"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jZl68Nu6Ee65YvY_tzBAgQ" value="*"/>
+      </ownedParameter>
+      <ownedTemplateSignature xmi:type="uml:TemplateSignature" xmi:id="_adJScNu8Ee65YvY_tzBAgQ" parameter="_cJ36ANu8Ee65YvY_tzBAgQ">
+        <ownedParameter xmi:type="uml:OperationTemplateParameter" xmi:id="_cJ36ANu8Ee65YvY_tzBAgQ" parameteredElement="_ZNSfANu6Ee65YvY_tzBAgQ"/>
+      </ownedTemplateSignature>
+    </ownedOperation>
+  </packagedElement>
+</uml:Model>
