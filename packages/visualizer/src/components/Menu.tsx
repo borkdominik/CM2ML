@@ -77,8 +77,8 @@ function ExampleModelMenuItem({ exampleModel }: { exampleModel: PreparedExample 
   const setParser = useModelState.use.setParser()
   function loadExample() {
     setSerializedModel(serializedModel)
-    setParameters(parameters)
     setParser(parser)
+    setParameters(parameters)
   }
   return <MenubarItem onClick={loadExample}>{name}</MenubarItem>
 }

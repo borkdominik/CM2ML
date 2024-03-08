@@ -26,8 +26,8 @@ function prepareUmlExampleModels(exampleModels: ExampleModel[]): PreparedExample
     serializedModel: model,
     parameters: {
       debug: false,
-      onlyContainmentAssociations: true,
-      relationshipsAsEdges: true,
+      onlyContainmentAssociations: false,
+      relationshipsAsEdges: false,
       strict: true,
     },
     parser: UmlParser,
