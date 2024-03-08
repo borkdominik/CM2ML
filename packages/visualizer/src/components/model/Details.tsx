@@ -29,16 +29,7 @@ export function SelectionDetails() {
     return <NodeDetails node={node} />
   }
   const edges = getEdges(selection, model)
-  return (
-    <div className="space-y-4 p-2">
-      {edges.map((edge, index) => (
-        <Fragment key={index}>
-          <EdgeDetails edge={edge} />
-          {index !== edges.length - 1 ? <Separator /> : null}
-        </Fragment>
-      ))}
-    </div>
-  )
+  return <EdgeList edges={edges} />
 }
 
 function getEdges(edgeSelection: EdgeSelection, model: GraphModel) {
@@ -69,7 +60,7 @@ function NodeDetails({ node }: { node: GraphNode }) {
           <div className="space-y-2">
             <div className="text-sm font-bold">Parent</div>
             <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
-              <div className="whitespace-pre-wrap text-muted-foreground">
+              <div className="text-muted-foreground whitespace-pre-wrap">
                 {node.parent.tag}
               </div>
               <NodeSelectionButton id={node.parent.id} />
@@ -98,14 +89,14 @@ function NodeChildren({ node }: { node: GraphNode }) {
   )
 
   if (sortedChildren.length === 0) {
-    return <div className="text-xs text-muted-foreground">No children</div>
+    return <div className="text-muted-foreground text-xs">No children</div>
   }
 
   return (
     <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
       {sortedChildren.map((child) => (
         <Fragment key={child.id}>
-          <div className="whitespace-pre-wrap text-muted-foreground">
+          <div className="text-muted-foreground whitespace-pre-wrap">
             {child.tag}
           </div>
           <NodeSelectionButton id={child.id} />
@@ -205,29 +196,53 @@ function EdgeSelectionButton({
   )
 }
 
-function EdgeDetails({ edge }: { edge: GraphEdge }) {
+function EdgeList({ edges }: { edges: GraphEdge[] }) {
+  const groups = useMemo(() => Object.entries(Object.groupBy(edges, (edge) => edge.source.id ?? '')), [edges])
+  return groups.map(([groupKey, group], index) => (
+    <Fragment key={groupKey}>
+      <EdgeGroup edges={group ?? []} />
+      {index !== edges.length - 1 ? <Separator /> : null}
+    </Fragment>
+  ))
+}
+
+function EdgeGroup({ edges }: { edges: GraphEdge[] }) {
+  const firstEdge = edges[0]
+  if (!firstEdge) {
+    return null
+  }
   return (
-    <div className="space-y-2">
-      <div className="text-sm font-bold">{edge.tag}</div>
-      <AttributableDetails attributable={edge} />
+    <div className="space-y-4 p-2">
       <div className="space-y-2">
         <div className="text-sm font-bold">Source</div>
         <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
-          <div className="whitespace-pre-wrap text-muted-foreground">
-            {edge.source.tag}
+          <div className="text-muted-foreground whitespace-pre-wrap">
+            {firstEdge.source.tag}
           </div>
-          <NodeSelectionButton id={edge.source.id} />
+          <NodeSelectionButton id={firstEdge.source.id} />
         </div>
       </div>
       <div className="space-y-2">
         <div className="text-sm font-bold">Target</div>
         <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
-          <div className="whitespace-pre-wrap text-muted-foreground">
-            {edge.target.tag}
+          <div className="text-muted-foreground whitespace-pre-wrap">
+            {firstEdge.target.tag}
           </div>
-          <NodeSelectionButton id={edge.target.id} />
+          <NodeSelectionButton id={firstEdge.target.id} />
         </div>
       </div>
+      {edges.map((edge, index) => (
+        <EdgeDetails edge={edge} key={index} />
+      ))}
+    </div>
+  )
+}
+
+function EdgeDetails({ edge }: { edge: GraphEdge }) {
+  return (
+    <div className="space-y-2">
+      <div className="text-sm font-bold">{edge.tag}</div>
+      <AttributableDetails attributable={edge} />
     </div>
   )
 }
@@ -246,14 +261,14 @@ function AttributableDetails({
   )
 
   if (attributes.length === 0) {
-    return <div className="text-xs text-muted-foreground">No attributes</div>
+    return <div className="text-muted-foreground text-xs">No attributes</div>
   }
 
   return (
     <div className="grid grid-cols-[min-content,_auto] gap-2 text-xs">
       {attributes.map(([name, attribute]) => (
         <Fragment key={name}>
-          <div key={name} className="font-mono text-muted-foreground">
+          <div key={name} className="text-muted-foreground font-mono">
             {name}
           </div>
           {attributable.model.getNodeById(attribute.value.literal) !==
