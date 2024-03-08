@@ -4,9 +4,6 @@ import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import {
   Association,
-  Class,
-  DataType,
-  Interface,
   Property,
   ValueSpecification,
 } from '../uml-metamodel'
@@ -76,18 +73,18 @@ function addEdge_associationEnd(_property: GraphNode) {
   // Added by addEdge_qualifier
 }
 
-function addEdge_class(property: GraphNode) {
-  const parent = property.parent
-  if (parent && Class.isAssignable(parent)) {
-    property.model.addEdge('class', property, parent)
-  }
+function addEdge_class(_property: GraphNode) {
+  // lass : Class [0..1]{subsets NamedElement::namespace, subsets A_ownedAttribute_structuredClassifier::structuredClassifier, subsets A_attribute_classifier::classifier} (opposite Class::ownedAttribute)
+  // The Class that owns this Property, if any.
+
+  // Added by Class::addEdge_ownedAttribute
 }
 
-function addEdge_datatype(property: GraphNode) {
-  const parent = property.parent
-  if (parent && DataType.isAssignable(parent)) {
-    property.model.addEdge('datatype', property, parent)
-  }
+function addEdge_datatype(_property: GraphNode) {
+  // datatype : DataType [0..1]{subsets NamedElement::namespace, subsets A_attribute_classifier::classifier} (opposite DataType::ownedAttribute)
+  // The DataType that owns this Property, if any.
+
+  // Added by DataType::addEdge_ownedAttribute
 }
 
 function addEdge_defaultValue(property: GraphNode, defaultValue: GraphNode | undefined) {
@@ -99,11 +96,11 @@ function addEdge_defaultValue(property: GraphNode, defaultValue: GraphNode | und
   property.model.addEdge('defaultValue', property, defaultValue)
 }
 
-function addEdge_interface(property: GraphNode) {
-  const parent = property.parent
-  if (parent && Interface.isAssignable(parent)) {
-    property.model.addEdge('interface', property, parent)
-  }
+function addEdge_interface(_property: GraphNode) {
+  // interface : Interface [0..1]{subsets NamedElement::namespace, subsets A_attribute_classifier::classifier} (opposite Interface::ownedAttribute)
+  // The Interface that owns this Property, if any.
+
+  // Added by Interface::addEdge_ownedAttribute
 }
 
 function addEdge_opposite(_property: GraphNode) {

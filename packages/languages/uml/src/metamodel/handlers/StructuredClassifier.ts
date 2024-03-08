@@ -26,6 +26,7 @@ function addEdge_ownedAttribute(structuredClassifier: GraphNode, ownedAttributes
   }
   ownedAttributes.forEach((ownedAttribute) => {
     structuredClassifier.model.addEdge('ownedAttribute', structuredClassifier, ownedAttribute)
+    structuredClassifier.model.addEdge('attribute', structuredClassifier, ownedAttribute)
   })
 }
 

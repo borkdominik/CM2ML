@@ -38,6 +38,8 @@ function addEdge_ownedAttribute(interface_: GraphNode, ownedAttributes: GraphNod
   // The attributes (i.e., the Properties) owned by the Interface.
   ownedAttributes.forEach((ownedAttribute) => {
     interface_.model.addEdge('ownedAttribute', interface_, ownedAttribute)
+    interface_.model.addEdge('attribute', interface_, ownedAttribute)
+    ownedAttribute.model.addEdge('interface', ownedAttribute, interface_)
   })
 }
 

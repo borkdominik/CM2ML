@@ -20,6 +20,8 @@ function addEdge_ownedAttribute(dataType: GraphNode, ownedAttributes: GraphNode[
   // The attributes owned by the DataType.
   ownedAttributes.forEach((ownedAttribute) => {
     dataType.model.addEdge('ownedAttribute', dataType, ownedAttribute)
+    dataType.model.addEdge('attribute', dataType, ownedAttribute)
+    ownedAttribute.model.addEdge('datatype', ownedAttribute, dataType)
   })
 }
 

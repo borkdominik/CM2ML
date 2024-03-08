@@ -39,6 +39,7 @@ function addEdge_ownedAttribute(artifact: GraphNode, ownedAttributes: GraphNode[
   // The attributes or association ends defined for the Artifact. The association is a specialization of the ownedMember association.
   ownedAttributes.forEach((ownedAttribute) => {
     artifact.model.addEdge('ownedAttribute', artifact, ownedAttribute)
+    artifact.model.addEdge('attribute', artifact, ownedAttribute)
   })
 }
 

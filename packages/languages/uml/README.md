@@ -6,7 +6,7 @@ Since the complexity of the UML metamodel is high, only the following metamodel 
 
 - [x] BehavioredClassifier
 - [x] Class
-- [ ] Classifier
+- [x] Classifier
 - [x] EncapsulatedClassifier
 - [x] Extension
 - [x] Property

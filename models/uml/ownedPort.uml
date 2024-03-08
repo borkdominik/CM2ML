@@ -4,6 +4,8 @@
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
   <packagedElement xmi:type="uml:Class" xmi:id="_7gC6YNu2Ee65YvY_tzBAgQ" name="TestClass">
+    <generalization xmi:type="uml:Generalization" xmi:id="_OgQboN0aEe6kj4CCWHMNuw" general="_Lr_kQN0aEe6kj4CCWHMNuw"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_myJ5QN0aEe6kj4CCWHMNuw" general="_f9gVoN0aEe6kj4CCWHMNuw"/>
     <ownedAttribute xmi:type="uml:Port" xmi:id="_-IKzMNu2Ee65YvY_tzBAgQ" name="TestPort" visibility="public" aggregation="composite"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_Q2FY8Nu5Ee65YvY_tzBAgQ" name="TestProperty" visibility="package">
       <defaultValue xmi:type="uml:TimeInterval" xmi:id="_zNKW0Nu5Ee65YvY_tzBAgQ" name="TestTimeInterval"/>
@@ -17,5 +19,11 @@
         <ownedParameter xmi:type="uml:OperationTemplateParameter" xmi:id="_cJ36ANu8Ee65YvY_tzBAgQ" parameteredElement="_ZNSfANu6Ee65YvY_tzBAgQ"/>
       </ownedTemplateSignature>
     </ownedOperation>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_f9gVoN0aEe6kj4CCWHMNuw" name="NestedParent">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_iR3k8N0aEe6kj4CCWHMNuw" name="NestedParentProperty" visibility="public"/>
+    </nestedClassifier>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Lr_kQN0aEe6kj4CCWHMNuw" name="Parent">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_RBlv8N0aEe6kj4CCWHMNuw" name="ParentProperty" visibility="public"/>
   </packagedElement>
 </uml:Model>

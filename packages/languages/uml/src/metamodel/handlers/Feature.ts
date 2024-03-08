@@ -22,4 +22,5 @@ function addEdge_featuringClassifier(feature: GraphNode) {
     return
   }
   feature.model.addEdge('featuringClassifier', feature, featuringClassifier)
+  featuringClassifier.model.addEdge('feature', featuringClassifier, feature)
 }

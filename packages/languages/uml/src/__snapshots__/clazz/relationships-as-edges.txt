@@ -89,6 +89,8 @@
     </Operation>
   </Class>
 </Model>
+_-da6ULK0Ee24ffphK9Na6g -> <attribute /> -> _ipeAULK2Ee24ffphK9Na6g
+_-da6ULK0Ee24ffphK9Na6g -> <feature /> -> _ipeAULK2Ee24ffphK9Na6g
 _-da6ULK0Ee24ffphK9Na6g -> <member /> -> _ipeAULK2Ee24ffphK9Na6g
 _-da6ULK0Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _-da6ULK0Ee24ffphK9Na6g -> <ownedAttribute /> -> _ipeAULK2Ee24ffphK9Na6g
@@ -269,6 +271,8 @@ _ItggItIcEe2rY5KN6ehSig -> <namespace /> -> _j12MQL0cEe2besM683MlUA
 _ItggItIcEe2rY5KN6ehSig -> <owner /> -> _ItggIdIcEe2rY5KN6ehSig
 _IthHMNIcEe2rY5KN6ehSig -> <namespace /> -> _j12MQL0cEe2besM683MlUA
 _IthHMNIcEe2rY5KN6ehSig -> <owner /> -> _ItggIdIcEe2rY5KN6ehSig
+_LjfcIbSLEe2pkZx4lGC8Ew -> <attribute /> -> _ItfSANIcEe2rY5KN6ehSig
+_LjfcIbSLEe2pkZx4lGC8Ew -> <feature /> -> _ItfSANIcEe2rY5KN6ehSig
 _LjfcIbSLEe2pkZx4lGC8Ew -> <member /> -> _ItfSANIcEe2rY5KN6ehSig
 _LjfcIbSLEe2pkZx4lGC8Ew -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _LjfcIbSLEe2pkZx4lGC8Ew -> <ownedAttribute /> -> _ItfSANIcEe2rY5KN6ehSig
@@ -276,6 +280,8 @@ _LjfcIbSLEe2pkZx4lGC8Ew -> <ownedElement /> -> _ItfSANIcEe2rY5KN6ehSig
 _LjfcIbSLEe2pkZx4lGC8Ew -> <ownedMember /> -> _ItfSANIcEe2rY5KN6ehSig
 _LjfcIbSLEe2pkZx4lGC8Ew -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _LjfcIbSLEe2pkZx4lGC8Ew -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_M-U_ALK1Ee24ffphK9Na6g -> <attribute /> -> _VYM0ArK1Ee24ffphK9Na6g
+_M-U_ALK1Ee24ffphK9Na6g -> <feature /> -> _VYM0ArK1Ee24ffphK9Na6g
 _M-U_ALK1Ee24ffphK9Na6g -> <member /> -> _VYM0ArK1Ee24ffphK9Na6g
 _M-U_ALK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _M-U_ALK1Ee24ffphK9Na6g -> <ownedAttribute /> -> _VYM0ArK1Ee24ffphK9Na6g
@@ -284,6 +290,8 @@ _M-U_ALK1Ee24ffphK9Na6g -> <ownedMember /> -> _VYM0ArK1Ee24ffphK9Na6g
 _M-U_ALK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _M-U_ALK1Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _M-U_ALK1Ee24ffphK9Na6g -> <substitution xmi:id="_Gt7igLK2Ee24ffphK9Na6g" xmi:type="Substitution" visibility="public" /> -> _EWMPELK2Ee24ffphK9Na6g
+_MHjIALK1Ee24ffphK9Na6g -> <attribute /> -> _O3oqArK1Ee24ffphK9Na6g
+_MHjIALK1Ee24ffphK9Na6g -> <feature /> -> _O3oqArK1Ee24ffphK9Na6g
 _MHjIALK1Ee24ffphK9Na6g -> <member /> -> _O3oqArK1Ee24ffphK9Na6g
 _MHjIALK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _MHjIALK1Ee24ffphK9Na6g -> <ownedAttribute /> -> _O3oqArK1Ee24ffphK9Na6g
@@ -291,6 +299,8 @@ _MHjIALK1Ee24ffphK9Na6g -> <ownedElement /> -> _O3oqArK1Ee24ffphK9Na6g
 _MHjIALK1Ee24ffphK9Na6g -> <ownedMember /> -> _O3oqArK1Ee24ffphK9Na6g
 _MHjIALK1Ee24ffphK9Na6g -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _MHjIALK1Ee24ffphK9Na6g -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_Mg74YLK1Ee24ffphK9Na6g -> <attribute /> -> _UaiR4LK1Ee24ffphK9Na6g
+_Mg74YLK1Ee24ffphK9Na6g -> <feature /> -> _UaiR4LK1Ee24ffphK9Na6g
 _Mg74YLK1Ee24ffphK9Na6g -> <member /> -> _UaiR4LK1Ee24ffphK9Na6g
 _Mg74YLK1Ee24ffphK9Na6g -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _Mg74YLK1Ee24ffphK9Na6g -> <ownedAttribute /> -> _UaiR4LK1Ee24ffphK9Na6g
@@ -337,7 +347,19 @@ _Pf5kMbFSEe2z_s-Al402-w -> <operation /> -> _r0YL0K70Ee2EZoZ5sgiBCg
 _Pf5kMbFSEe2z_s-Al402-w -> <owner /> -> _r0YL0K70Ee2EZoZ5sgiBCg
 _Pf5kMbFSEe2z_s-Al402-w -> <type /> -> _QE0EkK7gEe2EZoZ5sgiBCg
 _QE0EkK7gEe2EZoZ5sgiBCg -> <abstraction xmi:type="Abstraction" xmi:id="_J2H38LK1Ee24ffphK9Na6g" visibility="public" /> -> _7Y-R4LK0Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <attribute /> -> _O3oC8bK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <attribute /> -> _UahDwbK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <attribute /> -> _VYMM8bK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <attribute /> -> _bM_S4K7gEe2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <attribute /> -> _g69BoK7oEe2EZoZ5sgiBCg
 _QE0EkK7gEe2EZoZ5sgiBCg -> <dependency xmi:type="Dependency" xmi:id="_XCaTELK1Ee24ffphK9Na6g" visibility="public" /> -> _Nbk7sLK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <feature /> -> _Cr6ZsK70Ee2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <feature /> -> _O3oC8bK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <feature /> -> _UahDwbK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <feature /> -> _VYMM8bK1Ee24ffphK9Na6g
+_QE0EkK7gEe2EZoZ5sgiBCg -> <feature /> -> _bM_S4K7gEe2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <feature /> -> _g69BoK7oEe2EZoZ5sgiBCg
+_QE0EkK7gEe2EZoZ5sgiBCg -> <feature /> -> _r0YL0K70Ee2EZoZ5sgiBCg
 _QE0EkK7gEe2EZoZ5sgiBCg -> <interfaceRealization xmi:id="_ay8lcLK1Ee24ffphK9Na6g" xmi:type="InterfaceRealization" visibility="public" /> -> _9pVK8LK0Ee24ffphK9Na6g
 _QE0EkK7gEe2EZoZ5sgiBCg -> <member /> -> _Cr6ZsK70Ee2EZoZ5sgiBCg
 _QE0EkK7gEe2EZoZ5sgiBCg -> <member /> -> _O3oC8bK1Ee24ffphK9Na6g
@@ -405,6 +427,9 @@ _UaiR4bK1Ee24ffphK9Na6g -> <namespace /> -> _Mg74YLK1Ee24ffphK9Na6g
 _UaiR4bK1Ee24ffphK9Na6g -> <owner /> -> _UaiR4LK1Ee24ffphK9Na6g
 _UaiR4rK1Ee24ffphK9Na6g -> <namespace /> -> _Mg74YLK1Ee24ffphK9Na6g
 _UaiR4rK1Ee24ffphK9Na6g -> <owner /> -> _UaiR4LK1Ee24ffphK9Na6g
+_Uk2g0cymEe2SqIqlz0mqiA -> <attribute /> -> _uKNqAc1tEe2aWMTUBOnCiQ
+_Uk2g0cymEe2SqIqlz0mqiA -> <feature /> -> _45WxkM5PEe2J1pPdCxXkdw
+_Uk2g0cymEe2SqIqlz0mqiA -> <feature /> -> _uKNqAc1tEe2aWMTUBOnCiQ
 _Uk2g0cymEe2SqIqlz0mqiA -> <member /> -> _45WxkM5PEe2J1pPdCxXkdw
 _Uk2g0cymEe2SqIqlz0mqiA -> <member /> -> _uKNqAc1tEe2aWMTUBOnCiQ
 _Uk2g0cymEe2SqIqlz0mqiA -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
@@ -507,6 +532,8 @@ _ipenYLK2Ee24ffphK9Na6g -> <namespace /> -> _-da6ULK0Ee24ffphK9Na6g
 _ipenYLK2Ee24ffphK9Na6g -> <owner /> -> _ipeAULK2Ee24ffphK9Na6g
 _ipenYbK2Ee24ffphK9Na6g -> <namespace /> -> _-da6ULK0Ee24ffphK9Na6g
 _ipenYbK2Ee24ffphK9Na6g -> <owner /> -> _ipeAULK2Ee24ffphK9Na6g
+_j12MQL0cEe2besM683MlUA -> <attribute /> -> _ItggIdIcEe2rY5KN6ehSig
+_j12MQL0cEe2besM683MlUA -> <feature /> -> _ItggIdIcEe2rY5KN6ehSig
 _j12MQL0cEe2besM683MlUA -> <member /> -> _ItggIdIcEe2rY5KN6ehSig
 _j12MQL0cEe2besM683MlUA -> <namespace /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _j12MQL0cEe2besM683MlUA -> <ownedAttribute /> -> _ItggIdIcEe2rY5KN6ehSig

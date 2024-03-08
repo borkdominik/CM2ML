@@ -49,6 +49,8 @@ function addEdge_ownedAttribute(class_: GraphNode, ownedAttributes: GraphNode[])
   // The attributes (i.e., the Properties) owned by the Class
   ownedAttributes.forEach((ownedAttribute) => {
     class_.model.addEdge('ownedAttribute', class_, ownedAttribute)
+    class_.model.addEdge('attribute', class_, ownedAttribute)
+    ownedAttribute.model.addEdge('class', ownedAttribute, class_)
   })
 }
 

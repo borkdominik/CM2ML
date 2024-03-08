@@ -18,5 +18,6 @@ function addEdge_ownedAttribute(signal: GraphNode, ownedAttributes: GraphNode[])
   // The attributes owned by the Signal.
   ownedAttributes.forEach((ownedAttribute) => {
     signal.model.addEdge('ownedAttribute', signal, ownedAttribute)
+    signal.model.addEdge('attribute', signal, ownedAttribute)
   })
 }
