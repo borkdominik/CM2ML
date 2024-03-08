@@ -197,7 +197,7 @@ function EdgeSelectionButton({
 }
 
 function EdgeList({ edges }: { edges: GraphEdge[] }) {
-  const groups = useMemo(() => Object.entries(Object.groupBy(edges, (edge) => edge.source.id ?? '')), [edges])
+  const groups = useMemo(() => Object.entries(groupBy(edges, (edge) => edge.source.id ?? '')), [edges])
   return groups.map(([groupKey, group], index) => (
     <Fragment key={groupKey}>
       <EdgeGroup edges={group ?? []} />
@@ -283,5 +283,19 @@ function AttributableDetails({
         </Fragment>
       ))}
     </div>
+  )
+}
+
+function groupBy<T>(items: T[], key: (item: T) => string): Record<string, T[]> {
+  return items.reduce(
+    (acc, item) => {
+      const group = key(item)
+      if (!acc[group]) {
+        acc[group] = []
+      }
+      acc[group]?.push(item)
+      return acc
+    },
+    {} as Record<string, T[]>,
   )
 }
