@@ -16,8 +16,8 @@ Since the complexity of the UML metamodel is high, only the following metamodel 
 ### Transitive
 
 - [ ] Association
-- [ ] BehavioralFeature
-- [ ] ConnectableElement
+- [x] BehavioralFeature
+- [x] ConnectableElement
 - [ ] DeploymentTarget
 - [x] Element
 - [x] Feature

@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { isCompositeProperty } from '../resolvers/isComposite'
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import {
@@ -47,8 +48,7 @@ function removeInvalidIsNavigableAttribute(property: GraphNode) {
 }
 
 function setAttribute_isComposite(property: GraphNode) {
-  const isComposite = property.getAttribute(Uml.Attributes.aggregation)?.value.literal === 'composite'
-  if (!isComposite) {
+  if (!isCompositeProperty(property)) {
     return
   }
   property.addAttribute({ name: Uml.Attributes.isComposite, value: { literal: 'true' } }, false)

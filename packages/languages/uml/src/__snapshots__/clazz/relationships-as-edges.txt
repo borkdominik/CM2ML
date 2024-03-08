@@ -392,6 +392,7 @@ _QE0EkK7gEe2EZoZ5sgiBCg -> <ownedOperation /> -> _Cr6ZsK70Ee2EZoZ5sgiBCg
 _QE0EkK7gEe2EZoZ5sgiBCg -> <ownedOperation /> -> _r0YL0K70Ee2EZoZ5sgiBCg
 _QE0EkK7gEe2EZoZ5sgiBCg -> <owner /> -> _Cfp0UGmxEe2kLe5KTNzRtw
 _QE0EkK7gEe2EZoZ5sgiBCg -> <package /> -> _Cfp0UGmxEe2kLe5KTNzRtw
+_QE0EkK7gEe2EZoZ5sgiBCg -> <part /> -> _VYMM8bK1Ee24ffphK9Na6g
 _QE0EkK7gEe2EZoZ5sgiBCg -> <realization xmi:type="Realization" xmi:id="_ghLTkLK1Ee24ffphK9Na6g" visibility="public" /> -> _9pVK8LK0Ee24ffphK9Na6g
 _TnD78LFUEe2z_s-Al402-w -> <namespace /> -> _r0YL0K70Ee2EZoZ5sgiBCg
 _TnD78LFUEe2z_s-Al402-w -> <operation /> -> _r0YL0K70Ee2EZoZ5sgiBCg

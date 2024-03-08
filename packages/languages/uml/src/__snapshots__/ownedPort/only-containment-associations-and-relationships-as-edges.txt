@@ -4,7 +4,7 @@
     <Property xmi:type="Property" xmi:id="_Q2FY8Nu5Ee65YvY_tzBAgQ" name="TestProperty" visibility="package" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false">
       <TimeInterval xmi:type="TimeInterval" xmi:id="_zNKW0Nu5Ee65YvY_tzBAgQ" name="TestTimeInterval" visibility="public" />
     </Property>
-    <Operation xmi:type="Operation" xmi:id="_ZNSfANu6Ee65YvY_tzBAgQ" name="TestOperation" isQuery="false" concurrency="sequential" isAbstract="false" isStatic="false" isLeaf="false">
+    <Operation xmi:type="Operation" xmi:id="_ZNSfANu6Ee65YvY_tzBAgQ" name="TestOperation" concurrency="concurrent" isQuery="false" isAbstract="false" isStatic="false" isLeaf="false">
       <Parameter xmi:type="Parameter" xmi:id="_fmHpUNu6Ee65YvY_tzBAgQ" name="TestReturnParameter" visibility="public" direction="return" effect="create" isException="false" isStream="false" isOrdered="false" isUnique="true" upper="*">
         <LiteralInteger xmi:type="LiteralInteger" xmi:id="_jaGRQNu6Ee65YvY_tzBAgQ" value="0" visibility="public" />
         <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_jZl68Nu6Ee65YvY_tzBAgQ" value="*" visibility="public" />

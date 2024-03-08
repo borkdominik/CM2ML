@@ -10,7 +10,7 @@
     <ownedAttribute xmi:type="uml:Property" xmi:id="_Q2FY8Nu5Ee65YvY_tzBAgQ" name="TestProperty" visibility="package">
       <defaultValue xmi:type="uml:TimeInterval" xmi:id="_zNKW0Nu5Ee65YvY_tzBAgQ" name="TestTimeInterval"/>
     </ownedAttribute>
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_ZNSfANu6Ee65YvY_tzBAgQ" name="TestOperation" templateParameter="_cJ36ANu8Ee65YvY_tzBAgQ">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_ZNSfANu6Ee65YvY_tzBAgQ" name="TestOperation" concurrency="concurrent" raisedException="_Lr_kQN0aEe6kj4CCWHMNuw" templateParameter="_cJ36ANu8Ee65YvY_tzBAgQ">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_fmHpUNu6Ee65YvY_tzBAgQ" name="TestReturnParameter" visibility="public" type="_7gC6YNu2Ee65YvY_tzBAgQ" direction="return" effect="create">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jaGRQNu6Ee65YvY_tzBAgQ"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jZl68Nu6Ee65YvY_tzBAgQ" value="*"/>

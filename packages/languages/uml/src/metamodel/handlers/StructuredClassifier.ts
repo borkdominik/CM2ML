@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { isCompositeProperty } from '../resolvers/isComposite'
 import { resolve } from '../resolvers/resolve'
 import { Class, Connector, Property, StructuredClassifier } from '../uml-metamodel'
 
@@ -12,7 +13,7 @@ export const StructuredClassifierHandler = StructuredClassifier.createHandler(
     }
     addEdge_ownedAttribute(structuredClassifier, ownedAttributes)
     addEdge_ownedConnector(structuredClassifier, ownedConnectors)
-    addEdge_part(structuredClassifier)
+    addEdge_part(structuredClassifier, ownedAttributes)
     addEdge_role(structuredClassifier)
   },
 )
@@ -38,10 +39,12 @@ function addEdge_ownedConnector(structuredClassifier: GraphNode, ownedConnectors
   })
 }
 
-function addEdge_part(_structuredClassifier: GraphNode) {
-  // TODO/Association
+function addEdge_part(structuredClassifier: GraphNode, ownedAttributes: GraphNode[]) {
   // /part : Property [0..*]{} (opposite A_part_structuredClassifier::structuredClassifier)
   // The Properties specifying instances that the StructuredClassifier owns by composition. This collection is derived, selecting those owned Properties where isComposite is true.
+  ownedAttributes.filter((ownedAttribute) => isCompositeProperty(ownedAttribute)).forEach((part) => {
+    structuredClassifier.model.addEdge('part', structuredClassifier, part)
+  })
 }
 
 function addEdge_role(_structuredClassifier: GraphNode) {

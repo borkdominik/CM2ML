@@ -2,20 +2,21 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Behavior, BehavioralFeature, Operation, Parameter, ParameterSet } from '../uml-metamodel'
+import { Behavior, BehavioralFeature, Operation, Parameter, ParameterSet, Type } from '../uml-metamodel'
 
 export const BehavioralFeatureHandler = BehavioralFeature.createHandler(
   (behavioralFeature, { onlyContainmentAssociations }) => {
     const method = resolve(behavioralFeature, 'method', { type: Behavior })
     const ownedParameters = resolve(behavioralFeature, 'ownedParameter', { many: true, type: Parameter })
     const ownedParameterSet = resolve(behavioralFeature, 'ownedParameterSet', { many: true, type: ParameterSet })
+    const raisedExceptions = resolve(behavioralFeature, 'raisedException', { many: true, type: Type })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_method(behavioralFeature, method)
     addEdge_ownedParameter(behavioralFeature, ownedParameters)
     addEdge_ownedParameterSet(behavioralFeature, ownedParameterSet)
-    addEdge_raisedException(behavioralFeature)
+    addEdge_raisedException(behavioralFeature, raisedExceptions)
   },
   {
     [Uml.Attributes.concurrency]: 'sequential',
@@ -52,8 +53,14 @@ function addEdge_ownedParameterSet(behavioralFeature: GraphNode, ownedParameterS
   })
 }
 
-function addEdge_raisedException(_behavioralFeature: GraphNode) {
-  // TODO/Association
+function addEdge_raisedException(behavioralFeature: GraphNode, raisedExceptions: GraphNode[]) {
   // raisedException : Type [0..*] (opposite A_raisedException_behavioralFeature::behavioralFeature)
   // The Types representing exceptions that may be raised during an invocation of this BehavioralFeature.
+  if (Operation.isAssignable(behavioralFeature)) {
+    // OperationHandler already adds raisedException edges
+    return
+  }
+  raisedExceptions.forEach((raisedException) => {
+    behavioralFeature.model.addEdge('raisedException', behavioralFeature, raisedException)
+  })
 }
