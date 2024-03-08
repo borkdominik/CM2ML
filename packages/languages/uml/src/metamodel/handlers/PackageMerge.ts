@@ -23,15 +23,23 @@ export const PackageMergeHandler = PackageMerge.createHandler(
 )
 
 function addEdge_mergedPackage(packageMerge: GraphNode, mergedPackage: GraphNode | undefined) {
+  // mergedPackage : Package [1..1]{subsets DirectedRelationship::target} (opposite A_mergedPackage_packageMerge::packageMerge )
+  // References the Package that is to be merged with the receiving package of the PackageMerge.
   if (!mergedPackage) {
     return
   }
   packageMerge.model.addEdge('mergedPackage', packageMerge, mergedPackage)
+  packageMerge.model.addEdge('target', packageMerge, mergedPackage)
+  packageMerge.model.addEdge('relatedElement', packageMerge, mergedPackage)
 }
 
 function addEdge_receivingPackage(packageMerge: GraphNode, receivingPackage: GraphNode | undefined) {
+  // receivingPackage : Package [1..1]{subsets DirectedRelationship::source, subsets Element::owner} (opposite Package::packageMerge)
+  // References the Package that is being extended with the contents of the merged package of the PackageMerge.
   if (!receivingPackage) {
     return
   }
   packageMerge.model.addEdge('receivingPackage', packageMerge, receivingPackage)
+  packageMerge.model.addEdge('source', packageMerge, receivingPackage)
+  packageMerge.model.addEdge('relatedElement', packageMerge, receivingPackage)
 }

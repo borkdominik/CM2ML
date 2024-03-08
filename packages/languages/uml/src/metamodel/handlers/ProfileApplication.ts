@@ -31,6 +31,8 @@ function addEdge_appliedProfile(profileApplication: GraphNode, appliedProfile: G
     return
   }
   profileApplication.model.addEdge('appliedProfile', profileApplication, appliedProfile)
+  profileApplication.model.addEdge('target', profileApplication, appliedProfile)
+  profileApplication.model.addEdge('relatedElement', profileApplication, appliedProfile)
 }
 
 function addEdge_applyingPackage(profileApplication: GraphNode, applyingPackage: GraphNode | undefined) {
@@ -40,4 +42,6 @@ function addEdge_applyingPackage(profileApplication: GraphNode, applyingPackage:
     return
   }
   profileApplication.model.addEdge('applyingPackage', profileApplication, applyingPackage)
+  profileApplication.model.addEdge('source', profileApplication, applyingPackage)
+  profileApplication.model.addEdge('relatedElement', profileApplication, applyingPackage)
 }

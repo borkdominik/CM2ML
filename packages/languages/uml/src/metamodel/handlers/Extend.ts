@@ -41,6 +41,8 @@ function addEdge_extendedCase(extend: GraphNode, extendedCase: GraphNode | undef
     return
   }
   extend.model.addEdge('extendedCase', extend, extendedCase)
+  extend.model.addEdge('target', extend, extendedCase)
+  extend.model.addEdge('relatedElement', extend, extendedCase)
 }
 
 function addEdge_extension(extend: GraphNode, extension: GraphNode | undefined) {
@@ -50,6 +52,8 @@ function addEdge_extension(extend: GraphNode, extension: GraphNode | undefined) 
     return
   }
   extend.model.addEdge('extension', extend, extension)
+  extend.model.addEdge('source', extend, extension)
+  extend.model.addEdge('relatedElement', extend, extension)
 }
 
 function addEdge_extensionLocation(extend: GraphNode, extensionLocations: GraphNode[]) {

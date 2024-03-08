@@ -39,6 +39,8 @@ function addEdge_informationSource(informationFlow: GraphNode, informationSource
   // Defines from which source the conveyed InformationItems are initiated.
   informationSources.forEach((namedElement) => {
     informationFlow.model.addEdge('informationSource', informationFlow, namedElement)
+    informationFlow.model.addEdge('source', informationFlow, namedElement)
+    informationFlow.model.addEdge('relatedElement', informationFlow, namedElement)
   })
 }
 
@@ -47,6 +49,8 @@ function addEdge_informationTarget(informationFlow: GraphNode, informationTarget
   // Defines to which target the conveyed InformationItems are directed.
   informationTargets.forEach((namedElement) => {
     informationFlow.model.addEdge('informationTarget', informationFlow, namedElement)
+    informationFlow.model.addEdge('target', informationFlow, namedElement)
+    informationFlow.model.addEdge('relatedElement', informationFlow, namedElement)
   })
 }
 

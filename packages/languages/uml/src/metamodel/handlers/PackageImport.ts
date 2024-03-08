@@ -31,6 +31,8 @@ function addEdge_importedPackage(packageImport: GraphNode, importedPackage: Grap
     return
   }
   packageImport.model.addEdge('importedPackage', packageImport, importedPackage)
+  packageImport.model.addEdge('target', packageImport, importedPackage)
+  packageImport.model.addEdge('relatedElement', packageImport, importedPackage)
 }
 
 function addEdge_importingNamespace(packageImport: GraphNode, importingNamespace: GraphNode | undefined) {
@@ -43,4 +45,6 @@ function addEdge_importingNamespace(packageImport: GraphNode, importingNamespace
     packageImport,
     importingNamespace,
   )
+  packageImport.model.addEdge('source', packageImport, importingNamespace)
+  packageImport.model.addEdge('relatedElement', packageImport, importingNamespace)
 }

@@ -34,12 +34,14 @@ function addEdge_elementImport(namespace: GraphNode, elementImports: GraphNode[]
   })
 }
 
+// TODO/Association
 function addEdge_importedMember(namespace: GraphNode, child: GraphNode) {
   if (ElementImport.isAssignable(child) || PackageImport.isAssignable(child)) {
     namespace.model.addEdge('importedMember', namespace, child)
   }
 }
 
+// TODO/Association
 // TODO/Jan: Set with opposite (i.e., namespace)?
 function addEdge_member(namespace: GraphNode, child: GraphNode) {
   if (NamedElement.isAssignable(child)) {
@@ -47,6 +49,7 @@ function addEdge_member(namespace: GraphNode, child: GraphNode) {
   }
 }
 
+// TODO/Association
 // TODO/Jan: Use resolve?
 function addEdge_ownedMember(namespace: GraphNode, child: GraphNode) {
   if (NamedElement.isAssignable(child)) {

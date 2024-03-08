@@ -1,8 +1,9 @@
 import type { GraphNode } from '@cm2ml/ir'
+import { Stream } from '@yeger/streams'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml, transformNodeToEdgeCallback } from '../uml'
-import { Association, Extension, Property } from '../uml-metamodel'
+import { Association, Extension, Property, Type } from '../uml-metamodel'
 
 export const AssociationHandler = Association.createHandler(
   (association, { onlyContainmentAssociations, relationshipsAsEdges }) => {
@@ -15,7 +16,7 @@ export const AssociationHandler = Association.createHandler(
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_endType(association)
+    addEdge_endType(association, memberEnds)
     addEdge_memberEnd(association, memberEnds)
     addEdge_navigableOwnedEnd(association, navigableOwnedEnds)
     addEdge_ownedEnd(association, ownedEnds)
@@ -33,10 +34,25 @@ function getOwnedEnds(association: GraphNode) {
   return resolve(association, 'ownedEnd', { many: true, type: Property })
 }
 
-function addEdge_endType(_association: GraphNode) {
-  // TODO/Association
+// TODO/Jan: Just types of memberEnds, or also other ends? (navigationOwnedEnds, ownedEnds)
+function addEdge_endType(association: GraphNode, memberEnds: GraphNode[]) {
   // /endType : Type [1..*]{subsets Relationship::relatedElement} (opposite A_endType_association::association)
   // The Classifiers that are used as types of the ends of the Association.
+  Stream.from(memberEnds)
+    .map((memberEnd) => {
+      const resolved = resolve(memberEnd, 'type', { removeAttribute: false, type: Type })
+      if (resolved) {
+        return resolved
+      }
+      // Type may have been resolved already, search edges
+      return Stream.from(memberEnd.outgoingEdges).find((edge) => edge.tag === 'type')?.target
+    })
+    .filterNonNull()
+    .distinct()
+    .forEach((type) => {
+      association.model.addEdge('endType', association, type)
+      association.model.addEdge('relatedElement', association, type)
+    })
 }
 
 function addEdge_memberEnd(association: GraphNode, memberEnds: GraphNode[]) {

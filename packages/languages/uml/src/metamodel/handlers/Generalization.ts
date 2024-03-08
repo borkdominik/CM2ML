@@ -33,6 +33,8 @@ function addEdge_general(generalization: GraphNode, general: GraphNode | undefin
     return
   }
   generalization.model.addEdge('general', generalization, general)
+  generalization.model.addEdge('target', generalization, general)
+  generalization.model.addEdge('relatedElement', generalization, general)
 }
 
 function addEdge_generalizationSet(generalization: GraphNode, generalizationSets: GraphNode[]) {
@@ -50,6 +52,8 @@ function addEdge_specific(generalization: GraphNode, specific: GraphNode | undef
     return
   }
   generalization.model.addEdge('specific', generalization, specific)
+  generalization.model.addEdge('source', generalization, specific)
+  generalization.model.addEdge('relatedElement', generalization, specific)
   if (!general) {
     return
   }

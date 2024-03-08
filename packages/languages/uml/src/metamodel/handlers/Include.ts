@@ -28,6 +28,8 @@ function addEdge_addition(include: GraphNode, addition: GraphNode | undefined) {
     return
   }
   include.model.addEdge('addition', include, addition)
+  include.model.addEdge('target', include, addition)
+  include.model.addEdge('relatedElement', include, addition)
 }
 
 function addEdge_includingCase(include: GraphNode, includingCase: GraphNode | undefined) {
@@ -37,4 +39,6 @@ function addEdge_includingCase(include: GraphNode, includingCase: GraphNode | un
     return
   }
   include.model.addEdge('includingCase', include, includingCase)
+  include.model.addEdge('source', include, includingCase)
+  include.model.addEdge('relatedElement', include, includingCase)
 }

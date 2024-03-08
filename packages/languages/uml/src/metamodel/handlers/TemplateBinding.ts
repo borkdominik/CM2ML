@@ -29,6 +29,8 @@ function addEdge_boundElement(templateBinding: GraphNode, boundElement: GraphNod
     return
   }
   templateBinding.model.addEdge('boundElement', templateBinding, boundElement)
+  templateBinding.model.addEdge('source', templateBinding, boundElement)
+  templateBinding.model.addEdge('relatedElement', templateBinding, boundElement)
 }
 
 function addEdge_parameterSubstitution(templateBinding: GraphNode, parameterSubstitutions: GraphNode[]) {
@@ -46,4 +48,6 @@ function addEdge_signature(templateBinding: GraphNode, signature: GraphNode | un
     return
   }
   templateBinding.model.addEdge('signature', templateBinding, signature)
+  templateBinding.model.addEdge('target', templateBinding, signature)
+  templateBinding.model.addEdge('relatedElement', templateBinding, signature)
 }

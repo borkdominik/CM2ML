@@ -77,7 +77,11 @@ _Lr_kQN0aEe6kj4CCWHMNuw -> <owner /> -> _yoiHINu2Ee65YvY_tzBAgQ
 _Lr_kQN0aEe6kj4CCWHMNuw -> <package /> -> _yoiHINu2Ee65YvY_tzBAgQ
 _OgQboN0aEe6kj4CCWHMNuw -> <general /> -> _Lr_kQN0aEe6kj4CCWHMNuw
 _OgQboN0aEe6kj4CCWHMNuw -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_OgQboN0aEe6kj4CCWHMNuw -> <relatedElement /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_OgQboN0aEe6kj4CCWHMNuw -> <relatedElement /> -> _Lr_kQN0aEe6kj4CCWHMNuw
+_OgQboN0aEe6kj4CCWHMNuw -> <source /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _OgQboN0aEe6kj4CCWHMNuw -> <specific /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_OgQboN0aEe6kj4CCWHMNuw -> <target /> -> _Lr_kQN0aEe6kj4CCWHMNuw
 _Q2FY8Nu5Ee65YvY_tzBAgQ -> <class /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _Q2FY8Nu5Ee65YvY_tzBAgQ -> <defaultValue /> -> _zNKW0Nu5Ee65YvY_tzBAgQ
 _Q2FY8Nu5Ee65YvY_tzBAgQ -> <featuringClassifier /> -> _7gC6YNu2Ee65YvY_tzBAgQ
@@ -135,7 +139,11 @@ _jaGRQNu6Ee65YvY_tzBAgQ -> <namespace /> -> _ZNSfANu6Ee65YvY_tzBAgQ
 _jaGRQNu6Ee65YvY_tzBAgQ -> <owner /> -> _fmHpUNu6Ee65YvY_tzBAgQ
 _myJ5QN0aEe6kj4CCWHMNuw -> <general /> -> _f9gVoN0aEe6kj4CCWHMNuw
 _myJ5QN0aEe6kj4CCWHMNuw -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_myJ5QN0aEe6kj4CCWHMNuw -> <relatedElement /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_myJ5QN0aEe6kj4CCWHMNuw -> <relatedElement /> -> _f9gVoN0aEe6kj4CCWHMNuw
+_myJ5QN0aEe6kj4CCWHMNuw -> <source /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _myJ5QN0aEe6kj4CCWHMNuw -> <specific /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_myJ5QN0aEe6kj4CCWHMNuw -> <target /> -> _f9gVoN0aEe6kj4CCWHMNuw
 _yoiHINu2Ee65YvY_tzBAgQ -> <importedMember /> -> _yxEYENu2Ee65YvY_tzBAgQ
 _yoiHINu2Ee65YvY_tzBAgQ -> <member /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _yoiHINu2Ee65YvY_tzBAgQ -> <member /> -> _Lr_kQN0aEe6kj4CCWHMNuw
@@ -153,6 +161,10 @@ _yxEYENu2Ee65YvY_tzBAgQ -> <importedPackage /> -> eu.yeger#generated-id-0
 _yxEYENu2Ee65YvY_tzBAgQ -> <importingNamespace /> -> _yoiHINu2Ee65YvY_tzBAgQ
 _yxEYENu2Ee65YvY_tzBAgQ -> <ownedElement /> -> eu.yeger#generated-id-0
 _yxEYENu2Ee65YvY_tzBAgQ -> <owner /> -> _yoiHINu2Ee65YvY_tzBAgQ
+_yxEYENu2Ee65YvY_tzBAgQ -> <relatedElement /> -> _yoiHINu2Ee65YvY_tzBAgQ
+_yxEYENu2Ee65YvY_tzBAgQ -> <relatedElement /> -> eu.yeger#generated-id-0
+_yxEYENu2Ee65YvY_tzBAgQ -> <source /> -> _yoiHINu2Ee65YvY_tzBAgQ
+_yxEYENu2Ee65YvY_tzBAgQ -> <target /> -> eu.yeger#generated-id-0
 _zNKW0Nu5Ee65YvY_tzBAgQ -> <namespace /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _zNKW0Nu5Ee65YvY_tzBAgQ -> <owner /> -> _Q2FY8Nu5Ee65YvY_tzBAgQ
 eu.yeger#generated-id-0 -> <namespace /> -> _yoiHINu2Ee65YvY_tzBAgQ

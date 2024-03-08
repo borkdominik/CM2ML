@@ -84,7 +84,7 @@ const { validModels, invalidModels } = getFiles({
     'f0cb46bb4e2127bd31c4e8d2a39f337d83e2a460a5f76412cd537b7aef8fe01a.uml', // duplicate id
     'ffec14974404d79da3b9fd4336a608795fe1b9017fe5fe8357c633a24a8512d5.uml', // duplicate id
   ],
-  // override: 38649,
+  // override: 0,
 })
 
 const showDebugOutput = validModels.length === 1
@@ -136,7 +136,7 @@ function getFiles({ startIndex = 0, numberOfFiles, invalidModels = [], override 
   const validDatasetFiles = datasetFiles.filter((file) => !invalidModelSet.has(file)).map((file) => `${datasetDir}/${file}`).map((file, index) => ({ file, index, snapshot: false }))
   const invalidDatasetFiles = readdirSync(datasetDir).filter((file) => invalidModelSet.has(file)).map((file) => `${datasetDir}/${file}`)
   const allValidFiles = preparedFiles.concat(validDatasetFiles)
-  if (override && override >= 0 && override < allValidFiles.length) {
+  if (override !== undefined && override >= 0 && override < allValidFiles.length) {
     return { validModels: [allValidFiles[override]!], invalidModels: invalidDatasetFiles }
   }
   const actualStartIndex = process.env.COVERAGE ? 0 : startIndex
