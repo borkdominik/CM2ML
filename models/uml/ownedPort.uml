@@ -26,4 +26,10 @@
   <packagedElement xmi:type="uml:Class" xmi:id="_Lr_kQN0aEe6kj4CCWHMNuw" name="Parent">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_RBlv8N0aEe6kj4CCWHMNuw" name="ParentProperty" visibility="public"/>
   </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_7qZgYN_AEe6kj4CCWHMNuw" name="ParentPackage">
+    <packagedElement xmi:type="uml:Package" xmi:id="_-Dv9YN_AEe6kj4CCWHMNuw" name="NestedPackage"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_COyacN_BEe6kj4CCWHMNuw" name="ParentInterface">
+      <nestedClassifier xmi:type="uml:Interface" xmi:id="_E1syUN_BEe6kj4CCWHMNuw" name="NestedInterface"/>
+    </packagedElement>
+  </packagedElement>
 </uml:Model>

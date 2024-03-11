@@ -25,7 +25,14 @@
   <Class xmi:type="Class" xmi:id="_Lr_kQN0aEe6kj4CCWHMNuw" name="Parent" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
     <Property xmi:type="Property" xmi:id="_RBlv8N0aEe6kj4CCWHMNuw" name="ParentProperty" visibility="public" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false" />
   </Class>
+  <Package xmi:type="Package" xmi:id="_7qZgYN_AEe6kj4CCWHMNuw" name="ParentPackage" visibility="public">
+    <Package xmi:type="Package" xmi:id="_-Dv9YN_AEe6kj4CCWHMNuw" name="NestedPackage" visibility="public" />
+    <Interface xmi:type="Interface" xmi:id="_COyacN_BEe6kj4CCWHMNuw" name="ParentInterface" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
+      <Interface xmi:type="Interface" xmi:id="_E1syUN_BEe6kj4CCWHMNuw" name="NestedInterface" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+    </Interface>
+  </Package>
 </Model>
+_-Dv9YN_AEe6kj4CCWHMNuw -> <owner /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _-IKzMNu2Ee65YvY_tzBAgQ -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _-IKzMNu2Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _OgQboN0aEe6kj4CCWHMNuw
@@ -34,6 +41,12 @@ _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _ZNSfANu6Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _f9gVoN0aEe6kj4CCWHMNuw
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _myJ5QN0aEe6kj4CCWHMNuw
 _7gC6YNu2Ee65YvY_tzBAgQ -> <owner /> -> _yoiHINu2Ee65YvY_tzBAgQ
+_7qZgYN_AEe6kj4CCWHMNuw -> <ownedElement /> -> _-Dv9YN_AEe6kj4CCWHMNuw
+_7qZgYN_AEe6kj4CCWHMNuw -> <ownedElement /> -> _COyacN_BEe6kj4CCWHMNuw
+_7qZgYN_AEe6kj4CCWHMNuw -> <owner /> -> _yoiHINu2Ee65YvY_tzBAgQ
+_COyacN_BEe6kj4CCWHMNuw -> <ownedElement /> -> _E1syUN_BEe6kj4CCWHMNuw
+_COyacN_BEe6kj4CCWHMNuw -> <owner /> -> _7qZgYN_AEe6kj4CCWHMNuw
+_E1syUN_BEe6kj4CCWHMNuw -> <owner /> -> _COyacN_BEe6kj4CCWHMNuw
 _Lr_kQN0aEe6kj4CCWHMNuw -> <ownedElement /> -> _RBlv8N0aEe6kj4CCWHMNuw
 _Lr_kQN0aEe6kj4CCWHMNuw -> <owner /> -> _yoiHINu2Ee65YvY_tzBAgQ
 _OgQboN0aEe6kj4CCWHMNuw -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
@@ -56,6 +69,7 @@ _jZl68Nu6Ee65YvY_tzBAgQ -> <owner /> -> _fmHpUNu6Ee65YvY_tzBAgQ
 _jaGRQNu6Ee65YvY_tzBAgQ -> <owner /> -> _fmHpUNu6Ee65YvY_tzBAgQ
 _myJ5QN0aEe6kj4CCWHMNuw -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _yoiHINu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_yoiHINu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _yoiHINu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _Lr_kQN0aEe6kj4CCWHMNuw
 _yoiHINu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _yxEYENu2Ee65YvY_tzBAgQ
 _yxEYENu2Ee65YvY_tzBAgQ -> <ownedElement /> -> eu.yeger#generated-id-0

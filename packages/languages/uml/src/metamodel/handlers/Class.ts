@@ -2,10 +2,11 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Behavior, Class, Operation, Property, Reception } from '../uml-metamodel'
+import { Class, Classifier, Operation, Property, Reception } from '../uml-metamodel'
 
 export const ClassHandler = Class.createHandler(
   (class_, { onlyContainmentAssociations }) => {
+    const nestedClassifiers = resolve(class_, 'nestedClassifier', { many: true, type: Classifier })
     const ownedAttributes = resolve(class_, 'ownedAttribute', { many: true, type: Property })
     const ownedOperations = resolve(class_, 'ownedOperation', { many: true, type: Operation })
     const ownedReceptions = resolve(class_, 'ownedReception', { many: true, type: Reception })
@@ -14,9 +15,7 @@ export const ClassHandler = Class.createHandler(
     }
     addEdge_extension(class_)
     addEdge_superClass(class_)
-    class_.children.forEach((child) => {
-      addEdge_nestedClassifier(class_, child)
-    })
+    addEdge_nestedClassifier(class_, nestedClassifiers)
     addEdge_ownedAttribute(class_, ownedAttributes)
     addEdge_ownedOperations(class_, ownedOperations)
     addEdge_ownedReception(class_, ownedReceptions)
@@ -34,14 +33,12 @@ function addEdge_extension(_class_: GraphNode) {
   // Added by ExtensionHandler::addEdge_metaclass
 }
 
-// TODO/Jan: Use resolve with 'nestedClassifier' name?
-function addEdge_nestedClassifier(class_: GraphNode, child: GraphNode) {
+function addEdge_nestedClassifier(class_: GraphNode, nestedClassifiers: GraphNode[]) {
   // ♦ nestedClassifier : Classifier [0..*]{ordered, subsets A_redefinitionContext_redefinableElement::redefinableElement, subsets Namespace::ownedMember} (opposite A_nestedClassifier_nestingClass::nestingClass)
   // The Classifiers owned by the Class that are not ownedBehaviors.
-  if (!Class.isAssignable(child) || Behavior.isAssignable(child)) {
-    return
-  }
-  class_.model.addEdge('nestedClassifier', class_, child)
+  nestedClassifiers.forEach((nestedClassifier) => {
+    class_.model.addEdge('nestedClassifier', class_, nestedClassifier)
+  })
 }
 
 function addEdge_ownedAttribute(class_: GraphNode, ownedAttributes: GraphNode[]) {

@@ -34,8 +34,10 @@ _KrFesfn-Ee2smM55zuHUhw -> <namespace /> -> _QGY-4M4OEe2NwpxoRjsNIQ
 _KrFesfn-Ee2smM55zuHUhw -> <owner /> -> _QGY-4M4OEe2NwpxoRjsNIQ
 _KrFesfn-Ee2smM55zuHUhw -> <package /> -> _QGY-4M4OEe2NwpxoRjsNIQ
 _Mmu2kPn_Ee2smM55zuHUhw -> <elementImport xmi:id="_gg-iAPoAEe2smM55zuHUhw" xmi:type="ElementImport" visibility="public" /> -> _dHjvIPoAEe2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <importedMember /> -> _dHjvIPoAEe2smM55zuHUhw
 _Mmu2kPn_Ee2smM55zuHUhw -> <member /> -> _PwW58Pn_Ee2smM55zuHUhw
 _Mmu2kPn_Ee2smM55zuHUhw -> <member /> -> _U4qQgPn_Ee2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <member /> -> _dHjvIPoAEe2smM55zuHUhw
 _Mmu2kPn_Ee2smM55zuHUhw -> <namespace /> -> _4EHcMM4OEe2WfbpzO7t8-A
 _Mmu2kPn_Ee2smM55zuHUhw -> <nestingPackage /> -> _4EHcMM4OEe2WfbpzO7t8-A
 _Mmu2kPn_Ee2smM55zuHUhw -> <ownedElement /> -> _PwW58Pn_Ee2smM55zuHUhw
@@ -84,7 +86,11 @@ _PwW58Pn_Ee2smM55zuHUhw -> <namespace /> -> _Mmu2kPn_Ee2smM55zuHUhw
 _PwW58Pn_Ee2smM55zuHUhw -> <owner /> -> _Mmu2kPn_Ee2smM55zuHUhw
 _PwW58Pn_Ee2smM55zuHUhw -> <package /> -> _Mmu2kPn_Ee2smM55zuHUhw
 _QGY-4M4OEe2NwpxoRjsNIQ -> <elementImport xmi:id="_5AugUPn-Ee2smM55zuHUhw" alias="AppLauncher" visibility="private" xmi:type="ElementImport" /> -> _gu8-gPn-Ee2smM55zuHUhw
+_QGY-4M4OEe2NwpxoRjsNIQ -> <importedMember /> -> _RY5voM4OEe2NwpxoRjsNIQ
+_QGY-4M4OEe2NwpxoRjsNIQ -> <importedMember /> -> _gu8-gPn-Ee2smM55zuHUhw
 _QGY-4M4OEe2NwpxoRjsNIQ -> <member /> -> _KrFesfn-Ee2smM55zuHUhw
+_QGY-4M4OEe2NwpxoRjsNIQ -> <member /> -> _RY5voM4OEe2NwpxoRjsNIQ
+_QGY-4M4OEe2NwpxoRjsNIQ -> <member /> -> _gu8-gPn-Ee2smM55zuHUhw
 _QGY-4M4OEe2NwpxoRjsNIQ -> <namespace /> -> _PTF5sc4OEe2NwpxoRjsNIQ
 _QGY-4M4OEe2NwpxoRjsNIQ -> <nestingPackage /> -> _PTF5sc4OEe2NwpxoRjsNIQ
 _QGY-4M4OEe2NwpxoRjsNIQ -> <ownedElement /> -> _KrFesfn-Ee2smM55zuHUhw
@@ -116,6 +122,8 @@ _kjCCMM4OEe2WfbpzO7t8-A -> <dependency xmi:type="Dependency" xmi:id="_59v3UM4OEe
 _kjCCMM4OEe2WfbpzO7t8-A -> <namespace /> -> _PTF5sc4OEe2NwpxoRjsNIQ
 _kjCCMM4OEe2WfbpzO7t8-A -> <nestingPackage /> -> _PTF5sc4OEe2NwpxoRjsNIQ
 _kjCCMM4OEe2WfbpzO7t8-A -> <owner /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_lJmS8M4OEe2WfbpzO7t8-A -> <importedMember /> -> _kjCCMM4OEe2WfbpzO7t8-A
+_lJmS8M4OEe2WfbpzO7t8-A -> <member /> -> _kjCCMM4OEe2WfbpzO7t8-A
 _lJmS8M4OEe2WfbpzO7t8-A -> <namespace /> -> _PTF5sc4OEe2NwpxoRjsNIQ
 _lJmS8M4OEe2WfbpzO7t8-A -> <nestingPackage /> -> _PTF5sc4OEe2NwpxoRjsNIQ
 _lJmS8M4OEe2WfbpzO7t8-A -> <owner /> -> _PTF5sc4OEe2NwpxoRjsNIQ

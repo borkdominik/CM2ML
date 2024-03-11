@@ -5,6 +5,7 @@ import { Classifier, Interface, Operation, Property, ProtocolStateMachine, Recep
 
 export const InterfaceHandler = Interface.createHandler(
   (interface_, { onlyContainmentAssociations }) => {
+    const nestedClassifiers = resolve(interface_, 'nestedClassifier', { many: true, type: Classifier })
     const ownedAttributes = resolve(interface_, 'ownedAttribute', { many: true, type: Property })
     const ownedOperations = resolve(interface_, 'ownedOperation', { many: true, type: Operation })
     const ownedReceptions = resolve(interface_, 'ownedReception', { many: true, type: Reception })
@@ -13,10 +14,7 @@ export const InterfaceHandler = Interface.createHandler(
       return
     }
 
-    interface_.children.forEach((child) => {
-      // TODO/Jan: Only set via resolve('nestedClassifier')? Ref. model 4234
-      addEdge_nestedClassifier(interface_, child)
-    })
+    addEdge_nestedClassifier(interface_, nestedClassifiers)
     addEdge_ownedAttribute(interface_, ownedAttributes)
     addEdge_ownedOperation(interface_, ownedOperations)
     addEdge_ownedReception(interface_, ownedReceptions)
@@ -25,12 +23,12 @@ export const InterfaceHandler = Interface.createHandler(
   },
 )
 
-function addEdge_nestedClassifier(interface_: GraphNode, child: GraphNode) {
+function addEdge_nestedClassifier(interface_: GraphNode, nestedClassifiers: GraphNode[]) {
   // ♦ nestedClassifier : Classifier [0..*]{ordered, subsets A_redefinitionContext_redefinableElement::redefinableElement, subsets Namespace::ownedMember} (opposite A_nestedClassifier_interface::interface)
   // References all the Classifiers that are defined (nested) within the Interface.
-  if (Classifier.isAssignable(child)) {
-    interface_.model.addEdge('nestedClassifier', interface_, child)
-  }
+  nestedClassifiers.forEach((nestedClassifier) => {
+    interface_.model.addEdge('nestedClassifier', interface_, nestedClassifier)
+  })
 }
 
 function addEdge_ownedAttribute(interface_: GraphNode, ownedAttributes: GraphNode[]) {

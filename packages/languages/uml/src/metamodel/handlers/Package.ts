@@ -1,5 +1,4 @@
 import type { GraphNode } from '@cm2ml/ir'
-import { getParentOfType } from '@cm2ml/metamodel'
 
 import { resolve } from '../resolvers/resolve'
 import {
@@ -31,17 +30,17 @@ export const PackageHandler = Package.createHandler(
 )
 
 function addEdge_nestedPackage(package_: GraphNode, child: GraphNode) {
+  // ♦ /nestedPackage : Package [0..*]{subsets Package::packagedElement} (opposite Package::nestingPackage)
   if (Package.isAssignable(child)) {
     package_.model.addEdge('nestedPackage', package_, child)
+    child.model.addEdge('nestingPackage', child, package_)
   }
 }
 
-function addEdge_nestingPackage(package_: GraphNode) {
-  const nestingPackage = getParentOfType(package_, Package)
-  if (!nestingPackage) {
-    return
-  }
-  package_.model.addEdge('nestingPackage', package_, nestingPackage)
+function addEdge_nestingPackage(_package_: GraphNode) {
+  // nestingPackage : Package [0..1]{subsets A_packagedElement_owningPackage::owningPackage} (opposite Package::nestedPackage)
+
+  // Added by addEdge_nestedPackage
 }
 
 function addEdge_ownedStereotype(_package_: GraphNode, _child: GraphNode) {
