@@ -1,15 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
-import { Stream } from '@yeger/streams'
 
 import { resolve } from '../resolvers/resolve'
 import {
   Constraint,
   ElementImport,
-  NamedElement,
   Namespace,
-  Package,
   PackageImport,
-  PackageableElement,
 } from '../uml-metamodel'
 
 export const NamespaceHandler = Namespace.createHandler(
@@ -22,11 +18,9 @@ export const NamespaceHandler = Namespace.createHandler(
     }
     addEdge_elementImport(namespace, elementImports)
     addEdge_importedMember(namespace, elementImports, packageImports)
-    namespace.children.forEach((child) => {
-      addEdge_member(namespace, child)
-      addEdge_ownedMember(namespace, child)
-    })
+    addEdge_member(namespace)
     addEdge_packageImport(namespace, packageImports)
+    addEdge_ownedMember(namespace)
     addEdge_ownedRule(namespace, ownedRules)
   },
 )
@@ -39,38 +33,25 @@ function addEdge_elementImport(namespace: GraphNode, elementImports: GraphNode[]
   })
 }
 
-function addEdge_importedMember(namespace: GraphNode, elementImports: GraphNode[], packageImports: GraphNode[]) {
+function addEdge_importedMember(_namespace: GraphNode, _elementImports: GraphNode[], _packageImports: GraphNode[]) {
   // /importedMember : PackageableElement [0..*]{subsets Namespace::member} (opposite A_importedMember_namespace::namespace)
   // References the PackageableElements that are members of this Namespace as a result of either PackageImports or ElementImports.
-  const importedElements = elementImports.map((elementImport) => resolve(elementImport, 'importedElement', { removeAttribute: false, type: PackageableElement }))
-  const importedPackages = packageImports.map((packageImport) => resolve(packageImport, 'importedPackage', { removeAttribute: false, type: Package }))
-  Stream.from(importedElements)
-    .concat(importedPackages)
-    .filterNonNull()
-    .forEach((importedElement) => {
-      namespace.model.addEdge('importedMember', namespace, importedElement)
-      namespace.model.addEdge('member', namespace, importedElement)
-    })
+
+  // Added by ElementImportHandler::addEdge_importedMember_member, resolvePackageImports
 }
 
-// TODO/Association: Also add edges to inherited items. -> Class::superClass
-// TODO/Jan: Set with opposite (i.e., namespace)?
-function addEdge_member(namespace: GraphNode, child: GraphNode) {
+function addEdge_member(_namespace: GraphNode) {
   // /member : NamedElement [0..*]{union} (opposite A_member_memberNamespace::memberNamespace)
   // A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance.
-  if (NamedElement.isAssignable(child)) {
-    namespace.model.addEdge('member', namespace, child)
-  }
+
+  // Added by addEdge_importedMember, ClassifierHandler::addEdge_inheritedMember, NamedElementHandler::addEdge_namespace
 }
 
-// TODO/Association
-// TODO/Jan: Use resolve?
-function addEdge_ownedMember(namespace: GraphNode, child: GraphNode) {
+function addEdge_ownedMember(_namespace: GraphNode) {
   // ♦ /ownedMember : NamedElement [0..*]{union, subsets Namespace::member, subsets Element::ownedElement} (opposite NamedElement::namespace)
   // A collection of NamedElements owned by the Namespace.
-  if (NamedElement.isAssignable(child)) {
-    namespace.model.addEdge('ownedMember', namespace, child)
-  }
+
+  // Added by NamedElementHandler::addEdge_namespace
 }
 
 function addEdge_ownedRule(namespace: GraphNode, ownedRules: GraphNode[]) {

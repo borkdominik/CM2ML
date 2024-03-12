@@ -31,6 +31,9 @@
       <Interface xmi:type="Interface" xmi:id="_E1syUN_BEe6kj4CCWHMNuw" name="NestedInterface" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
     </Interface>
   </Package>
+  <Package xmi:type="Package" xmi:id="_xBwPAOB2Ee6kj4CCWHMNuw" name="ImportingPackage" visibility="public">
+    <PackageImport xmi:type="PackageImport" xmi:id="_0Fpd0OB2Ee6kj4CCWHMNuw" visibility="public" />
+  </Package>
 </Model>
 _-Dv9YN_AEe6kj4CCWHMNuw -> <namespace /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _-Dv9YN_AEe6kj4CCWHMNuw -> <nestingPackage /> -> _7qZgYN_AEe6kj4CCWHMNuw
@@ -39,6 +42,13 @@ _-IKzMNu2Ee65YvY_tzBAgQ -> <class /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _-IKzMNu2Ee65YvY_tzBAgQ -> <featuringClassifier /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _-IKzMNu2Ee65YvY_tzBAgQ -> <namespace /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _-IKzMNu2Ee65YvY_tzBAgQ -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_0Fpd0OB2Ee6kj4CCWHMNuw -> <importedPackage /> -> _7qZgYN_AEe6kj4CCWHMNuw
+_0Fpd0OB2Ee6kj4CCWHMNuw -> <importingNamespace /> -> _xBwPAOB2Ee6kj4CCWHMNuw
+_0Fpd0OB2Ee6kj4CCWHMNuw -> <owner /> -> _xBwPAOB2Ee6kj4CCWHMNuw
+_0Fpd0OB2Ee6kj4CCWHMNuw -> <relatedElement /> -> _7qZgYN_AEe6kj4CCWHMNuw
+_0Fpd0OB2Ee6kj4CCWHMNuw -> <relatedElement /> -> _xBwPAOB2Ee6kj4CCWHMNuw
+_0Fpd0OB2Ee6kj4CCWHMNuw -> <source /> -> _xBwPAOB2Ee6kj4CCWHMNuw
+_0Fpd0OB2Ee6kj4CCWHMNuw -> <target /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _7gC6YNu2Ee65YvY_tzBAgQ -> <attribute /> -> _-IKzMNu2Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <attribute /> -> _Q2FY8Nu5Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <feature /> -> _-IKzMNu2Ee65YvY_tzBAgQ
@@ -52,8 +62,11 @@ _7gC6YNu2Ee65YvY_tzBAgQ -> <inheritedMember /> -> _RBlv8N0aEe6kj4CCWHMNuw
 _7gC6YNu2Ee65YvY_tzBAgQ -> <inheritedMember /> -> _iR3k8N0aEe6kj4CCWHMNuw
 _7gC6YNu2Ee65YvY_tzBAgQ -> <member /> -> _-IKzMNu2Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <member /> -> _Q2FY8Nu5Ee65YvY_tzBAgQ
+_7gC6YNu2Ee65YvY_tzBAgQ -> <member /> -> _RBlv8N0aEe6kj4CCWHMNuw
 _7gC6YNu2Ee65YvY_tzBAgQ -> <member /> -> _ZNSfANu6Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <member /> -> _f9gVoN0aEe6kj4CCWHMNuw
+_7gC6YNu2Ee65YvY_tzBAgQ -> <member /> -> _iR3k8N0aEe6kj4CCWHMNuw
+_7gC6YNu2Ee65YvY_tzBAgQ -> <member /> -> _zNKW0Nu5Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <namespace /> -> _yoiHINu2Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <nestedClassifier /> -> _f9gVoN0aEe6kj4CCWHMNuw
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedAttribute /> -> _-IKzMNu2Ee65YvY_tzBAgQ
@@ -68,6 +81,7 @@ _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedMember /> -> _-IKzMNu2Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedMember /> -> _Q2FY8Nu5Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedMember /> -> _ZNSfANu6Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedMember /> -> _f9gVoN0aEe6kj4CCWHMNuw
+_7gC6YNu2Ee65YvY_tzBAgQ -> <ownedMember /> -> _zNKW0Nu5Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedOperation /> -> _ZNSfANu6Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedPort /> -> _-IKzMNu2Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <owner /> -> _yoiHINu2Ee65YvY_tzBAgQ
@@ -127,10 +141,14 @@ _RBlv8N0aEe6kj4CCWHMNuw -> <owner /> -> _Lr_kQN0aEe6kj4CCWHMNuw
 _ZNSfANu6Ee65YvY_tzBAgQ -> <class /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _ZNSfANu6Ee65YvY_tzBAgQ -> <featuringClassifier /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _ZNSfANu6Ee65YvY_tzBAgQ -> <member /> -> _fmHpUNu6Ee65YvY_tzBAgQ
+_ZNSfANu6Ee65YvY_tzBAgQ -> <member /> -> _jZl68Nu6Ee65YvY_tzBAgQ
+_ZNSfANu6Ee65YvY_tzBAgQ -> <member /> -> _jaGRQNu6Ee65YvY_tzBAgQ
 _ZNSfANu6Ee65YvY_tzBAgQ -> <namespace /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _ZNSfANu6Ee65YvY_tzBAgQ -> <ownedElement /> -> _adJScNu8Ee65YvY_tzBAgQ
 _ZNSfANu6Ee65YvY_tzBAgQ -> <ownedElement /> -> _fmHpUNu6Ee65YvY_tzBAgQ
 _ZNSfANu6Ee65YvY_tzBAgQ -> <ownedMember /> -> _fmHpUNu6Ee65YvY_tzBAgQ
+_ZNSfANu6Ee65YvY_tzBAgQ -> <ownedMember /> -> _jZl68Nu6Ee65YvY_tzBAgQ
+_ZNSfANu6Ee65YvY_tzBAgQ -> <ownedMember /> -> _jaGRQNu6Ee65YvY_tzBAgQ
 _ZNSfANu6Ee65YvY_tzBAgQ -> <ownedParameter /> -> _fmHpUNu6Ee65YvY_tzBAgQ
 _ZNSfANu6Ee65YvY_tzBAgQ -> <ownedTemplateSignature /> -> _adJScNu8Ee65YvY_tzBAgQ
 _ZNSfANu6Ee65YvY_tzBAgQ -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
@@ -176,25 +194,39 @@ _myJ5QN0aEe6kj4CCWHMNuw -> <relatedElement /> -> _f9gVoN0aEe6kj4CCWHMNuw
 _myJ5QN0aEe6kj4CCWHMNuw -> <source /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _myJ5QN0aEe6kj4CCWHMNuw -> <specific /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _myJ5QN0aEe6kj4CCWHMNuw -> <target /> -> _f9gVoN0aEe6kj4CCWHMNuw
-_yoiHINu2Ee65YvY_tzBAgQ -> <importedMember /> -> eu.yeger#generated-id-0
+_xBwPAOB2Ee6kj4CCWHMNuw -> <importedMember /> -> _-Dv9YN_AEe6kj4CCWHMNuw
+_xBwPAOB2Ee6kj4CCWHMNuw -> <importedMember /> -> _COyacN_BEe6kj4CCWHMNuw
+_xBwPAOB2Ee6kj4CCWHMNuw -> <member /> -> _-Dv9YN_AEe6kj4CCWHMNuw
+_xBwPAOB2Ee6kj4CCWHMNuw -> <member /> -> _COyacN_BEe6kj4CCWHMNuw
+_xBwPAOB2Ee6kj4CCWHMNuw -> <namespace /> -> _yoiHINu2Ee65YvY_tzBAgQ
+_xBwPAOB2Ee6kj4CCWHMNuw -> <nestingPackage /> -> _yoiHINu2Ee65YvY_tzBAgQ
+_xBwPAOB2Ee6kj4CCWHMNuw -> <ownedElement /> -> _0Fpd0OB2Ee6kj4CCWHMNuw
+_xBwPAOB2Ee6kj4CCWHMNuw -> <owner /> -> _yoiHINu2Ee65YvY_tzBAgQ
+_xBwPAOB2Ee6kj4CCWHMNuw -> <packageImport /> -> _0Fpd0OB2Ee6kj4CCWHMNuw
 _yoiHINu2Ee65YvY_tzBAgQ -> <member /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _yoiHINu2Ee65YvY_tzBAgQ -> <member /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _yoiHINu2Ee65YvY_tzBAgQ -> <member /> -> _Lr_kQN0aEe6kj4CCWHMNuw
+_yoiHINu2Ee65YvY_tzBAgQ -> <member /> -> _xBwPAOB2Ee6kj4CCWHMNuw
 _yoiHINu2Ee65YvY_tzBAgQ -> <member /> -> eu.yeger#generated-id-0
 _yoiHINu2Ee65YvY_tzBAgQ -> <nestedPackage /> -> _7qZgYN_AEe6kj4CCWHMNuw
+_yoiHINu2Ee65YvY_tzBAgQ -> <nestedPackage /> -> _xBwPAOB2Ee6kj4CCWHMNuw
 _yoiHINu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _yoiHINu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _yoiHINu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _Lr_kQN0aEe6kj4CCWHMNuw
+_yoiHINu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _xBwPAOB2Ee6kj4CCWHMNuw
 _yoiHINu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _yxEYENu2Ee65YvY_tzBAgQ
 _yoiHINu2Ee65YvY_tzBAgQ -> <ownedMember /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _yoiHINu2Ee65YvY_tzBAgQ -> <ownedMember /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _yoiHINu2Ee65YvY_tzBAgQ -> <ownedMember /> -> _Lr_kQN0aEe6kj4CCWHMNuw
+_yoiHINu2Ee65YvY_tzBAgQ -> <ownedMember /> -> _xBwPAOB2Ee6kj4CCWHMNuw
+_yoiHINu2Ee65YvY_tzBAgQ -> <ownedMember /> -> eu.yeger#generated-id-0
 _yoiHINu2Ee65YvY_tzBAgQ -> <ownedType /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _yoiHINu2Ee65YvY_tzBAgQ -> <ownedType /> -> _Lr_kQN0aEe6kj4CCWHMNuw
 _yoiHINu2Ee65YvY_tzBAgQ -> <packageImport /> -> _yxEYENu2Ee65YvY_tzBAgQ
 _yoiHINu2Ee65YvY_tzBAgQ -> <packagedElement /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _yoiHINu2Ee65YvY_tzBAgQ -> <packagedElement /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _yoiHINu2Ee65YvY_tzBAgQ -> <packagedElement /> -> _Lr_kQN0aEe6kj4CCWHMNuw
+_yoiHINu2Ee65YvY_tzBAgQ -> <packagedElement /> -> _xBwPAOB2Ee6kj4CCWHMNuw
 _yxEYENu2Ee65YvY_tzBAgQ -> <importedPackage /> -> eu.yeger#generated-id-0
 _yxEYENu2Ee65YvY_tzBAgQ -> <importingNamespace /> -> _yoiHINu2Ee65YvY_tzBAgQ
 _yxEYENu2Ee65YvY_tzBAgQ -> <ownedElement /> -> eu.yeger#generated-id-0

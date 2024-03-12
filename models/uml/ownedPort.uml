@@ -32,4 +32,7 @@
       <nestedClassifier xmi:type="uml:Interface" xmi:id="_E1syUN_BEe6kj4CCWHMNuw" name="NestedInterface"/>
     </packagedElement>
   </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_xBwPAOB2Ee6kj4CCWHMNuw" name="ImportingPackage">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_0Fpd0OB2Ee6kj4CCWHMNuw" importedPackage="_7qZgYN_AEe6kj4CCWHMNuw"/>
+  </packagedElement>
 </uml:Model>

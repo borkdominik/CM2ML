@@ -86,6 +86,7 @@ function addEdge_generalization(classifier: GraphNode, generalizations: GraphNod
   })
 }
 
+// TODO/Jan: Run this after refining, just like importedMember?
 function addEdge_inheritedMember(classifier: GraphNode, generalClassifiers: GraphNode[]) {
   // /inheritedMember : NamedElement [0..*]{subsets Namespace::member} (opposite A_inheritedMember_inheritingClassifier::inheritingClassifier)
   // All elements inherited by this Classifier from its general Classifiers.
@@ -94,9 +95,12 @@ function addEdge_inheritedMember(classifier: GraphNode, generalClassifiers: Grap
       const processedInheritedMembers = Stream.from(generalClassifier.outgoingEdges).filter((edge) => edge.tag === 'member').map((edge) => edge.target)
       const unprocessedInheritedMembers = Stream.from(generalClassifier.children).filter((child) => NamedElement.isAssignable(child))
       return processedInheritedMembers.concat(unprocessedInheritedMembers)
-    }).distinct().forEach((inheritedMember) =>
-      classifier.model.addEdge('inheritedMember', classifier, inheritedMember),
-    )
+    })
+    .distinct()
+    .forEach((inheritedMember) => {
+      classifier.model.addEdge('inheritedMember', classifier, inheritedMember)
+      classifier.model.addEdge('member', classifier, inheritedMember)
+    })
 }
 
 function addEdge_ownedTemplateSignature(classifier: GraphNode, ownedTemplateSignature: GraphNode | undefined) {

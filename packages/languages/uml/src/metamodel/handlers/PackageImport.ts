@@ -27,6 +27,7 @@ export const PackageImportHandler = PackageImport.createHandler(
 
 function addEdge_importedPackage(packageImport: GraphNode, importedPackage: GraphNode | undefined) {
   // importedPackage : Package [1..1]{subsets DirectedRelationship::target} (opposite A_importedPackage_packageImport::packageImport)
+  // Specifies the Package whose members are imported into a Namespace.
   if (!importedPackage) {
     return
   }
@@ -37,6 +38,7 @@ function addEdge_importedPackage(packageImport: GraphNode, importedPackage: Grap
 
 function addEdge_importingNamespace(packageImport: GraphNode, importingNamespace: GraphNode | undefined) {
   // importingNamespace : Namespace [1..1]{subsets DirectedRelationship::source, subsets Element::owner} (opposite Namespace::packageImport)
+  // Specifies the Namespace that imports the members from a Package.
   if (!importingNamespace) {
     return
   }

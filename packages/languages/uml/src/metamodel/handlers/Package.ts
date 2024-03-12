@@ -46,7 +46,7 @@ function addEdge_nestingPackage(_package_: GraphNode) {
 function addEdge_ownedStereotype(_package_: GraphNode, _child: GraphNode) {
   // TODO/Association
   // ♦ /ownedStereotype : Stereotype [0..*]{subsets Package::packagedElement} (opposite A_ownedStereotype_owningPackage::owningPackage)
-  // References the Stereotypes that are owned by the package_.
+  // References the Stereotypes that are owned by the package.
 }
 
 function addEdge_ownedType(package_: GraphNode, child: GraphNode) {

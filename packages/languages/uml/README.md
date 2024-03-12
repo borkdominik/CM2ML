@@ -19,17 +19,21 @@ Since the complexity of the UML metamodel is high, only the following metamodel 
 - [x] BehavioralFeature
 - [x] ConnectableElement
 - [ ] DeploymentTarget
+  - addEdge_deployedElement
 - [x] Element
 - [x] Feature
 - [x] MultiplicityElement
 - [x] NamedElement
-- [ ] Namespace
+- [x] Namespace
 - [x] PackageableElement
 - [x] ParameterableElement
 - [ ] RedefinableElement
+  - addEdge_redefinedElement
+  - addEdge_redefinitionContext
 - [x] Relationship
 - [x] StructuralFeature
 - [ ] StructuredClassifier
+  - addEdge_role
 - [x] TemplateableElement
 - [x] Type
 - [x] TypedElement

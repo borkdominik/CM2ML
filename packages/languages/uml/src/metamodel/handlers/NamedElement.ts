@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
+import { Stream } from '@yeger/streams'
 
 import { resolve } from '../resolvers/resolve'
 import { Dependency, NamedElement, Namespace, StringExpression } from '../uml-metamodel'
@@ -40,4 +41,11 @@ function addEdge_namespace(namedElement: GraphNode) {
     return
   }
   namedElement.model.addEdge('namespace', namedElement, namespace)
+  namespace.model.addEdge('ownedMember', namespace, namedElement)
+  // TODO/Jan: Check if this can be removed
+  if (Stream.from(namespace.outgoingEdges).find((edge) => edge.tag === 'member' && edge.target === namedElement)) {
+    // Imported Element is already a member
+    return
+  }
+  namespace.model.addEdge('member', namespace, namedElement)
 }
