@@ -12,7 +12,6 @@ export const ExtendHandler = Extend.createHandler(
     const extension = getParentOfType(extend, UseCase)
     const extensionLocations = resolve(extend, 'extensionLocation', { many: true, type: ExtensionPoint })
     if (relationshipsAsEdges) {
-      // TODO/Jan: Validate direction
       return transformNodeToEdgeCallback(extend, extension, extendedCase)
     }
     if (onlyContainmentAssociations) {

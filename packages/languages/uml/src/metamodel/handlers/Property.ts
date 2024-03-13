@@ -107,7 +107,7 @@ function addEdge_opposite(_property: GraphNode) {
   // /opposite : Property [0..1] (opposite A_opposite_property::property)
   // In the case where the Property is one end of a binary association this gives the other end.
 
-  // Added by Association::addEdge_memberEnd
+  // Added by Association::addEdge_opposite
 }
 
 function addEdge_owningAssociation(

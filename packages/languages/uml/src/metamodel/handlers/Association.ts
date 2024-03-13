@@ -10,6 +10,9 @@ export const AssociationHandler = Association.createHandler(
     const memberEnds = resolve(association, 'memberEnd', { many: true, type: Property })
     const navigableOwnedEnds = resolve(association, 'navigableOwnedEnd', { many: true, type: Property })
     const ownedEnds = getOwnedEnds(association)
+    if (!onlyContainmentAssociations) {
+      addEdge_opposite(memberEnds)
+    }
     if (relationshipsAsEdges) {
       return transformNodeToEdgeCallback(association, memberEnds, memberEnds)
     }
@@ -61,12 +64,16 @@ function addEdge_memberEnd(association: GraphNode, memberEnds: GraphNode[]) {
   memberEnds.forEach((memberEnd) => {
     association.model.addEdge('memberEnd', association, memberEnd)
   })
+}
+
+function addEdge_opposite(memberEnds: GraphNode[]) {
   const [first, second] = memberEnds
   const isBinary = memberEnds.length === 2 && first !== undefined && second !== undefined
-  if (isBinary) {
-    first.model.addEdge('opposite', first, second)
-    second.model.addEdge('opposite', second, first)
+  if (!isBinary) {
+    return
   }
+  first.model.addEdge('opposite', first, second)
+  second.model.addEdge('opposite', second, first)
 }
 
 function addEdge_navigableOwnedEnd(association: GraphNode, navigableOwnedEnds: GraphNode[]) {

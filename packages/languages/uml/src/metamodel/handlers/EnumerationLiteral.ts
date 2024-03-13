@@ -31,6 +31,8 @@ function addEdge_classifier(enumerationLiteral: GraphNode, classifier: GraphNode
 }
 
 function addEdge_enumeration(enumerationLiteral: GraphNode, enumeration: GraphNode | undefined) {
+  // enumeration : Enumeration [1..1]{subsets NamedElement::namespace} (opposite Enumeration::ownedLiteral)
+  // The Enumeration that this EnumerationLiteral is a member of.
   if (!enumeration) {
     return
   }

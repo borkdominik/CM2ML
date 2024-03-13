@@ -10,7 +10,6 @@ export const IncludeHandler = Include.createHandler(
     const addition = resolve(include, 'addition', { type: UseCase })
     const includingCase = getParentOfType(include, UseCase)
     if (relationshipsAsEdges) {
-      // TODO/Jan: Validate direction
       return transformNodeToEdgeCallback(include, includingCase, addition)
     }
     if (onlyContainmentAssociations) {

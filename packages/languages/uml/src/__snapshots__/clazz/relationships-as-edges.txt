@@ -253,6 +253,7 @@ _ItfSANIcEe2rY5KN6ehSig -> <class /> -> _LjfcIbSLEe2pkZx4lGC8Ew
 _ItfSANIcEe2rY5KN6ehSig -> <featuringClassifier /> -> _LjfcIbSLEe2pkZx4lGC8Ew
 _ItfSANIcEe2rY5KN6ehSig -> <lowerValue /> -> _Itf5ENIcEe2rY5KN6ehSig
 _ItfSANIcEe2rY5KN6ehSig -> <namespace /> -> _LjfcIbSLEe2pkZx4lGC8Ew
+_ItfSANIcEe2rY5KN6ehSig -> <opposite /> -> _ItggIdIcEe2rY5KN6ehSig
 _ItfSANIcEe2rY5KN6ehSig -> <ownedElement /> -> _Itf5ENIcEe2rY5KN6ehSig
 _ItfSANIcEe2rY5KN6ehSig -> <ownedElement /> -> _ItggINIcEe2rY5KN6ehSig
 _ItfSANIcEe2rY5KN6ehSig -> <owner /> -> _LjfcIbSLEe2pkZx4lGC8Ew
@@ -266,6 +267,7 @@ _ItggIdIcEe2rY5KN6ehSig -> <class /> -> _j12MQL0cEe2besM683MlUA
 _ItggIdIcEe2rY5KN6ehSig -> <featuringClassifier /> -> _j12MQL0cEe2besM683MlUA
 _ItggIdIcEe2rY5KN6ehSig -> <lowerValue /> -> _ItggItIcEe2rY5KN6ehSig
 _ItggIdIcEe2rY5KN6ehSig -> <namespace /> -> _j12MQL0cEe2besM683MlUA
+_ItggIdIcEe2rY5KN6ehSig -> <opposite /> -> _ItfSANIcEe2rY5KN6ehSig
 _ItggIdIcEe2rY5KN6ehSig -> <ownedElement /> -> _ItggItIcEe2rY5KN6ehSig
 _ItggIdIcEe2rY5KN6ehSig -> <ownedElement /> -> _IthHMNIcEe2rY5KN6ehSig
 _ItggIdIcEe2rY5KN6ehSig -> <owner /> -> _j12MQL0cEe2besM683MlUA
@@ -338,6 +340,7 @@ _O3oC8bK1Ee24ffphK9Na6g -> <class /> -> _QE0EkK7gEe2EZoZ5sgiBCg
 _O3oC8bK1Ee24ffphK9Na6g -> <featuringClassifier /> -> _QE0EkK7gEe2EZoZ5sgiBCg
 _O3oC8bK1Ee24ffphK9Na6g -> <lowerValue /> -> _O3oqALK1Ee24ffphK9Na6g
 _O3oC8bK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_O3oC8bK1Ee24ffphK9Na6g -> <opposite /> -> _O3oqArK1Ee24ffphK9Na6g
 _O3oC8bK1Ee24ffphK9Na6g -> <ownedElement /> -> _O3oqALK1Ee24ffphK9Na6g
 _O3oC8bK1Ee24ffphK9Na6g -> <ownedElement /> -> _O3oqAbK1Ee24ffphK9Na6g
 _O3oC8bK1Ee24ffphK9Na6g -> <owner /> -> _QE0EkK7gEe2EZoZ5sgiBCg
@@ -355,6 +358,7 @@ _O3oqArK1Ee24ffphK9Na6g -> <class /> -> _MHjIALK1Ee24ffphK9Na6g
 _O3oqArK1Ee24ffphK9Na6g -> <featuringClassifier /> -> _MHjIALK1Ee24ffphK9Na6g
 _O3oqArK1Ee24ffphK9Na6g -> <lowerValue /> -> _O3oqA7K1Ee24ffphK9Na6g
 _O3oqArK1Ee24ffphK9Na6g -> <namespace /> -> _MHjIALK1Ee24ffphK9Na6g
+_O3oqArK1Ee24ffphK9Na6g -> <opposite /> -> _O3oC8bK1Ee24ffphK9Na6g
 _O3oqArK1Ee24ffphK9Na6g -> <ownedElement /> -> _O3oqA7K1Ee24ffphK9Na6g
 _O3oqArK1Ee24ffphK9Na6g -> <ownedElement /> -> _O3oqBLK1Ee24ffphK9Na6g
 _O3oqArK1Ee24ffphK9Na6g -> <owner /> -> _MHjIALK1Ee24ffphK9Na6g
@@ -444,6 +448,7 @@ _UahDwbK1Ee24ffphK9Na6g -> <class /> -> _QE0EkK7gEe2EZoZ5sgiBCg
 _UahDwbK1Ee24ffphK9Na6g -> <featuringClassifier /> -> _QE0EkK7gEe2EZoZ5sgiBCg
 _UahDwbK1Ee24ffphK9Na6g -> <lowerValue /> -> _Uahq0LK1Ee24ffphK9Na6g
 _UahDwbK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_UahDwbK1Ee24ffphK9Na6g -> <opposite /> -> _UaiR4LK1Ee24ffphK9Na6g
 _UahDwbK1Ee24ffphK9Na6g -> <ownedElement /> -> _Uahq0LK1Ee24ffphK9Na6g
 _UahDwbK1Ee24ffphK9Na6g -> <ownedElement /> -> _Uahq0bK1Ee24ffphK9Na6g
 _UahDwbK1Ee24ffphK9Na6g -> <owner /> -> _QE0EkK7gEe2EZoZ5sgiBCg
@@ -459,6 +464,7 @@ _UaiR4LK1Ee24ffphK9Na6g -> <class /> -> _Mg74YLK1Ee24ffphK9Na6g
 _UaiR4LK1Ee24ffphK9Na6g -> <featuringClassifier /> -> _Mg74YLK1Ee24ffphK9Na6g
 _UaiR4LK1Ee24ffphK9Na6g -> <lowerValue /> -> _UaiR4bK1Ee24ffphK9Na6g
 _UaiR4LK1Ee24ffphK9Na6g -> <namespace /> -> _Mg74YLK1Ee24ffphK9Na6g
+_UaiR4LK1Ee24ffphK9Na6g -> <opposite /> -> _UahDwbK1Ee24ffphK9Na6g
 _UaiR4LK1Ee24ffphK9Na6g -> <ownedElement /> -> _UaiR4bK1Ee24ffphK9Na6g
 _UaiR4LK1Ee24ffphK9Na6g -> <ownedElement /> -> _UaiR4rK1Ee24ffphK9Na6g
 _UaiR4LK1Ee24ffphK9Na6g -> <owner /> -> _Mg74YLK1Ee24ffphK9Na6g
@@ -496,6 +502,7 @@ _VYM0ArK1Ee24ffphK9Na6g -> <class /> -> _M-U_ALK1Ee24ffphK9Na6g
 _VYM0ArK1Ee24ffphK9Na6g -> <featuringClassifier /> -> _M-U_ALK1Ee24ffphK9Na6g
 _VYM0ArK1Ee24ffphK9Na6g -> <lowerValue /> -> _VYNbELK1Ee24ffphK9Na6g
 _VYM0ArK1Ee24ffphK9Na6g -> <namespace /> -> _M-U_ALK1Ee24ffphK9Na6g
+_VYM0ArK1Ee24ffphK9Na6g -> <opposite /> -> _VYMM8bK1Ee24ffphK9Na6g
 _VYM0ArK1Ee24ffphK9Na6g -> <ownedElement /> -> _VYNbELK1Ee24ffphK9Na6g
 _VYM0ArK1Ee24ffphK9Na6g -> <ownedElement /> -> _VYNbEbK1Ee24ffphK9Na6g
 _VYM0ArK1Ee24ffphK9Na6g -> <owner /> -> _M-U_ALK1Ee24ffphK9Na6g
@@ -507,6 +514,7 @@ _VYMM8bK1Ee24ffphK9Na6g -> <class /> -> _QE0EkK7gEe2EZoZ5sgiBCg
 _VYMM8bK1Ee24ffphK9Na6g -> <featuringClassifier /> -> _QE0EkK7gEe2EZoZ5sgiBCg
 _VYMM8bK1Ee24ffphK9Na6g -> <lowerValue /> -> _VYM0ALK1Ee24ffphK9Na6g
 _VYMM8bK1Ee24ffphK9Na6g -> <namespace /> -> _QE0EkK7gEe2EZoZ5sgiBCg
+_VYMM8bK1Ee24ffphK9Na6g -> <opposite /> -> _VYM0ArK1Ee24ffphK9Na6g
 _VYMM8bK1Ee24ffphK9Na6g -> <ownedElement /> -> _VYM0ALK1Ee24ffphK9Na6g
 _VYMM8bK1Ee24ffphK9Na6g -> <ownedElement /> -> _VYM0AbK1Ee24ffphK9Na6g
 _VYMM8bK1Ee24ffphK9Na6g -> <owner /> -> _QE0EkK7gEe2EZoZ5sgiBCg

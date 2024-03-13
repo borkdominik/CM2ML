@@ -10,16 +10,18 @@ export const GeneralizationHandler = Generalization.createHandler(
     const general = resolve(generalization, 'general', { type: Classifier })
     const generalizationSets = resolve(generalization, 'generalizationSet', { many: true, type: GeneralizationSet })
     const specific = getParentOfType(generalization, Classifier)
+    if (!onlyContainmentAssociations) {
+      addEdge_superClass(specific, general)
+    }
     if (relationshipsAsEdges) {
-      // TODO/Jan: Move relationship callbacks to bottom
-      return transformNodeToEdgeCallback(generalization, general, specific)
+      return transformNodeToEdgeCallback(generalization, specific, general)
     }
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_general(generalization, general)
     addEdge_generalizationSet(generalization, generalizationSets)
-    addEdge_specific(generalization, specific, general)
+    addEdge_specific(generalization, specific)
   },
   {
     [Uml.Attributes.isSubstitutable]: 'true',
@@ -45,7 +47,7 @@ function addEdge_generalizationSet(generalization: GraphNode, generalizationSets
   })
 }
 
-function addEdge_specific(generalization: GraphNode, specific: GraphNode | undefined, general: GraphNode | undefined) {
+function addEdge_specific(generalization: GraphNode, specific: GraphNode | undefined) {
   // specific : Classifier [1..1]{subsets DirectedRelationship::source, subsets Element::owner} (opposite Classifier::generalization)
   // The specializing Classifier in the Generalization relationship.
   if (!specific) {
@@ -54,10 +56,14 @@ function addEdge_specific(generalization: GraphNode, specific: GraphNode | undef
   generalization.model.addEdge('specific', generalization, specific)
   generalization.model.addEdge('source', generalization, specific)
   generalization.model.addEdge('relatedElement', generalization, specific)
-  if (!general) {
+}
+
+function addEdge_superClass(specific: GraphNode | undefined, general: GraphNode | undefined) {
+  if (!specific || !general) {
     return
   }
-  if (Class.isAssignable(specific) && Class.isAssignable(general)) {
-    generalization.model.addEdge('superClass', specific, general)
+  if (!Class.isAssignable(specific) || !Class.isAssignable(general)) {
+    return
   }
+  specific.model.addEdge('superClass', specific, general)
 }

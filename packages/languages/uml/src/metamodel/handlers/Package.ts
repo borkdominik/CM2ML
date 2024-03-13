@@ -21,7 +21,9 @@ export const PackageHandler = Package.createHandler(
     package_.children.forEach((child) => {
       addEdge_nestedPackage(package_, child)
       addEdge_ownedStereotype(package_, child)
-      addEdge_ownedType(package_, child)
+    })
+    packagedElements.forEach((packagedElement) => {
+      addEdge_ownedType(package_, packagedElement)
     })
     addEdge_packagedElement(package_, packagedElements)
     addEdge_packageMerge(package_, packageMerges)
@@ -49,9 +51,12 @@ function addEdge_ownedStereotype(_package_: GraphNode, _child: GraphNode) {
   // References the Stereotypes that are owned by the package.
 }
 
-function addEdge_ownedType(package_: GraphNode, child: GraphNode) {
-  if (Type.isAssignable(child)) {
-    package_.model.addEdge('ownedType', package_, child)
+function addEdge_ownedType(package_: GraphNode, packagedElement: GraphNode) {
+  // ♦ /ownedType : Type [0..*]{subsets Package::packagedElement} (opposite Type::package)
+  // References the packaged elements that are Types.
+  if (Type.isAssignable(packagedElement)) {
+    package_.model.addEdge('ownedType', package_, packagedElement)
+    packagedElement.model.addEdge('package', packagedElement, package_)
   }
 }
 

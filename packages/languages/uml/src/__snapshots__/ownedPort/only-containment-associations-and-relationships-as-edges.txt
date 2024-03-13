@@ -31,6 +31,8 @@
 </Model>
 _-Dv9YN_AEe6kj4CCWHMNuw -> <owner /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _-IKzMNu2Ee65YvY_tzBAgQ -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
+_7gC6YNu2Ee65YvY_tzBAgQ -> <generalization xmi:type="Generalization" xmi:id="_OgQboN0aEe6kj4CCWHMNuw" isSubstitutable="true" /> -> _Lr_kQN0aEe6kj4CCWHMNuw
+_7gC6YNu2Ee65YvY_tzBAgQ -> <generalization xmi:type="Generalization" xmi:id="_myJ5QN0aEe6kj4CCWHMNuw" isSubstitutable="true" /> -> _f9gVoN0aEe6kj4CCWHMNuw
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _-IKzMNu2Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _Q2FY8Nu5Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedElement /> -> _ZNSfANu6Ee65YvY_tzBAgQ
@@ -42,7 +44,6 @@ _7qZgYN_AEe6kj4CCWHMNuw -> <owner /> -> _yoiHINu2Ee65YvY_tzBAgQ
 _COyacN_BEe6kj4CCWHMNuw -> <ownedElement /> -> _E1syUN_BEe6kj4CCWHMNuw
 _COyacN_BEe6kj4CCWHMNuw -> <owner /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _E1syUN_BEe6kj4CCWHMNuw -> <owner /> -> _COyacN_BEe6kj4CCWHMNuw
-_Lr_kQN0aEe6kj4CCWHMNuw -> <generalization xmi:type="Generalization" xmi:id="_OgQboN0aEe6kj4CCWHMNuw" isSubstitutable="true" /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _Lr_kQN0aEe6kj4CCWHMNuw -> <ownedElement /> -> _RBlv8N0aEe6kj4CCWHMNuw
 _Lr_kQN0aEe6kj4CCWHMNuw -> <owner /> -> _yoiHINu2Ee65YvY_tzBAgQ
 _Q2FY8Nu5Ee65YvY_tzBAgQ -> <ownedElement /> -> _zNKW0Nu5Ee65YvY_tzBAgQ
@@ -54,7 +55,6 @@ _ZNSfANu6Ee65YvY_tzBAgQ -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _adJScNu8Ee65YvY_tzBAgQ -> <ownedElement /> -> _cJ36ANu8Ee65YvY_tzBAgQ
 _adJScNu8Ee65YvY_tzBAgQ -> <owner /> -> _ZNSfANu6Ee65YvY_tzBAgQ
 _cJ36ANu8Ee65YvY_tzBAgQ -> <owner /> -> _adJScNu8Ee65YvY_tzBAgQ
-_f9gVoN0aEe6kj4CCWHMNuw -> <generalization xmi:type="Generalization" xmi:id="_myJ5QN0aEe6kj4CCWHMNuw" isSubstitutable="true" /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _f9gVoN0aEe6kj4CCWHMNuw -> <ownedElement /> -> _iR3k8N0aEe6kj4CCWHMNuw
 _f9gVoN0aEe6kj4CCWHMNuw -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _fmHpUNu6Ee65YvY_tzBAgQ -> <ownedElement /> -> _jZl68Nu6Ee65YvY_tzBAgQ

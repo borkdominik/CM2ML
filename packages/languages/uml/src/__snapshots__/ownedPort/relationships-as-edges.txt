@@ -43,6 +43,8 @@ _7gC6YNu2Ee65YvY_tzBAgQ -> <feature /> -> _Q2FY8Nu5Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <feature /> -> _ZNSfANu6Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <general /> -> _Lr_kQN0aEe6kj4CCWHMNuw
 _7gC6YNu2Ee65YvY_tzBAgQ -> <general /> -> _f9gVoN0aEe6kj4CCWHMNuw
+_7gC6YNu2Ee65YvY_tzBAgQ -> <generalization xmi:type="Generalization" xmi:id="_OgQboN0aEe6kj4CCWHMNuw" isSubstitutable="true" /> -> _Lr_kQN0aEe6kj4CCWHMNuw
+_7gC6YNu2Ee65YvY_tzBAgQ -> <generalization xmi:type="Generalization" xmi:id="_myJ5QN0aEe6kj4CCWHMNuw" isSubstitutable="true" /> -> _f9gVoN0aEe6kj4CCWHMNuw
 _7gC6YNu2Ee65YvY_tzBAgQ -> <inheritedMember /> -> _RBlv8N0aEe6kj4CCWHMNuw
 _7gC6YNu2Ee65YvY_tzBAgQ -> <inheritedMember /> -> _iR3k8N0aEe6kj4CCWHMNuw
 _7gC6YNu2Ee65YvY_tzBAgQ -> <member /> -> _-IKzMNu2Ee65YvY_tzBAgQ
@@ -70,6 +72,8 @@ _7gC6YNu2Ee65YvY_tzBAgQ -> <ownedPort /> -> _-IKzMNu2Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <owner /> -> _yoiHINu2Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <package /> -> _yoiHINu2Ee65YvY_tzBAgQ
 _7gC6YNu2Ee65YvY_tzBAgQ -> <part /> -> _-IKzMNu2Ee65YvY_tzBAgQ
+_7gC6YNu2Ee65YvY_tzBAgQ -> <superClass /> -> _Lr_kQN0aEe6kj4CCWHMNuw
+_7gC6YNu2Ee65YvY_tzBAgQ -> <superClass /> -> _f9gVoN0aEe6kj4CCWHMNuw
 _7qZgYN_AEe6kj4CCWHMNuw -> <member /> -> _-Dv9YN_AEe6kj4CCWHMNuw
 _7qZgYN_AEe6kj4CCWHMNuw -> <member /> -> _COyacN_BEe6kj4CCWHMNuw
 _7qZgYN_AEe6kj4CCWHMNuw -> <namespace /> -> _yoiHINu2Ee65YvY_tzBAgQ
@@ -92,10 +96,8 @@ _COyacN_BEe6kj4CCWHMNuw -> <owner /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _COyacN_BEe6kj4CCWHMNuw -> <package /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _E1syUN_BEe6kj4CCWHMNuw -> <namespace /> -> _COyacN_BEe6kj4CCWHMNuw
 _E1syUN_BEe6kj4CCWHMNuw -> <owner /> -> _COyacN_BEe6kj4CCWHMNuw
-_E1syUN_BEe6kj4CCWHMNuw -> <package /> -> _7qZgYN_AEe6kj4CCWHMNuw
 _Lr_kQN0aEe6kj4CCWHMNuw -> <attribute /> -> _RBlv8N0aEe6kj4CCWHMNuw
 _Lr_kQN0aEe6kj4CCWHMNuw -> <feature /> -> _RBlv8N0aEe6kj4CCWHMNuw
-_Lr_kQN0aEe6kj4CCWHMNuw -> <generalization xmi:type="Generalization" xmi:id="_OgQboN0aEe6kj4CCWHMNuw" isSubstitutable="true" /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _Lr_kQN0aEe6kj4CCWHMNuw -> <member /> -> _RBlv8N0aEe6kj4CCWHMNuw
 _Lr_kQN0aEe6kj4CCWHMNuw -> <namespace /> -> _yoiHINu2Ee65YvY_tzBAgQ
 _Lr_kQN0aEe6kj4CCWHMNuw -> <ownedAttribute /> -> _RBlv8N0aEe6kj4CCWHMNuw
@@ -139,14 +141,12 @@ _cJ36ANu8Ee65YvY_tzBAgQ -> <owner /> -> _adJScNu8Ee65YvY_tzBAgQ
 _cJ36ANu8Ee65YvY_tzBAgQ -> <parameteredElement /> -> _ZNSfANu6Ee65YvY_tzBAgQ
 _f9gVoN0aEe6kj4CCWHMNuw -> <attribute /> -> _iR3k8N0aEe6kj4CCWHMNuw
 _f9gVoN0aEe6kj4CCWHMNuw -> <feature /> -> _iR3k8N0aEe6kj4CCWHMNuw
-_f9gVoN0aEe6kj4CCWHMNuw -> <generalization xmi:type="Generalization" xmi:id="_myJ5QN0aEe6kj4CCWHMNuw" isSubstitutable="true" /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _f9gVoN0aEe6kj4CCWHMNuw -> <member /> -> _iR3k8N0aEe6kj4CCWHMNuw
 _f9gVoN0aEe6kj4CCWHMNuw -> <namespace /> -> _7gC6YNu2Ee65YvY_tzBAgQ
 _f9gVoN0aEe6kj4CCWHMNuw -> <ownedAttribute /> -> _iR3k8N0aEe6kj4CCWHMNuw
 _f9gVoN0aEe6kj4CCWHMNuw -> <ownedElement /> -> _iR3k8N0aEe6kj4CCWHMNuw
 _f9gVoN0aEe6kj4CCWHMNuw -> <ownedMember /> -> _iR3k8N0aEe6kj4CCWHMNuw
 _f9gVoN0aEe6kj4CCWHMNuw -> <owner /> -> _7gC6YNu2Ee65YvY_tzBAgQ
-_f9gVoN0aEe6kj4CCWHMNuw -> <package /> -> _yoiHINu2Ee65YvY_tzBAgQ
 _fmHpUNu6Ee65YvY_tzBAgQ -> <lowerValue /> -> _jaGRQNu6Ee65YvY_tzBAgQ
 _fmHpUNu6Ee65YvY_tzBAgQ -> <namespace /> -> _ZNSfANu6Ee65YvY_tzBAgQ
 _fmHpUNu6Ee65YvY_tzBAgQ -> <operation /> -> _ZNSfANu6Ee65YvY_tzBAgQ

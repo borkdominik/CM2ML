@@ -11,7 +11,7 @@ export const ProfileApplicationHandler = ProfileApplication.createHandler(
     const applyingPackage = resolve(profileApplication, 'applyingPackage', { type: Package }) ?? getParentOfType(profileApplication, Package)
     if (relationshipsAsEdges) {
       // TODO/Jan Validate edge direction
-      return transformNodeToEdgeCallback(profileApplication, applyingPackage, appliedProfile)
+      return transformNodeToEdgeCallback(profileApplication, appliedProfile, applyingPackage)
     }
     if (onlyContainmentAssociations) {
       return
