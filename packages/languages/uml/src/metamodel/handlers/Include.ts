@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
+import { addEdge_relatedElement } from '../resolvers/relatedElement'
 import { resolve } from '../resolvers/resolve'
 import { transformNodeToEdgeCallback } from '../uml'
 import { Include, UseCase } from '../uml-metamodel'
@@ -17,6 +18,7 @@ export const IncludeHandler = Include.createHandler(
     }
     addEdge_addition(include, addition)
     addEdge_includingCase(include, includingCase)
+    addEdge_relatedElement(include, includingCase, addition)
   },
 )
 
@@ -28,7 +30,6 @@ function addEdge_addition(include: GraphNode, addition: GraphNode | undefined) {
   }
   include.model.addEdge('addition', include, addition)
   include.model.addEdge('target', include, addition)
-  include.model.addEdge('relatedElement', include, addition)
 }
 
 function addEdge_includingCase(include: GraphNode, includingCase: GraphNode | undefined) {
@@ -39,5 +40,4 @@ function addEdge_includingCase(include: GraphNode, includingCase: GraphNode | un
   }
   include.model.addEdge('includingCase', include, includingCase)
   include.model.addEdge('source', include, includingCase)
-  include.model.addEdge('relatedElement', include, includingCase)
 }

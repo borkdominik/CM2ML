@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
+import { addEdge_relatedElement } from '../resolvers/relatedElement'
 import { resolve } from '../resolvers/resolve'
 import { Uml, transformNodeToEdgeCallback } from '../uml'
 import { Package, Profile, ProfileApplication } from '../uml-metamodel'
@@ -18,6 +19,7 @@ export const ProfileApplicationHandler = ProfileApplication.createHandler(
     }
     addEdge_appliedProfile(profileApplication, appliedProfile)
     addEdge_applyingPackage(profileApplication, applyingPackage)
+    addEdge_relatedElement(profileApplication, appliedProfile, applyingPackage)
   },
   {
     [Uml.Attributes.isStrict]: 'true',
@@ -32,7 +34,6 @@ function addEdge_appliedProfile(profileApplication: GraphNode, appliedProfile: G
   }
   profileApplication.model.addEdge('appliedProfile', profileApplication, appliedProfile)
   profileApplication.model.addEdge('target', profileApplication, appliedProfile)
-  profileApplication.model.addEdge('relatedElement', profileApplication, appliedProfile)
 }
 
 function addEdge_applyingPackage(profileApplication: GraphNode, applyingPackage: GraphNode | undefined) {
@@ -43,5 +44,4 @@ function addEdge_applyingPackage(profileApplication: GraphNode, applyingPackage:
   }
   profileApplication.model.addEdge('applyingPackage', profileApplication, applyingPackage)
   profileApplication.model.addEdge('source', profileApplication, applyingPackage)
-  profileApplication.model.addEdge('relatedElement', profileApplication, applyingPackage)
 }

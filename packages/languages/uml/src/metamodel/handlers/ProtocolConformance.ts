@@ -1,16 +1,20 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { addEdge_relatedElement } from '../resolvers/relatedElement'
 import { ProtocolConformance } from '../uml-metamodel'
 
 export const ProtocolConformanceHandler = ProtocolConformance.createHandler(
   (protocolConformance, { onlyContainmentAssociations }) => {
+    // TODO/Association
+    const generalMachine = undefined
+    // TODO/Association
+    const specificMachine = undefined
     if (onlyContainmentAssociations) {
       return
     }
-    // TODO/Association
-    addEdge_generalMachine(protocolConformance, undefined)
-    // TODO/Association
-    addEdge_specificMachine(protocolConformance, undefined)
+    addEdge_generalMachine(protocolConformance, generalMachine)
+    addEdge_specificMachine(protocolConformance, specificMachine)
+    addEdge_relatedElement(protocolConformance, generalMachine, specificMachine)
   },
 )
 
@@ -22,7 +26,6 @@ function addEdge_generalMachine(protocolConformance: GraphNode, generalMachine: 
   }
   protocolConformance.model.addEdge('generalMachine', protocolConformance, generalMachine)
   protocolConformance.model.addEdge('target', protocolConformance, generalMachine)
-  protocolConformance.model.addEdge('relatedElement', protocolConformance, generalMachine)
 }
 
 function addEdge_specificMachine(protocolConformance: GraphNode, specificMachine: GraphNode | undefined) {
@@ -33,5 +36,4 @@ function addEdge_specificMachine(protocolConformance: GraphNode, specificMachine
   }
   protocolConformance.model.addEdge('specificMachine', protocolConformance, specificMachine)
   protocolConformance.model.addEdge('source', protocolConformance, specificMachine)
-  protocolConformance.model.addEdge('relatedElement', protocolConformance, specificMachine)
 }

@@ -3,6 +3,7 @@ import {
   getParentOfType,
 } from '@cm2ml/metamodel'
 
+import { addEdge_relatedElement } from '../resolvers/relatedElement'
 import { resolve } from '../resolvers/resolve'
 import { Uml, transformNodeToEdgeCallback } from '../uml'
 import { Namespace, Package, PackageImport } from '../uml-metamodel'
@@ -19,6 +20,7 @@ export const PackageImportHandler = PackageImport.createHandler(
     }
     addEdge_importedPackage(packageImport, importedPackage)
     addEdge_importingNamespace(packageImport, importingNamespace)
+    addEdge_relatedElement(packageImport, importingNamespace, importedPackage)
   },
   {
     [Uml.Attributes.visibility]: 'public',
@@ -33,7 +35,6 @@ function addEdge_importedPackage(packageImport: GraphNode, importedPackage: Grap
   }
   packageImport.model.addEdge('importedPackage', packageImport, importedPackage)
   packageImport.model.addEdge('target', packageImport, importedPackage)
-  packageImport.model.addEdge('relatedElement', packageImport, importedPackage)
 }
 
 function addEdge_importingNamespace(packageImport: GraphNode, importingNamespace: GraphNode | undefined) {
@@ -48,5 +49,4 @@ function addEdge_importingNamespace(packageImport: GraphNode, importingNamespace
     importingNamespace,
   )
   packageImport.model.addEdge('source', packageImport, importingNamespace)
-  packageImport.model.addEdge('relatedElement', packageImport, importingNamespace)
 }

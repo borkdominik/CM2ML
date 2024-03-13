@@ -2,7 +2,9 @@ import type { GraphNode } from '@cm2ml/ir'
 import {
   getParentOfType,
 } from '@cm2ml/metamodel'
+import { Stream } from '@yeger/streams'
 
+import { addEdge_relatedElement } from '../resolvers/relatedElement'
 import { resolve } from '../resolvers/resolve'
 import { Uml, transformNodeToEdgeCallback } from '../uml'
 import { ElementImport, Namespace, PackageableElement } from '../uml-metamodel'
@@ -22,6 +24,7 @@ export const ElementImportHandler = ElementImport.createHandler(
     }
     addEdge_importedElement(elementImport, importedElement)
     addEdge_importingNamespace(elementImport, importingNamespace)
+    addEdge_relatedElement(elementImport, importingNamespace, importedElement)
   },
   {
     [Uml.Attributes.visibility]: 'public',
@@ -36,7 +39,6 @@ function addEdge_importedElement(elementImport: GraphNode, importedElement: Grap
   }
   elementImport.model.addEdge('importedElement', elementImport, importedElement)
   elementImport.model.addEdge('target', elementImport, importedElement)
-  elementImport.model.addEdge('relatedElement', elementImport, importedElement)
 }
 
 function addEdge_importingNamespace(elementImport: GraphNode, importingNamespace: GraphNode | undefined) {
@@ -51,13 +53,17 @@ function addEdge_importingNamespace(elementImport: GraphNode, importingNamespace
     importingNamespace,
   )
   elementImport.model.addEdge('source', elementImport, importingNamespace)
-  elementImport.model.addEdge('relatedElement', elementImport, importingNamespace)
 }
 
 function addEdge_importedMember_member(importingNamespace: GraphNode | undefined, importedElement: GraphNode | undefined) {
   if (!importingNamespace || !importedElement) {
     return
   }
-  importingNamespace.model.addEdge('member', importingNamespace, importedElement)
+
   importingNamespace.model.addEdge('importedMember', importingNamespace, importedElement)
+  if (Stream.from(importingNamespace.outgoingEdges).find((edge) => edge.tag === 'member' && edge.target === importedElement)) {
+    // importedElement is already a member
+    return
+  }
+  importingNamespace.model.addEdge('member', importingNamespace, importedElement)
 }

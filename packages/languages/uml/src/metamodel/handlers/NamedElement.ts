@@ -43,7 +43,7 @@ function addEdge_namespace(namedElement: GraphNode) {
   namedElement.model.addEdge('namespace', namedElement, namespace)
   namespace.model.addEdge('ownedMember', namespace, namedElement)
   if (Stream.from(namespace.outgoingEdges).find((edge) => edge.tag === 'member' && edge.target === namedElement)) {
-    // Imported Element is already a member
+    // namedElement is already a member
     return
   }
   namespace.model.addEdge('member', namespace, namedElement)

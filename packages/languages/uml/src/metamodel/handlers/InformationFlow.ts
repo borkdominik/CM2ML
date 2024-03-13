@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { addEdge_relatedElement } from '../resolvers/relatedElement'
 import { resolve } from '../resolvers/resolve'
 import { transformNodeToEdgeCallback } from '../uml'
 import { Classifier, Connector, InformationFlow, NamedElement } from '../uml-metamodel'
@@ -23,6 +24,7 @@ export const InformationFlowHandler = InformationFlow.createHandler(
     addEdge_realizingActivityEdge(informationFlow)
     addEdge_realizingConnector(informationFlow, realizingConnectors)
     addEdge_realizingMessage(informationFlow)
+    addEdge_relatedElement(informationFlow, ...informationSources, ...informationTargets)
   },
 )
 
@@ -40,7 +42,6 @@ function addEdge_informationSource(informationFlow: GraphNode, informationSource
   informationSources.forEach((namedElement) => {
     informationFlow.model.addEdge('informationSource', informationFlow, namedElement)
     informationFlow.model.addEdge('source', informationFlow, namedElement)
-    informationFlow.model.addEdge('relatedElement', informationFlow, namedElement)
   })
 }
 
@@ -50,7 +51,6 @@ function addEdge_informationTarget(informationFlow: GraphNode, informationTarget
   informationTargets.forEach((namedElement) => {
     informationFlow.model.addEdge('informationTarget', informationFlow, namedElement)
     informationFlow.model.addEdge('target', informationFlow, namedElement)
-    informationFlow.model.addEdge('relatedElement', informationFlow, namedElement)
   })
 }
 

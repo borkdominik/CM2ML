@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
+import { addEdge_relatedElement } from '../resolvers/relatedElement'
 import { resolve } from '../resolvers/resolve'
 import { Uml, transformNodeToEdgeCallback } from '../uml'
 import { Class, Classifier, Generalization, GeneralizationSet } from '../uml-metamodel'
@@ -22,6 +23,7 @@ export const GeneralizationHandler = Generalization.createHandler(
     addEdge_general(generalization, general)
     addEdge_generalizationSet(generalization, generalizationSets)
     addEdge_specific(generalization, specific)
+    addEdge_relatedElement(generalization, specific, general)
   },
   {
     [Uml.Attributes.isSubstitutable]: 'true',
@@ -36,7 +38,6 @@ function addEdge_general(generalization: GraphNode, general: GraphNode | undefin
   }
   generalization.model.addEdge('general', generalization, general)
   generalization.model.addEdge('target', generalization, general)
-  generalization.model.addEdge('relatedElement', generalization, general)
 }
 
 function addEdge_generalizationSet(generalization: GraphNode, generalizationSets: GraphNode[]) {
@@ -55,7 +56,6 @@ function addEdge_specific(generalization: GraphNode, specific: GraphNode | undef
   }
   generalization.model.addEdge('specific', generalization, specific)
   generalization.model.addEdge('source', generalization, specific)
-  generalization.model.addEdge('relatedElement', generalization, specific)
 }
 
 function addEdge_superClass(specific: GraphNode | undefined, general: GraphNode | undefined) {

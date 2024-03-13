@@ -45,7 +45,9 @@ export const ClassifierHandler = Classifier.createHandler(
 function getGeneralClassifiers(generalizations: GraphNode[]) {
   return Stream.from(generalizations)
     .map((generalization) => resolve(generalization, 'general', { removeAttribute: false, type: Classifier }))
-    .filterNonNull().toArray()
+    .filterNonNull()
+    .distinct()
+    .toArray()
 }
 
 function addEdge_attribute(_classifier: GraphNode) {

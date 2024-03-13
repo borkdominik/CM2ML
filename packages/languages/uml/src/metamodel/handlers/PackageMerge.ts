@@ -3,6 +3,7 @@ import {
   getParentOfType,
 } from '@cm2ml/metamodel'
 
+import { addEdge_relatedElement } from '../resolvers/relatedElement'
 import { resolve } from '../resolvers/resolve'
 import { transformNodeToEdgeCallback } from '../uml'
 import { Package, PackageMerge } from '../uml-metamodel'
@@ -19,6 +20,7 @@ export const PackageMergeHandler = PackageMerge.createHandler(
     }
     addEdge_mergedPackage(packageMerge, mergedPackage)
     addEdge_receivingPackage(packageMerge, receivingPackage)
+    addEdge_relatedElement(packageMerge, receivingPackage, mergedPackage)
   },
 )
 
@@ -30,7 +32,6 @@ function addEdge_mergedPackage(packageMerge: GraphNode, mergedPackage: GraphNode
   }
   packageMerge.model.addEdge('mergedPackage', packageMerge, mergedPackage)
   packageMerge.model.addEdge('target', packageMerge, mergedPackage)
-  packageMerge.model.addEdge('relatedElement', packageMerge, mergedPackage)
 }
 
 function addEdge_receivingPackage(packageMerge: GraphNode, receivingPackage: GraphNode | undefined) {
@@ -41,5 +42,4 @@ function addEdge_receivingPackage(packageMerge: GraphNode, receivingPackage: Gra
   }
   packageMerge.model.addEdge('receivingPackage', packageMerge, receivingPackage)
   packageMerge.model.addEdge('source', packageMerge, receivingPackage)
-  packageMerge.model.addEdge('relatedElement', packageMerge, receivingPackage)
 }

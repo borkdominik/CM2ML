@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
+import { addEdge_relatedElement } from '../resolvers/relatedElement'
 import { resolve } from '../resolvers/resolve'
 import { transformNodeToEdgeCallback } from '../uml'
 import { Constraint, Extend, ExtensionPoint, UseCase } from '../uml-metamodel'
@@ -21,6 +22,7 @@ export const ExtendHandler = Extend.createHandler(
     addEdge_extendedCase(extend, extendedCase)
     addEdge_extension(extend, extension)
     addEdge_extensionLocation(extend, extensionLocations)
+    addEdge_relatedElement(extend, extendedCase, extension)
   },
 )
 
@@ -41,7 +43,6 @@ function addEdge_extendedCase(extend: GraphNode, extendedCase: GraphNode | undef
   }
   extend.model.addEdge('extendedCase', extend, extendedCase)
   extend.model.addEdge('target', extend, extendedCase)
-  extend.model.addEdge('relatedElement', extend, extendedCase)
 }
 
 function addEdge_extension(extend: GraphNode, extension: GraphNode | undefined) {
@@ -52,7 +53,6 @@ function addEdge_extension(extend: GraphNode, extension: GraphNode | undefined) 
   }
   extend.model.addEdge('extension', extend, extension)
   extend.model.addEdge('source', extend, extension)
-  extend.model.addEdge('relatedElement', extend, extension)
 }
 
 function addEdge_extensionLocation(extend: GraphNode, extensionLocations: GraphNode[]) {
