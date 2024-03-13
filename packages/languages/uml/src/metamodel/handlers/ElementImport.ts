@@ -2,7 +2,6 @@ import type { GraphNode } from '@cm2ml/ir'
 import {
   getParentOfType,
 } from '@cm2ml/metamodel'
-import { Stream } from '@yeger/streams'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml, transformNodeToEdgeCallback } from '../uml'
@@ -57,11 +56,6 @@ function addEdge_importingNamespace(elementImport: GraphNode, importingNamespace
 
 function addEdge_importedMember_member(importingNamespace: GraphNode | undefined, importedElement: GraphNode | undefined) {
   if (!importingNamespace || !importedElement) {
-    return
-  }
-  // TODO/Jan: Check if this can be removed
-  if (Stream.from(importingNamespace.outgoingEdges).find((edge) => edge.tag === 'member' && edge.target === importedElement)) {
-    // Imported Element is already a member
     return
   }
   importingNamespace.model.addEdge('member', importingNamespace, importedElement)

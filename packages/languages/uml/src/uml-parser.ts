@@ -5,7 +5,7 @@ import { createRefiner } from '@cm2ml/metamodel-refiner'
 import { compose, definePlugin } from '@cm2ml/plugin'
 import { createXmiParser } from '@cm2ml/xmi-parser'
 
-import { resolvePackageMembers } from './metamodel/resolvers/packageMembers'
+import { resolveImportedMembers } from './metamodel/resolvers/importedMembers'
 import { Uml } from './metamodel/uml'
 import { inferUmlHandler } from './metamodel/uml-handler-registry'
 import { validateUmlModel } from './metamodel/uml-validations'
@@ -48,7 +48,7 @@ const UmlRefiner = definePlugin({
     const model = refine(input, parameters)
     generateIds(model)
     if (!parameters.onlyContainmentAssociations) {
-      resolvePackageMembers(model, parameters.relationshipsAsEdges)
+      resolveImportedMembers(model, parameters.relationshipsAsEdges)
     }
     removeNonUmlAttributes(model)
     validateUmlModel(model, parameters)
