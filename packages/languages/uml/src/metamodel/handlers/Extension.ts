@@ -5,9 +5,9 @@ import { Class, Extension, ExtensionEnd, Property } from '../uml-metamodel'
 
 export const ExtensionHandler = Extension.createHandler(
   (extension, { onlyContainmentAssociations }) => {
-    // Do not remove attribute, because it is needed for the Association generalization
+    // Do not remove attributes, because they are needed for the Association generalization
     const memberEnds = resolve(extension, 'memberEnd', { removeAttribute: false, many: true, type: Property })
-    const ownedEnd = resolve(extension, 'ownedEnd', { type: ExtensionEnd })
+    const ownedEnd = resolve(extension, 'ownedEnd', { removeAttribute: false, type: ExtensionEnd })
     if (onlyContainmentAssociations) {
       return
     }

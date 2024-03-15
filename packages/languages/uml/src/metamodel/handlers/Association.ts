@@ -7,14 +7,16 @@ import { Association, Extension, Property, Type } from '../uml-metamodel'
 
 export const AssociationHandler = Association.createHandler(
   (association, { onlyContainmentAssociations, relationshipsAsEdges }) => {
-    const memberEnds = resolve(association, 'memberEnd', { many: true, type: Property })
     const navigableOwnedEnds = resolve(association, 'navigableOwnedEnd', { many: true, type: Property })
-    const ownedEnds = getOwnedEnds(association)
+    const resolvedOwnedEnds = resolve(association, 'ownedEnd', { many: true, type: Property })
+    const resolvedMemberEnds = resolve(association, 'memberEnd', { many: true, type: Property })
+    const ownedEnds = Stream.from(resolvedOwnedEnds).concat(navigableOwnedEnds).distinct().toArray()
+    const memberEnds = Stream.from(resolvedMemberEnds).concat(ownedEnds).distinct().toArray()
     if (!onlyContainmentAssociations) {
-      addEdge_opposite(memberEnds)
+      addEdge_opposite(resolvedMemberEnds)
     }
     if (relationshipsAsEdges) {
-      return transformNodeToEdgeCallback(association, memberEnds, memberEnds)
+      return transformNodeToEdgeCallback(association, resolvedMemberEnds, resolvedMemberEnds)
     }
     if (onlyContainmentAssociations) {
       return
@@ -28,14 +30,6 @@ export const AssociationHandler = Association.createHandler(
     [Uml.Attributes.isDerived]: 'false',
   },
 )
-
-function getOwnedEnds(association: GraphNode) {
-  if (Extension.isAssignable(association)) {
-    // Extension redefines the ownedEnd attribute, hence we have to return here or end up with duplicate edges
-    return []
-  }
-  return resolve(association, 'ownedEnd', { many: true, type: Property })
-}
 
 // TODO/Jan: Just types of memberEnds, or also other ends? (navigationOwnedEnds, ownedEnds)
 function addEdge_endType(association: GraphNode, memberEnds: GraphNode[]) {
@@ -79,15 +73,19 @@ function addEdge_opposite(memberEnds: GraphNode[]) {
 function addEdge_navigableOwnedEnd(association: GraphNode, navigableOwnedEnds: GraphNode[]) {
   // navigableOwnedEnd: Property[0..*]{subsets Association:: ownedEnd } (opposite A_navigableOwnedEnd_association::association)
   // The navigable ends that are owned by the Association itself.
-  navigableOwnedEnds.forEach((navigableOwnedEnd) =>
-    association.model.addEdge('navigableOwnedEnds', association, navigableOwnedEnd),
-  )
+  navigableOwnedEnds.forEach((navigableOwnedEnd) => {
+    association.model.addEdge('navigableOwnedEnds', association, navigableOwnedEnd)
+  })
 }
 
 function addEdge_ownedEnd(association: GraphNode, ownedEnds: GraphNode[]) {
+  if (Extension.isAssignable(association)) {
+    // Extension redefines ownedEnd, so we don't want to add it again
+    return
+  }
   // ♦ ownedEnd : Property [0..*]{ordered, subsets Classifier::feature, subsets A_redefinitionContext_redefinableElement::redefinableElement, subsets Association::memberEnd, subsets Namespace::ownedMember} (opposite Property::owningAssociation)
   // The ends that are owned by the Association itself.
-  ownedEnds.forEach((ownedEnd) =>
-    association.model.addEdge('ownedEnd', association, ownedEnd),
-  )
+  ownedEnds.forEach((ownedEnd) => {
+    association.model.addEdge('ownedEnd', association, ownedEnd)
+  })
 }
