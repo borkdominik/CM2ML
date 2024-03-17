@@ -31,7 +31,7 @@ export function resolveImportedMembers(model: GraphModel, relationshipsAsEdges: 
     model.debug('Parser', `Resolving package members, iteration ${iterations++}`)
     newMembersResolved = false
     namespacesWithPackageImports.forEach(([namespace, importedPackages]) => {
-      model.debug('Parser', `Resolving package members for ${namespace.id} from ${importedPackages.length} imported packages`)
+      model.debug('Parser', `Resolving package members for ${namespace.id} from ${importedPackages.length} imported package(s)`)
       Stream.from(importedPackages)
         .flatMap(getMembersOfNamespace)
         .forEach((importedMember) => {

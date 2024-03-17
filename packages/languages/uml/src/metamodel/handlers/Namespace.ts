@@ -37,7 +37,7 @@ function addEdge_importedMember(_namespace: GraphNode, _elementImports: GraphNod
   // /importedMember : PackageableElement [0..*]{subsets Namespace::member} (opposite A_importedMember_namespace::namespace)
   // References the PackageableElements that are members of this Namespace as a result of either PackageImports or ElementImports.
 
-  // Added by ElementImportHandler::addEdge_importedMember_member, resolvePackageImports
+  // Added by ElementImportHandler::addEdge_importedMember_member, resolveImportedMembers
 }
 
 function addEdge_member(_namespace: GraphNode) {

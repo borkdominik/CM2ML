@@ -3,7 +3,7 @@ import { Stream } from '@yeger/streams'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Classifier, ClassifierTemplateParameter, CollaborationUse, Generalization, GeneralizationSet, NamedElement, RedefinableTemplateSignature, Substitution, UseCase } from '../uml-metamodel'
+import { Classifier, ClassifierTemplateParameter, CollaborationUse, Generalization, GeneralizationSet, RedefinableTemplateSignature, Substitution, UseCase } from '../uml-metamodel'
 
 export const ClassifierHandler = Classifier.createHandler(
   (classifier, { onlyContainmentAssociations }) => {
@@ -26,7 +26,7 @@ export const ClassifierHandler = Classifier.createHandler(
     addEdge_feature(classifier)
     addEdge_general(classifier, generalClassifiers)
     addEdge_generalization(classifier, generalizations)
-    addEdge_inheritedMember(classifier, generalClassifiers)
+    addEdge_inheritedMember(classifier)
     addEdge_ownedTemplateSignature(classifier, ownedTemplateSignature)
     addEdge_ownedUseCase(classifier, ownedUseCases)
     addEdge_powertypeExtent(classifier, powertypeExtents)
@@ -88,21 +88,11 @@ function addEdge_generalization(classifier: GraphNode, generalizations: GraphNod
   })
 }
 
-// TODO/Jan: Run this after refining, just like importedMember?
-function addEdge_inheritedMember(classifier: GraphNode, generalClassifiers: GraphNode[]) {
+function addEdge_inheritedMember(_classifier: GraphNode) {
   // /inheritedMember : NamedElement [0..*]{subsets Namespace::member} (opposite A_inheritedMember_inheritingClassifier::inheritingClassifier)
   // All elements inherited by this Classifier from its general Classifiers.
-  Stream.from(generalClassifiers)
-    .flatMap((generalClassifier) => {
-      const processedInheritedMembers = Stream.from(generalClassifier.outgoingEdges).filter((edge) => edge.tag === 'member').map((edge) => edge.target)
-      const unprocessedInheritedMembers = Stream.from(generalClassifier.children).filter((child) => NamedElement.isAssignable(child))
-      return processedInheritedMembers.concat(unprocessedInheritedMembers)
-    })
-    .distinct()
-    .forEach((inheritedMember) => {
-      classifier.model.addEdge('inheritedMember', classifier, inheritedMember)
-      classifier.model.addEdge('member', classifier, inheritedMember)
-    })
+
+  // Added by resolveImportedMembers
 }
 
 function addEdge_ownedTemplateSignature(classifier: GraphNode, ownedTemplateSignature: GraphNode | undefined) {
