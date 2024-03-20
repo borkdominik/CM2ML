@@ -7,6 +7,7 @@ export const DeploymentHandler = Deployment.createHandler(
   (deployment, { onlyContainmentAssociations }) => {
     const configurations = resolve(deployment, 'configuration', { many: true, type: DeploymentSpecification })
     const deployedArtifacts = resolve(deployment, 'deployedArtifact', { many: true, type: DeployedArtifact })
+    addAttribute_supplier(deployment, deployedArtifacts)
     if (onlyContainmentAssociations) {
       return
     }
@@ -32,8 +33,21 @@ function addEdge_deployedArtifact(deployment: GraphNode, deployedArtifacts: Grap
   })
 }
 
+/**
+ * This function sets a temporary supplier-attribute, which is consumed by the DependencyHandler
+ */
+function addAttribute_supplier(deployment: GraphNode, deployedArtifacts: GraphNode[]) {
+  deployedArtifacts.forEach((deployedArtifact) => {
+    const deployedArtifactId = deployedArtifact.id
+    if (deployedArtifactId) {
+      deployment.addAttribute({ name: 'supplier', value: { literal: deployedArtifact.id } })
+    }
+  })
+}
+
 function addEdge_location(_deployment: GraphNode) {
-  // TODO/Association
   // location : DeploymentTarget [1..1]{subsets Dependency::client, subsets Element::owner} (opposite DeploymentTarget::deployment)
   // The DeployedTarget which is the target of a Deployment.
+
+  // Added by DeploymentTargetHandler::addEdge_deployment
 }
