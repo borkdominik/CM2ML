@@ -654,6 +654,9 @@ importers:
       '@yeger/streams':
         specifier: 1.1.6
         version: 1.1.6
+      base64-compressor:
+        specifier: 1.0.3
+        version: 1.0.3
       class-variance-authority:
         specifier: 0.7.0
         version: 0.7.0
@@ -5345,7 +5348,7 @@ packages:
       estree-walker: 2.0.2
       magic-string: 0.30.7
       postcss: 8.4.38
-      source-map-js: 1.0.2
+      source-map-js: 1.2.0
     dev: true
 
   /@vue/compiler-ssr@3.4.18:
@@ -5956,6 +5959,10 @@ packages:
 
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  /base64-compressor@1.0.3:
+    resolution: {integrity: sha512-xyLGTkukLML5YkWLX2GcwNEhBYVtnTlVhYe5eEY1q4bIjG0d1nrxl1RCedsLB2llBqjVzq6i4fA9vei1Ag55Jg==}
+    dev: false
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}

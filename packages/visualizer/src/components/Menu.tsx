@@ -2,12 +2,14 @@ import { GitHubLogoIcon } from '@radix-ui/react-icons'
 
 import type { PreparedExample } from '../lib/exampleModel'
 import { exampleModels } from '../lib/exampleModel'
+import { useShare } from '../lib/sharing'
 import { useEncoderState } from '../lib/useEncoderState'
 import { useModelState } from '../lib/useModelState'
 import { useSelection } from '../lib/useSelection'
 import { useSettings } from '../lib/useSettings'
 import { themes, useTheme } from '../lib/useTheme'
 
+import type { ParameterValues } from './Parameters'
 import {
   Menubar,
   MenubarContent,
@@ -38,6 +40,8 @@ function ModelMenu() {
     <MenubarMenu>
       <MenubarTrigger>Model</MenubarTrigger>
       <MenubarContent>
+        <ShareMenuItem />
+        <MenubarSeparator />
         <ExamplesSubMenu />
         <MenubarSeparator />
         <EditModelMenuItem />
@@ -257,5 +261,22 @@ function HelpMenu() {
         </MenubarItem>
       </MenubarContent>
     </MenubarMenu>
+  )
+}
+
+export interface ShareData {
+  serializedModel: string
+  parserName: string | undefined
+  parserParameters: ParameterValues
+  encoderName: string | undefined
+  encoderParameters: ParameterValues
+
+}
+
+function ShareMenuItem() {
+  const { share } = useShare()
+
+  return (
+    <MenubarItem onClick={share}>Share</MenubarItem>
   )
 }

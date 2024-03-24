@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { toast } from 'sonner'
 import { useRegisterSW } from 'virtual:pwa-register/react'
 
-export function UpdatePrompt() {
+export function useUpdatePrompt() {
   const {
     offlineReady: [offlineReady, setOfflineReady],
     needRefresh: [needRefresh, setNeedRefresh],
@@ -11,7 +11,7 @@ export function UpdatePrompt() {
 
   useEffect(() => {
     if (offlineReady) {
-      toast('Ready for offline usage', { duration: 10000 })
+      toast('Ready for offline usage')
       return
     }
     if (!needRefresh) {
@@ -31,6 +31,4 @@ export function UpdatePrompt() {
       onAutoClose: () => onUpdateDismissed(),
     })
   }, [offlineReady, needRefresh, updateServiceWorker, setNeedRefresh, setOfflineReady])
-
-  return null
 }
