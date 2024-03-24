@@ -41,8 +41,7 @@ export function useShare() {
 
   async function share() {
     const data: ShareData = { s: serializedModel, p: parser?.name, P: parserParameters, e: encoder?.name, E: encoderParameters }
-    const json = JSON.stringify(data)
-    const encodedHash = await encode(json)
+    const encodedHash = await encode(data)
     navigator.clipboard.writeText(`${window.location.href}#${encodedHash}`)
     toast.success('Link copied to clipboard')
   }
@@ -72,8 +71,7 @@ export function useSharedHashLoader() {
         return
       }
 
-      const json = await decode(hash)
-      const { s: serializedModel, p: parserName, P: parserParameters, e: encoderName, E: encoderParameters }: ShareData = JSON.parse(json)
+      const { s: serializedModel, p: parserName, P: parserParameters, e: encoderName, E: encoderParameters } = await decode<ShareData>(hash)
 
       setSerializedModel(serializedModel)
       setParser(parserName ? parserMap[parserName] : undefined)
