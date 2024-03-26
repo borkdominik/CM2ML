@@ -1,5 +1,0 @@
-export * from './archimate'
-export * from './archimate-metamodel'
-export * from './archimate-handler-registry'
-export * from './archimate-validations'
-export * from './handlers/archimate-handlers'

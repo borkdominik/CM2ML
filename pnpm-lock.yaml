@@ -78,68 +78,6 @@ importers:
         specifier: 1.4.0
         version: 1.4.0(@types/node@20.11.30)(@vitest/ui@1.4.0)
 
-  packages/archimate/archimate-metamodel:
-    dependencies:
-      '@cm2ml/ir':
-        specifier: workspace:*
-        version: link:../../framework/ir
-      '@cm2ml/metamodel':
-        specifier: workspace:*
-        version: link:../../framework/metamodel
-      '@cm2ml/utils':
-        specifier: workspace:*
-        version: link:../../utils
-    devDependencies:
-      '@cm2ml/tsconfig':
-        specifier: workspace:*
-        version: link:../../tsconfig
-      typescript:
-        specifier: 5.4.3
-        version: 5.4.3
-      vite:
-        specifier: 5.2.2
-        version: 5.2.2(@types/node@20.11.30)
-      vite-plugin-lib:
-        specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.30)(typescript@5.4.3)(vite@5.2.2)
-
-  packages/archimate/archimate-parser:
-    dependencies:
-      '@cm2ml/archimate-metamodel':
-        specifier: workspace:*
-        version: link:../archimate-metamodel
-      '@cm2ml/ir':
-        specifier: workspace:*
-        version: link:../../framework/ir
-      '@cm2ml/ir-post-processor':
-        specifier: workspace:*
-        version: link:../../framework/ir-post-processor
-      '@cm2ml/metamodel':
-        specifier: workspace:*
-        version: link:../../framework/metamodel
-      '@cm2ml/metamodel-refiner':
-        specifier: workspace:*
-        version: link:../../framework/metamodel-refiner
-      '@cm2ml/plugin':
-        specifier: workspace:*
-        version: link:../../framework/plugin
-      '@cm2ml/xmi-parser':
-        specifier: workspace:*
-        version: link:../../framework/xmi-parser
-    devDependencies:
-      '@cm2ml/tsconfig':
-        specifier: workspace:*
-        version: link:../../tsconfig
-      typescript:
-        specifier: 5.4.3
-        version: 5.4.3
-      vite:
-        specifier: 5.2.2
-        version: 5.2.2(@types/node@20.11.30)
-      vite-plugin-lib:
-        specifier: 2.0.8
-        version: 2.0.8(@types/node@20.11.30)(typescript@5.4.3)(vite@5.2.2)
-
   packages/encoder/graph-encoder:
     dependencies:
       '@cm2ml/ir':
@@ -214,9 +152,9 @@ importers:
 
   packages/framework/builtin:
     dependencies:
-      '@cm2ml/archimate-parser':
+      '@cm2ml/archimate':
         specifier: workspace:*
-        version: link:../../archimate/archimate-parser
+        version: link:../../languages/archimate
       '@cm2ml/ecore':
         specifier: workspace:*
         version: link:../../languages/ecore
@@ -571,6 +509,43 @@ importers:
       '@types/jsdom':
         specifier: 21.1.6
         version: 21.1.6
+      typescript:
+        specifier: 5.4.3
+        version: 5.4.3
+      vite:
+        specifier: 5.2.2
+        version: 5.2.2(@types/node@20.11.30)
+      vite-plugin-lib:
+        specifier: 2.0.8
+        version: 2.0.8(@types/node@20.11.30)(typescript@5.4.3)(vite@5.2.2)
+
+  packages/languages/archimate:
+    dependencies:
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../../framework/ir
+      '@cm2ml/ir-post-processor':
+        specifier: workspace:*
+        version: link:../../framework/ir-post-processor
+      '@cm2ml/metamodel':
+        specifier: workspace:*
+        version: link:../../framework/metamodel
+      '@cm2ml/metamodel-refiner':
+        specifier: workspace:*
+        version: link:../../framework/metamodel-refiner
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../../framework/plugin
+      '@cm2ml/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@cm2ml/xmi-parser':
+        specifier: workspace:*
+        version: link:../../framework/xmi-parser
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
       typescript:
         specifier: 5.4.3
         version: 5.4.3

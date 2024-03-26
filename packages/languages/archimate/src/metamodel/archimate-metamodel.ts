@@ -25,3 +25,6 @@ const { define, defineAbstract } = createMetamodel<
   ArchimateTag,
   ArchimateHandlerParameters
 >(Archimate)
+
+export const Element = defineAbstract(Archimate.AbstractTypes.Element)
+

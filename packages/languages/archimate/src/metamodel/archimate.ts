@@ -1,4 +1,4 @@
-import type { Attributable, GraphNode } from '@cm2ml/ir'
+import type { Attributable, GraphEdge, GraphNode } from '@cm2ml/ir'
 import { parseNamespace } from '@cm2ml/utils'
 
 const Attributes = {
@@ -21,14 +21,18 @@ function isValidTag(tag: string | undefined): tag is ArchimateTag {
   return tag !== undefined && tag in Tags
 }
 
-const AbstractTypes = {} as const
+const AbstractTypes = {
+    Element: 'Element'
+} as const
 
 export type ArchimateAbstractType =
   (typeof AbstractTypes)[keyof typeof AbstractTypes]
 
 const Types = {
+  BusinessObject: 'BusinessObject',
   BusinessRole: 'BusinessRole',
-  Model: 'Model',
+  BusinessProcess: 'BusinessProcess',
+  Model: 'model',
 } as const
 
 export type ArchimateType = (typeof Types)[keyof typeof Types]
@@ -37,8 +41,8 @@ function isValidType(type: string | undefined): type is ArchimateType {
   return type !== undefined && type in Types
 }
 
-function getTagType(node: GraphNode) {
-  const parsedName = parseNamespace(node.tag)
+function getTagType(element: GraphNode | GraphEdge) {
+  const parsedName = parseNamespace(element.tag)
   const actualName =
     typeof parsedName === 'object' ? parsedName.name : parsedName
   if (isValidType(actualName)) {
@@ -47,8 +51,8 @@ function getTagType(node: GraphNode) {
   return undefined
 }
 
-function getType(node: Attributable) {
-  const type = node.getAttribute(Attributes['xsi:type'])?.value.literal
+function getType(element: Attributable) {
+  const type = element.getAttribute(Attributes['xsi:type'])?.value.literal
   if (isValidType(type)) {
     return type
   }
