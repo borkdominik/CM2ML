@@ -1,0 +1,126 @@
+<Model xmi:id="_PTF5sc4OEe2NwpxoRjsNIQ" name="package" xmi:type="Model" visibility="public">
+  <Package xmi:type="Package" xmi:id="_QGY-4M4OEe2NwpxoRjsNIQ" name="App" URI="com.example.app" visibility="public">
+    <Class xmi:type="Class" xmi:id="_KrFesfn-Ee2smM55zuHUhw" name="Main" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  </Package>
+  <Package xmi:type="Package" xmi:id="_RY5voM4OEe2NwpxoRjsNIQ" name="Lib" URI="com.example.lib" visibility="public">
+    <Class xmi:type="Class" xmi:id="_gu8-gPn-Ee2smM55zuHUhw" name="Launcher" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  </Package>
+  <Package xmi:type="Package" xmi:id="_kjCCMM4OEe2WfbpzO7t8-A" name="Utils" visibility="public" />
+  <Package xmi:type="Package" xmi:id="_lJmS8M4OEe2WfbpzO7t8-A" name="Logic" visibility="public" />
+  <Package xmi:type="Package" xmi:id="_4EHcMM4OEe2WfbpzO7t8-A" name="StdLib" visibility="public">
+    <Package xmi:type="Package" xmi:id="_Mmu2kPn_Ee2smM55zuHUhw" name="Collections" visibility="public">
+      <Class xmi:type="Class" xmi:id="_PwW58Pn_Ee2smM55zuHUhw" name="ArrayList" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+      <Class xmi:type="Class" xmi:id="_U4qQgPn_Ee2smM55zuHUhw" name="List" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+    </Package>
+    <Package xmi:type="Package" xmi:id="_Oj0OUPn_Ee2smM55zuHUhw" name="Math" visibility="public">
+      <Class xmi:type="Class" xmi:id="_dHjvIPoAEe2smM55zuHUhw" name="Int" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+    </Package>
+  </Package>
+</Model>
+_4EHcMM4OEe2WfbpzO7t8-A -> <member /> -> _Mmu2kPn_Ee2smM55zuHUhw
+_4EHcMM4OEe2WfbpzO7t8-A -> <member /> -> _Oj0OUPn_Ee2smM55zuHUhw
+_4EHcMM4OEe2WfbpzO7t8-A -> <namespace /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_4EHcMM4OEe2WfbpzO7t8-A -> <nestedPackage /> -> _Mmu2kPn_Ee2smM55zuHUhw
+_4EHcMM4OEe2WfbpzO7t8-A -> <nestedPackage /> -> _Oj0OUPn_Ee2smM55zuHUhw
+_4EHcMM4OEe2WfbpzO7t8-A -> <nestingPackage /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_4EHcMM4OEe2WfbpzO7t8-A -> <ownedElement /> -> _Mmu2kPn_Ee2smM55zuHUhw
+_4EHcMM4OEe2WfbpzO7t8-A -> <ownedElement /> -> _Oj0OUPn_Ee2smM55zuHUhw
+_4EHcMM4OEe2WfbpzO7t8-A -> <ownedMember /> -> _Mmu2kPn_Ee2smM55zuHUhw
+_4EHcMM4OEe2WfbpzO7t8-A -> <ownedMember /> -> _Oj0OUPn_Ee2smM55zuHUhw
+_4EHcMM4OEe2WfbpzO7t8-A -> <owner /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_4EHcMM4OEe2WfbpzO7t8-A -> <packagedElement /> -> _Mmu2kPn_Ee2smM55zuHUhw
+_4EHcMM4OEe2WfbpzO7t8-A -> <packagedElement /> -> _Oj0OUPn_Ee2smM55zuHUhw
+_KrFesfn-Ee2smM55zuHUhw -> <namespace /> -> _QGY-4M4OEe2NwpxoRjsNIQ
+_KrFesfn-Ee2smM55zuHUhw -> <owner /> -> _QGY-4M4OEe2NwpxoRjsNIQ
+_KrFesfn-Ee2smM55zuHUhw -> <package /> -> _QGY-4M4OEe2NwpxoRjsNIQ
+_Mmu2kPn_Ee2smM55zuHUhw -> <elementImport xmi:id="_gg-iAPoAEe2smM55zuHUhw" xmi:type="ElementImport" visibility="public" /> -> _dHjvIPoAEe2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <importedMember /> -> _dHjvIPoAEe2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <member /> -> _PwW58Pn_Ee2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <member /> -> _U4qQgPn_Ee2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <member /> -> _dHjvIPoAEe2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <namespace /> -> _4EHcMM4OEe2WfbpzO7t8-A
+_Mmu2kPn_Ee2smM55zuHUhw -> <nestingPackage /> -> _4EHcMM4OEe2WfbpzO7t8-A
+_Mmu2kPn_Ee2smM55zuHUhw -> <ownedElement /> -> _PwW58Pn_Ee2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <ownedElement /> -> _U4qQgPn_Ee2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <ownedMember /> -> _PwW58Pn_Ee2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <ownedMember /> -> _U4qQgPn_Ee2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <ownedType /> -> _PwW58Pn_Ee2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <ownedType /> -> _U4qQgPn_Ee2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <owner /> -> _4EHcMM4OEe2WfbpzO7t8-A
+_Mmu2kPn_Ee2smM55zuHUhw -> <packagedElement /> -> _PwW58Pn_Ee2smM55zuHUhw
+_Mmu2kPn_Ee2smM55zuHUhw -> <packagedElement /> -> _U4qQgPn_Ee2smM55zuHUhw
+_Oj0OUPn_Ee2smM55zuHUhw -> <member /> -> _dHjvIPoAEe2smM55zuHUhw
+_Oj0OUPn_Ee2smM55zuHUhw -> <namespace /> -> _4EHcMM4OEe2WfbpzO7t8-A
+_Oj0OUPn_Ee2smM55zuHUhw -> <nestingPackage /> -> _4EHcMM4OEe2WfbpzO7t8-A
+_Oj0OUPn_Ee2smM55zuHUhw -> <ownedElement /> -> _dHjvIPoAEe2smM55zuHUhw
+_Oj0OUPn_Ee2smM55zuHUhw -> <ownedMember /> -> _dHjvIPoAEe2smM55zuHUhw
+_Oj0OUPn_Ee2smM55zuHUhw -> <ownedType /> -> _dHjvIPoAEe2smM55zuHUhw
+_Oj0OUPn_Ee2smM55zuHUhw -> <owner /> -> _4EHcMM4OEe2WfbpzO7t8-A
+_Oj0OUPn_Ee2smM55zuHUhw -> <packagedElement /> -> _dHjvIPoAEe2smM55zuHUhw
+_PTF5sc4OEe2NwpxoRjsNIQ -> <member /> -> _4EHcMM4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <member /> -> _QGY-4M4OEe2NwpxoRjsNIQ
+_PTF5sc4OEe2NwpxoRjsNIQ -> <member /> -> _RY5voM4OEe2NwpxoRjsNIQ
+_PTF5sc4OEe2NwpxoRjsNIQ -> <member /> -> _kjCCMM4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <member /> -> _lJmS8M4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <nestedPackage /> -> _4EHcMM4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <nestedPackage /> -> _QGY-4M4OEe2NwpxoRjsNIQ
+_PTF5sc4OEe2NwpxoRjsNIQ -> <nestedPackage /> -> _RY5voM4OEe2NwpxoRjsNIQ
+_PTF5sc4OEe2NwpxoRjsNIQ -> <nestedPackage /> -> _kjCCMM4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <nestedPackage /> -> _lJmS8M4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <ownedElement /> -> _4EHcMM4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <ownedElement /> -> _QGY-4M4OEe2NwpxoRjsNIQ
+_PTF5sc4OEe2NwpxoRjsNIQ -> <ownedElement /> -> _RY5voM4OEe2NwpxoRjsNIQ
+_PTF5sc4OEe2NwpxoRjsNIQ -> <ownedElement /> -> _kjCCMM4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <ownedElement /> -> _lJmS8M4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <ownedMember /> -> _4EHcMM4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <ownedMember /> -> _QGY-4M4OEe2NwpxoRjsNIQ
+_PTF5sc4OEe2NwpxoRjsNIQ -> <ownedMember /> -> _RY5voM4OEe2NwpxoRjsNIQ
+_PTF5sc4OEe2NwpxoRjsNIQ -> <ownedMember /> -> _kjCCMM4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <ownedMember /> -> _lJmS8M4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <packagedElement /> -> _4EHcMM4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <packagedElement /> -> _QGY-4M4OEe2NwpxoRjsNIQ
+_PTF5sc4OEe2NwpxoRjsNIQ -> <packagedElement /> -> _RY5voM4OEe2NwpxoRjsNIQ
+_PTF5sc4OEe2NwpxoRjsNIQ -> <packagedElement /> -> _kjCCMM4OEe2WfbpzO7t8-A
+_PTF5sc4OEe2NwpxoRjsNIQ -> <packagedElement /> -> _lJmS8M4OEe2WfbpzO7t8-A
+_PwW58Pn_Ee2smM55zuHUhw -> <namespace /> -> _Mmu2kPn_Ee2smM55zuHUhw
+_PwW58Pn_Ee2smM55zuHUhw -> <owner /> -> _Mmu2kPn_Ee2smM55zuHUhw
+_PwW58Pn_Ee2smM55zuHUhw -> <package /> -> _Mmu2kPn_Ee2smM55zuHUhw
+_QGY-4M4OEe2NwpxoRjsNIQ -> <elementImport xmi:id="_5AugUPn-Ee2smM55zuHUhw" alias="AppLauncher" visibility="private" xmi:type="ElementImport" /> -> _gu8-gPn-Ee2smM55zuHUhw
+_QGY-4M4OEe2NwpxoRjsNIQ -> <importedMember /> -> _gu8-gPn-Ee2smM55zuHUhw
+_QGY-4M4OEe2NwpxoRjsNIQ -> <member /> -> _KrFesfn-Ee2smM55zuHUhw
+_QGY-4M4OEe2NwpxoRjsNIQ -> <member /> -> _gu8-gPn-Ee2smM55zuHUhw
+_QGY-4M4OEe2NwpxoRjsNIQ -> <namespace /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_QGY-4M4OEe2NwpxoRjsNIQ -> <nestingPackage /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_QGY-4M4OEe2NwpxoRjsNIQ -> <ownedElement /> -> _KrFesfn-Ee2smM55zuHUhw
+_QGY-4M4OEe2NwpxoRjsNIQ -> <ownedMember /> -> _KrFesfn-Ee2smM55zuHUhw
+_QGY-4M4OEe2NwpxoRjsNIQ -> <ownedType /> -> _KrFesfn-Ee2smM55zuHUhw
+_QGY-4M4OEe2NwpxoRjsNIQ -> <owner /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_QGY-4M4OEe2NwpxoRjsNIQ -> <packageImport xmi:id="_uBXk4M4OEe2WfbpzO7t8-A" xmi:type="PackageImport" visibility="public" /> -> _RY5voM4OEe2NwpxoRjsNIQ
+_QGY-4M4OEe2NwpxoRjsNIQ -> <packagedElement /> -> _KrFesfn-Ee2smM55zuHUhw
+_RY5voM4OEe2NwpxoRjsNIQ -> <member /> -> _gu8-gPn-Ee2smM55zuHUhw
+_RY5voM4OEe2NwpxoRjsNIQ -> <namespace /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_RY5voM4OEe2NwpxoRjsNIQ -> <nestingPackage /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_RY5voM4OEe2NwpxoRjsNIQ -> <ownedElement /> -> _gu8-gPn-Ee2smM55zuHUhw
+_RY5voM4OEe2NwpxoRjsNIQ -> <ownedMember /> -> _gu8-gPn-Ee2smM55zuHUhw
+_RY5voM4OEe2NwpxoRjsNIQ -> <ownedType /> -> _gu8-gPn-Ee2smM55zuHUhw
+_RY5voM4OEe2NwpxoRjsNIQ -> <owner /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_RY5voM4OEe2NwpxoRjsNIQ -> <packageMerge xmi:id="_2IFB4PYREe2O9IdeA_KGyQ" xmi:type="PackageMerge" /> -> _kjCCMM4OEe2WfbpzO7t8-A
+_RY5voM4OEe2NwpxoRjsNIQ -> <packageMerge xmi:id="_4Xgt4PYREe2O9IdeA_KGyQ" xmi:type="PackageMerge" /> -> _lJmS8M4OEe2WfbpzO7t8-A
+_RY5voM4OEe2NwpxoRjsNIQ -> <packagedElement /> -> _gu8-gPn-Ee2smM55zuHUhw
+_U4qQgPn_Ee2smM55zuHUhw -> <namespace /> -> _Mmu2kPn_Ee2smM55zuHUhw
+_U4qQgPn_Ee2smM55zuHUhw -> <owner /> -> _Mmu2kPn_Ee2smM55zuHUhw
+_U4qQgPn_Ee2smM55zuHUhw -> <package /> -> _Mmu2kPn_Ee2smM55zuHUhw
+_dHjvIPoAEe2smM55zuHUhw -> <namespace /> -> _Oj0OUPn_Ee2smM55zuHUhw
+_dHjvIPoAEe2smM55zuHUhw -> <owner /> -> _Oj0OUPn_Ee2smM55zuHUhw
+_dHjvIPoAEe2smM55zuHUhw -> <package /> -> _Oj0OUPn_Ee2smM55zuHUhw
+_gu8-gPn-Ee2smM55zuHUhw -> <namespace /> -> _RY5voM4OEe2NwpxoRjsNIQ
+_gu8-gPn-Ee2smM55zuHUhw -> <owner /> -> _RY5voM4OEe2NwpxoRjsNIQ
+_gu8-gPn-Ee2smM55zuHUhw -> <package /> -> _RY5voM4OEe2NwpxoRjsNIQ
+_kjCCMM4OEe2WfbpzO7t8-A -> <dependency xmi:type="Dependency" xmi:id="_59v3UM4OEe2WfbpzO7t8-A" visibility="public" /> -> _4EHcMM4OEe2WfbpzO7t8-A
+_kjCCMM4OEe2WfbpzO7t8-A -> <namespace /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_kjCCMM4OEe2WfbpzO7t8-A -> <nestingPackage /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_kjCCMM4OEe2WfbpzO7t8-A -> <owner /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_lJmS8M4OEe2WfbpzO7t8-A -> <namespace /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_lJmS8M4OEe2WfbpzO7t8-A -> <nestingPackage /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_lJmS8M4OEe2WfbpzO7t8-A -> <owner /> -> _PTF5sc4OEe2NwpxoRjsNIQ
+_lJmS8M4OEe2WfbpzO7t8-A -> <packageImport xmi:id="_qfI0QM4OEe2WfbpzO7t8-A" visibility="private" xmi:type="PackageImport" /> -> _kjCCMM4OEe2WfbpzO7t8-A

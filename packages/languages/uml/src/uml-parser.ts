@@ -1,9 +1,12 @@
-import type { GraphModel, GraphNode } from '@cm2ml/ir'
+import type { GraphModel } from '@cm2ml/ir'
+import { GraphNode } from '@cm2ml/ir'
 import { IrPostProcessor } from '@cm2ml/ir-post-processor'
 import { createRefiner } from '@cm2ml/metamodel-refiner'
 import { compose, definePlugin } from '@cm2ml/plugin'
 import { createXmiParser } from '@cm2ml/xmi-parser'
 
+import { resolveImportedMembers } from './metamodel/resolvers/importedMembers'
+import { resolveInheritedMembers } from './metamodel/resolvers/inheritedMember'
 import { Uml } from './metamodel/uml'
 import { inferUmlHandler } from './metamodel/uml-handler-registry'
 import { validateUmlModel } from './metamodel/uml-validations'
@@ -37,7 +40,7 @@ const UmlRefiner = definePlugin({
     },
     relationshipsAsEdges: {
       type: 'boolean',
-      defaultValue: true,
+      defaultValue: false,
       description: 'Treat relationships as edges.',
     },
   },
@@ -45,6 +48,10 @@ const UmlRefiner = definePlugin({
     removeUnsupportedNodes(input)
     const model = refine(input, parameters)
     generateIds(model)
+    if (!parameters.onlyContainmentAssociations) {
+      resolveInheritedMembers(model)
+      resolveImportedMembers(model, parameters.relationshipsAsEdges)
+    }
     removeNonUmlAttributes(model)
     validateUmlModel(model, parameters)
     return model
@@ -58,6 +65,9 @@ function generateIds(model: GraphModel) {
       node.addAttribute({ name: Uml.Attributes['xmi:id'], value: { literal: `eu.yeger#generated-id-${id++}` } }, false)
     }
   })
+  if (id > 0) {
+    model.debug('Parser', `Generated ${id} ids`)
+  }
 }
 
 function removeUnsupportedNodes(model: GraphModel) {
@@ -69,7 +79,14 @@ function removeUnsupportedNodes(model: GraphModel) {
   }
   model.nodes.forEach((node) => {
     const nodeType = node.getAttribute(Uml.typeAttributeName)?.value.literal
-    if (unsupportedTags.has(node.tag) || (nodeType && unsupportedTypes.has(nodeType)) || isNil(node)) {
+    if (unsupportedTags.has(node.tag)) {
+      model.debug('Parser', `Removing unsupported node with tag ${node.tag}`)
+      model.removeNode(node)
+    } else if (nodeType && unsupportedTypes.has(nodeType)) {
+      model.debug('Parser', `Removing unsupported node with type ${nodeType}`)
+      model.removeNode(node)
+    } else if (isNil(node)) {
+      model.debug('Parser', `Removing nil node with tag ${node.tag}`)
       model.removeNode(node)
     }
   })
@@ -92,6 +109,7 @@ function removeNonUmlAttributes(model: GraphModel) {
   ;[...model.nodes, ...model.edges].forEach((attributable) => {
     attributable.attributes.forEach(({ name }) => {
       if (shouldRemoveAttribute(name)) {
+        model.debug('Parser', `Removing non-UML attribute ${name} from ${attributable instanceof GraphNode ? 'node' : 'edge'} ${attributable.getAttribute(model.settings.idAttribute)?.value.literal ?? attributable.tag}`)
         attributable.removeAttribute(name)
       }
     })

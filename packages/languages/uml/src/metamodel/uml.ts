@@ -1,4 +1,5 @@
 import type { Attributable, GraphEdge, GraphNode } from '@cm2ml/ir'
+import type { Callback } from '@cm2ml/metamodel'
 import { transformNodeToEdge } from '@cm2ml/metamodel'
 import { parseNamespace } from '@cm2ml/utils'
 
@@ -90,53 +91,10 @@ const Attributes = {
   'xsi:type': 'xsi:type',
 } as const
 
-const Tags = {
-  appliedProfile: 'appliedProfile',
-  association: 'association',
-  contract: 'contract',
-  deployment: 'deployment',
-  elementImport: 'elementImport',
-  extensionPoint: 'extensionPoint',
-  general: 'general',
-  generalization: 'generalization',
-  guard: 'guard',
-  icon: 'icon',
-  importedPackage: 'importedPackage',
-  include: 'include',
-  interfaceRealization: 'interfaceRealization',
-  language: 'language',
-  lifeline: 'lifeline',
-  lowerValue: 'lowerValue',
-  message: 'message',
-  nameExpression: 'nameExpression',
-  operand: 'operand',
-  ownedAttribute: 'ownedAttribute',
-  ownedComment: 'ownedComment',
-  ownedConnector: 'ownedConnector',
-  ownedEnd: 'ownedEnd',
-  ownedLiteral: 'ownedLiteral',
-  ownedOperation: 'ownedOperation',
-  ownedParameter: 'ownedParameter',
-  ownedParameterSet: 'ownedParameterSet',
-  packagedElement: 'packagedElement',
-  packageImport: 'packageImport',
-  packageMerge: 'packageMerge',
-  parameterSubstitution: 'parameterSubstitution',
-  profileApplication: 'profileApplication',
-  region: 'region',
-  slot: 'slot',
-  substitution: 'substitution',
-  target: 'target',
-  templateBinding: 'templateBinding',
-  transition: 'transition',
-  trigger: 'trigger',
-  upperValue: 'upperValue',
-} as const
+export type UmlTag = never
 
-export type UmlTag = (typeof Tags)[keyof typeof Tags]
-
-function isValidTag(tag: string | undefined): tag is UmlTag {
-  return tag !== undefined && tag in Tags
+function isValidTag(_tag: string | undefined): _tag is UmlTag {
+  return false
 }
 
 const AbstractTypes = {
@@ -457,7 +415,9 @@ function getEdgeTagForRelationship(relationship: GraphNode) {
   return tag
 }
 
-export function transformNodeToEdgeCallback(node: GraphNode, source: GraphNode | undefined, target: GraphNode | undefined) {
+export function transformNodeToEdgeCallback(node: GraphNode, sources: GraphNode | GraphNode[] = [], targets: GraphNode | GraphNode[] = []): Callback {
+  const edgeSources = Array.isArray(sources) ? sources : [sources]
+  const edgeTargets = Array.isArray(targets) ? targets : [targets]
   const tag = getEdgeTagForRelationship(node)
   return () => {
     const children = node.children
@@ -465,14 +425,13 @@ export function transformNodeToEdgeCallback(node: GraphNode, source: GraphNode |
       node.removeChild(child)
       node.parent?.addChild(child)
     })
-    transformNodeToEdge(node, source, target, tag)
+    transformNodeToEdge(node, edgeSources, edgeTargets, tag)
   }
 }
 
 export const Uml = {
   AbstractTypes,
   Attributes,
-  Tags,
   Types,
   typeAttributeName: Attributes['xmi:type'],
   isValidTag,

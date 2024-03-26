@@ -1,16 +1,20 @@
 import type { GraphNode } from '@cm2ml/ir'
-import { Stream } from '@yeger/streams'
 
+import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { MultiplicityElement } from '../uml-metamodel'
+import { MultiplicityElement, ValueSpecification } from '../uml-metamodel'
 
 export const MultiplicityElementHandler = MultiplicityElement.createHandler(
   (multiplicityElement, { onlyContainmentAssociations }) => {
+    const lowerValue = resolve(multiplicityElement, 'lowerValue', { type: ValueSpecification })
+    const upperValue = resolve(multiplicityElement, 'upperValue', { type: ValueSpecification })
+    setAttribute_lower(multiplicityElement, lowerValue)
+    setAttribute_upper(multiplicityElement, upperValue)
     if (onlyContainmentAssociations) {
       return
     }
-    addEdgeAndAttribute_lowerValue(multiplicityElement)
-    addEdgeAndAttribute_upperValue(multiplicityElement)
+    addEdge_lowerValue(multiplicityElement, lowerValue)
+    addEdge_upperValue(multiplicityElement, upperValue)
   },
   {
     [Uml.Attributes.isOrdered]: 'false',
@@ -18,50 +22,52 @@ export const MultiplicityElementHandler = MultiplicityElement.createHandler(
   },
 )
 
-function addEdgeAndAttribute_lowerValue(multiplicityElement: GraphNode) {
-  const lowerValueNode = Stream.from(multiplicityElement.children).find(
-    (child) => child.tag === Uml.Tags.lowerValue,
-  )
-  if (!lowerValueNode) {
+function setAttribute_lower(multiplicityElement: GraphNode, lowerValue: GraphNode | undefined) {
+  if (!lowerValue) {
+    return
+  }
+  const value = lowerValue.getAttribute(Uml.Attributes.value)?.value.literal
+  if (value === undefined) {
+    return
+  }
+  multiplicityElement.addAttribute({
+    name: Uml.Attributes.lower,
+    value: { literal: value },
+  })
+}
+
+function setAttribute_upper(multiplicityElement: GraphNode, upperValue: GraphNode | undefined) {
+  if (!upperValue) {
+    return
+  }
+  const value = upperValue.getAttribute(Uml.Attributes.value)?.value.literal
+  if (value === undefined) {
+    return
+  }
+  multiplicityElement.addAttribute({
+    name: Uml.Attributes.upper,
+    value: { literal: value },
+  })
+}
+
+function addEdge_lowerValue(multiplicityElement: GraphNode, lowerValue: GraphNode | undefined) {
+  if (!lowerValue) {
     return
   }
   multiplicityElement.model.addEdge(
     'lowerValue',
     multiplicityElement,
-    lowerValueNode,
+    lowerValue,
   )
-  const lowerValue = lowerValueNode.getAttribute(Uml.Attributes.value)?.value
-    .literal
-  if (lowerValue === undefined) {
-    return
-    // throw new Error(`LowerValue ${lowerValueNode.id} must have a value`)
-  }
-  multiplicityElement.addAttribute({
-    name: Uml.Attributes.lower,
-    value: { literal: lowerValue },
-  })
 }
 
-function addEdgeAndAttribute_upperValue(multiplicityElement: GraphNode) {
-  const upperValueNode = Stream.from(multiplicityElement.children).find(
-    (child) => child.tag === Uml.Tags.upperValue,
-  )
-  if (!upperValueNode) {
+function addEdge_upperValue(multiplicityElement: GraphNode, upperValue: GraphNode | undefined) {
+  if (!upperValue) {
     return
   }
   multiplicityElement.model.addEdge(
     'upperValue',
     multiplicityElement,
-    upperValueNode,
+    upperValue,
   )
-  const upperValue = upperValueNode.getAttribute(Uml.Attributes.value)?.value
-    .literal
-  if (upperValue === undefined) {
-    return
-    // throw new Error(`UpperValue ${upperValueNode.id} must have a value`)
-  }
-  multiplicityElement.addAttribute({
-    name: Uml.Attributes.upper,
-    value: { literal: upperValue },
-  })
 }

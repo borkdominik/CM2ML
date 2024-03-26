@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
+import { addEdge_relatedElement } from '../resolvers/relatedElement'
 import { resolve } from '../resolvers/resolve'
 import { transformNodeToEdgeCallback } from '../uml'
 import { TemplateBinding, TemplateParameterSubstitution, TemplateSignature, TemplateableElement } from '../uml-metamodel'
@@ -19,6 +20,7 @@ export const TemplateBindingHandler = TemplateBinding.createHandler(
     addEdge_boundElement(templateBinding, boundElement)
     addEdge_parameterSubstitution(templateBinding, parameterSubstitutions)
     addEdge_signature(templateBinding, signature)
+    addEdge_relatedElement(templateBinding, boundElement, signature)
   },
 )
 
@@ -29,6 +31,7 @@ function addEdge_boundElement(templateBinding: GraphNode, boundElement: GraphNod
     return
   }
   templateBinding.model.addEdge('boundElement', templateBinding, boundElement)
+  templateBinding.model.addEdge('source', templateBinding, boundElement)
 }
 
 function addEdge_parameterSubstitution(templateBinding: GraphNode, parameterSubstitutions: GraphNode[]) {
@@ -46,4 +49,5 @@ function addEdge_signature(templateBinding: GraphNode, signature: GraphNode | un
     return
   }
   templateBinding.model.addEdge('signature', templateBinding, signature)
+  templateBinding.model.addEdge('target', templateBinding, signature)
 }

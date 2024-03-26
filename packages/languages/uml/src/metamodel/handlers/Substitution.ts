@@ -3,10 +3,8 @@ import type { GraphNode } from '@cm2ml/ir'
 import { resolve } from '../resolvers/resolve'
 import { Classifier, Substitution } from '../uml-metamodel'
 
-// TODO/Jan: Validate associations
 export const SubstitutionHandler = Substitution.createHandler(
   (substitution, { onlyContainmentAssociations }) => {
-    // TODO/Jan: Add type configs
     const contract = resolve(substitution, 'contract', { type: Classifier })
     const substitutingClassifier = resolve(substitution, 'client', { removeAttribute: false, type: Classifier })
     if (onlyContainmentAssociations) {

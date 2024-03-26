@@ -17,7 +17,6 @@ export const ExecutionSpecificationHandler =
   )
 
 function addEdge_finish(executionSpecification: GraphNode, finish: GraphNode | undefined) {
-  // TODO/Association
   // finish : OccurrenceSpecification [1..1] (opposite A_finish_executionSpecification::executionSpecification)
   // References the OccurrenceSpecification that designates the finish of the Action or Behavior.
   if (!finish) {
@@ -27,7 +26,6 @@ function addEdge_finish(executionSpecification: GraphNode, finish: GraphNode | u
 }
 
 function addEdge_start(executionSpecification: GraphNode, start: GraphNode | undefined) {
-  // TODO/Association
   // start : OccurrenceSpecification [1..1] (opposite A_start_executionSpecification::executionSpecification)
   // References the OccurrenceSpecification that designates the start of the Action or Behavior.
   if (!start) {

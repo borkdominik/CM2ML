@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { addEdge_relatedElement } from '../resolvers/relatedElement'
 import { resolve } from '../resolvers/resolve'
 import { transformNodeToEdgeCallback } from '../uml'
 import { Classifier, Connector, InformationFlow, NamedElement } from '../uml-metamodel'
@@ -7,23 +8,23 @@ import { Classifier, Connector, InformationFlow, NamedElement } from '../uml-met
 export const InformationFlowHandler = InformationFlow.createHandler(
   (informationFlow, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const conveyed = resolve(informationFlow, 'conveyed', { many: true, type: Classifier })
-    // TODO/Jan: Fix -> source/target with many: true
-    const informationSource = resolve(informationFlow, 'informationSource', { type: NamedElement })
-    const informationTarget = resolve(informationFlow, 'informationTarget', { type: NamedElement })
+    const informationSources = resolve(informationFlow, 'informationSource', { many: true, type: NamedElement })
+    const informationTargets = resolve(informationFlow, 'informationTarget', { many: true, type: NamedElement })
     const realizingConnectors = resolve(informationFlow, 'realizingConnector', { many: true, type: Connector })
     if (relationshipsAsEdges) {
-      return transformNodeToEdgeCallback(informationFlow, informationSource, informationTarget)
+      return transformNodeToEdgeCallback(informationFlow, informationSources, informationTargets)
     }
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_conveyed(informationFlow, conveyed)
-    addEdge_informationSource(informationFlow)
-    addEdge_informationTarget(informationFlow)
+    addEdge_informationSource(informationFlow, informationSources)
+    addEdge_informationTarget(informationFlow, informationTargets)
     addEdge_realization(informationFlow)
     addEdge_realizingActivityEdge(informationFlow)
     addEdge_realizingConnector(informationFlow, realizingConnectors)
     addEdge_realizingMessage(informationFlow)
+    addEdge_relatedElement(informationFlow, ...informationSources, ...informationTargets)
   },
 )
 
@@ -35,16 +36,22 @@ function addEdge_conveyed(informationFlow: GraphNode, conveyed: GraphNode[]) {
   })
 }
 
-function addEdge_informationSource(_informationFlow: GraphNode) {
-  // TODO/Association
+function addEdge_informationSource(informationFlow: GraphNode, informationSources: GraphNode[]) {
   // informationSource : NamedElement [1..*]{subsets DirectedRelationship::source} (opposite A_informationSource_informationFlow::informationFlow)
   // Defines from which source the conveyed InformationItems are initiated.
+  informationSources.forEach((namedElement) => {
+    informationFlow.model.addEdge('informationSource', informationFlow, namedElement)
+    informationFlow.model.addEdge('source', informationFlow, namedElement)
+  })
 }
 
-function addEdge_informationTarget(_informationFlow: GraphNode) {
-  // TODO/Association
+function addEdge_informationTarget(informationFlow: GraphNode, informationTargets: GraphNode[]) {
   // informationTarget : NamedElement [1..*]{subsets DirectedRelationship::target} (opposite A_informationTarget_informationFlow::informationFlow)
   // Defines to which target the conveyed InformationItems are directed.
+  informationTargets.forEach((namedElement) => {
+    informationFlow.model.addEdge('informationTarget', informationFlow, namedElement)
+    informationFlow.model.addEdge('target', informationFlow, namedElement)
+  })
 }
 
 function addEdge_realization(_informationFlow: GraphNode) {

@@ -16,7 +16,6 @@ export const SlotHandler = Slot.createHandler(
 )
 
 function addEdge_definingFeature(slot: GraphNode, definingFeature: GraphNode | undefined) {
-  // TODO/Association
   // definingFeature : StructuralFeature [1..1] (opposite A_definingFeature_slot::slot)
   // The StructuralFeature that specifies the values that may be held by the Slot.
   if (!definingFeature) {

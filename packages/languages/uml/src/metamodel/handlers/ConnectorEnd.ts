@@ -23,7 +23,6 @@ function addEdge_definingEnd(_connectorEnd: GraphNode) {
 }
 
 function addEdge_partWithPort(connectorEnd: GraphNode, partWithPort: GraphNode | undefined) {
-  // TODO/Association
   // partWithPort: Property[0..1](opposite A_partWithPort_connectorEnd::connectorEnd)
   // Indicates the role of the internal structure of a Classifier with the Port to which the ConnectorEnd is attached.
   if (!partWithPort) {
@@ -33,7 +32,6 @@ function addEdge_partWithPort(connectorEnd: GraphNode, partWithPort: GraphNode |
 }
 
 function addEdge_role(connectorEnd: GraphNode, role: GraphNode | undefined) {
-  // TODO/Association
   // role: ConnectableElement[1..1](opposite ConnectableElement::end)
   // The ConnectableElement attached at this ConnectorEnd.When an instance of the containing Classifier is created, a link may(depending on the multiplicities) be created to an instance of the Classifier that types this ConnectableElement.
   if (!role) {

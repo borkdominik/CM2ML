@@ -16,7 +16,6 @@ export const ExpansionNodeHandler = ExpansionNode.createHandler(
 )
 
 function addEdge_regionAsInput(expansionNode: GraphNode, regionAsInput: GraphNode | undefined) {
-  // TODO/Association
   // regionAsInput : ExpansionRegion [0..1] (opposite ExpansionRegion::inputElement)
   // The ExpansionRegion for which the ExpansionNode is an input.
   if (!regionAsInput) {
@@ -26,7 +25,6 @@ function addEdge_regionAsInput(expansionNode: GraphNode, regionAsInput: GraphNod
 }
 
 function addEdge_regionAsOutput(expansionNode: GraphNode, regionAsOutput: GraphNode | undefined) {
-  // TODO/Association
   // regionAsOutput : ExpansionRegion [0..1] (opposite ExpansionRegion::outputElement)
   // The ExpansionRegion for which the ExpansionNode is an output.
   if (!regionAsOutput) {

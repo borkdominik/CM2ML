@@ -1,19 +1,20 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { isCompositeProperty } from '../resolvers/isComposite'
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import {
   Association,
-  Class,
-  DataType,
-  Interface,
   Property,
+  ValueSpecification,
 } from '../uml-metamodel'
 
 export const PropertyHandler = Property.createHandler(
   (property, { onlyContainmentAssociations }) => {
     removeInvalidIsNavigableAttribute(property)
+    setAttribute_isComposite(property)
     const association = resolve(property, 'association', { type: Association })
+    const defaultValue = resolve(property, 'defaultValue', { type: ValueSpecification })
     const owningAssociations = resolve(property, 'owningAssociation', { many: true, type: Association })
     const qualifiers = resolve(property, 'qualifier', { many: true, type: Property })
     const redefinedProperties = resolve(property, 'redefinedProperty', { many: true, type: Property })
@@ -25,7 +26,7 @@ export const PropertyHandler = Property.createHandler(
     addEdge_associationEnd(property)
     addEdge_class(property)
     addEdge_datatype(property)
-    addEdge_defaultValue(property)
+    addEdge_defaultValue(property, defaultValue)
     addEdge_interface(property)
     addEdge_opposite(property)
     addEdge_owningAssociation(property, owningAssociations)
@@ -46,6 +47,13 @@ function removeInvalidIsNavigableAttribute(property: GraphNode) {
   property.removeAttribute('isNavigable')
 }
 
+function setAttribute_isComposite(property: GraphNode) {
+  if (!isCompositeProperty(property)) {
+    return
+  }
+  property.addAttribute({ name: Uml.Attributes.isComposite, value: { literal: 'true' } }, false)
+}
+
 function addEdge_association(
   property: GraphNode,
   association: GraphNode | undefined,
@@ -59,42 +67,47 @@ function addEdge_association(
 }
 
 function addEdge_associationEnd(_property: GraphNode) {
-  // TODO/Association
   // associationEnd : Property [0..1]{subsets Element::owner} (opposite Property::qualifier)
   // Designates the optional association end that owns a qualifier attribute.
+
+  // Added by addEdge_qualifier
 }
 
-function addEdge_class(property: GraphNode) {
-  const parent = property.parent
-  if (parent && Class.isAssignable(parent)) {
-    property.model.addEdge('class', property, parent)
-  }
+function addEdge_class(_property: GraphNode) {
+  // lass : Class [0..1]{subsets NamedElement::namespace, subsets A_ownedAttribute_structuredClassifier::structuredClassifier, subsets A_attribute_classifier::classifier} (opposite Class::ownedAttribute)
+  // The Class that owns this Property, if any.
+
+  // Added by Class::addEdge_ownedAttribute
 }
 
-function addEdge_datatype(property: GraphNode) {
-  const parent = property.parent
-  if (parent && DataType.isAssignable(parent)) {
-    property.model.addEdge('datatype', property, parent)
-  }
+function addEdge_datatype(_property: GraphNode) {
+  // datatype : DataType [0..1]{subsets NamedElement::namespace, subsets A_attribute_classifier::classifier} (opposite DataType::ownedAttribute)
+  // The DataType that owns this Property, if any.
+
+  // Added by DataType::addEdge_ownedAttribute
 }
 
-function addEdge_defaultValue(_property: GraphNode) {
-  // TODO/Association
+function addEdge_defaultValue(property: GraphNode, defaultValue: GraphNode | undefined) {
   // ♦ defaultValue : ValueSpecification [0..1]{subsets Element::ownedElement} (opposite A_defaultValue_owningProperty::owningProperty)
   // A ValueSpecification that is evaluated to give a default value for the Property when an instance of the owning Classifier is instantiated.
+  if (!defaultValue) {
+    return
+  }
+  property.model.addEdge('defaultValue', property, defaultValue)
 }
 
-function addEdge_interface(property: GraphNode) {
-  const parent = property.parent
-  if (parent && Interface.isAssignable(parent)) {
-    property.model.addEdge('interface', property, parent)
-  }
+function addEdge_interface(_property: GraphNode) {
+  // interface : Interface [0..1]{subsets NamedElement::namespace, subsets A_attribute_classifier::classifier} (opposite Interface::ownedAttribute)
+  // The Interface that owns this Property, if any.
+
+  // Added by Interface::addEdge_ownedAttribute
 }
 
 function addEdge_opposite(_property: GraphNode) {
-  // TODO/Association
   // /opposite : Property [0..1] (opposite A_opposite_property::property)
   // In the case where the Property is one end of a binary association this gives the other end.
+
+  // Added by Association::addEdge_opposite
 }
 
 function addEdge_owningAssociation(
@@ -113,6 +126,7 @@ function addEdge_qualifier(property: GraphNode, qualifiers: GraphNode[]) {
   // An optional list of ordered qualifier attributes for the end.
   qualifiers.forEach((qualifier) => {
     property.model.addEdge('qualifier', property, qualifier)
+    qualifier.model.addEdge('associationEnd', qualifier, property)
   })
 }
 

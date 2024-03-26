@@ -28,27 +28,35 @@ export function copyAttributes(source: Attributable, target: Attributable) {
 }
 
 /**
- * Transform a node to an edge
+ * Transform a node to edges
  * @param node - The node to be transformed
- * @param source - The source, i.e., client of the edge
- * @param target - The target, i.e., supplier of the edge
+ * @param sources - The sources, i.e., clients of the edge
+ * @param targets - The targets, i.e., suppliers of the edge
  * @param tag - The tag of the edge, optional
  * @returns The created edge or undefined if the source or target is undefined
  */
 export function transformNodeToEdge(
   node: GraphNode,
-  source: GraphNode | undefined,
-  target: GraphNode | undefined,
+  sources: GraphNode[],
+  targets: GraphNode[],
   tag: string,
 ) {
-  if (!source || !target) {
-    node.model.removeNode(node)
-    return undefined
-  }
-  const edge = node.model.addEdge(tag, source, target)
-  copyAttributes(node, edge)
+  // move children to parent
+  const children = node.children
+  children.forEach((child) => {
+    node.removeChild(child)
+    node.parent?.addChild(child)
+  })
+  // create all combinations of edges
+  const edges = sources.flatMap((source) => {
+    return targets.map((target) => {
+      const edge = node.model.addEdge(tag, source, target)
+      copyAttributes(node, edge)
+      return edge
+    })
+  })
   node.model.removeNode(node)
-  return edge
+  return edges
 }
 
 export type Callback = () => void
@@ -177,7 +185,7 @@ export class MetamodelElement<
       if (node.model.settings.strict) {
         throw new Error(message)
       }
-      node.model.debug(message)
+      node.model.debug('Parser', message)
     }
     if (this.type) {
       inferAndSaveType(node, this.type, this.configuration)

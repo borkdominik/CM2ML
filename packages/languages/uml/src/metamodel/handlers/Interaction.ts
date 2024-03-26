@@ -1,11 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { Gate, Interaction, Message } from '../uml-metamodel'
+import { Gate, Interaction, Lifeline, Message } from '../uml-metamodel'
 
 export const InteractionHandler = Interaction.createHandler(
   (interaction, { onlyContainmentAssociations }) => {
     const formalGates = resolve(interaction, 'formalGate', { many: true, type: Gate })
+    const lifelines = resolve(interaction, 'lifeline', { many: true, type: Lifeline })
     const messages = resolve(interaction, 'message', { many: true, type: Message })
     if (onlyContainmentAssociations) {
       return
@@ -13,7 +14,7 @@ export const InteractionHandler = Interaction.createHandler(
     addEdge_action(interaction)
     addEdge_formalGate(interaction, formalGates)
     addEdge_fragment(interaction)
-    addEdge_lifeline(interaction)
+    addEdge_lifeline(interaction, lifelines)
     addEdge_message(interaction, messages)
   },
 )
@@ -38,10 +39,12 @@ function addEdge_fragment(_interaction: GraphNode) {
   // The ordered set of fragments in the Interaction.
 }
 
-function addEdge_lifeline(_interaction: GraphNode) {
-  // TODO/Association
+function addEdge_lifeline(interaction: GraphNode, lifelines: GraphNode[]) {
   // ♦ lifeline : Lifeline [0..*]{subsets Namespace::ownedMember} (opposite Lifeline::interaction)
   // Specifies the participants in this Interaction.
+  lifelines.forEach((lifeline) => {
+    interaction.model.addEdge('lifeline', interaction, lifeline)
+  })
 }
 
 function addEdge_message(interaction: GraphNode, messages: GraphNode[]) {

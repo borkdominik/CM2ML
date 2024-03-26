@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import path from 'node:path'
 
 import react from '@vitejs/plugin-react'
@@ -54,8 +54,7 @@ export default defineConfig({
     __SOURCE_URL: JSON.stringify(
       packageJson.repository.url.replace('git+', '').replace('.git', ''),
     ),
-    __EXAMPLE_MODEL: JSON.stringify(readFileSync('../../models/uml/clazz.uml', 'utf-8')),
-    __ARCHIMATE_EXAMPLE_MODEL: JSON.stringify(readFileSync('../../models/archimate/Example.archimate', 'utf-8')),
+    __EXAMPLE_MODELS: JSON.stringify(getExampleModels()),
   },
   resolve: {
     alias: {
@@ -63,3 +62,23 @@ export default defineConfig({
     },
   },
 })
+
+function getExampleModels() {
+  const modelsDir = '../../models'
+  const languages = readdirSync(modelsDir, { withFileTypes: true }).filter((entry) => entry.isDirectory())
+  return languages.map(({ name: language }) => {
+    return {
+      language,
+      models: getExampleModelsForLanguage(modelsDir, language),
+    }
+  })
+}
+
+function getExampleModelsForLanguage(modelsDir: string, language: string) {
+  const languageDir = path.join(modelsDir, language)
+  const modelFiles = readdirSync(languageDir, { withFileTypes: true }).filter((entry) => entry.isFile() && entry.name !== '.DS_Store')
+  return modelFiles.map(({ name: modelFile }) => {
+    const model = readFileSync(path.join(languageDir, modelFile), 'utf-8')
+    return { name: modelFile, model }
+  })
+}

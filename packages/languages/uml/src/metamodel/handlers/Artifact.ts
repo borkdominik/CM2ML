@@ -1,18 +1,19 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { Artifact, Manifestation } from '../uml-metamodel'
+import { Artifact, Manifestation, Property } from '../uml-metamodel'
 
 export const ArtifactHandler = Artifact.createHandler(
   (artifact, { onlyContainmentAssociations }) => {
     const manifestations = resolve(artifact, 'manifestation', { many: true, type: Manifestation })
     const nestedArtifacts = resolve(artifact, 'nestedArtifact', { many: true, type: Artifact })
+    const ownedAttributes = resolve(artifact, 'ownedAttribute', { many: true, type: Property })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_manifestation(artifact, manifestations)
     addEdge_nestedArtifact(artifact, nestedArtifacts)
-    addEdge_ownedAttribute(artifact)
+    addEdge_ownedAttribute(artifact, ownedAttributes)
     addEdge_ownedOperation(artifact)
   },
 )
@@ -33,10 +34,13 @@ function addEdge_nestedArtifact(artifact: GraphNode, nestedArtifacts: GraphNode[
   })
 }
 
-function addEdge_ownedAttribute(_artifact: GraphNode) {
-  // TODO/Association
+function addEdge_ownedAttribute(artifact: GraphNode, ownedAttributes: GraphNode[]) {
   // ♦ ownedAttribute : Property [0..*]{ordered, subsets Classifier::attribute, subsets Namespace::ownedMember} (opposite A_ownedAttribute_artifact::artifact)
   // The attributes or association ends defined for the Artifact. The association is a specialization of the ownedMember association.
+  ownedAttributes.forEach((ownedAttribute) => {
+    artifact.model.addEdge('ownedAttribute', artifact, ownedAttribute)
+    artifact.model.addEdge('attribute', artifact, ownedAttribute)
+  })
 }
 
 function addEdge_ownedOperation(_artifact: GraphNode) {

@@ -1,16 +1,47 @@
+import type { Parser } from '@cm2ml/builtin'
+import { UmlParser } from '@cm2ml/builtin'
 import { UmlParser, ArchimateParser } from '@cm2ml/builtin'
 
-export const exampleModel = {
-  serializedModel: __EXAMPLE_MODEL,
+export interface PreparedExample {
+  name: string
+  serializedModel: string
+  parameters: {
+    debug: boolean
+    onlyContainmentAssociations: boolean
+    relationshipsAsEdges: boolean
+    strict: boolean
+  }
+  parser: Parser
+}
+
+export const exampleModels: [string, PreparedExample[]][] = __EXAMPLE_MODELS.map(({ language, models }) => {
+  if (language === 'uml') {
+    return ['UML', prepareUmlExampleModels(models)]
+  }
+  return [language, []]
+})
+
+function prepareUmlExampleModels(exampleModels: ExampleModel[]): PreparedExample[] {
+  return exampleModels.map(({ name, model }) => ({
+    name,
+    serializedModel: model,
+    parameters: {
+      debug: false,
+      onlyContainmentAssociations: false,
+      relationshipsAsEdges: false,
+      strict: true,
+    },
+    parser: UmlParser,
+  }))
+}
+
+export const archimateExampleModel = {
+  serializedModel: __ARCHIMATE_EXAMPLE_MODEL,
   parameters: {
     debug: false,
-    idAttribute: 'xmi:id',
-    onlyContainmentAssociations: true,
-    relationshipsAsEdges: true,
-    removeInvalidNodes: true,
-    strict: true,
+    idAttribute: 'id'
   },
-  parser: UmlParser,
+  parser: ArchimateParser
 }
 
 export const archimateExampleModel = {

@@ -2,13 +2,13 @@ import type { Attributable, GraphModel } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
 export function validateModel(model: GraphModel) {
-  if (!model.settings.strict) {
+  if (!model.settings.strict || !model.settings.debug) {
     return
   }
-  model.debug('Validating model')
+  model.debug('IR', 'Validating IR')
   validateNodeIdentifiability(model)
   validateEdgeUniqueness(model)
-  model.debug('All validations passed')
+  model.debug('IR', 'All IR validations passed')
 }
 
 function validateNodeIdentifiability(model: GraphModel) {

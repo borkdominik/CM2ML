@@ -1,17 +1,18 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { LinkEndData, Property } from '../uml-metamodel'
+import { InputPin, LinkEndData, Property } from '../uml-metamodel'
 
 export const LinkEndDataHandler = LinkEndData.createHandler(
   (linkEndData, { onlyContainmentAssociations }) => {
     const end = resolve(linkEndData, 'end', { type: Property })
+    const value = resolve(linkEndData, 'value', { type: InputPin })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_end(linkEndData, end)
     addEdge_qualifier(linkEndData)
-    addEdge_value(linkEndData)
+    addEdge_value(linkEndData, value)
   },
 )
 
@@ -30,8 +31,11 @@ function addEdge_qualifier(_linkEndData: GraphNode) {
   // A set of QualifierValues used to provide values for the qualifiers of the end.
 }
 
-function addEdge_value(_linkEndData: GraphNode) {
-  // TODO/Association
+function addEdge_value(linkEndData: GraphNode, value: GraphNode | undefined) {
   // value : InputPin [0..1] (opposite A_value_linkEndData::linkEndData)
   // The InputPin that provides the specified value for the given end. This InputPin is omitted if the LinkEndData specifies the "open" end for a ReadLinkAction.
+  if (!value) {
+    return
+  }
+  linkEndData.model.addEdge('value', linkEndData, value)
 }

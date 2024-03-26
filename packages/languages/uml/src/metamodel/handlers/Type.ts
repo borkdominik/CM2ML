@@ -1,7 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
-import { getParentOfType } from '@cm2ml/metamodel'
 
-import { Package, Type } from '../uml-metamodel'
+import { Type } from '../uml-metamodel'
 
 export const TypeHandler = Type.createHandler(
   (type, { onlyContainmentAssociations }) => {
@@ -12,11 +11,9 @@ export const TypeHandler = Type.createHandler(
   },
 )
 
-function addEdge_package(type: GraphNode) {
-  const package_ = getParentOfType(type, Package)
-  if (!package_) {
-    return
-  }
-  type.model.addEdge('package', type, package_)
-  // TODO/Investigate: Set reverse direction here instead of in package? -> Issue of nested types with current approach
+function addEdge_package(_type: GraphNode) {
+  // package : Package [0..1]{subsets A_packagedElement_owningPackage::owningPackage} (opposite Package::ownedType)
+  // Specifies the owning Package of this Type, if any.
+
+  // Added by PackageHandler::addEdge_ownedType
 }

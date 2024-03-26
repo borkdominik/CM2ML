@@ -7,15 +7,9 @@ import { validateModel } from './validations'
 export const IrPostProcessor = definePlugin({
   name: 'ir-post-processor',
   parameters: {
-    removeInvalidNodes: {
-      type: 'boolean',
-      defaultValue: true,
-      description:
-        'Remove unconnected or unidentifiable nodes from the graph. Has no effect if model is strict.',
-    },
   },
-  invoke: (model: GraphModel, { removeInvalidNodes }) => {
-    if (removeInvalidNodes && !model.settings.strict) {
+  invoke: (model: GraphModel) => {
+    if (!model.settings.strict) {
       removeInvalidNodesFromModel(model)
     }
     validateModel(model)

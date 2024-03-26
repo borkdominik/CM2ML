@@ -19,7 +19,7 @@ export function createXmiParser(
       debug: {
         type: 'boolean',
         defaultValue: false,
-        description: 'Log debug information.',
+        description: 'Log debug information and validate results if strict is also enabled.',
       },
       strict: {
         type: 'boolean',

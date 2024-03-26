@@ -24,12 +24,8 @@ function addEdge_metaclassReference(profile: GraphNode, metaclassReferences: Gra
 }
 
 function addEdge_metamodelReference(profile: GraphNode, metamodelReferences: GraphNode[]) {
-  // TODO/Association
   // ♦ metamodelReference : PackageImport [0..*]{subsets Namespace::packageImport} (opposite A_metamodelReference_profile::profile)
   // References a package containing (directly or indirectly) metaclasses that may be extended.
-  if (!metamodelReferences) {
-    return
-  }
   metamodelReferences.forEach((metamodelReference) => {
     profile.model.addEdge('metamodelReference', profile, metamodelReference)
   })

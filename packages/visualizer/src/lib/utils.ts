@@ -17,7 +17,7 @@ export function getNewParameters(
   return Stream.fromObject(metadata).toRecord(
     ([name]) => name,
     ([name, { defaultValue }]) => {
-      if (oldMetadata && name in oldMetadata) {
+      if (oldMetadata !== undefined && metadata !== oldMetadata && name in oldMetadata) {
         // Prevent same-name parameters of previous plugin from being used
         return defaultValue
       }

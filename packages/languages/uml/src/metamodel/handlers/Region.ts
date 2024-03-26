@@ -1,11 +1,12 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { Region } from '../uml-metamodel'
+import { Region, Transition } from '../uml-metamodel'
 
 export const RegionHandler = Region.createHandler(
   (region, { onlyContainmentAssociations }) => {
     const extendedRegion = resolve(region, 'extendedRegion', { type: Region })
+    const transitions = resolve(region, 'transition', { many: true, type: Transition })
     if (onlyContainmentAssociations) {
       return
     }
@@ -14,7 +15,7 @@ export const RegionHandler = Region.createHandler(
     addEdge_state(region)
     addEdge_stateMachine(region)
     addEdge_subvertex(region)
-    addEdge_transition(region)
+    addEdge_transition(region, transitions)
   },
 )
 
@@ -51,8 +52,10 @@ function addEdge_subvertex(_region: GraphNode) {
   // The set of Vertices that are owned by this Region.
 }
 
-function addEdge_transition(_region: GraphNode) {
-  // TODO/Association
+function addEdge_transition(region: GraphNode, transitions: GraphNode[]) {
   // ♦ transition : Transition [0..*]{subsets Namespace::ownedMember} (opposite Transition::container)
   // The set of Transitions owned by the Region.
+  transitions.forEach((transition) => {
+    region.model.addEdge('transition', region, transition)
+  })
 }

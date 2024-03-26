@@ -1,13 +1,14 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { ConnectionPointReference, Constraint, Pseudostate, State, StateMachine, Trigger } from '../uml-metamodel'
+import { ConnectionPointReference, Constraint, Pseudostate, Region, State, StateMachine, Trigger } from '../uml-metamodel'
 
 export const StateHandler = State.createHandler(
   (state, { onlyContainmentAssociations }) => {
     const connectionPoints = resolve(state, 'connectionPoint', { many: true, type: Pseudostate })
     const connections = resolve(state, 'connection', { many: true, type: ConnectionPointReference })
     const deferrableTriggers = resolve(state, 'deferrableTrigger', { many: true, type: Trigger })
+    const regions = resolve(state, 'region', { many: true, type: Region })
     const stateInvariant = resolve(state, 'stateInvariant', { type: Constraint })
     const submachine = resolve(state, 'submachine', { type: StateMachine })
     removeUnsupportedRedefinedState(state)
@@ -20,7 +21,7 @@ export const StateHandler = State.createHandler(
     addEdge_doActivity(state)
     addEdge_entry(state)
     addEdge_exit(state)
-    addEdge_region(state)
+    addEdge_region(state, regions)
     addEdge_stateInvariant(state, stateInvariant)
     addEdge_submachine(state, submachine)
   },
@@ -75,10 +76,12 @@ function addEdge_exit(_state: GraphNode) {
   // An optional Behavior that is executed whenever this State is exited regardless of which Transition was taken out of the State. If defined, exit Behaviors are always executed to completion only after all internal and transition Behaviors have completed execution.
 }
 
-function addEdge_region(_state: GraphNode) {
-  // TODO/Association
+function addEdge_region(state: GraphNode, regions: GraphNode[]) {
   // ♦ region : Region [0..*]{subsets Namespace::ownedMember} (opposite Region::state)
   // The Regions owned directly by the State.
+  regions.forEach((region) => {
+    state.model.addEdge('region', state, region)
+  })
 }
 
 function addEdge_stateInvariant(state: GraphNode, stateInvariant: GraphNode | undefined) {

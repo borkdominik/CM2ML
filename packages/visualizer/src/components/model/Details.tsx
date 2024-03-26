@@ -29,16 +29,7 @@ export function SelectionDetails() {
     return <NodeDetails node={node} />
   }
   const edges = getEdges(selection, model)
-  return (
-    <div className="space-y-4 p-2">
-      {edges.map((edge, index) => (
-        <Fragment key={index}>
-          <EdgeDetails edge={edge} />
-          {index !== edges.length - 1 ? <Separator /> : null}
-        </Fragment>
-      ))}
-    </div>
-  )
+  return <EdgeList edges={edges} />
 }
 
 function getEdges(edgeSelection: EdgeSelection, model: GraphModel) {
@@ -205,29 +196,53 @@ function EdgeSelectionButton({
   )
 }
 
-function EdgeDetails({ edge }: { edge: GraphEdge }) {
+function EdgeList({ edges }: { edges: GraphEdge[] }) {
+  const groups = useMemo(() => Object.entries(groupBy(edges, (edge) => edge.source.id ?? '')), [edges])
+  return groups.map(([groupKey, group], index) => (
+    <Fragment key={groupKey}>
+      <EdgeGroup edges={group ?? []} />
+      {index !== edges.length - 1 ? <Separator /> : null}
+    </Fragment>
+  ))
+}
+
+function EdgeGroup({ edges }: { edges: GraphEdge[] }) {
+  const firstEdge = edges[0]
+  if (!firstEdge) {
+    return null
+  }
   return (
-    <div className="space-y-2">
-      <div className="text-sm font-bold">{edge.tag}</div>
-      <AttributableDetails attributable={edge} />
+    <div className="space-y-4 p-2">
       <div className="space-y-2">
         <div className="text-sm font-bold">Source</div>
         <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
           <div className="whitespace-pre-wrap text-muted-foreground">
-            {edge.source.tag}
+            {firstEdge.source.tag}
           </div>
-          <NodeSelectionButton id={edge.source.id} />
+          <NodeSelectionButton id={firstEdge.source.id} />
         </div>
       </div>
       <div className="space-y-2">
         <div className="text-sm font-bold">Target</div>
         <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
           <div className="whitespace-pre-wrap text-muted-foreground">
-            {edge.target.tag}
+            {firstEdge.target.tag}
           </div>
-          <NodeSelectionButton id={edge.target.id} />
+          <NodeSelectionButton id={firstEdge.target.id} />
         </div>
       </div>
+      {edges.map((edge, index) => (
+        <EdgeDetails edge={edge} key={index} />
+      ))}
+    </div>
+  )
+}
+
+function EdgeDetails({ edge }: { edge: GraphEdge }) {
+  return (
+    <div className="space-y-2">
+      <div className="text-sm font-bold">{edge.tag}</div>
+      <AttributableDetails attributable={edge} />
     </div>
   )
 }
@@ -268,5 +283,19 @@ function AttributableDetails({
         </Fragment>
       ))}
     </div>
+  )
+}
+
+function groupBy<T>(items: T[], key: (item: T) => string): Record<string, T[]> {
+  return items.reduce(
+    (acc, item) => {
+      const group = key(item)
+      if (!acc[group]) {
+        acc[group] = []
+      }
+      acc[group]?.push(item)
+      return acc
+    },
+    {} as Record<string, T[]>,
   )
 }

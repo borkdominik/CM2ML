@@ -10,6 +10,7 @@ export const TransitionHandler = Transition.createHandler(
     const redefinedTransition = resolve(transition, 'redefinedTransition', { type: Transition })
     const source = resolve(transition, 'source', { type: Vertex })
     const target = resolve(transition, 'target', { type: Vertex })
+    const triggers = resolve(transition, 'trigger', { many: true, type: Trigger })
     if (relationshipsAsEdges) {
       return transformNodeToEdgeCallback(transition, source, target)
     }
@@ -23,9 +24,7 @@ export const TransitionHandler = Transition.createHandler(
     addEdge_redefinitionContext(transition)
     addEdge_source(transition, source)
     addEdge_target(transition, target)
-    transition.children.forEach((child) => {
-      addEdge_trigger(transition, child)
-    })
+    addEdge_trigger(transition, triggers)
   },
   {
     [Uml.Attributes.kind]: 'external',
@@ -45,7 +44,6 @@ function addEdge_effect(_transition: GraphNode) {
 }
 
 function addEdge_guard(transition: GraphNode, guard: GraphNode | undefined) {
-  // TODO/Association
   // ♦ guard : Constraint [0..1]{subsets Namespace::ownedRule} (opposite A_guard_transition::transition)
   // A guard is a Constraint that provides a fine-grained control over the firing of the Transition. The guard is evaluated when an Event occurrence is dispatched by the StateMachine. If the guard is true at that time, the Transition may be enabled, otherwise, it is disabled. Guards should be pure expressions without side effects. Guard expressions with side effects are ill formed.
   if (!guard) {
@@ -87,11 +85,10 @@ function addEdge_target(transition: GraphNode, target: GraphNode | undefined) {
   transition.model.addEdge('target', transition, target)
 }
 
-function addEdge_trigger(transition: GraphNode, child: GraphNode) {
-  // TODO/Association
+function addEdge_trigger(transition: GraphNode, triggers: GraphNode[]) {
   // ♦ trigger : Trigger [0..*]{subsets Element::ownedElement} (opposite A_trigger_transition::transition)
   // Specifies the Triggers that may fire the transition.
-  if (Trigger.isAssignable(child)) {
-    transition.model.addEdge('trigger', transition, child)
-  }
+  triggers.forEach((trigger) => {
+    transition.model.addEdge('trigger', transition, trigger)
+  })
 }

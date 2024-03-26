@@ -6,13 +6,12 @@ import { Component, ComponentRealization, PackageableElement } from '../uml-meta
 
 export const ComponentHandler = Component.createHandler(
   (component, { onlyContainmentAssociations }) => {
+    const packagedElements = resolve(component, 'packagedElement', { many: true, type: PackageableElement })
     const realizations = resolve(component, 'realization', { many: true, type: ComponentRealization })
     if (onlyContainmentAssociations) {
       return
     }
-    component.children.forEach((child) => {
-      addEdge_packagedElement(component, child)
-    })
+    addEdge_packagedElement(component, packagedElements)
     addEdge_provided(component)
     addEdge_realization(component, realizations)
     addEdge_required(component)
@@ -22,10 +21,10 @@ export const ComponentHandler = Component.createHandler(
   },
 )
 
-function addEdge_packagedElement(component: GraphNode, child: GraphNode) {
-  if (PackageableElement.isAssignable(child)) {
-    component.model.addEdge('packagedElement', component, child)
-  }
+function addEdge_packagedElement(component: GraphNode, packagedElements: GraphNode[]) {
+  packagedElements.forEach((packagedElement) => {
+    component.model.addEdge('packagedElement', component, packagedElement)
+  })
 }
 
 function addEdge_provided(_component: GraphNode) {

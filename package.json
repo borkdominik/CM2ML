@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@8.15.3",
+  "packageManager": "pnpm@8.15.4",
   "repository": {
     "url": "https://github.com/borkdominik/CM2ML"
   },
@@ -14,7 +14,7 @@
     "build": "nr turbo run build",
     "changeset": "changeset",
     "ci": "cross-env COVERAGE=true nr turbo run build generate lint test check:publish check:tsc check:vue",
-    "clean": "rimraf -g **/tsconfig.tsbuildinfo **/vite.config.ts.*",
+    "clean": "rimraf -g **/tsconfig.tsbuildinfo **/vite.config.ts.timestamp-*",
     "cm2ml": "nr turbo build --filter=cli... && cm2ml",
     "create-package": "nr turbo generate lib && nr syncpack:fix && ni && nr generate-readme",
     "dev": "nr turbo run dev --parallel",
@@ -42,26 +42,26 @@
     "@cm2ml/cli": "workspace:*",
     "@cm2ml/rest": "workspace:*",
     "@cm2ml/scripts": "workspace:*",
-    "@commitlint/cli": "18.6.1",
-    "@commitlint/config-conventional": "18.6.2",
-    "@turbo/gen": "1.12.4",
-    "@types/node": "20.11.19",
-    "@vitest/coverage-v8": "1.3.1",
-    "@vitest/ui": "1.3.1",
+    "@commitlint/cli": "19.2.0",
+    "@commitlint/config-conventional": "19.1.0",
+    "@turbo/gen": "1.12.5",
+    "@types/node": "20.11.28",
+    "@vitest/coverage-v8": "1.4.0",
+    "@vitest/ui": "1.4.0",
     "@yeger/eslint-config": "2.1.2",
     "@yeger/turbo-graph": "2.0.1",
     "cross-env": "7.0.3",
-    "eslint": "8.56.0",
+    "eslint": "8.57.0",
     "husky": "9.0.11",
     "lint-staged": "15.2.2",
     "publint": "0.2.7",
     "rimraf": "5.0.5",
     "syncpack": "12.3.0",
     "taze": "0.13.3",
-    "turbo": "1.12.4",
-    "vitest": "1.3.1"
+    "turbo": "1.12.5",
+    "vitest": "1.4.0"
   },
   "lint-staged": {
-    "*.{astro,html,js,jsx,json,md,ts,tsx,vue,yaml,yml}": "eslint --rule 'import/no-unresolved: off' --rule 'import/default: off' --fix"
+    "*.{astro,cjs,html,js,jsx,json,md,mjs,mts,svelte,ts,tsx,vue,yaml,yml}": "eslint --fix"
   }
 }

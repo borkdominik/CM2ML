@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { getParentOfType } from '@cm2ml/metamodel'
 
+import { addEdge_relatedElement } from '../resolvers/relatedElement'
 import { resolve } from '../resolvers/resolve'
 import { Uml, transformNodeToEdgeCallback } from '../uml'
 import { Package, Profile, ProfileApplication } from '../uml-metamodel'
@@ -10,7 +11,6 @@ export const ProfileApplicationHandler = ProfileApplication.createHandler(
     const appliedProfile = resolve(profileApplication, 'appliedProfile', { type: Profile })
     const applyingPackage = resolve(profileApplication, 'applyingPackage', { type: Package }) ?? getParentOfType(profileApplication, Package)
     if (relationshipsAsEdges) {
-      // TODO/Jan Validate edge direction
       return transformNodeToEdgeCallback(profileApplication, applyingPackage, appliedProfile)
     }
     if (onlyContainmentAssociations) {
@@ -18,6 +18,7 @@ export const ProfileApplicationHandler = ProfileApplication.createHandler(
     }
     addEdge_appliedProfile(profileApplication, appliedProfile)
     addEdge_applyingPackage(profileApplication, applyingPackage)
+    addEdge_relatedElement(profileApplication, appliedProfile, applyingPackage)
   },
   {
     [Uml.Attributes.isStrict]: 'true',
@@ -31,6 +32,7 @@ function addEdge_appliedProfile(profileApplication: GraphNode, appliedProfile: G
     return
   }
   profileApplication.model.addEdge('appliedProfile', profileApplication, appliedProfile)
+  profileApplication.model.addEdge('target', profileApplication, appliedProfile)
 }
 
 function addEdge_applyingPackage(profileApplication: GraphNode, applyingPackage: GraphNode | undefined) {
@@ -40,4 +42,5 @@ function addEdge_applyingPackage(profileApplication: GraphNode, applyingPackage:
     return
   }
   profileApplication.model.addEdge('applyingPackage', profileApplication, applyingPackage)
+  profileApplication.model.addEdge('source', profileApplication, applyingPackage)
 }

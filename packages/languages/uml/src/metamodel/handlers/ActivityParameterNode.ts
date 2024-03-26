@@ -14,7 +14,6 @@ export const ActivityParameterNodeHandler = ActivityParameterNode.createHandler(
 )
 
 function addEdge_parameter(activityParameterNode: GraphNode, parameter: GraphNode | undefined) {
-  // TODO/Association
   // parameter : Parameter [1..1] (opposite A_parameter_activityParameterNode::activityParameterNode)
   // The Parameter for which the ActivityParameterNode will be accepting or providing values.
   if (!parameter) {

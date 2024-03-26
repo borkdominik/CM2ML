@@ -1,7 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { TemplateBinding, TemplateSignature, TemplateableElement } from '../uml-metamodel'
+import { Classifier, TemplateBinding, TemplateSignature, TemplateableElement } from '../uml-metamodel'
 
 export const TemplateableElementHandler = TemplateableElement.createHandler(
   (templateableElement, { onlyContainmentAssociations }) => {
@@ -19,6 +19,11 @@ function addEdge_ownedTemplateSignature(templateableElement: GraphNode, ownedTem
   // ♦ ownedTemplateSignature : TemplateSignature [0..1]{subsets Element::ownedElement} (opposite TemplateSignature::template)
   // The optional TemplateSignature specifying the formal TemplateParameters for this TemplateableElement. If a TemplateableElement has a TemplateSignature, then it is a template.
   if (!ownedTemplateSignature) {
+    return
+  }
+  ownedTemplateSignature.model.addEdge('template', ownedTemplateSignature, templateableElement)
+  if (Classifier.isAssignable(templateableElement)) {
+    // Classifier redefines ownedTemplateSignature
     return
   }
   templateableElement.model.addEdge('ownedTemplateSignature', templateableElement, ownedTemplateSignature)

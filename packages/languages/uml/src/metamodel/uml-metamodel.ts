@@ -107,14 +107,14 @@ export const MultiplicityElement = defineAbstract(
 
 export const Parameter = define(
   Uml.Types.Parameter,
-  Uml.Tags.ownedParameter,
+  undefined,
   MultiplicityElement,
   ConnectableElement,
 )
 
 export const ParameterSet = define(
   Uml.Types.ParameterSet,
-  Uml.Tags.ownedParameterSet,
+  undefined,
   NamedElement,
 )
 
@@ -131,7 +131,7 @@ export const BehavioralFeature = defineAbstract(
 
 export const Operation = define(
   Uml.Types.Operation,
-  Uml.Tags.ownedOperation,
+  undefined,
   TemplateableElement,
   ParameterableElement,
   BehavioralFeature,
@@ -156,7 +156,7 @@ export const Dependency = define(
 
 export const Abstraction = define(Uml.Types.Abstraction, undefined, Dependency)
 
-export const Comment = define(Uml.Types.Comment, Uml.Tags.ownedComment, Element)
+export const Comment = define(Uml.Types.Comment, undefined, Element)
 
 export const Constraint = define(
   Uml.Types.Constraint,
@@ -166,19 +166,19 @@ export const Constraint = define(
 
 export const ElementImport = define(
   Uml.Types.ElementImport,
-  Uml.Tags.elementImport,
+  undefined,
   DirectedRelationship,
 )
 
 export const PackageImport = define(
   Uml.Types.PackageImport,
-  Uml.Tags.packageImport,
+  undefined,
   DirectedRelationship,
 )
 
 export const PackageMerge = define(
   Uml.Types.PackageMerge,
-  Uml.Tags.packageMerge,
+  undefined,
   DirectedRelationship,
 )
 
@@ -186,7 +186,7 @@ export const Realization = define(Uml.Types.Realization, undefined, Abstraction)
 
 export const TemplateBinding = define(
   Uml.Types.TemplateBinding,
-  Uml.Tags.templateBinding,
+  undefined,
   DirectedRelationship,
 )
 
@@ -198,7 +198,7 @@ export const TemplateParameter = define(
 
 export const TemplateParameterSubstitution = define(
   Uml.Types.TemplateParameterSubstitution,
-  Uml.Tags.parameterSubstitution,
+  undefined,
   Element,
 )
 
@@ -212,29 +212,29 @@ export const Usage = define(Uml.Types.Usage, undefined, Dependency)
 
 export const Package = define(
   Uml.Types.Package,
-  Uml.Tags.importedPackage,
+  undefined,
   PackageableElement,
   TemplateableElement,
   Namespace,
 )
 
-export const Profile = define(Uml.Types.Profile, Uml.Tags.appliedProfile, Package)
+export const Profile = define(Uml.Types.Profile, undefined, Package)
 
 export const ProfileApplication = define(
   Uml.Types.ProfileApplication,
-  Uml.Tags.profileApplication,
+  undefined,
   DirectedRelationship,
 )
 
 export const InterfaceRealization = define(
   Uml.Types.InterfaceRealization,
-  Uml.Tags.interfaceRealization,
+  undefined,
   Realization,
 )
 
 export const Generalization = define(
   Uml.Types.Generalization,
-  Uml.Tags.generalization,
+  undefined,
   DirectedRelationship,
 )
 
@@ -258,7 +258,7 @@ export const StructuralFeature = defineAbstract(
 
 export const Property = define(
   Uml.Types.Property,
-  Uml.Tags.ownedAttribute,
+  undefined,
   ConnectableElement,
   DeploymentTarget,
   StructuralFeature,
@@ -320,7 +320,7 @@ export const Expression = define(
 
 export const StringExpression = define(
   Uml.Types.StringExpression,
-  Uml.Tags.nameExpression,
+  undefined,
   TemplateableElement,
   Expression,
 )
@@ -358,21 +358,21 @@ export const Enumeration = define(Uml.Types.Enumeration, undefined, DataType)
 
 export const EnumerationLiteral = define(
   Uml.Types.EnumerationLiteral,
-  Uml.Tags.ownedLiteral,
+  undefined,
   InstanceSpecification,
 )
 
-export const Interface = define(Uml.Types.Interface, Uml.Tags.contract, Classifier)
+export const Interface = define(Uml.Types.Interface, undefined, Classifier)
 
 export const Substitution = define(
   Uml.Types.Substitution,
-  Uml.Tags.substitution,
+  undefined,
   Realization,
 )
 
 export const Association = define(
   Uml.Types.Association,
-  Uml.Tags.association,
+  undefined,
   Relationship,
   Classifier,
 )
@@ -411,7 +411,7 @@ export const ConnectableElementTemplateParameter = define(
   TemplateParameter,
 )
 
-export const Connector = define(Uml.Types.Connector, Uml.Tags.ownedConnector, Feature)
+export const Connector = define(Uml.Types.Connector, undefined, Feature)
 
 export const ConnectorEnd = define(
   Uml.Types.ConnectorEnd,
@@ -618,7 +618,7 @@ export const RedefinableTemplateSignature = define(
   TemplateSignature,
 )
 
-export const Slot = define(Uml.Types.Slot, Uml.Tags.slot, Element)
+export const Slot = define(Uml.Types.Slot, undefined, Element)
 
 export const Reception = define(
   Uml.Types.Reception,
@@ -632,7 +632,7 @@ export const Extension = define(Uml.Types.Extension, undefined, Association)
 
 export const ExtensionEnd = define(Uml.Types.ExtensionEnd, undefined, Property)
 
-export const Image = define(Uml.Types.Image, Uml.Tags.icon, Element)
+export const Image = define(Uml.Types.Image, undefined, Element)
 
 export const Stereotype = define(Uml.Types.Stereotype, undefined, Class)
 
@@ -666,7 +666,7 @@ export const SignalEvent = define(
 
 export const TimeEvent = define(Uml.Types.TimeEvent, undefined, Event)
 
-export const Trigger = define(Uml.Types.Trigger, Uml.Tags.trigger, NamedElement)
+export const Trigger = define(Uml.Types.Trigger, undefined, NamedElement)
 
 export const ConnectionPointReference = define(
   Uml.Types.ConnectionPointReference,
@@ -694,7 +694,7 @@ export const ProtocolStateMachine = define(
 
 export const Transition = define(
   Uml.Types.Transition,
-  Uml.Tags.transition,
+  undefined,
   Namespace,
   RedefinableElement,
 )
@@ -709,7 +709,7 @@ export const Pseudostate = define(Uml.Types.Pseudostate, undefined, Vertex)
 
 export const Region = define(
   Uml.Types.Region,
-  Uml.Tags.region,
+  undefined,
   Namespace,
   RedefinableElement,
 )
@@ -805,7 +805,7 @@ export const AcceptCallAction = define(
   AcceptEventAction,
 )
 
-export const InputPin = define(Uml.Types.InputPin, Uml.Tags.target, Pin)
+export const InputPin = define(Uml.Types.InputPin, undefined, Pin)
 
 export const ActionInputPin = define(
   Uml.Types.ActionInputPin,
@@ -1164,7 +1164,7 @@ export const InteractionUse = define(
   InteractionFragment,
 )
 
-export const Lifeline = define(Uml.Types.Lifeline, Uml.Tags.lifeline, NamedElement)
+export const Lifeline = define(Uml.Types.Lifeline, undefined, NamedElement)
 
 export const Message = define(Uml.Types.Message, undefined, NamedElement)
 
@@ -1191,13 +1191,13 @@ export const Extend = define(
 
 export const ExtensionPoint = define(
   Uml.Types.ExtensionPoint,
-  Uml.Tags.extensionPoint,
+  undefined,
   RedefinableElement,
 )
 
 export const Include = define(
   Uml.Types.Include,
-  Uml.Tags.include,
+  undefined,
   DirectedRelationship,
   NamedElement,
 )
@@ -1221,7 +1221,7 @@ export const CommunicationPath = define(
   Association,
 )
 
-export const Deployment = define(Uml.Types.Deployment, Uml.Tags.deployment, Dependency)
+export const Deployment = define(Uml.Types.Deployment, undefined, Dependency)
 
 export const DeploymentSpecification = define(
   Uml.Types.DeploymentSpecification,

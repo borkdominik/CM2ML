@@ -1,5 +1,7 @@
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
 
+import type { PreparedExample } from '../lib/exampleModel'
+import { exampleModels } from '../lib/exampleModel'
 import { archimateExampleModel, exampleModel } from '../lib/exampleModel'
 import { useEncoderState } from '../lib/useEncoderState'
 import { useModelState } from '../lib/useModelState'
@@ -37,6 +39,7 @@ function ModelMenu() {
     <MenubarMenu>
       <MenubarTrigger>Model</MenubarTrigger>
       <MenubarContent>
+        <ExamplesSubMenu />
         <LoadExampleModelMenuItem />
         <LoadArchimateExampleModelMenuItem />
         <MenubarSeparator />
@@ -48,16 +51,39 @@ function ModelMenu() {
   )
 }
 
-function LoadExampleModelMenuItem() {
+function ExamplesSubMenu() {
+  return (
+    <MenubarSub>
+      <MenubarSubTrigger>Examples</MenubarSubTrigger>
+      <MenubarSubContent>
+        {exampleModels.map(([language, models]) => <ExampleLanguageSubMenu key={language} language={language} models={models} />)}
+      </MenubarSubContent>
+    </MenubarSub>
+  )
+}
+
+function ExampleLanguageSubMenu({ language, models }: { language: string, models: PreparedExample[] }) {
+  return (
+    <MenubarSub>
+      <MenubarSubTrigger>{language}</MenubarSubTrigger>
+      <MenubarSubContent>
+        {models.map((exampleModel) => <ExampleModelMenuItem key={exampleModel.name} exampleModel={exampleModel} />)}
+      </MenubarSubContent>
+    </MenubarSub>
+  )
+}
+
+function ExampleModelMenuItem({ exampleModel }: { exampleModel: PreparedExample }) {
+  const { name, serializedModel, parser, parameters } = exampleModel
   const setSerializedModel = useModelState.use.setSerializedModel()
   const setParameters = useModelState.use.setParameters()
   const setParser = useModelState.use.setParser()
   function loadExample() {
-    setSerializedModel(exampleModel.serializedModel)
-    setParameters(exampleModel.parameters)
-    setParser(exampleModel.parser)
+    setSerializedModel(serializedModel)
+    setParser(parser)
+    setParameters(parameters)
   }
-  return <MenubarItem onClick={loadExample}>Load Example</MenubarItem>
+  return <MenubarItem onClick={loadExample}>{name}</MenubarItem>
 }
 
 function LoadArchimateExampleModelMenuItem() {

@@ -1,12 +1,15 @@
 import type { GraphNode } from '@cm2ml/ir'
+import { Stream } from '@yeger/streams'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Classifier, ClassifierTemplateParameter, CollaborationUse, GeneralizationSet, Substitution, UseCase } from '../uml-metamodel'
+import { Classifier, ClassifierTemplateParameter, CollaborationUse, Generalization, GeneralizationSet, RedefinableTemplateSignature, Substitution, UseCase } from '../uml-metamodel'
 
 export const ClassifierHandler = Classifier.createHandler(
   (classifier, { onlyContainmentAssociations }) => {
     const collaborationUses = resolve(classifier, 'collaborationUse', { many: true, type: CollaborationUse })
+    const generalizations = resolve(classifier, 'generalization', { many: true, type: Generalization })
+    const ownedTemplateSignature = resolve(classifier, 'ownedTemplateSignature', { type: RedefinableTemplateSignature })
     const ownedUseCases = resolve(classifier, 'ownedUseCase', { many: true, type: UseCase })
     const powertypeExtents = resolve(classifier, 'powertypeExtent', { many: true, type: GeneralizationSet })
     const redefinedClassifiers = resolve(classifier, 'redefinedClassifier', { many: true, type: Classifier })
@@ -14,16 +17,17 @@ export const ClassifierHandler = Classifier.createHandler(
     const substitutions = resolve(classifier, 'substitution', { many: true, type: Substitution })
     const templateParameter = resolve(classifier, 'templateParameter', { type: ClassifierTemplateParameter })
     const useCases = resolve(classifier, 'useCase', { many: true, type: UseCase })
+    const generalClassifiers = getGeneralClassifiers(generalizations)
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_attribute(classifier)
     addEdge_collaborationUse(classifier, collaborationUses)
     addEdge_feature(classifier)
-    addEdge_general(classifier)
-    addEdge_generalization(classifier)
+    addEdge_general(classifier, generalClassifiers)
+    addEdge_generalization(classifier, generalizations)
     addEdge_inheritedMember(classifier)
-    addEdge_ownedTemplateSignature(classifier)
+    addEdge_ownedTemplateSignature(classifier, ownedTemplateSignature)
     addEdge_ownedUseCase(classifier, ownedUseCases)
     addEdge_powertypeExtent(classifier, powertypeExtents)
     addEdge_redefinedClassifier(classifier, redefinedClassifiers)
@@ -38,10 +42,19 @@ export const ClassifierHandler = Classifier.createHandler(
   },
 )
 
+function getGeneralClassifiers(generalizations: GraphNode[]) {
+  return Stream.from(generalizations)
+    .map((generalization) => resolve(generalization, 'general', { removeAttribute: false, type: Classifier }))
+    .filterNonNull()
+    .distinct()
+    .toArray()
+}
+
 function addEdge_attribute(_classifier: GraphNode) {
-  // TODO/Association
   // /attribute : Property [0..*]{ordered, unique, composite} (opposite A_attribute_classifier::classifier )
   // The Properties owned by the Classifier.
+
+  // Added by {Artifact, Class, DataType, Interface, Signal, StructuredClassifier}Handler::addEdge_ownedAttribute
 }
 
 function addEdge_collaborationUse(classifier: GraphNode, collaborationUses: GraphNode[]) {
@@ -53,33 +66,42 @@ function addEdge_collaborationUse(classifier: GraphNode, collaborationUses: Grap
 }
 
 function addEdge_feature(_classifier: GraphNode) {
-  // TODO/Association
   // /feature : Feature [0..*]{union, subsets Namespace::member} (opposite Feature::featuringClassifier)
   // Specifies each Feature directly defined in the classifier.Note that there may be members of the Classifier that are of the type Feature but are not included, e.g., inherited features.
+
+  // Added by FeatureHandler::addEdge_featuringClassifier
 }
 
-function addEdge_general(_classifier: GraphNode) {
-  // TODO/Association
+function addEdge_general(classifier: GraphNode, generalClassifiers: GraphNode[]) {
   // /general : Classifier [0..*] (opposite A_general_classifier::classifier)
   // The generalizing Classifiers for this Classifier.
+  generalClassifiers.forEach((generalClassifier) => {
+    classifier.model.addEdge('general', classifier, generalClassifier)
+  })
 }
 
-function addEdge_generalization(_classifier: GraphNode) {
-  // TODO/Association
+function addEdge_generalization(classifier: GraphNode, generalizations: GraphNode[]) {
   // ♦ generalization : Generalization [0..*]{subsets Element::ownedElement, subsets A_source_directedRelationship::directedRelationship} (opposite Generalization::specific)
   // The Generalization relationships for this Classifier. These Generalizations navigate to more general Classifiers in the generalization hierarchy.
+  generalizations.forEach((generalization) => {
+    classifier.model.addEdge('generalization', classifier, generalization)
+  })
 }
 
 function addEdge_inheritedMember(_classifier: GraphNode) {
-  // TODO/Association
   // /inheritedMember : NamedElement [0..*]{subsets Namespace::member} (opposite A_inheritedMember_inheritingClassifier::inheritingClassifier)
   // All elements inherited by this Classifier from its general Classifiers.
+
+  // Added by resolveImportedMembers
 }
 
-function addEdge_ownedTemplateSignature(_classifier: GraphNode) {
-  // TODO/Association
+function addEdge_ownedTemplateSignature(classifier: GraphNode, ownedTemplateSignature: GraphNode | undefined) {
   // ♦ ownedTemplateSignature : RedefinableTemplateSignature [0..1]{subsets A_redefinitionContext_redefinableElement::redefinableElement, redefines TemplateableElement::ownedTemplateSignature} (opposite RedefinableTemplateSignature::classifier)
   // The optional RedefinableTemplateSignature specifying the formal template parameters.
+  if (!ownedTemplateSignature) {
+    return
+  }
+  classifier.model.addEdge('ownedTemplateSignature', classifier, ownedTemplateSignature)
 }
 
 function addEdge_ownedUseCase(classifier: GraphNode, ownedUseCases: GraphNode[]) {
