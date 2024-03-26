@@ -43,8 +43,6 @@ function ModelMenu() {
         <ShareMenuItem />
         <MenubarSeparator />
         <ExamplesSubMenu />
-        <LoadExampleModelMenuItem />
-        <LoadArchimateExampleModelMenuItem />
         <MenubarSeparator />
         <EditModelMenuItem />
         <MenubarSeparator />
@@ -87,18 +85,6 @@ function ExampleModelMenuItem({ exampleModel }: { exampleModel: PreparedExample 
     setParameters(parameters)
   }
   return <MenubarItem onClick={loadExample}>{name}</MenubarItem>
-}
-
-function LoadArchimateExampleModelMenuItem() {
-  const setSerializedModel = useModelState.use.setSerializedModel()
-  const setParameters = useModelState.use.setParameters()
-  const setParser = useModelState.use.setParser()
-  function loadExample() {
-    setSerializedModel(archimateExampleModel.serializedModel)
-    setParameters(archimateExampleModel.parameters)
-    setParser(archimateExampleModel.parser)
-  }
-  return <MenubarItem onClick={loadExample}>Load ArchiMate Example</MenubarItem>
 }
 
 function EditModelMenuItem() {
