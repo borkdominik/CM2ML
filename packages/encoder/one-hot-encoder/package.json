@@ -34,13 +34,13 @@
   "dependencies": {
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
-    "@yeger/streams": "1.1.4"
+    "@yeger/streams": "1.1.6"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
-    "typescript": "5.3.3",
-    "vite": "5.0.12",
-    "vite-plugin-lib": "2.0.6"
+    "typescript": "5.4.3",
+    "vite": "5.2.2",
+    "vite-plugin-lib": "2.0.8"
   },
   "publishConfig": {
     "access": "public"
