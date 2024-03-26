@@ -1,14 +1,12 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "experimentalUI": false,
   "globalEnv": ["CI"],
   "pipeline": {
     "check:publish": {
       "dependsOn": ["build", "generate"]
     },
     "check:tsc": {
-      "dependsOn": ["^build", "codegen"]
-    },
-    "check:vue": {
       "dependsOn": ["^build", "codegen"]
     },
     "build": {
@@ -22,10 +20,6 @@
     "codegen": {},
     "preview": {
       "dependsOn": ["build", "generate"],
-      "cache": false
-    },
-    "bench": {
-      "dependsOn": ["^build", "codegen"],
       "cache": false
     },
     "test": {

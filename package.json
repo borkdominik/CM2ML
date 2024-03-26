@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@8.15.4",
+  "packageManager": "pnpm@8.15.5",
   "repository": {
     "url": "https://github.com/borkdominik/CM2ML"
   },
@@ -13,7 +13,7 @@
   "scripts": {
     "build": "nr turbo run build",
     "changeset": "changeset",
-    "ci": "cross-env COVERAGE=true nr turbo run build generate lint test check:publish check:tsc check:vue",
+    "ci": "cross-env COVERAGE=true nr turbo run build generate lint test check:publish check:tsc",
     "clean": "rimraf -g **/tsconfig.tsbuildinfo **/vite.config.ts.timestamp-*",
     "cm2ml": "nr turbo build --filter=cli... && cm2ml",
     "create-package": "nr turbo generate lib && nr syncpack:fix && ni && nr generate-readme",
@@ -31,8 +31,8 @@
     "syncpack:fix": "syncpack fix-mismatches",
     "syncpack:lint": "syncpack list-mismatches",
     "test": "cross-env COVERAGE=true nr turbo run test",
-    "turbo": "cross-env CI=true FORCE_COLOR=1 turbo --output-logs=new-only",
-    "typecheck": "nr turbo run check:tsc check:vue",
+    "turbo": "cross-env CI=true FORCE_COLOR=1 turbo",
+    "typecheck": "nr turbo run check:tsc",
     "update": "taze major -l -r -w --exclude million",
     "version": "changeset version && pnpm install --no-frozen-lockfile"
   },
@@ -42,10 +42,10 @@
     "@cm2ml/cli": "workspace:*",
     "@cm2ml/rest": "workspace:*",
     "@cm2ml/scripts": "workspace:*",
-    "@commitlint/cli": "19.2.0",
+    "@commitlint/cli": "19.2.1",
     "@commitlint/config-conventional": "19.1.0",
-    "@turbo/gen": "1.12.5",
-    "@types/node": "20.11.28",
+    "@turbo/gen": "1.13.0",
+    "@types/node": "20.11.30",
     "@vitest/coverage-v8": "1.4.0",
     "@vitest/ui": "1.4.0",
     "@yeger/eslint-config": "2.1.2",
@@ -58,7 +58,7 @@
     "rimraf": "5.0.5",
     "syncpack": "12.3.0",
     "taze": "0.13.3",
-    "turbo": "1.12.5",
+    "turbo": "1.13.0",
     "vitest": "1.4.0"
   },
   "lint-staged": {

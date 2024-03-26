@@ -9,20 +9,23 @@ import {
   ResizablePanelGroup,
 } from './components/ui/resizable'
 import { Toaster } from './components/ui/sonner'
-import { UpdatePrompt } from './components/UpdatePrompt'
+import { useSharedHashLoader } from './lib/sharing'
 import { useEncoderState } from './lib/useEncoderState'
 import { useModelState } from './lib/useModelState'
 import { useSettings } from './lib/useSettings'
+import { useUpdatePrompt } from './lib/useUpdatePrompt'
 
 export function App() {
+  useSharedHashLoader()
+  useUpdatePrompt()
+
   const layout = useSettings.use.layout()
 
   return (
     <div className="flex h-full flex-col">
       <Menu />
       {layout === 'extended' ? <ExtendedLayout /> : <CompactLayout />}
-      <Toaster />
-      <UpdatePrompt />
+      <Toaster duration={5000} />
     </div>
   )
 }
