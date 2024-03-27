@@ -303,8 +303,6 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/af14cd918fc0e004ca0a5de7f61dc9fa3f80d63cf39d55f7a0e0718ca25154e8.uml 1`] = `[Error: Expected exactly one root element]`;
 
-exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/b70a4cfd9e09e49b0da01e1e7229a27d276a094a9165b29100dd43c531e64592.uml 1`] = `[Error: Attribute client already exists]`;
-
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/be08a4c4cb217459e987843fe849e83f11aca5dd770e620a89eee23d7c0c815d.uml 1`] = `
 [Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Activity partition using swimlane example" visibility="public" xmi:id="_hU3k8KJFEdyGqNfYOUez1Q" xmi:type="Activity">
   <node isLeaf="false" xmi:id="_3yFY4KJFEdyGqNfYOUez1Q" xmi:type="InitialNode" />
