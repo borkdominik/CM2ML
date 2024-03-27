@@ -5,41 +5,41 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/080364b14ef24331b00049e387697986ed7f05c16d93a6b32f36c356c3cb6ef5.uml 1`] = `[Error: Node _xmKqoMAXEd-WluVYiXTpAQ has duplicate outgoing edges with tag superClass and target _cBuRwMAXEd-WluVYiXTpAQ]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/086943006eec3dd2a28d9d053703ea1faf80f8aacdef0b993bb213ea3c38d304.uml 1`] = `
-[Error: No handler for node with tag node and type undefined of parent <packagedElement xmi:type="Activity" xmi:id="_zkjUUAktEdyF_oRbgI8ypA" name="Process Order" isReadOnly="false" isSingleExecution="false" isReentrant="true" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-  <node xmi:type="ActivityParameterNode" xmi:id="_5-t7YAktEdyF_oRbgI8ypA" name="Requested Order" isControlType="false" ordering="FIFO" isLeaf="false" />
-  <node xmi:type="OpaqueAction" xmi:id="_rAsAYAkuEdyF_oRbgI8ypA" name="Receive Order" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="OpaqueAction" xmi:id="_4o7-wAkuEdyF_oRbgI8ypA" name="Fill Order" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="OpaqueAction" xmi:id="_6InBwAkuEdyF_oRbgI8ypA" name="Ship Order" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="OpaqueAction" xmi:id="_8M8RAAkuEdyF_oRbgI8ypA" name="Close Order" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="InitialNode" xmi:id="_FSuw0AkvEdyF_oRbgI8ypA" isLeaf="false" />
-  <node xmi:type="MergeNode" xmi:id="_IDUpIAkvEdyF_oRbgI8ypA" isLeaf="false" />
-  <node xmi:type="ForkNode" xmi:id="_UwEokAkvEdyF_oRbgI8ypA" isLeaf="false" />
-  <node xmi:type="JoinNode" xmi:id="_ZBhPoAkvEdyF_oRbgI8ypA" isCombineDuplicate="true" isLeaf="false" />
-  <node xmi:type="DecisionNode" xmi:id="_aHQvsAkvEdyF_oRbgI8ypA" isLeaf="false" />
-  <node xmi:type="ActivityFinalNode" xmi:id="_jboeEAkvEdyF_oRbgI8ypA" isLeaf="false" />
-  <node xmi:type="OpaqueAction" xmi:id="_oNj8AAkvEdyF_oRbgI8ypA" name="Send Invoise" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="OpaqueAction" xmi:id="_p3z3UAkvEdyF_oRbgI8ypA" name="Make Payment" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="Pin" xmi:id="_toU7kAkvEdyF_oRbgI8ypA" name="Invoice" outgoing="_6_FhUAkvEdyF_oRbgI8ypA" incoming="_6emqcAkvEdyF_oRbgI8ypA" />
-  <node xmi:type="OpaqueAction" xmi:id="_yGJKsAkvEdyF_oRbgI8ypA" name="Accept Payment" outgoing="_8kagYAkvEdyF_oRbgI8ypA" incoming="_7p28oAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ObjectFlow" xmi:id="_M5RrcAkvEdyF_oRbgI8ypA" source="_5-t7YAktEdyF_oRbgI8ypA" target="_rAsAYAkuEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_NfIKgAkvEdyF_oRbgI8ypA" source="_rAsAYAkuEdyF_oRbgI8ypA" target="_IDUpIAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_P8pV0AkvEdyF_oRbgI8ypA" source="_FSuw0AkvEdyF_oRbgI8ypA" target="_rAsAYAkuEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_WaxP0AkvEdyF_oRbgI8ypA" source="_4o7-wAkuEdyF_oRbgI8ypA" target="_UwEokAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_f_YZoAkvEdyF_oRbgI8ypA" source="_UwEokAkvEdyF_oRbgI8ypA" target="_6InBwAkuEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_g5f4gAkvEdyF_oRbgI8ypA" source="_6InBwAkuEdyF_oRbgI8ypA" target="_ZBhPoAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_h1ZgEAkvEdyF_oRbgI8ypA" source="_ZBhPoAkvEdyF_oRbgI8ypA" target="_aHQvsAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_ifuPcAkvEdyF_oRbgI8ypA" source="_aHQvsAkvEdyF_oRbgI8ypA" target="_8M8RAAkuEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_kYRsgAkvEdyF_oRbgI8ypA" source="_8M8RAAkuEdyF_oRbgI8ypA" target="_jboeEAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_3_dHcAkvEdyF_oRbgI8ypA" source="_UwEokAkvEdyF_oRbgI8ypA" target="_oNj8AAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ObjectFlow" xmi:id="_6emqcAkvEdyF_oRbgI8ypA" source="_oNj8AAkvEdyF_oRbgI8ypA" target="_toU7kAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ObjectFlow" xmi:id="_6_FhUAkvEdyF_oRbgI8ypA" source="_toU7kAkvEdyF_oRbgI8ypA" target="_p3z3UAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_7p28oAkvEdyF_oRbgI8ypA" source="_p3z3UAkvEdyF_oRbgI8ypA" target="_yGJKsAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_8kagYAkvEdyF_oRbgI8ypA" source="_yGJKsAkvEdyF_oRbgI8ypA" target="_ZBhPoAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_9bL-UKTVEdy7eaLHH7_7yw" source="_IDUpIAkvEdyF_oRbgI8ypA" target="_4o7-wAkuEdyF_oRbgI8ypA">
-    <guard xmi:type="LiteralString" xmi:id="_AS7AcKTWEdy7eaLHH7_7yw" value="order accepted" />
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Process Order" visibility="public" xmi:id="_zkjUUAktEdyF_oRbgI8ypA" xmi:type="Activity">
+  <node isControlType="false" isLeaf="false" name="Requested Order" ordering="FIFO" xmi:id="_5-t7YAktEdyF_oRbgI8ypA" xmi:type="ActivityParameterNode" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Receive Order" xmi:id="_rAsAYAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Fill Order" xmi:id="_4o7-wAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Ship Order" xmi:id="_6InBwAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Close Order" xmi:id="_8M8RAAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" xmi:id="_FSuw0AkvEdyF_oRbgI8ypA" xmi:type="InitialNode" />
+  <node isLeaf="false" xmi:id="_IDUpIAkvEdyF_oRbgI8ypA" xmi:type="MergeNode" />
+  <node isLeaf="false" xmi:id="_UwEokAkvEdyF_oRbgI8ypA" xmi:type="ForkNode" />
+  <node isCombineDuplicate="true" isLeaf="false" xmi:id="_ZBhPoAkvEdyF_oRbgI8ypA" xmi:type="JoinNode" />
+  <node isLeaf="false" xmi:id="_aHQvsAkvEdyF_oRbgI8ypA" xmi:type="DecisionNode" />
+  <node isLeaf="false" xmi:id="_jboeEAkvEdyF_oRbgI8ypA" xmi:type="ActivityFinalNode" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Send Invoise" xmi:id="_oNj8AAkvEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Make Payment" xmi:id="_p3z3UAkvEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node incoming="_6emqcAkvEdyF_oRbgI8ypA" name="Invoice" outgoing="_6_FhUAkvEdyF_oRbgI8ypA" xmi:id="_toU7kAkvEdyF_oRbgI8ypA" xmi:type="Pin" />
+  <node incoming="_7p28oAkvEdyF_oRbgI8ypA" name="Accept Payment" outgoing="_8kagYAkvEdyF_oRbgI8ypA" xmi:id="_yGJKsAkvEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <edge source="_5-t7YAktEdyF_oRbgI8ypA" target="_rAsAYAkuEdyF_oRbgI8ypA" xmi:id="_M5RrcAkvEdyF_oRbgI8ypA" xmi:type="ObjectFlow" />
+  <edge source="_rAsAYAkuEdyF_oRbgI8ypA" target="_IDUpIAkvEdyF_oRbgI8ypA" xmi:id="_NfIKgAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_FSuw0AkvEdyF_oRbgI8ypA" target="_rAsAYAkuEdyF_oRbgI8ypA" xmi:id="_P8pV0AkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_4o7-wAkuEdyF_oRbgI8ypA" target="_UwEokAkvEdyF_oRbgI8ypA" xmi:id="_WaxP0AkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_UwEokAkvEdyF_oRbgI8ypA" target="_6InBwAkuEdyF_oRbgI8ypA" xmi:id="_f_YZoAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_6InBwAkuEdyF_oRbgI8ypA" target="_ZBhPoAkvEdyF_oRbgI8ypA" xmi:id="_g5f4gAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_ZBhPoAkvEdyF_oRbgI8ypA" target="_aHQvsAkvEdyF_oRbgI8ypA" xmi:id="_h1ZgEAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_aHQvsAkvEdyF_oRbgI8ypA" target="_8M8RAAkuEdyF_oRbgI8ypA" xmi:id="_ifuPcAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_8M8RAAkuEdyF_oRbgI8ypA" target="_jboeEAkvEdyF_oRbgI8ypA" xmi:id="_kYRsgAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_UwEokAkvEdyF_oRbgI8ypA" target="_oNj8AAkvEdyF_oRbgI8ypA" xmi:id="_3_dHcAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_oNj8AAkvEdyF_oRbgI8ypA" target="_toU7kAkvEdyF_oRbgI8ypA" xmi:id="_6emqcAkvEdyF_oRbgI8ypA" xmi:type="ObjectFlow" />
+  <edge source="_toU7kAkvEdyF_oRbgI8ypA" target="_p3z3UAkvEdyF_oRbgI8ypA" xmi:id="_6_FhUAkvEdyF_oRbgI8ypA" xmi:type="ObjectFlow" />
+  <edge source="_p3z3UAkvEdyF_oRbgI8ypA" target="_yGJKsAkvEdyF_oRbgI8ypA" xmi:id="_7p28oAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_yGJKsAkvEdyF_oRbgI8ypA" target="_ZBhPoAkvEdyF_oRbgI8ypA" xmi:id="_8kagYAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_IDUpIAkvEdyF_oRbgI8ypA" target="_4o7-wAkuEdyF_oRbgI8ypA" xmi:id="_9bL-UKTVEdy7eaLHH7_7yw" xmi:type="ControlFlow">
+    <guard value="order accepted" xmi:id="_AS7AcKTWEdy7eaLHH7_7yw" xmi:type="LiteralString" />
   </edge>
-  <edge xmi:type="ControlFlow" xmi:id="_HKEecKTWEdy7eaLHH7_7yw" source="_IDUpIAkvEdyF_oRbgI8ypA" target="_aHQvsAkvEdyF_oRbgI8ypA">
-    <guard xmi:type="LiteralString" xmi:id="_NVZ_UKTWEdy7eaLHH7_7yw" value="order rejected" />
+  <edge source="_IDUpIAkvEdyF_oRbgI8ypA" target="_aHQvsAkvEdyF_oRbgI8ypA" xmi:id="_HKEecKTWEdy7eaLHH7_7yw" xmi:type="ControlFlow">
+    <guard value="order rejected" xmi:id="_NVZ_UKTWEdy7eaLHH7_7yw" xmi:type="LiteralString" />
   </edge>
 </packagedElement>]
 `;
@@ -55,19 +55,19 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/1b6d8c54c2e2c485d2c4ec74a1508cac190cb6fb09a54accf6803dbc8a6d475f.uml 1`] = `[Error: Node _j3eVQG__EeSEXudraKyXUQ has duplicate outgoing edges with tag superClass and target _q7zxIFUYEeS2OeOtCVTLqA]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/1fade04ffc56a362995833908c552f7eadc314d25582607ca4c3338fb0f80b1a.uml 1`] = `
-[Error: No handler for node with tag node and type undefined of parent <ownedBehavior xmi:type="Activity" xmi:id="_0gnIsINKEeCIH8Kj2lf4sQ" name="act" isReadOnly="false" isSingleExecution="false" isReentrant="true" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-  <ownedAttribute xmi:type="Port" xmi:id="_OitYoINLEeCIH8Kj2lf4sQ" isBehavior="false" isConjugated="false" isService="true" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false" />
-  <node xmi:type="InitialNode" xmi:id="_0C_jIINLEeCIH8Kj2lf4sQ" isLeaf="false" />
-  <node xmi:type="AddVariableValueAction" xmi:id="_eo1HoINLEeCIH8Kj2lf4sQ" isReplaceAll="false" isLocallyReentrant="false" isLeaf="false">
-    <value xmi:id="_WRwSgINMEeCIH8Kj2lf4sQ" xmi:type="InputPin" isControl="false" isControlType="false" ordering="FIFO" isLeaf="false" isOrdered="false" isUnique="true" />
+[Error: No handler for node with tag node and type undefined of parent <ownedBehavior isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="act" visibility="public" xmi:id="_0gnIsINKEeCIH8Kj2lf4sQ" xmi:type="Activity">
+  <ownedAttribute aggregation="none" isBehavior="false" isComposite="false" isConjugated="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isService="true" isStatic="false" isUnique="true" xmi:id="_OitYoINLEeCIH8Kj2lf4sQ" xmi:type="Port" />
+  <node isLeaf="false" xmi:id="_0C_jIINLEeCIH8Kj2lf4sQ" xmi:type="InitialNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isReplaceAll="false" xmi:id="_eo1HoINLEeCIH8Kj2lf4sQ" xmi:type="AddVariableValueAction">
+    <value isControl="false" isControlType="false" isLeaf="false" isOrdered="false" isUnique="true" ordering="FIFO" xmi:id="_WRwSgINMEeCIH8Kj2lf4sQ" xmi:type="InputPin" />
   </node>
-  <node xmi:type="ReadVariableAction" xmi:id="_gRu_IINLEeCIH8Kj2lf4sQ" isLocallyReentrant="false" isLeaf="false">
-    <result xmi:id="_g-vPEINLEeCIH8Kj2lf4sQ" xmi:type="OutputPin" isControl="false" isControlType="false" ordering="FIFO" isLeaf="false" isOrdered="false" isUnique="true" />
+  <node isLeaf="false" isLocallyReentrant="false" xmi:id="_gRu_IINLEeCIH8Kj2lf4sQ" xmi:type="ReadVariableAction">
+    <result isControl="false" isControlType="false" isLeaf="false" isOrdered="false" isUnique="true" ordering="FIFO" xmi:id="_g-vPEINLEeCIH8Kj2lf4sQ" xmi:type="OutputPin" />
   </node>
-  <node xmi:type="OutputPin" xmi:id="_k4oRwINLEeCIH8Kj2lf4sQ" isControl="false" isControlType="false" ordering="FIFO" isLeaf="false" isOrdered="false" isUnique="true" />
-  <node xmi:type="Pin" xmi:id="__hxTkINLEeCIH8Kj2lf4sQ" />
-  <edge xmi:type="ControlFlow" xmi:id="_OYwV8INMEeCIH8Kj2lf4sQ" source="_0C_jIINLEeCIH8Kj2lf4sQ" target="_eo1HoINLEeCIH8Kj2lf4sQ" />
-  <edge xmi:type="ObjectFlow" xmi:id="_Y2kYoINMEeCIH8Kj2lf4sQ" />
+  <node isControl="false" isControlType="false" isLeaf="false" isOrdered="false" isUnique="true" ordering="FIFO" xmi:id="_k4oRwINLEeCIH8Kj2lf4sQ" xmi:type="OutputPin" />
+  <node xmi:id="__hxTkINLEeCIH8Kj2lf4sQ" xmi:type="Pin" />
+  <edge source="_0C_jIINLEeCIH8Kj2lf4sQ" target="_eo1HoINLEeCIH8Kj2lf4sQ" xmi:id="_OYwV8INMEeCIH8Kj2lf4sQ" xmi:type="ControlFlow" />
+  <edge xmi:id="_Y2kYoINMEeCIH8Kj2lf4sQ" xmi:type="ObjectFlow" />
 </ownedBehavior>]
 `;
 
@@ -80,28 +80,28 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/2da29b0b92bf5445d09d803040b60e1650074621cfb43eb158a43fd8187e2955.uml 1`] = `[Error: Node _F-VKMJGaEeKJkfI6m7M3jg has duplicate outgoing edges with tag superClass and target _hYo_sJGZEeKJkfI6m7M3jg]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/2e5851e4f6b34f49cb272534e70489f0cfd9b3756b127a92cd2bb41cde98b464.uml 1`] = `
-[Error: No handler for node with tag node and type undefined of parent <packagedElement xmi:type="Activity" xmi:id="_SmtZMOiAEd24DqgmtBhSOA" name="Activity edge examples" isReadOnly="false" isSingleExecution="false" isReentrant="true" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-  <node xmi:type="Pin" xmi:id="_dXKrEOiAEd24DqgmtBhSOA" name="Cricket Player" outgoing="_mivp0OiAEd24DqgmtBhSOA" />
-  <node xmi:type="OpaqueAction" xmi:id="_kkhpoOiAEd24DqgmtBhSOA" name="Form Cricket Team" incoming="_mivp0OiAEd24DqgmtBhSOA" />
-  <node xmi:type="Pin" xmi:id="_JKVI4OiBEd24DqgmtBhSOA" name="Task" outgoing="_XrTfAOiBEd24DqgmtBhSOA" inState="_CtaIwOiBEd24DqgmtBhSOA" />
-  <node xmi:type="OpaqueAction" xmi:id="_WCsicOiBEd24DqgmtBhSOA" name="Send Job Invoice" incoming="_XrTfAOiBEd24DqgmtBhSOA" />
-  <node xmi:type="AcceptEventAction" xmi:id="_1-giUOiCEd24DqgmtBhSOA" name="Bid arrives" outgoing="_6hiooOiCEd24DqgmtBhSOA" />
-  <node xmi:type="Pin" xmi:id="_5DgkYOiCEd24DqgmtBhSOA" name="Bids for Proposal" outgoing="_Ni3kgOiDEd24DqgmtBhSOA" incoming="_6hiooOiCEd24DqgmtBhSOA" />
-  <node xmi:type="AcceptEventAction" xmi:id="_DSlngOiDEd24DqgmtBhSOA" name="Ready to award bid" outgoing="_OqPcQOiDEd24DqgmtBhSOA" />
-  <node xmi:type="OpaqueAction" xmi:id="_J6iy8OiDEd24DqgmtBhSOA" name="Award Bid" incoming="_Rkg1AOiDEd24DqgmtBhSOA" />
-  <node xmi:type="JoinNode" xmi:id="_L_d4EOiDEd24DqgmtBhSOA" outgoing="_Rkg1AOiDEd24DqgmtBhSOA" incoming="_Ni3kgOiDEd24DqgmtBhSOA _OqPcQOiDEd24DqgmtBhSOA" />
-  <edge xmi:type="ObjectFlow" xmi:id="_mivp0OiAEd24DqgmtBhSOA" source="_dXKrEOiAEd24DqgmtBhSOA" target="_kkhpoOiAEd24DqgmtBhSOA">
-    <weight xmi:type="LiteralInteger" xmi:id="_vfHu8OiAEd24DqgmtBhSOA" value="11" />
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Activity edge examples" visibility="public" xmi:id="_SmtZMOiAEd24DqgmtBhSOA" xmi:type="Activity">
+  <node name="Cricket Player" outgoing="_mivp0OiAEd24DqgmtBhSOA" xmi:id="_dXKrEOiAEd24DqgmtBhSOA" xmi:type="Pin" />
+  <node incoming="_mivp0OiAEd24DqgmtBhSOA" name="Form Cricket Team" xmi:id="_kkhpoOiAEd24DqgmtBhSOA" xmi:type="OpaqueAction" />
+  <node inState="_CtaIwOiBEd24DqgmtBhSOA" name="Task" outgoing="_XrTfAOiBEd24DqgmtBhSOA" xmi:id="_JKVI4OiBEd24DqgmtBhSOA" xmi:type="Pin" />
+  <node incoming="_XrTfAOiBEd24DqgmtBhSOA" name="Send Job Invoice" xmi:id="_WCsicOiBEd24DqgmtBhSOA" xmi:type="OpaqueAction" />
+  <node name="Bid arrives" outgoing="_6hiooOiCEd24DqgmtBhSOA" xmi:id="_1-giUOiCEd24DqgmtBhSOA" xmi:type="AcceptEventAction" />
+  <node incoming="_6hiooOiCEd24DqgmtBhSOA" name="Bids for Proposal" outgoing="_Ni3kgOiDEd24DqgmtBhSOA" xmi:id="_5DgkYOiCEd24DqgmtBhSOA" xmi:type="Pin" />
+  <node name="Ready to award bid" outgoing="_OqPcQOiDEd24DqgmtBhSOA" xmi:id="_DSlngOiDEd24DqgmtBhSOA" xmi:type="AcceptEventAction" />
+  <node incoming="_Rkg1AOiDEd24DqgmtBhSOA" name="Award Bid" xmi:id="_J6iy8OiDEd24DqgmtBhSOA" xmi:type="OpaqueAction" />
+  <node incoming="_Ni3kgOiDEd24DqgmtBhSOA _OqPcQOiDEd24DqgmtBhSOA" outgoing="_Rkg1AOiDEd24DqgmtBhSOA" xmi:id="_L_d4EOiDEd24DqgmtBhSOA" xmi:type="JoinNode" />
+  <edge source="_dXKrEOiAEd24DqgmtBhSOA" target="_kkhpoOiAEd24DqgmtBhSOA" xmi:id="_mivp0OiAEd24DqgmtBhSOA" xmi:type="ObjectFlow">
+    <weight value="11" xmi:id="_vfHu8OiAEd24DqgmtBhSOA" xmi:type="LiteralInteger" />
   </edge>
-  <edge xmi:type="ObjectFlow" xmi:id="_XrTfAOiBEd24DqgmtBhSOA" source="_JKVI4OiBEd24DqgmtBhSOA" target="_WCsicOiBEd24DqgmtBhSOA">
-    <weight xmi:type="LiteralString" xmi:id="_vZ1UYOiCEd24DqgmtBhSOA" value="no_of_job_tasks" />
+  <edge source="_JKVI4OiBEd24DqgmtBhSOA" target="_WCsicOiBEd24DqgmtBhSOA" xmi:id="_XrTfAOiBEd24DqgmtBhSOA" xmi:type="ObjectFlow">
+    <weight value="no_of_job_tasks" xmi:id="_vZ1UYOiCEd24DqgmtBhSOA" xmi:type="LiteralString" />
   </edge>
-  <edge xmi:type="ObjectFlow" xmi:id="_6hiooOiCEd24DqgmtBhSOA" source="_1-giUOiCEd24DqgmtBhSOA" target="_5DgkYOiCEd24DqgmtBhSOA" />
-  <edge xmi:type="ObjectFlow" xmi:id="_Ni3kgOiDEd24DqgmtBhSOA" source="_5DgkYOiCEd24DqgmtBhSOA" target="_L_d4EOiDEd24DqgmtBhSOA">
-    <weight xmi:type="LiteralNull" xmi:id="_du-mwOiDEd24DqgmtBhSOA" />
+  <edge source="_1-giUOiCEd24DqgmtBhSOA" target="_5DgkYOiCEd24DqgmtBhSOA" xmi:id="_6hiooOiCEd24DqgmtBhSOA" xmi:type="ObjectFlow" />
+  <edge source="_5DgkYOiCEd24DqgmtBhSOA" target="_L_d4EOiDEd24DqgmtBhSOA" xmi:id="_Ni3kgOiDEd24DqgmtBhSOA" xmi:type="ObjectFlow">
+    <weight xmi:id="_du-mwOiDEd24DqgmtBhSOA" xmi:type="LiteralNull" />
   </edge>
-  <edge xmi:type="ControlFlow" xmi:id="_OqPcQOiDEd24DqgmtBhSOA" source="_DSlngOiDEd24DqgmtBhSOA" target="_L_d4EOiDEd24DqgmtBhSOA" />
-  <edge xmi:type="ControlFlow" xmi:id="_Rkg1AOiDEd24DqgmtBhSOA" source="_L_d4EOiDEd24DqgmtBhSOA" target="_J6iy8OiDEd24DqgmtBhSOA" />
+  <edge source="_DSlngOiDEd24DqgmtBhSOA" target="_L_d4EOiDEd24DqgmtBhSOA" xmi:id="_OqPcQOiDEd24DqgmtBhSOA" xmi:type="ControlFlow" />
+  <edge source="_L_d4EOiDEd24DqgmtBhSOA" target="_J6iy8OiDEd24DqgmtBhSOA" xmi:id="_Rkg1AOiDEd24DqgmtBhSOA" xmi:type="ControlFlow" />
 </packagedElement>]
 `;
 
@@ -118,41 +118,41 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/5e19e6b9d29840bc07c1a67ad0237b85e0d40524b53eca316796f0af9213ca5c.uml 1`] = `[Error: Id Association122 already registered]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/5ea112d943e8825da525c48e2a673ab0fac03004c644d66322e30ce195a55d7e.uml 1`] = `
-[Error: No handler for node with tag node and type undefined of parent <packagedElement xmi:type="Activity" xmi:id="_zkjUUAktEdyF_oRbgI8ypA" name="Process Order" isReadOnly="false" isSingleExecution="false" isReentrant="true" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-  <node xmi:type="ActivityParameterNode" xmi:id="_5-t7YAktEdyF_oRbgI8ypA" name="Requested Order" isControlType="false" ordering="FIFO" isLeaf="false" />
-  <node xmi:type="OpaqueAction" xmi:id="_rAsAYAkuEdyF_oRbgI8ypA" name="Receive Order" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="OpaqueAction" xmi:id="_4o7-wAkuEdyF_oRbgI8ypA" name="Fill Order" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="OpaqueAction" xmi:id="_6InBwAkuEdyF_oRbgI8ypA" name="Ship Order" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="OpaqueAction" xmi:id="_8M8RAAkuEdyF_oRbgI8ypA" name="Close Order" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="InitialNode" xmi:id="_FSuw0AkvEdyF_oRbgI8ypA" isLeaf="false" />
-  <node xmi:type="MergeNode" xmi:id="_IDUpIAkvEdyF_oRbgI8ypA" isLeaf="false" />
-  <node xmi:type="ForkNode" xmi:id="_UwEokAkvEdyF_oRbgI8ypA" isLeaf="false" />
-  <node xmi:type="JoinNode" xmi:id="_ZBhPoAkvEdyF_oRbgI8ypA" isCombineDuplicate="true" isLeaf="false" />
-  <node xmi:type="DecisionNode" xmi:id="_aHQvsAkvEdyF_oRbgI8ypA" isLeaf="false" />
-  <node xmi:type="ActivityFinalNode" xmi:id="_jboeEAkvEdyF_oRbgI8ypA" isLeaf="false" />
-  <node xmi:type="OpaqueAction" xmi:id="_oNj8AAkvEdyF_oRbgI8ypA" name="Send Invoise" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="OpaqueAction" xmi:id="_p3z3UAkvEdyF_oRbgI8ypA" name="Make Payment" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="Pin" xmi:id="_toU7kAkvEdyF_oRbgI8ypA" name="Invoice" outgoing="_6_FhUAkvEdyF_oRbgI8ypA" incoming="_6emqcAkvEdyF_oRbgI8ypA" />
-  <node xmi:type="OpaqueAction" xmi:id="_yGJKsAkvEdyF_oRbgI8ypA" name="Accept Payment" outgoing="_8kagYAkvEdyF_oRbgI8ypA" incoming="_7p28oAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ObjectFlow" xmi:id="_M5RrcAkvEdyF_oRbgI8ypA" source="_5-t7YAktEdyF_oRbgI8ypA" target="_rAsAYAkuEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_NfIKgAkvEdyF_oRbgI8ypA" source="_rAsAYAkuEdyF_oRbgI8ypA" target="_IDUpIAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_P8pV0AkvEdyF_oRbgI8ypA" source="_FSuw0AkvEdyF_oRbgI8ypA" target="_rAsAYAkuEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_WaxP0AkvEdyF_oRbgI8ypA" source="_4o7-wAkuEdyF_oRbgI8ypA" target="_UwEokAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_f_YZoAkvEdyF_oRbgI8ypA" source="_UwEokAkvEdyF_oRbgI8ypA" target="_6InBwAkuEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_g5f4gAkvEdyF_oRbgI8ypA" source="_6InBwAkuEdyF_oRbgI8ypA" target="_ZBhPoAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_h1ZgEAkvEdyF_oRbgI8ypA" source="_ZBhPoAkvEdyF_oRbgI8ypA" target="_aHQvsAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_ifuPcAkvEdyF_oRbgI8ypA" source="_aHQvsAkvEdyF_oRbgI8ypA" target="_8M8RAAkuEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_kYRsgAkvEdyF_oRbgI8ypA" source="_8M8RAAkuEdyF_oRbgI8ypA" target="_jboeEAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_3_dHcAkvEdyF_oRbgI8ypA" source="_UwEokAkvEdyF_oRbgI8ypA" target="_oNj8AAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ObjectFlow" xmi:id="_6emqcAkvEdyF_oRbgI8ypA" source="_oNj8AAkvEdyF_oRbgI8ypA" target="_toU7kAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ObjectFlow" xmi:id="_6_FhUAkvEdyF_oRbgI8ypA" source="_toU7kAkvEdyF_oRbgI8ypA" target="_p3z3UAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_7p28oAkvEdyF_oRbgI8ypA" source="_p3z3UAkvEdyF_oRbgI8ypA" target="_yGJKsAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_8kagYAkvEdyF_oRbgI8ypA" source="_yGJKsAkvEdyF_oRbgI8ypA" target="_ZBhPoAkvEdyF_oRbgI8ypA" />
-  <edge xmi:type="ControlFlow" xmi:id="_9bL-UKTVEdy7eaLHH7_7yw" source="_IDUpIAkvEdyF_oRbgI8ypA" target="_4o7-wAkuEdyF_oRbgI8ypA">
-    <guard xmi:type="LiteralString" xmi:id="_AS7AcKTWEdy7eaLHH7_7yw" value="order accepted" />
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Process Order" visibility="public" xmi:id="_zkjUUAktEdyF_oRbgI8ypA" xmi:type="Activity">
+  <node isControlType="false" isLeaf="false" name="Requested Order" ordering="FIFO" xmi:id="_5-t7YAktEdyF_oRbgI8ypA" xmi:type="ActivityParameterNode" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Receive Order" xmi:id="_rAsAYAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Fill Order" xmi:id="_4o7-wAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Ship Order" xmi:id="_6InBwAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Close Order" xmi:id="_8M8RAAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" xmi:id="_FSuw0AkvEdyF_oRbgI8ypA" xmi:type="InitialNode" />
+  <node isLeaf="false" xmi:id="_IDUpIAkvEdyF_oRbgI8ypA" xmi:type="MergeNode" />
+  <node isLeaf="false" xmi:id="_UwEokAkvEdyF_oRbgI8ypA" xmi:type="ForkNode" />
+  <node isCombineDuplicate="true" isLeaf="false" xmi:id="_ZBhPoAkvEdyF_oRbgI8ypA" xmi:type="JoinNode" />
+  <node isLeaf="false" xmi:id="_aHQvsAkvEdyF_oRbgI8ypA" xmi:type="DecisionNode" />
+  <node isLeaf="false" xmi:id="_jboeEAkvEdyF_oRbgI8ypA" xmi:type="ActivityFinalNode" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Send Invoise" xmi:id="_oNj8AAkvEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Make Payment" xmi:id="_p3z3UAkvEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node incoming="_6emqcAkvEdyF_oRbgI8ypA" name="Invoice" outgoing="_6_FhUAkvEdyF_oRbgI8ypA" xmi:id="_toU7kAkvEdyF_oRbgI8ypA" xmi:type="Pin" />
+  <node incoming="_7p28oAkvEdyF_oRbgI8ypA" name="Accept Payment" outgoing="_8kagYAkvEdyF_oRbgI8ypA" xmi:id="_yGJKsAkvEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <edge source="_5-t7YAktEdyF_oRbgI8ypA" target="_rAsAYAkuEdyF_oRbgI8ypA" xmi:id="_M5RrcAkvEdyF_oRbgI8ypA" xmi:type="ObjectFlow" />
+  <edge source="_rAsAYAkuEdyF_oRbgI8ypA" target="_IDUpIAkvEdyF_oRbgI8ypA" xmi:id="_NfIKgAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_FSuw0AkvEdyF_oRbgI8ypA" target="_rAsAYAkuEdyF_oRbgI8ypA" xmi:id="_P8pV0AkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_4o7-wAkuEdyF_oRbgI8ypA" target="_UwEokAkvEdyF_oRbgI8ypA" xmi:id="_WaxP0AkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_UwEokAkvEdyF_oRbgI8ypA" target="_6InBwAkuEdyF_oRbgI8ypA" xmi:id="_f_YZoAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_6InBwAkuEdyF_oRbgI8ypA" target="_ZBhPoAkvEdyF_oRbgI8ypA" xmi:id="_g5f4gAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_ZBhPoAkvEdyF_oRbgI8ypA" target="_aHQvsAkvEdyF_oRbgI8ypA" xmi:id="_h1ZgEAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_aHQvsAkvEdyF_oRbgI8ypA" target="_8M8RAAkuEdyF_oRbgI8ypA" xmi:id="_ifuPcAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_8M8RAAkuEdyF_oRbgI8ypA" target="_jboeEAkvEdyF_oRbgI8ypA" xmi:id="_kYRsgAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_UwEokAkvEdyF_oRbgI8ypA" target="_oNj8AAkvEdyF_oRbgI8ypA" xmi:id="_3_dHcAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_oNj8AAkvEdyF_oRbgI8ypA" target="_toU7kAkvEdyF_oRbgI8ypA" xmi:id="_6emqcAkvEdyF_oRbgI8ypA" xmi:type="ObjectFlow" />
+  <edge source="_toU7kAkvEdyF_oRbgI8ypA" target="_p3z3UAkvEdyF_oRbgI8ypA" xmi:id="_6_FhUAkvEdyF_oRbgI8ypA" xmi:type="ObjectFlow" />
+  <edge source="_p3z3UAkvEdyF_oRbgI8ypA" target="_yGJKsAkvEdyF_oRbgI8ypA" xmi:id="_7p28oAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_yGJKsAkvEdyF_oRbgI8ypA" target="_ZBhPoAkvEdyF_oRbgI8ypA" xmi:id="_8kagYAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_IDUpIAkvEdyF_oRbgI8ypA" target="_4o7-wAkuEdyF_oRbgI8ypA" xmi:id="_9bL-UKTVEdy7eaLHH7_7yw" xmi:type="ControlFlow">
+    <guard value="order accepted" xmi:id="_AS7AcKTWEdy7eaLHH7_7yw" xmi:type="LiteralString" />
   </edge>
-  <edge xmi:type="ControlFlow" xmi:id="_HKEecKTWEdy7eaLHH7_7yw" source="_IDUpIAkvEdyF_oRbgI8ypA" target="_aHQvsAkvEdyF_oRbgI8ypA">
-    <guard xmi:type="LiteralString" xmi:id="_NVZ_UKTWEdy7eaLHH7_7yw" value="order rejected" />
+  <edge source="_IDUpIAkvEdyF_oRbgI8ypA" target="_aHQvsAkvEdyF_oRbgI8ypA" xmi:id="_HKEecKTWEdy7eaLHH7_7yw" xmi:type="ControlFlow">
+    <guard value="order rejected" xmi:id="_NVZ_UKTWEdy7eaLHH7_7yw" xmi:type="LiteralString" />
   </edge>
 </packagedElement>]
 `;
@@ -160,42 +160,42 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/7b925ad4bf5313963e94529765fa6168712835d7dff16e32244e3058af316edb.uml 1`] = `[Error: Id _qd2lQEKzEeG7Y_yIlM-slAA already registered]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/7fc541e9043b7e86dbb1fa20a670dbc3d727096b16de143f940e471f7f7592d0.uml 1`] = `
-[Error: No handler for node with tag node and type undefined of parent <packagedElement xmi:type="Activity" xmi:id="_hU3k8KJFEdyGqNfYOUez1Q" name="Activity partition using swimlane example" isReadOnly="false" isSingleExecution="false" isReentrant="true" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-  <node xmi:type="InitialNode" xmi:id="_3yFY4KJFEdyGqNfYOUez1Q" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_7rO0sKJFEdyGqNfYOUez1Q" name="Receive Order" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="DecisionNode" xmi:id="_CUXE0KJGEdyGqNfYOUez1Q" name="DecisionNode" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_Dsk08KJGEdyGqNfYOUez1Q" name="Fill Order" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="ForkNode" xmi:id="_GRYUAKJGEdyGqNfYOUez1Q" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_IbqaQKJGEdyGqNfYOUez1Q" name="Ship Order" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="JoinNode" xmi:id="_LIE9MKJGEdyGqNfYOUez1Q" isCombineDuplicate="true" isLeaf="false" />
-  <node xmi:type="MergeNode" xmi:id="_MCL1AKJGEdyGqNfYOUez1Q" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_MzqVQKJGEdyGqNfYOUez1Q" name="Close Order" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_TsIo8KJGEdyGqNfYOUez1Q" name="Send Invoice" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="Pin" xmi:id="_WfGf0KJGEdyGqNfYOUez1Q" name="Invoice" inPartition="_oxQeAKJFEdyGqNfYOUez1Q" />
-  <node xmi:type="Pin" xmi:id="_dyjfUKJGEdyGqNfYOUez1Q" name="Invoice" outgoing="_piw-AKJGEdyGqNfYOUez1Q" incoming="_ojbn8KJGEdyGqNfYOUez1Q" inPartition="_oxQeAKJFEdyGqNfYOUez1Q" />
-  <node xmi:type="CallOperationAction" xmi:id="_hot4kKJGEdyGqNfYOUez1Q" name="Accept Payment" outgoing="_vP-_gKJGEdyGqNfYOUez1Q" incoming="_rBFWIKJGEdyGqNfYOUez1Q" inPartition="_oxQeAKJFEdyGqNfYOUez1Q" />
-  <node xmi:type="CallOperationAction" xmi:id="_jhafkKJGEdyGqNfYOUez1Q" name="Make Payment" outgoing="_rBFWIKJGEdyGqNfYOUez1Q" incoming="_piw-AKJGEdyGqNfYOUez1Q" inPartition="_tDu_0KJFEdyGqNfYOUez1Q" />
-  <node xmi:type="ActivityFinalNode" xmi:id="_GIeaMKJHEdyGqNfYOUez1Q" incoming="_HzULYKJHEdyGqNfYOUez1Q" inPartition="_kVigoKJFEdyGqNfYOUez1Q" />
-  <edge xmi:type="ObjectFlow" xmi:id="_ojbn8KJGEdyGqNfYOUez1Q" source="_TsIo8KJGEdyGqNfYOUez1Q" target="_dyjfUKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ObjectFlow" xmi:id="_piw-AKJGEdyGqNfYOUez1Q" source="_dyjfUKJGEdyGqNfYOUez1Q" target="_jhafkKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ObjectFlow" xmi:id="_rBFWIKJGEdyGqNfYOUez1Q" source="_jhafkKJGEdyGqNfYOUez1Q" target="_hot4kKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_vP-_gKJGEdyGqNfYOUez1Q" source="_hot4kKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_ypGQYKJGEdyGqNfYOUez1Q" source="_GRYUAKJGEdyGqNfYOUez1Q" target="_TsIo8KJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_2zOugKJGEdyGqNfYOUez1Q" source="_GRYUAKJGEdyGqNfYOUez1Q" target="_IbqaQKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_4YQyoKJGEdyGqNfYOUez1Q" source="_IbqaQKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_6FfJcKJGEdyGqNfYOUez1Q" source="_3yFY4KJFEdyGqNfYOUez1Q" target="_7rO0sKJFEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_7UxAAKJGEdyGqNfYOUez1Q" source="_7rO0sKJFEdyGqNfYOUez1Q" target="_CUXE0KJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_8O330KJGEdyGqNfYOUez1Q" name="" source="_CUXE0KJGEdyGqNfYOUez1Q" target="_Dsk08KJGEdyGqNfYOUez1Q">
-    <guard xmi:type="LiteralString" xmi:id="_DArnIDDDEd2KWMNscJaUhw" name="" value="order accepted" />
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Activity partition using swimlane example" visibility="public" xmi:id="_hU3k8KJFEdyGqNfYOUez1Q" xmi:type="Activity">
+  <node isLeaf="false" xmi:id="_3yFY4KJFEdyGqNfYOUez1Q" xmi:type="InitialNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Receive Order" xmi:id="_7rO0sKJFEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" name="DecisionNode" xmi:id="_CUXE0KJGEdyGqNfYOUez1Q" xmi:type="DecisionNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Fill Order" xmi:id="_Dsk08KJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" xmi:id="_GRYUAKJGEdyGqNfYOUez1Q" xmi:type="ForkNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Ship Order" xmi:id="_IbqaQKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isCombineDuplicate="true" isLeaf="false" xmi:id="_LIE9MKJGEdyGqNfYOUez1Q" xmi:type="JoinNode" />
+  <node isLeaf="false" xmi:id="_MCL1AKJGEdyGqNfYOUez1Q" xmi:type="MergeNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Close Order" xmi:id="_MzqVQKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Send Invoice" xmi:id="_TsIo8KJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" name="Invoice" xmi:id="_WfGf0KJGEdyGqNfYOUez1Q" xmi:type="Pin" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" incoming="_ojbn8KJGEdyGqNfYOUez1Q" name="Invoice" outgoing="_piw-AKJGEdyGqNfYOUez1Q" xmi:id="_dyjfUKJGEdyGqNfYOUez1Q" xmi:type="Pin" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" incoming="_rBFWIKJGEdyGqNfYOUez1Q" name="Accept Payment" outgoing="_vP-_gKJGEdyGqNfYOUez1Q" xmi:id="_hot4kKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_tDu_0KJFEdyGqNfYOUez1Q" incoming="_piw-AKJGEdyGqNfYOUez1Q" name="Make Payment" outgoing="_rBFWIKJGEdyGqNfYOUez1Q" xmi:id="_jhafkKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_kVigoKJFEdyGqNfYOUez1Q" incoming="_HzULYKJHEdyGqNfYOUez1Q" xmi:id="_GIeaMKJHEdyGqNfYOUez1Q" xmi:type="ActivityFinalNode" />
+  <edge source="_TsIo8KJGEdyGqNfYOUez1Q" target="_dyjfUKJGEdyGqNfYOUez1Q" xmi:id="_ojbn8KJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_dyjfUKJGEdyGqNfYOUez1Q" target="_jhafkKJGEdyGqNfYOUez1Q" xmi:id="_piw-AKJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_jhafkKJGEdyGqNfYOUez1Q" target="_hot4kKJGEdyGqNfYOUez1Q" xmi:id="_rBFWIKJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_hot4kKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" xmi:id="_vP-_gKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_GRYUAKJGEdyGqNfYOUez1Q" target="_TsIo8KJGEdyGqNfYOUez1Q" xmi:id="_ypGQYKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_GRYUAKJGEdyGqNfYOUez1Q" target="_IbqaQKJGEdyGqNfYOUez1Q" xmi:id="_2zOugKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_IbqaQKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" xmi:id="_4YQyoKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_3yFY4KJFEdyGqNfYOUez1Q" target="_7rO0sKJFEdyGqNfYOUez1Q" xmi:id="_6FfJcKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_7rO0sKJFEdyGqNfYOUez1Q" target="_CUXE0KJGEdyGqNfYOUez1Q" xmi:id="_7UxAAKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge name="" source="_CUXE0KJGEdyGqNfYOUez1Q" target="_Dsk08KJGEdyGqNfYOUez1Q" xmi:id="_8O330KJGEdyGqNfYOUez1Q" xmi:type="ControlFlow">
+    <guard name="" value="order accepted" xmi:id="_DArnIDDDEd2KWMNscJaUhw" xmi:type="LiteralString" />
   </edge>
-  <edge xmi:type="ControlFlow" xmi:id="_95HzIKJGEdyGqNfYOUez1Q" source="_Dsk08KJGEdyGqNfYOUez1Q" target="_GRYUAKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_DalQkKJHEdyGqNfYOUez1Q" source="_LIE9MKJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_EHINgKJHEdyGqNfYOUez1Q" source="_MCL1AKJGEdyGqNfYOUez1Q" target="_MzqVQKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_HzULYKJHEdyGqNfYOUez1Q" source="_MzqVQKJGEdyGqNfYOUez1Q" target="_GIeaMKJHEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_J4YacKJHEdyGqNfYOUez1Q" source="_CUXE0KJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" />
-  <group xmi:type="ActivityPartition" xmi:id="_kVigoKJFEdyGqNfYOUez1Q" name="Order Department" node="_3yFY4KJFEdyGqNfYOUez1Q _7rO0sKJFEdyGqNfYOUez1Q _CUXE0KJGEdyGqNfYOUez1Q _Dsk08KJGEdyGqNfYOUez1Q _GRYUAKJGEdyGqNfYOUez1Q _IbqaQKJGEdyGqNfYOUez1Q _LIE9MKJGEdyGqNfYOUez1Q _MCL1AKJGEdyGqNfYOUez1Q _MzqVQKJGEdyGqNfYOUez1Q _GIeaMKJHEdyGqNfYOUez1Q" />
-  <group xmi:type="ActivityPartition" xmi:id="_oxQeAKJFEdyGqNfYOUez1Q" name="Acctg Department" node="_TsIo8KJGEdyGqNfYOUez1Q _WfGf0KJGEdyGqNfYOUez1Q _dyjfUKJGEdyGqNfYOUez1Q _hot4kKJGEdyGqNfYOUez1Q" />
-  <group xmi:type="ActivityPartition" xmi:id="_tDu_0KJFEdyGqNfYOUez1Q" name="Customer" node="_jhafkKJGEdyGqNfYOUez1Q" />
+  <edge source="_Dsk08KJGEdyGqNfYOUez1Q" target="_GRYUAKJGEdyGqNfYOUez1Q" xmi:id="_95HzIKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_LIE9MKJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" xmi:id="_DalQkKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_MCL1AKJGEdyGqNfYOUez1Q" target="_MzqVQKJGEdyGqNfYOUez1Q" xmi:id="_EHINgKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_MzqVQKJGEdyGqNfYOUez1Q" target="_GIeaMKJHEdyGqNfYOUez1Q" xmi:id="_HzULYKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_CUXE0KJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" xmi:id="_J4YacKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <group name="Order Department" node="_3yFY4KJFEdyGqNfYOUez1Q _7rO0sKJFEdyGqNfYOUez1Q _CUXE0KJGEdyGqNfYOUez1Q _Dsk08KJGEdyGqNfYOUez1Q _GRYUAKJGEdyGqNfYOUez1Q _IbqaQKJGEdyGqNfYOUez1Q _LIE9MKJGEdyGqNfYOUez1Q _MCL1AKJGEdyGqNfYOUez1Q _MzqVQKJGEdyGqNfYOUez1Q _GIeaMKJHEdyGqNfYOUez1Q" xmi:id="_kVigoKJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+  <group name="Acctg Department" node="_TsIo8KJGEdyGqNfYOUez1Q _WfGf0KJGEdyGqNfYOUez1Q _dyjfUKJGEdyGqNfYOUez1Q _hot4kKJGEdyGqNfYOUez1Q" xmi:id="_oxQeAKJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+  <group name="Customer" node="_jhafkKJGEdyGqNfYOUez1Q" xmi:id="_tDu_0KJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
 </packagedElement>]
 `;
 
@@ -214,12 +214,12 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/63e616a28519d28bc54a752ab5e302ebffde453ddd89a97674de824d2bdceb39.uml 1`] = `[Error: Node _XgstoJJkEd-D1fG_mLVkIQ has duplicate outgoing edges with tag superClass and target _pKPCEJJiEd-D1fG_mLVkIQ]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/64a09e0475267e1d0a88c409d9c4a55c35113471292d53d43ee45b0a24f6f4cf.uml 1`] = `
-[Error: No handler for node with tag node and type undefined of parent <packagedElement xmi:type="Activity" xmi:id="_NlQNcKJKEdy6lo8fyt_TJQ" name="Object node notations" isReadOnly="false" isSingleExecution="false" isReentrant="true" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-  <node xmi:type="CentralBufferNode" xmi:id="_TTIrYKJMEdy6lo8fyt_TJQ" name="name" isControlType="false" ordering="FIFO" isLeaf="false" />
-  <node xmi:type="DataStoreNode" xmi:id="_UXYWoKJMEdy6lo8fyt_TJQ" name="name" isControlType="false" ordering="FIFO" isLeaf="false">
-    <upperBound xmi:type="LiteralInteger" xmi:id="_hPRPEKJMEdy6lo8fyt_TJQ" value="2" visibility="public" />
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Object node notations" visibility="public" xmi:id="_NlQNcKJKEdy6lo8fyt_TJQ" xmi:type="Activity">
+  <node isControlType="false" isLeaf="false" name="name" ordering="FIFO" xmi:id="_TTIrYKJMEdy6lo8fyt_TJQ" xmi:type="CentralBufferNode" />
+  <node isControlType="false" isLeaf="false" name="name" ordering="FIFO" xmi:id="_UXYWoKJMEdy6lo8fyt_TJQ" xmi:type="DataStoreNode">
+    <upperBound value="2" visibility="public" xmi:id="_hPRPEKJMEdy6lo8fyt_TJQ" xmi:type="LiteralInteger" />
   </node>
-  <node xmi:type="Pin" xmi:id="_zV9-kDC-Ed2Dn5GmDgY-wA" name="name" ordering="LIFO" />
+  <node name="name" ordering="LIFO" xmi:id="_zV9-kDC-Ed2Dn5GmDgY-wA" xmi:type="Pin" />
 </packagedElement>]
 `;
 
@@ -248,40 +248,40 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/4418bc1c53bd2581f5b1a28b361295edc9339859580efba835fd57728d34c802.uml 1`] = `[Error: Node _0Cqb0K9jEd6KLrDsd6Ph6Q has duplicate outgoing edges with tag superClass and target _1Fa5WK9jEd6KLrDsd6Ph6Q]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/6830b29249843c656edf64e6dfe6b91d0ddc4e669730b99238880e9e323b1253.uml 1`] = `
-[Error: No handler for node with tag node and type undefined of parent <packagedElement xmi:type="Activity" xmi:id="_hU3k8KJFEdyGqNfYOUez1Q" name="Activity partition using swimlane example" isReadOnly="false" isSingleExecution="false" isReentrant="true" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-  <node xmi:type="InitialNode" xmi:id="_3yFY4KJFEdyGqNfYOUez1Q" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_7rO0sKJFEdyGqNfYOUez1Q" name="Receive Order" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="DecisionNode" xmi:id="_CUXE0KJGEdyGqNfYOUez1Q" name="DecisionNode" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_Dsk08KJGEdyGqNfYOUez1Q" name="Fill Order" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="ForkNode" xmi:id="_GRYUAKJGEdyGqNfYOUez1Q" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_IbqaQKJGEdyGqNfYOUez1Q" name="Ship Order" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="JoinNode" xmi:id="_LIE9MKJGEdyGqNfYOUez1Q" isCombineDuplicate="true" isLeaf="false" />
-  <node xmi:type="MergeNode" xmi:id="_MCL1AKJGEdyGqNfYOUez1Q" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_MzqVQKJGEdyGqNfYOUez1Q" name="Close Order" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_TsIo8KJGEdyGqNfYOUez1Q" name="Send Invoice" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="Pin" xmi:id="_WfGf0KJGEdyGqNfYOUez1Q" name="Invoice" inPartition="_oxQeAKJFEdyGqNfYOUez1Q" />
-  <node xmi:type="Pin" xmi:id="_dyjfUKJGEdyGqNfYOUez1Q" name="Invoice" outgoing="_piw-AKJGEdyGqNfYOUez1Q" incoming="_ojbn8KJGEdyGqNfYOUez1Q" inPartition="_oxQeAKJFEdyGqNfYOUez1Q" />
-  <node xmi:type="CallOperationAction" xmi:id="_hot4kKJGEdyGqNfYOUez1Q" name="Accept Payment" outgoing="_vP-_gKJGEdyGqNfYOUez1Q" incoming="_rBFWIKJGEdyGqNfYOUez1Q" inPartition="_oxQeAKJFEdyGqNfYOUez1Q" />
-  <node xmi:type="CallOperationAction" xmi:id="_jhafkKJGEdyGqNfYOUez1Q" name="Make Payment" outgoing="_rBFWIKJGEdyGqNfYOUez1Q" incoming="_piw-AKJGEdyGqNfYOUez1Q" inPartition="_tDu_0KJFEdyGqNfYOUez1Q" />
-  <node xmi:type="ActivityFinalNode" xmi:id="_GIeaMKJHEdyGqNfYOUez1Q" incoming="_HzULYKJHEdyGqNfYOUez1Q" inPartition="_kVigoKJFEdyGqNfYOUez1Q" />
-  <edge xmi:type="ObjectFlow" xmi:id="_ojbn8KJGEdyGqNfYOUez1Q" source="_TsIo8KJGEdyGqNfYOUez1Q" target="_dyjfUKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ObjectFlow" xmi:id="_piw-AKJGEdyGqNfYOUez1Q" source="_dyjfUKJGEdyGqNfYOUez1Q" target="_jhafkKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ObjectFlow" xmi:id="_rBFWIKJGEdyGqNfYOUez1Q" source="_jhafkKJGEdyGqNfYOUez1Q" target="_hot4kKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_vP-_gKJGEdyGqNfYOUez1Q" source="_hot4kKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_ypGQYKJGEdyGqNfYOUez1Q" source="_GRYUAKJGEdyGqNfYOUez1Q" target="_TsIo8KJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_2zOugKJGEdyGqNfYOUez1Q" source="_GRYUAKJGEdyGqNfYOUez1Q" target="_IbqaQKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_4YQyoKJGEdyGqNfYOUez1Q" source="_IbqaQKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_6FfJcKJGEdyGqNfYOUez1Q" source="_3yFY4KJFEdyGqNfYOUez1Q" target="_7rO0sKJFEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_7UxAAKJGEdyGqNfYOUez1Q" source="_7rO0sKJFEdyGqNfYOUez1Q" target="_CUXE0KJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_8O330KJGEdyGqNfYOUez1Q" source="_CUXE0KJGEdyGqNfYOUez1Q" target="_Dsk08KJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_95HzIKJGEdyGqNfYOUez1Q" source="_Dsk08KJGEdyGqNfYOUez1Q" target="_GRYUAKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_DalQkKJHEdyGqNfYOUez1Q" source="_LIE9MKJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_EHINgKJHEdyGqNfYOUez1Q" source="_MCL1AKJGEdyGqNfYOUez1Q" target="_MzqVQKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_HzULYKJHEdyGqNfYOUez1Q" source="_MzqVQKJGEdyGqNfYOUez1Q" target="_GIeaMKJHEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_J4YacKJHEdyGqNfYOUez1Q" source="_CUXE0KJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" />
-  <group xmi:type="ActivityPartition" xmi:id="_kVigoKJFEdyGqNfYOUez1Q" name="Order Department" node="_3yFY4KJFEdyGqNfYOUez1Q _7rO0sKJFEdyGqNfYOUez1Q _CUXE0KJGEdyGqNfYOUez1Q _Dsk08KJGEdyGqNfYOUez1Q _GRYUAKJGEdyGqNfYOUez1Q _IbqaQKJGEdyGqNfYOUez1Q _LIE9MKJGEdyGqNfYOUez1Q _MCL1AKJGEdyGqNfYOUez1Q _MzqVQKJGEdyGqNfYOUez1Q _GIeaMKJHEdyGqNfYOUez1Q" />
-  <group xmi:type="ActivityPartition" xmi:id="_oxQeAKJFEdyGqNfYOUez1Q" name="Acctg Department" node="_TsIo8KJGEdyGqNfYOUez1Q _WfGf0KJGEdyGqNfYOUez1Q _dyjfUKJGEdyGqNfYOUez1Q _hot4kKJGEdyGqNfYOUez1Q" />
-  <group xmi:type="ActivityPartition" xmi:id="_tDu_0KJFEdyGqNfYOUez1Q" name="Customer" node="_jhafkKJGEdyGqNfYOUez1Q" />
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Activity partition using swimlane example" visibility="public" xmi:id="_hU3k8KJFEdyGqNfYOUez1Q" xmi:type="Activity">
+  <node isLeaf="false" xmi:id="_3yFY4KJFEdyGqNfYOUez1Q" xmi:type="InitialNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Receive Order" xmi:id="_7rO0sKJFEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" name="DecisionNode" xmi:id="_CUXE0KJGEdyGqNfYOUez1Q" xmi:type="DecisionNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Fill Order" xmi:id="_Dsk08KJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" xmi:id="_GRYUAKJGEdyGqNfYOUez1Q" xmi:type="ForkNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Ship Order" xmi:id="_IbqaQKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isCombineDuplicate="true" isLeaf="false" xmi:id="_LIE9MKJGEdyGqNfYOUez1Q" xmi:type="JoinNode" />
+  <node isLeaf="false" xmi:id="_MCL1AKJGEdyGqNfYOUez1Q" xmi:type="MergeNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Close Order" xmi:id="_MzqVQKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Send Invoice" xmi:id="_TsIo8KJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" name="Invoice" xmi:id="_WfGf0KJGEdyGqNfYOUez1Q" xmi:type="Pin" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" incoming="_ojbn8KJGEdyGqNfYOUez1Q" name="Invoice" outgoing="_piw-AKJGEdyGqNfYOUez1Q" xmi:id="_dyjfUKJGEdyGqNfYOUez1Q" xmi:type="Pin" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" incoming="_rBFWIKJGEdyGqNfYOUez1Q" name="Accept Payment" outgoing="_vP-_gKJGEdyGqNfYOUez1Q" xmi:id="_hot4kKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_tDu_0KJFEdyGqNfYOUez1Q" incoming="_piw-AKJGEdyGqNfYOUez1Q" name="Make Payment" outgoing="_rBFWIKJGEdyGqNfYOUez1Q" xmi:id="_jhafkKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_kVigoKJFEdyGqNfYOUez1Q" incoming="_HzULYKJHEdyGqNfYOUez1Q" xmi:id="_GIeaMKJHEdyGqNfYOUez1Q" xmi:type="ActivityFinalNode" />
+  <edge source="_TsIo8KJGEdyGqNfYOUez1Q" target="_dyjfUKJGEdyGqNfYOUez1Q" xmi:id="_ojbn8KJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_dyjfUKJGEdyGqNfYOUez1Q" target="_jhafkKJGEdyGqNfYOUez1Q" xmi:id="_piw-AKJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_jhafkKJGEdyGqNfYOUez1Q" target="_hot4kKJGEdyGqNfYOUez1Q" xmi:id="_rBFWIKJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_hot4kKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" xmi:id="_vP-_gKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_GRYUAKJGEdyGqNfYOUez1Q" target="_TsIo8KJGEdyGqNfYOUez1Q" xmi:id="_ypGQYKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_GRYUAKJGEdyGqNfYOUez1Q" target="_IbqaQKJGEdyGqNfYOUez1Q" xmi:id="_2zOugKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_IbqaQKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" xmi:id="_4YQyoKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_3yFY4KJFEdyGqNfYOUez1Q" target="_7rO0sKJFEdyGqNfYOUez1Q" xmi:id="_6FfJcKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_7rO0sKJFEdyGqNfYOUez1Q" target="_CUXE0KJGEdyGqNfYOUez1Q" xmi:id="_7UxAAKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_CUXE0KJGEdyGqNfYOUez1Q" target="_Dsk08KJGEdyGqNfYOUez1Q" xmi:id="_8O330KJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_Dsk08KJGEdyGqNfYOUez1Q" target="_GRYUAKJGEdyGqNfYOUez1Q" xmi:id="_95HzIKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_LIE9MKJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" xmi:id="_DalQkKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_MCL1AKJGEdyGqNfYOUez1Q" target="_MzqVQKJGEdyGqNfYOUez1Q" xmi:id="_EHINgKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_MzqVQKJGEdyGqNfYOUez1Q" target="_GIeaMKJHEdyGqNfYOUez1Q" xmi:id="_HzULYKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_CUXE0KJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" xmi:id="_J4YacKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <group name="Order Department" node="_3yFY4KJFEdyGqNfYOUez1Q _7rO0sKJFEdyGqNfYOUez1Q _CUXE0KJGEdyGqNfYOUez1Q _Dsk08KJGEdyGqNfYOUez1Q _GRYUAKJGEdyGqNfYOUez1Q _IbqaQKJGEdyGqNfYOUez1Q _LIE9MKJGEdyGqNfYOUez1Q _MCL1AKJGEdyGqNfYOUez1Q _MzqVQKJGEdyGqNfYOUez1Q _GIeaMKJHEdyGqNfYOUez1Q" xmi:id="_kVigoKJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+  <group name="Acctg Department" node="_TsIo8KJGEdyGqNfYOUez1Q _WfGf0KJGEdyGqNfYOUez1Q _dyjfUKJGEdyGqNfYOUez1Q _hot4kKJGEdyGqNfYOUez1Q" xmi:id="_oxQeAKJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+  <group name="Customer" node="_jhafkKJGEdyGqNfYOUez1Q" xmi:id="_tDu_0KJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
 </packagedElement>]
 `;
 
@@ -291,7 +291,7 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/1831658a2d93946723191887f0b2f33eb2cc05700b7cc45c9605a188a5b7478c.uml 1`] = `[Error: Id _id_Class already registered]`;
 
-exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/a0781c0e549192e20ecdbd8e452b5314779e10cdd9eff0d47580d755cb13bcb5.uml 1`] = `[Error: Attribute HEAD of node <Operation HEAD="" <ownedOperation="" xmi:type="Operation" xmi:id="_33NCwLE3Eeex4PxdPta0tA" name="exibirHorarios" isQuery="false" concurrency="sequential" isAbstract="false" isStatic="false" isLeaf="false" /> is unknown]`;
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/a0781c0e549192e20ecdbd8e452b5314779e10cdd9eff0d47580d755cb13bcb5.uml 1`] = `[Error: Attribute HEAD of node <Operation <ownedOperation="" HEAD="" concurrency="sequential" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="exibirHorarios" xmi:id="_33NCwLE3Eeex4PxdPta0tA" xmi:type="Operation" /> is unknown]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/a4f7a328882535dd39a40de29e2ab479243500b223d7fc31fd964fd5ed1f685e.uml 1`] = `[Error: Id stacks_fUo-QBt1Eea5NKvb7KrMNA already registered]`;
 
@@ -303,45 +303,45 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/af14cd918fc0e004ca0a5de7f61dc9fa3f80d63cf39d55f7a0e0718ca25154e8.uml 1`] = `[Error: Expected exactly one root element]`;
 
-exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/b70a4cfd9e09e49b0da01e1e7229a27d276a094a9165b29100dd43c531e64592.uml 1`] = `[Error: Node eu.yeger#generated-id-38 has duplicate outgoing edges with tag interfaceRealization and target eu.yeger#generated-id-16]`;
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/b70a4cfd9e09e49b0da01e1e7229a27d276a094a9165b29100dd43c531e64592.uml 1`] = `[Error: Attribute client already exists]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/be08a4c4cb217459e987843fe849e83f11aca5dd770e620a89eee23d7c0c815d.uml 1`] = `
-[Error: No handler for node with tag node and type undefined of parent <packagedElement xmi:type="Activity" xmi:id="_hU3k8KJFEdyGqNfYOUez1Q" name="Activity partition using swimlane example" isReadOnly="false" isSingleExecution="false" isReentrant="true" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-  <node xmi:type="InitialNode" xmi:id="_3yFY4KJFEdyGqNfYOUez1Q" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_7rO0sKJFEdyGqNfYOUez1Q" name="Receive Order" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="DecisionNode" xmi:id="_CUXE0KJGEdyGqNfYOUez1Q" name="DecisionNode" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_Dsk08KJGEdyGqNfYOUez1Q" name="Fill Order" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="ForkNode" xmi:id="_GRYUAKJGEdyGqNfYOUez1Q" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_IbqaQKJGEdyGqNfYOUez1Q" name="Ship Order" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="JoinNode" xmi:id="_LIE9MKJGEdyGqNfYOUez1Q" isCombineDuplicate="true" isLeaf="false" />
-  <node xmi:type="MergeNode" xmi:id="_MCL1AKJGEdyGqNfYOUez1Q" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_MzqVQKJGEdyGqNfYOUez1Q" name="Close Order" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="CallOperationAction" xmi:id="_TsIo8KJGEdyGqNfYOUez1Q" name="Send Invoice" isSynchronous="true" isLocallyReentrant="false" isLeaf="false" />
-  <node xmi:type="Pin" xmi:id="_WfGf0KJGEdyGqNfYOUez1Q" name="Invoice" inPartition="_oxQeAKJFEdyGqNfYOUez1Q" />
-  <node xmi:type="Pin" xmi:id="_dyjfUKJGEdyGqNfYOUez1Q" name="Invoice" outgoing="_piw-AKJGEdyGqNfYOUez1Q" incoming="_ojbn8KJGEdyGqNfYOUez1Q" inPartition="_oxQeAKJFEdyGqNfYOUez1Q" />
-  <node xmi:type="CallOperationAction" xmi:id="_hot4kKJGEdyGqNfYOUez1Q" name="Accept Payment" outgoing="_vP-_gKJGEdyGqNfYOUez1Q" incoming="_rBFWIKJGEdyGqNfYOUez1Q" inPartition="_oxQeAKJFEdyGqNfYOUez1Q" />
-  <node xmi:type="CallOperationAction" xmi:id="_jhafkKJGEdyGqNfYOUez1Q" name="Make Payment" outgoing="_rBFWIKJGEdyGqNfYOUez1Q" incoming="_piw-AKJGEdyGqNfYOUez1Q" inPartition="_tDu_0KJFEdyGqNfYOUez1Q" />
-  <node xmi:type="ActivityFinalNode" xmi:id="_GIeaMKJHEdyGqNfYOUez1Q" incoming="_HzULYKJHEdyGqNfYOUez1Q" inPartition="_kVigoKJFEdyGqNfYOUez1Q" />
-  <edge xmi:type="ObjectFlow" xmi:id="_ojbn8KJGEdyGqNfYOUez1Q" source="_TsIo8KJGEdyGqNfYOUez1Q" target="_dyjfUKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ObjectFlow" xmi:id="_piw-AKJGEdyGqNfYOUez1Q" source="_dyjfUKJGEdyGqNfYOUez1Q" target="_jhafkKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ObjectFlow" xmi:id="_rBFWIKJGEdyGqNfYOUez1Q" source="_jhafkKJGEdyGqNfYOUez1Q" target="_hot4kKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_vP-_gKJGEdyGqNfYOUez1Q" source="_hot4kKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_ypGQYKJGEdyGqNfYOUez1Q" source="_GRYUAKJGEdyGqNfYOUez1Q" target="_TsIo8KJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_2zOugKJGEdyGqNfYOUez1Q" source="_GRYUAKJGEdyGqNfYOUez1Q" target="_IbqaQKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_4YQyoKJGEdyGqNfYOUez1Q" source="_IbqaQKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_6FfJcKJGEdyGqNfYOUez1Q" source="_3yFY4KJFEdyGqNfYOUez1Q" target="_7rO0sKJFEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_7UxAAKJGEdyGqNfYOUez1Q" source="_7rO0sKJFEdyGqNfYOUez1Q" target="_CUXE0KJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_8O330KJGEdyGqNfYOUez1Q" name="" source="_CUXE0KJGEdyGqNfYOUez1Q" target="_Dsk08KJGEdyGqNfYOUez1Q">
-    <guard xmi:type="LiteralString" xmi:id="_DArnIDDDEd2KWMNscJaUhw" name="" value="order accepted" />
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Activity partition using swimlane example" visibility="public" xmi:id="_hU3k8KJFEdyGqNfYOUez1Q" xmi:type="Activity">
+  <node isLeaf="false" xmi:id="_3yFY4KJFEdyGqNfYOUez1Q" xmi:type="InitialNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Receive Order" xmi:id="_7rO0sKJFEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" name="DecisionNode" xmi:id="_CUXE0KJGEdyGqNfYOUez1Q" xmi:type="DecisionNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Fill Order" xmi:id="_Dsk08KJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" xmi:id="_GRYUAKJGEdyGqNfYOUez1Q" xmi:type="ForkNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Ship Order" xmi:id="_IbqaQKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isCombineDuplicate="true" isLeaf="false" xmi:id="_LIE9MKJGEdyGqNfYOUez1Q" xmi:type="JoinNode" />
+  <node isLeaf="false" xmi:id="_MCL1AKJGEdyGqNfYOUez1Q" xmi:type="MergeNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Close Order" xmi:id="_MzqVQKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Send Invoice" xmi:id="_TsIo8KJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" name="Invoice" xmi:id="_WfGf0KJGEdyGqNfYOUez1Q" xmi:type="Pin" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" incoming="_ojbn8KJGEdyGqNfYOUez1Q" name="Invoice" outgoing="_piw-AKJGEdyGqNfYOUez1Q" xmi:id="_dyjfUKJGEdyGqNfYOUez1Q" xmi:type="Pin" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" incoming="_rBFWIKJGEdyGqNfYOUez1Q" name="Accept Payment" outgoing="_vP-_gKJGEdyGqNfYOUez1Q" xmi:id="_hot4kKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_tDu_0KJFEdyGqNfYOUez1Q" incoming="_piw-AKJGEdyGqNfYOUez1Q" name="Make Payment" outgoing="_rBFWIKJGEdyGqNfYOUez1Q" xmi:id="_jhafkKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_kVigoKJFEdyGqNfYOUez1Q" incoming="_HzULYKJHEdyGqNfYOUez1Q" xmi:id="_GIeaMKJHEdyGqNfYOUez1Q" xmi:type="ActivityFinalNode" />
+  <edge source="_TsIo8KJGEdyGqNfYOUez1Q" target="_dyjfUKJGEdyGqNfYOUez1Q" xmi:id="_ojbn8KJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_dyjfUKJGEdyGqNfYOUez1Q" target="_jhafkKJGEdyGqNfYOUez1Q" xmi:id="_piw-AKJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_jhafkKJGEdyGqNfYOUez1Q" target="_hot4kKJGEdyGqNfYOUez1Q" xmi:id="_rBFWIKJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_hot4kKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" xmi:id="_vP-_gKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_GRYUAKJGEdyGqNfYOUez1Q" target="_TsIo8KJGEdyGqNfYOUez1Q" xmi:id="_ypGQYKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_GRYUAKJGEdyGqNfYOUez1Q" target="_IbqaQKJGEdyGqNfYOUez1Q" xmi:id="_2zOugKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_IbqaQKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" xmi:id="_4YQyoKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_3yFY4KJFEdyGqNfYOUez1Q" target="_7rO0sKJFEdyGqNfYOUez1Q" xmi:id="_6FfJcKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_7rO0sKJFEdyGqNfYOUez1Q" target="_CUXE0KJGEdyGqNfYOUez1Q" xmi:id="_7UxAAKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge name="" source="_CUXE0KJGEdyGqNfYOUez1Q" target="_Dsk08KJGEdyGqNfYOUez1Q" xmi:id="_8O330KJGEdyGqNfYOUez1Q" xmi:type="ControlFlow">
+    <guard name="" value="order accepted" xmi:id="_DArnIDDDEd2KWMNscJaUhw" xmi:type="LiteralString" />
   </edge>
-  <edge xmi:type="ControlFlow" xmi:id="_95HzIKJGEdyGqNfYOUez1Q" source="_Dsk08KJGEdyGqNfYOUez1Q" target="_GRYUAKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_DalQkKJHEdyGqNfYOUez1Q" source="_LIE9MKJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_EHINgKJHEdyGqNfYOUez1Q" source="_MCL1AKJGEdyGqNfYOUez1Q" target="_MzqVQKJGEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_HzULYKJHEdyGqNfYOUez1Q" source="_MzqVQKJGEdyGqNfYOUez1Q" target="_GIeaMKJHEdyGqNfYOUez1Q" />
-  <edge xmi:type="ControlFlow" xmi:id="_J4YacKJHEdyGqNfYOUez1Q" source="_CUXE0KJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" />
-  <group xmi:type="ActivityPartition" xmi:id="_kVigoKJFEdyGqNfYOUez1Q" name="Order Department" node="_3yFY4KJFEdyGqNfYOUez1Q _7rO0sKJFEdyGqNfYOUez1Q _CUXE0KJGEdyGqNfYOUez1Q _Dsk08KJGEdyGqNfYOUez1Q _GRYUAKJGEdyGqNfYOUez1Q _IbqaQKJGEdyGqNfYOUez1Q _LIE9MKJGEdyGqNfYOUez1Q _MCL1AKJGEdyGqNfYOUez1Q _MzqVQKJGEdyGqNfYOUez1Q _GIeaMKJHEdyGqNfYOUez1Q" />
-  <group xmi:type="ActivityPartition" xmi:id="_oxQeAKJFEdyGqNfYOUez1Q" name="Acctg Department" node="_TsIo8KJGEdyGqNfYOUez1Q _WfGf0KJGEdyGqNfYOUez1Q _dyjfUKJGEdyGqNfYOUez1Q _hot4kKJGEdyGqNfYOUez1Q" />
-  <group xmi:type="ActivityPartition" xmi:id="_tDu_0KJFEdyGqNfYOUez1Q" name="Customer" node="_jhafkKJGEdyGqNfYOUez1Q" />
+  <edge source="_Dsk08KJGEdyGqNfYOUez1Q" target="_GRYUAKJGEdyGqNfYOUez1Q" xmi:id="_95HzIKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_LIE9MKJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" xmi:id="_DalQkKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_MCL1AKJGEdyGqNfYOUez1Q" target="_MzqVQKJGEdyGqNfYOUez1Q" xmi:id="_EHINgKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_MzqVQKJGEdyGqNfYOUez1Q" target="_GIeaMKJHEdyGqNfYOUez1Q" xmi:id="_HzULYKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_CUXE0KJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" xmi:id="_J4YacKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <group name="Order Department" node="_3yFY4KJFEdyGqNfYOUez1Q _7rO0sKJFEdyGqNfYOUez1Q _CUXE0KJGEdyGqNfYOUez1Q _Dsk08KJGEdyGqNfYOUez1Q _GRYUAKJGEdyGqNfYOUez1Q _IbqaQKJGEdyGqNfYOUez1Q _LIE9MKJGEdyGqNfYOUez1Q _MCL1AKJGEdyGqNfYOUez1Q _MzqVQKJGEdyGqNfYOUez1Q _GIeaMKJHEdyGqNfYOUez1Q" xmi:id="_kVigoKJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+  <group name="Acctg Department" node="_TsIo8KJGEdyGqNfYOUez1Q _WfGf0KJGEdyGqNfYOUez1Q _dyjfUKJGEdyGqNfYOUez1Q _hot4kKJGEdyGqNfYOUez1Q" xmi:id="_oxQeAKJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+  <group name="Customer" node="_jhafkKJGEdyGqNfYOUez1Q" xmi:id="_tDu_0KJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
 </packagedElement>]
 `;
 
@@ -352,96 +352,96 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/d7e92eda9a8dc016511672503a0f19d13033bb1b3532b6d5b20ba0a74a32daa1.uml 1`] = `[Error: Node _0Cqb0K9jEd6KLrDsd6Ph6Q has duplicate outgoing edges with tag superClass and target _1Fa5WK9jEd6KLrDsd6Ph6Q]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/d221df3d85a5927cdfd7deeae92187f2a1b9129ce9587e3edb2d5bdfccd6cdff.uml 1`] = `
-[Error: Attribute metaclassReference of node <Package xmi:type="Package" xmi:id="_Q9bJsCluEeaibdPncpUwfA" name="Core" metaclassReference="_pnK3ACpoEeaibdPncpUwfA" visibility="public">
-  <ElementImport xmi:type="ElementImport" xmi:id="_pnK3ACpoEeaibdPncpUwfA" alias="Class" visibility="public">
-    <Class xmi:type="Class" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" xmi:id="eu.yeger#generated-id-22" />
+[Error: Attribute metaclassReference of node <Package metaclassReference="_pnK3ACpoEeaibdPncpUwfA" name="Core" visibility="public" xmi:id="_Q9bJsCluEeaibdPncpUwfA" xmi:type="Package">
+  <ElementImport alias="Class" visibility="public" xmi:id="_pnK3ACpoEeaibdPncpUwfA" xmi:type="ElementImport">
+    <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-23" xmi:type="Class" />
   </ElementImport>
-  <Stereotype xmi:type="Stereotype" xmi:id="_lG6AcCluEeaibdPncpUwfA" name="CoreComputationNode" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Generalization xmi:type="Generalization" xmi:id="_hwLz4C5eEeaF_sH3mLTVKg" isSubstitutable="true" />
-    <Property xmi:type="Property" xmi:id="_oWUlECpmEeaibdPncpUwfA" name="hasSuccessor" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" upper="*" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_qSL00CpmEeaibdPncpUwfA" value="0" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_qSNC8CpmEeaibdPncpUwfA" value="*" visibility="public" />
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreComputationNode" visibility="public" xmi:id="_lG6AcCluEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Generalization isSubstitutable="true" xmi:id="_hwLz4C5eEeaF_sH3mLTVKg" xmi:type="Generalization" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasSuccessor" upper="*" xmi:id="_oWUlECpmEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="0" visibility="public" xmi:id="_qSL00CpmEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_qSNC8CpmEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <Property xmi:type="Property" xmi:id="_wIBm0CpmEeaibdPncpUwfA" name="processInputData" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" upper="*" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_57tHYCpmEeaibdPncpUwfA" value="0" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_57vjoCpmEeaibdPncpUwfA" value="*" visibility="public" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="processInputData" upper="*" xmi:id="_wIBm0CpmEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="0" visibility="public" xmi:id="_57tHYCpmEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_57vjoCpmEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <Property xmi:type="Property" xmi:id="_stCmUCppEeaibdPncpUwfA" name="realise" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false" />
-    <Property xmi:type="Property" xmi:id="_yUYpUCppEeaibdPncpUwfA" name="produceOutputData" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="*" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_1wBpwCppEeaibdPncpUwfA" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_1wC34CppEeaibdPncpUwfA" value="*" visibility="public" />
-    </Property>
-  </Stereotype>
-  <Stereotype xmi:type="Stereotype" xmi:id="_r1_uoCluEeaibdPncpUwfA" name="CoreDataSource" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Generalization xmi:type="Generalization" xmi:id="_bSmP8C5fEeaF_sH3mLTVKg" isSubstitutable="true" />
-  </Stereotype>
-  <Stereotype xmi:type="Stereotype" xmi:id="_slNlECluEeaibdPncpUwfA" name="CoreStorageNode" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Generalization xmi:type="Generalization" xmi:id="_V7slEClvEeaibdPncpUwfA" isSubstitutable="true" />
-    <Property xmi:type="Property" xmi:id="_Pn4j8Co7EeaibdPncpUwfA" name="database" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false">
-      <PrimitiveType xmi:type="PrimitiveType" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" xmi:id="eu.yeger#generated-id-23" />
-    </Property>
-    <Property xmi:type="Property" xmi:id="_dDxhUCo7EeaibdPncpUwfA" name="user" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false">
-      <PrimitiveType xmi:type="PrimitiveType" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" xmi:id="eu.yeger#generated-id-24" />
-    </Property>
-    <Property xmi:type="Property" xmi:id="_froUYCo7EeaibdPncpUwfA" name="password" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false">
-      <PrimitiveType xmi:type="PrimitiveType" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" xmi:id="eu.yeger#generated-id-25" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="realise" xmi:id="_stCmUCppEeaibdPncpUwfA" xmi:type="Property" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="produceOutputData" upper="*" xmi:id="_yUYpUCppEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_1wBpwCppEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_1wC34CppEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
   </Stereotype>
-  <Stereotype xmi:type="Stereotype" xmi:id="_2HB5kCluEeaibdPncpUwfA" name="CoreDirectAcyclicGraph" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Generalization xmi:type="Generalization" xmi:id="_LnTawC5qEeaF_sH3mLTVKg" isSubstitutable="true">
-      <Stereotype xmi:type="Stereotype" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" xmi:id="eu.yeger#generated-id-26" />
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDataSource" visibility="public" xmi:id="_r1_uoCluEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Generalization isSubstitutable="true" xmi:id="_bSmP8C5fEeaF_sH3mLTVKg" xmi:type="Generalization" />
+  </Stereotype>
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreStorageNode" visibility="public" xmi:id="_slNlECluEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Generalization isSubstitutable="true" xmi:id="_V7slEClvEeaibdPncpUwfA" xmi:type="Generalization" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="database" xmi:id="_Pn4j8Co7EeaibdPncpUwfA" xmi:type="Property">
+      <PrimitiveType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-24" xmi:type="PrimitiveType" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="user" xmi:id="_dDxhUCo7EeaibdPncpUwfA" xmi:type="Property">
+      <PrimitiveType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-25" xmi:type="PrimitiveType" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="password" xmi:id="_froUYCo7EeaibdPncpUwfA" xmi:type="Property">
+      <PrimitiveType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-26" xmi:type="PrimitiveType" />
+    </Property>
+  </Stereotype>
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDirectAcyclicGraph" visibility="public" xmi:id="_2HB5kCluEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Generalization isSubstitutable="true" xmi:id="_LnTawC5qEeaF_sH3mLTVKg" xmi:type="Generalization">
+      <Stereotype isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-27" xmi:type="Stereotype" />
     </Generalization>
-    <Property xmi:type="Property" xmi:id="_5tJY4CpkEeaibdPncpUwfA" name="hasSourceNode" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="*" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_2egq8CpqEeaibdPncpUwfA" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_2eh5ECpqEeaibdPncpUwfA" value="*" visibility="public" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="hasSourceNode" upper="*" xmi:id="_5tJY4CpkEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_2egq8CpqEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_2eh5ECpqEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <Property xmi:type="Property" xmi:id="_QpsI0S5lEeaF_sH3mLTVKg" name="base_Class" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false">
-      <Class xmi:type="Class" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" xmi:id="eu.yeger#generated-id-27" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="base_Class" xmi:id="_QpsI0S5lEeaF_sH3mLTVKg" xmi:type="Property">
+      <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-28" xmi:type="Class" />
     </Property>
   </Stereotype>
-  <Stereotype xmi:type="Stereotype" xmi:id="_8x7EQCluEeaibdPncpUwfA" name="CoreDAGNode" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Generalization xmi:type="Generalization" xmi:id="_siEzsC5fEeaF_sH3mLTVKg" isSubstitutable="true" />
-    <Generalization xmi:type="Generalization" xmi:id="_DlxcAC5kEeaF_sH3mLTVKg" isSubstitutable="true">
-      <Stereotype xmi:type="Stereotype" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" xmi:id="eu.yeger#generated-id-28" />
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDAGNode" visibility="public" xmi:id="_8x7EQCluEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Generalization isSubstitutable="true" xmi:id="_siEzsC5fEeaF_sH3mLTVKg" xmi:type="Generalization" />
+    <Generalization isSubstitutable="true" xmi:id="_DlxcAC5kEeaF_sH3mLTVKg" xmi:type="Generalization">
+      <Stereotype isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-29" xmi:type="Stereotype" />
     </Generalization>
-    <Property xmi:type="Property" xmi:id="_6vmJ0CpjEeaibdPncpUwfA" name="parallelism" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false">
-      <DataType xmi:type="DataType" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" xmi:id="eu.yeger#generated-id-29" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="parallelism" xmi:id="_6vmJ0CpjEeaibdPncpUwfA" xmi:type="Property">
+      <DataType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-30" xmi:type="DataType" />
     </Property>
-    <Property xmi:type="Property" xmi:id="_bDV-ACpkEeaibdPncpUwfA" name="operation" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false">
-      <Enumeration xmi:type="Enumeration" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" xmi:id="eu.yeger#generated-id-30" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="operation" xmi:id="_bDV-ACpkEeaibdPncpUwfA" xmi:type="Property">
+      <Enumeration isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-31" xmi:type="Enumeration" />
     </Property>
-    <Property xmi:type="Property" xmi:id="_jHCusCpkEeaibdPncpUwfA" name="hasSuccessor" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" upper="*" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_rTd9kCpkEeaibdPncpUwfA" value="0" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_rTfLsCpkEeaibdPncpUwfA" value="*" visibility="public" />
-    </Property>
-  </Stereotype>
-  <Stereotype xmi:type="Stereotype" xmi:id="_9mn3oCluEeaibdPncpUwfA" name="CoreDAGSourceNode" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Generalization xmi:type="Generalization" xmi:id="_CjRW8CpjEeaibdPncpUwfA" isSubstitutable="true" />
-    <Property xmi:type="Property" xmi:id="_IEueQCpsEeaibdPncpUwfA" name="readFrom" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="*" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_QH5DcCpsEeaibdPncpUwfA" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_QH6RkCpsEeaibdPncpUwfA" value="*" visibility="public" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasSuccessor" upper="*" xmi:id="_jHCusCpkEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="0" visibility="public" xmi:id="_rTd9kCpkEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_rTfLsCpkEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
   </Stereotype>
-  <Stereotype xmi:type="Stereotype" xmi:id="_KUZx0ClvEeaibdPncpUwfA" name="CoreData" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Property xmi:type="Property" xmi:id="_F2Tw0CpqEeaibdPncpUwfA" name="location" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="*" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_Hb_VMCpqEeaibdPncpUwfA" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_Hb_8QCpqEeaibdPncpUwfA" value="*" visibility="public" />
-    </Property>
-    <Property xmi:type="Property" xmi:id="_FOmTwCpuEeaibdPncpUwfA" name="hasSpecification" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false">
-      <DataType xmi:type="DataType" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" xmi:id="eu.yeger#generated-id-31" />
-    </Property>
-    <Property xmi:type="Property" xmi:id="_OcLdoCpuEeaibdPncpUwfA" name="hasVolume" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false">
-      <DataType xmi:type="DataType" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" xmi:id="eu.yeger#generated-id-32" />
-    </Property>
-    <Property xmi:type="Property" xmi:id="_DHOXci5nEeaF_sH3mLTVKg" name="base_Class" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false">
-      <Class xmi:type="Class" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" xmi:id="eu.yeger#generated-id-33" />
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDAGSourceNode" visibility="public" xmi:id="_9mn3oCluEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Generalization isSubstitutable="true" xmi:id="_CjRW8CpjEeaibdPncpUwfA" xmi:type="Generalization" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="readFrom" upper="*" xmi:id="_IEueQCpsEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_QH5DcCpsEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_QH6RkCpsEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
   </Stereotype>
-  <Extension xmi:type="Extension" xmi:id="_Qpq6sC5lEeaF_sH3mLTVKg" name="E_CoreDirectAcyclicGraph_Class1" isDerived="false" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <ExtensionEnd xmi:type="ExtensionEnd" xmi:id="_QpsI0C5lEeaF_sH3mLTVKg" name="extension_CoreDirectAcyclicGraph" aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false" />
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreData" visibility="public" xmi:id="_KUZx0ClvEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="location" upper="*" xmi:id="_F2Tw0CpqEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_Hb_VMCpqEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_Hb_8QCpqEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasSpecification" xmi:id="_FOmTwCpuEeaibdPncpUwfA" xmi:type="Property">
+      <DataType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-32" xmi:type="DataType" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasVolume" xmi:id="_OcLdoCpuEeaibdPncpUwfA" xmi:type="Property">
+      <DataType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-33" xmi:type="DataType" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="base_Class" xmi:id="_DHOXci5nEeaF_sH3mLTVKg" xmi:type="Property">
+      <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-34" xmi:type="Class" />
+    </Property>
+  </Stereotype>
+  <Extension isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" name="E_CoreDirectAcyclicGraph_Class1" visibility="public" xmi:id="_Qpq6sC5lEeaF_sH3mLTVKg" xmi:type="Extension">
+    <ExtensionEnd aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="extension_CoreDirectAcyclicGraph" xmi:id="_QpsI0C5lEeaF_sH3mLTVKg" xmi:type="ExtensionEnd" />
   </Extension>
-  <Extension xmi:type="Extension" xmi:id="_DHOXcC5nEeaF_sH3mLTVKg" name="E_CoreData_Class1" isDerived="false" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <ExtensionEnd xmi:type="ExtensionEnd" xmi:id="_DHOXcS5nEeaF_sH3mLTVKg" name="extension_CoreData" aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false" />
+  <Extension isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" name="E_CoreData_Class1" visibility="public" xmi:id="_DHOXcC5nEeaF_sH3mLTVKg" xmi:type="Extension">
+    <ExtensionEnd aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="extension_CoreData" xmi:id="_DHOXcS5nEeaF_sH3mLTVKg" xmi:type="ExtensionEnd" />
   </Extension>
 </Package> is unknown]
 `;
@@ -451,50 +451,50 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/dd6319bb612d7f1f3e841734ce79638c50b3f5cd9da15476746dbebd886079f9.uml 1`] = `[Error: Id 128 already registered]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/deba6074c1892c262330ce68a4e516c0e224724d169c24c9ff4926ab1960b083.uml 1`] = `
-[Error: No handler for node with tag uml:Diagram and type undefined of parent <uml:Model name="profFor progging" xmi:id="FRqn1qyCaeFs_BEE" xmi:type="Model" visibility="public">
-  <profileApplication xmi:id="FRqn1qyCaeFs_BEE_FRqn1qyCaeFs_BEE_content_profileApplication" xmi:type="ProfileApplication" isStrict="true">
-    <appliedProfile href="3 ))) Test xmi.profile.uml#FRqn1qyCaeFs_BEE_profile" xmi:type="Profile" visibility="public" />
+[Error: No handler for node with tag uml:Diagram and type undefined of parent <uml:Model name="profFor progging" visibility="public" xmi:id="FRqn1qyCaeFs_BEE" xmi:type="Model">
+  <profileApplication isStrict="true" xmi:id="FRqn1qyCaeFs_BEE_FRqn1qyCaeFs_BEE_content_profileApplication" xmi:type="ProfileApplication">
+    <appliedProfile href="3 ))) Test xmi.profile.uml#FRqn1qyCaeFs_BEE_profile" visibility="public" xmi:id="eu.yeger#generated-id-1" xmi:type="Profile" />
   </profileApplication>
   <packagedElement isAbstract="false" isLeaf="false" name="firstPackage" visibility="public" xmi:id="ckSkdqyCaeFs_D9P" xmi:type="Package">
-    <packagedElement isAbstract="false" isActive="false" isLeaf="false" name="Class1" visibility="public" xmi:id="VrqkdqyCaeFs_D9a" xmi:type="Class" isFinalSpecialization="false">
-      <ownedAttribute aggregation="shared" isDerived="false" isStatic="true" name="attribute1" ownerScope="classifier" visibility="private" xmi:id="84CUdqyCaeFs_Ey7" xmi:type="Property" isComposite="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="0" upper="1" isLeaf="false">
-        <lowerValue value="0" xmi:id="84CUdqyCaeFs_Ey7_multiplicity_lowerValue" xmi:type="LiteralString" visibility="public" />
-        <upperValue value="1" xmi:id="84CUdqyCaeFs_Ey7_multiplicity_upperValue" xmi:type="LiteralString" visibility="public" />
-        <defaultValue value="28" xmi:id="84CUdqyCaeFs_Ey7_initialValue" xmi:type="LiteralString" visibility="public" />
+    <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Class1" visibility="public" xmi:id="VrqkdqyCaeFs_D9a" xmi:type="Class">
+      <ownedAttribute aggregation="shared" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="true" isUnique="true" lower="0" name="attribute1" ownerScope="classifier" upper="1" visibility="private" xmi:id="84CUdqyCaeFs_Ey7" xmi:type="Property">
+        <lowerValue value="0" visibility="public" xmi:id="84CUdqyCaeFs_Ey7_multiplicity_lowerValue" xmi:type="LiteralString" />
+        <upperValue value="1" visibility="public" xmi:id="84CUdqyCaeFs_Ey7_multiplicity_upperValue" xmi:type="LiteralString" />
+        <defaultValue value="28" visibility="public" xmi:id="84CUdqyCaeFs_Ey7_initialValue" xmi:type="LiteralString" />
       </ownedAttribute>
-      <ownedOperation isAbstract="false" isLeaf="false" isQuery="false" name="operation1" ownerScope="instance" visibility="public" xmi:id="OqeUdqyCaeFs_Ez3" xmi:type="Operation" concurrency="sequential" isStatic="false">
-        <ownedParameter direction="return" isOrdered="false" isUnique="true" xmi:id="OqeUdqyCaeFs_Ez3_return" xmi:type="Parameter" isException="false" isStream="false" />
+      <ownedOperation concurrency="sequential" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="operation1" ownerScope="instance" visibility="public" xmi:id="OqeUdqyCaeFs_Ez3" xmi:type="Operation">
+        <ownedParameter direction="return" isException="false" isOrdered="false" isStream="false" isUnique="true" xmi:id="OqeUdqyCaeFs_Ez3_return" xmi:type="Parameter" />
       </ownedOperation>
     </packagedElement>
     <packagedElement isAbstract="false" isLeaf="false" name="SecondPackage" visibility="public" xmi:id="s72kdqyCaeFs_D_0" xmi:type="Package">
-      <packagedElement isAbstract="false" isActive="false" isLeaf="false" name="Class2" visibility="public" xmi:id="ltJkdqyCaeFs_EBB" xmi:type="Class" isFinalSpecialization="false">
-        <ownedAttribute aggregation="none" isDerived="false" name="role1" xmi:id="bqNkdqyCaeFs_EGT" xmi:type="Property" isComposite="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false" />
+      <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Class2" visibility="public" xmi:id="ltJkdqyCaeFs_EBB" xmi:type="Class">
+        <ownedAttribute aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="role1" xmi:id="bqNkdqyCaeFs_EGT" xmi:type="Property" />
       </packagedElement>
     </packagedElement>
   </packagedElement>
-  <packagedElement isAbstract="false" isDerived="false" isLeaf="false" name="assoc1" xmi:id="HSNkdqyCaeFs_EGR" xmi:type="Association" isFinalSpecialization="false" visibility="public">
-    <ownedEnd aggregation="none" isDerived="false" name="" xmi:id="W6NkdqyCaeFs_EGW" xmi:type="Property" isComposite="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" isStatic="false" isLeaf="false" />
+  <packagedElement isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" name="assoc1" visibility="public" xmi:id="HSNkdqyCaeFs_EGR" xmi:type="Association">
+    <ownedEnd aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="" xmi:id="W6NkdqyCaeFs_EGW" xmi:type="Property" />
   </packagedElement>
   <uml:Diagram diagramType="ClassDiagram" documentation="" name="class diagramm 1" toolName="Visual Paradigm for UML" xmi:id="6iskdqyCaeFs_D9J">
-    <uml:Diagram.element>
+    <uml:Diagram.element xmi:id="eu.yeger#generated-id-2">
       <uml:DiagramElement geometry="110,180,120,60" preferredShapeType="Class" subject="VrqkdqyCaeFs_D9a" xmi:id=".rqkdqyCaeFs_D9Z">
-        <elementFill color1="122,207,245,255" color2="" style="1" transparency="0" type="1" />
-        <elementFont bold="false" color="0,0,0,255" italic="false" name="Dialog" size="11" style="0" />
-        <elementLine color="0,0,0,255" style="1" transparency="0" weight="1.0" />
+        <elementFill color1="122,207,245,255" color2="" style="1" transparency="0" type="1" xmi:id="eu.yeger#generated-id-3" />
+        <elementFont bold="false" color="0,0,0,255" italic="false" name="Dialog" size="11" style="0" xmi:id="eu.yeger#generated-id-4" />
+        <elementLine color="0,0,0,255" style="1" transparency="0" weight="1.0" xmi:id="eu.yeger#generated-id-5" />
       </uml:DiagramElement>
       <uml:DiagramElement geometry="290,140,180,150" preferredShapeType="Package" subject="s72kdqyCaeFs_D_0" xmi:id="s72kdqyCaeFs_D_z">
-        <elementFill color1="122,207,245,255" color2="" style="1" transparency="0" type="1" />
-        <elementFont bold="false" color="0,0,0,255" italic="false" name="Dialog" size="11" style="0" />
-        <elementLine color="0,0,0,255" style="1" transparency="0" weight="1.0" />
+        <elementFill color1="122,207,245,255" color2="" style="1" transparency="0" type="1" xmi:id="eu.yeger#generated-id-6" />
+        <elementFont bold="false" color="0,0,0,255" italic="false" name="Dialog" size="11" style="0" xmi:id="eu.yeger#generated-id-7" />
+        <elementLine color="0,0,0,255" style="1" transparency="0" weight="1.0" xmi:id="eu.yeger#generated-id-8" />
       </uml:DiagramElement>
       <uml:DiagramElement geometry="310,180,80,40" preferredShapeType="Class" subject="ltJkdqyCaeFs_EBB" xmi:id="ltJkdqyCaeFs_EBA">
-        <elementFill color1="122,207,245,255" color2="" style="1" transparency="0" type="1" />
-        <elementFont bold="false" color="0,0,0,255" italic="false" name="Dialog" size="11" style="0" />
-        <elementLine color="0,0,0,255" style="1" transparency="0" weight="1.0" />
+        <elementFill color1="122,207,245,255" color2="" style="1" transparency="0" type="1" xmi:id="eu.yeger#generated-id-9" />
+        <elementFont bold="false" color="0,0,0,255" italic="false" name="Dialog" size="11" style="0" xmi:id="eu.yeger#generated-id-10" />
+        <elementLine color="0,0,0,255" style="1" transparency="0" weight="1.0" xmi:id="eu.yeger#generated-id-11" />
       </uml:DiagramElement>
       <uml:DiagramElement geometry="230,200;309,200;" preferredShapeType="Association" subject="HSNkdqyCaeFs_EGR" xmi:id="QGNkdqyCaeFs_EGw">
-        <elementFont bold="false" color="0,0,0,255" italic="false" name="Dialog" size="11" style="0" />
-        <elementLine color="0,0,0,255" style="1" transparency="0" weight="1.0" />
+        <elementFont bold="false" color="0,0,0,255" italic="false" name="Dialog" size="11" style="0" xmi:id="eu.yeger#generated-id-12" />
+        <elementLine color="0,0,0,255" style="1" transparency="0" weight="1.0" xmi:id="eu.yeger#generated-id-13" />
       </uml:DiagramElement>
     </uml:Diagram.element>
   </uml:Diagram>
@@ -512,18 +512,18 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/ead93c92b5a21957b514039593dd446b850cfb4298580811d1dc17028a7ab4b3.uml 1`] = `[Error: Id _HALBQEqVEeCTurDhhRqwBw already registered]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/eae72f7ed192d8e515dc9ff0654e614bb86a8f8ed40cf9feba39c6d481afcdba.uml 1`] = `
-[Error: No handler for node with tag node and type undefined of parent <packagedElement xmi:type="Activity" xmi:id="_NlQNcKJKEdy6lo8fyt_TJQ" name="Object node notations" isReadOnly="false" isSingleExecution="false" isReentrant="true" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-  <node xmi:type="CentralBufferNode" xmi:id="_TTIrYKJMEdy6lo8fyt_TJQ" name="name" isControlType="false" ordering="FIFO" isLeaf="false" />
-  <node xmi:type="DataStoreNode" xmi:id="_UXYWoKJMEdy6lo8fyt_TJQ" name="name" isControlType="false" ordering="FIFO" isLeaf="false">
-    <upperBound xmi:type="LiteralInteger" xmi:id="_hPRPEKJMEdy6lo8fyt_TJQ" value="2" visibility="public" />
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Object node notations" visibility="public" xmi:id="_NlQNcKJKEdy6lo8fyt_TJQ" xmi:type="Activity">
+  <node isControlType="false" isLeaf="false" name="name" ordering="FIFO" xmi:id="_TTIrYKJMEdy6lo8fyt_TJQ" xmi:type="CentralBufferNode" />
+  <node isControlType="false" isLeaf="false" name="name" ordering="FIFO" xmi:id="_UXYWoKJMEdy6lo8fyt_TJQ" xmi:type="DataStoreNode">
+    <upperBound value="2" visibility="public" xmi:id="_hPRPEKJMEdy6lo8fyt_TJQ" xmi:type="LiteralInteger" />
   </node>
-  <node xmi:type="Pin" xmi:id="_VZ15MKJMEdy6lo8fyt_TJQ" name="name" ordering="LIFO" />
+  <node name="name" ordering="LIFO" xmi:id="_VZ15MKJMEdy6lo8fyt_TJQ" xmi:type="Pin" />
 </packagedElement>]
 `;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/ed68e0a3f777e691c543fa5b7fb6c64d60d5965e69b11795877febf38903d8e6.uml 1`] = `
-[Error: No handler for node with tag importedElement and type undefined of parent <elementImport xmi:id="_hGRV8NzwEeiOPJBrCHaltw" xmi:type="ElementImport" visibility="public">
-  <importedElement xmi:type="CommunicationObject" href="//PLATFORM_RESOURCE/CommRoQMEObjects/model/commObject/CommRoQMEObjects.comm#//@elements.0/CommQoSMetrics" />
+[Error: No handler for node with tag importedElement and type undefined of parent <elementImport visibility="public" xmi:id="_hGRV8NzwEeiOPJBrCHaltw" xmi:type="ElementImport">
+  <importedElement href="//PLATFORM_RESOURCE/CommRoQMEObjects/model/commObject/CommRoQMEObjects.comm#//@elements.0/CommQoSMetrics" xmi:id="eu.yeger#generated-id-1" xmi:type="CommunicationObject" />
 </elementImport>]
 `;
 

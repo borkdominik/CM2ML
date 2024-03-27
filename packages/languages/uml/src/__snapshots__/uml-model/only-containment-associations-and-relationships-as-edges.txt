@@ -1,19 +1,19 @@
-<Model xmi:id="_PTF5sc4OEe2NwpxoRjsNIQ" name="package" xmi:type="Model" visibility="public">
-  <Package xmi:type="Package" xmi:id="_QGY-4M4OEe2NwpxoRjsNIQ" name="App" URI="com.example.app" visibility="public">
-    <Class xmi:type="Class" xmi:id="_KrFesfn-Ee2smM55zuHUhw" name="Main" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+<Model name="package" visibility="public" xmi:id="_PTF5sc4OEe2NwpxoRjsNIQ" xmi:type="Model">
+  <Package URI="com.example.app" name="App" visibility="public" xmi:id="_QGY-4M4OEe2NwpxoRjsNIQ" xmi:type="Package">
+    <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Main" visibility="public" xmi:id="_KrFesfn-Ee2smM55zuHUhw" xmi:type="Class" />
   </Package>
-  <Package xmi:type="Package" xmi:id="_RY5voM4OEe2NwpxoRjsNIQ" name="Lib" URI="com.example.lib" visibility="public">
-    <Class xmi:type="Class" xmi:id="_gu8-gPn-Ee2smM55zuHUhw" name="Launcher" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  <Package URI="com.example.lib" name="Lib" visibility="public" xmi:id="_RY5voM4OEe2NwpxoRjsNIQ" xmi:type="Package">
+    <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Launcher" visibility="public" xmi:id="_gu8-gPn-Ee2smM55zuHUhw" xmi:type="Class" />
   </Package>
-  <Package xmi:type="Package" xmi:id="_kjCCMM4OEe2WfbpzO7t8-A" name="Utils" visibility="public" />
-  <Package xmi:type="Package" xmi:id="_lJmS8M4OEe2WfbpzO7t8-A" name="Logic" visibility="public" />
-  <Package xmi:type="Package" xmi:id="_4EHcMM4OEe2WfbpzO7t8-A" name="StdLib" visibility="public">
-    <Package xmi:type="Package" xmi:id="_Mmu2kPn_Ee2smM55zuHUhw" name="Collections" visibility="public">
-      <Class xmi:type="Class" xmi:id="_PwW58Pn_Ee2smM55zuHUhw" name="ArrayList" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
-      <Class xmi:type="Class" xmi:id="_U4qQgPn_Ee2smM55zuHUhw" name="List" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  <Package name="Utils" visibility="public" xmi:id="_kjCCMM4OEe2WfbpzO7t8-A" xmi:type="Package" />
+  <Package name="Logic" visibility="public" xmi:id="_lJmS8M4OEe2WfbpzO7t8-A" xmi:type="Package" />
+  <Package name="StdLib" visibility="public" xmi:id="_4EHcMM4OEe2WfbpzO7t8-A" xmi:type="Package">
+    <Package name="Collections" visibility="public" xmi:id="_Mmu2kPn_Ee2smM55zuHUhw" xmi:type="Package">
+      <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="ArrayList" visibility="public" xmi:id="_PwW58Pn_Ee2smM55zuHUhw" xmi:type="Class" />
+      <Class isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="List" visibility="public" xmi:id="_U4qQgPn_Ee2smM55zuHUhw" xmi:type="Class" />
     </Package>
-    <Package xmi:type="Package" xmi:id="_Oj0OUPn_Ee2smM55zuHUhw" name="Math" visibility="public">
-      <Class xmi:type="Class" xmi:id="_dHjvIPoAEe2smM55zuHUhw" name="Int" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+    <Package name="Math" visibility="public" xmi:id="_Oj0OUPn_Ee2smM55zuHUhw" xmi:type="Package">
+      <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Int" visibility="public" xmi:id="_dHjvIPoAEe2smM55zuHUhw" xmi:type="Class" />
     </Package>
   </Package>
 </Model>

@@ -1,107 +1,107 @@
-<Model xmi:id="_Cfp0UGmxEe2kLe5KTNzRtw" name="clazz" xmi:type="Model" visibility="public">
-  <Class xmi:type="Class" xmi:id="_QE0EkK7gEe2EZoZ5sgiBCg" name="asd" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Property xmi:id="_bM_S4K7gEe2EZoZ5sgiBCg" name="NewProperty1" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="3" upper="4" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_bM_58K7gEe2EZoZ5sgiBCg" value="3" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_bNAhAK7gEe2EZoZ5sgiBCg" value="4" visibility="public" />
+<Model name="clazz" visibility="public" xmi:id="_Cfp0UGmxEe2kLe5KTNzRtw" xmi:type="Model">
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="asd" visibility="public" xmi:id="_QE0EkK7gEe2EZoZ5sgiBCg" xmi:type="Class">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="3" name="NewProperty1" upper="4" xmi:id="_bM_S4K7gEe2EZoZ5sgiBCg" xmi:type="Property">
+      <LiteralInteger value="3" visibility="public" xmi:id="_bM_58K7gEe2EZoZ5sgiBCg" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="4" visibility="public" xmi:id="_bNAhAK7gEe2EZoZ5sgiBCg" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <Property xmi:id="_g69BoK7oEe2EZoZ5sgiBCg" name="NewProperty2" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="*" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_g69Boa7oEe2EZoZ5sgiBCg" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_g69Boq7oEe2EZoZ5sgiBCg" value="*" visibility="public" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="NewProperty2" upper="*" xmi:id="_g69BoK7oEe2EZoZ5sgiBCg" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_g69Boa7oEe2EZoZ5sgiBCg" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_g69Boq7oEe2EZoZ5sgiBCg" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <Property xmi:id="_O3oC8bK1Ee24ffphK9Na6g" name="NewClass1" aggregation="shared" xmi:type="Property" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_O3oqALK1Ee24ffphK9Na6g" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_O3oqAbK1Ee24ffphK9Na6g" value="1" visibility="public" />
+    <Property aggregation="shared" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="NewClass1" upper="1" xmi:id="_O3oC8bK1Ee24ffphK9Na6g" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_O3oqALK1Ee24ffphK9Na6g" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="1" visibility="public" xmi:id="_O3oqAbK1Ee24ffphK9Na6g" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <Property xmi:id="_UahDwbK1Ee24ffphK9Na6g" name="NewClass3" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_Uahq0LK1Ee24ffphK9Na6g" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_Uahq0bK1Ee24ffphK9Na6g" value="1" visibility="public" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="NewClass3" upper="1" xmi:id="_UahDwbK1Ee24ffphK9Na6g" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_Uahq0LK1Ee24ffphK9Na6g" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="1" visibility="public" xmi:id="_Uahq0bK1Ee24ffphK9Na6g" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <Property xmi:id="_VYMM8bK1Ee24ffphK9Na6g" name="new Class 4" aggregation="composite" xmi:type="Property" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_VYM0ALK1Ee24ffphK9Na6g" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_VYM0AbK1Ee24ffphK9Na6g" value="1" visibility="public" />
+    <Property aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="new Class 4" upper="1" xmi:id="_VYMM8bK1Ee24ffphK9Na6g" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_VYM0ALK1Ee24ffphK9Na6g" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="1" visibility="public" xmi:id="_VYM0AbK1Ee24ffphK9Na6g" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <InterfaceRealization xmi:id="_ay8lcLK1Ee24ffphK9Na6g" xmi:type="InterfaceRealization" visibility="public" />
-    <Operation xmi:id="_Cr6ZsK70Ee2EZoZ5sgiBCg" name="NewOperation3" xmi:type="Operation" isQuery="false" concurrency="sequential" isAbstract="false" isStatic="false" isLeaf="false" />
-    <Operation xmi:id="_r0YL0K70Ee2EZoZ5sgiBCg" name="NewOperation1" xmi:type="Operation" isQuery="false" concurrency="sequential" isAbstract="false" isStatic="false" isLeaf="false">
-      <Parameter xmi:id="_Pf5kMbFSEe2z_s-Al402-w" name="NewParameter1" direction="return" xmi:type="Parameter" isException="false" isStream="false" isOrdered="false" isUnique="true" />
-      <Parameter xmi:id="_TnD78LFUEe2z_s-Al402-w" name="NewParameter2" direction="return" xmi:type="Parameter" isException="false" isStream="false" isOrdered="false" isUnique="true" />
-      <Parameter xmi:id="_YG02YLFVEe2z_s-Al402-w" name="NewParameter3" xmi:type="Parameter" direction="in" isException="false" isStream="false" isOrdered="false" isUnique="true" />
-      <Parameter xmi:id="_huGJQbFuEe21bf9NlKs9Kg" name="NewParameter4" xmi:type="Parameter" direction="in" isException="false" isStream="false" isOrdered="false" isUnique="true" />
+    <InterfaceRealization visibility="public" xmi:id="_ay8lcLK1Ee24ffphK9Na6g" xmi:type="InterfaceRealization" />
+    <Operation concurrency="sequential" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="NewOperation3" xmi:id="_Cr6ZsK70Ee2EZoZ5sgiBCg" xmi:type="Operation" />
+    <Operation concurrency="sequential" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="NewOperation1" xmi:id="_r0YL0K70Ee2EZoZ5sgiBCg" xmi:type="Operation">
+      <Parameter direction="return" isException="false" isOrdered="false" isStream="false" isUnique="true" name="NewParameter1" xmi:id="_Pf5kMbFSEe2z_s-Al402-w" xmi:type="Parameter" />
+      <Parameter direction="return" isException="false" isOrdered="false" isStream="false" isUnique="true" name="NewParameter2" xmi:id="_TnD78LFUEe2z_s-Al402-w" xmi:type="Parameter" />
+      <Parameter direction="in" isException="false" isOrdered="false" isStream="false" isUnique="true" name="NewParameter3" xmi:id="_YG02YLFVEe2z_s-Al402-w" xmi:type="Parameter" />
+      <Parameter direction="in" isException="false" isOrdered="false" isStream="false" isUnique="true" name="NewParameter4" xmi:id="_huGJQbFuEe21bf9NlKs9Kg" xmi:type="Parameter" />
     </Operation>
   </Class>
-  <DataType xmi:type="DataType" xmi:id="_W7vZ8K79Ee2EZoZ5sgiBCg" name="NewDataType1" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
-  <Class xmi:type="Class" xmi:id="_7Y-R4LK0Ee24ffphK9Na6g" name="NewClass2" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
-  <Enumeration xmi:type="Enumeration" xmi:id="_8Q6mgLK0Ee24ffphK9Na6g" name="NewEnumeration1" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <EnumerationLiteral xmi:id="__G-0sLK0Ee24ffphK9Na6g" name="NewEnumerationLiteral1" xmi:type="EnumerationLiteral" visibility="public" />
+  <DataType isAbstract="false" isFinalSpecialization="false" isLeaf="false" name="NewDataType1" visibility="public" xmi:id="_W7vZ8K79Ee2EZoZ5sgiBCg" xmi:type="DataType" />
+  <Class isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="NewClass2" visibility="public" xmi:id="_7Y-R4LK0Ee24ffphK9Na6g" xmi:type="Class" />
+  <Enumeration isAbstract="false" isFinalSpecialization="false" isLeaf="false" name="NewEnumeration1" visibility="public" xmi:id="_8Q6mgLK0Ee24ffphK9Na6g" xmi:type="Enumeration">
+    <EnumerationLiteral name="NewEnumerationLiteral1" visibility="public" xmi:id="__G-0sLK0Ee24ffphK9Na6g" xmi:type="EnumerationLiteral" />
   </Enumeration>
-  <Interface xmi:type="Interface" xmi:id="_9pVK8LK0Ee24ffphK9Na6g" name="NewInterface1" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
-  <Package xmi:type="Package" xmi:id="_99xw8LK0Ee24ffphK9Na6g" name="NewPackage3" visibility="public">
-    <PackageImport xmi:id="_dxJb8LK1Ee24ffphK9Na6g" xmi:type="PackageImport" visibility="public" />
+  <Interface isAbstract="false" isFinalSpecialization="false" isLeaf="false" name="NewInterface1" visibility="public" xmi:id="_9pVK8LK0Ee24ffphK9Na6g" xmi:type="Interface" />
+  <Package name="NewPackage3" visibility="public" xmi:id="_99xw8LK0Ee24ffphK9Na6g" xmi:type="Package">
+    <PackageImport visibility="public" xmi:id="_dxJb8LK1Ee24ffphK9Na6g" xmi:type="PackageImport" />
     <PackageMerge xmi:id="_e5mRwLK1Ee24ffphK9Na6g" xmi:type="PackageMerge" />
-    <Package xmi:type="Package" xmi:id="_AmwlYLK1Ee24ffphK9Na6g" name="NewPackage1" visibility="public" />
+    <Package name="NewPackage1" visibility="public" xmi:id="_AmwlYLK1Ee24ffphK9Na6g" xmi:type="Package" />
   </Package>
-  <PrimitiveType xmi:type="PrimitiveType" xmi:id="_-da6ULK0Ee24ffphK9Na6g" name="NewPrimitiveType1" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Property xmi:id="_ipeAULK2Ee24ffphK9Na6g" name="NewProperty1" isStatic="true" isDerived="true" xmi:type="Property" aggregation="none" isComposite="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_ipenYLK2Ee24ffphK9Na6g" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_ipenYbK2Ee24ffphK9Na6g" value="1" visibility="public" />
+  <PrimitiveType isAbstract="false" isFinalSpecialization="false" isLeaf="false" name="NewPrimitiveType1" visibility="public" xmi:id="_-da6ULK0Ee24ffphK9Na6g" xmi:type="PrimitiveType">
+    <Property aggregation="none" isComposite="false" isDerived="true" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="true" isUnique="true" lower="1" name="NewProperty1" upper="1" xmi:id="_ipeAULK2Ee24ffphK9Na6g" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_ipenYLK2Ee24ffphK9Na6g" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="1" visibility="public" xmi:id="_ipenYbK2Ee24ffphK9Na6g" xmi:type="LiteralUnlimitedNatural" />
     </Property>
   </PrimitiveType>
-  <Abstraction xmi:type="Abstraction" xmi:id="_J2H38LK1Ee24ffphK9Na6g" visibility="public" />
-  <Class xmi:type="Class" xmi:id="_MHjIALK1Ee24ffphK9Na6g" name="NewClass1" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Property xmi:id="_O3oqArK1Ee24ffphK9Na6g" name="asd" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_O3oqA7K1Ee24ffphK9Na6g" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_O3oqBLK1Ee24ffphK9Na6g" value="1" visibility="public" />
+  <Abstraction visibility="public" xmi:id="_J2H38LK1Ee24ffphK9Na6g" xmi:type="Abstraction" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="NewClass1" visibility="public" xmi:id="_MHjIALK1Ee24ffphK9Na6g" xmi:type="Class">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="asd" upper="1" xmi:id="_O3oqArK1Ee24ffphK9Na6g" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_O3oqA7K1Ee24ffphK9Na6g" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="1" visibility="public" xmi:id="_O3oqBLK1Ee24ffphK9Na6g" xmi:type="LiteralUnlimitedNatural" />
     </Property>
   </Class>
-  <Class xmi:type="Class" xmi:id="_Mg74YLK1Ee24ffphK9Na6g" name="NewClass3" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Property xmi:id="_UaiR4LK1Ee24ffphK9Na6g" name="asd" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_UaiR4bK1Ee24ffphK9Na6g" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_UaiR4rK1Ee24ffphK9Na6g" value="1" visibility="public" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="NewClass3" visibility="public" xmi:id="_Mg74YLK1Ee24ffphK9Na6g" xmi:type="Class">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="asd" upper="1" xmi:id="_UaiR4LK1Ee24ffphK9Na6g" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_UaiR4bK1Ee24ffphK9Na6g" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="1" visibility="public" xmi:id="_UaiR4rK1Ee24ffphK9Na6g" xmi:type="LiteralUnlimitedNatural" />
     </Property>
   </Class>
-  <Class xmi:type="Class" xmi:id="_M-U_ALK1Ee24ffphK9Na6g" name="NewClass4" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Substitution xmi:id="_Gt7igLK2Ee24ffphK9Na6g" xmi:type="Substitution" visibility="public" />
-    <Property xmi:id="_VYM0ArK1Ee24ffphK9Na6g" name="asd" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_VYNbELK1Ee24ffphK9Na6g" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_VYNbEbK1Ee24ffphK9Na6g" value="1" visibility="public" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="NewClass4" visibility="public" xmi:id="_M-U_ALK1Ee24ffphK9Na6g" xmi:type="Class">
+    <Substitution visibility="public" xmi:id="_Gt7igLK2Ee24ffphK9Na6g" xmi:type="Substitution" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="asd" upper="1" xmi:id="_VYM0ArK1Ee24ffphK9Na6g" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_VYNbELK1Ee24ffphK9Na6g" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="1" visibility="public" xmi:id="_VYNbEbK1Ee24ffphK9Na6g" xmi:type="LiteralUnlimitedNatural" />
     </Property>
   </Class>
-  <Class xmi:type="Class" xmi:id="_Nbk7sLK1Ee24ffphK9Na6g" name="NewClass5" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
-  <Association xmi:type="Association" xmi:id="_O3oC8LK1Ee24ffphK9Na6g" isDerived="false" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
-  <Association xmi:type="Association" xmi:id="_UahDwLK1Ee24ffphK9Na6g" isDerived="false" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
-  <Association xmi:type="Association" xmi:id="_VYMM8LK1Ee24ffphK9Na6g" isDerived="false" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
-  <Dependency xmi:type="Dependency" xmi:id="_XCaTELK1Ee24ffphK9Na6g" visibility="public" />
-  <Package xmi:type="Package" xmi:id="_dDtuMLK1Ee24ffphK9Na6g" name="NewPackage1" visibility="public">
-    <PackageImport xmi:id="_wZ60QLK9Ee2fn9jN03lZYw" xmi:type="PackageImport" visibility="public" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="NewClass5" visibility="public" xmi:id="_Nbk7sLK1Ee24ffphK9Na6g" xmi:type="Class" />
+  <Association isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="_O3oC8LK1Ee24ffphK9Na6g" xmi:type="Association" />
+  <Association isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="_UahDwLK1Ee24ffphK9Na6g" xmi:type="Association" />
+  <Association isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="_VYMM8LK1Ee24ffphK9Na6g" xmi:type="Association" />
+  <Dependency visibility="public" xmi:id="_XCaTELK1Ee24ffphK9Na6g" xmi:type="Dependency" />
+  <Package name="NewPackage1" visibility="public" xmi:id="_dDtuMLK1Ee24ffphK9Na6g" xmi:type="Package">
+    <PackageImport visibility="public" xmi:id="_wZ60QLK9Ee2fn9jN03lZYw" xmi:type="PackageImport" />
   </Package>
-  <Package xmi:type="Package" xmi:id="_ed5NMLK1Ee24ffphK9Na6g" name="NewPackage2" visibility="public" />
-  <Realization xmi:type="Realization" xmi:id="_ghLTkLK1Ee24ffphK9Na6g" visibility="public" />
-  <Class xmi:type="Class" xmi:id="_D0YigLK2Ee24ffphK9Na6g" name="NewClass6" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
-  <Class xmi:type="Class" xmi:id="_EWMPELK2Ee24ffphK9Na6g" name="NewClass7" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
-  <Usage xmi:type="Usage" xmi:id="_FGLhkLK2Ee24ffphK9Na6g" visibility="public" />
-  <Class xmi:type="Class" xmi:id="_LjfcIbSLEe2pkZx4lGC8Ew" name="asd2" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Property xmi:id="_ItfSANIcEe2rY5KN6ehSig" name="NewClass8" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_Itf5ENIcEe2rY5KN6ehSig" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_ItggINIcEe2rY5KN6ehSig" value="1" visibility="public" />
+  <Package name="NewPackage2" visibility="public" xmi:id="_ed5NMLK1Ee24ffphK9Na6g" xmi:type="Package" />
+  <Realization visibility="public" xmi:id="_ghLTkLK1Ee24ffphK9Na6g" xmi:type="Realization" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="NewClass6" visibility="public" xmi:id="_D0YigLK2Ee24ffphK9Na6g" xmi:type="Class" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="NewClass7" visibility="public" xmi:id="_EWMPELK2Ee24ffphK9Na6g" xmi:type="Class" />
+  <Usage visibility="public" xmi:id="_FGLhkLK2Ee24ffphK9Na6g" xmi:type="Usage" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="asd2" visibility="public" xmi:id="_LjfcIbSLEe2pkZx4lGC8Ew" xmi:type="Class">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="NewClass8" upper="1" xmi:id="_ItfSANIcEe2rY5KN6ehSig" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_Itf5ENIcEe2rY5KN6ehSig" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="1" visibility="public" xmi:id="_ItggINIcEe2rY5KN6ehSig" xmi:type="LiteralUnlimitedNatural" />
     </Property>
   </Class>
-  <Class xmi:type="Class" xmi:id="_j12MQL0cEe2besM683MlUA" name="NewClass8" isAbstract="true" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Property xmi:id="_ItggIdIcEe2rY5KN6ehSig" name="asd2" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="1" upper="1" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_ItggItIcEe2rY5KN6ehSig" value="1" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_IthHMNIcEe2rY5KN6ehSig" value="1" visibility="public" />
+  <Class isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="NewClass8" visibility="public" xmi:id="_j12MQL0cEe2besM683MlUA" xmi:type="Class">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="asd2" upper="1" xmi:id="_ItggIdIcEe2rY5KN6ehSig" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_ItggItIcEe2rY5KN6ehSig" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="1" visibility="public" xmi:id="_IthHMNIcEe2rY5KN6ehSig" xmi:type="LiteralUnlimitedNatural" />
     </Property>
   </Class>
-  <Class xmi:type="Class" xmi:id="_Uk2g0cymEe2SqIqlz0mqiA" name="NewClass9" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">
-    <Property xmi:id="_uKNqAc1tEe2aWMTUBOnCiQ" name="NewProperty1" xmi:type="Property" aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isReadOnly="false" isOrdered="false" isUnique="true" lower="3" upper="5" isStatic="false" isLeaf="false">
-      <LiteralInteger xmi:type="LiteralInteger" xmi:id="_uK1VEM1tEe2aWMTUBOnCiQ" value="3" visibility="public" />
-      <LiteralUnlimitedNatural xmi:type="LiteralUnlimitedNatural" xmi:id="_uK1VEc1tEe2aWMTUBOnCiQ" value="5" visibility="public" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="NewClass9" visibility="public" xmi:id="_Uk2g0cymEe2SqIqlz0mqiA" xmi:type="Class">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="3" name="NewProperty1" upper="5" xmi:id="_uKNqAc1tEe2aWMTUBOnCiQ" xmi:type="Property">
+      <LiteralInteger value="3" visibility="public" xmi:id="_uK1VEM1tEe2aWMTUBOnCiQ" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="5" visibility="public" xmi:id="_uK1VEc1tEe2aWMTUBOnCiQ" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <Operation xmi:id="_45WxkM5PEe2J1pPdCxXkdw" name="NewOperation1" visibility="public" xmi:type="Operation" isQuery="false" concurrency="sequential" isAbstract="false" isStatic="false" isLeaf="false">
-      <Parameter xmi:id="_8YNeEM5PEe2J1pPdCxXkdw" name="NewParameter1" xmi:type="Parameter" direction="in" isException="false" isStream="false" isOrdered="false" isUnique="true" />
-      <Parameter xmi:id="_e-0x0dI3Ee2XPc95mjsJSg" name="NewParameter2" direction="return" xmi:type="Parameter" isException="false" isStream="false" isOrdered="false" isUnique="true" />
+    <Operation concurrency="sequential" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="NewOperation1" visibility="public" xmi:id="_45WxkM5PEe2J1pPdCxXkdw" xmi:type="Operation">
+      <Parameter direction="in" isException="false" isOrdered="false" isStream="false" isUnique="true" name="NewParameter1" xmi:id="_8YNeEM5PEe2J1pPdCxXkdw" xmi:type="Parameter" />
+      <Parameter direction="return" isException="false" isOrdered="false" isStream="false" isUnique="true" name="NewParameter2" xmi:id="_e-0x0dI3Ee2XPc95mjsJSg" xmi:type="Parameter" />
     </Operation>
   </Class>
-  <Association xmi:type="Association" xmi:id="_ItM-INIcEe2rY5KN6ehSig" isDerived="false" isAbstract="false" isFinalSpecialization="false" visibility="public" isLeaf="false" />
+  <Association isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="_ItM-INIcEe2rY5KN6ehSig" xmi:type="Association" />
 </Model>
 _-da6ULK0Ee24ffphK9Na6g -> <attribute /> -> _ipeAULK2Ee24ffphK9Na6g
 _-da6ULK0Ee24ffphK9Na6g -> <feature /> -> _ipeAULK2Ee24ffphK9Na6g
