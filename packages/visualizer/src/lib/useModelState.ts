@@ -150,7 +150,7 @@ function tryParse(
     return {}
   }
   try {
-    const model = parser.invoke(serializedModel, parameters)
+    const model = parser.validateAndInvoke(serializedModel, parameters)
     return { model }
   } catch (error) {
     return { error }

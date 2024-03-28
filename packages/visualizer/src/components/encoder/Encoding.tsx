@@ -1,6 +1,6 @@
+import type { Encoder } from '@cm2ml/builtin'
 import { GraphEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
-import type { Plugin } from '@cm2ml/plugin'
 
 import type { ParameterValues } from '../Parameters'
 import { Hint } from '../ui/hint'
@@ -8,7 +8,7 @@ import { Hint } from '../ui/hint'
 import { RawGraphEncoding } from './encodings/RawGraphEncoding'
 
 export interface Props {
-  encoder: Plugin<GraphModel, unknown, any>
+  encoder: Encoder
   model: GraphModel
   parameters: ParameterValues
 }

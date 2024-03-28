@@ -5,7 +5,10 @@ export interface PluginAdapterConfiguration {
   batched: boolean
 }
 
-export type SupportedPlugin<In> = Plugin<In, unknown, ParameterMetadata> | Plugin<In[], unknown[], ParameterMetadata>
+export type RegularPlugin<In> = Plugin<In, unknown, ParameterMetadata>
+export type BatchedPlugin<In> = Plugin<In[], unknown[], ParameterMetadata>
+
+export type SupportedPlugin<In> = RegularPlugin<In> | BatchedPlugin<In>
 
 export abstract class PluginAdapter<In, Configuration extends PluginAdapterConfiguration = PluginAdapterConfiguration> {
   protected plugins = new Map<string, Plugin<In, unknown, any> | Plugin<In[], unknown[], any>>()
@@ -31,10 +34,10 @@ export abstract class PluginAdapter<In, Configuration extends PluginAdapterConfi
     }
     this.plugins.set(plugin.name, plugin)
     if (configuration.batched) {
-      this.onApplyBatched(plugin as Plugin<In[], unknown[], ParameterMetadata>, configuration)
+      this.onApplyBatched(plugin as BatchedPlugin<In>, configuration)
       return this
     }
-    this.onApply(plugin as Plugin<In, unknown, ParameterMetadata>, configuration)
+    this.onApply(plugin as RegularPlugin<In>, configuration)
     return this
   }
 

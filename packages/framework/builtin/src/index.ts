@@ -11,7 +11,9 @@ export * from '@cm2ml/tree-encoder'
 export * from '@cm2ml/uml'
 export * from '@cm2ml/xmi-parser'
 
-export type Parser = Plugin<string, GraphModel, any>
+export type ParserBatchMetadata = unknown
+
+export type Parser = Plugin<string, GraphModel, any, unknown, ParserBatchMetadata>
 
 export const parsers: Parser[] = [EcoreParser, UmlParser]
 
@@ -20,7 +22,9 @@ export const parserMap = {
   [UmlParser.name]: UmlParser,
 }
 
-export type Encoder = Plugin<GraphModel, unknown, any>
+export type EncoderMetadata = any
+
+export type Encoder = Plugin<GraphModel, unknown, any, ParserBatchMetadata, EncoderMetadata>
 
 export const encoders: Encoder[] = [GraphEncoder, TreeEncoder]
 
