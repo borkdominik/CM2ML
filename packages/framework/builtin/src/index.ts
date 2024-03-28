@@ -1,7 +1,7 @@
 import { EcoreParser } from '@cm2ml/ecore'
 import { GraphEncoder } from '@cm2ml/graph-encoder'
 import type { GraphModel } from '@cm2ml/ir'
-import { type Plugin, compose } from '@cm2ml/plugin'
+import { type Plugin, batch, compose } from '@cm2ml/plugin'
 import { TreeEncoder } from '@cm2ml/tree-encoder'
 import { UmlParser } from '@cm2ml/uml'
 
@@ -31,4 +31,8 @@ export const encoderMap = {
 
 export const plugins = parsers.flatMap((parser) =>
   encoders.map((encoder) => compose(parser, encoder)),
+)
+
+export const batchedPlugins = parsers.flatMap((parser) =>
+  encoders.map((encoder) => batch(parser, encoder)),
 )

@@ -233,3 +233,44 @@ function createInvocationChain<In, Out>(plugins: Plugin<any, any, any>[]) {
       parameters: Record<string, number | string | boolean>,
     ) => Out
 }
+
+export function batch<
+  In,
+  I1,
+  P1 extends ParameterMetadata,
+  Out,
+  P2 extends ParameterMetadata,
+>(
+  first: Plugin<In, I1, P1>,
+  second: Plugin<I1, Out, P2>,
+  name = `batch-${first.name}-${second.name}`,
+): Plugin<In[], Out[], P1 & P2> {
+  try {
+    const plugins = [first, second]
+    return definePlugin({
+      name,
+      parameters: joinParameters(plugins) as P1 & P2,
+      invoke: createBatchedInvocationChain<In, I1, P1, Out, P2>(first, second),
+    }) as unknown as any
+  } catch (error) {
+    console.error(getMessage(error))
+    throw error
+  }
+}
+
+function createBatchedInvocationChain<
+  In,
+  I1,
+  P1 extends ParameterMetadata,
+  Out,
+  P2 extends ParameterMetadata,
+>(first: Plugin<In, I1, P1>, second: Plugin<I1, Out, P2>): PluginInvoke<In[], Out[], P1 & P2> {
+  return (
+    input: In[],
+    parameters: Readonly<ResolveParameters<P1 & P2>>,
+  ) =>
+    input.map((item) => {
+      const intermediateResult = first.invoke(item, parameters as Readonly<ResolveParameters<P1>>)
+      return second.invoke(intermediateResult, parameters as Readonly<ResolveParameters<P2>>)
+    })
+}
