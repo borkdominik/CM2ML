@@ -16,7 +16,7 @@ class CLI extends PluginAdapter<string, PluginAdapterConfiguration> {
     .option(
       '--out <file/directory>',
       'Path to output file (or directory for batched mode)',
-      { type: [(input: unknown) => input === undefined ? undefined : String(input)] },
+      { type: [undefinedAwareConstructor(String)] },
     )
     .option('--pretty', 'Pretty print JSON output', { default: false, type: [Boolean] })
 
@@ -33,6 +33,8 @@ class CLI extends PluginAdapter<string, PluginAdapterConfiguration> {
   protected onApplyBatched<Out, Parameters extends ParameterMetadata>(plugin: Plugin<string[], Out[], Parameters>) {
     const command = this.cli.command(`${plugin.name} <inputDir>`)
     registerCommandOptions(command, plugin.parameters)
+    command.option('--start <start>', 'Index of the first model to encode', { default: undefined, type: [undefinedAwareConstructor(Number)] })
+    command.option('--limit <limit>', 'Maximum number of models to encode', { default: undefined, type: [undefinedAwareConstructor(Number)] })
     command.action((inputFile: string, options: Record<string, unknown>) =>
       batchedPluginActionHandler(plugin, inputFile, options),
     )
@@ -137,7 +139,12 @@ function batchedPluginActionHandler<Out, Parameters extends ParameterMetadata>(
   options: Record<string, unknown>,
 ) {
   const normalizedOptions = normalizeOptions(options)
-  const inputFiles = fs.readdirSync(inputDir, { encoding: 'utf8', withFileTypes: true }).filter((dirent) => dirent.isFile()).map((dirent) => dirent.name)
+
+  const start = typeof normalizedOptions.start === 'number' ? normalizedOptions.start : 0
+  const limit = typeof normalizedOptions.limit === 'number' ? normalizedOptions.limit : undefined
+  const end = limit ? start + limit : undefined
+
+  const inputFiles = fs.readdirSync(inputDir, { encoding: 'utf8', withFileTypes: true }).filter((dirent) => dirent.isFile()).slice(start, end).map((dirent) => dirent.name)
   const input = inputFiles.map((inputFile) => fs.readFileSync(`${inputDir}/${inputFile}`, 'utf8'))
   const results = plugin.validateAndInvoke(input, normalizedOptions)
 
@@ -181,6 +188,10 @@ function normalizeOptions(options: Record<string, unknown>): Record<string, unkn
       ([name]) => name,
       ([_name, value]) => value,
     )
+}
+
+function undefinedAwareConstructor(constructor: NumberConstructor | StringConstructor | ((input: unknown) => boolean)) {
+  return (input: unknown) => input === undefined ? undefined : constructor(input)
 }
 
 export function createCLI() {
