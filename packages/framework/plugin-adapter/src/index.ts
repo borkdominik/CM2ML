@@ -1,4 +1,4 @@
-import { type ParameterMetadata, type Plugin, PluginExecutionError } from '@cm2ml/plugin'
+import { ExecutionError, type ParameterMetadata, type Plugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 export interface PluginAdapterConfiguration {
@@ -66,9 +66,9 @@ export abstract class PluginAdapter<In, Configuration extends PluginAdapterConfi
   }
 }
 
-export function groupBatchedOutput<Out>(output: (Out | PluginExecutionError)[]) {
+export function groupBatchedOutput<Out>(output: (Out | ExecutionError)[]) {
   const withIndex = output.map((value, index) => ({ value, index }))
-  const errors = withIndex.filter(({ value }) => value instanceof PluginExecutionError).map(({ value, index }) => ({ error: value as PluginExecutionError, index }))
-  const results = withIndex.filter(({ value }) => !(value instanceof PluginExecutionError)).map(({ value, index }) => ({ result: value as Out, index }))
+  const errors = withIndex.filter(({ value }) => value instanceof ExecutionError).map(({ value, index }) => ({ error: value as ExecutionError, index }))
+  const results = withIndex.filter(({ value }) => !(value instanceof ExecutionError)).map(({ value, index }) => ({ result: value as Out, index }))
   return { errors, results }
 }

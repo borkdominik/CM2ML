@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 
-import type { Parameter, ParameterMetadata, Plugin, PluginExecutionError } from '@cm2ml/plugin'
+import type { ExecutionError, Parameter, ParameterMetadata, Plugin } from '@cm2ml/plugin'
 import { getTypeConstructor } from '@cm2ml/plugin'
 import type { PluginAdapterConfiguration } from '@cm2ml/plugin-adapter'
 import { PluginAdapter, groupBatchedOutput } from '@cm2ml/plugin-adapter'
@@ -30,7 +30,7 @@ class CLI extends PluginAdapter<string, PluginAdapterConfiguration> {
     )
   }
 
-  protected onApplyBatched<Out, Parameters extends ParameterMetadata>(plugin: Plugin<string[], (Out | PluginExecutionError)[], Parameters>) {
+  protected onApplyBatched<Out, Parameters extends ParameterMetadata>(plugin: Plugin<string[], (Out | ExecutionError)[], Parameters>) {
     const command = this.cli.command(`${plugin.name} <inputDir>`)
     registerCommandOptions(command, plugin.parameters)
     command.option('--start <start>', 'Index of the first model to encode', { default: undefined, type: [undefinedAwareConstructor(Number)] })

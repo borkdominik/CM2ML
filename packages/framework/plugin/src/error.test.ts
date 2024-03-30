@@ -1,12 +1,12 @@
 import { getMessage } from '@cm2ml/utils'
 import { describe, expect, it } from 'vitest'
 
-import { PluginExecutionError, catching, trying } from './error'
+import { ExecutionError, catching, trying } from './error'
 import { add, passthrough, throwingPlugin } from './plugins.test'
 
 const withTrying = trying(throwingPlugin)
 
-const testError = new PluginExecutionError('test error', 'external')
+const testError = new ExecutionError('test error', 'external')
 
 describe('error', () => {
   describe('trying', () => {
@@ -24,7 +24,7 @@ describe('error', () => {
 
     it('should catch errors', () => {
       const result = withTrying.invoke(undefined, {}, undefined)
-      expect(result).toBeInstanceOf(PluginExecutionError)
+      expect(result).toBeInstanceOf(ExecutionError)
       expect(getMessage(result)).toBe('This plugin always throws.')
     })
   })

@@ -39,7 +39,7 @@ export function compose<
 }
 
 /**
- * Wraps a plugin to catch errors and return a {@link PluginExecutionError} instead.
+ * Wraps a plugin to catch errors and return a {@link ExecutionError} instead.
  */
 export function tryCatch<In, Out, Parameters extends ParameterMetadata, BMIn, BMOut>(plugin: Plugin<In, Out, Parameters, BMIn, BMOut>) {
   return compose(trying(plugin), catching())

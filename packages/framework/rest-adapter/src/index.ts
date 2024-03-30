@@ -1,6 +1,6 @@
 import process from 'node:process'
 
-import { PluginExecutionError, ValidationError, getTypeConstructor } from '@cm2ml/plugin'
+import { ExecutionError, ValidationError, getTypeConstructor } from '@cm2ml/plugin'
 import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
 import { PluginAdapter } from '@cm2ml/plugin-adapter'
 import { getMessage } from '@cm2ml/utils'
@@ -154,7 +154,7 @@ function batchedPluginRequestHandler<Out, Parameters extends ParameterMetadata>(
         error: error.message,
       }
     }
-    if (error instanceof PluginExecutionError) {
+    if (error instanceof ExecutionError) {
       reply.statusCode = 400
       return {
         error: error.message,

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { batch, batchTryCatch, compose } from './composition'
-import { PluginExecutionError } from './error'
+import { ExecutionError } from './error'
 import { add, throwIfEven } from './plugins.test'
 
 describe('composition', () => {
@@ -39,7 +39,7 @@ describe('composition', () => {
       const batched = batchTryCatch(throwIfEven)
 
       const result = batched.invoke([1, 2, 3], { continueOnError: true }, undefined)
-      expect(result).toEqual([1, new PluginExecutionError('Input is even.', 'throwIfEven'), 3])
+      expect(result).toEqual([1, new ExecutionError('Input is even.', 'throwIfEven'), 3])
     })
   })
 })
