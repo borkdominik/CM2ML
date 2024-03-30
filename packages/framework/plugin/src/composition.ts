@@ -1,6 +1,7 @@
 import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 
+import { catching, trying } from './error'
 import type { Parameter, ParameterMetadata, ResolveParameters } from './parameters'
 import type { Plugin, PluginInvoke, PluginMetadata } from './plugin'
 import { definePlugin } from './plugin'
@@ -37,24 +38,11 @@ export function compose<
   }
 }
 
-function joinParameters(plugins: PluginMetadata<ParameterMetadata>[]) {
-  const parameters: Record<string, Parameter> = {}
-
-  Stream.from(plugins)
-    .map((plugin) => plugin.parameters)
-    .forEach((pluginParameters) => {
-      Stream.fromObject(pluginParameters).forEach(([name, parameter]) => {
-        const existingParameter = parameters[name]
-        if (existingParameter && existingParameter.type !== parameter.type) {
-          throw new Error(
-            `Parameter ${name} is defined multiple times with different types in the plugin composition.`,
-          )
-        }
-        parameters[name] = parameter
-      })
-    })
-
-  return parameters
+/**
+ * Wraps a plugin to catch errors and return a {@link PluginExecutionError} instead.
+ */
+export function tryCatch<In, Out, Parameters extends ParameterMetadata, BMIn, BMOut>(plugin: Plugin<In, Out, Parameters, BMIn, BMOut>) {
+  return compose(trying(plugin), catching())
 }
 
 /**
@@ -67,11 +55,15 @@ export function batch<In, Out, Parameters extends ParameterMetadata, BMIn, BMOut
     invoke: (input: In[], parameters, batchMetadata) => {
       return input.map((item) => plugin.invoke(item, parameters, batchMetadata))
     },
-    batchMetadataCollector: (intermediateResults: In[][], previousBatchMetadata) => {
-      const flattenedInput = intermediateResults.flatMap((item) => item)
+    batchMetadataCollector: (batch: In[][], previousBatchMetadata) => {
+      const flattenedInput = batch.flatMap((item) => item)
       return plugin.batchMetadataCollector?.(flattenedInput, previousBatchMetadata)
     },
   })
+}
+
+export function batchTryCatch<In, Out, Parameters extends ParameterMetadata, BMIn, BMOut>(plugin: Plugin<In, Out, Parameters, BMIn, BMOut>, name = `batch-${plugin.name}`) {
+  return batch(tryCatch(plugin), name)
 }
 
 /**
@@ -90,8 +82,32 @@ export function batchedCompose<
   first: Plugin<In, I1, P1, BMIn, BMMid>,
   second: Plugin<I1, Out, P2, BMMid, BMOut>,
   name = `batch-${first.name}-${second.name}`,
-): Plugin<In[], Out[], P1 & P2, BMIn, BMMid> {
-  return compose(batch(first), batch(second), name)
+) {
+  return compose(
+    batchTryCatch(first),
+    batchTryCatch(second),
+    name,
+  )
+}
+
+function joinParameters(plugins: PluginMetadata<ParameterMetadata>[]) {
+  const parameters: Record<string, Parameter> = {}
+
+  Stream.from(plugins)
+    .map((plugin) => plugin.parameters)
+    .forEach((pluginParameters) => {
+      Stream.fromObject(pluginParameters).forEach(([name, parameter]) => {
+        const existingParameter = parameters[name]
+        if (existingParameter && existingParameter.type !== parameter.type) {
+          throw new Error(
+            `Parameter ${name} is defined multiple times with different types in the plugin composition.`,
+          )
+        }
+        parameters[name] = parameter
+      })
+    })
+
+  return parameters
 }
 
 function createInvocationChain<

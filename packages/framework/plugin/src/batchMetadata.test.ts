@@ -32,7 +32,7 @@ describe('batch metadata', () => {
   it('can passed between batched plugins', () => {
     const composed = batchedCompose((multiply), compose(add, power))
 
-    const result = composed.invoke([1, 10], { factor: 2, summand: 1, exponent: 2 }, undefined)
+    const result = composed.invoke([1, 10], { continueOnError: false, factor: 2, summand: 1, exponent: 2 }, undefined)
     expect(result).toMatchInlineSnapshot(`
       [
         {

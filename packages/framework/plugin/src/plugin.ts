@@ -8,7 +8,7 @@ export type PluginMetadata<Parameters extends ParameterMetadata> = Readonly<{
   readonly parameters: Parameters
 }>
 
-export type BatchMetadataCollector<In, BMIn, BMOut> = (intermediateResults: In[], previousBatchMetadata: BMIn | undefined) => BMOut | undefined
+export type BatchMetadataCollector<In, BMIn, BMOut> = (batch: In[], previousBatchMetadata: BMIn | undefined) => BMOut | undefined
 
 export type PluginInvoke<In, Out, Parameters extends ParameterMetadata, BatchMetadata> = (
   input: In,

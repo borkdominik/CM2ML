@@ -2,10 +2,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 
-import type { Parameter, ParameterMetadata, Plugin } from '@cm2ml/plugin'
+import type { Parameter, ParameterMetadata, Plugin, PluginExecutionError } from '@cm2ml/plugin'
 import { getTypeConstructor } from '@cm2ml/plugin'
 import type { PluginAdapterConfiguration } from '@cm2ml/plugin-adapter'
-import { PluginAdapter } from '@cm2ml/plugin-adapter'
+import { PluginAdapter, groupBatchedOutput } from '@cm2ml/plugin-adapter'
 import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 import type { Command } from 'cac'
@@ -30,7 +30,7 @@ class CLI extends PluginAdapter<string, PluginAdapterConfiguration> {
     )
   }
 
-  protected onApplyBatched<Out, Parameters extends ParameterMetadata>(plugin: Plugin<string[], Out[], Parameters>) {
+  protected onApplyBatched<Out, Parameters extends ParameterMetadata>(plugin: Plugin<string[], (Out | PluginExecutionError)[], Parameters>) {
     const command = this.cli.command(`${plugin.name} <inputDir>`)
     registerCommandOptions(command, plugin.parameters)
     command.option('--start <start>', 'Index of the first model to encode', { default: undefined, type: [undefinedAwareConstructor(Number)] })
@@ -146,21 +146,34 @@ function batchedPluginActionHandler<Out, Parameters extends ParameterMetadata>(
 
   const inputFiles = fs.readdirSync(inputDir, { encoding: 'utf8', withFileTypes: true }).filter((dirent) => dirent.isFile()).slice(start, end).map((dirent) => dirent.name)
   const input = inputFiles.map((inputFile) => fs.readFileSync(`${inputDir}/${inputFile}`, 'utf8'))
-  const results = plugin.validateAndInvoke(input, normalizedOptions)
+
+  const output = plugin.validateAndInvoke(input, normalizedOptions)
+  const { results, errors } = groupBatchedOutput(output)
 
   const outDir = normalizedOptions.out
   if (!outDir) {
-    results.forEach((result, index) => {
+    errors.forEach(({ error, index }) => {
+      console.error(`\n${inputFiles[index]}:\n ${error.message}\n`)
+    })
+    results.forEach(({ result, index }) => {
       const resultText = getResultAsText(result, normalizedOptions.pretty)
       // eslint-disable-next-line no-console
       console.log(`\n${inputFiles[index]}:\n${resultText}\n`)
     })
-
+    logBatchStatistics(errors.length, results.length, output.length)
     return
   }
 
   fs.mkdirSync(outDir, { recursive: true })
-  results.forEach((result, index) => {
+  errors.forEach(({ error, index }) => {
+    const inputFileName = inputFiles[index]
+    if (!inputFileName) {
+      throw new Error('Internal error. Input file is missing')
+    }
+    const errorFile = `${outDir}/${inputFileName}.${plugin.name}.error.txt`
+    fs.writeFileSync(errorFile, error.message)
+  })
+  results.forEach(({ result, index }) => {
     const inputFileName = inputFiles[index]
     if (!inputFileName) {
       throw new Error('Internal error. Input file is missing')
@@ -169,6 +182,16 @@ function batchedPluginActionHandler<Out, Parameters extends ParameterMetadata>(
     const resultText = getResultAsText(result, normalizedOptions.pretty)
     fs.writeFileSync(outFile, resultText)
   })
+  logBatchStatistics(errors.length, results.length, output.length)
+}
+
+function logBatchStatistics(errors: number, success: number, total: number) {
+  if (errors > 0) {
+    console.error(`\nFailed to process ${errors}/${total} inputs.`)
+  } else {
+    // eslint-disable-next-line no-console
+    console.log(`\nSuccessfully processed ${success}/${total} inputs.`)
+  }
 }
 
 function getResultAsText(result: unknown, pretty: boolean | undefined): string {
