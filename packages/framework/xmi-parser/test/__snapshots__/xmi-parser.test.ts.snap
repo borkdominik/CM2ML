@@ -2,180 +2,180 @@
 
 exports[`xmi-parser > should parse 1`] = `
 "<xmi:XMI xmlns:mofext="http://www.omg.org/spec/MOF/20131001" xmlns:uml="http://www.omg.org/spec/UML/20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
-  <uml:Package xmi:type="Package" xmi:id="_XMI" name="XMI" URI="http://www.omg.org/spec/XMI/20131001">
-    <packagedElement xmi:type="Class" name="Delete" xmi:id="_XMI-Delete">
-      <generalization xmi:type="Generalization" xmi:id="_XMI-Delete-Generalization.0">
+  <uml:Package URI="http://www.omg.org/spec/XMI/20131001" name="XMI" xmi:id="_XMI" xmi:type="Package">
+    <packagedElement name="Delete" xmi:id="_XMI-Delete" xmi:type="Class">
+      <generalization xmi:id="_XMI-Delete-Generalization.0" xmi:type="Generalization">
         <general xmi:idref="_XMI-Difference" />
       </generalization>
     </packagedElement>
-    <packagedElement xmi:type="Association" name="A_addition_add" xmi:id="_XMI-A_addition_add">
+    <packagedElement name="A_addition_add" xmi:id="_XMI-A_addition_add" xmi:type="Association">
       <memberEnd xmi:idref="_XMI-A_addition_add-add" />
       <memberEnd xmi:idref="_XMI-Add-addition" />
-      <ownedEnd xmi:type="Property" name="add" visibility="public" xmi:id="_XMI-A_addition_add-add">
+      <ownedEnd name="add" visibility="public" xmi:id="_XMI-A_addition_add-add" xmi:type="Property">
         <type xmi:idref="_XMI-Add" />
         <association xmi:idref="_XMI-A_addition_add" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-A_addition_add-add-LiteralUnlimitedNatural.2" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-A_addition_add-add-LiteralInteger.3" />
+        <upperValue value="*" xmi:id="_XMI-A_addition_add-add-LiteralUnlimitedNatural.2" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-A_addition_add-add-LiteralInteger.3" xmi:type="LiteralInteger" />
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="Class" name="Documentation" xmi:id="_XMI-Documentation">
-      <ownedAttribute xmi:type="Property" name="contact" visibility="public" xmi:id="_XMI-Documentation-contact">
+    <packagedElement name="Documentation" xmi:id="_XMI-Documentation" xmi:type="Class">
+      <ownedAttribute name="contact" visibility="public" xmi:id="_XMI-Documentation-contact" xmi:type="Property">
         <type href="http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Documentation-contact-LiteralInteger.1" />
+        <lowerValue xmi:id="_XMI-Documentation-contact-LiteralInteger.1" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="exporter" visibility="public" xmi:id="_XMI-Documentation-exporter">
+      <ownedAttribute name="exporter" visibility="public" xmi:id="_XMI-Documentation-exporter" xmi:type="Property">
         <type href="http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Documentation-exporter-LiteralInteger.1" />
+        <lowerValue xmi:id="_XMI-Documentation-exporter-LiteralInteger.1" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="exporterVersion" visibility="public" xmi:id="_XMI-Documentation-exporterVersion">
+      <ownedAttribute name="exporterVersion" visibility="public" xmi:id="_XMI-Documentation-exporterVersion" xmi:type="Property">
         <type href="http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Documentation-exporterVersion-LiteralInteger.1" />
+        <lowerValue xmi:id="_XMI-Documentation-exporterVersion-LiteralInteger.1" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="exporterID" visibility="public" xmi:id="_XMI-Documentation-exporterID">
+      <ownedAttribute name="exporterID" visibility="public" xmi:id="_XMI-Documentation-exporterID" xmi:type="Property">
         <type href="http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Documentation-exporterID-LiteralInteger.1" />
+        <lowerValue xmi:id="_XMI-Documentation-exporterID-LiteralInteger.1" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="longDescription" visibility="public" xmi:id="_XMI-Documentation-longDescription">
+      <ownedAttribute name="longDescription" visibility="public" xmi:id="_XMI-Documentation-longDescription" xmi:type="Property">
         <type href="http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-Documentation-longDescription-LiteralUnlimitedNatural.1" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Documentation-longDescription-LiteralInteger.2" />
+        <upperValue value="*" xmi:id="_XMI-Documentation-longDescription-LiteralUnlimitedNatural.1" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-Documentation-longDescription-LiteralInteger.2" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="shortDescription" visibility="public" xmi:id="_XMI-Documentation-shortDescription">
+      <ownedAttribute name="shortDescription" visibility="public" xmi:id="_XMI-Documentation-shortDescription" xmi:type="Property">
         <type href="http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-Documentation-shortDescription-LiteralUnlimitedNatural.1" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Documentation-shortDescription-LiteralInteger.2" />
+        <upperValue value="*" xmi:id="_XMI-Documentation-shortDescription-LiteralUnlimitedNatural.1" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-Documentation-shortDescription-LiteralInteger.2" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="notice" visibility="public" xmi:id="_XMI-Documentation-notice">
+      <ownedAttribute name="notice" visibility="public" xmi:id="_XMI-Documentation-notice" xmi:type="Property">
         <type href="http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-Documentation-notice-LiteralUnlimitedNatural.1" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Documentation-notice-LiteralInteger.2" />
+        <upperValue value="*" xmi:id="_XMI-Documentation-notice-LiteralUnlimitedNatural.1" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-Documentation-notice-LiteralInteger.2" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="owner" visibility="public" xmi:id="_XMI-Documentation-owner">
+      <ownedAttribute name="owner" visibility="public" xmi:id="_XMI-Documentation-owner" xmi:type="Property">
         <type href="http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-Documentation-owner-LiteralUnlimitedNatural.1" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Documentation-owner-LiteralInteger.2" />
+        <upperValue value="*" xmi:id="_XMI-Documentation-owner-LiteralUnlimitedNatural.1" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-Documentation-owner-LiteralInteger.2" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="timestamp" visibility="public" xmi:id="_XMI-Documentation-timestamp">
+      <ownedAttribute name="timestamp" visibility="public" xmi:id="_XMI-Documentation-timestamp" xmi:type="Property">
         <type xmi:idref="_XMI-DateTime" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Documentation-timestamp-LiteralInteger.1" />
+        <lowerValue xmi:id="_XMI-Documentation-timestamp-LiteralInteger.1" xmi:type="LiteralInteger" />
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="Association" name="A_container_difference" xmi:id="_XMI-A_container_difference">
+    <packagedElement name="A_container_difference" xmi:id="_XMI-A_container_difference" xmi:type="Association">
       <memberEnd xmi:idref="_XMI-Difference-container" />
       <memberEnd xmi:idref="_XMI-Difference-difference" />
     </packagedElement>
-    <packagedElement xmi:type="Association" name="A_target_difference" xmi:id="_XMI-A_target_difference">
+    <packagedElement name="A_target_difference" xmi:id="_XMI-A_target_difference" xmi:type="Association">
       <memberEnd xmi:idref="_XMI-A_target_difference-difference" />
       <memberEnd xmi:idref="_XMI-Difference-target" />
-      <ownedEnd xmi:type="Property" name="difference" visibility="public" xmi:id="_XMI-A_target_difference-difference">
+      <ownedEnd name="difference" visibility="public" xmi:id="_XMI-A_target_difference-difference" xmi:type="Property">
         <type xmi:idref="_XMI-Difference" />
         <association xmi:idref="_XMI-A_target_difference" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-A_target_difference-difference-LiteralUnlimitedNatural.2" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-A_target_difference-difference-LiteralInteger.3" />
+        <upperValue value="*" xmi:id="_XMI-A_target_difference-difference-LiteralUnlimitedNatural.2" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-A_target_difference-difference-LiteralInteger.3" xmi:type="LiteralInteger" />
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="Class" name="Difference" isAbstract="true" xmi:id="_XMI-Difference">
-      <ownedAttribute xmi:type="Property" name="container" visibility="public" xmi:id="_XMI-Difference-container">
+    <packagedElement isAbstract="true" name="Difference" xmi:id="_XMI-Difference" xmi:type="Class">
+      <ownedAttribute name="container" visibility="public" xmi:id="_XMI-Difference-container" xmi:type="Property">
         <type xmi:idref="_XMI-Difference" />
         <association xmi:idref="_XMI-A_container_difference" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Difference-container-LiteralInteger.2" />
+        <lowerValue xmi:id="_XMI-Difference-container-LiteralInteger.2" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="difference" visibility="public" aggregation="composite" xmi:id="_XMI-Difference-difference">
+      <ownedAttribute aggregation="composite" name="difference" visibility="public" xmi:id="_XMI-Difference-difference" xmi:type="Property">
         <type xmi:idref="_XMI-Difference" />
         <association xmi:idref="_XMI-A_container_difference" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-Difference-difference-LiteralUnlimitedNatural.2" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Difference-difference-LiteralInteger.3" />
+        <upperValue value="*" xmi:id="_XMI-Difference-difference-LiteralUnlimitedNatural.2" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-Difference-difference-LiteralInteger.3" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="target" visibility="public" xmi:id="_XMI-Difference-target">
+      <ownedAttribute name="target" visibility="public" xmi:id="_XMI-Difference-target" xmi:type="Property">
         <association xmi:idref="_XMI-A_target_difference" />
         <type href="http://www.omg.org/spec/UML/20131001/UML.xmi#Element" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-Difference-target-LiteralUnlimitedNatural.2" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Difference-target-LiteralInteger.3" />
+        <upperValue value="*" xmi:id="_XMI-Difference-target-LiteralUnlimitedNatural.2" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-Difference-target-LiteralInteger.3" xmi:type="LiteralInteger" />
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="Class" name="Extension" xmi:id="_XMI-Extension">
-      <ownedAttribute xmi:type="Property" name="extender" visibility="public" xmi:id="_XMI-Extension-extender">
+    <packagedElement name="Extension" xmi:id="_XMI-Extension" xmi:type="Class">
+      <ownedAttribute name="extender" visibility="public" xmi:id="_XMI-Extension-extender" xmi:type="Property">
         <type href="http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="extenderID" visibility="public" xmi:id="_XMI-Extension-extenderID">
+      <ownedAttribute name="extenderID" visibility="public" xmi:id="_XMI-Extension-extenderID" xmi:type="Property">
         <type href="http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Extension-extenderID-LiteralInteger.1" />
+        <lowerValue xmi:id="_XMI-Extension-extenderID-LiteralInteger.1" xmi:type="LiteralInteger" />
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="Class" name="XMI" xmi:id="_XMI-XMI">
-      <ownedAttribute xmi:type="Property" name="documentation" visibility="public" xmi:id="_XMI-XMI-documentation">
+    <packagedElement name="XMI" xmi:id="_XMI-XMI" xmi:type="Class">
+      <ownedAttribute name="documentation" visibility="public" xmi:id="_XMI-XMI-documentation" xmi:type="Property">
         <type xmi:idref="_XMI-Documentation" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-XMI-documentation-LiteralInteger.1" />
+        <lowerValue xmi:id="_XMI-XMI-documentation-LiteralInteger.1" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="difference" visibility="public" xmi:id="_XMI-XMI-difference">
+      <ownedAttribute name="difference" visibility="public" xmi:id="_XMI-XMI-difference" xmi:type="Property">
         <type xmi:idref="_XMI-Difference" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-XMI-difference-LiteralUnlimitedNatural.1" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-XMI-difference-LiteralInteger.2" />
+        <upperValue value="*" xmi:id="_XMI-XMI-difference-LiteralUnlimitedNatural.1" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-XMI-difference-LiteralInteger.2" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="extension" visibility="public" xmi:id="_XMI-XMI-extension">
+      <ownedAttribute name="extension" visibility="public" xmi:id="_XMI-XMI-extension" xmi:type="Property">
         <type xmi:idref="_XMI-Extension" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-XMI-extension-LiteralUnlimitedNatural.1" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-XMI-extension-LiteralInteger.2" />
+        <upperValue value="*" xmi:id="_XMI-XMI-extension-LiteralUnlimitedNatural.1" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-XMI-extension-LiteralInteger.2" xmi:type="LiteralInteger" />
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="Class" name="Replace" xmi:id="_XMI-Replace">
-      <generalization xmi:type="Generalization" xmi:id="_XMI-Replace-Generalization.0">
+    <packagedElement name="Replace" xmi:id="_XMI-Replace" xmi:type="Class">
+      <generalization xmi:id="_XMI-Replace-Generalization.0" xmi:type="Generalization">
         <general xmi:idref="_XMI-Difference" />
       </generalization>
-      <ownedAttribute xmi:type="Property" name="position" visibility="public" xmi:id="_XMI-Replace-position">
+      <ownedAttribute name="position" visibility="public" xmi:id="_XMI-Replace-position" xmi:type="Property">
         <type href="http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#Integer" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Replace-position-LiteralInteger.1" />
+        <lowerValue xmi:id="_XMI-Replace-position-LiteralInteger.1" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="replacement" visibility="public" xmi:id="_XMI-Replace-replacement">
+      <ownedAttribute name="replacement" visibility="public" xmi:id="_XMI-Replace-replacement" xmi:type="Property">
         <association xmi:idref="_XMI-A_replacement_replace" />
         <type href="http://www.omg.org/spec/UML/20131001/UML.xmi#Element" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-Replace-replacement-LiteralUnlimitedNatural.2" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Replace-replacement-LiteralInteger.3" />
+        <upperValue value="*" xmi:id="_XMI-Replace-replacement-LiteralUnlimitedNatural.2" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-Replace-replacement-LiteralInteger.3" xmi:type="LiteralInteger" />
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="PrimitiveType" name="DateTime" xmi:id="_XMI-DateTime" />
-    <packagedElement xmi:type="Association" name="A_replacement_replace" xmi:id="_XMI-A_replacement_replace">
+    <packagedElement name="DateTime" xmi:id="_XMI-DateTime" xmi:type="PrimitiveType" />
+    <packagedElement name="A_replacement_replace" xmi:id="_XMI-A_replacement_replace" xmi:type="Association">
       <memberEnd xmi:idref="_XMI-A_replacement_replace-replace" />
       <memberEnd xmi:idref="_XMI-Replace-replacement" />
-      <ownedEnd xmi:type="Property" name="replace" visibility="public" xmi:id="_XMI-A_replacement_replace-replace">
+      <ownedEnd name="replace" visibility="public" xmi:id="_XMI-A_replacement_replace-replace" xmi:type="Property">
         <type xmi:idref="_XMI-Replace" />
         <association xmi:idref="_XMI-A_replacement_replace" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-A_replacement_replace-replace-LiteralUnlimitedNatural.2" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-A_replacement_replace-replace-LiteralInteger.3" />
+        <upperValue value="*" xmi:id="_XMI-A_replacement_replace-replace-LiteralUnlimitedNatural.2" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-A_replacement_replace-replace-LiteralInteger.3" xmi:type="LiteralInteger" />
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="Class" name="Add" xmi:id="_XMI-Add">
-      <generalization xmi:type="Generalization" xmi:id="_XMI-Add-Generalization.0">
+    <packagedElement name="Add" xmi:id="_XMI-Add" xmi:type="Class">
+      <generalization xmi:id="_XMI-Add-Generalization.0" xmi:type="Generalization">
         <general xmi:idref="_XMI-Difference" />
       </generalization>
-      <ownedAttribute xmi:type="Property" name="position" visibility="public" xmi:id="_XMI-Add-position">
+      <ownedAttribute name="position" visibility="public" xmi:id="_XMI-Add-position" xmi:type="Property">
         <type href="http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#Integer" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Add-position-LiteralInteger.1" />
+        <lowerValue xmi:id="_XMI-Add-position-LiteralInteger.1" xmi:type="LiteralInteger" />
       </ownedAttribute>
-      <ownedAttribute xmi:type="Property" name="addition" visibility="public" xmi:id="_XMI-Add-addition">
+      <ownedAttribute name="addition" visibility="public" xmi:id="_XMI-Add-addition" xmi:type="Property">
         <association xmi:idref="_XMI-A_addition_add" />
         <type href="http://www.omg.org/spec/UML/20131001/UML.xmi#Element" />
-        <upperValue xmi:type="LiteralUnlimitedNatural" value="*" xmi:id="_XMI-Add-addition-LiteralUnlimitedNatural.2" />
-        <lowerValue xmi:type="LiteralInteger" xmi:id="_XMI-Add-addition-LiteralInteger.3" />
+        <upperValue value="*" xmi:id="_XMI-Add-addition-LiteralUnlimitedNatural.2" xmi:type="LiteralUnlimitedNatural" />
+        <lowerValue xmi:id="_XMI-Add-addition-LiteralInteger.3" xmi:type="LiteralInteger" />
       </ownedAttribute>
     </packagedElement>
   </uml:Package>
-  <mofext:Tag xmi:type="Tag" xmi:id="_org.omg.xmi.nsPrefix" name="org.omg.xmi.nsPrefix" value="xmi">
+  <mofext:Tag name="org.omg.xmi.nsPrefix" value="xmi" xmi:id="_org.omg.xmi.nsPrefix" xmi:type="Tag">
     <element xmi:idref="_XMI" />
   </mofext:Tag>
-  <mofext:Tag xmi:type="Tag" xmi:id="_org.omg.xmi.superClassFirst" name="org.omg.xmi.superClassFirst" value="true">
+  <mofext:Tag name="org.omg.xmi.superClassFirst" value="true" xmi:id="_org.omg.xmi.superClassFirst" xmi:type="Tag">
     <element xmi:idref="_XMI" />
   </mofext:Tag>
-  <mofext:Tag xmi:type="Tag" xmi:id="_org.omg.xmi.useSchemaExtension" name="org.omg.xmi.useSchemaExtension" value="true">
+  <mofext:Tag name="org.omg.xmi.useSchemaExtension" value="true" xmi:id="_org.omg.xmi.useSchemaExtension" xmi:type="Tag">
     <element xmi:idref="_XMI" />
   </mofext:Tag>
-  <mofext:Tag xmi:type="Tag" xmi:id="_org.omg.xmi.element" name="org.omg.xmi.element" value="true">
+  <mofext:Tag name="org.omg.xmi.element" value="true" xmi:id="_org.omg.xmi.element" xmi:type="Tag">
     <element xmi:idref="_XMI" />
   </mofext:Tag>
-  <mofext:Tag xmi:type="Tag" xmi:id="_org.omg.xmi.attribute" name="org.omg.xmi.attribute" value="false">
+  <mofext:Tag name="org.omg.xmi.attribute" value="false" xmi:id="_org.omg.xmi.attribute" xmi:type="Tag">
     <element xmi:idref="_XMI" />
   </mofext:Tag>
-  <mofext:Tag xmi:type="Tag" xmi:id="_org.omg.xmi.schemaType" name="org.omg.xmi.schemaType" value="http://www.w3.org/2001/XMLSchema#dateTime">
+  <mofext:Tag name="org.omg.xmi.schemaType" value="http://www.w3.org/2001/XMLSchema#dateTime" xmi:id="_org.omg.xmi.schemaType" xmi:type="Tag">
     <element xmi:idref="_XMI-DateTime" />
   </mofext:Tag>
 </xmi:XMI>"

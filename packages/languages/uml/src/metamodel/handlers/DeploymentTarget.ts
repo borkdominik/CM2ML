@@ -38,7 +38,7 @@ function addEdge_deployment(deploymentTarget: GraphNode, deployments: GraphNode[
 function addAttribute_deployment_client(deploymentTarget: GraphNode, deployments: GraphNode[]) {
   const deploymentTargetId = deploymentTarget.id
   deployments.forEach((deployment) => {
-    if (deploymentTargetId) {
+    if (deploymentTargetId && deployment.getAttribute('client') === undefined) {
       deployment.addAttribute({ name: 'client', value: { literal: deploymentTarget.id } })
     }
   })

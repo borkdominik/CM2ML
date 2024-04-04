@@ -11,7 +11,7 @@ describe('xmi-parser', () => {
     const output = xmiParser.invoke(input, {
       debug: false,
       strict: true,
-    })
+    }, undefined)
     expect(output.show()).toMatchSnapshot()
   })
 })

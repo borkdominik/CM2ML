@@ -8,28 +8,17 @@ import type { ParameterValues } from '../components/Parameters'
 import { useEncoderState } from './useEncoderState'
 import { useModelState } from './useModelState'
 
-export interface ShareData {
-  /**
-   * The serialized model.
-   */
-  s: string
-  /**
-   * The parser name.
-   */
-  p: string | undefined
-  /**
-   * The parser parameters.
-   */
-  P: ParameterValues
-  /**
-   * The encoder name.
-   */
-  e: string | undefined
-  /**
-   * The encoder parameters.
-   */
-  E: ParameterValues
-}
+/**
+ * Share data format.
+ * 0: Serialized model.
+ * 1: Parser name.
+ * 2: Parser parameters.
+ * 3: Encoder name.
+ * 4: Encoder parameters.
+ */
+export type ShareData = [string, string | undefined, ParameterValues, string | undefined, ParameterValues]
+
+// 1448
 
 export function useShare() {
   const serializedModel = useModelState.use.serializedModel()
@@ -40,7 +29,7 @@ export function useShare() {
   const encoderParameters = useEncoderState.use.parameters()
 
   async function share() {
-    const data: ShareData = { s: serializedModel, p: parser?.name, P: parserParameters, e: encoder?.name, E: encoderParameters }
+    const data: ShareData = [serializedModel, parser?.name, parserParameters, encoder?.name, encoderParameters]
     const encodedHash = await encode(data)
     navigator.clipboard.writeText(`${window.location.href}#${encodedHash}`)
     toast.success('Link copied to clipboard')
@@ -71,7 +60,7 @@ export function useSharedHashLoader() {
         return
       }
 
-      const { s: serializedModel, p: parserName, P: parserParameters, e: encoderName, E: encoderParameters } = await decode<ShareData>(hash)
+      const [serializedModel, parserName, parserParameters, encoderName, encoderParameters] = await decode<ShareData>(hash)
 
       setSerializedModel(serializedModel)
       setParser(parserName ? parserMap[parserName] : undefined)

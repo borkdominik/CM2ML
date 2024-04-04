@@ -39,7 +39,7 @@ function addEdge_deployedArtifact(deployment: GraphNode, deployedArtifacts: Grap
 function addAttribute_supplier(deployment: GraphNode, deployedArtifacts: GraphNode[]) {
   deployedArtifacts.forEach((deployedArtifact) => {
     const deployedArtifactId = deployedArtifact.id
-    if (deployedArtifactId) {
+    if (deployedArtifactId && deployment.getAttribute('supplier') === undefined) {
       deployment.addAttribute({ name: 'supplier', value: { literal: deployedArtifact.id } })
     }
   })

@@ -1,4 +1,4 @@
-import type { GraphEdge, GraphModel } from '@cm2ml/ir'
+import type { Attributable, GraphEdge, GraphModel } from '@cm2ml/ir'
 import { definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
@@ -23,7 +23,11 @@ export const GraphEncoder = definePlugin({
       defaultValue: false,
     },
   },
-  invoke(input: GraphModel, { includeEqualPaths, sparse, weighted }) {
+  batchMetadataCollector: (models: GraphModel[]) => {
+    const attributeNames = getAttributesNames(models)
+    return { attributeNames }
+  },
+  invoke(input, { includeEqualPaths, sparse, weighted }, _batchMetadata) {
     const sortedIds = getSortedIds(input)
     if (sparse) {
       return encodeAsSparseList(input, sortedIds, includeEqualPaths, weighted)
@@ -36,6 +40,18 @@ export const GraphEncoder = definePlugin({
     )
   },
 })
+
+function getAttributesNames(models: GraphModel[]) {
+  return Stream
+    .from(models)
+    .flatMap((model) => Stream
+      .from<Attributable>(model.nodes)
+      .concat(model.edges),
+    )
+    .flatMap((attributable) => Stream.from(attributable.attributes))
+    .map(([attributeName]) => attributeName)
+    .toSet()
+}
 
 function getSortedIds(model: GraphModel) {
   return Stream.from(model.nodes)

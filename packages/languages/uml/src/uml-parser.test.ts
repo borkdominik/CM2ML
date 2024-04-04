@@ -66,7 +66,6 @@ const { validModels, invalidModels } = getFiles({
     'aabcfc2782ceda1f79973e7c2c6fd5bf0fe88897ef7a17128e92d5809d4be2dc.uml', // duplicate id
     'adb6a2d5439121fc72ac9c7a89e6ad5c003da479cba8ddf91ed686ca81024abb.uml', // duplicate generalization
     'af14cd918fc0e004ca0a5de7f61dc9fa3f80d63cf39d55f7a0e0718ca25154e8.uml', // not UML
-    'b70a4cfd9e09e49b0da01e1e7229a27d276a094a9165b29100dd43c531e64592.uml', // duplicate edges
     'be08a4c4cb217459e987843fe849e83f11aca5dd770e620a89eee23d7c0c815d.uml', // uses abstract class Pin as instance type
     'cdeac60ad94c739df2051fe0649ce72d1c56cdf44c30b7de550ce24e0897b342.uml', // not UML
     'd221df3d85a5927cdfd7deeae92187f2a1b9129ce9587e3edb2d5bdfccd6cdff.uml', // invalid "metaclassReference" attribute on Package
@@ -94,7 +93,7 @@ describe('uml-parser', () => {
     it.each(validModels)('should parse model $index', ({ file, snapshot }) => {
       const serializedModel = readFileSync(file, 'utf-8')
       try {
-        const result = UmlParser.invoke(serializedModel, { ...configuration, debug: true, strict: true })
+        const result = UmlParser.invoke(serializedModel, { ...configuration, debug: true, strict: true }, undefined)
         expect(result).toBeDefined()
         if (snapshot) {
           expect(result.show()).toMatchFileSnapshot(`./__snapshots__/${file.replace(umlModelDir, '').replace('.uml', '')}/${configuration.name.replaceAll(' ', '-')}.txt`)
@@ -122,7 +121,7 @@ describe('uml-parser', () => {
       const serializedModel = readFileSync(file, 'utf-8')
       // At least one configuration must result in an error
       expect(() => getConfigurations().forEach((configuration) => {
-        UmlParser.invoke(serializedModel, { ...configuration, debug: true, strict: true })
+        UmlParser.invoke(serializedModel, { ...configuration, debug: true, strict: true }, undefined)
       })).toThrowErrorMatchingSnapshot()
     })
   })

@@ -46,8 +46,8 @@ const UmlRefiner = definePlugin({
   },
   invoke: (input: GraphModel, parameters) => {
     removeUnsupportedNodes(input)
+    generateIds(input)
     const model = refine(input, parameters)
-    generateIds(model)
     if (!parameters.onlyContainmentAssociations) {
       resolveInheritedMembers(model)
       resolveImportedMembers(model, parameters.relationshipsAsEdges)

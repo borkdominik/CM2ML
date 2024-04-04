@@ -298,6 +298,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
   public show(indent: number = 0): string {
     const attributes = [...this.attributes.values()]
       .map((attribute) => showAttribute(attribute))
+      .sort()
       .join('')
 
     if (this.children.size === 0) {
