@@ -1,10 +1,5 @@
 # cm2ml
 
-## Archimate
-
-- [@cm2ml/archimate-metamodel](./packages/archimate/archimate-metamodel)
-- [@cm2ml/archimate-parser](./packages/archimate/archimate-parser)
-
 ## Encoder
 
 - [@cm2ml/graph-encoder](./packages/encoder/graph-encoder)
@@ -29,6 +24,7 @@
 
 ## Languages
 
+- [@cm2ml/archimate](./packages/languages/archimate)
 - [@cm2ml/ecore](./packages/languages/ecore)
 - [@cm2ml/uml](./packages/languages/uml)
 

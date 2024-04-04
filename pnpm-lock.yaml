@@ -112,8 +112,8 @@ importers:
         specifier: workspace:*
         version: link:../../framework/plugin
       '@yeger/streams':
-        specifier: 1.1.6
-        version: 1.1.6
+        specifier: 1.1.7
+        version: 1.1.7
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -122,11 +122,11 @@ importers:
         specifier: 5.4.3
         version: 5.4.3
       vite:
-        specifier: 5.2.2
-        version: 5.2.2(@types/node@20.12.3)
+        specifier: 5.2.7
+        version: 5.2.7(@types/node@20.12.3)
       vite-plugin-lib:
-        specifier: 2.0.8
-        version: 2.0.8(@types/node@20.12.3)(typescript@5.4.3)(vite@5.2.2)
+        specifier: 2.0.9
+        version: 2.0.9(@types/node@20.12.3)(typescript@5.4.3)(vite@5.2.7)
 
   packages/encoder/tree-encoder:
     dependencies:
@@ -550,11 +550,11 @@ importers:
         specifier: 5.4.3
         version: 5.4.3
       vite:
-        specifier: 5.2.2
-        version: 5.2.2(@types/node@20.12.3)
+        specifier: 5.2.7
+        version: 5.2.7(@types/node@20.12.3)
       vite-plugin-lib:
-        specifier: 2.0.8
-        version: 2.0.8(@types/node@20.12.3)(typescript@5.4.3)(vite@5.2.2)
+        specifier: 2.0.9
+        version: 2.0.9(@types/node@20.12.3)(typescript@5.4.3)(vite@5.2.7)
 
   packages/languages/ecore:
     dependencies:
@@ -5478,10 +5478,6 @@ packages:
       - typescript
       - vitest
     dev: true
-
-  /@yeger/streams@1.1.6:
-    resolution: {integrity: sha512-8fhfqut/C8RcOegA0uEdk37aZ7w3us/+4JH+3V7ou1vDkJsXa0GWzmU2E7MAfaJ8yFXEO6g2/xB1D+rmsiEzbg==}
-    dev: false
 
   /@yeger/streams@1.1.7:
     resolution: {integrity: sha512-x77ipmUyz/pZbbFtmNtovCgVSpnyo1KXUEM9HjSnVqh7sIW1o4U6nUcJ+Px11Y3l461UMGaTAMI6430wx/x8ow==}
@@ -14867,30 +14863,6 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-dts@3.7.2(@types/node@20.12.3)(typescript@5.4.3)(vite@5.2.2):
-    resolution: {integrity: sha512-kg//1nDA01b8rufJf4TsvYN8LMkdwv0oBYpiQi6nRwpHyue+wTlhrBiqgipdFpMnW1oOYv6ywmzE5B0vg6vSEA==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    peerDependencies:
-      typescript: '*'
-      vite: '*'
-    peerDependenciesMeta:
-      vite:
-        optional: true
-    dependencies:
-      '@microsoft/api-extractor': 7.39.0(@types/node@20.12.3)
-      '@rollup/pluginutils': 5.1.0
-      '@vue/language-core': 1.8.27(typescript@5.4.3)
-      debug: 4.3.4
-      kolorist: 1.8.0
-      typescript: 5.4.3
-      vite: 5.2.2(@types/node@20.12.3)
-      vue-tsc: 1.8.27(typescript@5.4.3)
-    transitivePeerDependencies:
-      - '@types/node'
-      - rollup
-      - supports-color
-    dev: true
-
   /vite-plugin-dts@3.7.3(@types/node@20.12.3)(typescript@5.4.3)(vite@5.2.7):
     resolution: {integrity: sha512-26eTlBYdpjRLWCsTJebM8vkCieE+p9gP3raf+ecDnzzK5E3FG6VE1wcy55OkRpfWWVlVvKkYFe6uvRHYWx7Nog==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -14909,22 +14881,6 @@ packages:
       typescript: 5.4.3
       vite: 5.2.7(@types/node@20.12.3)
       vue-tsc: 1.8.27(typescript@5.4.3)
-    transitivePeerDependencies:
-      - '@types/node'
-      - rollup
-      - supports-color
-    dev: true
-
-  /vite-plugin-lib@2.0.8(@types/node@20.12.3)(typescript@5.4.3)(vite@5.2.2):
-    resolution: {integrity: sha512-qXLubiMAmnLN0WTt0pblnAOsxLap9x591mflyHF+MEuU8xhtaaU+RvSKTvyMo9BWP/7MGWRm5C5WOs3pBCcXhA==}
-    peerDependencies:
-      typescript: '*'
-      vite: ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
-    dependencies:
-      picocolors: 1.0.0
-      typescript: 5.4.3
-      vite: 5.2.2(@types/node@20.12.3)
-      vite-plugin-dts: 3.7.2(@types/node@20.12.3)(typescript@5.4.3)(vite@5.2.2)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
@@ -14968,42 +14924,6 @@ packages:
       workbox-window: 7.0.0
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /vite@5.2.2(@types/node@20.12.3):
-    resolution: {integrity: sha512-FWZbz0oSdLq5snUI0b6sULbz58iXFXdvkZfZWR/F0ZJuKTSPO7v72QPXt6KqYeMFb0yytNp6kZosxJ96Nr/wDQ==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': ^18.0.0 || >=20.0.0
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      '@types/node': 20.12.3
-      esbuild: 0.20.2
-      postcss: 8.4.38
-      rollup: 4.13.0
-    optionalDependencies:
-      fsevents: 2.3.3
     dev: true
 
   /vite@5.2.7(@types/node@20.12.3):
