@@ -1,3 +1,3 @@
-// import { Model } from '../archimate-metamodel'
+import { Model } from '../archimate-metamodel'
 
-// export const ModelHandler = Model.createPassthroughHandler()
+export const ModelHandler = Model.createPassthroughHandler()

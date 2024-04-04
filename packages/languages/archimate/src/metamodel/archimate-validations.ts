@@ -6,9 +6,9 @@ export function validateArchimateModel(
   model: GraphModel,
   _handlerParameters: ArchimateHandlerParameters,
 ) {
-  if (!model.settings.strict) {
+  if (!model.settings.strict || !model.settings.debug) {
     return
   }
-  model.debug('Validating ArchiMate model')
-  model.debug('All ArchiMate validations passed')
+  model.debug('Parser', 'Validating ArchiMate model...')
+  model.debug('Parser', 'All ArchiMate validations passed')
 }

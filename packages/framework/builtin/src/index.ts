@@ -32,7 +32,7 @@ export const encoders: Encoder[] = [GraphEncoder, TreeEncoder, OneHotEncoder]
 export const encoderMap = {
   [GraphEncoder.name]: GraphEncoder,
   [TreeEncoder.name]: TreeEncoder,
-  [OneHotEncoder.name]: OneHotEncoder
+  [OneHotEncoder.name]: OneHotEncoder,
 }
 
 export const plugins = parsers.flatMap((parser) =>

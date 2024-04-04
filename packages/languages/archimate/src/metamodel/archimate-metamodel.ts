@@ -26,5 +26,12 @@ const { define, defineAbstract } = createMetamodel<
   ArchimateHandlerParameters
 >(Archimate)
 
-export const Element = defineAbstract(Archimate.AbstractTypes.Element)
+export const Model = define(Archimate.Types.Model, Archimate.Tags['archimate:model'])
 
+export const Folder = define(Archimate.Types.Folder, Archimate.Tags.folder)
+
+export const Element = define(Archimate.Types.Element, Archimate.Tags.element)
+
+export const Purpose = define(Archimate.Types.Purpose, Archimate.Tags.purpose)
+
+export const Documentation = define(Archimate.Types.Documentation, Archimate.Tags.documentation)

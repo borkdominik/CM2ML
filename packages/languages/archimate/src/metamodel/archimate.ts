@@ -6,13 +6,17 @@ const Attributes = {
   name: 'name',
   source: 'source',
   target: 'target',
-  type: 'type', // used by <folder> (other tags use xsi:type)
+  type: 'type',
   'xsi:type': 'xsi:type',
+  documentation: 'documentation',
 } as const
 
 const Tags = {
+  'archimate:model': 'archimate:model',
   folder: 'folder',
   element: 'element',
+  purpose: 'purpose',
+  documentation: 'documentation',
 } as const
 
 export type ArchimateTag = (typeof Tags)[keyof typeof Tags]
@@ -21,18 +25,16 @@ function isValidTag(tag: string | undefined): tag is ArchimateTag {
   return tag !== undefined && tag in Tags
 }
 
-const AbstractTypes = {
-    Element: 'Element'
-} as const
+const AbstractTypes = {} as const
 
-export type ArchimateAbstractType =
-  (typeof AbstractTypes)[keyof typeof AbstractTypes]
+export type ArchimateAbstractType = (typeof AbstractTypes)[keyof typeof AbstractTypes]
 
 const Types = {
-  BusinessObject: 'BusinessObject',
-  BusinessRole: 'BusinessRole',
-  BusinessProcess: 'BusinessProcess',
   Model: 'model',
+  Folder: 'folder',
+  Element: 'element',
+  Purpose: 'purpose',
+  Documentation: 'documentation',
 } as const
 
 export type ArchimateType = (typeof Types)[keyof typeof Types]
@@ -43,8 +45,7 @@ function isValidType(type: string | undefined): type is ArchimateType {
 
 function getTagType(element: GraphNode | GraphEdge) {
   const parsedName = parseNamespace(element.tag)
-  const actualName =
-    typeof parsedName === 'object' ? parsedName.name : parsedName
+  const actualName = typeof parsedName === 'object' ? parsedName.name : parsedName
   if (isValidType(actualName)) {
     return actualName
   }
@@ -52,7 +53,8 @@ function getTagType(element: GraphNode | GraphEdge) {
 }
 
 function getType(element: Attributable) {
-  const type = element.getAttribute(Attributes['xsi:type'])?.value.literal
+  const typeAttr = element.getAttribute(Attributes['xsi:type']) ?? element.getAttribute(Attributes.type)
+  const type = typeAttr?.value.literal
   if (isValidType(type)) {
     return type
   }
@@ -64,7 +66,7 @@ export const Archimate = {
   AbstractTypes,
   Tags,
   Types,
-  typeAttributeName: Attributes['xsi:type'] || Attributes.type,
+  typeAttributeName: Attributes['xsi:type'],
   getTagType,
   getType,
   isValidTag,

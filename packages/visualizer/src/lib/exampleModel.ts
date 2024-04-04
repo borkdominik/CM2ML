@@ -1,5 +1,5 @@
 import type { Parser } from '@cm2ml/builtin'
-import { UmlParser, ArchimateParser } from '@cm2ml/builtin'
+import { ArchimateParser, UmlParser } from '@cm2ml/builtin'
 
 export interface PreparedExample {
   name: string
@@ -9,7 +9,7 @@ export interface PreparedExample {
     onlyContainmentAssociations?: boolean
     relationshipsAsEdges?: boolean
     strict?: boolean
-  },
+  }
   parser: Parser
 }
 
@@ -43,6 +43,6 @@ function prepareArchimateExampleModels(exampleModels: ExampleModel[]): PreparedE
     parameters: {
 
     },
-    parser: ArchimateParser
+    parser: ArchimateParser,
   }))
 }
