@@ -14,10 +14,16 @@ export const ArchimateRefiner = definePlugin({
   parameters: {},
   invoke: (input: GraphModel, _parameters) => {
     removeUnsupportedNodes(input)
-    const handlerParameters = {}
-    const model = refine(input, handlerParameters)
-    validateArchimateModel(model, handlerParameters)
-    return model
+    if (input.root.tag === 'archimate:model') {
+      const handlerParameters = {}
+      const model = refine(input, handlerParameters)
+      validateArchimateModel(model, handlerParameters)
+      return model
+    } else if (input.root.tag === 'model') {
+      return input
+    } else {
+      throw new Error('Invalid ArchiMate file format!')
+    }
   },
 })
 
