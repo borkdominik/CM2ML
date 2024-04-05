@@ -12,6 +12,8 @@ import { useSelection } from '../../lib/useSelection'
 import { cn } from '../../lib/utils'
 import { Progress } from '../ui/progress'
 
+import { ModelCommands } from './ModelCommands'
+
 export interface Props {
   model: GraphModel
 }
@@ -22,9 +24,12 @@ export interface IRGraphRef {
 
 export function IRGraph({ model }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { isReady, progress } = useVisNetwok(model, containerRef)
+  const { isReady, progress, selectNode } = useVisNetwok(model, containerRef)
+
+  // <Search onSearch={findNode} />
   return (
     <div className="relative h-full">
+      <ModelCommands model={model} onSelectNode={selectNode} />
       <div
         ref={containerRef}
         className={cn({ 'h-full': true, 'opacity-0': !isReady })}
@@ -214,9 +219,18 @@ function useVisNetwok(
     network.selectEdges(edgeIds)
   }, [network, selection])
 
+  const selectNode = (nodeId: string) => {
+    if (isNetworkDestroyed(network)) {
+      return
+    }
+    network?.selectNodes([nodeId])
+    network?.fit({ nodes: [nodeId], animation: true })
+  }
+
   return {
     isReady: stabilizationProgress === 1,
     progress: stabilizationProgress,
+    selectNode,
   }
 }
 
