@@ -52,6 +52,7 @@ const UmlRefiner = definePlugin({
       resolveInheritedMembers(model)
       resolveImportedMembers(model, parameters.relationshipsAsEdges)
     }
+    persistMetadata(model)
     removeNonUmlAttributes(model)
     validateUmlModel(model, parameters)
     return model
@@ -90,6 +91,42 @@ function removeUnsupportedNodes(model: GraphModel) {
       model.removeNode(node)
     }
   })
+}
+
+function persistMetadata(model: GraphModel) {
+  persistModelName(model)
+  persistUmlVersion(model)
+  persistXmiVersion(model)
+}
+
+function persistModelName(model: GraphModel) {
+  const root = model.root
+  const name = root.getAttribute('name')?.value.literal
+  if (!name) {
+    return
+  }
+  model.metadata.Name = name
+}
+
+function persistUmlVersion(model: GraphModel) {
+  const root = model.root
+  const umlNamespace = root.getAttribute('xmlns:uml')?.value.literal
+  if (!umlNamespace) {
+    return
+  }
+  const umlVersionIndicator = 'uml2/'
+  const umlVersionStartIndex = umlNamespace.indexOf(umlVersionIndicator)
+  const umlVersionEndIndex = umlNamespace.indexOf('/', umlVersionStartIndex + umlVersionIndicator.length)
+  model.metadata.UML = umlNamespace.substring(umlVersionStartIndex + umlVersionIndicator.length, umlVersionEndIndex)
+}
+
+function persistXmiVersion(model: GraphModel) {
+  const root = model.root
+  const xmiVersion = root.getAttribute('xmi:version')?.value.literal
+  if (!xmiVersion) {
+    return
+  }
+  model.metadata.XMI = xmiVersion
 }
 
 function removeNonUmlAttributes(model: GraphModel) {
