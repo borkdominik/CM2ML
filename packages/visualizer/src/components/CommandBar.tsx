@@ -1,8 +1,10 @@
 import type { Attributable, GraphModel } from '@cm2ml/ir'
+import { ResetIcon, Share2Icon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
 import * as React from 'react'
 import { useCallback, useEffect, useMemo } from 'react'
 
+import { useShare } from '../lib/sharing'
 import { useModelState } from '../lib/useModelState'
 import { useSelection } from '../lib/useSelection'
 
@@ -41,6 +43,8 @@ export function CommandBar() {
         />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
+          <SystemCommandGroup closeDialog={closeDialog} />
+          <CommandSeparator />
           <ModelCommandGroups closeDialog={closeDialog} />
         </CommandList>
       </CommandDialog>
@@ -48,8 +52,56 @@ export function CommandBar() {
   )
 }
 
-interface ModelCommandGroupsProps {
+interface CommandProps {
   closeDialog: () => void
+}
+
+function SystemCommandGroup({ closeDialog }: CommandProps) {
+  return (
+    <CommandGroup heading="System">
+      <ClearCommand closeDialog={closeDialog} />
+      <ShareCommand closeDialog={closeDialog} />
+    </CommandGroup>
+  )
+}
+
+function ClearCommand({ closeDialog }: CommandProps) {
+  const clearEncoder = useModelState.use.clear()
+  const clearModel = useModelState.use.clear()
+  const clearSelection = useSelection.use.clearSelection()
+
+  function clear() {
+    clearModel()
+    clearEncoder()
+    clearSelection()
+    closeDialog()
+  }
+
+  return (
+    <CommandItem
+      onSelect={clear}
+    >
+      <ResetIcon className="mr-2 size-4" />
+      Clear
+    </CommandItem>
+  )
+}
+
+function ShareCommand({ closeDialog }: CommandProps) {
+  const { share } = useShare()
+  return (
+    <CommandItem onSelect={() => {
+      share()
+      closeDialog()
+    }}
+    >
+      <Share2Icon className="mr-2 size-4" />
+      Share
+    </CommandItem>
+  )
+}
+
+interface ModelCommandGroupsProps extends CommandProps {
 }
 
 function ModelCommandGroups({ closeDialog }: ModelCommandGroupsProps) {
