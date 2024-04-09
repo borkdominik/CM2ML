@@ -26,6 +26,8 @@ export class GraphModel implements Show {
 
   #root: GraphNode
 
+  public readonly metadata: Record<string, string> = {}
+
   public constructor(
     public readonly settings: Settings,
     rootTag: string,
