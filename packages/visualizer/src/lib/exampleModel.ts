@@ -1,6 +1,8 @@
 import type { Parser } from '@cm2ml/builtin'
 import { ArchimateParser, UmlParser } from '@cm2ml/builtin'
 
+import { prettifyParserName } from './pluginNames'
+
 export interface PreparedExample {
   name: string
   serializedModel: string
@@ -15,11 +17,11 @@ export interface PreparedExample {
 
 export const exampleModels: [string, PreparedExample[]][] = __EXAMPLE_MODELS.map(({ language, models }) => {
   if (language === 'uml') {
-    return ['UML', prepareUmlExampleModels(models)]
+    return [prettifyParserName(language), prepareUmlExampleModels(models)]
   } else if (language === 'archimate') {
-    return ['ArchiMate', prepareArchimateExampleModels(models)]
+    return [prettifyParserName(language), prepareArchimateExampleModels(models)]
   }
-  return [language, []]
+  return [prettifyParserName(language), []]
 })
 
 function prepareUmlExampleModels(exampleModels: ExampleModel[]): PreparedExample[] {

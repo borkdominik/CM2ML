@@ -1,5 +1,6 @@
 import { encoderMap } from '@cm2ml/builtin'
 
+import { prettifyEncoderName } from '../../lib/pluginNames'
 import { useEncoderState } from '../../lib/useEncoderState'
 import { useSettings } from '../../lib/useSettings'
 import { Parameters } from '../Parameters'
@@ -26,6 +27,8 @@ export function EncoderForm() {
   const setIsEditing = useEncoderState.use.setIsEditing()
   const layout = useSettings.use.layout()
 
+  const hasParameters = encoder?.parameters !== undefined && Object.keys(encoder.parameters).length > 0
+
   return (
     <Card className="max-h-full overflow-y-auto">
       <CardHeader className="space-y-2">
@@ -45,17 +48,17 @@ export function EncoderForm() {
               <SelectLabel>Encoder</SelectLabel>
               {encoders.map((encoder) => (
                 <SelectItem key={encoder} value={encoder}>
-                  {encoder}
+                  {prettifyEncoderName(encoder)}
                 </SelectItem>
               ))}
             </SelectGroup>
           </SelectContent>
         </Select>
       </CardHeader>
-      {encoder || layout === 'compact'
+      {hasParameters || layout === 'compact'
         ? (
           <CardContent className="flex flex-col gap-4">
-            {encoder
+            {hasParameters
               ? (
                 <Parameters
                   parameters={encoder.parameters}

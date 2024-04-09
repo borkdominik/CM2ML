@@ -76,6 +76,7 @@ function ExampleLanguageSubMenu({ language, models }: { language: string, models
 
 function ExampleModelMenuItem({ exampleModel }: { exampleModel: PreparedExample }) {
   const { name, serializedModel, parser, parameters } = exampleModel
+  const clearSelection = useSelection.use.clearSelection()
   const setSerializedModel = useModelState.use.setSerializedModel()
   const setParameters = useModelState.use.setParameters()
   const setParser = useModelState.use.setParser()
@@ -83,6 +84,7 @@ function ExampleModelMenuItem({ exampleModel }: { exampleModel: PreparedExample 
     setSerializedModel(serializedModel)
     setParser(parser)
     setParameters(parameters)
+    clearSelection()
   }
   return <MenubarItem onClick={loadExample}>{name}</MenubarItem>
 }

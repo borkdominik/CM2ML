@@ -3,6 +3,7 @@ import { getMessage } from '@cm2ml/utils'
 import type { ChangeEvent } from 'react'
 import { useMemo, useState } from 'react'
 
+import { prettifyParserName } from '../../lib/pluginNames'
 import { useModelState } from '../../lib/useModelState'
 import { useSettings } from '../../lib/useSettings'
 import { Error } from '../Error'
@@ -91,7 +92,7 @@ export function ModelForm() {
               <SelectLabel>Parser</SelectLabel>
               {parsers.map((parser) => (
                 <SelectItem key={parser} value={parser}>
-                  {parser}
+                  {prettifyParserName(parser)}
                 </SelectItem>
               ))}
             </SelectGroup>
@@ -158,7 +159,7 @@ export function ModelForm() {
 
 function Or() {
   return (
-    <span className="mx-auto flex w-full select-none items-center gap-2 text-xs text-muted-foreground">
+    <span className="text-muted-foreground mx-auto flex w-full select-none items-center gap-2 text-xs">
       <Separator className="shrink" />
       or
       <Separator className="shrink" />

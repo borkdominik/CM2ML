@@ -8,6 +8,7 @@ import type {
 import { Stream } from '@yeger/streams'
 import { Fragment, useMemo } from 'react'
 
+import { prettifyParserName } from '../../lib/pluginNames'
 import { useModelState } from '../../lib/useModelState'
 import type { EdgeSelection } from '../../lib/useSelection'
 import { useSelection } from '../../lib/useSelection'
@@ -18,8 +19,17 @@ import { Separator } from '../ui/separator'
 export function SelectionDetails() {
   const model = useModelState.use.model()
   const { selection } = useSelection.use.selection() ?? {}
-  if (!model || !selection) {
-    return <Hint text="Select a node or edge by clicking on it" />
+  const hint = <Hint text="Select a node or edge by clicking on it" />
+  if (!model) {
+    return hint
+  }
+  if (!selection) {
+    return (
+      <div className="items flex size-full flex-col">
+        {hint}
+        <ModelStats model={model} />
+      </div>
+    )
   }
   if (typeof selection === 'string') {
     const node = model.getNodeById(selection)
@@ -30,6 +40,35 @@ export function SelectionDetails() {
   }
   const edges = getEdges(selection, model)
   return <EdgeList edges={edges} />
+}
+
+function ModelStats({ model }: { model: GraphModel }) {
+  const parserName = useModelState.use.parser()?.name
+  const { nodes, edges, languageName } = useMemo(() => {
+    const nodes = model.nodes.size
+    const edges = model.edges.size
+    const languageName = parserName ? prettifyParserName(parserName) : undefined
+    return { nodes, edges, languageName }
+  }, [model, parserName])
+  return (
+    <div className="text-muted-foreground flex size-full flex-col items-center justify-center gap-1 font-mono text-xs">
+      <div>
+        {languageName}
+        {' '}
+        model
+      </div>
+      <div>
+        {nodes}
+        {' '}
+        nodes
+      </div>
+      <div>
+        {edges}
+        {' '}
+        edges
+      </div>
+    </div>
+  )
 }
 
 function getEdges(edgeSelection: EdgeSelection, model: GraphModel) {
