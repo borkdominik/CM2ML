@@ -17,7 +17,7 @@ import { Separator } from '../ui/separator'
 
 export function SelectionDetails() {
   const model = useModelState.use.model()
-  const selection = useSelection.use.selection()
+  const { selection } = useSelection.use.selection() ?? {}
   if (!model || !selection) {
     return <Hint text="Select a node or edge by clicking on it" />
   }
@@ -60,7 +60,7 @@ function NodeDetails({ node }: { node: GraphNode }) {
           <div className="space-y-2">
             <div className="text-sm font-bold">Parent</div>
             <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
-              <div className="whitespace-pre-wrap text-muted-foreground">
+              <div className="text-muted-foreground whitespace-pre-wrap">
                 {node.parent.tag}
               </div>
               <NodeSelectionButton id={node.parent.id} />
@@ -89,14 +89,14 @@ function NodeChildren({ node }: { node: GraphNode }) {
   )
 
   if (sortedChildren.length === 0) {
-    return <div className="text-xs text-muted-foreground">No children</div>
+    return <div className="text-muted-foreground text-xs">No children</div>
   }
 
   return (
     <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
       {sortedChildren.map((child) => (
         <Fragment key={child.id}>
-          <div className="whitespace-pre-wrap text-muted-foreground">
+          <div className="text-muted-foreground whitespace-pre-wrap">
             {child.tag}
           </div>
           <NodeSelectionButton id={child.id} />
@@ -165,7 +165,7 @@ function NodeSelectionButton({ id }: { id: string | undefined }) {
     <Button
       variant="link"
       className="size-fit p-0 font-mono text-xs"
-      onClick={() => setSelection(id)}
+      onClick={() => setSelection({ selection: id, animate: true })}
     >
       {id}
     </Button>
@@ -189,7 +189,7 @@ function EdgeSelectionButton({
     <Button
       variant="link"
       className="size-fit p-0 font-mono text-xs"
-      onClick={() => setSelection([[sourceId, targetId]])}
+      onClick={() => setSelection({ selection: [[sourceId, targetId]], animate: true })}
     >
       {label}
     </Button>
@@ -216,7 +216,7 @@ function EdgeGroup({ edges }: { edges: GraphEdge[] }) {
       <div className="space-y-2">
         <div className="text-sm font-bold">Source</div>
         <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
-          <div className="whitespace-pre-wrap text-muted-foreground">
+          <div className="text-muted-foreground whitespace-pre-wrap">
             {firstEdge.source.tag}
           </div>
           <NodeSelectionButton id={firstEdge.source.id} />
@@ -225,7 +225,7 @@ function EdgeGroup({ edges }: { edges: GraphEdge[] }) {
       <div className="space-y-2">
         <div className="text-sm font-bold">Target</div>
         <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
-          <div className="whitespace-pre-wrap text-muted-foreground">
+          <div className="text-muted-foreground whitespace-pre-wrap">
             {firstEdge.target.tag}
           </div>
           <NodeSelectionButton id={firstEdge.target.id} />
@@ -261,14 +261,14 @@ function AttributableDetails({
   )
 
   if (attributes.length === 0) {
-    return <div className="text-xs text-muted-foreground">No attributes</div>
+    return <div className="text-muted-foreground text-xs">No attributes</div>
   }
 
   return (
     <div className="grid grid-cols-[min-content,_auto] gap-2 text-xs">
       {attributes.map(([name, attribute]) => (
         <Fragment key={name}>
-          <div key={name} className="font-mono text-muted-foreground">
+          <div key={name} className="text-muted-foreground font-mono">
             {name}
           </div>
           {attributable.model.getNodeById(attribute.value.literal) !==

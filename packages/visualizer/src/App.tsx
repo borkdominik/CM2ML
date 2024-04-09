@@ -1,3 +1,4 @@
+import { CommandBar } from './components/CommandBar'
 import { Encoder } from './components/encoder/Encoder'
 import { EncoderForm } from './components/encoder/EncoderForm'
 import { Menu } from './components/Menu'
@@ -24,6 +25,7 @@ export function App() {
   return (
     <div className="flex h-full flex-col">
       <Menu />
+      <CommandBar />
       {layout === 'extended' ? <ExtendedLayout /> : <CompactLayout />}
       <Toaster duration={5000} />
     </div>

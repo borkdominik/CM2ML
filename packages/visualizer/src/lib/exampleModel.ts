@@ -17,7 +17,7 @@ export const exampleModels: [string, PreparedExample[]][] = __EXAMPLE_MODELS.map
   if (language === 'uml') {
     return ['UML', prepareUmlExampleModels(models)]
   } else if (language === 'archimate') {
-    return ['ARCHIMATE', prepareArchimateExampleModels(models)]
+    return ['ArchiMate', prepareArchimateExampleModels(models)]
   }
   return [language, []]
 })

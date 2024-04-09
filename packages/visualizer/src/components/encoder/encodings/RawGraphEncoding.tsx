@@ -105,7 +105,7 @@ function Labels({ nodes, offset }: LabelsProps) {
         height={cellSize}
         y={-fontSize / 2}
         x={offset}
-        className="cursor-default select-none fill-foreground font-mono"
+        className="fill-foreground cursor-default select-none font-mono"
         fontSize={fontSize}
       >
         Source
@@ -114,7 +114,7 @@ function Labels({ nodes, offset }: LabelsProps) {
         height={cellSize}
         y={-fontSize / 2}
         x={-offset}
-        className="-rotate-90 cursor-default select-none fill-foreground font-mono "
+        className="fill-foreground -rotate-90 cursor-default select-none font-mono "
         fontSize={fontSize}
         textAnchor="end"
       >
@@ -140,7 +140,7 @@ function Label({ index, node, offset }: LabelProps) {
 
   const onPointerDown = (event: PointerEvent<SVGTextElement>) => {
     event.stopPropagation()
-    setSelection(node)
+    setSelection({ selection: node, animate: true })
   }
 
   return (
@@ -222,7 +222,7 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
 
   const onPointerDown = (event: PointerEvent<SVGRectElement>) => {
     event.stopPropagation()
-    setSelection([[sourceId, targetId]])
+    setSelection({ selection: [[sourceId, targetId]], animate: true })
   }
 
   return (
@@ -317,7 +317,7 @@ function ListNode({ node, isLast }: ListNodeProps) {
   const setSelection = useSelection.use.setSelection()
   return (
     <ListEntry
-      onClick={() => setSelection(node)}
+      onClick={() => setSelection({ selection: node, animate: true })}
       isSelected={isSelected}
       isLast={isLast}
     >
@@ -361,7 +361,7 @@ function ListEdge({
     <ListEntry
       key={`${source}-${target}`}
       isSelected={isSelected}
-      onClick={() => setSelection([[sourceId, targetId]])}
+      onClick={() => setSelection({ selection: [[sourceId, targetId]], animate: true })}
       style={{ opacity: getOpacity?.(weight ?? 1) ?? 1 }}
       isLast={isLast}
     >

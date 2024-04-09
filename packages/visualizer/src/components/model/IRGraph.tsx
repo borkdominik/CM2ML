@@ -12,8 +12,6 @@ import { useSelection } from '../../lib/useSelection'
 import { cn } from '../../lib/utils'
 import { Progress } from '../ui/progress'
 
-import { ModelCommands } from './ModelCommands'
-
 export interface Props {
   model: GraphModel
 }
@@ -24,12 +22,10 @@ export interface IRGraphRef {
 
 export function IRGraph({ model }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { isReady, progress, selectNode } = useVisNetwok(model, containerRef)
+  const { isReady, progress } = useVisNetwok(model, containerRef)
 
-  // <Search onSearch={findNode} />
   return (
     <div className="relative h-full">
-      <ModelCommands model={model} onSelectNode={selectNode} />
       <div
         ref={containerRef}
         className={cn({ 'h-full': true, 'opacity-0': !isReady })}
@@ -69,7 +65,7 @@ function useVisNetwok(
   container: RefObject<HTMLDivElement | null>,
 ) {
   const setFit = useModelState.use.setFit()
-  const selection = useSelection.use.selection()
+  const { selection, animate: animateSelection } = useSelection.use.selection() ?? {}
   const setSelection = useSelection.use.setSelection()
   const clearSelection = useSelection.use.clearSelection()
   const [network, setNetwork] = useState<Network | null>(null)
@@ -135,12 +131,12 @@ function useVisNetwok(
     setFit(() => network.fit())
     function selectNodes(selectedNodes: string[]) {
       if (selectedNodes.length === 1) {
-        setSelection(selectedNodes[0]!)
+        setSelection({ selection: selectedNodes[0]! })
         return
       }
       if (selectedNodes.length === 2) {
         const [sourceId, targetId] = selectedNodes
-        setSelection([[sourceId!, targetId!]])
+        setSelection({ selection: [[sourceId!, targetId!]] })
       }
     }
     network.on(
@@ -167,7 +163,7 @@ function useVisNetwok(
           return
         }
         const reversed = edge.toReversed() as [string, string]
-        setSelection([edge, reversed])
+        setSelection({ selection: [edge, reversed] })
       }
     })
     network.on('deselectNode', clearSelection)
@@ -211,26 +207,23 @@ function useVisNetwok(
     }
     if (typeof selection === 'string') {
       network.selectNodes([selection])
+      if (animateSelection) {
+        network?.fit({ nodes: [selection], animation: true })
+      }
       return
     }
     const edgeIds = selection.map(([sourceId, targetId]) =>
       createEdgeId(sourceId, targetId),
     )
     network.selectEdges(edgeIds)
-  }, [network, selection])
-
-  const selectNode = (nodeId: string) => {
-    if (isNetworkDestroyed(network)) {
-      return
+    if (animateSelection) {
+      network?.fit({ nodes: selection.flat(), animation: true })
     }
-    network?.selectNodes([nodeId])
-    network?.fit({ nodes: [nodeId], animation: true })
-  }
+  }, [network, selection, animateSelection])
 
   return {
     isReady: stabilizationProgress === 1,
     progress: stabilizationProgress,
-    selectNode,
   }
 }
 

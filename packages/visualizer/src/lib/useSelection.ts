@@ -6,12 +6,15 @@ export type NodeSelection = string
 
 export type EdgeSelection = (readonly [string, string])[]
 
-export type Selection = NodeSelection | EdgeSelection
+export interface Selection {
+  selection: NodeSelection | EdgeSelection
+  animate?: boolean
+}
 
 export interface SelectionState {
   selection: Selection | undefined
   clearSelection: () => void
-  setSelection: (ids: Selection) => void
+  setSelection: (selection: Selection) => void
 }
 
 const defaults = {
@@ -45,7 +48,7 @@ export function useIsSelectedNode(id: string | undefined) {
 }
 
 export function useIsSelectedSource(id: string | undefined) {
-  const selection = useSelection.use.selection()
+  const { selection } = useSelection.use.selection() ?? {}
   if (id === undefined || selection === undefined) {
     return false
   }
@@ -56,7 +59,7 @@ export function useIsSelectedSource(id: string | undefined) {
 }
 
 export function useIsSelectedTarget(id: string | undefined) {
-  const selection = useSelection.use.selection()
+  const { selection } = useSelection.use.selection() ?? {}
   if (id === undefined || selection === undefined) {
     return false
   }
@@ -70,7 +73,7 @@ export function useIsSelectedEdge(
   sourceId: string | undefined,
   targetId: string | undefined,
 ) {
-  const selection = useSelection.use.selection()
+  const { selection } = useSelection.use.selection() ?? {}
   if (
     sourceId === undefined ||
     targetId === undefined ||
