@@ -1,8 +1,7 @@
 import type { Attributable, GraphModel } from '@cm2ml/ir'
-import { ResetIcon, Share2Icon } from '@radix-ui/react-icons'
+import { Crosshair2Icon, ResetIcon, Share2Icon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
-import * as React from 'react'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { useShare } from '../lib/sharing'
 import { useModelState } from '../lib/useModelState'
@@ -19,7 +18,7 @@ import {
 } from '@/components/ui/command'
 
 export function CommandBar() {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -60,6 +59,7 @@ function SystemCommandGroup({ closeDialog }: CommandProps) {
   return (
     <CommandGroup heading="System">
       <ClearCommand closeDialog={closeDialog} />
+      <FitCommand closeDialog={closeDialog} />
       <ShareCommand closeDialog={closeDialog} />
     </CommandGroup>
   )
@@ -83,6 +83,23 @@ function ClearCommand({ closeDialog }: CommandProps) {
     >
       <ResetIcon className="mr-2 size-4" />
       Clear
+    </CommandItem>
+  )
+}
+
+function FitCommand({ closeDialog }: CommandProps) {
+  const fit = useModelState.use.fit()
+  if (!fit) {
+    return null
+  }
+  return (
+    <CommandItem onSelect={() => {
+      fit()
+      closeDialog()
+    }}
+    >
+      <Crosshair2Icon className="mr-2 size-4" />
+      Fit
     </CommandItem>
   )
 }
