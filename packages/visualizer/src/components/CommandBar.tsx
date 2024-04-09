@@ -14,7 +14,6 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from '@/components/ui/command'
 
 export function CommandBar() {
@@ -43,7 +42,6 @@ export function CommandBar() {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <SystemCommandGroup closeDialog={closeDialog} />
-          <CommandSeparator />
           <ModelCommandGroups closeDialog={closeDialog} />
         </CommandList>
       </CommandDialog>
@@ -129,7 +127,6 @@ function ModelCommandGroups({ closeDialog }: ModelCommandGroupsProps) {
   return (
     <>
       <NodeSearchCommandGroup model={model} closeDialog={closeDialog} />
-      <CommandSeparator />
       <EdgeSearchCommandGroup model={model} closeDialog={closeDialog} />
     </>
   )
@@ -170,6 +167,7 @@ function NodeSearchCommandGroup({ model, closeDialog }: NodeSearchCommandGroupPr
                   setSelection({ selection: id, animate: true })
                   closeDialog()
                 }}
+                value={id}
                 keywords={keywords}
               >
                 {label ?? id}
@@ -219,6 +217,7 @@ function EdgeSearchCommandGroup({ model, closeDialog }: EdgeSearchCommandGroupPr
                   setSelection({ selection: [selection], animate: true })
                   closeDialog()
                 }}
+                value={id}
                 keywords={keywords}
               >
                 {label ?? tag}
