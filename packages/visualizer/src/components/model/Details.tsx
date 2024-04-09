@@ -44,29 +44,56 @@ export function SelectionDetails() {
 
 function ModelStats({ model }: { model: GraphModel }) {
   const parserName = useModelState.use.parser()?.name
-  const { nodes, edges, languageName } = useMemo(() => {
+  const { nodes, edges, attributes, languageName } = useMemo(() => {
     const nodes = model.nodes.size
     const edges = model.edges.size
+    const attributes = Stream.from<Attributable>(model.nodes).concat(model.edges).map((attributable) => attributable.attributes.size).sum()
     const languageName = parserName ? prettifyParserName(parserName) : undefined
-    return { nodes, edges, languageName }
+    return { nodes, edges, attributes, languageName }
   }, [model, parserName])
+
+  const hasMetadata = Object.keys(model.metadata).length > 0
+
   return (
-    <div className="text-muted-foreground flex size-full flex-col items-center justify-center gap-1 font-mono text-xs">
-      <div>
-        {languageName}
-        {' '}
-        model
+    <div className="text-muted-foreground flex size-full items-center justify-center gap-1 font-mono text-xs">
+      <div className="flex size-full flex-col items-center justify-center">
+        <div>
+          {languageName}
+          {' '}
+          model
+        </div>
+        <div>
+          {nodes}
+          {' '}
+          nodes
+        </div>
+        <div>
+          {edges}
+          {' '}
+          edges
+        </div>
+        <div>
+          {attributes}
+          {' '}
+          attributes
+        </div>
       </div>
-      <div>
-        {nodes}
-        {' '}
-        nodes
-      </div>
-      <div>
-        {edges}
-        {' '}
-        edges
-      </div>
+      {hasMetadata
+        ? (
+          <div className="flex size-full flex-col items-center justify-center">
+            <div>
+              Metadata
+            </div>
+            {Object.entries(model.metadata).map(([key, value]) => (
+              <div key={key}>
+                {key}
+                {' '}
+                {value}
+              </div>
+            ))}
+          </div>
+          )
+        : null}
     </div>
   )
 }
