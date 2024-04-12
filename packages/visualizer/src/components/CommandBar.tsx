@@ -201,7 +201,7 @@ function EdgeSearchCommandGroup({ model, closeDialog }: EdgeSearchCommandGroupPr
       })
       .filterNonNull()
       .toArray()
-      .sort(compareByLabelOrId), [model])
+      .sort(compareByLabelOrTag), [model])
 
   if (searchableEdges.length === 0) {
     return null
@@ -239,6 +239,19 @@ function compareByLabelOrId(a: { label?: string, id: string }, b: { label?: stri
     return 1
   }
   return a.id.localeCompare(b.id)
+}
+
+function compareByLabelOrTag(a: { label?: string, tag: string }, b: { label?: string, tag: string }) {
+  if (a.label && b.label) {
+    return a.label.localeCompare(b.label)
+  }
+  if (a.label && !b.label) {
+    return -1
+  }
+  if (!a.label && b.label) {
+    return 1
+  }
+  return a.tag.localeCompare(b.tag)
 }
 
 function getKeywords(attributable: Attributable) {
