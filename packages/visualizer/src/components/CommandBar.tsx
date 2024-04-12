@@ -16,6 +16,19 @@ import {
   CommandList,
 } from '@/components/ui/command'
 
+function commandFilter(value: string, search: string, keywords: string[] | undefined) {
+  const extendedValue = `${value} ${keywords?.join(' ')}`.toLowerCase()
+  const searchSegments = search.toLowerCase().split(' ')
+  let matches = 0
+  for (const searchSegment of searchSegments) {
+    if (!extendedValue.includes(searchSegment)) {
+      return 0
+    }
+    matches += 1
+  }
+  return matches
+}
+
 export function CommandBar() {
   const [open, setOpen] = useState(false)
 
@@ -35,7 +48,7 @@ export function CommandBar() {
 
   return (
     <>
-      <CommandDialog open={open} onOpenChange={setOpen}>
+      <CommandDialog open={open} onOpenChange={setOpen} filter={commandFilter}>
         <CommandInput
           placeholder="Commands"
         />
