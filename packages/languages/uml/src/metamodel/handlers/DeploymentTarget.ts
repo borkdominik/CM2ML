@@ -16,11 +16,17 @@ export const DeploymentTargetHandler = DeploymentTarget.createHandler(
 )
 
 function addEdge_deployedElement(_deploymentTarget: GraphNode) {
-  // TODO/Association
   // /deployedElement : PackageableElement [0..*]{} (opposite A_deployedElement_deploymentTarget::deploymentTarget)
   // The set of elements that are manifested in an Artifact that is involved in Deployment to a DeploymentTarget.
 
-  // Source: deployment -> deployedArtifact -> filter is Artifact -> manifestation -> utilizedElement
+  // Source:
+  // deployment ->
+  // deployedArtifact ->
+  // filter is Artifact ->
+  // manifestation ->
+  // utilizedElement
+
+  // Added by resolveDeployedElements
 }
 
 function addEdge_deployment(deploymentTarget: GraphNode, deployments: GraphNode[]) {

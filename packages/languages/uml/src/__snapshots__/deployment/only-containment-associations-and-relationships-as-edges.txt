@@ -1,0 +1,26 @@
+<Model name="model" visibility="public" xmi:id="_0V2YcPidEe6PhJwEQ2R2dA" xmi:type="Model">
+  <Node isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="DeploymentTarget" visibility="public" xmi:id="_RGi8oPieEe6PhJwEQ2R2dA" xmi:type="Node" />
+  <Artifact fileName="" isAbstract="false" isFinalSpecialization="false" isLeaf="false" name="FirstArtifact" visibility="public" xmi:id="_FIW24PifEe6PhJwEQ2R2dA" xmi:type="Artifact" />
+  <Artifact isAbstract="false" isFinalSpecialization="false" isLeaf="false" name="SecondArtifact" visibility="public" xmi:id="_9-mJcPifEe6PhJwEQ2R2dA" xmi:type="Artifact" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="FirstDeployedElement" visibility="public" xmi:id="_onBH4PifEe6PhJwEQ2R2dA" xmi:type="Class" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="SecondDeployedElement" visibility="public" xmi:id="_qiUW8PifEe6PhJwEQ2R2dA" xmi:type="Class" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="ThirdDeployedElement" visibility="public" xmi:id="_7flJUPifEe6PhJwEQ2R2dA" xmi:type="Class" />
+</Model>
+_0V2YcPidEe6PhJwEQ2R2dA -> <ownedElement /> -> _7flJUPifEe6PhJwEQ2R2dA
+_0V2YcPidEe6PhJwEQ2R2dA -> <ownedElement /> -> _9-mJcPifEe6PhJwEQ2R2dA
+_0V2YcPidEe6PhJwEQ2R2dA -> <ownedElement /> -> _FIW24PifEe6PhJwEQ2R2dA
+_0V2YcPidEe6PhJwEQ2R2dA -> <ownedElement /> -> _RGi8oPieEe6PhJwEQ2R2dA
+_0V2YcPidEe6PhJwEQ2R2dA -> <ownedElement /> -> _onBH4PifEe6PhJwEQ2R2dA
+_0V2YcPidEe6PhJwEQ2R2dA -> <ownedElement /> -> _qiUW8PifEe6PhJwEQ2R2dA
+_7flJUPifEe6PhJwEQ2R2dA -> <owner /> -> _0V2YcPidEe6PhJwEQ2R2dA
+_9-mJcPifEe6PhJwEQ2R2dA -> <manifestation xmi:type="Manifestation" xmi:id="_CMuWwPigEe6PhJwEQ2R2dA" name="ThirdManifestation" visibility="public" /> -> _7flJUPifEe6PhJwEQ2R2dA
+_9-mJcPifEe6PhJwEQ2R2dA -> <owner /> -> _0V2YcPidEe6PhJwEQ2R2dA
+_FIW24PifEe6PhJwEQ2R2dA -> <manifestation xmi:type="Manifestation" xmi:id="_3aJlAPifEe6PhJwEQ2R2dA" name="SecondManifestation" visibility="public" /> -> _qiUW8PifEe6PhJwEQ2R2dA
+_FIW24PifEe6PhJwEQ2R2dA -> <manifestation xmi:type="Manifestation" xmi:id="_uXlYUPifEe6PhJwEQ2R2dA" name="FirstManifestation" visibility="public" /> -> _onBH4PifEe6PhJwEQ2R2dA
+_FIW24PifEe6PhJwEQ2R2dA -> <manifestation xmi:type="Manifestation" xmi:id="_uXlYUPifEe6PhJwEQ2R2dA" name="FirstManifestation" visibility="public" /> -> _qiUW8PifEe6PhJwEQ2R2dA
+_FIW24PifEe6PhJwEQ2R2dA -> <owner /> -> _0V2YcPidEe6PhJwEQ2R2dA
+_RGi8oPieEe6PhJwEQ2R2dA -> <deployment xmi:type="Deployment" xmi:id="_J7D7cPigEe6PhJwEQ2R2dA" name="FirstDeployment" visibility="public" /> -> _FIW24PifEe6PhJwEQ2R2dA
+_RGi8oPieEe6PhJwEQ2R2dA -> <deployment xmi:type="Deployment" xmi:id="_MNBXAPigEe6PhJwEQ2R2dA" name="SecondDeployment" visibility="public" /> -> _9-mJcPifEe6PhJwEQ2R2dA
+_RGi8oPieEe6PhJwEQ2R2dA -> <owner /> -> _0V2YcPidEe6PhJwEQ2R2dA
+_onBH4PifEe6PhJwEQ2R2dA -> <owner /> -> _0V2YcPidEe6PhJwEQ2R2dA
+_qiUW8PifEe6PhJwEQ2R2dA -> <owner /> -> _0V2YcPidEe6PhJwEQ2R2dA

@@ -1,0 +1,38 @@
+<Model name="model" visibility="public" xmi:id="_0V2YcPidEe6PhJwEQ2R2dA" xmi:type="Model">
+  <Node isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="DeploymentTarget" visibility="public" xmi:id="_RGi8oPieEe6PhJwEQ2R2dA" xmi:type="Node">
+    <Deployment name="FirstDeployment" visibility="public" xmi:id="_J7D7cPigEe6PhJwEQ2R2dA" xmi:type="Deployment" />
+    <Deployment name="SecondDeployment" visibility="public" xmi:id="_MNBXAPigEe6PhJwEQ2R2dA" xmi:type="Deployment" />
+  </Node>
+  <Artifact fileName="" isAbstract="false" isFinalSpecialization="false" isLeaf="false" name="FirstArtifact" visibility="public" xmi:id="_FIW24PifEe6PhJwEQ2R2dA" xmi:type="Artifact">
+    <Manifestation name="FirstManifestation" visibility="public" xmi:id="_uXlYUPifEe6PhJwEQ2R2dA" xmi:type="Manifestation" />
+    <Manifestation name="SecondManifestation" visibility="public" xmi:id="_3aJlAPifEe6PhJwEQ2R2dA" xmi:type="Manifestation" />
+  </Artifact>
+  <Artifact isAbstract="false" isFinalSpecialization="false" isLeaf="false" name="SecondArtifact" visibility="public" xmi:id="_9-mJcPifEe6PhJwEQ2R2dA" xmi:type="Artifact">
+    <Manifestation name="ThirdManifestation" visibility="public" xmi:id="_CMuWwPigEe6PhJwEQ2R2dA" xmi:type="Manifestation" />
+  </Artifact>
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="FirstDeployedElement" visibility="public" xmi:id="_onBH4PifEe6PhJwEQ2R2dA" xmi:type="Class" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="SecondDeployedElement" visibility="public" xmi:id="_qiUW8PifEe6PhJwEQ2R2dA" xmi:type="Class" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="ThirdDeployedElement" visibility="public" xmi:id="_7flJUPifEe6PhJwEQ2R2dA" xmi:type="Class" />
+</Model>
+_0V2YcPidEe6PhJwEQ2R2dA -> <ownedElement /> -> _7flJUPifEe6PhJwEQ2R2dA
+_0V2YcPidEe6PhJwEQ2R2dA -> <ownedElement /> -> _9-mJcPifEe6PhJwEQ2R2dA
+_0V2YcPidEe6PhJwEQ2R2dA -> <ownedElement /> -> _FIW24PifEe6PhJwEQ2R2dA
+_0V2YcPidEe6PhJwEQ2R2dA -> <ownedElement /> -> _RGi8oPieEe6PhJwEQ2R2dA
+_0V2YcPidEe6PhJwEQ2R2dA -> <ownedElement /> -> _onBH4PifEe6PhJwEQ2R2dA
+_0V2YcPidEe6PhJwEQ2R2dA -> <ownedElement /> -> _qiUW8PifEe6PhJwEQ2R2dA
+_3aJlAPifEe6PhJwEQ2R2dA -> <owner /> -> _FIW24PifEe6PhJwEQ2R2dA
+_7flJUPifEe6PhJwEQ2R2dA -> <owner /> -> _0V2YcPidEe6PhJwEQ2R2dA
+_9-mJcPifEe6PhJwEQ2R2dA -> <ownedElement /> -> _CMuWwPigEe6PhJwEQ2R2dA
+_9-mJcPifEe6PhJwEQ2R2dA -> <owner /> -> _0V2YcPidEe6PhJwEQ2R2dA
+_CMuWwPigEe6PhJwEQ2R2dA -> <owner /> -> _9-mJcPifEe6PhJwEQ2R2dA
+_FIW24PifEe6PhJwEQ2R2dA -> <ownedElement /> -> _3aJlAPifEe6PhJwEQ2R2dA
+_FIW24PifEe6PhJwEQ2R2dA -> <ownedElement /> -> _uXlYUPifEe6PhJwEQ2R2dA
+_FIW24PifEe6PhJwEQ2R2dA -> <owner /> -> _0V2YcPidEe6PhJwEQ2R2dA
+_J7D7cPigEe6PhJwEQ2R2dA -> <owner /> -> _RGi8oPieEe6PhJwEQ2R2dA
+_MNBXAPigEe6PhJwEQ2R2dA -> <owner /> -> _RGi8oPieEe6PhJwEQ2R2dA
+_RGi8oPieEe6PhJwEQ2R2dA -> <ownedElement /> -> _J7D7cPigEe6PhJwEQ2R2dA
+_RGi8oPieEe6PhJwEQ2R2dA -> <ownedElement /> -> _MNBXAPigEe6PhJwEQ2R2dA
+_RGi8oPieEe6PhJwEQ2R2dA -> <owner /> -> _0V2YcPidEe6PhJwEQ2R2dA
+_onBH4PifEe6PhJwEQ2R2dA -> <owner /> -> _0V2YcPidEe6PhJwEQ2R2dA
+_qiUW8PifEe6PhJwEQ2R2dA -> <owner /> -> _0V2YcPidEe6PhJwEQ2R2dA
+_uXlYUPifEe6PhJwEQ2R2dA -> <owner /> -> _FIW24PifEe6PhJwEQ2R2dA

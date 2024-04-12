@@ -4,10 +4,10 @@
 
 Plugins propagate data via two mechanisms as described below.
 
-### Feed-forward mechanism - Input - Output
+### Push-forward mechanism - Input - Output
 
 The first and more important mechanism is the `input` parameter and the return value of the `invoke` method.
-These form a "feed-forward" mechanism, where the plugin receives data from the previous plugin and returns data to the next plugin.
+These form a "push-forward" mechanism, where the plugin receives data from the previous plugin and returns data to the next plugin.
 
 ### Pull-forward mechanism - Batch Metadata
 

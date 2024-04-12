@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0V2YcPidEe6PhJwEQ2R2dA" name="model">
+  <packagedElement xmi:type="uml:Node" xmi:id="_RGi8oPieEe6PhJwEQ2R2dA" name="DeploymentTarget" visibility="public">
+    <deployment xmi:type="uml:Deployment" xmi:id="_J7D7cPigEe6PhJwEQ2R2dA" name="FirstDeployment" client="_RGi8oPieEe6PhJwEQ2R2dA" supplier="_FIW24PifEe6PhJwEQ2R2dA" deployedArtifact="_FIW24PifEe6PhJwEQ2R2dA"/>
+    <deployment xmi:type="uml:Deployment" xmi:id="_MNBXAPigEe6PhJwEQ2R2dA" name="SecondDeployment" client="_RGi8oPieEe6PhJwEQ2R2dA" supplier="_9-mJcPifEe6PhJwEQ2R2dA" deployedArtifact="_9-mJcPifEe6PhJwEQ2R2dA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Artifact" xmi:id="_FIW24PifEe6PhJwEQ2R2dA" name="FirstArtifact" fileName="">
+    <manifestation xmi:type="uml:Manifestation" xmi:id="_uXlYUPifEe6PhJwEQ2R2dA" name="FirstManifestation" client="_FIW24PifEe6PhJwEQ2R2dA" supplier="_onBH4PifEe6PhJwEQ2R2dA _qiUW8PifEe6PhJwEQ2R2dA" utilizedElement="_onBH4PifEe6PhJwEQ2R2dA"/>
+    <manifestation xmi:type="uml:Manifestation" xmi:id="_3aJlAPifEe6PhJwEQ2R2dA" name="SecondManifestation" client="_FIW24PifEe6PhJwEQ2R2dA" supplier="_qiUW8PifEe6PhJwEQ2R2dA" utilizedElement="_qiUW8PifEe6PhJwEQ2R2dA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Artifact" xmi:id="_9-mJcPifEe6PhJwEQ2R2dA" name="SecondArtifact">
+    <manifestation xmi:type="uml:Manifestation" xmi:id="_CMuWwPigEe6PhJwEQ2R2dA" name="ThirdManifestation" client="_9-mJcPifEe6PhJwEQ2R2dA" supplier="_7flJUPifEe6PhJwEQ2R2dA" utilizedElement="_7flJUPifEe6PhJwEQ2R2dA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_onBH4PifEe6PhJwEQ2R2dA" name="FirstDeployedElement"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_qiUW8PifEe6PhJwEQ2R2dA" name="SecondDeployedElement"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_7flJUPifEe6PhJwEQ2R2dA" name="ThirdDeployedElement"/>
+</uml:Model>

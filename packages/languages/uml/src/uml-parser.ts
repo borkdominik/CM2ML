@@ -5,6 +5,7 @@ import { createRefiner } from '@cm2ml/metamodel-refiner'
 import { compose, definePlugin } from '@cm2ml/plugin'
 import { createXmiParser } from '@cm2ml/xmi-parser'
 
+import { resolveDeployedElements } from './metamodel/resolvers/deployedElements'
 import { resolveImportedMembers } from './metamodel/resolvers/importedMembers'
 import { resolveInheritedMembers } from './metamodel/resolvers/inheritedMember'
 import { Uml } from './metamodel/uml'
@@ -51,6 +52,7 @@ const UmlRefiner = definePlugin({
     if (!parameters.onlyContainmentAssociations) {
       resolveInheritedMembers(model)
       resolveImportedMembers(model, parameters.relationshipsAsEdges)
+      resolveDeployedElements(model, parameters.relationshipsAsEdges)
     }
     persistMetadata(model)
     removeNonUmlAttributes(model)
