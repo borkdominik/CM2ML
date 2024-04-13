@@ -13,7 +13,7 @@
   "scripts": {
     "build": "nr turbo run build",
     "changeset": "changeset",
-    "ci": "cross-env COVERAGE=true nr turbo run build generate lint test check:publish check:tsc",
+    "ci": "cross-env COVERAGE=true nr turbo run build generate lint lint:root test check:publish check:tsc",
     "clean": "rimraf -g **/tsconfig.tsbuildinfo **/vite.config.ts.timestamp-*",
     "cm2ml": "nr turbo build --filter=cli... && cm2ml",
     "create-package": "nr turbo generate lib && nr syncpack:fix && ni && nr generate-readme",
@@ -24,7 +24,7 @@
     "graph": "turbo-graph build --open",
     "install-hooks": "husky",
     "lint": "nr turbo run lint lint:root",
-    "lint:root": "eslint \"{.changeset,.github,.husky,.vscode}/**/*.{astro,html,js,jsx,json,md,ts,tsx,vue,yaml,yml}\" \"./*.{astro,html,js,jsx,json,md,ts,tsx,vue,yaml,yml}\"",
+    "lint:root": "eslint \"{.changeset,.github,.husky,.vscode,turbo}/**/*.{astro,html,js,jsx,json,md,ts,tsx,vue,yaml,yml}\" \"./*.{astro,html,js,jsx,json,md,ts,tsx,vue,yaml,yml}\"",
     "preview": "nr turbo run preview",
     "server": "nr turbo build --filter=rest... && cm2ml-server",
     "syncpack": "syncpack",
