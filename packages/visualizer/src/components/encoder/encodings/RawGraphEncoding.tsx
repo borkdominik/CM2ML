@@ -105,7 +105,7 @@ function Labels({ nodes, offset }: LabelsProps) {
         height={cellSize}
         y={-fontSize / 2}
         x={offset}
-        className="cursor-default select-none fill-foreground font-mono"
+        className="fill-foreground cursor-default select-none font-mono"
         fontSize={fontSize}
       >
         Source
@@ -114,7 +114,7 @@ function Labels({ nodes, offset }: LabelsProps) {
         height={cellSize}
         y={-fontSize / 2}
         x={-offset}
-        className="-rotate-90 cursor-default select-none fill-foreground font-mono "
+        className="fill-foreground -rotate-90 cursor-default select-none font-mono "
         fontSize={fontSize}
         textAnchor="end"
       >
@@ -289,7 +289,7 @@ function List({ list, nodes }: ListProps) {
             <ListBorder>[</ListBorder>
             {list.map(([source, target, weight], index) => (
               <ListEdge
-                key={`${source}-${target}`}
+                key={index}
                 getOpacity={getOpacity}
                 isLast={index === list.length - 1}
                 nodes={nodes}
