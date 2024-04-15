@@ -23,7 +23,7 @@ export function trying<In, Out, Parameters extends ParameterMetadata, BMIn, BMOu
     },
     batchMetadataCollector: (batch: (In | ExecutionError)[], previousBatchMetadata) => {
       const filteredBatch = batch.filter((item) => !(item instanceof ExecutionError)) as In[]
-      return plugin.batchMetadataCollector?.(filteredBatch, previousBatchMetadata)
+      return plugin.batchMetadataCollector(filteredBatch, previousBatchMetadata)
     },
   })
 }

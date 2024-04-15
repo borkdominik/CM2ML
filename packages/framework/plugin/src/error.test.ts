@@ -12,18 +12,18 @@ describe('error', () => {
   describe('trying', () => {
     it('should return results', () => {
       const addWithTrying = trying(add)
-      const result = addWithTrying.invoke(2, { summand: 1 }, undefined)
+      const result = addWithTrying.validateAndInvoke(2, { summand: 1 })
       expect(result).toBe(3)
     })
 
     it('should pass through previous errors', () => {
       const passthroughWithTrying = trying(passthrough)
-      const result = passthroughWithTrying.invoke(testError, {}, undefined)
+      const result = passthroughWithTrying.validateAndInvoke(testError, {})
       expect(result).toBe(testError)
     })
 
     it('should catch errors', () => {
-      const result = withTrying.invoke(undefined, {}, undefined)
+      const result = withTrying.validateAndInvoke(undefined, {})
       expect(result).toBeInstanceOf(ExecutionError)
       expect(getMessage(result)).toBe('This plugin always throws.')
     })

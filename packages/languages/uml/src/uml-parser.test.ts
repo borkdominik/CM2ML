@@ -93,7 +93,7 @@ describe('uml-parser', () => {
     it.each(validModels)('should parse model $index', ({ file, snapshot }) => {
       const serializedModel = readFileSync(file, 'utf-8')
       try {
-        const result = UmlParser.invoke(serializedModel, { ...configuration, debug: true, strict: true }, undefined)
+        const result = UmlParser.validateAndInvoke(serializedModel, { ...configuration, debug: true, strict: true })
         expect(result).toBeDefined()
         if (snapshot) {
           expect(result.show()).toMatchFileSnapshot(`./__snapshots__/${file.replace(umlModelDir, '').replace('.uml', '')}/${configuration.name.replaceAll(' ', '-')}.txt`)
@@ -121,7 +121,7 @@ describe('uml-parser', () => {
       const serializedModel = readFileSync(file, 'utf-8')
       // At least one configuration must result in an error
       expect(() => getConfigurations().forEach((configuration) => {
-        UmlParser.invoke(serializedModel, { ...configuration, debug: true, strict: true }, undefined)
+        UmlParser.validateAndInvoke(serializedModel, { ...configuration, debug: true, strict: true })
       })).toThrowErrorMatchingSnapshot()
     })
   })

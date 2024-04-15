@@ -71,18 +71,18 @@ export const throwIfEven = definePlugin({
 describe('plugins', () => {
   it('can be defined', () => {
     expect(multiply.name).toBe('first')
-    expect(multiply.invoke(2, { factor: 3 }, undefined)).toBe(6)
+    expect(multiply.validateAndInvoke(2, { factor: 3 })).toBe(6)
 
     expect(add.name).toBe('second')
-    expect(add.invoke(2, { summand: 3 }, undefined)).toBe(5)
+    expect(add.validateAndInvoke(2, { summand: 3 })).toBe(5)
 
     expect(power.name).toBe('third')
-    expect(power.invoke(2, { exponent: 3 }, undefined)).toMatchObject({ result: 8 })
+    expect(power.validateAndInvoke(2, { exponent: 3 })).toMatchObject({ result: 8 })
 
     expect(throwingPlugin.name).toBe('throwing')
-    expect(() => throwingPlugin.invoke(undefined, {}, undefined)).toThrowError('This plugin always throws.')
+    expect(() => throwingPlugin.validateAndInvoke(undefined, {})).toThrowError('This plugin always throws.')
 
     expect(passthrough.name).toBe('passthrough')
-    expect(passthrough.invoke(42, {}, undefined)).toBe(42)
+    expect(passthrough.validateAndInvoke(42, {})).toBe(42)
   })
 })

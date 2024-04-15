@@ -1,6 +1,8 @@
-import type { Attributable, GraphEdge, GraphModel } from '@cm2ml/ir'
+import type { GraphEdge, GraphModel } from '@cm2ml/ir'
 import { definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
+
+import { batchFeatureVectors } from './features'
 
 export const GraphEncoder = definePlugin({
   name: 'raw-graph',
@@ -24,34 +26,28 @@ export const GraphEncoder = definePlugin({
     },
   },
   batchMetadataCollector: (models: GraphModel[]) => {
-    const attributeNames = getAttributesNames(models)
-    return { attributeNames }
+    return batchFeatureVectors(models)
   },
-  invoke(input, { includeEqualPaths, sparse, weighted }, _batchMetadata) {
+  invoke(input, { includeEqualPaths, sparse, weighted }, { nodeFeatures, nodeFeatureVector }) {
     const sortedIds = getSortedIds(input)
-    if (sparse) {
-      return encodeAsSparseList(input, sortedIds, includeEqualPaths, weighted)
+
+    const edgeEncoder = sparse ? encodeAsSparseList : encodeAsAdjacencyMatrix
+    const edgeEncoding = edgeEncoder(input, sortedIds, includeEqualPaths, weighted)
+
+    const nodeFeatureVectors = Stream
+      .from(sortedIds)
+      .map((id) => input.getNodeById(id))
+      .filterNonNull()
+      .map(nodeFeatureVector)
+      .toArray()
+
+    return {
+      ...edgeEncoding,
+      nodeFeatures,
+      nodeFeatureVectors,
     }
-    return encodeAsAdjacencyMatrix(
-      input,
-      sortedIds,
-      includeEqualPaths,
-      weighted,
-    )
   },
 })
-
-function getAttributesNames(models: GraphModel[]) {
-  return Stream
-    .from(models)
-    .flatMap((model) => Stream
-      .from<Attributable>(model.nodes)
-      .concat(model.edges),
-    )
-    .flatMap((attributable) => Stream.from(attributable.attributes))
-    .map(([attributeName]) => attributeName)
-    .toSet()
-}
 
 function getSortedIds(model: GraphModel) {
   return Stream.from(model.nodes)

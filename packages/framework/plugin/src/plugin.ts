@@ -8,22 +8,22 @@ export type PluginMetadata<Parameters extends ParameterMetadata> = Readonly<{
   readonly parameters: Parameters
 }>
 
-export type BatchMetadataCollector<In, BMIn, BMOut> = (batch: In[], previousBatchMetadata: BMIn | undefined) => BMOut | undefined
+export type BatchMetadataCollector<In, BMIn, BMOut> = (batch: In[], previousBatchMetadata: BMIn | undefined) => BMOut
 
 export type PluginInvoke<In, Out, Parameters extends ParameterMetadata, BatchMetadata> = (
   input: In,
   parameters: Readonly<ResolveParameters<Parameters>>,
-  batchMetadata: BatchMetadata | undefined,
+  batchMetadata: BatchMetadata,
 ) => Out
 
-export class Plugin<In, Out, Parameters extends ParameterMetadata, PreviousBatchMetadata = unknown, BatchMetadata = unknown> {
+export class Plugin<In, Out, Parameters extends ParameterMetadata, PreviousBatchMetadata = unknown, BatchMetadata = undefined> {
   private readonly validator: ReturnType<typeof deriveValidator>
 
   public constructor(
     public readonly name: string,
     public readonly parameters: Parameters,
     public readonly invoke: PluginInvoke<In, Out, Parameters, BatchMetadata>,
-    public readonly batchMetadataCollector: BatchMetadataCollector<In, PreviousBatchMetadata, BatchMetadata> | undefined,
+    public readonly batchMetadataCollector: BatchMetadataCollector<In, PreviousBatchMetadata, BatchMetadata>,
   ) {
     this.validator = deriveValidator(parameters)
   }
@@ -31,7 +31,7 @@ export class Plugin<In, Out, Parameters extends ParameterMetadata, PreviousBatch
   /** Validate the passed parameters and invoke the plugin if successful */
   public validateAndInvoke(input: In, parameters: unknown): Out {
     const validatedParameters = this.validate(parameters)
-    return this.invoke(input, validatedParameters, undefined)
+    return this.invoke(input, validatedParameters, this.batchMetadataCollector([input], undefined))
   }
 
   public validate(
@@ -52,13 +52,32 @@ export class Plugin<In, Out, Parameters extends ParameterMetadata, PreviousBatch
 export function definePlugin<In, Out, Parameters extends ParameterMetadata, PreviousBatchMetadata, BatchMetadata>(
   data: PluginMetadata<Parameters> & {
     invoke: PluginInvoke<In, Out, Parameters, BatchMetadata>
+    batchMetadataCollector: BatchMetadataCollector<In, PreviousBatchMetadata, BatchMetadata>
+  },
+): Plugin<In, Out, Parameters, PreviousBatchMetadata, BatchMetadata>
+export function definePlugin<In, Out, Parameters extends ParameterMetadata>(
+  data: PluginMetadata<Parameters> & {
+    invoke: PluginInvoke<In, Out, Parameters, undefined>
+  }
+): Plugin<In, Out, Parameters, unknown, In[]>
+export function definePlugin<In, Out, Parameters extends ParameterMetadata, PreviousBatchMetadata, BatchMetadata>(
+  data: PluginMetadata<Parameters> & {
+    invoke: PluginInvoke<In, Out, Parameters, BatchMetadata>
     batchMetadataCollector?: BatchMetadataCollector<In, PreviousBatchMetadata, BatchMetadata>
   },
 ) {
-  return new Plugin<In, Out, Parameters, PreviousBatchMetadata, BatchMetadata>(
+  if (data.batchMetadataCollector) {
+    return new Plugin(
+      data.name,
+      data.parameters,
+      data.invoke,
+      data.batchMetadataCollector,
+    )
+  }
+  return new Plugin(
     data.name,
     data.parameters,
     data.invoke,
-    data.batchMetadataCollector,
+    () => undefined as unknown as BatchMetadata,
   )
 }

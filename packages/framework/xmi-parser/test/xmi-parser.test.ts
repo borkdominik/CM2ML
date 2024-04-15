@@ -8,10 +8,10 @@ describe('xmi-parser', () => {
   it('should parse', () => {
     const input = fs.readFileSync('../../../models/xmi-model.xmi', 'utf-8')
     const xmiParser = createXmiParser('id', () => {})
-    const output = xmiParser.invoke(input, {
+    const output = xmiParser.validateAndInvoke(input, {
       debug: false,
       strict: true,
-    }, undefined)
+    })
     expect(output.show()).toMatchSnapshot()
   })
 })

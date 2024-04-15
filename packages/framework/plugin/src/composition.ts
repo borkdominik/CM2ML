@@ -123,7 +123,7 @@ function createInvocationChain<
   return (
     input: In,
     parameters: Readonly<ResolveParameters<P1 & P2>>,
-    batchMetadata: BMMid | undefined,
+    batchMetadata: BMMid,
   ) => {
     const intermediateResult = first.invoke(input, parameters as Readonly<ResolveParameters<P1>>, batchMetadata)
     const nextBatchMetadata = second.batchMetadataCollector?.([intermediateResult], batchMetadata)

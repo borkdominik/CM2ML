@@ -15,7 +15,7 @@ export * from '@cm2ml/tree-encoder'
 export * from '@cm2ml/uml'
 export * from '@cm2ml/xmi-parser'
 
-export type Parser = Plugin<string, GraphModel, any>
+export type Parser = Plugin<string, GraphModel, any, unknown, any>
 
 export const parsers: Parser[] = [ArchimateParser, EcoreParser, UmlParser]
 
@@ -27,7 +27,7 @@ export const parserMap = {
 
 export type EncoderMetadata = any
 
-export type Encoder = Plugin<GraphModel, unknown, any, unknown, EncoderMetadata>
+export type Encoder = Plugin<GraphModel, unknown, any, unknown, any>
 
 export const encoders: Encoder[] = [GraphEncoder, TreeEncoder, OneHotEncoder]
 
