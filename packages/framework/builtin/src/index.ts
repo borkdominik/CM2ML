@@ -27,7 +27,7 @@ export const parserMap = {
 
 export type EncoderMetadata = any
 
-export type Encoder = Plugin<GraphModel, unknown, any, unknown, any>
+export type Encoder<Encoding = unknown> = Plugin<GraphModel, Encoding, any, unknown, any>
 
 export const encoders: Encoder[] = [GraphEncoder, TreeEncoder, OneHotEncoder]
 

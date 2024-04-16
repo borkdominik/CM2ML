@@ -47,3 +47,13 @@ export type OmitCallSignature<T> = { [K in keyof T]: T[K] } & (T extends new (
 ) => infer S
   ? new (...args: R) => S
   : unknown)
+
+export function createOpacityRangeMapper(min: number, max: number) {
+  const minOpacity = 0.3
+  const maxOpacity = 1
+  if (min === max) {
+    return () => maxOpacity
+  }
+  return (weight: number) =>
+    minOpacity + (maxOpacity - minOpacity) * ((weight - min) / (max - min))
+}

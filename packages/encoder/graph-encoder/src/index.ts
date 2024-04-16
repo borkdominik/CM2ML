@@ -4,6 +4,8 @@ import { Stream } from '@yeger/streams'
 
 import { batchFeatureVectors } from './features'
 
+export type { FeatureVectorTemplate, FeatureVector } from './features'
+
 export const GraphEncoder = definePlugin({
   name: 'raw-graph',
   parameters: {

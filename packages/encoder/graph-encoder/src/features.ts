@@ -3,6 +3,8 @@ import { Stream } from '@yeger/streams'
 
 export type FeatureVectorTemplate = AttributeName[]
 
+export type FeatureVector = (string | null)[]
+
 export function batchFeatureVectors(models: GraphModel[]) {
   const nodes = Stream.from(models).flatMap(({ nodes }) => nodes)
   const edges = Stream.from(models).flatMap(({ edges }) => edges)
@@ -25,6 +27,6 @@ function getFeatureVectorTemplate(attributables: Stream<Attributable>): FeatureV
     .sort()
 }
 
-function createFeatureVectorFromTemplate(template: FeatureVectorTemplate, attributable: Attributable) {
+function createFeatureVectorFromTemplate(template: FeatureVectorTemplate, attributable: Attributable): FeatureVector {
   return template.map((attributeName) => attributable.getAttribute(attributeName)?.value.literal ?? null)
 }

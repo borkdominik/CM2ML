@@ -5,7 +5,7 @@ import type { GraphModel } from '@cm2ml/ir'
 import type { ParameterValues } from '../Parameters'
 import { Hint } from '../ui/hint'
 
-import { RawGraphEncoding } from './encodings/RawGraphEncoding'
+import { RawGraphEncoding } from './encodings/raw-graph/RawGraphEncoding'
 
 export interface Props {
   encoder: Encoder
