@@ -1,5 +1,6 @@
 import { GraphEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons'
 import type { HTMLAttributes, PointerEvent, ReactNode } from 'react'
 import { useMemo } from 'react'
 
@@ -43,7 +44,7 @@ export function RawGraphEncoding({ model, parameters }: Props) {
     if (encoding.list.length === 0) {
       return <Hint text="No edges" />
     }
-    return <List list={encoding.list} nodes={encoding.nodes} />
+    return <List list={encoding.list} nodes={encoding.nodes} nodeFeatures={encoding.nodeFeatures} nodeFeaturesVectors={encoding.nodeFeatureVectors} />
   }
   if (encoding.matrix.every((row) => row.every((weight) => weight === 0))) {
     return <Hint text="No edges" />
@@ -258,16 +259,32 @@ type AdjacencyList = (
 interface ListProps {
   list: AdjacencyList
   nodes: string[]
+  nodeFeatures: string[]
+  nodeFeaturesVectors: (string | null)[][]
 }
 
-function List({ list, nodes }: ListProps) {
+function List({ list, nodes, nodeFeatures, nodeFeaturesVectors }: ListProps) {
   const getOpacity = useWeightedOpacityFromList(list)
   const listEdgePaddingAmount = nodes.length.toFixed(0).length
   return (
     <ResizablePanelGroup direction="vertical" className="h-full select-none">
       <ResizablePanel>
         <div className="h-full overflow-y-auto p-2">
-          <span className="text-sm font-bold">Nodes</span>
+          <div className="flex justify-between">
+            <span className="text-sm font-bold">
+              Nodes
+            </span>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <QuestionMarkCircledIcon className="size-4" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <FeatureVector featureVector={nodeFeatures} />
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
           <div className="flex flex-wrap font-mono text-xs">
             <ListBorder>[</ListBorder>
             {nodes.map((node, index) => (
@@ -275,6 +292,7 @@ function List({ list, nodes }: ListProps) {
                 key={node}
                 node={node}
                 isLast={index === nodes.length - 1}
+                featureVector={nodeFeaturesVectors[index]}
               />
             ))}
             <ListBorder>]</ListBorder>
@@ -310,19 +328,53 @@ function List({ list, nodes }: ListProps) {
 interface ListNodeProps {
   node: string
   isLast: boolean
+  featureVector: (string | null)[] | undefined
 }
 
-function ListNode({ node, isLast }: ListNodeProps) {
+function ListNode({ node, isLast, featureVector }: ListNodeProps) {
   const isSelected = useIsSelectedNode(node)
   const setSelection = useSelection.use.setSelection()
+
   return (
-    <ListEntry
-      onClick={() => setSelection({ selection: node, animate: true })}
-      isSelected={isSelected}
-      isLast={isLast}
-    >
-      {node}
-    </ListEntry>
+    <>
+      <TooltipProvider>
+        <Tooltip disableHoverableContent={!featureVector}>
+          <TooltipTrigger>
+            <ListEntry
+              onClick={() => setSelection({ selection: node, animate: true })}
+              isSelected={isSelected}
+              isLast={isLast}
+            >
+              {node}
+            </ListEntry>
+          </TooltipTrigger>
+          <TooltipContent>
+            <FeatureVector featureVector={featureVector ?? []} />
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </>
+  )
+}
+
+interface FeatureVectorProps {
+  featureVector: (string | null)[]
+}
+
+function FeatureVector({ featureVector }: FeatureVectorProps) {
+  return (
+    <div className="flex flex-col flex-wrap font-mono text-xs">
+      {featureVector.map((feature, index) => (
+        <div key={index} className="flex flex-wrap gap-1">
+          <span className="text-primary-foreground">
+            [
+            {index}
+            ]
+          </span>
+          <span className="text-secondary-foreground">{feature ?? 'null'}</span>
+        </div>
+      ))}
+    </div>
   )
 }
 
