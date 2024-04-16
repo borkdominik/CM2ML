@@ -37,7 +37,7 @@ export const useSelection = createSelectors(
 )
 
 export function useIsSelectedNode(id: string | undefined) {
-  const selection = useSelection.use.selection()
+  const { selection } = useSelection.use.selection() ?? {}
   if (id === undefined || selection === undefined) {
     return false
   }
