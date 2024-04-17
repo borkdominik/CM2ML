@@ -33,8 +33,9 @@ export const GraphEncoder = definePlugin({
   invoke(input, { includeEqualPaths, sparse, weighted }, { nodeFeatures, nodeFeatureVector, edgeFeatures, edgeFeatureVector }) {
     const sortedIds = getSortedIds(input)
 
+    const sortedEdges = getRelevantEdges(input, includeEqualPaths).toArray().sort(createEdgeSorter(sortedIds))
     const edgeEncoder = sparse ? encodeAsSparseList : encodeAsAdjacencyMatrix
-    const edgeEncoding = edgeEncoder(input, sortedIds, includeEqualPaths, weighted)
+    const edgeEncoding = edgeEncoder(new Set(sortedEdges), sortedIds, weighted)
 
     const nodeFeatureVectors = Stream
       .from(sortedIds)
@@ -43,10 +44,7 @@ export const GraphEncoder = definePlugin({
       .map(nodeFeatureVector)
       .toArray()
 
-    const edgeFeatureVectors = Stream
-      .from(input.edges)
-      .map((edge) => edgeFeatureVector(edge))
-      .toArray()
+    const edgeFeatureVectors = sortedEdges.map(edgeFeatureVector)
 
     return {
       ...edgeEncoding,
@@ -69,16 +67,14 @@ function getSortedIds(model: GraphModel) {
 export type AdjacencyList = [number, number][] | [number, number, number][]
 
 function encodeAsSparseList(
-  model: GraphModel,
+  edges: ReadonlySet<GraphEdge>,
   sortedIds: string[],
-  includeEqualPaths: boolean,
   weighted: boolean,
 ) {
   const list = new Array<
     readonly [number, number] | readonly [number, number, number]
   >()
-  const relevantEdges = getRelevantEdges(model, includeEqualPaths)
-  relevantEdges.forEach((edge) => {
+  edges.forEach((edge) => {
     const sourceId = edge.source.id
     const targetId = edge.target.id
     if (sourceId === undefined) {
@@ -93,7 +89,7 @@ function encodeAsSparseList(
       ? ([
           sourceIndex,
           targetIndex,
-          getWeightedValue(edge, relevantEdges),
+          getWeightedValue(edge, edges),
         ] as const)
       : ([sourceIndex, targetIndex] as const)
     list.push(entry)
@@ -131,13 +127,12 @@ function sortAdjacencyList(list: AdjacencyList) {
 export type AdjacencyMatrix = number[][]
 
 function encodeAsAdjacencyMatrix(
-  model: GraphModel,
+  edges: ReadonlySet<GraphEdge>,
   sortedIds: string[],
-  includeEqualPaths: boolean,
   weighted: boolean,
 ) {
   const matrix = createAdjacencyMatrix(sortedIds.length)
-  fillAdjacencyMatrix(matrix, model, sortedIds, includeEqualPaths, weighted)
+  fillAdjacencyMatrix(matrix, edges, sortedIds, weighted)
   return { format: 'matrix' as const, matrix, nodes: sortedIds }
 }
 
@@ -151,13 +146,11 @@ function createAdjacencyMatrix(size: number): AdjacencyMatrix {
 
 function fillAdjacencyMatrix(
   matrix: AdjacencyMatrix,
-  model: GraphModel,
+  edges: ReadonlySet<GraphEdge>,
   sortedIds: string[],
-  includeEqualPaths: boolean,
   weighted: boolean,
 ) {
-  const relevantEdges = getRelevantEdges(model, includeEqualPaths)
-  relevantEdges.forEach((edge) => {
+  edges.forEach((edge) => {
     const sourceId = edge.source.id
     const targetId = edge.target.id
     if (sourceId === undefined) {
@@ -168,27 +161,27 @@ function fillAdjacencyMatrix(
     }
     const sourceIndex = sortedIds.indexOf(sourceId)
     const targetIndex = sortedIds.indexOf(targetId)
-    const value = weighted ? getWeightedValue(edge, relevantEdges) : 1
+    const value = weighted ? getWeightedValue(edge, edges) : 1
     matrix[sourceIndex]![targetIndex] = value
   })
 }
 
 function getWeightedValue(
   edge: GraphEdge,
-  relevantEdges: ReadonlySet<GraphEdge>,
+  edges: ReadonlySet<GraphEdge>,
 ) {
-  if (relevantEdges.size === edge.model.edges.size) {
+  if (edges.size === edge.model.edges.size) {
     return 1 / edge.target.incomingEdges.size
   }
   const relevantIncomingEdges = Stream.from(edge.target.incomingEdges)
-    .map((incomingEdge) => (relevantEdges.has(incomingEdge) ? 1 : 0))
+    .map((incomingEdge) => (edges.has(incomingEdge) ? 1 : 0))
     .sum()
   return 1 / relevantIncomingEdges
 }
 
 function getRelevantEdges(model: GraphModel, includeEqualPaths: boolean) {
   if (includeEqualPaths) {
-    return model.edges
+    return Stream.from(model.edges)
   }
   const edges = new Set<GraphEdge>()
   const consideredEdgePaths = new Map<string, Set<string>>()
@@ -210,5 +203,27 @@ function getRelevantEdges(model: GraphModel, includeEqualPaths: boolean) {
     }
     edges.add(edge)
   })
-  return edges
+  return Stream.from(edges)
+}
+
+function createEdgeSorter(sortedIds: string[]) {
+  return (a: GraphEdge, b: GraphEdge) => {
+    const sourceIndexA = sortedIds.indexOf(a.source.id!)
+    const sourceIndexB = sortedIds.indexOf(b.source.id!)
+    if (sourceIndexA < sourceIndexB) {
+      return -1
+    }
+    if (sourceIndexA > sourceIndexB) {
+      return 1
+    }
+    const targetIndexA = sortedIds.indexOf(a.target.id!)
+    const targetIndexB = sortedIds.indexOf(b.target.id!)
+    if (targetIndexA < targetIndexB) {
+      return -1
+    }
+    if (targetIndexA > targetIndexB) {
+      return 1
+    }
+    return 0
+  }
 }
