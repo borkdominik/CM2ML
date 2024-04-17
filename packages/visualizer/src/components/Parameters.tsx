@@ -1,7 +1,7 @@
 import type { Parameter, ParameterMetadata, ParameterType } from '@cm2ml/plugin'
-import { CaretSortIcon } from '@radix-ui/react-icons'
+import { CaretSortIcon, Cross1Icon, ResetIcon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
-import { Fragment, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { Button } from './ui/button'
 import { Checkbox } from './ui/checkbox'
@@ -181,59 +181,62 @@ function StringParameter({
   parameter,
   value,
 }: ParameterInputProps<'string'>) {
-  if (parameter.allowedValues) {
-    return (
-      <Container>
-        <ParameterLabel name={name} />
-        <Select
-          name={name}
-          value={value}
-          onValueChange={(selectedValue) => onChange(selectedValue)}
-        >
-          <SelectTrigger className="max-w-xs">
-            <SelectValue placeholder="Select a value" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Value</SelectLabel>
-              {parameter.allowedValues.map((allowedValue) => (
-                <SelectItem key={allowedValue} value={allowedValue}>
-                  {allowedValue}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-        <Description description={parameter.description} />
-      </Container>
-    )
-  }
-  return (
-    <Container>
-      <ParameterLabel name={name} />
+  const input = parameter.allowedValues
+    ? (<AllowedValueSelect name={name} value={value} allowedValues={parameter.allowedValues} onValueChange={onChange} />)
+    : (
       <Input
         id={name}
         value={value}
         type="text"
         onChange={(event) => onChange(event.target.value)}
       />
+      )
+  return (
+    <Container>
+      <ParameterLabel name={name} />
+      {input}
       <Description description={parameter.description} />
     </Container>
   )
 }
 
-/**
- * Note: Only supports string arrays with list of allowed values
- */
 function StringArrayInput({
   name,
   onChange,
   parameter,
-  value,
+  value: values,
 }: ParameterInputProps<'array<string>'>) {
+  const [inputValue, setInputValue] = useState('')
   if (!parameter.allowedValues) {
     return null
   }
+  const onInputConfirmed = () => {
+    setInputValue('')
+    onChange([...values, inputValue])
+  }
+
+  const input = parameter.allowedValues
+    ? (
+      <AllowedValueSelect
+        name={name}
+        allowedValues={parameter.allowedValues}
+        onValueChange={(selectedValue) => onChange([...values, selectedValue])}
+      />
+      )
+    : (
+      <Input
+        id={name}
+        value={inputValue}
+        type="text"
+        onChange={(event) => setInputValue(event.target.value)}
+        onBlur={onInputConfirmed}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            onInputConfirmed()
+          }
+        }}
+      />
+      )
   return (
     <Collapsible>
       <Container>
@@ -246,29 +249,61 @@ function StringArrayInput({
               </Button>
             </CollapsibleTrigger>
             <ParameterLabel name={name} />
+            <div className="flex-1" />
+            <Button variant="ghost" onClick={() => onChange([])}>
+              <ResetIcon className="text-primary size-4" />
+            </Button>
           </div>
           <Description description={parameter.description} />
         </Container>
         <CollapsibleContent>
           <Container>
+            {input}
             {
-              parameter.allowedValues.map((allowedValue) => (
-                <Fragment key={allowedValue}>
-                  <div className="flex items-center gap-2">
-                    <Checkbox
-                      id={`${name}-${allowedValue}`}
-                      checked={value.includes(allowedValue)}
-                      onCheckedChange={(checked) => checked ? onChange([...value, allowedValue]) : onChange(value.filter((v) => v !== allowedValue))}
-                    />
-                    <ParameterLabel name={allowedValue} />
-                  </div>
-                </Fragment>
+              values.map((value, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={() => onChange(values.filter((entry) => entry !== value))}>
+                    <Cross1Icon className="s-4 text-primary" />
+                  </Button>
+                  <ParameterLabel name={value} />
+                </div>
               ))
           }
           </Container>
         </CollapsibleContent>
       </Container>
     </Collapsible>
+  )
+}
+
+interface AllowedStringValueSelectProps {
+  name: string
+  value?: string
+  allowedValues: string[] | readonly string[]
+  onValueChange: (value: string) => void
+}
+
+function AllowedValueSelect({ name, value, allowedValues, onValueChange }: AllowedStringValueSelectProps) {
+  return (
+    <Select
+      name={name}
+      value={value}
+      onValueChange={onValueChange}
+    >
+      <SelectTrigger className="max-w-xs">
+        <SelectValue placeholder="Select a value" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Value</SelectLabel>
+          {allowedValues.map((allowedValue) => (
+            <SelectItem key={allowedValue} value={allowedValue}>
+              {allowedValue}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   )
 }
 
