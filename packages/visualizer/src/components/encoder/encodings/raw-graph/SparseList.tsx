@@ -14,10 +14,12 @@ interface ListProps {
   list: AdjacencyList
   nodes: string[]
   nodeFeatures: FeatureVectorTemplate
-  nodeFeaturesVectors: FeatureVectorType[]
+  nodeFeatureVectors: FeatureVectorType[]
+  edgeFeatures: FeatureVectorTemplate
+  edgeFeatureVectors: FeatureVectorType[]
 }
 
-export function SparseList({ list, nodes, nodeFeatures, nodeFeaturesVectors }: ListProps) {
+export function SparseList({ list, nodes, nodeFeatures, nodeFeatureVectors, edgeFeatures, edgeFeatureVectors }: ListProps) {
   const getOpacity = useWeightedOpacityFromList(list)
   const listEdgePaddingAmount = nodes.length.toFixed(0).length
   return (
@@ -46,7 +48,7 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeaturesVectors }: L
                 key={node}
                 node={node}
                 isLast={index === nodes.length - 1}
-                featureVector={nodeFeaturesVectors[index]}
+                featureVector={nodeFeatureVectors[index]}
               />
             ))}
             <ListBorder>]</ListBorder>
@@ -56,7 +58,21 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeaturesVectors }: L
       <ResizableHandle withHandle />
       <ResizablePanel>
         <div className="h-full overflow-y-auto p-2">
-          <span className="text-sm font-bold">Edges</span>
+          <div className="flex justify-between">
+            <span className="text-sm font-bold">
+              Edges
+            </span>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <QuestionMarkCircledIcon className="size-4" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <FeatureVector featureVector={edgeFeatures} />
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
           <div className="flex flex-wrap font-mono text-xs">
             <ListBorder>[</ListBorder>
             {list.map(([source, target, weight], index) => (
@@ -69,6 +85,7 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeaturesVectors }: L
                 target={target}
                 weight={weight}
                 indexPadding={listEdgePaddingAmount}
+                featureVector={edgeFeatureVectors[index]}
               />
             ))}
             <ListBorder>]</ListBorder>
@@ -119,6 +136,7 @@ interface ListEdgeProps {
   source: number
   target: number
   weight: number | undefined
+  featureVector: FeatureVectorType | undefined
 }
 
 function ListEdge({
@@ -129,6 +147,7 @@ function ListEdge({
   source,
   target,
   weight,
+  featureVector,
 }: ListEdgeProps) {
   const sourceId = nodes[source]
   const targetId = nodes[target]
@@ -137,7 +156,7 @@ function ListEdge({
   if (!sourceId || !targetId) {
     return null
   }
-  const isTooltipDisabled = getOpacity === undefined
+  const isTooltipDisabled = !getOpacity && !featureVector
   function padIndex(index: number) {
     return index.toFixed(0).padStart(indexPadding, ' ')
   }
@@ -159,7 +178,12 @@ function ListEdge({
       <TooltipProvider>
         <Tooltip disableHoverableContent={isTooltipDisabled}>
           <TooltipTrigger>{entry}</TooltipTrigger>
-          <TooltipContent>{weight ?? 1}</TooltipContent>
+          <TooltipContent>
+            <div>
+              {getOpacity ? (weight ?? 1) : null}
+              <FeatureVector featureVector={featureVector ?? []} />
+            </div>
+          </TooltipContent>
         </Tooltip>
       </TooltipProvider>
       )

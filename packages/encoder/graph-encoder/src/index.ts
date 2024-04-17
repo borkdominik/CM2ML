@@ -30,7 +30,7 @@ export const GraphEncoder = definePlugin({
   batchMetadataCollector: (models: GraphModel[]) => {
     return batchFeatureVectors(models)
   },
-  invoke(input, { includeEqualPaths, sparse, weighted }, { nodeFeatures, nodeFeatureVector }) {
+  invoke(input, { includeEqualPaths, sparse, weighted }, { nodeFeatures, nodeFeatureVector, edgeFeatures, edgeFeatureVector }) {
     const sortedIds = getSortedIds(input)
 
     const edgeEncoder = sparse ? encodeAsSparseList : encodeAsAdjacencyMatrix
@@ -43,10 +43,17 @@ export const GraphEncoder = definePlugin({
       .map(nodeFeatureVector)
       .toArray()
 
+    const edgeFeatureVectors = Stream
+      .from(input.edges)
+      .map((edge) => edgeFeatureVector(edge))
+      .toArray()
+
     return {
       ...edgeEncoding,
       nodeFeatures,
       nodeFeatureVectors,
+      edgeFeatures,
+      edgeFeatureVectors,
     }
   },
 })
