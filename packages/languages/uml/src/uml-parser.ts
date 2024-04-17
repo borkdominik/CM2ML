@@ -44,6 +44,12 @@ const UmlRefiner = definePlugin({
       defaultValue: false,
       description: 'Treat relationships as edges.',
     },
+    whitelist: {
+      type: 'array<string>',
+      defaultValue: Object.keys(Uml.Types),
+      description: 'Whitelist of UML elements to include in the model.',
+      allowedValues: Object.keys(Uml.Types),
+    },
   },
   invoke: (input: GraphModel, parameters) => {
     removeUnsupportedNodes(input)
@@ -54,6 +60,7 @@ const UmlRefiner = definePlugin({
       resolveImportedMembers(model, parameters.relationshipsAsEdges)
       resolveDeployedElements(model, parameters.relationshipsAsEdges)
     }
+    removeNonWhitelistedNodes(model, parameters.whitelist)
     persistMetadata(model)
     removeNonUmlAttributes(model)
     validateUmlModel(model, parameters)
@@ -92,6 +99,17 @@ function removeUnsupportedNodes(model: GraphModel) {
       model.debug('Parser', `Removing nil node with tag ${node.tag}`)
       model.removeNode(node)
     }
+  })
+}
+
+function removeNonWhitelistedNodes(model: GraphModel, whitelist: readonly string[]) {
+  model.nodes.forEach((node) => {
+    const type = Uml.getType(node)
+    if (!type || whitelist.includes(type)) {
+      return
+    }
+    model.debug('Parser', `Removing non-whitelisted node with type ${node.getAttribute(Uml.typeAttributeName)?.value.literal ?? node.tag}`)
+    model.removeNode(node)
   })
 }
 
