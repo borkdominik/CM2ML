@@ -1,37 +1,68 @@
 import { Stream } from '@yeger/streams'
 import { z } from 'zod'
 
-export type ParameterType = 'number' | 'string' | 'boolean'
+export type PrimitiveParameterType = 'number' | 'string' | 'boolean'
 
-export type Parameter = Readonly<
-  { readonly type: ParameterType, readonly description: string } & (
-    | {
-      readonly type: 'number'
-      readonly defaultValue: number
-    }
-    | {
-      readonly type: 'string'
-      readonly defaultValue: string
-      readonly allowedValues?: readonly string[]
-    }
-    | {
-      readonly type: 'boolean'
-      readonly defaultValue: boolean
-    }
-  )
+export type ArrayParameterType = `array<${PrimitiveParameterType}>`
+
+export type ParameterType = PrimitiveParameterType | ArrayParameterType
+
+export type ParameterBase = Readonly<{ readonly type: ParameterType, readonly description: string }>
+
+export type PrimitiveParameter = ParameterBase & Readonly<
+  {
+    readonly type: 'number'
+    readonly defaultValue: number
+  }
+  | {
+    readonly type: 'string'
+    readonly defaultValue: string
+    readonly allowedValues?: readonly string[]
+  }
+  | {
+    readonly type: 'boolean'
+    readonly defaultValue: boolean
+  }
 >
+
+export type ArrayParameter = ParameterBase & Readonly<
+  {
+    readonly type: 'array<number>'
+    readonly defaultValue: readonly number[]
+  } |
+  {
+    readonly type: 'array<string>'
+    readonly defaultValue: readonly string[]
+    readonly allowedValues?: readonly string[]
+  } |
+  {
+    readonly type: 'array<boolean>'
+    readonly defaultValue: readonly boolean[]
+  }
+>
+
+export type Parameter = PrimitiveParameter | ArrayParameter
 
 function getZodValidator(parameter: Parameter) {
   switch (parameter.type) {
     case 'number':
-      return z.number()
+      return z.number().default(parameter.defaultValue)
     case 'string':
       if (parameter.allowedValues && parameter.allowedValues.length > 0) {
-        return z.enum(parameter.allowedValues as [string, ...string[]])
+        return z.enum(parameter.allowedValues as [string, ...string[]]).default(parameter.defaultValue)
       }
-      return z.string()
+      return z.string().default(parameter.defaultValue)
     case 'boolean':
-      return z.boolean()
+      return z.boolean().default(parameter.defaultValue)
+    case 'array<number>':
+      return z.array(z.number()).default([...parameter.defaultValue])
+    case 'array<string>':
+      if (parameter.allowedValues && parameter.allowedValues.length > 0) {
+        return z.array(z.enum(parameter.allowedValues as [string, ...string[]])).default([...parameter.defaultValue])
+      }
+      return z.array(z.string()).default([...parameter.defaultValue])
+    case 'array<boolean>':
+      return z.array(z.boolean()).default([...parameter.defaultValue])
   }
 }
 
@@ -49,12 +80,18 @@ export type ResolveZodSchema<Parameters extends ParameterMetadata> = {
 
 export type ResolveZodParameterType<Type extends ParameterType> =
   Type extends 'number'
-    ? z.ZodNumber
+    ? z.ZodDefault<z.ZodNumber>
     : Type extends 'string'
-      ? z.ZodString
+      ? z.ZodDefault<z.ZodString>
       : Type extends 'boolean'
-        ? z.ZodBoolean
-        : never
+        ? z.ZodDefault<z.ZodBoolean>
+        : Type extends 'array<number>'
+          ? z.ZodDefault<z.ZodArray<z.ZodNumber>>
+          : Type extends 'array<string>'
+            ? z.ZodDefault<z.ZodArray<z.ZodString>>
+            : Type extends 'array<boolean>'
+              ? z.ZodDefault<z.ZodArray<z.ZodBoolean>>
+              : never
 
 // From: https://stackoverflow.com/a/57683652
 export type Expand<T> = T extends object
@@ -96,10 +133,10 @@ export class ValidationError extends Error {
 
 export type ValidationResult<Parameters extends ParameterMetadata> = Readonly<
   z.SafeParseReturnType<unknown, ResolveParameters<Parameters>>
->
+  >
 
-export function getTypeConstructor(parameterType: ParameterType) {
-  switch (parameterType) {
+function getPrimitiveConstructor(primitiveParameterType: PrimitiveParameterType) {
+  switch (primitiveParameterType) {
     case 'number':
       return Number
     case 'string':
@@ -114,5 +151,28 @@ export function getTypeConstructor(parameterType: ParameterType) {
         }
         return Boolean(input)
       }
+  }
+}
+
+function getArrayConstructor(primitiveParameterType: PrimitiveParameterType) {
+  const primitiveConstructor = getPrimitiveConstructor(primitiveParameterType)
+  return (input: unknown) => {
+    const array = input as unknown[]
+    return array.map((value) => primitiveConstructor(value))
+  }
+}
+
+export function getTypeConstructor(parameterType: ParameterType) {
+  switch (parameterType) {
+    case 'number':
+    case 'string':
+    case 'boolean':
+      return getPrimitiveConstructor(parameterType)
+    case 'array<number>':
+      return getArrayConstructor('number')
+    case 'array<string>':
+      return getArrayConstructor('string')
+    case 'array<boolean>':
+      return getArrayConstructor('boolean')
   }
 }
