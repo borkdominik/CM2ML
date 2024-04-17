@@ -103,9 +103,10 @@ function removeUnsupportedNodes(model: GraphModel) {
 }
 
 function removeNonWhitelistedNodes(model: GraphModel, whitelist: readonly string[]) {
+  const whitelistSet = new Set(whitelist)
   model.nodes.forEach((node) => {
-    const type = Uml.getType(node)
-    if (!type || whitelist.includes(type)) {
+    const nodeType = Uml.getType(node)
+    if (!nodeType || whitelistSet.has(nodeType)) {
       return
     }
     model.debug('Parser', `Removing non-whitelisted node with type ${node.getAttribute(Uml.typeAttributeName)?.value.literal ?? node.tag}`)
