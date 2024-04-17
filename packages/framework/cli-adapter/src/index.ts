@@ -57,7 +57,14 @@ function registerCommandOptions<Parameters extends ParameterMetadata>(
   parameters: Parameters,
 ) {
   Stream.fromObject(parameters).forEach(([name, parameter]) => {
-    if (parameter.type.startsWith('array')) {
+    if (parameter.type === 'array<string>') {
+      command.option(
+          `--${createOptionName(name)} <${name}>`,
+          createOptionDescription(parameter),
+          {
+            // type: [getTypeConstructor('array<string>')],
+          },
+      )
       return
     }
     if (parameter.type !== 'boolean') {
@@ -120,7 +127,7 @@ function pluginActionHandler<Out, Parameters extends ParameterMetadata>(
   inputFile: string,
   options: Record<string, unknown>,
 ) {
-  const normalizedOptions = normalizeOptions(options)
+  const normalizedOptions = normalizeOptions(options, plugin.parameters)
   const input = fs.readFileSync(inputFile, 'utf8')
   const result = plugin.validateAndInvoke(input, normalizedOptions)
   const resultText = getResultAsText(result, normalizedOptions.pretty)
@@ -141,7 +148,7 @@ function batchedPluginActionHandler<Out, Parameters extends ParameterMetadata>(
   inputDir: string,
   options: Record<string, unknown>,
 ) {
-  const normalizedOptions = normalizeOptions(options)
+  const normalizedOptions = normalizeOptions(options, plugin.parameters)
 
   const start = typeof normalizedOptions.start === 'number' ? normalizedOptions.start : 0
   const limit = typeof normalizedOptions.limit === 'number' ? normalizedOptions.limit : undefined
@@ -201,10 +208,10 @@ function getResultAsText(result: unknown, pretty: boolean | undefined): string {
   return typeof result === 'string' ? result : JSON.stringify(result, null, pretty ? 2 : undefined)
 }
 
-function normalizeOptions(options: Record<string, unknown>): Record<string, unknown> & { out?: string, pretty?: boolean } {
+function normalizeOptions(options: Record<string, unknown>, parameters: ParameterMetadata): Record<string, unknown> & { out?: string, pretty?: boolean } {
   return Stream.fromObject(options)
     .map(([name, parameter]) => {
-      if (Array.isArray(parameter)) {
+      if (Array.isArray(parameter) && !parameters[name]?.type.startsWith('array<')) {
         return [name, parameter[0]]
       } else {
         return [name, parameter]
