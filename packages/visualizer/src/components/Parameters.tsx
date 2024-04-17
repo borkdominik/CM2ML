@@ -1,7 +1,9 @@
 import type { Parameter, ParameterMetadata, ParameterType } from '@cm2ml/plugin'
-import { CaretSortIcon, Cross1Icon, ResetIcon } from '@radix-ui/react-icons'
+import { CaretSortIcon, Cross1Icon, SymbolIcon, TrashIcon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
 import { useMemo, useState } from 'react'
+
+import { getNewParameters } from '../lib/utils'
 
 import { Button } from './ui/button'
 import { Checkbox } from './ui/checkbox'
@@ -45,6 +47,10 @@ export function Parameters({ parameters, setValues, values }: Props) {
       ([name, value]) => parameters[name]?.defaultValue === value,
     )
   })
+
+  const resetParameters = () => {
+    setValues(getNewParameters(parameters, {}, undefined))
+  }
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
       <div className="flex items-center justify-between">
@@ -57,17 +63,23 @@ export function Parameters({ parameters, setValues, values }: Props) {
         </CollapsibleTrigger>
       </div>
       <CollapsibleContent>
-        <div className="flex flex-col gap-4 pt-4">
-          {sortedParameters.map(([name, parameter]) => (
-            <ParameterInput
-              key={name}
-              name={name}
-              onChange={(value) => setValues({ [name]: value })}
-              parameter={parameter}
-              value={values[name] ?? parameter.defaultValue}
-            />
-          ))}
-        </div>
+        <Container>
+          <div className="flex flex-col gap-4 pt-4">
+            {sortedParameters.map(([name, parameter]) => (
+              <ParameterInput
+                key={name}
+                name={name}
+                onChange={(value) => setValues({ [name]: value })}
+                parameter={parameter}
+                value={values[name] ?? parameter.defaultValue}
+              />
+            ))}
+          </div>
+          <Button variant="ghost" onClick={resetParameters} className="text-primary mx-auto flex gap-2">
+            Reset
+            <SymbolIcon className="size-4" />
+          </Button>
+        </Container>
       </CollapsibleContent>
     </Collapsible>
   )
@@ -130,7 +142,6 @@ export function ParameterInput({
         />
       )
   }
-  return null
 }
 
 function BooleanParameter({
@@ -249,15 +260,15 @@ function StringArrayInput({
               </Button>
             </CollapsibleTrigger>
             <ParameterLabel name={name} />
-            <div className="flex-1" />
-            <Button variant="ghost" onClick={() => onChange([])}>
-              <ResetIcon className="text-primary size-4" />
-            </Button>
           </div>
           <Description description={parameter.description} />
         </Container>
         <CollapsibleContent>
           <Container>
+            <Button variant="ghost" onClick={() => onChange([])} className="text-primary mx-auto flex gap-2">
+              Clear
+              <TrashIcon className="size-4" />
+            </Button>
             {input}
             {
               values.map((value, index) => (
