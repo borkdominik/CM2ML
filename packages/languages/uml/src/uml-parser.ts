@@ -47,7 +47,13 @@ const UmlRefiner = definePlugin({
     whitelist: {
       type: 'array<string>',
       defaultValue: Object.keys(Uml.Types),
-      description: 'Whitelist of UML elements to include in the model.',
+      description: 'Whitelist of UML element types to include in the model.',
+      allowedValues: Object.keys(Uml.Types),
+    },
+    blacklist: {
+      type: 'array<string>',
+      defaultValue: [],
+      description: 'Blacklist of UML element types to exclude from the model. Has precedence over the whitelist.',
       allowedValues: Object.keys(Uml.Types),
     },
   },
@@ -60,7 +66,7 @@ const UmlRefiner = definePlugin({
       resolveImportedMembers(model, parameters.relationshipsAsEdges)
       resolveDeployedElements(model, parameters.relationshipsAsEdges)
     }
-    removeNonWhitelistedNodes(model, parameters.whitelist)
+    pruneNodes(model, parameters.whitelist, parameters.blacklist)
     persistMetadata(model)
     removeNonUmlAttributes(model)
     validateUmlModel(model, parameters)
@@ -102,11 +108,12 @@ function removeUnsupportedNodes(model: GraphModel) {
   })
 }
 
-function removeNonWhitelistedNodes(model: GraphModel, whitelist: readonly string[]) {
+function pruneNodes(model: GraphModel, whitelist: readonly string[], blacklist: readonly string[]) {
   const whitelistSet = new Set(whitelist)
+  const blacklistSet = new Set(blacklist)
   model.nodes.forEach((node) => {
     const nodeType = Uml.getType(node)
-    if (!nodeType || whitelistSet.has(nodeType)) {
+    if (!nodeType || (!blacklistSet.has(nodeType) && whitelistSet.has(nodeType))) {
       return
     }
     model.debug('Parser', `Removing non-whitelisted node with type ${node.getAttribute(Uml.typeAttributeName)?.value.literal ?? node.tag}`)
