@@ -57,6 +57,9 @@ function registerCommandOptions<Parameters extends ParameterMetadata>(
   parameters: Parameters,
 ) {
   Stream.fromObject(parameters).forEach(([name, parameter]) => {
+    if (parameter.type.startsWith('array')) {
+      return
+    }
     if (parameter.type !== 'boolean') {
       command.option(
           `--${createOptionName(name)} <${name}>`,

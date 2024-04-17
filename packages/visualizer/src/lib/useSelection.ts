@@ -36,12 +36,16 @@ export const useSelection = createSelectors(
   })),
 )
 
+export function isNodeSelection(selection: NodeSelection | EdgeSelection): selection is NodeSelection {
+  return typeof selection === 'string'
+}
+
 export function useIsSelectedNode(id: string | undefined) {
   const { selection } = useSelection.use.selection() ?? {}
   if (id === undefined || selection === undefined) {
     return false
   }
-  if (typeof selection === 'string') {
+  if (isNodeSelection(selection)) {
     return selection === id
   }
   return false
@@ -52,7 +56,7 @@ export function useIsSelectedSource(id: string | undefined) {
   if (id === undefined || selection === undefined) {
     return false
   }
-  if (typeof selection === 'string') {
+  if (isNodeSelection(selection)) {
     return selection === id
   }
   return selection.some(([sourceId]) => sourceId === id)
@@ -63,7 +67,7 @@ export function useIsSelectedTarget(id: string | undefined) {
   if (id === undefined || selection === undefined) {
     return false
   }
-  if (typeof selection === 'string') {
+  if (isNodeSelection(selection)) {
     return selection === id
   }
   return selection.some(([_, targetId]) => targetId === id)
@@ -81,7 +85,7 @@ export function useIsSelectedEdge(
   ) {
     return false
   }
-  if (typeof selection === 'string') {
+  if (isNodeSelection(selection)) {
     return selection === sourceId || selection === targetId
   }
   return selection.some(([sId, tId]) => sId === sourceId && tId === targetId)

@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 export type PrimitiveParameterType = 'number' | 'string' | 'boolean'
 
-export type ArrayParameterType = `array<${PrimitiveParameterType}>`
+export type ArrayParameterType = `array<string>` // `array<${PrimitiveParameterType}>`
 
 export type ParameterType = PrimitiveParameterType | ArrayParameterType
 
@@ -26,19 +26,20 @@ export type PrimitiveParameter = ParameterBase & Readonly<
 >
 
 export type ArrayParameter = ParameterBase & Readonly<
-  {
-    readonly type: 'array<number>'
-    readonly defaultValue: readonly number[]
-  } |
+  // {
+  //   readonly type: 'array<number>'
+  //   readonly defaultValue: readonly number[]
+  // } |
   {
     readonly type: 'array<string>'
     readonly defaultValue: readonly string[]
-    readonly allowedValues?: readonly string[]
-  } |
-  {
-    readonly type: 'array<boolean>'
-    readonly defaultValue: readonly boolean[]
+    readonly allowedValues: readonly string[]
   }
+  // |
+  // {
+  //   readonly type: 'array<boolean>'
+  //   readonly defaultValue: readonly boolean[]
+  // }
 >
 
 export type Parameter = PrimitiveParameter | ArrayParameter
@@ -54,15 +55,15 @@ function getZodValidator(parameter: Parameter) {
       return z.string().default(parameter.defaultValue)
     case 'boolean':
       return z.boolean().default(parameter.defaultValue)
-    case 'array<number>':
-      return z.array(z.number()).default([...parameter.defaultValue])
+    // case 'array<number>':
+    //   return z.array(z.number()).default([...parameter.defaultValue])
     case 'array<string>':
       if (parameter.allowedValues && parameter.allowedValues.length > 0) {
         return z.array(z.enum(parameter.allowedValues as [string, ...string[]])).default([...parameter.defaultValue])
       }
       return z.array(z.string()).default([...parameter.defaultValue])
-    case 'array<boolean>':
-      return z.array(z.boolean()).default([...parameter.defaultValue])
+    // case 'array<boolean>':
+    //   return z.array(z.boolean()).default([...parameter.defaultValue])
   }
 }
 
@@ -168,11 +169,11 @@ export function getTypeConstructor(parameterType: ParameterType) {
     case 'string':
     case 'boolean':
       return getPrimitiveConstructor(parameterType)
-    case 'array<number>':
-      return getArrayConstructor('number')
+    // case 'array<number>':
+    //   return getArrayConstructor('number')
     case 'array<string>':
       return getArrayConstructor('string')
-    case 'array<boolean>':
-      return getArrayConstructor('boolean')
+    // case 'array<boolean>':
+    //   return getArrayConstructor('boolean')
   }
 }

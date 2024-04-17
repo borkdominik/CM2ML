@@ -38,7 +38,6 @@ export class Plugin<In, Out, Parameters extends ParameterMetadata, PreviousBatch
     parameters: unknown,
   ): Readonly<ResolveParameters<Parameters>> {
     try {
-      // @ts-expect-error TS can't handle the expansion of the validation result, even though the types would match
       return this.validator.parse(parameters)
     } catch (error) {
       if (error instanceof ZodError) {

@@ -22,7 +22,12 @@ import {
   SelectValue,
 } from './ui/select'
 
-export type ParameterValues = Record<string, boolean | number | string | readonly boolean[] | readonly number[] | readonly string[]>
+export type ParameterValues = Record<string, boolean |
+  number |
+  string |
+  // readonly boolean[] |
+  // readonly number[] |
+  readonly string[]>
 
 export interface Props {
   parameters: ParameterMetadata
@@ -70,15 +75,15 @@ export function Parameters({ parameters, setValues, values }: Props) {
 
 export interface ParameterInputProps<T extends ParameterType> {
   name: string
-  onChange: (value: boolean | number | string | boolean[] | number[] | string[]) => void
+  onChange: (value: boolean | number | string | string[]) => void
   parameter: Parameter & { type: T }
   value: T extends 'boolean' ? boolean
     : T extends 'number' ? number
       : T extends 'string' ? string
-        : T extends 'array<boolean>' ? readonly boolean[]
-          : T extends 'array<number>' ? readonly number[]
-            : T extends 'array<string>' ? readonly string[]
-              : never
+        // : T extends 'array<boolean>' ? readonly boolean[]
+        //   : T extends 'array<number>' ? readonly number[]
+        : T extends 'array<string>' ? readonly string[]
+          : never
 }
 
 export function ParameterInput({
