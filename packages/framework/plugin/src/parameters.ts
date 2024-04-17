@@ -33,7 +33,7 @@ export type ArrayParameter = ParameterBase & Readonly<
   {
     readonly type: 'array<string>'
     readonly defaultValue: readonly string[]
-    readonly allowedValues: readonly string[]
+    readonly allowedValues?: readonly string[]
   }
   // |
   // {
