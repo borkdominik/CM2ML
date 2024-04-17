@@ -30,16 +30,20 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeatureVectors, edge
             <span className="text-sm font-bold">
               Nodes
             </span>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <QuestionMarkCircledIcon className="size-4" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <FeatureVector featureVector={nodeFeatures} />
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            {nodeFeatures.length > 0
+              ? (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <QuestionMarkCircledIcon className="size-4" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <FeatureVector featureVector={nodeFeatures} />
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                )
+              : null}
           </div>
           <div className="flex flex-wrap font-mono text-xs">
             <ListBorder>[</ListBorder>
@@ -62,16 +66,20 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeatureVectors, edge
             <span className="text-sm font-bold">
               Edges
             </span>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <QuestionMarkCircledIcon className="size-4" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <FeatureVector featureVector={edgeFeatures} />
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            {edgeFeatures.length > 0
+              ? (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <QuestionMarkCircledIcon className="size-4" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <FeatureVector featureVector={edgeFeatures} />
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                )
+              : null}
           </div>
           <div className="flex flex-wrap font-mono text-xs">
             <ListBorder>[</ListBorder>
