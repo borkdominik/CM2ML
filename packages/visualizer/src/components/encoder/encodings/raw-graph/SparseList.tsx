@@ -128,7 +128,7 @@ function ListNode({ node, isLast, featureVector }: ListNodeProps) {
             </ListEntry>
           </TooltipTrigger>
           <TooltipContent>
-            <FeatureVector featureVector={featureVector ?? []} />
+            {featureVector ? <FeatureVector featureVector={featureVector} /> : null}
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -189,7 +189,7 @@ function ListEdge({
           <TooltipContent>
             <div>
               {getOpacity ? (weight ?? 1) : null}
-              <FeatureVector featureVector={featureVector ?? []} />
+              {featureVector ? <FeatureVector featureVector={featureVector} /> : null}
             </div>
           </TooltipContent>
         </Tooltip>

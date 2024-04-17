@@ -265,18 +265,18 @@ function StringArrayInput({
         </Container>
         <CollapsibleContent>
           <Container>
-            <Button variant="ghost" onClick={() => onChange([])} className="text-primary mx-auto flex gap-2">
+            <Button variant="ghost" onClick={() => onChange([])} className="text-primary mx-auto flex gap-2" disabled={values.length === 0}>
               Clear
               <TrashIcon className="size-4" />
             </Button>
             {input}
             {
               values.map((value, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  <Button variant="ghost" size="sm" onClick={() => onChange(values.filter((entry) => entry !== value))}>
+                <div key={index} className="flex items-center gap-2  text-xs">
+                  <Button variant="ghost" className="-my-1" size="sm" onClick={() => onChange(values.filter((entry) => entry !== value))}>
                     <Cross1Icon className="s-4 text-primary" />
                   </Button>
-                  <ParameterLabel name={value} />
+                  <span className="select-none text-balance font-mono">{value}</span>
                 </div>
               ))
           }
