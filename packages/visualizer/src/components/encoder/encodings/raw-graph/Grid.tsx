@@ -1,3 +1,4 @@
+import type { AdjacencyMatrix } from '@cm2ml/builtin'
 import type { PointerEvent } from 'react'
 import { useMemo } from 'react'
 
@@ -8,9 +9,7 @@ import { cn, createOpacityRangeMapper } from '../../../../lib/utils'
 const cellSize = 25
 const fontSize = cellSize / 2
 
-export type Matrix = number[][]
-
-export function useWeightedOpacityFromMatrix(matrix: Matrix) {
+export function useWeightedOpacityFromMatrix(matrix: AdjacencyMatrix) {
   return useMemo(() => {
     const weights = matrix.flat()
     const min = weights.reduce((min, weight) => Math.min(min, weight), Infinity)
@@ -20,7 +19,7 @@ export function useWeightedOpacityFromMatrix(matrix: Matrix) {
 }
 
 export interface GridProps {
-  matrix: Matrix
+  matrix: AdjacencyMatrix
   nodes: string[]
 }
 
@@ -68,7 +67,7 @@ function Labels({ nodes, offset }: LabelsProps) {
         height={cellSize}
         y={-fontSize / 2}
         x={offset}
-        className="cursor-default select-none fill-foreground font-mono"
+        className="fill-foreground cursor-default select-none font-mono"
         fontSize={fontSize}
       >
         Source
@@ -77,7 +76,7 @@ function Labels({ nodes, offset }: LabelsProps) {
         height={cellSize}
         y={-fontSize / 2}
         x={-offset}
-        className="-rotate-90 cursor-default select-none fill-foreground font-mono "
+        className="fill-foreground -rotate-90 cursor-default select-none font-mono "
         fontSize={fontSize}
         textAnchor="end"
       >
@@ -144,7 +143,7 @@ function Label({ index, node, offset }: LabelProps) {
 
 interface GridRowProps {
   getOpacity: (weight: number) => number
-  matrix: Matrix
+  matrix: AdjacencyMatrix
   nodes: string[]
   row: number
 }

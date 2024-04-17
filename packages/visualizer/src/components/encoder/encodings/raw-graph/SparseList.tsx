@@ -1,4 +1,4 @@
-import type { FeatureVectorTemplate, FeatureVector as FeatureVectorType } from '@cm2ml/builtin'
+import type { AdjacencyList, FeatureVectorTemplate, FeatureVector as FeatureVectorType } from '@cm2ml/builtin'
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { useMemo } from 'react'
@@ -9,11 +9,6 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '../../../u
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../../ui/tooltip'
 
 import { FeatureVector } from './Features'
-
-type AdjacencyList = (
-  | readonly [number, number]
-  | readonly [number, number, number]
-)[]
 
 interface ListProps {
   list: AdjacencyList
