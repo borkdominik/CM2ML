@@ -1,7 +1,7 @@
 import type { Parameter, ParameterMetadata, ParameterType } from '@cm2ml/plugin'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
-import { useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 
 import { Button } from './ui/button'
 import { Checkbox } from './ui/checkbox'
@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from './ui/select'
 
-export type ParameterValues = Record<string, boolean | number | string>
+export type ParameterValues = Record<string, boolean | number | string | readonly boolean[] | readonly number[] | readonly string[]>
 
 export interface Props {
   parameters: ParameterMetadata
@@ -70,9 +70,15 @@ export function Parameters({ parameters, setValues, values }: Props) {
 
 export interface ParameterInputProps<T extends ParameterType> {
   name: string
-  onChange: (value: boolean | number | string) => void
+  onChange: (value: boolean | number | string | boolean[] | number[] | string[]) => void
   parameter: Parameter & { type: T }
-  value: T extends 'boolean' ? boolean : T extends 'number' ? number : string
+  value: T extends 'boolean' ? boolean
+    : T extends 'number' ? number
+      : T extends 'string' ? string
+        : T extends 'array<boolean>' ? readonly boolean[]
+          : T extends 'array<number>' ? readonly number[]
+            : T extends 'array<string>' ? readonly string[]
+              : never
 }
 
 export function ParameterInput({
@@ -109,7 +115,17 @@ export function ParameterInput({
           value={value as string}
         />
       )
+    case 'array<string>':
+      return (
+        <StringArrayInput
+          name={name}
+          onChange={onChange}
+          parameter={parameter}
+          value={value as readonly string[]}
+        />
+      )
   }
+  return null
 }
 
 function BooleanParameter({
@@ -201,6 +217,56 @@ function StringParameter({
   )
 }
 
+/**
+ * Note: Only supports string arrays with list of allowed values
+ */
+function StringArrayInput({
+  name,
+  onChange,
+  parameter,
+  value,
+}: ParameterInputProps<'array<string>'>) {
+  if (!parameter.allowedValues) {
+    return null
+  }
+  return (
+    <Collapsible>
+      <Container>
+        <Container>
+          <div className="flex items-center gap-2">
+            <CollapsibleTrigger asChild>
+              <Button variant="ghost" size="sm" className="-mx-3">
+                <CaretSortIcon className="size-4" />
+                <span className="sr-only">Toggle</span>
+              </Button>
+            </CollapsibleTrigger>
+            <ParameterLabel name={name} />
+          </div>
+          <Description description={parameter.description} />
+        </Container>
+        <CollapsibleContent>
+          <Container>
+            {
+              parameter.allowedValues.map((allowedValue) => (
+                <Fragment key={allowedValue}>
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id={`${name}-${allowedValue}`}
+                      checked={value.includes(allowedValue)}
+                      onCheckedChange={(checked) => checked ? onChange([...value, allowedValue]) : onChange(value.filter((v) => v !== allowedValue))}
+                    />
+                    <ParameterLabel name={allowedValue} />
+                  </div>
+                </Fragment>
+              ))
+          }
+          </Container>
+        </CollapsibleContent>
+      </Container>
+    </Collapsible>
+  )
+}
+
 function Container({ children }: { children: React.ReactNode }) {
   return <div className="flex max-w-xs flex-col gap-2">{children}</div>
 }
@@ -216,7 +282,7 @@ function ParameterLabel({ name }: { name: string }) {
 
 function Description({ description }: { description: string }) {
   return (
-    <span className="select-none text-balance text-xs text-muted-foreground">
+    <span className="text-muted-foreground select-none text-balance text-xs">
       {description}
     </span>
   )
