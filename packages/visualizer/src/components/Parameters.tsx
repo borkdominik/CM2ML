@@ -12,17 +12,9 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from './ui/collapsible'
+import { Combobox } from './ui/combobox'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from './ui/select'
 
 export type ParameterValues = Record<string, boolean |
   number |
@@ -193,7 +185,7 @@ function StringParameter({
   value,
 }: ParameterInputProps<'string'>) {
   const input = parameter.allowedValues
-    ? (<AllowedValueSelect name={name} value={value} allowedValues={parameter.allowedValues} onValueChange={onChange} />)
+    ? (<AllowedValueSelect value={value} allowedValues={parameter.allowedValues} onValueChange={onChange} />)
     : (
       <Input
         id={name}
@@ -229,7 +221,6 @@ function StringArrayInput({
   const input = parameter.allowedValues
     ? (
       <AllowedValueSelect
-        name={name}
         allowedValues={parameter.allowedValues}
         onValueChange={(selectedValue) => onChange([...values, selectedValue])}
       />
@@ -288,33 +279,27 @@ function StringArrayInput({
 }
 
 interface AllowedStringValueSelectProps {
-  name: string
   value?: string
   allowedValues: string[] | readonly string[]
   onValueChange: (value: string) => void
 }
 
-function AllowedValueSelect({ name, value, allowedValues, onValueChange }: AllowedStringValueSelectProps) {
+function AllowedValueSelect({ value, allowedValues, onValueChange }: AllowedStringValueSelectProps) {
+  const options = useMemo(() => allowedValues.map((allowedValue) => ({ value: allowedValue, label: allowedValue })), [allowedValues])
+
+  if (value) {
+    return (
+      <Combobox
+        options={options}
+        externalValue={[value, onValueChange]}
+      />
+    )
+  }
   return (
-    <Select
-      name={name}
-      value={value}
-      onValueChange={onValueChange}
-    >
-      <SelectTrigger className="max-w-xs">
-        <SelectValue placeholder="Select a value" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Value</SelectLabel>
-          {allowedValues.map((allowedValue) => (
-            <SelectItem key={allowedValue} value={allowedValue}>
-              {allowedValue}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <Combobox
+      options={options}
+      onSelect={onValueChange}
+    />
   )
 }
 
