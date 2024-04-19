@@ -9,7 +9,6 @@ import { useSettings } from '../../lib/useSettings'
 import { Error } from '../Error'
 import { Parameters } from '../Parameters'
 import { Button } from '../ui/button'
-import { Card, CardContent, CardHeader } from '../ui/card'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import {
@@ -75,91 +74,93 @@ export function ModelForm() {
   }
 
   return (
-    <Card className="max-h-full overflow-y-auto">
-      <CardHeader className="space-y-2">
-        <Label htmlFor="parser" className="select-none">
-          Parser
-        </Label>
-        <Select
-          value={parser?.name ?? ''}
-          onValueChange={(value) => setParser(parserMap[value])}
-        >
-          <SelectTrigger className="max-w-xs">
-            <SelectValue placeholder="Select a parser" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Parser</SelectLabel>
-              {parsers.map((parser) => (
-                <SelectItem key={parser} value={parser}>
-                  {prettifyParserName(parser)}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-6">
-        {parser
-          ? (
-            <Parameters
-              parameters={parser.parameters}
-              values={parameters}
-              setValues={setParameters}
-            />
-            )
-          : null}
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="model" className="select-none">
-            Model
+    <div className="max-h-full overflow-y-auto">
+      <div className="space-y-4 p-2">
+        <div className="space-y-2">
+          <Label htmlFor="parser" className="select-none">
+            Parser
           </Label>
-          <Textarea
-            name="model"
-            value={serializedModel}
-            onChange={(event) => setSerializedModel(event.target.value)}
-            placeholder="Paste your model here"
-          />
-          <Or />
-          <Input type="file" onInput={onFileLoaded} className="select-none" />
-          <Or />
-          <div className="flex gap-2">
-            <Input
-              type="url"
-              placeholder="URL"
-              value={modelUrl}
-              onChange={(event) => setModelUrl(event.target.value)}
-            />
-            <Button
-              onClick={loadModelFromUrl}
-              disabled={!isValidModelUrl}
-              className="select-none"
-            >
-              Load
-            </Button>
-          </div>
-          {modelUrl && !isValidModelUrl ? <Error error="Invalid URL" /> : null}
-          {modelError ? <Error error={modelError} /> : null}
+          <Select
+            value={parser?.name ?? ''}
+            onValueChange={(value) => setParser(parserMap[value])}
+          >
+            <SelectTrigger className="max-w-xs">
+              <SelectValue placeholder="Select a parser" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Parser</SelectLabel>
+                {parsers.map((parser) => (
+                  <SelectItem key={parser} value={parser}>
+                    {prettifyParserName(parser)}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
-        {error ? <Error error={error} /> : null}
-        {layout === 'compact'
-          ? (
-            <Button
-              disabled={!model}
-              onClick={() => setIsEditing(false)}
-              className="select-none"
-            >
-              Submit
-            </Button>
-            )
-          : null}
-      </CardContent>
-    </Card>
+        <div className="flex flex-col gap-6">
+          {parser
+            ? (
+              <Parameters
+                parameters={parser.parameters}
+                values={parameters}
+                setValues={setParameters}
+              />
+              )
+            : null}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="model" className="select-none">
+              Model
+            </Label>
+            <Textarea
+              name="model"
+              value={serializedModel}
+              onChange={(event) => setSerializedModel(event.target.value)}
+              placeholder="Paste your model here"
+            />
+            <Or />
+            <Input type="file" onInput={onFileLoaded} className="select-none" />
+            <Or />
+            <div className="flex gap-2">
+              <Input
+                type="url"
+                placeholder="URL"
+                value={modelUrl}
+                onChange={(event) => setModelUrl(event.target.value)}
+              />
+              <Button
+                onClick={loadModelFromUrl}
+                disabled={!isValidModelUrl}
+                className="select-none"
+              >
+                Load
+              </Button>
+            </div>
+            {modelUrl && !isValidModelUrl ? <Error error="Invalid URL" /> : null}
+            {modelError ? <Error error={modelError} /> : null}
+          </div>
+          {error ? <Error error={error} /> : null}
+          {layout === 'compact'
+            ? (
+              <Button
+                disabled={!model}
+                onClick={() => setIsEditing(false)}
+                className="select-none"
+              >
+                Submit
+              </Button>
+              )
+            : null}
+        </div>
+      </div>
+    </div>
   )
 }
 
 function Or() {
   return (
-    <span className="mx-auto flex w-full select-none items-center gap-2 text-xs text-muted-foreground">
+    <span className="text-muted-foreground mx-auto flex w-full select-none items-center gap-2 text-xs">
       <Separator className="shrink" />
       or
       <Separator className="shrink" />

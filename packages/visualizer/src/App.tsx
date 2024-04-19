@@ -40,9 +40,7 @@ function CompactLayout() {
       <ResizablePanel defaultSize={50}>
         {isEditingModel
           ? (
-            <div className="h-full p-2">
-              <ModelForm />
-            </div>
+            <ModelForm />
             )
           : (
             <Model />
@@ -52,9 +50,7 @@ function CompactLayout() {
       <ResizablePanel>
         {isEditingEncoder
           ? (
-            <div className="h-full p-2">
-              <EncoderForm />
-            </div>
+            <EncoderForm />
             )
           : (
             <Encoder />
@@ -68,9 +64,7 @@ function ExtendedLayout() {
   return (
     <ResizablePanelGroup direction="horizontal" className="h-full">
       <ResizablePanel defaultSize={30}>
-        <div className="h-full p-2">
-          <ModelForm />
-        </div>
+        <ModelForm />
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel>
@@ -80,9 +74,7 @@ function ExtendedLayout() {
       <ResizablePanel defaultSize={30}>
         <ResizablePanelGroup direction="vertical" className="h-full">
           <ResizablePanel>
-            <div className="h-full p-2">
-              <EncoderForm />
-            </div>
+            <EncoderForm />
           </ResizablePanel>
           <ResizableHandle withHandle />
           <ResizablePanel>

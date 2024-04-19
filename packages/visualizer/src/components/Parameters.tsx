@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react'
 import { getNewParameters } from '../lib/utils'
 
 import { Button } from './ui/button'
+import { Card, CardContent } from './ui/card'
 import { Checkbox } from './ui/checkbox'
 import {
   Collapsible,
@@ -44,36 +45,40 @@ export function Parameters({ parameters, setValues, values }: Props) {
     setValues(getNewParameters(parameters, {}, undefined))
   }
   return (
-    <Collapsible open={open} onOpenChange={setOpen}>
-      <div className="flex items-center justify-between">
-        <Label>Parameters</Label>
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" size="sm">
-            <CaretSortIcon className="size-4" />
-            <span className="sr-only">Toggle</span>
-          </Button>
-        </CollapsibleTrigger>
-      </div>
-      <CollapsibleContent>
-        <Container>
-          <div className="flex flex-col gap-4 pt-4">
-            {sortedParameters.map(([name, parameter]) => (
-              <ParameterInput
-                key={name}
-                name={name}
-                onChange={(value) => setValues({ [name]: value })}
-                parameter={parameter}
-                value={values[name] ?? parameter.defaultValue}
-              />
-            ))}
+    <Card>
+      <CardContent className="px-4 py-2">
+        <Collapsible open={open} onOpenChange={setOpen}>
+          <div className="flex items-center justify-between">
+            <Label>Parameters</Label>
+            <CollapsibleTrigger asChild>
+              <Button variant="ghost" size="sm">
+                <CaretSortIcon className="size-4" />
+                <span className="sr-only">Toggle</span>
+              </Button>
+            </CollapsibleTrigger>
           </div>
-          <Button variant="ghost" onClick={resetParameters} className="text-primary mx-auto flex gap-2">
-            Reset
-            <SymbolIcon className="size-4" />
-          </Button>
-        </Container>
-      </CollapsibleContent>
-    </Collapsible>
+          <CollapsibleContent>
+            <Container>
+              <div className="flex flex-col gap-4 pt-4">
+                {sortedParameters.map(([name, parameter]) => (
+                  <ParameterInput
+                    key={name}
+                    name={name}
+                    onChange={(value) => setValues({ [name]: value })}
+                    parameter={parameter}
+                    value={values[name] ?? parameter.defaultValue}
+                  />
+                ))}
+              </div>
+              <Button variant="ghost" onClick={resetParameters} className="text-primary mx-auto flex gap-2">
+                Reset
+                <SymbolIcon className="size-4" />
+              </Button>
+            </Container>
+          </CollapsibleContent>
+        </Collapsible>
+      </CardContent>
+    </Card>
   )
 }
 
@@ -256,11 +261,11 @@ function StringArrayInput({
         </Container>
         <CollapsibleContent>
           <Container>
+            {input}
             <Button variant="ghost" onClick={() => onChange([])} className="text-primary mx-auto flex gap-2" disabled={values.length === 0}>
               Clear
               <TrashIcon className="size-4" />
             </Button>
-            {input}
             {
               values.map((value, index) => (
                 <div key={index} className="flex items-center gap-2  text-xs">
