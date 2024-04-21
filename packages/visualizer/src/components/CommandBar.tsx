@@ -47,18 +47,16 @@ export function CommandBar() {
   const closeDialog = useCallback(() => setOpen(false), [])
 
   return (
-    <>
-      <CommandDialog open={open} onOpenChange={setOpen} filter={commandFilter}>
-        <CommandInput
-          placeholder="Commands"
-        />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <SystemCommandGroup closeDialog={closeDialog} />
-          <ModelCommandGroups closeDialog={closeDialog} />
-        </CommandList>
-      </CommandDialog>
-    </>
+    <CommandDialog open={open} onOpenChange={setOpen} filter={commandFilter}>
+      <CommandInput
+        placeholder="Commands"
+      />
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <SystemCommandGroup closeDialog={closeDialog} />
+        <ModelCommandGroups closeDialog={closeDialog} />
+      </CommandList>
+    </CommandDialog>
   )
 }
 

@@ -85,6 +85,7 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeatureVectors, edge
             <ListBorder>[</ListBorder>
             {list.map(([source, target, weight], index) => (
               <ListEdge
+                // eslint-disable-next-line react/no-array-index-key
                 key={index}
                 getOpacity={getOpacity}
                 isLast={index === list.length - 1}
@@ -115,24 +116,22 @@ function ListNode({ node, isLast, featureVector }: ListNodeProps) {
   const setSelection = useSelection.use.setSelection()
 
   return (
-    <>
-      <TooltipProvider>
-        <Tooltip disableHoverableContent={!featureVector}>
-          <TooltipTrigger>
-            <ListEntry
-              onClick={() => setSelection({ selection: node, animate: true })}
-              isSelected={isSelected}
-              isLast={isLast}
-            >
-              {node}
-            </ListEntry>
-          </TooltipTrigger>
-          <TooltipContent>
-            {featureVector ? <FeatureVector featureVector={featureVector} /> : null}
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    </>
+    <TooltipProvider>
+      <Tooltip disableHoverableContent={!featureVector}>
+        <TooltipTrigger>
+          <ListEntry
+            onClick={() => setSelection({ selection: node, animate: true })}
+            isSelected={isSelected}
+            isLast={isLast}
+          >
+            {node}
+          </ListEntry>
+        </TooltipTrigger>
+        <TooltipContent>
+          {featureVector ? <FeatureVector featureVector={featureVector} /> : null}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }
 

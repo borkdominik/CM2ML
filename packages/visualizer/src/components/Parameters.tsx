@@ -268,6 +268,7 @@ function StringArrayInput({
             </Button>
             {
               values.map((value, index) => (
+                // eslint-disable-next-line react/no-array-index-key
                 <div key={index} className="flex items-center gap-2  text-xs">
                   <Button variant="ghost" className="-my-1" size="sm" onClick={() => onChange(values.filter((entry) => entry !== value))}>
                     <Cross1Icon className="s-4 text-primary" />

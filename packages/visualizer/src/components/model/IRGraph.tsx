@@ -181,7 +181,6 @@ function useVisNetwok(
       network.destroy()
       resizeObserver.disconnect()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [container])
 
   useEffect(() => {

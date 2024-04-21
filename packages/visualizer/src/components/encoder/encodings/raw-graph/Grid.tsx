@@ -153,6 +153,7 @@ function GridRow({ getOpacity, matrix, nodes, row }: GridRowProps) {
     <GridCell
       column={column}
       getOpacity={getOpacity}
+      // eslint-disable-next-line react/no-array-index-key
       key={`${row}-${column}`}
       nodes={nodes}
       row={row}
