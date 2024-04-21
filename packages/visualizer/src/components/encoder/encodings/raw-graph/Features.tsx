@@ -1,7 +1,7 @@
-import type { FeatureVector as FeatureVectorType } from '@cm2ml/builtin'
+import type { FeatureVectorTemplate, FeatureVector as FeatureVectorType } from '@cm2ml/builtin'
 
 export interface FeatureVectorProps {
-  featureVector: FeatureVectorType
+  featureVector: FeatureVectorType | FeatureVectorTemplate
 }
 
 export function FeatureVector({ featureVector }: FeatureVectorProps) {

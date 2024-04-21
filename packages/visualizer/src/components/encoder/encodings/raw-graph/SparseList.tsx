@@ -66,20 +66,16 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeatureVectors, edge
             <span className="text-sm font-bold">
               Edges
             </span>
-            {edgeFeatures.length > 0
-              ? (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <QuestionMarkCircledIcon className="size-4" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <FeatureVector featureVector={edgeFeatures} />
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                )
-              : null}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <QuestionMarkCircledIcon className="size-4" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <FeatureVector featureVector={edgeFeatures} />
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           <div className="flex flex-wrap font-mono text-xs">
             <ListBorder>[</ListBorder>
@@ -108,7 +104,7 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeatureVectors, edge
 interface ListNodeProps {
   node: string
   isLast: boolean
-  featureVector: (string | null)[] | undefined
+  featureVector: FeatureVectorType | undefined
 }
 
 function ListNode({ node, isLast, featureVector }: ListNodeProps) {

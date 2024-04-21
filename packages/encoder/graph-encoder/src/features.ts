@@ -10,11 +10,17 @@ export function batchFeatureVectors(models: GraphModel[]) {
   const edges = Stream.from(models).flatMap(({ edges }) => edges)
   const nodeFeatures = getFeatureVectorTemplate(nodes)
   const edgeFeatures = getFeatureVectorTemplate(edges)
+  const edgeFeaturesWithoutTag = [...edgeFeatures]
+  edgeFeatures.push('tag')
   return {
     nodeFeatures,
     nodeFeatureVector: (node: GraphNode) => createFeatureVectorFromTemplate(nodeFeatures, node),
     edgeFeatures,
-    edgeFeatureVector: (edge: GraphEdge) => createFeatureVectorFromTemplate(edgeFeatures, edge),
+    edgeFeatureVector: (edge: GraphEdge) => {
+      const featureVector = createFeatureVectorFromTemplate(edgeFeaturesWithoutTag, edge)
+      featureVector.push(edge.tag)
+      return featureVector
+    },
   }
 }
 
