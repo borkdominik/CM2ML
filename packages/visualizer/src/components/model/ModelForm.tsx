@@ -160,7 +160,7 @@ export function ModelForm() {
 
 function Or() {
   return (
-    <span className="text-muted-foreground mx-auto flex w-full select-none items-center gap-2 text-xs">
+    <span className="mx-auto flex w-full select-none items-center gap-2 text-xs text-muted-foreground">
       <Separator className="shrink" />
       or
       <Separator className="shrink" />

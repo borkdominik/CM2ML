@@ -70,7 +70,7 @@ export function Parameters({ parameters, setValues, values }: Props) {
                   />
                 ))}
               </div>
-              <Button variant="ghost" onClick={resetParameters} className="text-primary mx-auto flex gap-2">
+              <Button variant="ghost" onClick={resetParameters} className="mx-auto flex gap-2 text-primary">
                 Reset
                 <SymbolIcon className="size-4" />
               </Button>
@@ -262,7 +262,7 @@ function StringArrayInput({
         <CollapsibleContent>
           <Container>
             {input}
-            <Button variant="ghost" onClick={() => onChange([])} className="text-primary mx-auto flex gap-2" disabled={values.length === 0}>
+            <Button variant="ghost" onClick={() => onChange([])} className="mx-auto flex gap-2 text-primary" disabled={values.length === 0}>
               Clear
               <TrashIcon className="size-4" />
             </Button>
@@ -324,7 +324,7 @@ function ParameterLabel({ name }: { name: string }) {
 
 function Description({ description }: { description: string }) {
   return (
-    <span className="text-muted-foreground select-none text-balance text-xs">
+    <span className="select-none text-balance text-xs text-muted-foreground">
       {description}
     </span>
   )
