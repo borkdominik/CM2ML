@@ -1,7 +1,9 @@
 import torch
 from torch_geometric.datasets import KarateClub
-from torch.nn import Dropout, Tanh, ReLU  # import the torch layers
+from torch.nn import Dropout, ReLU  # import the torch layers
 from torch_geometric.nn import GCNConv
+
+from dataset import Dataset
 
 torch.manual_seed(140)
 
@@ -9,24 +11,21 @@ use_mps = False and torch.backends.mps.is_available() and torch.backends.mps.is_
 
 device = torch.device("mps" if use_mps else "cpu")
 print(f"Using device: {device}")
-dataset = KarateClub()
-print(f"Dataset: {dataset}:")
-print("======================")
 
-# There can be one or more number of graphs in a dataset
-# In this case it is only 1.
+dataset = Dataset("./ml/gnn/dataset/test.json")
+dataset.to(device)
+print(dataset[0])
 print(f"Number of graphs: {len(dataset)}")
 print(f"Number of features: {dataset.num_features}")
-
-# Node labels are the labels of the community that the node ends up joining
-# These labels are obtained by via modularity-based clustering
 print(f"Number of classes: {dataset.num_classes}")
-karate_club = dataset[0]  # Get the dataset graph
-karate_club.to(device)
-print("======================\n\n")
+print(f"Edge features: {dataset.edge_features}")
+print(f"Node features: {dataset.node_features}")
+print("======================")
+
+karate_club = dataset[0]
 
 class MLP(torch.nn.Module):
-    def __init__(self, in_channels: int, hidden_channels: int, out_channels: int):
+    def __init__(self, in_channels: int, hidden_channels: int, out_channels: int = 2):
         super(MLP, self).__init__()
         self.embed = GCNConv(in_channels, hidden_channels)
         self.classifier = GCNConv(hidden_channels, out_channels)
@@ -40,7 +39,7 @@ class MLP(torch.nn.Module):
         x = self.classifier(h, edge_index)
         return x, h
 
-model = MLP(dataset.num_features, 32, dataset.num_classes).to(device)
+model = MLP(dataset.num_features, 32).to(device)
 print(model)
 print("\n")
 

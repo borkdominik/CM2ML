@@ -9,12 +9,16 @@ class Dataset(InMemoryDataset):
         entries = []
         with open(path, "r") as file:
             record: dict = json.load(file)
-            for key in record:
-                values = record[key]
+            data: dict = record['data']
+            metadata: dict = record['metadata']
+            self.edge_features = metadata['edgeFeatures']
+            self.node_features = metadata['nodeFeatures']
+            for key in data:
+                values = data[key]
                 x = values['nodeFeatureVectors']
                 for j in range(len(x)):
                     for i in range(len(x[j])):
-                      x[j][i] = len(x[j][i]) if x[j][i] is not None else 0
+                        x[j][i] = len(x[j][i]) if x[j][i] is not None else 0
                 edge_index = values['list']
                 entry = Data(
                     x=torch.tensor(x, dtype=torch.float),
