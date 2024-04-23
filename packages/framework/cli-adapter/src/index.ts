@@ -15,7 +15,7 @@ class CLI extends PluginAdapter<string, PluginAdapterConfiguration> {
   private readonly cli = cac('cm2ml')
     .option(
       '--out <file/directory>',
-      'Path to output file (or directory for batched mode)',
+      'Path to output file (or directory for non-merged batch mode)',
       { type: [undefinedAwareConstructor(String)] },
     )
     .option('--pretty', 'Pretty print JSON output', { default: false, type: [Boolean] })
@@ -33,6 +33,7 @@ class CLI extends PluginAdapter<string, PluginAdapterConfiguration> {
   protected onApplyBatched<Out, Parameters extends ParameterMetadata>(plugin: Plugin<string[], (Out | ExecutionError)[], Parameters>) {
     const command = this.cli.command(`${plugin.name} <inputDir>`)
     registerCommandOptions(command, plugin.parameters)
+    command.option('--merge', 'Merge all results into a single output', { default: false, type: [Boolean] })
     command.option('--start <start>', 'Index of the first model to encode', { default: undefined, type: [undefinedAwareConstructor(Number)] })
     command.option('--limit <limit>', 'Maximum number of models to encode', { default: undefined, type: [undefinedAwareConstructor(Number)] })
     command.action((inputFile: string, options: Record<string, unknown>) =>
@@ -161,37 +162,51 @@ function batchedPluginActionHandler<Out, Parameters extends ParameterMetadata>(
   const { results, errors } = groupBatchedOutput(output)
 
   const outDir = normalizedOptions.out
+  const merge = typeof normalizedOptions.merge === 'boolean' ? normalizedOptions.merge : false
+
   if (!outDir) {
-    errors.forEach(({ error, index }) => {
-      console.error(`\n${inputFiles[index]}:\n ${error.message}\n`)
-    })
-    results.forEach(({ result, index }) => {
-      const resultText = getResultAsText(result, normalizedOptions.pretty)
+    if (merge) {
+      const mergedOutput = Object.fromEntries(results.map(({ index, result }) => [inputFiles[index]!, result]))
       // eslint-disable-next-line no-console
-      console.log(`\n${inputFiles[index]}:\n${resultText}\n`)
-    })
+      console.log(getResultAsText(mergedOutput, normalizedOptions.pretty))
+    } else {
+      errors.forEach(({ error, index }) => {
+        console.error(`\n${inputFiles[index]}:\n ${error.message}\n`)
+      })
+      results.forEach(({ result, index }) => {
+        const resultText = getResultAsText(result, normalizedOptions.pretty)
+        // eslint-disable-next-line no-console
+        console.log(`\n${inputFiles[index]}:\n${resultText}\n`)
+      })
+    }
     logBatchStatistics(errors.length, results.length, output.length)
     return
   }
 
-  fs.mkdirSync(outDir, { recursive: true })
-  errors.forEach(({ error, index }) => {
-    const inputFileName = inputFiles[index]
-    if (!inputFileName) {
-      throw new Error('Internal error. Input file is missing')
-    }
-    const errorFile = `${outDir}/${inputFileName}.${plugin.name}.error.txt`
-    fs.writeFileSync(errorFile, error.message)
-  })
-  results.forEach(({ result, index }) => {
-    const inputFileName = inputFiles[index]
-    if (!inputFileName) {
-      throw new Error('Internal error. Input file is missing')
-    }
-    const outFile = `${outDir}/${inputFileName}.${plugin.name}.json`
-    const resultText = getResultAsText(result, normalizedOptions.pretty)
-    fs.writeFileSync(outFile, resultText)
-  })
+  if (merge) {
+    const mergedOutput = Object.fromEntries(results.map(({ index, result }) => [inputFiles[index]!, result]))
+    const mergedResultText = getResultAsText(mergedOutput, normalizedOptions.pretty)
+    fs.writeFileSync(outDir, mergedResultText)
+  } else {
+    fs.mkdirSync(outDir, { recursive: true })
+    errors.forEach(({ error, index }) => {
+      const inputFileName = inputFiles[index]
+      if (!inputFileName) {
+        throw new Error('Internal error. Input file is missing')
+      }
+      const errorFile = `${outDir}/${inputFileName}.${plugin.name}.error.txt`
+      fs.writeFileSync(errorFile, error.message)
+    })
+    results.forEach(({ result, index }) => {
+      const inputFileName = inputFiles[index]
+      if (!inputFileName) {
+        throw new Error('Internal error. Input file is missing')
+      }
+      const outFile = `${outDir}/${inputFileName}.${plugin.name}.json`
+      const resultText = getResultAsText(result, normalizedOptions.pretty)
+      fs.writeFileSync(outFile, resultText)
+    })
+  }
   logBatchStatistics(errors.length, results.length, output.length)
 }
 
