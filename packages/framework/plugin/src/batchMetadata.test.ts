@@ -11,18 +11,10 @@ describe('batch metadata', () => {
     expect(result).toMatchInlineSnapshot(`
       {
         "batchMetadata": {
-          "firstBatchMetadata": {
-            "intermediateResults": [
-              2,
-            ],
-            "sum": 2,
-          },
-          "secondBatchMetadata": {
-            "intermediateResults": [
-              3,
-            ],
-            "sum": 3,
-          },
+          "intermediateResults": [
+            3,
+          ],
+          "sum": 3,
         },
         "result": 9,
       }
@@ -37,37 +29,19 @@ describe('batch metadata', () => {
       [
         {
           "batchMetadata": {
-            "firstBatchMetadata": {
-              "intermediateResults": [
-                2,
-                20,
-              ],
-              "sum": 22,
-            },
-            "secondBatchMetadata": {
-              "intermediateResults": [
-                3,
-              ],
-              "sum": 3,
-            },
+            "intermediateResults": [
+              3,
+            ],
+            "sum": 3,
           },
           "result": 9,
         },
         {
           "batchMetadata": {
-            "firstBatchMetadata": {
-              "intermediateResults": [
-                2,
-                20,
-              ],
-              "sum": 22,
-            },
-            "secondBatchMetadata": {
-              "intermediateResults": [
-                21,
-              ],
-              "sum": 21,
-            },
+            "intermediateResults": [
+              21,
+            ],
+            "sum": 21,
           },
           "result": 441,
         },

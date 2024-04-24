@@ -22,7 +22,7 @@ export function RawGraphEncoding({ model, parameters }: Props) {
     if (encoding.list.length === 0) {
       return <Hint text="No edges" />
     }
-    return <SparseList {...encoding} />
+    return <SparseList {...encoding} {...encoding.__metadata__} />
   }
   if (encoding.matrix.every((row) => row.every((weight) => weight === 0))) {
     return <Hint text="No edges" />

@@ -1,5 +1,5 @@
 import type { GraphEdge, GraphModel } from '@cm2ml/ir'
-import { definePlugin } from '@cm2ml/plugin'
+import { METADATA_KEY, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 import { batchFeatureVectors } from './features'
@@ -48,10 +48,12 @@ export const GraphEncoder = definePlugin({
 
     return {
       ...edgeEncoding,
-      nodeFeatures,
       nodeFeatureVectors,
-      edgeFeatures,
       edgeFeatureVectors,
+      [METADATA_KEY]: {
+        edgeFeatures,
+        nodeFeatures,
+      },
     }
   },
 })

@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 
-import type { ExecutionError, Parameter, ParameterMetadata, Plugin } from '@cm2ml/plugin'
+import type { ExecutionError, METADATA_KEY, Parameter, ParameterMetadata, Plugin } from '@cm2ml/plugin'
 import { getTypeConstructor } from '@cm2ml/plugin'
 import type { PluginAdapterConfiguration } from '@cm2ml/plugin-adapter'
 import { PluginAdapter, groupBatchedOutput } from '@cm2ml/plugin-adapter'
@@ -30,7 +30,7 @@ class CLI extends PluginAdapter<string, PluginAdapterConfiguration> {
     )
   }
 
-  protected onApplyBatched<Out, Parameters extends ParameterMetadata>(plugin: Plugin<string[], (Out | ExecutionError)[], Parameters>) {
+  protected onApplyBatched<Out, Parameters extends ParameterMetadata>(plugin: Plugin<string[], { data: (Out | ExecutionError)[], [METADATA_KEY]: unknown }, Parameters>) {
     const command = this.cli.command(`${plugin.name} <inputDir>`)
     registerCommandOptions(command, plugin.parameters)
     command.option('--merge', 'Merge all results into a single output', { default: false, type: [Boolean] })
@@ -145,7 +145,7 @@ function pluginActionHandler<Out, Parameters extends ParameterMetadata>(
 }
 
 function batchedPluginActionHandler<Out, Parameters extends ParameterMetadata>(
-  plugin: Plugin<string[], Out[], Parameters>,
+  plugin: Plugin<string[], { data: Out[], [METADATA_KEY]: unknown }, Parameters>,
   inputDir: string,
   options: Record<string, unknown>,
 ) {
@@ -159,7 +159,7 @@ function batchedPluginActionHandler<Out, Parameters extends ParameterMetadata>(
   const input = inputFiles.map((inputFile) => fs.readFileSync(`${inputDir}/${inputFile}`, 'utf8'))
 
   const output = plugin.validateAndInvoke(input, normalizedOptions)
-  const { results, errors } = groupBatchedOutput(output)
+  const { results, errors, metadata } = groupBatchedOutput(output)
 
   const outDir = normalizedOptions.out
   const merge = typeof normalizedOptions.merge === 'boolean' ? normalizedOptions.merge : false
@@ -168,7 +168,7 @@ function batchedPluginActionHandler<Out, Parameters extends ParameterMetadata>(
     if (merge) {
       const mergedOutput = Object.fromEntries(results.map(({ index, result }) => [inputFiles[index]!, result]))
       // eslint-disable-next-line no-console
-      console.log(getResultAsText(mergedOutput, normalizedOptions.pretty))
+      console.log(getResultAsText({ metadata, data: mergedOutput }, normalizedOptions.pretty))
     } else {
       errors.forEach(({ error, index }) => {
         console.error(`\n${inputFiles[index]}:\n ${error.message}\n`)
@@ -178,14 +178,16 @@ function batchedPluginActionHandler<Out, Parameters extends ParameterMetadata>(
         // eslint-disable-next-line no-console
         console.log(`\n${inputFiles[index]}:\n${resultText}\n`)
       })
+      // eslint-disable-next-line no-console
+      console.log('\nMetadata:\n', getResultAsText(metadata, normalizedOptions.pretty))
     }
-    logBatchStatistics(errors.length, results.length, output.length)
+    logBatchStatistics(errors.length, results.length, output.data.length)
     return
   }
 
   if (merge) {
     const mergedOutput = Object.fromEntries(results.map(({ index, result }) => [inputFiles[index]!, result]))
-    const mergedResultText = getResultAsText(mergedOutput, normalizedOptions.pretty)
+    const mergedResultText = getResultAsText({ metadata, data: mergedOutput }, normalizedOptions.pretty)
     fs.writeFileSync(outDir, mergedResultText)
   } else {
     fs.mkdirSync(outDir, { recursive: true })
@@ -206,8 +208,10 @@ function batchedPluginActionHandler<Out, Parameters extends ParameterMetadata>(
       const resultText = getResultAsText(result, normalizedOptions.pretty)
       fs.writeFileSync(outFile, resultText)
     })
+    const metadataFile = `${outDir}/${plugin.name}.metadata.json`
+    fs.writeFileSync(metadataFile, getResultAsText(metadata, normalizedOptions.pretty))
   }
-  logBatchStatistics(errors.length, results.length, output.length)
+  logBatchStatistics(errors.length, results.length, output.data.length)
 }
 
 function logBatchStatistics(errors: number, success: number, total: number) {

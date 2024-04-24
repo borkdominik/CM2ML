@@ -3,7 +3,7 @@ import { EcoreParser } from '@cm2ml/ecore'
 import { GraphEncoder } from '@cm2ml/graph-encoder'
 import type { GraphModel } from '@cm2ml/ir'
 import { OneHotEncoder } from '@cm2ml/one-hot-encoder'
-import { type Plugin, batchedCompose, compose } from '@cm2ml/plugin'
+import { type Plugin, batchedCompose, compose, liftMetadata } from '@cm2ml/plugin'
 import { TreeEncoder } from '@cm2ml/tree-encoder'
 import { UmlParser } from '@cm2ml/uml'
 
@@ -15,7 +15,7 @@ export * from '@cm2ml/tree-encoder'
 export * from '@cm2ml/uml'
 export * from '@cm2ml/xmi-parser'
 
-export type Parser = Plugin<string, GraphModel, any, unknown, any>
+export type Parser = Plugin<string, GraphModel, any, any>
 
 export const parsers: Parser[] = [ArchimateParser, EcoreParser, UmlParser]
 
@@ -27,7 +27,7 @@ export const parserMap = {
 
 export type EncoderMetadata = any
 
-export type Encoder<Encoding = unknown> = Plugin<GraphModel, Encoding, any, unknown, any>
+export type Encoder<Encoding = unknown> = Plugin<GraphModel, Encoding, any, any>
 
 export const encoders: Encoder[] = [GraphEncoder, TreeEncoder, OneHotEncoder]
 
@@ -42,5 +42,8 @@ export const plugins = parsers.flatMap((parser) =>
 )
 
 export const batchedPlugins = parsers.flatMap((parser) =>
-  encoders.map((encoder) => batchedCompose(parser, encoder)),
+  encoders.map((encoder) => {
+    const batched = batchedCompose(parser, encoder)
+    return compose(batched, liftMetadata(), batched.name)
+  }),
 )

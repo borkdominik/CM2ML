@@ -15,16 +15,15 @@ export function compose<
   In,
   I1,
   P1 extends ParameterMetadata,
-  BMIn,
-  BMMid,
+  BM1,
   Out,
   P2 extends ParameterMetadata,
-  BMOut,
+  BM2,
 >(
-  first: Plugin<In, I1, P1, BMIn, BMMid>,
-  second: Plugin<I1, Out, P2, BMMid, BMOut>,
+  first: Plugin<In, I1, P1, BM1>,
+  second: Plugin<I1, Out, P2, BM2>,
   name = `${first.name}-${second.name}`,
-): Plugin<In, Out, P1 & P2, BMIn, BMMid> {
+): Plugin<In, Out, P1 & P2, BM1> {
   try {
     return definePlugin({
       name,
@@ -41,28 +40,28 @@ export function compose<
 /**
  * Wraps a plugin to catch errors and return a {@link ExecutionError} instead.
  */
-export function tryCatch<In, Out, Parameters extends ParameterMetadata, BMIn, BMOut>(plugin: Plugin<In, Out, Parameters, BMIn, BMOut>) {
+export function tryCatch<In, Out, Parameters extends ParameterMetadata, BatchMetadata>(plugin: Plugin<In, Out, Parameters, BatchMetadata>) {
   return compose(trying(plugin), catching())
 }
 
 /**
  * Wraps a plugin to accept an array of inputs and return an array of outputs.
  */
-export function batch<In, Out, Parameters extends ParameterMetadata, BMIn, BMOut>(plugin: Plugin<In, Out, Parameters, BMIn, BMOut>, name = `batch-${plugin.name}`): Plugin<In[], Out[], Parameters, BMIn, BMOut> {
+export function batch<In, Out, Parameters extends ParameterMetadata, BatchMetadata>(plugin: Plugin<In, Out, Parameters, BatchMetadata>, name = `batch-${plugin.name}`): Plugin<In[], Out[], Parameters, BatchMetadata> {
   return definePlugin({
     name,
     parameters: plugin.parameters,
     invoke: (input: In[], parameters, batchMetadata) => {
       return input.map((item) => plugin.invoke(item, parameters, batchMetadata))
     },
-    batchMetadataCollector: (batch: In[][], previousBatchMetadata) => {
+    batchMetadataCollector: (batch: In[][]) => {
       const flattenedInput = batch.flatMap((item) => item)
-      return plugin.batchMetadataCollector?.(flattenedInput, previousBatchMetadata)
+      return plugin.batchMetadataCollector?.(flattenedInput)
     },
   })
 }
 
-export function batchTryCatch<In, Out, Parameters extends ParameterMetadata, BMIn, BMOut>(plugin: Plugin<In, Out, Parameters, BMIn, BMOut>, name = `batch-${plugin.name}`) {
+export function batchTryCatch<In, Out, Parameters extends ParameterMetadata, BatchMetadata>(plugin: Plugin<In, Out, Parameters, BatchMetadata>, name = `batch-${plugin.name}`) {
   return batch(tryCatch(plugin), name)
 }
 
@@ -73,14 +72,13 @@ export function batchedCompose<
   In,
   I1,
   P1 extends ParameterMetadata,
-  BMIn,
-  BMMid,
+  BM1,
   Out,
   P2 extends ParameterMetadata,
-  BMOut,
+  BM2,
 >(
-  first: Plugin<In, I1, P1, BMIn, BMMid>,
-  second: Plugin<I1, Out, P2, BMMid, BMOut>,
+  first: Plugin<In, I1, P1, BM1>,
+  second: Plugin<I1, Out, P2, BM2>,
   name = `batch-${first.name}-${second.name}`,
 ) {
   return compose(
@@ -88,6 +86,42 @@ export function batchedCompose<
     batchTryCatch(second),
     name,
   )
+}
+
+export function transform<In, Out>(transformer: (input: In) => Out, name = 'transform'): Plugin<In, Out, Record<string, never>, undefined> {
+  return definePlugin({
+    name,
+    parameters: {},
+    invoke: (input) => transformer(input),
+  })
+}
+
+export const METADATA_KEY = '__metadata__'
+
+export function liftMetadata<In, Metadata>(name = 'lift-metadata') {
+  return transform<In[] | (In & { [METADATA_KEY]: Metadata })[], { data: In[], [METADATA_KEY]: Metadata | undefined }>((input) => {
+    if (input.length === 0) {
+      return { data: [], [METADATA_KEY]: undefined }
+    }
+    const res = {
+      data: input.map((item) => {
+        if (item && typeof item === 'object' && METADATA_KEY in item) {
+          const { [METADATA_KEY]: _, ...rest } = item
+          return rest as In
+        }
+        return item as In
+      }),
+      [METADATA_KEY]: getMetadata(input[0]),
+    }
+    return res
+  }, name)
+}
+
+function getMetadata<In, Metadata>(item: In | { [METADATA_KEY]: Metadata } | undefined) {
+  if (item && typeof item === 'object' && METADATA_KEY in item) {
+    return item[METADATA_KEY]
+  }
+  return undefined
 }
 
 function joinParameters(plugins: PluginMetadata<ParameterMetadata>[]) {
@@ -114,19 +148,19 @@ function createInvocationChain<
   In,
   I1,
   P1 extends ParameterMetadata,
-  BMIn,
-  BMMid,
+  BM1,
   Out,
   P2 extends ParameterMetadata,
-  BMOut,
-  >(first: Plugin<In, I1, P1, BMIn, BMMid>, second: Plugin<I1, Out, P2, BMMid, BMOut>): PluginInvoke<In, Out, P1 & P2, BMMid> {
+  BM2,
+  >(first: Plugin<In, I1, P1, BM1>, second: Plugin<I1, Out, P2, BM2>): PluginInvoke<In, Out, P1 & P2, BM1> {
   return (
     input: In,
     parameters: Readonly<ResolveParameters<P1 & P2>>,
-    batchMetadata: BMMid,
+    batchMetadata: BM1,
   ) => {
     const intermediateResult = first.invoke(input, parameters as Readonly<ResolveParameters<P1>>, batchMetadata)
-    const nextBatchMetadata = second.batchMetadataCollector?.([intermediateResult], batchMetadata)
-    return second.invoke(intermediateResult, parameters as Readonly<ResolveParameters<P2>>, nextBatchMetadata)
+    const nextBatchMetadata = second.batchMetadataCollector?.([intermediateResult])
+    const output = second.invoke(intermediateResult, parameters as Readonly<ResolveParameters<P2>>, nextBatchMetadata)
+    return output
   }
 }

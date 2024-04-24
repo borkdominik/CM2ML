@@ -1,7 +1,7 @@
 import process from 'node:process'
 
 import { ExecutionError, ValidationError, getTypeConstructor } from '@cm2ml/plugin'
-import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
+import type { METADATA_KEY, ParameterMetadata, Plugin } from '@cm2ml/plugin'
 import { PluginAdapter } from '@cm2ml/plugin-adapter'
 import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
@@ -19,7 +19,7 @@ class Server extends PluginAdapter<string> {
   }
 
   protected onApplyBatched<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<string[], Out[], Parameters>,
+    plugin: Plugin<string[], { data: Out[], [METADATA_KEY]: unknown }, Parameters>,
   ) {
     this.server.post(`/encoders/${plugin.name}`, async (request, reply) =>
       batchedPluginRequestHandler(plugin, request, reply))
@@ -109,9 +109,7 @@ function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
     const parameters = getParametersFromBody(body, plugin.parameters)
     const result = plugin.validateAndInvoke(body.input, parameters)
     reply.statusCode = 200
-    return {
-      result,
-    }
+    return result
   } catch (error) {
     if (error instanceof ValidationError) {
       reply.statusCode = 422
@@ -127,7 +125,7 @@ function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
 }
 
 function batchedPluginRequestHandler<Out, Parameters extends ParameterMetadata>(
-  plugin: Plugin<string[], Out[], Parameters>,
+  plugin: Plugin<string[], { data: Out[], [METADATA_KEY]: unknown }, Parameters>,
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
@@ -144,9 +142,7 @@ function batchedPluginRequestHandler<Out, Parameters extends ParameterMetadata>(
     const output = plugin.validateAndInvoke(body.input, parameters)
 
     reply.statusCode = 200
-    return {
-      output,
-    }
+    return output
   } catch (error) {
     if (error instanceof ValidationError) {
       reply.statusCode = 422

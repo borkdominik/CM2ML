@@ -37,8 +37,8 @@ export const power = definePlugin({
   parameters: {
     exponent: { type: 'number', description: 'An exponent', defaultValue: 1 },
   },
-  batchMetadataCollector: (batch: number[], previous: TestBatchMetadata | undefined) => {
-    return { firstBatchMetadata: previous, secondBatchMetadata: { sum: sum(batch), intermediateResults: batch } }
+  batchMetadataCollector: (batch: number[]) => {
+    return { sum: sum(batch), intermediateResults: batch }
   },
   invoke: (input: number, parameters, batchMetadata) => ({ result: input ** parameters.exponent, batchMetadata }),
 })

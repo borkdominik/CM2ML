@@ -31,16 +31,16 @@ describe('error', () => {
 
   describe('catching', () => {
     it('should return non-error input', () => {
-      const result = catching<string, unknown>().invoke('hello world', { continueOnError: false }, undefined)
+      const result = catching<string>().invoke('hello world', { continueOnError: false }, undefined)
       expect(result).toBe('hello world')
     })
 
     it('should throw errors', () => {
-      expect(() => catching<string, unknown>().invoke(testError, { continueOnError: false }, undefined)).toThrow(testError)
+      expect(() => catching<string>().invoke(testError, { continueOnError: false }, undefined)).toThrow(testError)
     })
 
     it('should catch errors if enabled', () => {
-      const result = catching<string, unknown>().invoke(testError, { continueOnError: true }, undefined)
+      const result = catching<string>().invoke(testError, { continueOnError: true }, undefined)
       expect(result).toBe(testError)
     })
   })

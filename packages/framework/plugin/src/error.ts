@@ -7,7 +7,7 @@ import { definePlugin } from './plugin'
 /**
  * Wraps a plugin to catch errors and return a {@link ExecutionError} instead.
  */
-export function trying<In, Out, Parameters extends ParameterMetadata, BMIn, BMOut>(plugin: Plugin<In, Out, Parameters, BMIn, BMOut>, name = `trying-${plugin.name}`): Plugin<In | ExecutionError, Out | ExecutionError, Parameters, BMIn, BMOut> {
+export function trying<In, Out, Parameters extends ParameterMetadata, BatchMetadata>(plugin: Plugin<In, Out, Parameters, BatchMetadata>, name = `trying-${plugin.name}`): Plugin<In | ExecutionError, Out | ExecutionError, Parameters, BatchMetadata> {
   return definePlugin({
     name,
     parameters: plugin.parameters,
@@ -21,9 +21,9 @@ export function trying<In, Out, Parameters extends ParameterMetadata, BMIn, BMOu
         return new ExecutionError(error, plugin.name)
       }
     },
-    batchMetadataCollector: (batch: (In | ExecutionError)[], previousBatchMetadata) => {
+    batchMetadataCollector: (batch: (In | ExecutionError)[]) => {
       const filteredBatch = batch.filter((item) => !(item instanceof ExecutionError)) as In[]
-      return plugin.batchMetadataCollector(filteredBatch, previousBatchMetadata)
+      return plugin.batchMetadataCollector(filteredBatch)
     },
   })
 }
@@ -31,7 +31,7 @@ export function trying<In, Out, Parameters extends ParameterMetadata, BMIn, BMOu
 /**
  * @returns A plugin that catches {@link ExecutionError}s and throws them as errors unless `continueOnError` is enabled.
  */
-export function catching<In, BMIn>() {
+export function catching<In>() {
   return definePlugin({
     name: 'catching',
     parameters: {
@@ -46,9 +46,6 @@ export function catching<In, BMIn>() {
         throw input
       }
       return input
-    },
-    batchMetadataCollector: (_batch: (In | ExecutionError)[], previousBatchMetadata: BMIn | undefined) => {
-      return previousBatchMetadata
     },
   })
 }

@@ -1,4 +1,5 @@
-import { ExecutionError, type ParameterMetadata, type Plugin } from '@cm2ml/plugin'
+import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
+import { ExecutionError, METADATA_KEY } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 export interface PluginAdapterConfiguration {
@@ -6,12 +7,12 @@ export interface PluginAdapterConfiguration {
 }
 
 export type RegularPlugin<In> = Plugin<In, unknown, ParameterMetadata>
-export type BatchedPlugin<In> = Plugin<In[], unknown[], ParameterMetadata>
+export type BatchedPlugin<In> = Plugin<In[], { data: unknown[], [METADATA_KEY]: unknown }, ParameterMetadata>
 
 export type SupportedPlugin<In> = RegularPlugin<In> | BatchedPlugin<In>
 
 export abstract class PluginAdapter<In, Configuration extends PluginAdapterConfiguration = PluginAdapterConfiguration> {
-  protected plugins = new Map<string, Plugin<In, unknown, any> | Plugin<In[], unknown[], any>>()
+  protected plugins = new Map<string, Plugin<In, unknown, any> | Plugin<In[], { data: unknown[], [METADATA_KEY]: unknown }, any>>()
 
   private started = false
 
@@ -47,7 +48,7 @@ export abstract class PluginAdapter<In, Configuration extends PluginAdapterConfi
   ): void
 
   protected abstract onApplyBatched<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<In[], Out[], Parameters>,
+    plugin: Plugin<In[], { data: Out[], [METADATA_KEY]: unknown }, Parameters>,
     configuration: Configuration,
   ): void
 
@@ -66,9 +67,9 @@ export abstract class PluginAdapter<In, Configuration extends PluginAdapterConfi
   }
 }
 
-export function groupBatchedOutput<Out>(output: (Out | ExecutionError)[]) {
-  const withIndex = output.map((value, index) => ({ value, index }))
+export function groupBatchedOutput<Out>(output: { data: (Out | ExecutionError)[], [METADATA_KEY]: unknown }) {
+  const withIndex = output.data.map((value, index) => ({ value, index }))
   const errors = withIndex.filter(({ value }) => value instanceof ExecutionError).map(({ value, index }) => ({ error: value as ExecutionError, index }))
   const results = withIndex.filter(({ value }) => !(value instanceof ExecutionError)).map(({ value, index }) => ({ result: value as Out, index }))
-  return { errors, results }
+  return { errors, results, metadata: output[METADATA_KEY] }
 }
