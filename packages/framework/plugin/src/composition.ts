@@ -29,7 +29,7 @@ export function compose<
       name,
       parameters: joinParameters([first, second]) as P1 & P2,
       invoke: createInvocationChain(first, second),
-      batchMetadataCollector: first.batchMetadataCollector,
+      batchMetadataCollector: (batch, parameters) => first.batchMetadataCollector(batch, parameters as Readonly<ResolveParameters<P1>>),
     })
   } catch (error) {
     console.error(getMessage(error))
@@ -54,9 +54,9 @@ export function batch<In, Out, Parameters extends ParameterMetadata, BatchMetada
     invoke: (input: In[], parameters, batchMetadata) => {
       return input.map((item) => plugin.invoke(item, parameters, batchMetadata))
     },
-    batchMetadataCollector: (batch: In[][]) => {
+    batchMetadataCollector: (batch: In[][], parameters) => {
       const flattenedInput = batch.flatMap((item) => item)
-      return plugin.batchMetadataCollector?.(flattenedInput)
+      return plugin.batchMetadataCollector?.(flattenedInput, parameters)
     },
   })
 }
@@ -159,7 +159,7 @@ function createInvocationChain<
     batchMetadata: BM1,
   ) => {
     const intermediateResult = first.invoke(input, parameters as Readonly<ResolveParameters<P1>>, batchMetadata)
-    const nextBatchMetadata = second.batchMetadataCollector?.([intermediateResult])
+    const nextBatchMetadata = second.batchMetadataCollector?.([intermediateResult], parameters as Readonly<ResolveParameters<P2>>)
     const output = second.invoke(intermediateResult, parameters as Readonly<ResolveParameters<P2>>, nextBatchMetadata)
     return output
   }

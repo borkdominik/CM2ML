@@ -21,9 +21,9 @@ export function trying<In, Out, Parameters extends ParameterMetadata, BatchMetad
         return new ExecutionError(error, plugin.name)
       }
     },
-    batchMetadataCollector: (batch: (In | ExecutionError)[]) => {
+    batchMetadataCollector: (batch: (In | ExecutionError)[], parameters) => {
       const filteredBatch = batch.filter((item) => !(item instanceof ExecutionError)) as In[]
-      return plugin.batchMetadataCollector(filteredBatch)
+      return plugin.batchMetadataCollector(filteredBatch, parameters)
     },
   })
 }
