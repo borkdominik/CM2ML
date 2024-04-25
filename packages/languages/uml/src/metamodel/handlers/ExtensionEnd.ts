@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { ExtensionEnd } from '../uml-metamodel'
 
 export const ExtensionEndHandler = ExtensionEnd.createHandler(
@@ -8,6 +9,9 @@ export const ExtensionEndHandler = ExtensionEnd.createHandler(
       return
     }
     addEdge_type(extensionEnd)
+  },
+  {
+    [Uml.Attributes.lower]: { type: 'integer' },
   },
 )
 

@@ -13,7 +13,7 @@ export const TimeObservationHandler = TimeObservation.createHandler(
     addEdge_event(timeObservation, event)
   },
   {
-    [Uml.Attributes.firstEvent]: 'true',
+    [Uml.Attributes.firstEvent]: { type: 'boolean', defaultValue: 'true' },
   },
 )
 

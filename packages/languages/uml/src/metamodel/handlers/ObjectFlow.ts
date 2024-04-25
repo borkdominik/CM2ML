@@ -15,8 +15,8 @@ export const ObjectFlowHandler = ObjectFlow.createHandler(
     addEdge_transformation(objectFlow, transformation)
   },
   {
-    [Uml.Attributes.isMulticast]: 'false',
-    [Uml.Attributes.isMultireceive]: 'false',
+    [Uml.Attributes.isMulticast]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isMultireceive]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

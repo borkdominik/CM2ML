@@ -27,7 +27,7 @@ export const AssociationHandler = Association.createHandler(
     addEdge_ownedEnd(association, ownedEnds)
   },
   {
-    [Uml.Attributes.isDerived]: 'false',
+    [Uml.Attributes.isDerived]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

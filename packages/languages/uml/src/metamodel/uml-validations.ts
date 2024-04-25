@@ -59,7 +59,10 @@ function validateAttributes(model: GraphModel) {
   const typesWithBodyAttribute = new Set<UmlType>([Uml.Types.Comment, Uml.Types.OpaqueAction, Uml.Types.OpaqueBehavior, Uml.Types.OpaqueExpression])
   model.nodes.forEach((node) => {
     const nodeType = Uml.getType(node)
-    node.attributes.forEach(({ name }) => {
+    node.attributes.forEach(({ name, type }) => {
+      if (type === 'unknown') {
+        throw new Error(`Attribute ${name} of node ${formatElement(node)} is of unknown type`)
+      }
       if (name === model.settings.idAttribute) {
         return
       }
@@ -78,7 +81,14 @@ function validateAttributes(model: GraphModel) {
     })
   })
   model.edges.forEach((edge) => {
-    edge.attributes.forEach(({ name }) => {
+    edge.attributes.forEach(({ name, type }) => {
+      if (type === 'unknown') {
+        throw new Error(
+          `Attribute ${name} of edge ${edge.tag} from ${
+            formatElement(edge.source)
+          } to ${formatElement(edge.target)} is of unknown type`,
+        )
+      }
       if (!(name in Uml.Attributes)) {
         throw new Error(
           `Attribute ${name} of edge ${edge.tag} from ${

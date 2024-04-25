@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
+import { Uml } from '../uml'
 import { Deployment, DeploymentSpecification } from '../uml-metamodel'
 
 export const DeploymentSpecificationHandler =
@@ -11,6 +12,10 @@ export const DeploymentSpecificationHandler =
         return
       }
       addEdge_deployment(deploymentSpecification, deployment)
+    },
+    {
+      [Uml.Attributes.deploymentLocation]: { type: 'string' },
+      [Uml.Attributes.executionLocation]: { type: 'string' },
     },
   )
 

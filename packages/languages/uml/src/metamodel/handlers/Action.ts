@@ -19,7 +19,7 @@ export const ActionHandler = Action.createHandler(
     addEdge_output(action)
   },
   {
-    [Uml.Attributes.isLocallyReentrant]: 'false',
+    [Uml.Attributes.isLocallyReentrant]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

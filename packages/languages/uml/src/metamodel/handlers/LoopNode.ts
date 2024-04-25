@@ -25,7 +25,7 @@ export const LoopNodeHandler = LoopNode.createHandler(
     addEdge_test(loopNode, tests)
   },
   {
-    [Uml.Attributes.isTestedFirst]: 'false',
+    [Uml.Attributes.isTestedFirst]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

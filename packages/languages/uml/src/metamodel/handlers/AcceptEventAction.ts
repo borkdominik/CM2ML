@@ -15,7 +15,7 @@ export const AcceptEventActionHandler = AcceptEventAction.createHandler(
     addEdge_trigger(acceptEventAction, triggers)
   },
   {
-    [Uml.Attributes.isUnmarshall]: 'false',
+    [Uml.Attributes.isUnmarshall]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

@@ -2,6 +2,7 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { setBodyAttribute } from '../resolvers/body'
 import { resolve } from '../resolvers/resolve'
+import { Uml } from '../uml'
 import { Comment, Element } from '../uml-metamodel'
 
 export const CommentHandler = Comment.createHandler(
@@ -13,6 +14,7 @@ export const CommentHandler = Comment.createHandler(
     }
     addEdge_annotatedElement(comment, annotatedElements)
   },
+  { [Uml.Attributes.body]: { type: 'string' } },
 )
 
 function addEdge_annotatedElement(comment: GraphNode, annotatedElements: GraphNode[]) {

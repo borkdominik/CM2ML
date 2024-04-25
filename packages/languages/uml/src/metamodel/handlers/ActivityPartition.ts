@@ -20,8 +20,8 @@ export const ActivityPartitionHandler = ActivityPartition.createHandler(
     addEdge_superPartition(activityPartition)
   },
   {
-    [Uml.Attributes.isDimension]: 'false',
-    [Uml.Attributes.isExternal]: 'false',
+    [Uml.Attributes.isDimension]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isExternal]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

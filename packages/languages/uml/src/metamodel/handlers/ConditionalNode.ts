@@ -14,8 +14,8 @@ export const ConditionalNodeHandler = ConditionalNode.createHandler(
     addEdge_result(conditionalNode)
   },
   {
-    [Uml.Attributes.isAssured]: 'false',
-    [Uml.Attributes.isDeterminate]: 'false',
+    [Uml.Attributes.isAssured]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isDeterminate]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

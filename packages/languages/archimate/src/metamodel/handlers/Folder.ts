@@ -30,7 +30,8 @@ export const FolderHandler = Folder.createHandler(
 
 function processElements(folder: GraphNode, folderName: string) {
   folder.children.forEach((elementNode) => {
-    elementNode.addAttribute({ name: 'layer', value: { literal: folderName } }, false)
+    // TODO: Define type
+    elementNode.addAttribute({ name: 'layer', type: 'unknown', value: { literal: folderName } }, false)
     folder.removeChild(elementNode)
     folder.model.root.addChild(elementNode)
   })

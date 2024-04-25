@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
+import { Uml } from '../uml'
 import {
   Package,
   PackageMerge,
@@ -28,6 +29,9 @@ export const PackageHandler = Package.createHandler(
     addEdge_packagedElement(package_, packagedElements)
     addEdge_packageMerge(package_, packageMerges)
     addEdge_profileApplication(package_, profileApplications)
+  },
+  {
+    [Uml.Attributes.URI]: { type: 'string' },
   },
 )
 

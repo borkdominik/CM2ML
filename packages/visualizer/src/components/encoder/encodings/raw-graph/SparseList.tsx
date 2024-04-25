@@ -1,4 +1,4 @@
-import type { AdjacencyList, FeatureVectorTemplate, FeatureVector as FeatureVectorType } from '@cm2ml/builtin'
+import type { AdjacencyList, FeatureMetadata, FeatureVector as FeatureVectorType } from '@cm2ml/builtin'
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { useMemo } from 'react'
@@ -13,9 +13,9 @@ import { FeatureVector } from './Features'
 interface ListProps {
   list: AdjacencyList
   nodes: string[]
-  nodeFeatures: FeatureVectorTemplate
+  nodeFeatures: FeatureMetadata
   nodeFeatureVectors: FeatureVectorType[]
-  edgeFeatures: FeatureVectorTemplate
+  edgeFeatures: FeatureMetadata
   edgeFeatureVectors: FeatureVectorType[]
 }
 
@@ -30,20 +30,16 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeatureVectors, edge
             <span className="text-sm font-bold">
               Nodes
             </span>
-            {nodeFeatures.length > 0
-              ? (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <QuestionMarkCircledIcon className="size-4" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <FeatureVector featureVector={nodeFeatures} />
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                )
-              : null}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <QuestionMarkCircledIcon className="size-4" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <FeatureVector data={nodeFeatures} />
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           <div className="flex flex-wrap font-mono text-xs">
             <ListBorder>[</ListBorder>
@@ -72,7 +68,7 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeatureVectors, edge
                   <QuestionMarkCircledIcon className="size-4" />
                 </TooltipTrigger>
                 <TooltipContent>
-                  <FeatureVector featureVector={edgeFeatures} />
+                  <FeatureVector data={edgeFeatures} />
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -124,7 +120,7 @@ function ListNode({ node, isLast, featureVector }: ListNodeProps) {
           </ListEntry>
         </TooltipTrigger>
         <TooltipContent>
-          {featureVector ? <FeatureVector featureVector={featureVector} /> : null}
+          {featureVector ? <FeatureVector data={featureVector} /> : null}
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -184,7 +180,7 @@ function ListEdge({
           <TooltipContent>
             <div>
               {getOpacity ? (weight ?? 1) : null}
-              {featureVector ? <FeatureVector featureVector={featureVector} /> : null}
+              {featureVector ? <FeatureVector data={featureVector} /> : null}
             </div>
           </TooltipContent>
         </Tooltip>

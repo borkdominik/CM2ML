@@ -224,7 +224,7 @@ function logBatchStatistics(errors: number, success: number, total: number) {
 }
 
 function getResultAsText(result: unknown, pretty: boolean | undefined): string {
-  return typeof result === 'string' ? result : JSON.stringify(result, null, pretty ? 2 : undefined)
+  return typeof result === 'string' ? result : `${JSON.stringify(result, null, pretty ? 2 : undefined)}\n`
 }
 
 function normalizeOptions(options: Record<string, unknown>, parameters: ParameterMetadata): Record<string, unknown> & { out?: string, pretty?: boolean } {

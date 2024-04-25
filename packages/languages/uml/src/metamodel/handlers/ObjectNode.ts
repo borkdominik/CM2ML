@@ -16,8 +16,8 @@ export const ObjectNodeHandler = ObjectNode.createHandler(
     addEdge_upperBound(objectNode)
   },
   {
-    [Uml.Attributes.isControlType]: 'false',
-    [Uml.Attributes.ordering]: 'FIFO',
+    [Uml.Attributes.isControlType]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.ordering]: { type: 'category', defaultValue: 'FIFO' },
   },
 )
 

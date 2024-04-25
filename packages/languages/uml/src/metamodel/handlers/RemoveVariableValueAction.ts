@@ -12,7 +12,7 @@ export const RemoveVariableValueActionHandler =
       addEdge_removeAt(removeVariableValueAction)
     },
     {
-      [Uml.Attributes.isRemoveDuplicates]: 'false',
+      [Uml.Attributes.isRemoveDuplicates]: { type: 'boolean', defaultValue: 'false' },
     },
   )
 

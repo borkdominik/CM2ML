@@ -35,11 +35,11 @@ export const PropertyHandler = Property.createHandler(
     addEdge_subsettedProperty(property, subsettedProperties)
   },
   {
-    [Uml.Attributes.aggregation]: 'none',
-    [Uml.Attributes.isComposite]: 'false',
-    [Uml.Attributes.isDerived]: 'false',
-    [Uml.Attributes.isDerivedUnion]: 'false',
-    [Uml.Attributes.isID]: 'false',
+    [Uml.Attributes.aggregation]: { type: 'category', defaultValue: 'none' },
+    [Uml.Attributes.isComposite]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isDerived]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isDerivedUnion]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isID]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 
@@ -51,7 +51,7 @@ function setAttribute_isComposite(property: GraphNode) {
   if (!isCompositeProperty(property)) {
     return
   }
-  property.addAttribute({ name: Uml.Attributes.isComposite, value: { literal: 'true' } }, false)
+  property.addAttribute({ name: Uml.Attributes.isComposite, type: 'boolean', value: { literal: 'true' } }, false)
 }
 
 function addEdge_association(

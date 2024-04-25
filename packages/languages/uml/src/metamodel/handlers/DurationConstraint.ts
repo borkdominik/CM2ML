@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { DurationConstraint } from '../uml-metamodel'
 
 export const DurationConstraintHandler = DurationConstraint.createHandler(
@@ -8,6 +9,9 @@ export const DurationConstraintHandler = DurationConstraint.createHandler(
       return
     }
     addEdge_specification(durationConstraint)
+  },
+  {
+    [Uml.Attributes.firstEvent]: { type: 'boolean' },
   },
 )
 

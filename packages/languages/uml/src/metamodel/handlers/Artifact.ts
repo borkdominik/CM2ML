@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
+import { Uml } from '../uml'
 import { Artifact, Manifestation, Property } from '../uml-metamodel'
 
 export const ArtifactHandler = Artifact.createHandler(
@@ -15,6 +16,9 @@ export const ArtifactHandler = Artifact.createHandler(
     addEdge_nestedArtifact(artifact, nestedArtifacts)
     addEdge_ownedAttribute(artifact, ownedAttributes)
     addEdge_ownedOperation(artifact)
+  },
+  {
+    [Uml.Attributes.fileName]: { type: 'string' },
   },
 )
 

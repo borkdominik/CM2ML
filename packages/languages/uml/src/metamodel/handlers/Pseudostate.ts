@@ -12,7 +12,7 @@ export const PseudostateHandler = Pseudostate.createHandler(
     addEdge_stateMachine(pseudostate)
   },
   {
-    [Uml.Attributes.kind]: 'initial',
+    [Uml.Attributes.kind]: { type: 'category', defaultValue: 'initial' },
   },
 )
 

@@ -15,7 +15,7 @@ export const CombinedFragmentHandler = CombinedFragment.createHandler(
     addEdge_operand(combinedFragment, operands)
   },
   {
-    [Uml.Attributes.interactionOperator]: 'seq',
+    [Uml.Attributes.interactionOperator]: { type: 'category', defaultValue: 'seq' },
   },
 )
 

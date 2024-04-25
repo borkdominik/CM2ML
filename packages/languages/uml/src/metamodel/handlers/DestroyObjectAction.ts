@@ -13,8 +13,8 @@ export const DestroyObjectActionHandler = DestroyObjectAction.createHandler(
     addEdge_target(destroyObjectAction, target)
   },
   {
-    [Uml.Attributes.isDestroyLinks]: 'false',
-    [Uml.Attributes.isDestroyOwnedObjects]: 'false',
+    [Uml.Attributes.isDestroyLinks]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isDestroyOwnedObjects]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

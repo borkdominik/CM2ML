@@ -27,7 +27,8 @@ export const ElementImportHandler = ElementImport.createHandler(
     addEdge_relatedElement(elementImport, importingNamespace, importedElement)
   },
   {
-    [Uml.Attributes.visibility]: 'public',
+    [Uml.Attributes.alias]: { type: 'string' },
+    [Uml.Attributes.visibility]: { type: 'category', defaultValue: 'public' },
   },
 )
 

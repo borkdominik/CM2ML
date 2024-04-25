@@ -16,7 +16,7 @@ export const ReadIsClassifiedObjectActionHandler =
       addEdge_result(readIsClassifiedObjectAction)
     },
     {
-      [Uml.Attributes.isDirect]: 'false',
+      [Uml.Attributes.isDirect]: { type: 'boolean', defaultValue: 'false' },
     },
   )
 

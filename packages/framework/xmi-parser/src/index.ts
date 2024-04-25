@@ -107,10 +107,11 @@ function mapAttribute([name, value]: [string, string]): Attribute {
       name,
       simpleName: parsedName.name,
       namespace: parsedName.namespace,
+      type: 'unknown',
       value: xmiValue,
     }
   }
-  return { name, value: xmiValue }
+  return { name, type: 'unknown', value: xmiValue }
 }
 
 function mapValue(value: string): Value {

@@ -21,7 +21,9 @@ export const MessageHandler = Message.createHandler(
     addEdge_signature(message, signature)
   },
   {
-    [Uml.Attributes.messageSort]: 'synchCall',
+    // TODO/Jan: Derive: The derived kind of the Message (complete, lost, found, or unknown).
+    [Uml.Attributes.messageKind]: { type: 'category' },
+    [Uml.Attributes.messageSort]: { type: 'category', defaultValue: 'synchCall' },
   },
 )
 

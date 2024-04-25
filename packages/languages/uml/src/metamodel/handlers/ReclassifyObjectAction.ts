@@ -17,7 +17,7 @@ export const ReclassifyObjectActionHandler =
       addEdge_oldClassifier(reclassifyObjectAction, oldClassifiers)
     },
     {
-      [Uml.Attributes.isReplaceAll]: 'false',
+      [Uml.Attributes.isReplaceAll]: { type: 'boolean', defaultValue: 'false' },
     },
   )
 function addEdge_newClassifier(reclassifyObjectAction: GraphNode, newClassifiers: GraphNode[]) {

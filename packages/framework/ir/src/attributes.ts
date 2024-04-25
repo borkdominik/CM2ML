@@ -1,21 +1,16 @@
-// Include strings here for autocomplete.
-export type AttributeName =
-  | 'id'
-  | 'idref'
-  | 'name'
-  | 'type'
-  | (string & Record<never, never>)
+export type AttributeName = string
+
+export type AttributeType = 'unknown' | 'string' | 'category' | 'integer' | 'float' | 'boolean'
 
 export interface SimpleAttribute {
   readonly name: AttributeName
   readonly value: Value
+  readonly type: AttributeType
 }
 
-export interface NamespacedAttribute {
-  readonly name: AttributeName
+export interface NamespacedAttribute extends SimpleAttribute {
   readonly simpleName: string
   readonly namespace: string
-  readonly value: Value
 }
 
 export type Attribute = SimpleAttribute | NamespacedAttribute

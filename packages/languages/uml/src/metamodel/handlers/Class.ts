@@ -21,8 +21,8 @@ export const ClassHandler = Class.createHandler(
     addEdge_ownedReception(class_, ownedReceptions)
   },
   {
-    [Uml.Attributes.isAbstract]: 'false',
-    [Uml.Attributes.isActive]: 'false',
+    [Uml.Attributes.isAbstract]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isActive]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

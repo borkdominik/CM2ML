@@ -13,7 +13,7 @@ export const LinkEndCreationDataHandler = LinkEndCreationData.createHandler(
     addEdge_insertAt(linkEndCreationData, insertAt)
   },
   {
-    [Uml.Attributes.isReplaceAll]: 'false',
+    [Uml.Attributes.isReplaceAll]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

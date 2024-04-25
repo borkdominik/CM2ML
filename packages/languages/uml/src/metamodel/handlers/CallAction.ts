@@ -13,7 +13,7 @@ export const CallActionHandler = CallAction.createHandler(
     addEdge_result(callAction, results)
   },
   {
-    [Uml.Attributes.isSynchronous]: 'true',
+    [Uml.Attributes.isSynchronous]: { type: 'boolean', defaultValue: 'true' },
   },
 )
 

@@ -3,5 +3,5 @@ import { LiteralUnlimitedNatural } from '../uml-metamodel'
 
 export const LiteralUnlimitedNaturalHandler =
   LiteralUnlimitedNatural.createPassthroughHandler({
-    [Uml.Attributes.value]: '0',
+    [Uml.Attributes.value]: { type: 'integer', defaultValue: '0' },
   })

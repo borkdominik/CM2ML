@@ -19,8 +19,8 @@ export const BehavioralFeatureHandler = BehavioralFeature.createHandler(
     addEdge_raisedException(behavioralFeature, raisedExceptions)
   },
   {
-    [Uml.Attributes.concurrency]: 'sequential',
-    [Uml.Attributes.isAbstract]: 'false',
+    [Uml.Attributes.concurrency]: { type: 'category', defaultValue: 'sequential' },
+    [Uml.Attributes.isAbstract]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

@@ -21,7 +21,7 @@ export const ProfileApplicationHandler = ProfileApplication.createHandler(
     addEdge_relatedElement(profileApplication, appliedProfile, applyingPackage)
   },
   {
-    [Uml.Attributes.isStrict]: 'true',
+    [Uml.Attributes.isStrict]: { type: 'boolean', defaultValue: 'true' },
   },
 )
 

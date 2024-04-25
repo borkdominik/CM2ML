@@ -11,7 +11,7 @@ export const JoinNodeHandler = JoinNode.createHandler(
     addEdge_joinSpec(joinNode)
   },
   {
-    [Uml.Attributes.isCombineDuplicate]: 'true',
+    [Uml.Attributes.isCombineDuplicate]: { type: 'boolean', defaultValue: 'true' },
   },
 )
 

@@ -16,5 +16,5 @@ export function setLanguageAttribute(node: GraphNode) {
   if (!language) {
     return
   }
-  node.addAttribute({ name: Uml.Attributes.language, value: { literal: language } })
+  node.addAttribute({ name: Uml.Attributes.language, type: 'string', value: { literal: language } })
 }

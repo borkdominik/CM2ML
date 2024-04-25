@@ -12,7 +12,7 @@ export const RedefinableElementHandler = RedefinableElement.createHandler(
     addEdge_redefinitionContext(redefinableElement)
   },
   {
-    [Uml.Attributes.isLeaf]: 'false',
+    [Uml.Attributes.isLeaf]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

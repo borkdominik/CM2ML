@@ -23,7 +23,7 @@ export const PackageImportHandler = PackageImport.createHandler(
     addEdge_relatedElement(packageImport, importingNamespace, importedPackage)
   },
   {
-    [Uml.Attributes.visibility]: 'public',
+    [Uml.Attributes.visibility]: { type: 'category', defaultValue: 'public' },
   },
 )
 

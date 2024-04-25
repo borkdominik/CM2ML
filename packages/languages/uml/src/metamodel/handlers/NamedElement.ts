@@ -3,6 +3,7 @@ import { getParentOfType } from '@cm2ml/metamodel'
 import { Stream } from '@yeger/streams'
 
 import { resolve } from '../resolvers/resolve'
+import { Uml } from '../uml'
 import { Dependency, NamedElement, Namespace, StringExpression } from '../uml-metamodel'
 
 export const NamedElementHandler = NamedElement.createHandler(
@@ -15,6 +16,12 @@ export const NamedElementHandler = NamedElement.createHandler(
     addEdge_clientDependency(namedElement, clientDependency)
     addEdge_nameExpression(namedElement, nameExpression)
     addEdge_namespace(namedElement)
+  },
+  {
+    [Uml.Attributes.name]: { type: 'string' },
+    // TODO/Jan: Derive qualifiedName: A name that allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing Namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself.
+    [Uml.Attributes.qualifiedName]: { type: 'string' },
+    [Uml.Attributes.visibility]: { type: 'category' },
   },
 )
 

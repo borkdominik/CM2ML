@@ -36,7 +36,15 @@ export const OperationHandler = Operation.createHandler(
     addEdge_type(operation, ownedParameters)
   },
   {
-    [Uml.Attributes.isQuery]: 'false',
+    // TODO/Jan: Derive from return result
+    [Uml.Attributes.isOrdered]: { type: 'boolean' },
+    [Uml.Attributes.isQuery]: { type: 'boolean', defaultValue: 'false' },
+    // TODO/Jan: Derive from return result
+    [Uml.Attributes.isUnique]: { type: 'boolean' },
+    // TODO/Jan: Derive from return result
+    [Uml.Attributes.lower]: { type: 'integer' },
+    // TODO/Jan: Derive from return result
+    [Uml.Attributes.upper]: { type: 'integer' },
   },
 )
 

@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
+import { Uml } from '../uml'
 import { ConnectionPointReference, Constraint, Pseudostate, Region, State, StateMachine, Trigger } from '../uml-metamodel'
 
 export const StateHandler = State.createHandler(
@@ -24,6 +25,12 @@ export const StateHandler = State.createHandler(
     addEdge_region(state, regions)
     addEdge_stateInvariant(state, stateInvariant)
     addEdge_submachine(state, submachine)
+  },
+  {
+    [Uml.Attributes.isComposite]: { type: 'boolean' },
+    [Uml.Attributes.isOrthogonal]: { type: 'boolean' },
+    [Uml.Attributes.isSimple]: { type: 'boolean' },
+    [Uml.Attributes.isSubmachineState]: { type: 'boolean' },
   },
 )
 

@@ -3,6 +3,7 @@ import type { GraphNode } from '@cm2ml/ir'
 import { setBodyAttribute } from '../resolvers/body'
 import { setLanguageAttribute } from '../resolvers/language'
 import { resolve } from '../resolvers/resolve'
+import { Uml } from '../uml'
 import { Behavior, OpaqueExpression } from '../uml-metamodel'
 
 // TODO: Check that body attribute is parsed correctly
@@ -16,6 +17,10 @@ export const OpaqueExpressionHandler = OpaqueExpression.createHandler(
     }
     addEdge_behavior(opaqueExpression, behavior)
     addEdge_result(opaqueExpression)
+  },
+  {
+    [Uml.Attributes.body]: { type: 'string' },
+    [Uml.Attributes.language]: { type: 'string' },
   },
 )
 

@@ -22,8 +22,8 @@ export const ActivityHandler = Activity.createHandler(
     addEdge_variable(activity, variables)
   },
   {
-    [Uml.Attributes.isReadOnly]: 'false',
-    [Uml.Attributes.isSingleExecution]: 'false',
+    [Uml.Attributes.isReadOnly]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isSingleExecution]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

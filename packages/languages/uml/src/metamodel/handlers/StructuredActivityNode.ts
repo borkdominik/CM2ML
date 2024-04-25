@@ -21,7 +21,7 @@ export const StructuredActivityNodeHandler =
       addEdge_variable(structuredActivityNode, variables)
     },
     {
-      [Uml.Attributes.mustIsolate]: 'false',
+      [Uml.Attributes.mustIsolate]: { type: 'boolean', defaultValue: 'false' },
     },
   )
 

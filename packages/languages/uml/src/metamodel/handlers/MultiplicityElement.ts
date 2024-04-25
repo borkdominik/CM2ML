@@ -17,8 +17,10 @@ export const MultiplicityElementHandler = MultiplicityElement.createHandler(
     addEdge_upperValue(multiplicityElement, upperValue)
   },
   {
-    [Uml.Attributes.isOrdered]: 'false',
-    [Uml.Attributes.isUnique]: 'true',
+    [Uml.Attributes.isOrdered]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isUnique]: { type: 'boolean', defaultValue: 'true' },
+    [Uml.Attributes.lower]: { type: 'integer' },
+    [Uml.Attributes.upper]: { type: 'integer' },
   },
 )
 
@@ -32,6 +34,7 @@ function setAttribute_lower(multiplicityElement: GraphNode, lowerValue: GraphNod
   }
   multiplicityElement.addAttribute({
     name: Uml.Attributes.lower,
+    type: 'integer',
     value: { literal: value },
   })
 }
@@ -46,6 +49,7 @@ function setAttribute_upper(multiplicityElement: GraphNode, upperValue: GraphNod
   }
   multiplicityElement.addAttribute({
     name: Uml.Attributes.upper,
+    type: 'integer',
     value: { literal: value },
   })
 }

@@ -27,7 +27,7 @@ export const TransitionHandler = Transition.createHandler(
     addEdge_trigger(transition, triggers)
   },
   {
-    [Uml.Attributes.kind]: 'external',
+    [Uml.Attributes.kind]: { type: 'category', defaultValue: 'external' },
   },
 )
 

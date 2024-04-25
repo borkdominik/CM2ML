@@ -37,8 +37,8 @@ export const ClassifierHandler = Classifier.createHandler(
     addEdge_useCase(classifier, useCases)
   },
   {
-    [Uml.Attributes.isAbstract]: 'false',
-    [Uml.Attributes.isFinalSpecialization]: 'false',
+    [Uml.Attributes.isAbstract]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isFinalSpecialization]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

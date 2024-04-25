@@ -14,7 +14,7 @@ export const AddStructuralFeatureValueActionHandler =
       addEdge_insertAt(addStructuralFeatureValueAction, insertAt)
     },
     {
-      [Uml.Attributes.isReplaceAll]: 'false',
+      [Uml.Attributes.isReplaceAll]: { type: 'boolean', defaultValue: 'false' },
     },
   )
 

@@ -40,7 +40,7 @@ function addAttribute_supplier(deployment: GraphNode, deployedArtifacts: GraphNo
   deployedArtifacts.forEach((deployedArtifact) => {
     const deployedArtifactId = deployedArtifact.id
     if (deployedArtifactId && deployment.getAttribute('supplier') === undefined) {
-      deployment.addAttribute({ name: 'supplier', value: { literal: deployedArtifact.id } })
+      deployment.addAttribute({ name: 'supplier', type: 'unknown', value: { literal: deployedArtifact.id } })
     }
   })
 }

@@ -15,7 +15,7 @@ export const ExpansionRegionHandler = ExpansionRegion.createHandler(
     addEdge_outputElement(expansionRegion, outputElements)
   },
   {
-    [Uml.Attributes.mode]: 'iterative',
+    [Uml.Attributes.mode]: { type: 'category', defaultValue: 'iterative' },
   },
 )
 function addEdge_inputElement(expansionRegion: GraphNode, inputElements: GraphNode[]) {

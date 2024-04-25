@@ -3,6 +3,7 @@ import type { GraphNode } from '@cm2ml/ir'
 import { setBodyAttribute } from '../resolvers/body'
 import { setLanguageAttribute } from '../resolvers/language'
 import { resolve } from '../resolvers/resolve'
+import { Uml } from '../uml'
 import { InputPin, OpaqueAction, OutputPin } from '../uml-metamodel'
 
 export const OpaqueActionHandler = OpaqueAction.createHandler(
@@ -16,6 +17,10 @@ export const OpaqueActionHandler = OpaqueAction.createHandler(
     }
     addEdge_inputValue(opaqueAction, inputValues)
     addEdge_outputValue(opaqueAction, outputValues)
+  },
+  {
+    [Uml.Attributes.body]: { type: 'string' },
+    [Uml.Attributes.language]: { type: 'string' },
   },
 )
 function addEdge_inputValue(opaqueAction: GraphNode, inputValues: GraphNode[]) {

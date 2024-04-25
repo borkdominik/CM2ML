@@ -1,4 +1,4 @@
-import type { Attributable, GraphEdge, GraphNode } from '@cm2ml/ir'
+import type { Attributable, AttributeType, GraphEdge, GraphNode } from '@cm2ml/ir'
 
 import type { MetamodelConfiguration } from './configuration'
 
@@ -18,6 +18,7 @@ export function inferAndSaveType<Type extends string, Tag extends string>(
   node.addAttribute({
     name: configuration.typeAttributeName,
     value: { literal: type },
+    type: 'category',
   })
 }
 
@@ -82,6 +83,11 @@ export interface Definition<
   >[]
   assignableTags?: Tag[]
   assignableTypes?: Type[]
+}
+
+export interface AttributeConfiguration {
+  type: AttributeType
+  defaultValue?: string
 }
 
 export class MetamodelElement<
@@ -208,22 +214,35 @@ export class MetamodelElement<
    * @returns The created handler
    */
   public createPassthroughHandler(
-    attributeDefaults: Record<string, string> = {},
+    attributeDefaults: Record<string, AttributeConfiguration> = {},
   ) {
     return this.createHandler(() => {}, attributeDefaults)
   }
 
   public createHandler(
     handler: Handler<HandlerParameters>,
-    attributeDefaults: Record<string, string> = {},
+    attributeConfigurations: Record<string, AttributeConfiguration> = {},
   ) {
     if (this.handler !== undefined) {
       throw new Error(`There already is a handler assigned to ${this.name}`)
     }
     this.handler = (node, parameters) => {
-      Object.entries(attributeDefaults).forEach(([name, value]) => {
-        if (!node.getAttribute(name)) {
-          node.addAttribute({ name, value: { literal: value } })
+      Object.entries(attributeConfigurations).forEach(([name, { type, defaultValue }]) => {
+        const existing = node.getAttribute(name)
+        if (!existing) {
+          if (defaultValue === undefined) {
+            return
+          }
+          node.addAttribute({ name, type, value: { literal: defaultValue } })
+          return
+        }
+        if (existing.type === 'unknown') {
+          // @ts-expect-error Evil illegal const assignment
+          existing.type = type
+          return
+        }
+        if (existing.type !== type && node.model.settings.strict) {
+          throw new Error(`Attribute ${name} has type ${existing.type} but should be ${type}`)
         }
       })
       return handler(node, parameters)
@@ -239,7 +258,7 @@ export class MetamodelElement<
     const currentType = this.configuration.getType(node)
     if (!currentType) {
     // No type set, set type to provided type
-      node.addAttribute({ name: this.configuration.typeAttributeName, value: { literal: this.type } })
+      node.addAttribute({ name: this.configuration.typeAttributeName, type: 'category', value: { literal: this.type } })
       return
     }
     const isNarrowable = [...this.generalizations.values()].find((generalization) => generalization.type === currentType) !== undefined
@@ -248,7 +267,7 @@ export class MetamodelElement<
       return
     }
     // We can narrow the type further
-    node.addAttribute({ name: this.configuration.typeAttributeName, value: { literal: this.type } }, false)
+    node.addAttribute({ name: this.configuration.typeAttributeName, type: 'category', value: { literal: this.type } }, false)
   }
 
   private specialize(

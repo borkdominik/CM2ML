@@ -3,5 +3,5 @@ import { PackageableElement } from '../uml-metamodel'
 
 export const PackageableElementHandler =
   PackageableElement.createPassthroughHandler({
-    [Uml.Attributes.visibility]: 'public',
+    [Uml.Attributes.visibility]: { type: 'category', defaultValue: 'public' },
   })

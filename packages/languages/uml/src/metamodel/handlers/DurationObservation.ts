@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
+import { Uml } from '../uml'
 import { DurationObservation, NamedElement } from '../uml-metamodel'
 
 export const DurationObservationHandler = DurationObservation.createHandler(
@@ -10,6 +11,9 @@ export const DurationObservationHandler = DurationObservation.createHandler(
       return
     }
     addEdge_event(durationObservation, events)
+  },
+  {
+    [Uml.Attributes.firstEvent]: { type: 'boolean' },
   },
 )
 

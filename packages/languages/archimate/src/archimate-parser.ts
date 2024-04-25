@@ -44,7 +44,8 @@ function handleTextNode(node: GraphNode, textContent: string) {
   if (!['purpose', 'documentation'].includes(tag)) {
     return
   }
-  node.addAttribute({ name: 'text', value: { literal: textContent } })
+  // TODO: Define type
+  node.addAttribute({ name: 'text', type: 'unknown', value: { literal: textContent } })
 }
 
 export const ArchimateParser = compose(

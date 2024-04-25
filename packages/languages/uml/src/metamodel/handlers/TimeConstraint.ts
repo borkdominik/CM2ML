@@ -11,7 +11,7 @@ export const TimeConstraintHandler = TimeConstraint.createHandler(
     addEdge_specification(timeConstraint)
   },
   {
-    [Uml.Attributes.firstEvent]: 'true',
+    [Uml.Attributes.firstEvent]: { type: 'boolean', defaultValue: 'true' },
   },
 )
 

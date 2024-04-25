@@ -17,7 +17,7 @@ export const ComponentHandler = Component.createHandler(
     addEdge_required(component)
   },
   {
-    [Uml.Attributes.isIndirectlyInstantiated]: 'true',
+    [Uml.Attributes.isIndirectlyInstantiated]: { type: 'boolean', defaultValue: 'true' },
   },
 )
 

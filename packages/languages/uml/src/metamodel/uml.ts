@@ -79,6 +79,7 @@ const Attributes = {
   mustIsolate: 'mustIsolate',
   name: 'name',
   ordering: 'ordering',
+  qualifiedName: 'qualifiedName',
   setting: 'setting',
   symbol: 'symbol',
   upper: 'upper',

@@ -14,7 +14,7 @@ export const RemoveStructuralFeatureValueActionHandler =
       addEdge_removeAt(removeStructuralFeatureValueAction, removeAt)
     },
     {
-      [Uml.Attributes.isRemoveDuplicates]: 'false',
+      [Uml.Attributes.isRemoveDuplicates]: { type: 'boolean', defaultValue: 'false' },
     },
   )
 

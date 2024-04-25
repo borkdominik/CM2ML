@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
+import { Uml } from '../uml'
 import { Association, Connector, ConnectorEnd } from '../uml-metamodel'
 
 export const ConnectorHandler = Connector.createHandler(
@@ -14,6 +15,9 @@ export const ConnectorHandler = Connector.createHandler(
     addEdge_end(connector, ends)
     addEdge_redefinedConnector(connector)
     addEdge_type(connector, type)
+  },
+  {
+    [Uml.Attributes.kind]: { type: 'category' },
   },
 )
 

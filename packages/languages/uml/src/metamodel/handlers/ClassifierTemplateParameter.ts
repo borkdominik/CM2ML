@@ -16,7 +16,7 @@ export const ClassifierTemplateParameterHandler =
       addEdge_parameteredElement(classifierTemplateParameter, parameteredElement)
     },
     {
-      [Uml.Attributes.allowSubstitutable]: 'true',
+      [Uml.Attributes.allowSubstitutable]: { type: 'boolean', defaultValue: 'true' },
     },
   )
 

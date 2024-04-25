@@ -12,7 +12,7 @@ export const FeatureHandler = Feature.createHandler(
     addEdge_featuringClassifier(feature)
   },
   {
-    [Uml.Attributes.isStatic]: 'false',
+    [Uml.Attributes.isStatic]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

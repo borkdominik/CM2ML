@@ -16,9 +16,9 @@ export const PortHandler = Port.createHandler(
     addEdge_required(port)
   },
   {
-    [Uml.Attributes.isBehavior]: 'false',
-    [Uml.Attributes.isConjugated]: 'false',
-    [Uml.Attributes.isService]: 'true',
+    [Uml.Attributes.isBehavior]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isConjugated]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isService]: { type: 'boolean', defaultValue: 'true' },
   },
 )
 

@@ -16,5 +16,5 @@ export function setBodyAttribute(node: GraphNode) {
   if (!body) {
     return
   }
-  node.addAttribute({ name: Uml.Attributes.body, value: { literal: body } })
+  node.addAttribute({ name: Uml.Attributes.body, type: 'string', value: { literal: body } })
 }

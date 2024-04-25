@@ -24,7 +24,7 @@ export const BehaviorHandler = Behavior.createHandler(
     addEdge_redefinedBehavior(behavior, redefinedBehaviors)
   },
   {
-    [Uml.Attributes.isReentrant]: 'true',
+    [Uml.Attributes.isReentrant]: { type: 'boolean', defaultValue: 'true' },
   },
 )
 

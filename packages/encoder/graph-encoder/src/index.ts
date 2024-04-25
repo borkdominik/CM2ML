@@ -2,9 +2,9 @@ import type { GraphEdge, GraphModel } from '@cm2ml/ir'
 import { METADATA_KEY, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
-import { batchFeatureVectors } from './features'
+import { deriveFeatures } from './features'
 
-export type { FeatureVectorTemplate, FeatureVector } from './features'
+export type { FeatureMetadata, FeatureVector } from './features'
 
 export const GraphEncoder = definePlugin({
   name: 'raw-graph',
@@ -28,9 +28,9 @@ export const GraphEncoder = definePlugin({
     },
   },
   batchMetadataCollector: (models: GraphModel[]) => {
-    return batchFeatureVectors(models)
+    return deriveFeatures(models)
   },
-  invoke(input, { includeEqualPaths, sparse, weighted }, { nodeFeatures, nodeFeatureVector, edgeFeatures, edgeFeatureVector }) {
+  invoke(input, { includeEqualPaths, sparse, weighted }, { nodeFeatures, getNodeFeatureVector, edgeFeatures, getEdgeFeatureVector }) {
     const sortedIds = getSortedIds(input)
 
     const sortedEdges = getRelevantEdges(input, includeEqualPaths).toArray().sort(createEdgeSorter(sortedIds))
@@ -41,10 +41,10 @@ export const GraphEncoder = definePlugin({
       .from(sortedIds)
       .map((id) => input.getNodeById(id))
       .filterNonNull()
-      .map(nodeFeatureVector)
+      .map(getNodeFeatureVector)
       .toArray()
 
-    const edgeFeatureVectors = sortedEdges.map(edgeFeatureVector)
+    const edgeFeatureVectors = sortedEdges.map(getEdgeFeatureVector)
 
     return {
       ...edgeEncoding,

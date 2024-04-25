@@ -13,7 +13,7 @@ export const TimeEventHandler = TimeEvent.createHandler(
     addEdge_when(timeEvent, when)
   },
   {
-    [Uml.Attributes.isRelative]: 'false',
+    [Uml.Attributes.isRelative]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

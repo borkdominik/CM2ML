@@ -17,9 +17,11 @@ export const ParameterHandler = Parameter.createHandler(
     addEdge_parameterSet(parameter, parameterSets)
   },
   {
-    [Uml.Attributes.direction]: 'in',
-    [Uml.Attributes.isException]: 'false',
-    [Uml.Attributes.isStream]: 'false',
+    [Uml.Attributes.default]: { type: 'string' },
+    [Uml.Attributes.direction]: { type: 'category', defaultValue: 'in' },
+    [Uml.Attributes.effect]: { type: 'category' },
+    [Uml.Attributes.isException]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isStream]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

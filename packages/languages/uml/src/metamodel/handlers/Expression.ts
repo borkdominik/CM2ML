@@ -1,5 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
+import { Uml } from '../uml'
 import { Expression } from '../uml-metamodel'
 
 export const ExpressionHandler = Expression.createHandler(
@@ -8,6 +9,9 @@ export const ExpressionHandler = Expression.createHandler(
       return
     }
     addEdge_operand(expression)
+  },
+  {
+    [Uml.Attributes.symbol]: { type: 'string' },
   },
 )
 

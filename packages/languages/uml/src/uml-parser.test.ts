@@ -16,6 +16,7 @@ const { validModels, invalidModels } = getFiles({
     '0390aa780981baeb9c88926789a9a864e3dbae961118a2f17f3a87a0cc3bb493.uml', // duplicate id
     '080364b14ef24331b00049e387697986ed7f05c16d93a6b32f36c356c3cb6ef5.uml', // duplicate generalization
     '086943006eec3dd2a28d9d053703ea1faf80f8aacdef0b993bb213ea3c38d304.uml', // uses abstract class Pin as instance type
+    '0934baad8a3f4e534b997c65c0d8fe9c480cfa6bdf9396fce0e03c4f35304d93.uml', // invalid "isActive" attribute on Enumeration
     '0b01763511a89d396ba9f6aa5b14ac94f23875280cead245404f1744c25d579a.uml', // duplicate generalization
     '0d30f96045cc652e095149b01540e8fb66d3c809a9dc4e60ad4fdad2ce45b7d3.uml', // duplicate generalization
     '0d5912ac87d1559fed1297cffbb53ebb6393878e4829bb85e64b50ff894e020a.uml', // duplicate id
@@ -32,6 +33,7 @@ const { validModels, invalidModels } = getFiles({
     '2da29b0b92bf5445d09d803040b60e1650074621cfb43eb158a43fd8187e2955.uml', // duplicate generalization
     '2e5851e4f6b34f49cb272534e70489f0cfd9b3756b127a92cd2bb41cde98b464.uml', // uses abstract class Pin as instance type
     '32fd7205f5ca476fe21aed299a9d511dc6da6363ce86235de0ce90163f222e87.uml', // duplicate id
+    '33661a041dc4efc51cd4f05e8ba1415f2409f94a7335872aee2d812275f267d2.uml', // invalid "isActive" attribute on Enumeration
     '3807e34fc85f8809dc5c50a60191724554649c8de42af4dfcccf39329a84d890.uml', // duplicate id
     '3b7c2b547b19aa3bf242b10bbfa3f809c8684a51d806be496a4e0e4a28f00410.uml', // duplicate id
     '3d09b512c4b31971960d5805a6bd6d59307bbae75d4706fc5242c5dc437bde17.uml', // duplicate id
@@ -55,9 +57,12 @@ const { validModels, invalidModels } = getFiles({
     '7b925ad4bf5313963e94529765fa6168712835d7dff16e32244e3058af316edb.uml', // duplicate id
     '7fc541e9043b7e86dbb1fa20a670dbc3d727096b16de143f940e471f7f7592d0.uml', // uses abstract class Pin as instance type
     '81c3b0f1c4ca0ccac17588d4f57f45b4bcb2c5da11cdc01efb1a054bd6ad17ce.uml', // duplicate generalization
+    '8289f587db498fea1ccf9d7e6186c2f687dec97ff95557d025d5b30ba1f3e27e.uml', // invalid "isActive" attribute on Enumeration
     '84cb37f59c916b05d4a36a8b28f9bc1ccd1a59230be0bd1f7caa0c327f58cd31.uml', // duplicate id
+    '86069121b9cee5f9a6113da953d7b8937fa49afe2069644114b0504190972fe6.uml', // invalid "isActive" attribute on Enumeration
     '8beee7e0fd2e9f74d26dc7e8c3905f8e7e4e8a48064a52a26e70917f9184deef.uml', // duplicate id
     '91ac0c7e6fc04b3e265879951d5177774b67284781e1d0e0ee43b6dfc31e8938.uml', // duplicate generalization
+    '95a971f649c5b184b43b3b00ee8a058b043d8d701c8ee8b0f4c3d45969a3d56d.uml', // invalid "isActive" attribute on Enumeration
     '9a16867844a856e572c16eb85203084c3f1f96df9d2189f6b8807e38140ed429.uml', // duplicate generalization
     '9dcd1712dcc15e60434ddfbe6ca53de74bebd1408e999adebb37cad9c2fecb44.uml', // duplicate generalization
     'a0781c0e549192e20ecdbd8e452b5314779e10cdd9eff0d47580d755cb13bcb5.uml', // invalid UML
@@ -76,14 +81,17 @@ const { validModels, invalidModels } = getFiles({
     'deba6074c1892c262330ce68a4e516c0e224724d169c24c9ff4926ab1960b083.uml', // invalid UML
     'e1f383323b0308d345c9277bd73a99ecb0e9d873882a388f2b6b6a3c20966679.uml', // duplicate id
     'e2282fa6e18b03f53a19e30ec9b3053ec1dd3e4982281c260995a83d7715f637.uml', // duplicate id
+    'e3a166c9e9020ffc0384e4faadff4e04c0bd25fbb227a2d496b1cf0bea30d869.uml', // invalid "isActive" attribute on Enumeration
     'e93156c36900566c5a4eca2621fab9d0d920f9eb6fbed2bce00df00a57bc0f25.uml', // duplicate id
     'ead93c92b5a21957b514039593dd446b850cfb4298580811d1dc17028a7ab4b3.uml', // duplicate id
     'eae72f7ed192d8e515dc9ff0654e614bb86a8f8ed40cf9feba39c6d481afcdba.uml', // uses abstract class Pin as instance type
+    'ebbff49e82715f08a04334878e1d96087ed5057e9346d49c4ad1c8bc88b2effc.uml', // invalid "isActive" attribute on PrimitiveType
     'ed68e0a3f777e691c543fa5b7fb6c64d60d5965e69b11795877febf38903d8e6.uml', // not plain UML
     'f0cb46bb4e2127bd31c4e8d2a39f337d83e2a460a5f76412cd537b7aef8fe01a.uml', // duplicate id
+    'f714e9bae75061d697292a4d6f4dd19f03a611321c2b03bfa04eebef308b2990.uml', // invalid "isActive" attribute on Enumeration
     'ffec14974404d79da3b9fd4336a608795fe1b9017fe5fe8357c633a24a8512d5.uml', // duplicate id
   ],
-  // override: 446,
+  // override: 1709,
 })
 
 const showDebugOutput = validModels.length === 1

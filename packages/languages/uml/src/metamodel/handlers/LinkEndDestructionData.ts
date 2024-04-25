@@ -14,7 +14,7 @@ export const LinkEndDestructionDataHandler =
       addEdge_destroyAt(linkEndDestructionData, destroyAt)
     },
     {
-      [Uml.Attributes.isDestroyDuplicates]: 'false',
+      [Uml.Attributes.isDestroyDuplicates]: { type: 'boolean', defaultValue: 'false' },
     },
   )
 

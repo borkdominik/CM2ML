@@ -26,7 +26,7 @@ export const GeneralizationHandler = Generalization.createHandler(
     addEdge_relatedElement(generalization, specific, general)
   },
   {
-    [Uml.Attributes.isSubstitutable]: 'true',
+    [Uml.Attributes.isSubstitutable]: { type: 'boolean', defaultValue: 'true' },
   },
 )
 

@@ -78,7 +78,7 @@ function generateIds(model: GraphModel) {
   let id = 0
   model.nodes.forEach((node) => {
     if (!node.id) {
-      node.addAttribute({ name: Uml.Attributes['xmi:id'], value: { literal: `eu.yeger#generated-id-${id++}` } }, false)
+      node.addAttribute({ name: Uml.Attributes['xmi:id'], type: 'string', value: { literal: `eu.yeger#generated-id-${id++}` } }, false)
     }
   })
   if (id > 0) {
@@ -189,7 +189,7 @@ function handleTextNode(node: GraphNode, text: string) {
   if (node.getAttribute(tag) !== undefined) {
     return
   }
-  node.addAttribute({ name: tag, value: { literal: text } })
+  node.addAttribute({ name: tag, type: 'string', value: { literal: text } })
 }
 
 export const UmlParser = compose(

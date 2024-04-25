@@ -15,8 +15,8 @@ export const GeneralizationSetHandler = GeneralizationSet.createHandler(
     addEdge_powertype(generalizationSet, powertype)
   },
   {
-    [Uml.Attributes.isCovering]: 'false',
-    [Uml.Attributes.isDisjoint]: 'false',
+    [Uml.Attributes.isCovering]: { type: 'boolean', defaultValue: 'false' },
+    [Uml.Attributes.isDisjoint]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 

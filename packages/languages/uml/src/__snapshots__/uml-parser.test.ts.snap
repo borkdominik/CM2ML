@@ -2,6 +2,12 @@
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/0390aa780981baeb9c88926789a9a864e3dbae961118a2f17f3a87a0cc3bb493.uml 1`] = `[Error: Id _WRAyIJZhEdyRIrYBxybDuw already registered]`;
 
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/0934baad8a3f4e534b997c65c0d8fe9c480cfa6bdf9396fce0e03c4f35304d93.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/080364b14ef24331b00049e387697986ed7f05c16d93a6b32f36c356c3cb6ef5.uml 1`] = `[Error: Node _xmKqoMAXEd-WluVYiXTpAQ has duplicate outgoing edges with tag superClass and target _cBuRwMAXEd-WluVYiXTpAQ]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/086943006eec3dd2a28d9d053703ea1faf80f8aacdef0b993bb213ea3c38d304.uml 1`] = `
@@ -233,6 +239,12 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/91ac0c7e6fc04b3e265879951d5177774b67284781e1d0e0ee43b6dfc31e8938.uml 1`] = `[Error: Node _s8peeMR3Ed6DKJk3cfnjrA has duplicate outgoing edges with tag superClass and target _cvdliMR0Ed6DKJk3cfnjrA]`;
 
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/95a971f649c5b184b43b3b00ee8a058b043d8d701c8ee8b0f4c3d45969a3d56d.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/217ce1849957ba325ddac1da6b96c86fae68f1166d0f3bfd8c4b5d1b5e9bdc8b.uml 1`] = `[Error: Node _u5V8QC2CEeGnpqOpZuWPOw has duplicate outgoing edges with tag superClass and target _RqFpQC2BEeGnpqOpZuWPOw]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/470ecc0168d34cede4c836f64afd5a5718a604973e87e35ce3898dd06c5780f6.uml 1`] = `[Error: Id _lkrEgEohEeqZG5NsJreXng already registered]`;
@@ -285,13 +297,31 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 </packagedElement>]
 `;
 
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/8289f587db498fea1ccf9d7e6186c2f687dec97ff95557d025d5b30ba1f3e27e.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/33661a041dc4efc51cd4f05e8ba1415f2409f94a7335872aee2d812275f267d2.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/79014b6756bad500fbd4edd5e256665759437736e14c5432602f03d90d2033ae.uml 1`] = `[Error: Id _6rjvIMJTEeSoML005LCRPA already registered]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/1128005f61433c19ddb913f1716cb2165edfc973d455a3152fa2190b12b5f9f9.uml 1`] = `[Error: Id Association119 already registered]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/1831658a2d93946723191887f0b2f33eb2cc05700b7cc45c9605a188a5b7478c.uml 1`] = `[Error: Id _id_Class already registered]`;
 
-exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/a0781c0e549192e20ecdbd8e452b5314779e10cdd9eff0d47580d755cb13bcb5.uml 1`] = `[Error: Attribute HEAD of node <Operation <ownedOperation="" HEAD="" concurrency="sequential" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="exibirHorarios" xmi:id="_33NCwLE3Eeex4PxdPta0tA" xmi:type="Operation" /> is unknown]`;
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/86069121b9cee5f9a6113da953d7b8937fa49afe2069644114b0504190972fe6.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/a0781c0e549192e20ecdbd8e452b5314779e10cdd9eff0d47580d755cb13bcb5.uml 1`] = `[Error: Attribute HEAD of node <Operation <ownedOperation="" HEAD="" concurrency="sequential" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="exibirHorarios" xmi:id="_33NCwLE3Eeex4PxdPta0tA" xmi:type="Operation" /> is of unknown type]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/a4f7a328882535dd39a40de29e2ab479243500b223d7fc31fd964fd5ed1f685e.uml 1`] = `[Error: Id stacks_fUo-QBt1Eea5NKvb7KrMNA already registered]`;
 
@@ -441,7 +471,7 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
   <Extension isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" name="E_CoreData_Class1" visibility="public" xmi:id="_DHOXcC5nEeaF_sH3mLTVKg" xmi:type="Extension">
     <ExtensionEnd aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="extension_CoreData" xmi:id="_DHOXcS5nEeaF_sH3mLTVKg" xmi:type="ExtensionEnd" />
   </Extension>
-</Package> is unknown]
+</Package> is of unknown type]
 `;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/d516b67c9011a32599fda3665daed165a05ff1b646fcd9086d629e008caeeea8.uml 1`] = `[Error: Id _KMGe8LZDEeWZwYkJ7VRa0A already registered]`;
@@ -503,6 +533,8 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/e1f383323b0308d345c9277bd73a99ecb0e9d873882a388f2b6b6a3c20966679.uml 1`] = `[Error: Id _4Qge8PjgEeqA4v_JqiO9QA already registered]`;
 
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/e3a166c9e9020ffc0384e4faadff4e04c0bd25fbb227a2d496b1cf0bea30d869.uml 1`] = `[Error: Attribute isActive of node <PrimitiveType isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="ZonedDateTime" visibility="public" xmi:id="70S2TEqFS_malgOr" xmi:type="PrimitiveType" /> is of unknown type]`;
+
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/e2282fa6e18b03f53a19e30ec9b3053ec1dd3e4982281c260995a83d7715f637.uml 1`] = `[Error: Id _FVm44EoNEeWHt5v0-LD9uA already registered]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/e93156c36900566c5a4eca2621fab9d0d920f9eb6fbed2bce00df00a57bc0f25.uml 1`] = `[Error: Id  already registered]`;
@@ -519,6 +551,12 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 </packagedElement>]
 `;
 
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/ebbff49e82715f08a04334878e1d96087ed5057e9346d49c4ad1c8bc88b2effc.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/ed68e0a3f777e691c543fa5b7fb6c64d60d5965e69b11795877febf38903d8e6.uml 1`] = `
 [Error: No handler for node with tag importedElement and type undefined of parent <elementImport visibility="public" xmi:id="_hGRV8NzwEeiOPJBrCHaltw" xmi:type="ElementImport">
   <importedElement href="//PLATFORM_RESOURCE/CommRoQMEObjects/model/commObject/CommRoQMEObjects.comm#//@elements.0/CommQoSMetrics" xmi:id="eu.yeger#generated-id-1" xmi:type="CommunicationObject" />
@@ -526,6 +564,12 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 `;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/f0cb46bb4e2127bd31c4e8d2a39f337d83e2a460a5f76412cd537b7aef8fe01a.uml 1`] = `[Error: Id _KRHHYATyEdyMwcS56ZZh9w already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/f714e9bae75061d697292a4d6f4dd19f03a611321c2b03bfa04eebef308b2990.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/ffec14974404d79da3b9fd4336a608795fe1b9017fe5fe8357c633a24a8512d5.uml 1`] = `[Error: Id _LovLYB_-Edyi3tc0vUUiUQ already registered]`;
 

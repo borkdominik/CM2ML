@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
+import { Uml } from '../uml'
 import { Class, Extension, ExtensionEnd, Property } from '../uml-metamodel'
 
 export const ExtensionHandler = Extension.createHandler(
@@ -13,6 +14,10 @@ export const ExtensionHandler = Extension.createHandler(
     }
     addEdge_metaclass(extension, memberEnds, ownedEnd)
     addEdge_ownedEnd(extension, ownedEnd)
+  },
+  {
+    // TODO/Jan: Derive
+    [Uml.Attributes.isRequired]: { type: 'boolean' },
   },
 )
 

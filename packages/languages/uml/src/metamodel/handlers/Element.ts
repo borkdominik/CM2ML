@@ -1,6 +1,7 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
+import { Uml } from '../uml'
 import { Comment, Element } from '../uml-metamodel'
 
 export const ElementHandler = Element.createHandler(
@@ -12,6 +13,11 @@ export const ElementHandler = Element.createHandler(
       return
     }
     addEdge_ownedComment(element, ownedComments)
+  },
+  {
+    [Uml.Attributes['xmi:id']]: { type: 'string' },
+    [Uml.Attributes['xmi:type']]: { type: 'category' },
+    [Uml.Attributes['xsi:type']]: { type: 'category' },
   },
 )
 

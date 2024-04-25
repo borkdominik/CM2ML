@@ -13,7 +13,7 @@ export const ReduceActionHandler = ReduceAction.createHandler(
     addEdge_result(reduceAction)
   },
   {
-    [Uml.Attributes.isOrdered]: 'false',
+    [Uml.Attributes.isOrdered]: { type: 'boolean', defaultValue: 'false' },
   },
 )
 
