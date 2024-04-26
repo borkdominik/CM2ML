@@ -9,10 +9,10 @@ export const StateHandler = State.createHandler(
     const connectionPoints = resolve(state, 'connectionPoint', { many: true, type: Pseudostate })
     const connections = resolve(state, 'connection', { many: true, type: ConnectionPointReference })
     const deferrableTriggers = resolve(state, 'deferrableTrigger', { many: true, type: Trigger })
+    const redefinedStates = resolve(state, 'redefinedState', { many: true, type: State })
     const regions = resolve(state, 'region', { many: true, type: Region })
     const stateInvariant = resolve(state, 'stateInvariant', { type: Constraint })
     const submachine = resolve(state, 'submachine', { type: StateMachine })
-    removeUnsupportedRedefinedState(state)
     if (onlyContainmentAssociations) {
       return
     }
@@ -22,6 +22,7 @@ export const StateHandler = State.createHandler(
     addEdge_doActivity(state)
     addEdge_entry(state)
     addEdge_exit(state)
+    addEdge_redefinedElement(state, redefinedStates)
     addEdge_region(state, regions)
     addEdge_stateInvariant(state, stateInvariant)
     addEdge_submachine(state, submachine)
@@ -33,13 +34,6 @@ export const StateHandler = State.createHandler(
     [Uml.Attributes.isSubmachineState]: { type: 'boolean' },
   },
 )
-
-function removeUnsupportedRedefinedState(state: GraphNode) {
-  // TODO/Jan: Validate that the redefinedState is truly unspecified
-  // Remove unspecified attribute
-  const redefinedState = resolve(state, 'redefinedState', { type: State })
-  redefinedState?.model.removeNode(redefinedState)
-}
 
 function addEdge_connection(state: GraphNode, connections: GraphNode[]) {
   // ♦ connection : ConnectionPointReference [0..*]{subsets Namespace::ownedMember} (opposite ConnectionPointReference::state)
@@ -81,6 +75,13 @@ function addEdge_exit(_state: GraphNode) {
   // TODO/Association
   // ♦ exit : Behavior [0..1]{subsets Element::ownedElement} (opposite A_exit_state::state)
   // An optional Behavior that is executed whenever this State is exited regardless of which Transition was taken out of the State. If defined, exit Behaviors are always executed to completion only after all internal and transition Behaviors have completed execution.
+}
+
+function addEdge_redefinedElement(state: GraphNode, redefinedStates: GraphNode[]) {
+  // See RedefinedElementHandler
+  redefinedStates.forEach((redefinedState) => {
+    state.model.addEdge('redefinedElement', state, redefinedState)
+  })
 }
 
 function addEdge_region(state: GraphNode, regions: GraphNode[]) {
