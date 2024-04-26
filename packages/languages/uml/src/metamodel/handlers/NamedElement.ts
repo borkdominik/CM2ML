@@ -10,20 +10,55 @@ export const NamedElementHandler = NamedElement.createHandler(
   (namedElement, { onlyContainmentAssociations }) => {
     const clientDependency = resolve(namedElement, 'clientDependency', { many: true, type: Dependency })
     const nameExpression = resolve(namedElement, 'nameExpression', { type: StringExpression })
+    const namespace = getParentOfType(namedElement, Namespace)
+    deriveAttribute_qualifiedName(namedElement, namespace)
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_clientDependency(namedElement, clientDependency)
     addEdge_nameExpression(namedElement, nameExpression)
-    addEdge_namespace(namedElement)
+    addEdge_namespace(namedElement, namespace)
   },
   {
     [Uml.Attributes.name]: { type: 'string' },
-    // TODO/Jan: Derive qualifiedName: A name that allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing Namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself.
     [Uml.Attributes.qualifiedName]: { type: 'string' },
     [Uml.Attributes.visibility]: { type: 'category' },
   },
 )
+
+function deriveAttribute_qualifiedName(namedElement: GraphNode, namespace: GraphNode | undefined) {
+  // A name that allows the NamedElement to be identified within a hierarchy of nested Namespaces.
+  // It is constructed from the names of the containing Namespaces starting at the root of the hierarchy
+  // and ending with the name of the NamedElement itself.
+  const ownName = namedElement.getAttribute(Uml.Attributes.name)?.value.literal
+  if (ownName === undefined) {
+    return
+  }
+  const nameHierarchy: string[] = [ownName]
+
+  function addNamePartToHierarchy(node: GraphNode) {
+    const name = node.getAttribute(Uml.Attributes.name)?.value.literal
+    if (name === undefined) {
+      return false
+    }
+    nameHierarchy.push(name)
+    const parent = getParentOfType(node, Namespace)
+    if (parent) {
+      return addNamePartToHierarchy(parent)
+    }
+    return true
+  }
+
+  if (namespace) {
+    const allAreNamed = addNamePartToHierarchy(namespace)
+    if (!allAreNamed) {
+      return
+    }
+  }
+
+  const qualifiedName = nameHierarchy.reverse().join('::')
+  namedElement.addAttribute({ name: Uml.Attributes.qualifiedName, type: 'string', value: { literal: qualifiedName } })
+}
 
 function addEdge_clientDependency(namedElement: GraphNode, clientDependency: GraphNode[]) {
   // /clientDependency : Dependency [0..*]{subsets A_source_directedRelationship::directedRelationship} (opposite Dependency::client)
@@ -42,8 +77,7 @@ function addEdge_nameExpression(namedElement: GraphNode, nameExpression: GraphNo
   namedElement.model.addEdge('nameExpression', namedElement, nameExpression)
 }
 
-function addEdge_namespace(namedElement: GraphNode) {
-  const namespace = getParentOfType(namedElement, Namespace)
+function addEdge_namespace(namedElement: GraphNode, namespace: GraphNode | undefined) {
   if (!namespace) {
     return
   }

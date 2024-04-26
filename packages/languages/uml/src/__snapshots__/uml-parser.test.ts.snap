@@ -3,8 +3,8 @@
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/0390aa780981baeb9c88926789a9a864e3dbae961118a2f17f3a87a0cc3bb493.uml 1`] = `[Error: Id _WRAyIJZhEdyRIrYBxybDuw already registered]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/0934baad8a3f4e534b997c65c0d8fe9c480cfa6bdf9396fce0e03c4f35304d93.uml 1`] = `
-[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
-  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
 </Enumeration> is of unknown type]
 `;
 
@@ -240,8 +240,8 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/91ac0c7e6fc04b3e265879951d5177774b67284781e1d0e0ee43b6dfc31e8938.uml 1`] = `[Error: Node _s8peeMR3Ed6DKJk3cfnjrA has duplicate outgoing edges with tag superClass and target _cvdliMR0Ed6DKJk3cfnjrA]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/95a971f649c5b184b43b3b00ee8a058b043d8d701c8ee8b0f4c3d45969a3d56d.uml 1`] = `
-[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
-  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
 </Enumeration> is of unknown type]
 `;
 
@@ -298,14 +298,14 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 `;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/8289f587db498fea1ccf9d7e6186c2f687dec97ff95557d025d5b30ba1f3e27e.uml 1`] = `
-[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
-  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
 </Enumeration> is of unknown type]
 `;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/33661a041dc4efc51cd4f05e8ba1415f2409f94a7335872aee2d812275f267d2.uml 1`] = `
-[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
-  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
 </Enumeration> is of unknown type]
 `;
 
@@ -316,12 +316,12 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/1831658a2d93946723191887f0b2f33eb2cc05700b7cc45c9605a188a5b7478c.uml 1`] = `[Error: Id _id_Class already registered]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/86069121b9cee5f9a6113da953d7b8937fa49afe2069644114b0504190972fe6.uml 1`] = `
-[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
-  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
 </Enumeration> is of unknown type]
 `;
 
-exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/a0781c0e549192e20ecdbd8e452b5314779e10cdd9eff0d47580d755cb13bcb5.uml 1`] = `[Error: Attribute HEAD of node <Operation <ownedOperation="" HEAD="" concurrency="sequential" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="exibirHorarios" xmi:id="_33NCwLE3Eeex4PxdPta0tA" xmi:type="Operation" /> is of unknown type]`;
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/a0781c0e549192e20ecdbd8e452b5314779e10cdd9eff0d47580d755cb13bcb5.uml 1`] = `[Error: Attribute HEAD of node <Operation <ownedOperation="" HEAD="" concurrency="sequential" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="exibirHorarios" qualifiedName="modelo::Maquina::exibirHorarios" xmi:id="_33NCwLE3Eeex4PxdPta0tA" xmi:type="Operation" /> is of unknown type]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/a4f7a328882535dd39a40de29e2ab479243500b223d7fc31fd964fd5ed1f685e.uml 1`] = `[Error: Id stacks_fUo-QBt1Eea5NKvb7KrMNA already registered]`;
 
@@ -380,96 +380,96 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/d7e92eda9a8dc016511672503a0f19d13033bb1b3532b6d5b20ba0a74a32daa1.uml 1`] = `[Error: Node _0Cqb0K9jEd6KLrDsd6Ph6Q has duplicate outgoing edges with tag superClass and target _1Fa5WK9jEd6KLrDsd6Ph6Q]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/d221df3d85a5927cdfd7deeae92187f2a1b9129ce9587e3edb2d5bdfccd6cdff.uml 1`] = `
-[Error: Attribute metaclassReference of node <Package metaclassReference="_pnK3ACpoEeaibdPncpUwfA" name="Core" visibility="public" xmi:id="_Q9bJsCluEeaibdPncpUwfA" xmi:type="Package">
+[Error: Attribute metaclassReference of node <Package metaclassReference="_pnK3ACpoEeaibdPncpUwfA" name="Core" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core" visibility="public" xmi:id="_Q9bJsCluEeaibdPncpUwfA" xmi:type="Package">
   <ElementImport alias="Class" visibility="public" xmi:id="_pnK3ACpoEeaibdPncpUwfA" xmi:type="ElementImport">
     <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-23" xmi:type="Class" />
   </ElementImport>
-  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreComputationNode" visibility="public" xmi:id="_lG6AcCluEeaibdPncpUwfA" xmi:type="Stereotype">
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreComputationNode" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreComputationNode" visibility="public" xmi:id="_lG6AcCluEeaibdPncpUwfA" xmi:type="Stereotype">
     <Generalization isSubstitutable="true" xmi:id="_hwLz4C5eEeaF_sH3mLTVKg" xmi:type="Generalization" />
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasSuccessor" upper="*" xmi:id="_oWUlECpmEeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasSuccessor" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreComputationNode::hasSuccessor" upper="*" xmi:id="_oWUlECpmEeaibdPncpUwfA" xmi:type="Property">
       <LiteralInteger value="0" visibility="public" xmi:id="_qSL00CpmEeaibdPncpUwfA" xmi:type="LiteralInteger" />
       <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_qSNC8CpmEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="processInputData" upper="*" xmi:id="_wIBm0CpmEeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="processInputData" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreComputationNode::processInputData" upper="*" xmi:id="_wIBm0CpmEeaibdPncpUwfA" xmi:type="Property">
       <LiteralInteger value="0" visibility="public" xmi:id="_57tHYCpmEeaibdPncpUwfA" xmi:type="LiteralInteger" />
       <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_57vjoCpmEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="realise" xmi:id="_stCmUCppEeaibdPncpUwfA" xmi:type="Property" />
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="produceOutputData" upper="*" xmi:id="_yUYpUCppEeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="realise" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreComputationNode::realise" xmi:id="_stCmUCppEeaibdPncpUwfA" xmi:type="Property" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="produceOutputData" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreComputationNode::produceOutputData" upper="*" xmi:id="_yUYpUCppEeaibdPncpUwfA" xmi:type="Property">
       <LiteralInteger value="1" visibility="public" xmi:id="_1wBpwCppEeaibdPncpUwfA" xmi:type="LiteralInteger" />
       <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_1wC34CppEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
   </Stereotype>
-  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDataSource" visibility="public" xmi:id="_r1_uoCluEeaibdPncpUwfA" xmi:type="Stereotype">
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDataSource" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDataSource" visibility="public" xmi:id="_r1_uoCluEeaibdPncpUwfA" xmi:type="Stereotype">
     <Generalization isSubstitutable="true" xmi:id="_bSmP8C5fEeaF_sH3mLTVKg" xmi:type="Generalization" />
   </Stereotype>
-  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreStorageNode" visibility="public" xmi:id="_slNlECluEeaibdPncpUwfA" xmi:type="Stereotype">
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreStorageNode" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreStorageNode" visibility="public" xmi:id="_slNlECluEeaibdPncpUwfA" xmi:type="Stereotype">
     <Generalization isSubstitutable="true" xmi:id="_V7slEClvEeaibdPncpUwfA" xmi:type="Generalization" />
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="database" xmi:id="_Pn4j8Co7EeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="database" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreStorageNode::database" xmi:id="_Pn4j8Co7EeaibdPncpUwfA" xmi:type="Property">
       <PrimitiveType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-24" xmi:type="PrimitiveType" />
     </Property>
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="user" xmi:id="_dDxhUCo7EeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="user" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreStorageNode::user" xmi:id="_dDxhUCo7EeaibdPncpUwfA" xmi:type="Property">
       <PrimitiveType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-25" xmi:type="PrimitiveType" />
     </Property>
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="password" xmi:id="_froUYCo7EeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="password" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreStorageNode::password" xmi:id="_froUYCo7EeaibdPncpUwfA" xmi:type="Property">
       <PrimitiveType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-26" xmi:type="PrimitiveType" />
     </Property>
   </Stereotype>
-  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDirectAcyclicGraph" visibility="public" xmi:id="_2HB5kCluEeaibdPncpUwfA" xmi:type="Stereotype">
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDirectAcyclicGraph" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDirectAcyclicGraph" visibility="public" xmi:id="_2HB5kCluEeaibdPncpUwfA" xmi:type="Stereotype">
     <Generalization isSubstitutable="true" xmi:id="_LnTawC5qEeaF_sH3mLTVKg" xmi:type="Generalization">
       <Stereotype isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-27" xmi:type="Stereotype" />
     </Generalization>
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="hasSourceNode" upper="*" xmi:id="_5tJY4CpkEeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="hasSourceNode" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDirectAcyclicGraph::hasSourceNode" upper="*" xmi:id="_5tJY4CpkEeaibdPncpUwfA" xmi:type="Property">
       <LiteralInteger value="1" visibility="public" xmi:id="_2egq8CpqEeaibdPncpUwfA" xmi:type="LiteralInteger" />
       <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_2eh5ECpqEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="base_Class" xmi:id="_QpsI0S5lEeaF_sH3mLTVKg" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="base_Class" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDirectAcyclicGraph::base_Class" xmi:id="_QpsI0S5lEeaF_sH3mLTVKg" xmi:type="Property">
       <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-28" xmi:type="Class" />
     </Property>
   </Stereotype>
-  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDAGNode" visibility="public" xmi:id="_8x7EQCluEeaibdPncpUwfA" xmi:type="Stereotype">
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDAGNode" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDAGNode" visibility="public" xmi:id="_8x7EQCluEeaibdPncpUwfA" xmi:type="Stereotype">
     <Generalization isSubstitutable="true" xmi:id="_siEzsC5fEeaF_sH3mLTVKg" xmi:type="Generalization" />
     <Generalization isSubstitutable="true" xmi:id="_DlxcAC5kEeaF_sH3mLTVKg" xmi:type="Generalization">
       <Stereotype isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-29" xmi:type="Stereotype" />
     </Generalization>
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="parallelism" xmi:id="_6vmJ0CpjEeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="parallelism" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDAGNode::parallelism" xmi:id="_6vmJ0CpjEeaibdPncpUwfA" xmi:type="Property">
       <DataType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-30" xmi:type="DataType" />
     </Property>
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="operation" xmi:id="_bDV-ACpkEeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="operation" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDAGNode::operation" xmi:id="_bDV-ACpkEeaibdPncpUwfA" xmi:type="Property">
       <Enumeration isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-31" xmi:type="Enumeration" />
     </Property>
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasSuccessor" upper="*" xmi:id="_jHCusCpkEeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasSuccessor" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDAGNode::hasSuccessor" upper="*" xmi:id="_jHCusCpkEeaibdPncpUwfA" xmi:type="Property">
       <LiteralInteger value="0" visibility="public" xmi:id="_rTd9kCpkEeaibdPncpUwfA" xmi:type="LiteralInteger" />
       <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_rTfLsCpkEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
   </Stereotype>
-  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDAGSourceNode" visibility="public" xmi:id="_9mn3oCluEeaibdPncpUwfA" xmi:type="Stereotype">
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDAGSourceNode" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDAGSourceNode" visibility="public" xmi:id="_9mn3oCluEeaibdPncpUwfA" xmi:type="Stereotype">
     <Generalization isSubstitutable="true" xmi:id="_CjRW8CpjEeaibdPncpUwfA" xmi:type="Generalization" />
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="readFrom" upper="*" xmi:id="_IEueQCpsEeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="readFrom" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDAGSourceNode::readFrom" upper="*" xmi:id="_IEueQCpsEeaibdPncpUwfA" xmi:type="Property">
       <LiteralInteger value="1" visibility="public" xmi:id="_QH5DcCpsEeaibdPncpUwfA" xmi:type="LiteralInteger" />
       <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_QH6RkCpsEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
   </Stereotype>
-  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreData" visibility="public" xmi:id="_KUZx0ClvEeaibdPncpUwfA" xmi:type="Stereotype">
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="location" upper="*" xmi:id="_F2Tw0CpqEeaibdPncpUwfA" xmi:type="Property">
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreData" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreData" visibility="public" xmi:id="_KUZx0ClvEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="location" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreData::location" upper="*" xmi:id="_F2Tw0CpqEeaibdPncpUwfA" xmi:type="Property">
       <LiteralInteger value="1" visibility="public" xmi:id="_Hb_VMCpqEeaibdPncpUwfA" xmi:type="LiteralInteger" />
       <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_Hb_8QCpqEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
     </Property>
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasSpecification" xmi:id="_FOmTwCpuEeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasSpecification" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreData::hasSpecification" xmi:id="_FOmTwCpuEeaibdPncpUwfA" xmi:type="Property">
       <DataType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-32" xmi:type="DataType" />
     </Property>
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasVolume" xmi:id="_OcLdoCpuEeaibdPncpUwfA" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasVolume" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreData::hasVolume" xmi:id="_OcLdoCpuEeaibdPncpUwfA" xmi:type="Property">
       <DataType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-33" xmi:type="DataType" />
     </Property>
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="base_Class" xmi:id="_DHOXci5nEeaF_sH3mLTVKg" xmi:type="Property">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="base_Class" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreData::base_Class" xmi:id="_DHOXci5nEeaF_sH3mLTVKg" xmi:type="Property">
       <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-34" xmi:type="Class" />
     </Property>
   </Stereotype>
-  <Extension isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" name="E_CoreDirectAcyclicGraph_Class1" visibility="public" xmi:id="_Qpq6sC5lEeaF_sH3mLTVKg" xmi:type="Extension">
-    <ExtensionEnd aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="extension_CoreDirectAcyclicGraph" xmi:id="_QpsI0C5lEeaF_sH3mLTVKg" xmi:type="ExtensionEnd" />
+  <Extension isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" isRequired="false" name="E_CoreDirectAcyclicGraph_Class1" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::E_CoreDirectAcyclicGraph_Class1" visibility="public" xmi:id="_Qpq6sC5lEeaF_sH3mLTVKg" xmi:type="Extension">
+    <ExtensionEnd aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="extension_CoreDirectAcyclicGraph" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::E_CoreDirectAcyclicGraph_Class1::extension_CoreDirectAcyclicGraph" xmi:id="_QpsI0C5lEeaF_sH3mLTVKg" xmi:type="ExtensionEnd" />
   </Extension>
-  <Extension isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" name="E_CoreData_Class1" visibility="public" xmi:id="_DHOXcC5nEeaF_sH3mLTVKg" xmi:type="Extension">
-    <ExtensionEnd aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="extension_CoreData" xmi:id="_DHOXcS5nEeaF_sH3mLTVKg" xmi:type="ExtensionEnd" />
+  <Extension isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" isRequired="false" name="E_CoreData_Class1" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::E_CoreData_Class1" visibility="public" xmi:id="_DHOXcC5nEeaF_sH3mLTVKg" xmi:type="Extension">
+    <ExtensionEnd aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="extension_CoreData" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::E_CoreData_Class1::extension_CoreData" xmi:id="_DHOXcS5nEeaF_sH3mLTVKg" xmi:type="ExtensionEnd" />
   </Extension>
 </Package> is of unknown type]
 `;
@@ -479,29 +479,29 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/dd6319bb612d7f1f3e841734ce79638c50b3f5cd9da15476746dbebd886079f9.uml 1`] = `[Error: Id 128 already registered]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/deba6074c1892c262330ce68a4e516c0e224724d169c24c9ff4926ab1960b083.uml 1`] = `
-[Error: No handler for node with tag uml:Diagram and type undefined of parent <uml:Model name="profFor progging" visibility="public" xmi:id="FRqn1qyCaeFs_BEE" xmi:type="Model">
+[Error: No handler for node with tag uml:Diagram and type undefined of parent <uml:Model name="profFor progging" qualifiedName="profFor progging" visibility="public" xmi:id="FRqn1qyCaeFs_BEE" xmi:type="Model">
   <profileApplication isStrict="true" xmi:id="FRqn1qyCaeFs_BEE_FRqn1qyCaeFs_BEE_content_profileApplication" xmi:type="ProfileApplication">
     <appliedProfile href="3 ))) Test xmi.profile.uml#FRqn1qyCaeFs_BEE_profile" visibility="public" xmi:id="eu.yeger#generated-id-1" xmi:type="Profile" />
   </profileApplication>
-  <packagedElement isAbstract="false" isLeaf="false" name="firstPackage" visibility="public" xmi:id="ckSkdqyCaeFs_D9P" xmi:type="Package">
-    <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Class1" visibility="public" xmi:id="VrqkdqyCaeFs_D9a" xmi:type="Class">
-      <ownedAttribute aggregation="shared" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="true" isUnique="true" lower="0" name="attribute1" ownerScope="classifier" upper="1" visibility="private" xmi:id="84CUdqyCaeFs_Ey7" xmi:type="Property">
+  <packagedElement isAbstract="false" isLeaf="false" name="firstPackage" qualifiedName="profFor progging::firstPackage" visibility="public" xmi:id="ckSkdqyCaeFs_D9P" xmi:type="Package">
+    <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Class1" qualifiedName="profFor progging::firstPackage::Class1" visibility="public" xmi:id="VrqkdqyCaeFs_D9a" xmi:type="Class">
+      <ownedAttribute aggregation="shared" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="true" isUnique="true" lower="0" name="attribute1" ownerScope="classifier" qualifiedName="profFor progging::firstPackage::Class1::attribute1" upper="1" visibility="private" xmi:id="84CUdqyCaeFs_Ey7" xmi:type="Property">
         <lowerValue value="0" visibility="public" xmi:id="84CUdqyCaeFs_Ey7_multiplicity_lowerValue" xmi:type="LiteralString" />
         <upperValue value="1" visibility="public" xmi:id="84CUdqyCaeFs_Ey7_multiplicity_upperValue" xmi:type="LiteralString" />
         <defaultValue value="28" visibility="public" xmi:id="84CUdqyCaeFs_Ey7_initialValue" xmi:type="LiteralString" />
       </ownedAttribute>
-      <ownedOperation concurrency="sequential" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="operation1" ownerScope="instance" visibility="public" xmi:id="OqeUdqyCaeFs_Ez3" xmi:type="Operation">
+      <ownedOperation concurrency="sequential" isAbstract="false" isLeaf="false" isOrdered="false" isQuery="false" isStatic="false" isUnique="true" name="operation1" ownerScope="instance" qualifiedName="profFor progging::firstPackage::Class1::operation1" visibility="public" xmi:id="OqeUdqyCaeFs_Ez3" xmi:type="Operation">
         <ownedParameter direction="return" isException="false" isOrdered="false" isStream="false" isUnique="true" xmi:id="OqeUdqyCaeFs_Ez3_return" xmi:type="Parameter" />
       </ownedOperation>
     </packagedElement>
-    <packagedElement isAbstract="false" isLeaf="false" name="SecondPackage" visibility="public" xmi:id="s72kdqyCaeFs_D_0" xmi:type="Package">
-      <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Class2" visibility="public" xmi:id="ltJkdqyCaeFs_EBB" xmi:type="Class">
-        <ownedAttribute aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="role1" xmi:id="bqNkdqyCaeFs_EGT" xmi:type="Property" />
+    <packagedElement isAbstract="false" isLeaf="false" name="SecondPackage" qualifiedName="profFor progging::firstPackage::SecondPackage" visibility="public" xmi:id="s72kdqyCaeFs_D_0" xmi:type="Package">
+      <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Class2" qualifiedName="profFor progging::firstPackage::SecondPackage::Class2" visibility="public" xmi:id="ltJkdqyCaeFs_EBB" xmi:type="Class">
+        <ownedAttribute aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="role1" qualifiedName="profFor progging::firstPackage::SecondPackage::Class2::role1" xmi:id="bqNkdqyCaeFs_EGT" xmi:type="Property" />
       </packagedElement>
     </packagedElement>
   </packagedElement>
-  <packagedElement isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" name="assoc1" visibility="public" xmi:id="HSNkdqyCaeFs_EGR" xmi:type="Association">
-    <ownedEnd aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="" xmi:id="W6NkdqyCaeFs_EGW" xmi:type="Property" />
+  <packagedElement isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" name="assoc1" qualifiedName="profFor progging::assoc1" visibility="public" xmi:id="HSNkdqyCaeFs_EGR" xmi:type="Association">
+    <ownedEnd aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="" qualifiedName="profFor progging::assoc1::" xmi:id="W6NkdqyCaeFs_EGW" xmi:type="Property" />
   </packagedElement>
   <uml:Diagram diagramType="ClassDiagram" documentation="" name="class diagramm 1" toolName="Visual Paradigm for UML" xmi:id="6iskdqyCaeFs_D9J">
     <uml:Diagram.element xmi:id="eu.yeger#generated-id-2">
@@ -533,7 +533,7 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/e1f383323b0308d345c9277bd73a99ecb0e9d873882a388f2b6b6a3c20966679.uml 1`] = `[Error: Id _4Qge8PjgEeqA4v_JqiO9QA already registered]`;
 
-exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/e3a166c9e9020ffc0384e4faadff4e04c0bd25fbb227a2d496b1cf0bea30d869.uml 1`] = `[Error: Attribute isActive of node <PrimitiveType isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="ZonedDateTime" visibility="public" xmi:id="70S2TEqFS_malgOr" xmi:type="PrimitiveType" /> is of unknown type]`;
+exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/e3a166c9e9020ffc0384e4faadff4e04c0bd25fbb227a2d496b1cf0bea30d869.uml 1`] = `[Error: Attribute isActive of node <PrimitiveType isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="ZonedDateTime" qualifiedName="untitled::ZonedDateTime" visibility="public" xmi:id="70S2TEqFS_malgOr" xmi:type="PrimitiveType" /> is of unknown type]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/e2282fa6e18b03f53a19e30ec9b3053ec1dd3e4982281c260995a83d7715f637.uml 1`] = `[Error: Id _FVm44EoNEeWHt5v0-LD9uA already registered]`;
 
@@ -552,8 +552,8 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 `;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/ebbff49e82715f08a04334878e1d96087ed5057e9346d49c4ad1c8bc88b2effc.uml 1`] = `
-[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
-  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
 </Enumeration> is of unknown type]
 `;
 
@@ -566,8 +566,8 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/f0cb46bb4e2127bd31c4e8d2a39f337d83e2a460a5f76412cd537b7aef8fe01a.uml 1`] = `[Error: Id _KRHHYATyEdyMwcS56ZZh9w already registered]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/f714e9bae75061d697292a4d6f4dd19f03a611321c2b03bfa04eebef308b2990.uml 1`] = `
-[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
-  <EnumerationLiteral name="VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
 </Enumeration> is of unknown type]
 `;
 

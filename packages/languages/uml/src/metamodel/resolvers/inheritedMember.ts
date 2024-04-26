@@ -4,6 +4,7 @@ import { Stream } from '@yeger/streams'
 import { Classifier } from '../uml-metamodel'
 
 export function resolveInheritedMembers(model: GraphModel) {
+  // TODO/Jan: Filter non-inheritable members?
   const classifiersWithGeneralClassifiers = Stream.from(model.nodes)
     .filter((node) => Classifier.isAssignable(node))
     .map((classifier) => {
@@ -48,7 +49,6 @@ function getGeneralClassifiers(classifier: GraphNode) {
     .toArray()
 }
 
-// TODO/Jan: extract and combine with resolveImportedMembers?
 function getMembersOfClassifier(classifier: GraphNode): Stream<GraphNode> {
   if (!Classifier.isAssignable(classifier)) {
     return Stream.empty()

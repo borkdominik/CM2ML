@@ -12,6 +12,7 @@ export const AssociationHandler = Association.createHandler(
     const resolvedMemberEnds = resolve(association, 'memberEnd', { many: true, type: Property })
     const ownedEnds = Stream.from(resolvedOwnedEnds).concat(navigableOwnedEnds).distinct().toArray()
     const memberEnds = Stream.from(resolvedMemberEnds).concat(ownedEnds).distinct().toArray()
+    const endTypes = deriveEndTypes(memberEnds)
     if (!onlyContainmentAssociations) {
       addEdge_opposite(resolvedMemberEnds)
     }
@@ -21,7 +22,7 @@ export const AssociationHandler = Association.createHandler(
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_endType(association, memberEnds)
+    addEdge_endType(association, endTypes)
     addEdge_memberEnd(association, memberEnds)
     addEdge_navigableOwnedEnd(association, navigableOwnedEnds)
     addEdge_ownedEnd(association, ownedEnds)
@@ -31,11 +32,8 @@ export const AssociationHandler = Association.createHandler(
   },
 )
 
-// TODO/Jan: Just types of memberEnds, or also other ends? (navigationOwnedEnds, ownedEnds)
-function addEdge_endType(association: GraphNode, memberEnds: GraphNode[]) {
-  // /endType : Type [1..*]{subsets Relationship::relatedElement} (opposite A_endType_association::association)
-  // The Classifiers that are used as types of the ends of the Association.
-  Stream.from(memberEnds)
+function deriveEndTypes(memberEnds: GraphNode[]) {
+  return Stream.from(memberEnds)
     .map((memberEnd) => {
       const resolved = resolve(memberEnd, 'type', { removeAttribute: false, type: Type })
       if (resolved) {
@@ -46,10 +44,16 @@ function addEdge_endType(association: GraphNode, memberEnds: GraphNode[]) {
     })
     .filterNonNull()
     .distinct()
-    .forEach((type) => {
-      association.model.addEdge('endType', association, type)
-      association.model.addEdge('relatedElement', association, type)
-    })
+    .toArray()
+}
+
+function addEdge_endType(association: GraphNode, endTypes: GraphNode[]) {
+  // /endType : Type [1..*]{subsets Relationship::relatedElement} (opposite A_endType_association::association)
+  // The Classifiers that are used as types of the ends of the Association.
+  endTypes.forEach((endType) => {
+    association.model.addEdge('endType', association, endType)
+    association.model.addEdge('relatedElement', association, endType)
+  })
 }
 
 function addEdge_memberEnd(association: GraphNode, memberEnds: GraphNode[]) {

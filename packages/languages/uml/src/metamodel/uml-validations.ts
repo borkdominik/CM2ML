@@ -55,7 +55,7 @@ function validateRelationshipTransformation(
 }
 
 function validateAttributes(model: GraphModel) {
-  const alwaysResolvableAttributes = new Set<string>([Uml.Attributes.name, Uml.Attributes['xmi:type'], Uml.Attributes['xsi:type']])
+  const allowedResolvableAttributes = new Set<string>([Uml.Attributes.name, Uml.Attributes.qualifiedName, Uml.Attributes['xmi:type'], Uml.Attributes['xsi:type']])
   const typesWithBodyAttribute = new Set<UmlType>([Uml.Types.Comment, Uml.Types.OpaqueAction, Uml.Types.OpaqueBehavior, Uml.Types.OpaqueExpression])
   model.nodes.forEach((node) => {
     const nodeType = Uml.getType(node)
@@ -71,7 +71,7 @@ function validateAttributes(model: GraphModel) {
           `Attribute ${name} of node ${formatElement(node)} is unknown`,
         )
       }
-      if (alwaysResolvableAttributes.has(name) || (name === Uml.Attributes.body && nodeType !== undefined && typesWithBodyAttribute.has(nodeType))) {
+      if (allowedResolvableAttributes.has(name) || (name === Uml.Attributes.body && nodeType !== undefined && typesWithBodyAttribute.has(nodeType))) {
         return
       }
       const resolvedNodes = resolve(node, name, { removeAttribute: false, many: true, type: Element })

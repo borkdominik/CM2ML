@@ -10,6 +10,7 @@ export const MessageHandler = Message.createHandler(
     const receiveEvent = resolve(message, 'receiveEvent', { type: MessageEnd })
     const sendEvent = resolve(message, 'sendEvent', { type: MessageEnd })
     const signature = resolve(message, 'signature', { type: NamedElement })
+    deriveAttribute_messageKind(message, sendEvent, receiveEvent)
     if (onlyContainmentAssociations) {
       return
     }
@@ -21,11 +22,27 @@ export const MessageHandler = Message.createHandler(
     addEdge_signature(message, signature)
   },
   {
-    // TODO/Jan: Derive: The derived kind of the Message (complete, lost, found, or unknown).
     [Uml.Attributes.messageKind]: { type: 'category' },
     [Uml.Attributes.messageSort]: { type: 'category', defaultValue: 'synchCall' },
   },
 )
+
+function deriveAttribute_messageKind(message: GraphNode, sendEvent: GraphNode | undefined, receiveEvent: GraphNode | undefined) {
+  function getMessageKind() {
+    if (sendEvent && receiveEvent) {
+      return 'complete'
+    }
+    if (sendEvent) {
+      return 'lost'
+    }
+    if (receiveEvent) {
+      return 'found'
+    }
+    return 'unknown'
+  }
+  const value = getMessageKind()
+  message.addAttribute({ name: Uml.Attributes.messageKind, type: 'category', value: { literal: value } })
+}
 
 function addEdge_argument(_message: GraphNode) {
   // TODO/Association

@@ -10,7 +10,7 @@ import { Namespace } from '../uml-metamodel'
  * @param model - The model whose package members should be resolved
  */
 export function resolveImportedMembers(model: GraphModel, relationshipsAsEdges: boolean) {
-  // TODO/Jan: Also handle package merges?
+  // TODO/Jan: Filter non-public members?
   const namespacesWithPackageImports = Stream.from(model.nodes)
     .filter((node) => Namespace.isAssignable(node))
     .map((namespace) => {

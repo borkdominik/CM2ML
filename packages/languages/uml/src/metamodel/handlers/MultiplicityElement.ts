@@ -8,8 +8,8 @@ export const MultiplicityElementHandler = MultiplicityElement.createHandler(
   (multiplicityElement, { onlyContainmentAssociations }) => {
     const lowerValue = resolve(multiplicityElement, 'lowerValue', { type: ValueSpecification })
     const upperValue = resolve(multiplicityElement, 'upperValue', { type: ValueSpecification })
-    setAttribute_lower(multiplicityElement, lowerValue)
-    setAttribute_upper(multiplicityElement, upperValue)
+    deriveAttribute_lower(multiplicityElement, lowerValue)
+    deriveAttribute_upper(multiplicityElement, upperValue)
     if (onlyContainmentAssociations) {
       return
     }
@@ -24,7 +24,7 @@ export const MultiplicityElementHandler = MultiplicityElement.createHandler(
   },
 )
 
-function setAttribute_lower(multiplicityElement: GraphNode, lowerValue: GraphNode | undefined) {
+function deriveAttribute_lower(multiplicityElement: GraphNode, lowerValue: GraphNode | undefined) {
   if (!lowerValue) {
     return
   }
@@ -39,7 +39,7 @@ function setAttribute_lower(multiplicityElement: GraphNode, lowerValue: GraphNod
   })
 }
 
-function setAttribute_upper(multiplicityElement: GraphNode, upperValue: GraphNode | undefined) {
+function deriveAttribute_upper(multiplicityElement: GraphNode, upperValue: GraphNode | undefined) {
   if (!upperValue) {
     return
   }

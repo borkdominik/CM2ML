@@ -20,6 +20,12 @@ export const OperationHandler = Operation.createHandler(
     const raisedExceptions = resolve(operation, 'raisedException', { many: true, type: Type })
     const redefinedOperations = resolve(operation, 'redefinedOperation', { many: true, type: Operation })
     const templateParameter = resolve(operation, 'templateParameter', { type: OperationTemplateParameter })
+    const returnResult = getReturnResult(ownedParameters)
+    const type = returnResult ? resolve(returnResult, 'type', { type: Type, removeAttribute: false }) : undefined
+    deriveAttribute_isOrdered(operation, returnResult)
+    deriveAttribute_isUnique(operation, returnResult)
+    deriveAttribute_lower(operation, returnResult)
+    deriveAttribute_upper(operation, returnResult)
     if (onlyContainmentAssociations) {
       return
     }
@@ -33,17 +39,13 @@ export const OperationHandler = Operation.createHandler(
     addEdge_raisedException(operation, raisedExceptions)
     addEdge_redefinedOperation(operation, redefinedOperations)
     addEdge_templateParameter(operation, templateParameter)
-    addEdge_type(operation, ownedParameters)
+    addEdge_type(operation, type)
   },
   {
-    // TODO/Jan: Derive from return result
     [Uml.Attributes.isOrdered]: { type: 'boolean' },
     [Uml.Attributes.isQuery]: { type: 'boolean', defaultValue: 'false' },
-    // TODO/Jan: Derive from return result
     [Uml.Attributes.isUnique]: { type: 'boolean' },
-    // TODO/Jan: Derive from return result
     [Uml.Attributes.lower]: { type: 'integer' },
-    // TODO/Jan: Derive from return result
     [Uml.Attributes.upper]: { type: 'integer' },
   },
 )
@@ -51,6 +53,70 @@ export const OperationHandler = Operation.createHandler(
 function removeInvalidInputOutputAttributes(operation: GraphNode) {
   operation.removeAttribute('input')
   operation.removeAttribute('output')
+}
+
+function getReturnResult(ownedParameters: GraphNode[]) {
+  return ownedParameters.find((parameter) => parameter.getAttribute('direction')?.value.literal === 'return')
+}
+
+function deriveAttribute_isOrdered(operation: GraphNode, returnResult: GraphNode | undefined) {
+  if (!returnResult) {
+    return
+  }
+  const isOrdered = returnResult.getAttribute(Uml.Attributes.isOrdered)?.value.literal
+  if (isOrdered === undefined) {
+    return
+  }
+  operation.addAttribute({
+    name: Uml.Attributes.isOrdered,
+    type: 'boolean',
+    value: { literal: isOrdered },
+  })
+}
+
+function deriveAttribute_isUnique(operation: GraphNode, returnResult: GraphNode | undefined) {
+  if (!returnResult) {
+    return
+  }
+  const isUnique = returnResult.getAttribute(Uml.Attributes.isUnique)?.value.literal
+  if (isUnique === undefined) {
+    return
+  }
+  operation.addAttribute({
+    name: Uml.Attributes.isUnique,
+    type: 'boolean',
+    value: { literal: isUnique },
+  })
+}
+
+function deriveAttribute_lower(operation: GraphNode, returnResult: GraphNode | undefined) {
+  if (!returnResult) {
+    return
+  }
+  const lower = returnResult.getAttribute(Uml.Attributes.lower)?.value.literal
+  if (lower === undefined) {
+    return
+  }
+  operation.addAttribute({
+    name: Uml.Attributes.lower,
+    type: 'integer',
+    value: { literal: lower },
+  })
+}
+
+function deriveAttribute_upper(operation: GraphNode, returnResult: GraphNode | undefined) {
+  if (!returnResult) {
+    return
+  }
+  const upper = returnResult.getAttribute(Uml.Attributes.upper)?.value.literal
+  if (upper === undefined) {
+    return
+  }
+  operation.addAttribute({
+    name: Uml.Attributes.upper,
+    type: 'integer',
+    value: { literal: upper },
+  })
 }
 
 function addEdge_bodyCondition(operation: GraphNode, bodyCondition: GraphNode | undefined) {
@@ -132,14 +198,9 @@ function addEdge_templateParameter(operation: GraphNode, templateParameter: Grap
   operation.model.addEdge('templateParameter', operation, templateParameter)
 }
 
-function addEdge_type(operation: GraphNode, ownedParameters: GraphNode[]) {
+function addEdge_type(operation: GraphNode, type: GraphNode | undefined) {
   // /type : Type [0..1]{} (opposite A_type_operation::operation)
   // The return type of the operation, if present. This information is derived from the return result for this Operation.
-  const returnParameter = ownedParameters.find((parameter) => parameter.getAttribute('direction')?.value.literal === 'return')
-  if (!returnParameter) {
-    return
-  }
-  const type = resolve(returnParameter, 'type', { type: Type, removeAttribute: false })
   if (!type) {
     return
   }

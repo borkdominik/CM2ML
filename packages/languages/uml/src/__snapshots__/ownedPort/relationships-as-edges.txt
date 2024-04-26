@@ -1,11 +1,11 @@
-<Model name="ownedPort" visibility="public" xmi:id="_yoiHINu2Ee65YvY_tzBAgQ" xmi:type="Model">
-  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="TestClass" visibility="public" xmi:id="_7gC6YNu2Ee65YvY_tzBAgQ" xmi:type="Class">
-    <Port aggregation="composite" isBehavior="false" isComposite="true" isConjugated="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isService="true" isStatic="false" isUnique="true" name="TestPort" visibility="public" xmi:id="_-IKzMNu2Ee65YvY_tzBAgQ" xmi:type="Port" />
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="TestProperty" visibility="package" xmi:id="_Q2FY8Nu5Ee65YvY_tzBAgQ" xmi:type="Property">
-      <TimeInterval name="TestTimeInterval" visibility="public" xmi:id="_zNKW0Nu5Ee65YvY_tzBAgQ" xmi:type="TimeInterval" />
+<Model name="ownedPort" qualifiedName="ownedPort" visibility="public" xmi:id="_yoiHINu2Ee65YvY_tzBAgQ" xmi:type="Model">
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="TestClass" qualifiedName="ownedPort::TestClass" visibility="public" xmi:id="_7gC6YNu2Ee65YvY_tzBAgQ" xmi:type="Class">
+    <Port aggregation="composite" isBehavior="false" isComposite="true" isConjugated="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isService="true" isStatic="false" isUnique="true" name="TestPort" qualifiedName="ownedPort::TestClass::TestPort" visibility="public" xmi:id="_-IKzMNu2Ee65YvY_tzBAgQ" xmi:type="Port" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="TestProperty" qualifiedName="ownedPort::TestClass::TestProperty" visibility="package" xmi:id="_Q2FY8Nu5Ee65YvY_tzBAgQ" xmi:type="Property">
+      <TimeInterval name="TestTimeInterval" qualifiedName="ownedPort::TestClass::TestTimeInterval" visibility="public" xmi:id="_zNKW0Nu5Ee65YvY_tzBAgQ" xmi:type="TimeInterval" />
     </Property>
-    <Operation concurrency="concurrent" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="TestOperation" xmi:id="_ZNSfANu6Ee65YvY_tzBAgQ" xmi:type="Operation">
-      <Parameter direction="return" effect="create" isException="false" isOrdered="false" isStream="false" isUnique="true" name="TestReturnParameter" upper="*" visibility="public" xmi:id="_fmHpUNu6Ee65YvY_tzBAgQ" xmi:type="Parameter">
+    <Operation concurrency="concurrent" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="TestOperation" qualifiedName="ownedPort::TestClass::TestOperation" xmi:id="_ZNSfANu6Ee65YvY_tzBAgQ" xmi:type="Operation">
+      <Parameter direction="return" effect="create" isException="false" isOrdered="false" isStream="false" isUnique="true" name="TestReturnParameter" qualifiedName="ownedPort::TestClass::TestOperation::TestReturnParameter" upper="*" visibility="public" xmi:id="_fmHpUNu6Ee65YvY_tzBAgQ" xmi:type="Parameter">
         <LiteralInteger value="0" visibility="public" xmi:id="_jaGRQNu6Ee65YvY_tzBAgQ" xmi:type="LiteralInteger" />
         <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_jZl68Nu6Ee65YvY_tzBAgQ" xmi:type="LiteralUnlimitedNatural" />
       </Parameter>
@@ -13,20 +13,20 @@
         <OperationTemplateParameter xmi:id="_cJ36ANu8Ee65YvY_tzBAgQ" xmi:type="OperationTemplateParameter" />
       </TemplateSignature>
     </Operation>
-    <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="NestedParent" visibility="public" xmi:id="_f9gVoN0aEe6kj4CCWHMNuw" xmi:type="Class">
-      <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="NestedParentProperty" visibility="public" xmi:id="_iR3k8N0aEe6kj4CCWHMNuw" xmi:type="Property" />
+    <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="NestedParent" qualifiedName="ownedPort::TestClass::NestedParent" visibility="public" xmi:id="_f9gVoN0aEe6kj4CCWHMNuw" xmi:type="Class">
+      <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="NestedParentProperty" qualifiedName="ownedPort::TestClass::NestedParent::NestedParentProperty" visibility="public" xmi:id="_iR3k8N0aEe6kj4CCWHMNuw" xmi:type="Property" />
     </Class>
   </Class>
-  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Parent" visibility="public" xmi:id="_Lr_kQN0aEe6kj4CCWHMNuw" xmi:type="Class">
-    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="ParentProperty" visibility="public" xmi:id="_RBlv8N0aEe6kj4CCWHMNuw" xmi:type="Property" />
+  <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Parent" qualifiedName="ownedPort::Parent" visibility="public" xmi:id="_Lr_kQN0aEe6kj4CCWHMNuw" xmi:type="Class">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="ParentProperty" qualifiedName="ownedPort::Parent::ParentProperty" visibility="public" xmi:id="_RBlv8N0aEe6kj4CCWHMNuw" xmi:type="Property" />
   </Class>
-  <Package name="ParentPackage" visibility="public" xmi:id="_7qZgYN_AEe6kj4CCWHMNuw" xmi:type="Package">
-    <Package name="NestedPackage" visibility="public" xmi:id="_-Dv9YN_AEe6kj4CCWHMNuw" xmi:type="Package" />
-    <Interface isAbstract="false" isFinalSpecialization="false" isLeaf="false" name="ParentInterface" visibility="public" xmi:id="_COyacN_BEe6kj4CCWHMNuw" xmi:type="Interface">
-      <Interface isAbstract="false" isFinalSpecialization="false" isLeaf="false" name="NestedInterface" visibility="public" xmi:id="_E1syUN_BEe6kj4CCWHMNuw" xmi:type="Interface" />
+  <Package name="ParentPackage" qualifiedName="ownedPort::ParentPackage" visibility="public" xmi:id="_7qZgYN_AEe6kj4CCWHMNuw" xmi:type="Package">
+    <Package name="NestedPackage" qualifiedName="ownedPort::ParentPackage::NestedPackage" visibility="public" xmi:id="_-Dv9YN_AEe6kj4CCWHMNuw" xmi:type="Package" />
+    <Interface isAbstract="false" isFinalSpecialization="false" isLeaf="false" name="ParentInterface" qualifiedName="ownedPort::ParentPackage::ParentInterface" visibility="public" xmi:id="_COyacN_BEe6kj4CCWHMNuw" xmi:type="Interface">
+      <Interface isAbstract="false" isFinalSpecialization="false" isLeaf="false" name="NestedInterface" qualifiedName="ownedPort::ParentPackage::ParentInterface::NestedInterface" visibility="public" xmi:id="_E1syUN_BEe6kj4CCWHMNuw" xmi:type="Interface" />
     </Interface>
   </Package>
-  <Package name="ImportingPackage" visibility="public" xmi:id="_xBwPAOB2Ee6kj4CCWHMNuw" xmi:type="Package" />
+  <Package name="ImportingPackage" qualifiedName="ownedPort::ImportingPackage" visibility="public" xmi:id="_xBwPAOB2Ee6kj4CCWHMNuw" xmi:type="Package" />
   <Model visibility="public" xmi:id="eu.yeger#generated-id-0" xmi:type="Model" />
 </Model>
 _-Dv9YN_AEe6kj4CCWHMNuw -> <namespace /> -> _7qZgYN_AEe6kj4CCWHMNuw

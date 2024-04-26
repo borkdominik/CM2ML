@@ -52,7 +52,7 @@ function addEdge_ownedAttribute(class_: GraphNode, ownedAttributes: GraphNode[])
 }
 
 function addEdge_ownedOperations(class_: GraphNode, ownedOperations: GraphNode[]) {
-  // TODO/Jan: This association is not specified in the UML spec, but included in a number of places (e.g., diagrams)
+  // Note: This association is not listed explicitly in the UML spec, but included in a number of places (e.g., diagrams) in the spec
   ownedOperations.forEach((ownedOperation) => {
     class_.model.addEdge('ownedOperation', class_, ownedOperation)
     ownedOperation.model.addEdge('class', ownedOperation, class_)

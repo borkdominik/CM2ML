@@ -9,6 +9,7 @@ export const ExtensionHandler = Extension.createHandler(
     // Do not remove attributes, because they are needed for the Association generalization
     const memberEnds = resolve(extension, 'memberEnd', { removeAttribute: false, many: true, type: Property })
     const ownedEnd = resolve(extension, 'ownedEnd', { removeAttribute: false, type: ExtensionEnd })
+    deriveAttribute_isRequired(extension, ownedEnd)
     if (onlyContainmentAssociations) {
       return
     }
@@ -16,10 +17,18 @@ export const ExtensionHandler = Extension.createHandler(
     addEdge_ownedEnd(extension, ownedEnd)
   },
   {
-    // TODO/Jan: Derive
     [Uml.Attributes.isRequired]: { type: 'boolean' },
   },
 )
+
+function deriveAttribute_isRequired(extension: GraphNode, ownedEnd: GraphNode | undefined) {
+  if (!ownedEnd) {
+    return
+  }
+  const lower = ownedEnd.getAttribute(Uml.Attributes.lower)?.value.literal
+  const value = lower === '1' ? 'true' : 'false'
+  extension.addAttribute({ name: Uml.Attributes.isRequired, type: 'boolean', value: { literal: value } })
+}
 
 function addEdge_metaclass(extension: GraphNode, memberEnds: GraphNode[], ownedEnd: GraphNode | undefined) {
   // /metaclass : Class [1..1]{} (opposite Class::extension)
