@@ -1,6 +1,7 @@
 import type { GraphModel, GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
+import { Uml } from '../uml'
 import { Namespace } from '../uml-metamodel'
 
 /**
@@ -10,7 +11,6 @@ import { Namespace } from '../uml-metamodel'
  * @param model - The model whose package members should be resolved
  */
 export function resolveImportedMembers(model: GraphModel, relationshipsAsEdges: boolean) {
-  // TODO/Jan: Filter non-public members?
   const namespacesWithPackageImports = Stream.from(model.nodes)
     .filter((node) => Namespace.isAssignable(node))
     .map((namespace) => {
@@ -33,7 +33,7 @@ export function resolveImportedMembers(model: GraphModel, relationshipsAsEdges: 
     namespacesWithPackageImports.forEach(([namespace, importedPackages]) => {
       model.debug('Parser', `Resolving package members for ${namespace.id} from ${importedPackages.length} imported package(s)`)
       Stream.from(importedPackages)
-        .flatMap(getMembersOfNamespace)
+        .flatMap(getVisibleMembersOfNamespace)
         .forEach((importedMember) => {
           const existingMembers = existingMemberAssociations[namespace.id!]!
           if (existingMembers.has(importedMember)) {
@@ -73,4 +73,12 @@ function getMembersOfNamespace(namespace: GraphNode): Stream<GraphNode> {
   return Stream.from(namespace.outgoingEdges)
     .filter((edge) => edge.tag === 'member')
     .map((edge) => edge.target)
+}
+
+function getVisibleMembersOfNamespace(namespace: GraphNode): Stream<GraphNode> {
+  return getMembersOfNamespace(namespace)
+    .filter((member) => {
+      const visibility = member.getAttribute(Uml.Attributes.visibility)?.value.literal
+      return visibility === 'public' || visibility === undefined
+    })
 }
