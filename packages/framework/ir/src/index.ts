@@ -39,6 +39,10 @@ export class GraphModel implements Show {
     return this.#root
   }
 
+  /**
+   * Change the root note of the model.
+   * Warning: All nodes that are not descendants of the new root will be removed.
+   */
   public set root(newRoot: GraphNode) {
     requireSameModel(this, newRoot)
     this.purgeNode(this.root, new Set([newRoot]))
@@ -59,8 +63,8 @@ export class GraphModel implements Show {
   }
 
   /**
-   * Do not call this manually.
-   * This should only be called by GraphNode when the id attribute is changed.
+   * @deprecated Do not call this manually.
+   * This method is automatically called by a GraphNode when its id attribute is changed.
    */
   public updateNodeMap(node: GraphNode, previousId: string | undefined) {
     requireSameModel(this, node)
@@ -165,7 +169,8 @@ export class GraphNode implements Attributable, ModelMember, Show {
   }
 
   /**
-   * Do not call this manually.
+   * @deprecated Do not call this manually. Use {@link GraphNode.addChild} or {@link GraphNode.removeChild} instead.
+   * The parent is set automatically when adding or removing children.
    */
   public set parent(parent: GraphNode | undefined) {
     if (this.parent !== undefined && parent !== undefined) {
@@ -251,7 +256,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
   }
 
   /**
-   * Do not call this manually.
+   * @deprecated Do not call this manually. Use {@link GraphModel.addEdge} instead.
    */
   public addIncomingEdge(edge: GraphEdge) {
     requireSameModel(this, edge)
@@ -259,7 +264,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
   }
 
   /**
-   * Do not call this manually.
+   * @deprecated Do not call this manually. Use {@link GraphModel.removeEdge} instead.
    */
   public removeIncomingEdge(edge: GraphEdge) {
     requireSameModel(this, edge)
@@ -267,7 +272,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
   }
 
   /**
-   * Do not call this manually.
+   * @deprecated Do not call this manually. Use {@link GraphModel.addEdge} instead.
    */
   public addOutgoingEdge(edge: GraphEdge) {
     requireSameModel(this, edge)
@@ -275,7 +280,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
   }
 
   /**
-   * Do not call this manually.
+   * @deprecated Do not call this manually. Use {@link GraphModel.removeEdge} instead.
    */
   public removeOutgoingEdge(edge: GraphEdge) {
     requireSameModel(this, edge)
