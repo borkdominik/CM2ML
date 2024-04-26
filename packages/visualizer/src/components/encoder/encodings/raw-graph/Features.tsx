@@ -12,6 +12,11 @@ export function FeatureVector({ data }: FeatureVectorProps) {
     }
     return data
   }, [data])
+
+  function formatIndex(index: number) {
+    // pad index to always have the same length
+    return index.toString().padStart(features.length.toString().length, ' ')
+  }
   return (
     <div className="flex flex-col flex-wrap font-mono text-xs">
       {features.map((feature, index) => (
@@ -19,7 +24,7 @@ export function FeatureVector({ data }: FeatureVectorProps) {
         <div key={index} className="flex flex-wrap gap-1">
           <span className="text-primary-foreground">
             [
-            {index}
+            {formatIndex(index)}
             ]
           </span>
           <span className="text-secondary-foreground">{feature ?? 'null'}</span>
