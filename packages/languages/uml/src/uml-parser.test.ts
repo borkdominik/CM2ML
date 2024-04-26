@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from './index'
 
-// Green: 0-46662 -> 100%
+// Green: 0-46657 -> 100%
 
 const umlModelDir = '../../../models/uml'
 

@@ -1,10 +1,10 @@
 import type { GraphModel, GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
+import { Uml } from '../uml'
 import { Classifier } from '../uml-metamodel'
 
 export function resolveInheritedMembers(model: GraphModel) {
-  // TODO/Jan: Filter non-inheritable members?
   const classifiersWithGeneralClassifiers = Stream.from(model.nodes)
     .filter((node) => Classifier.isAssignable(node))
     .map((classifier) => {
@@ -27,7 +27,7 @@ export function resolveInheritedMembers(model: GraphModel) {
     classifiersWithGeneralClassifiers.forEach(([classifier, generalClassifiers]) => {
       model.debug('Parser', `Resolving inherited members for ${classifier.id} from ${generalClassifiers.length} general classifier(s)`)
       Stream.from(generalClassifiers)
-        .flatMap(getMembersOfClassifier)
+        .flatMap(getInheritableMembersOfClassifier)
         .forEach((inheritedMember) => {
           const existingMembers = existingMemberAssociations[classifier.id!]!
           if (existingMembers.has(inheritedMember)) {
@@ -56,4 +56,12 @@ function getMembersOfClassifier(classifier: GraphNode): Stream<GraphNode> {
   return Stream.from(classifier.outgoingEdges)
     .filter((edge) => edge.tag === 'member')
     .map((edge) => edge.target)
+}
+
+function getInheritableMembersOfClassifier(generalClassifier: GraphNode): Stream<GraphNode> {
+  return getMembersOfClassifier(generalClassifier)
+    .filter((member) => {
+      const memberVisibility = member.getAttribute(Uml.Attributes.visibility)?.value.literal
+      return memberVisibility !== 'private'
+    })
 }
