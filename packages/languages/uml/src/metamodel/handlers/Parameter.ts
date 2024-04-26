@@ -5,7 +5,6 @@ import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Operation, Parameter, ParameterSet } from '../uml-metamodel'
 
-// TODO
 export const ParameterHandler = Parameter.createHandler(
   (parameter, { onlyContainmentAssociations }) => {
     const parameterSets = resolve(parameter, 'parameterSet', { many: true, type: ParameterSet })

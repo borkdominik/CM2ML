@@ -44,7 +44,7 @@ function handleTextNode(node: GraphNode, textContent: string) {
   if (!['purpose', 'documentation'].includes(tag)) {
     return
   }
-  // TODO: Define type
+  // TODO/Archimate: Define type
   node.addAttribute({ name: 'text', type: 'unknown', value: { literal: textContent } })
 }
 

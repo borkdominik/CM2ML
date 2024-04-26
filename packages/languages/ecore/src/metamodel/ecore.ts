@@ -3,7 +3,7 @@ import { parseNamespace } from '@cm2ml/utils'
 
 const Attributes = {
   'xsi:id': 'xsi:id',
-  // TODO: Is this the correct type?
+  // TODO/Ecore: Is this the correct type?
   'xsi:type': 'xsi:type',
 } as const
 
