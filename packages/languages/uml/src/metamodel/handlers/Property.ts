@@ -43,6 +43,9 @@ export const PropertyHandler = Property.createHandler(
   },
 )
 
+/**
+ * Note: A large number of UML models from the TDD dataset contain unspecified "isNavigable" attributes.
+ */
 function removeInvalidIsNavigableAttribute(property: GraphNode) {
   property.removeAttribute('isNavigable')
 }

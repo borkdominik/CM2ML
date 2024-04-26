@@ -376,25 +376,25 @@ function getType(element: Attributable) {
 
 const relationshipToEdgeTag: Partial<Record<UmlType, string>> = {
   [Types.Abstraction]: 'abstraction',
-  [Types.Association]: 'association', // TODO: Validate
-  [Types.AssociationClass]: 'associationClass', // TODO: Validate
-  [Types.CommunicationPath]: 'communicationPath', // TODO: Validate
+  [Types.Association]: 'association',
+  [Types.AssociationClass]: 'associationClass',
+  [Types.CommunicationPath]: 'communicationPath',
   [Types.ComponentRealization]: 'componentRealization',
   [Types.Dependency]: 'dependency',
-  [Types.Deployment]: 'deployment', // TODO: Validate
+  [Types.Deployment]: 'deployment',
   [Types.ElementImport]: 'elementImport',
   [Types.Extend]: 'extend',
-  [Types.Extension]: 'extension', // TODO: Validate
+  [Types.Extension]: 'extension',
   [Types.Generalization]: 'generalization',
   [Types.Include]: 'include',
-  [Types.InformationFlow]: 'informationFlow', // TODO: Validate
+  [Types.InformationFlow]: 'informationFlow',
   [Types.InterfaceRealization]: 'interfaceRealization',
-  [Types.Manifestation]: 'manifestation', // TODO: Validate
+  [Types.Manifestation]: 'manifestation',
   [Types.PackageImport]: 'packageImport',
   [Types.PackageMerge]: 'packageMerge',
   [Types.ProfileApplication]: 'profileApplication',
-  [Types.ProtocolConformance]: 'protocolConformance', // TODO: Validate
-  [Types.ProtocolTransition]: 'protocolTransition', // TODO: Validate
+  [Types.ProtocolConformance]: 'protocolConformance',
+  [Types.ProtocolTransition]: 'protocolTransition',
   [Types.Realization]: 'realization',
   [Types.Substitution]: 'substitution',
   [Types.TemplateBinding]: 'templateBinding',

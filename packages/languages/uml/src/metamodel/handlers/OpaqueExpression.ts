@@ -6,7 +6,6 @@ import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import { Behavior, OpaqueExpression } from '../uml-metamodel'
 
-// TODO: Check that body attribute is parsed correctly
 export const OpaqueExpressionHandler = OpaqueExpression.createHandler(
   (opaqueExpression, { onlyContainmentAssociations }) => {
     setBodyAttribute(opaqueExpression)

@@ -22,8 +22,6 @@ const { define, defineAbstract } = createMetamodel<
   UmlHandlerParameters
   >(Uml)
 
-// TODO: Include [Enumeration] elements?
-
 export const Element = defineAbstract(Uml.AbstractTypes.Element)
 
 export const NamedElement = defineAbstract(
@@ -311,7 +309,6 @@ export const OpaqueExpression = define(
   ValueSpecification,
 )
 
-// TODO: Validate generalization
 export const Expression = define(
   Uml.Types.Expression,
   undefined,

@@ -10,8 +10,10 @@ function resolveBodies(node: GraphNode) {
   }).map((body) => body.getAttribute(Uml.Attributes.body)?.value.literal).filterNonNull()
 }
 
+/**
+ * Sets the `body` attribute of a node to the combined bodies of all its `body` children.
+ */
 export function setBodyAttribute(node: GraphNode) {
-  // TODO/Jan: How to handle multiple bodies?
   const body = resolveBodies(node).join('\n').trim()
   if (!body) {
     return

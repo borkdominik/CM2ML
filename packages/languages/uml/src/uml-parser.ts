@@ -14,23 +14,6 @@ import { validateUmlModel } from './metamodel/uml-validations'
 
 const refine = createRefiner(Uml, inferUmlHandler)
 
-// TODO: Transform the following Relationships into edges if relationshipsAsEdges is true
-// - Abstraction
-// - InformationFlow
-// - Manifestation
-// - Realization
-// - Refine
-// - TemplateBinding
-// - Trace
-// - Usage
-
-// These are based on Papyrus UML
-// The following Relationships are already being transformed
-// - Dependency
-// - ElementImport
-// - PackageImport
-// - PackageMerge
-
 const UmlRefiner = definePlugin({
   name: 'uml',
   parameters: {

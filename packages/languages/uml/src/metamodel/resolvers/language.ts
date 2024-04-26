@@ -10,8 +10,10 @@ function resolveLanguages(node: GraphNode) {
   }).map((language) => language.getAttribute(Uml.Attributes.language)?.value.literal).filterNonNull()
 }
 
+/**
+ * Sets the `language` attribute of a node to the combined bodies of all its `language` children.
+ */
 export function setLanguageAttribute(node: GraphNode) {
-  // TODO/Jan: How to handle multiple languages?
   const language = resolveLanguages(node).join(' ').trim()
   if (!language) {
     return

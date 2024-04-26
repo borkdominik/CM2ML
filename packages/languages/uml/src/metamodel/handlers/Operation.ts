@@ -50,6 +50,9 @@ export const OperationHandler = Operation.createHandler(
   },
 )
 
+/**
+ * Note: A large number of UML models from the TDD dataset contain unspecified "input" and "output" attributes.
+ */
 function removeInvalidInputOutputAttributes(operation: GraphNode) {
   operation.removeAttribute('input')
   operation.removeAttribute('output')

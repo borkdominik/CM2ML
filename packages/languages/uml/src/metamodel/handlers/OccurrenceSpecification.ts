@@ -18,8 +18,10 @@ export const OccurrenceSpecificationHandler =
     },
   )
 
+/**
+ * Note: A large number of UML models from the TDD dataset contain unspecified "event" attributes.
+ */
 function removeInvalidEventAttribute(occurrenceSpecification: GraphNode) {
-  // TODO/Jan: Validate that the event is truly unspecified
   occurrenceSpecification.removeAttribute('event')
 }
 
