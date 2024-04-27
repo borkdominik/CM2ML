@@ -13,16 +13,15 @@ use_mps = False and torch.backends.mps.is_available() and torch.backends.mps.is_
 device = torch.device("mps" if use_mps else "cpu")
 print(f"Using device: {device}")
 
-dataset = CM2MLDataset(
-    f"{os.path.dirname(os.path.realpath(__file__))}/dataset/test.json"
-)
+script_dir = os.path.dirname(os.path.realpath(__file__))
+
+# TODO/Jan: Write the dataset with encoded features to disc
+dataset = CM2MLDataset(f"{script_dir}/dataset/test.json")
 dataset.to(device)
 print(dataset[0])
 print(f"Number of graphs: {len(dataset)}")
 print(f"Number of features: {dataset.num_features}")
 print(f"Number of classes: {dataset.num_classes}")
-print(f"Edge features: {dataset.edge_features}")
-print(f"Node features: {dataset.node_features}")
 print("======================")
 
 class MLP(torch.nn.Module):
@@ -41,7 +40,7 @@ class MLP(torch.nn.Module):
         return x, h
 
 
-model = MLP(dataset.num_features, 32, dataset.num_classes).to(device)
+model = MLP(dataset.num_features, 128, dataset.num_classes).to(device)
 print(model)
 print("\n")
 
@@ -53,6 +52,29 @@ def accuracy(logits, labels):
 criterion = torch.nn.CrossEntropyLoss()  # Define loss criterion.
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)  # Define optimizer.
 
+checkpoint_dir = f"{script_dir}/checkpoints"
+
+def save(filename: str):
+    torch.save(
+        {
+            "optimizer": optimizer.state_dict(),
+            "model": model.state_dict(),
+        },
+        f"{checkpoint_dir}/{filename}",
+    )
+
+def resume(filename: str):
+    checkpoint = torch.load(
+        f"{checkpoint_dir}/{filename}",
+    )
+    model.load_state_dict(checkpoint['model'])
+    optimizer.load_state_dict(checkpoint['optimizer'])
+
+n_epochs = 20
+start_epoch = 0
+if start_epoch > 0:
+    resume_epoch = start_epoch - 1
+    resume(f"epoch-{resume_epoch}.pth")
 
 def train(data: Data):
     optimizer.zero_grad()
@@ -69,11 +91,15 @@ def train(data: Data):
 
 print("======================")
 print("Training...")
-for epoch in range(50):
+for epoch in range(start_epoch, n_epochs):
+    epoch_acc = 0
     for data in dataset:
         data.to(device)
         loss, h, acc = train(data)
-        print(f"Epoch: {epoch:03d}, Loss: {loss:.4f}, Train Acc: {acc:.4f}")
+        epoch_acc += acc
+    epoch_acc /= len(dataset)
+    print(f"Epoch: {epoch:03d}, Train Acc: {epoch_acc:.4f}")
+    save(f"epoch-{epoch}.pth")
 
 print("======================")
 print("Evaluating...")

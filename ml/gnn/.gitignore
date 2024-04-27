@@ -1,3 +1,5 @@
+checkpoints
+!checkpoints/.gitkeep
 dataset
 !dataset/.gitkeep
 __pycache__

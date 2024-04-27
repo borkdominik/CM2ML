@@ -74,6 +74,8 @@ class FeatureTransformer(FeatureFitter):
         elif feature_type == "boolean":
             return self.transform_boolean_feature(feature)
         elif feature_type == "integer" or feature_type == "float":
+            if feature == '*':
+                return -1
             return float(feature) if feature is not None else 0
         else:
             raise ValueError(f"Unknown feature type: {feature_type}")
