@@ -6,7 +6,7 @@ import { Stream } from '@yeger/streams'
  * The first item is the name of the attribute corresponding to the feature.
  * The second item is the type of the attribute corresponding to the feature.
  */
-export type FeatureMetadata = [AttributeName, AttributeType][]
+export type FeatureMetadata = (readonly [AttributeName, AttributeType])[]
 
 /**
  * A feature vector.
@@ -36,13 +36,31 @@ export function deriveFeatures(models: GraphModel[]) {
 
 function getFeatureMetadata(attributables: Stream<Attributable>): FeatureMetadata {
   // Convert to object to remove duplicates
-  return Object.entries(Object.fromEntries(attributables
+  const uniqueFeaturesKeys = new Set<string>()
+  return attributables
     .flatMap((attributable) => Stream.from(attributable.attributes))
-    .map(([_, { name, type }]) => [name, type] as const)
+    .map(([name, { type }]) => [name, type] as const)
+    .filter(([name, type]) => {
+      const key = `${name}:${type}`
+      if (!uniqueFeaturesKeys.has(key)) {
+        uniqueFeaturesKeys.add(key)
+        return true
+      }
+      return false
+    })
     .toArray()
-    .sort((a, b) => a[0].localeCompare(b[0]))))
+    .sort(([a], [b]) => a.localeCompare(b))
 }
 
 function createFeatureVectorFromMetadata(template: FeatureMetadata, attributable: Attributable): FeatureVector {
-  return template.map(([attributeName]) => attributable.getAttribute(attributeName)?.value.literal ?? null)
+  return template.map(([attributeName, type]) => {
+    const attribute = attributable.getAttribute(attributeName)
+    if (attribute === undefined) {
+      return null
+    }
+    if (attribute.type !== type) {
+      return null
+    }
+    return attribute.value.literal
+  })
 }
