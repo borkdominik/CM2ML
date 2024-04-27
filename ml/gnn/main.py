@@ -18,6 +18,8 @@ script_dir = os.path.dirname(os.path.realpath(__file__))
 # TODO/Jan: Write the dataset with encoded features to disc
 dataset = CM2MLDataset(f"{script_dir}/dataset/test.json")
 dataset.to(device)
+train_dataset = dataset[0:2]
+test_dataset = dataset[2:]
 print(dataset[0])
 print(f"Number of graphs: {len(dataset)}")
 print(f"Number of features: {dataset.num_features}")
@@ -93,11 +95,11 @@ print("======================")
 print("Training...")
 for epoch in range(start_epoch, n_epochs):
     epoch_acc = 0
-    for data in dataset:
+    for data in train_dataset:
         data.to(device)
         loss, h, acc = train(data)
         epoch_acc += acc
-    epoch_acc /= len(dataset)
+    epoch_acc /= len(train_dataset)
     print(f"Epoch: {epoch:03d}, Train Acc: {epoch_acc:.4f}")
     save(f"epoch-{epoch}.pth")
 
@@ -106,7 +108,7 @@ print("Evaluating...")
 
 def evaluate_train():
     train_accuracy = 0
-    for data in dataset:
+    for data in train_dataset:
         data.to(device)
         train_accuracy += accuracy(
             model.forward(data.x, data.edge_index)[0][
@@ -114,18 +116,18 @@ def evaluate_train():
             ],
             data.y[data.train_mask],
         )
-    train_accuracy /= len(dataset)
+    train_accuracy /= len(train_dataset)
     print(f"Train accuracy: {train_accuracy * 100 : 0.03} %")
 
 def evaluate_test():
     test_accuracy = 0
-    for data in dataset:
+    for data in test_dataset:
         data.to(device)
         test_accuracy += accuracy(
             model.forward(data.x, data.edge_index)[0][~data.train_mask],
             data.y[~data.train_mask],
         )
-    test_accuracy /= len(dataset)
+    test_accuracy /= len(test_dataset)
     print(f"Test accuracy: {test_accuracy * 100 : 0.03} %")
 
 def evaluate_total():
