@@ -16,16 +16,17 @@ from dataset_types import (
 
 
 class FeatureTransformer(FeatureFitter):
-    def fit_transform(self, datasetData: DatasetData, metadata: DatasetMetadata) -> Data:
+    def fit_transform(self, datasetData: DatasetData, metadata: DatasetMetadata) -> List[Data]:
         self.fit(datasetData, metadata)
+        type_index = list(map(lambda feature: feature[0], metadata["nodeFeatures"])).index("xmi:type")
         entries: List[Data] = []
         for _, entry in datasetData.items():
-            data = self.transform_entry(entry, metadata)
+            data = self.transform_entry(entry, metadata, type_index)
             entries.append(data)
-        return self.collate(entries)
+        return entries
 
     def transform_entry(
-        self, entry: DatasetDataEntry, metadata: DatasetMetadata
+        self, entry: DatasetDataEntry, metadata: DatasetMetadata, type_index: int
     ) -> Data:
         node_features = entry["nodeFeatureVectors"]
         for _node_index, feature_vector in enumerate(node_features):
@@ -33,16 +34,31 @@ class FeatureTransformer(FeatureFitter):
                 feature_vector, metadata["nodeFeatures"]
             )
         edge_index = entry["list"]
+        actual_types = list(map(lambda features: features[type_index], node_features))
+        y = torch.tensor(actual_types, dtype=torch.long)
+        # Select a single training node for each community
+        # (we just use the first one).
+        train_mask = torch.zeros(y.size(0), dtype=torch.bool)
+        for i in range(int(y.max()) + 1):
+            match = (y == i).nonzero(as_tuple=False)
+            if len(match) == 0:
+                continue
+            train_mask[match[0]] = True
+        # train_mask = torch.tensor(
+        #     [index % 4 == 0 for index, _ in enumerate(node_features)], dtype=torch.bool
+        # )
         return Data(
             x=torch.tensor(node_features, dtype=torch.float),
+            y=y,
             edge_index=torch.tensor(edge_index, dtype=torch.long).transpose(0, 1),
+            train_mask=train_mask,
         )
 
     def transform_features(
         self, feature_vector: RawFeatureVector, metadata: FeatureMetadata
     ) -> ProcessedFeatureVector:
         for feature_index, feature_value in enumerate(feature_vector):
-            _, feature_type = metadata[feature_index]
+            _feature_name, feature_type = metadata[feature_index]
             feature_vector[feature_index] = self.transform_feature(
                 feature_value, feature_index, feature_type
             )

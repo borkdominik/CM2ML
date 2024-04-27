@@ -16,4 +16,5 @@ class CM2MLDataset(InMemoryDataset, FeatureTransformer):
             metadata = dataset_input["metadata"]
             self.edge_features = metadata["edgeFeatures"]
             self.node_features = metadata["nodeFeatures"]
-            self.data, self.slices = self.fit_transform(data, metadata)
+            data_entries = self.fit_transform(data, metadata)
+            self.data, self.slices = self.collate(data_entries)
