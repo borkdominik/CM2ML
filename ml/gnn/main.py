@@ -13,6 +13,7 @@ dataset_file = "test.json"
 n_epochs = 2000
 start_epoch = 0
 hidden_channels = 128
+patience = 10
 
 dataset_load_start_time = time.perf_counter()
 dataset = CM2MLDataset(dataset_file)
@@ -41,7 +42,18 @@ gat_model = GATModel(
     hidden_channels,
     dataset.num_classes,
 ).to(device)
-train_model("GAT", gat_model, train_dataset, optimizer=torch.optim.Adam(gat_model.parameters(), lr=0.01), criterion=torch.nn.CrossEntropyLoss(), accuracy=accuracy, num_epochs=n_epochs, start_epoch=start_epoch)
+train_model(
+    "GAT",
+    gat_model,
+    train_dataset=train_dataset,
+    test_dataset=test_dataset,
+    optimizer=torch.optim.Adam(gat_model.parameters(), lr=0.01),
+    criterion=torch.nn.CrossEntropyLoss(),
+    accuracy=accuracy,
+    num_epochs=n_epochs,
+    start_epoch=start_epoch,
+    patience=patience,
+)
 evaluate_model("GAT", gat_model, train_dataset, test_dataset, accuracy)
 
 print("======================")
@@ -52,12 +64,14 @@ gcn_model = GCNModel(dataset.num_features, hidden_channels, dataset.num_classes)
 train_model(
     "GCN",
     gcn_model,
-    train_dataset,
+    train_dataset=train_dataset,
+    test_dataset=test_dataset,
     optimizer=torch.optim.Adam(gcn_model.parameters(), lr=0.01),
     criterion=torch.nn.CrossEntropyLoss(),
     accuracy=accuracy,
     num_epochs=n_epochs,
     start_epoch=start_epoch,
+    patience=patience,
 )
 evaluate_model("GCN", gcn_model, train_dataset, test_dataset, accuracy)
 print("======================")
