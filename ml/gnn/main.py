@@ -2,20 +2,16 @@ import time
 import torch
 from torch.nn import Dropout, ReLU
 from torch_geometric.data import Data
-from torch_geometric.nn import GCNConv
+from torch_geometric.nn import GATConv
 
 from dataset import CM2MLDataset
-from utils import pretty_duration, script_dir
+from utils import device, pretty_duration, script_dir
 
-torch.manual_seed(140)
+# torch.manual_seed(140)
 
 dataset_file = "test.json"
-n_epochs = 100
+n_epochs = 2000
 start_epoch = 0
-use_mps = False and torch.backends.mps.is_available() and torch.backends.mps.is_built()
-
-device = torch.device("mps" if use_mps else "cpu")
-print(f"Using device: {device}")
 
 dataset_load_start_time = time.perf_counter()
 dataset = CM2MLDataset(dataset_file)
@@ -35,31 +31,32 @@ print("======================")
 
 
 class MLP(torch.nn.Module):
-    def __init__(self, in_channels: int, hidden_channels: int, out_channels: int):
+    def __init__(self, num_node_features: int, num_edge_features: int, hidden_channels: int, out_channels: int):
         super(MLP, self).__init__()
-        self.embed = GCNConv(in_channels, hidden_channels)
-        self.classifier = GCNConv(hidden_channels, out_channels)
+        self.embed = GATConv(
+            num_node_features, hidden_channels, edge_dim=num_edge_features
+        )
+        self.classifier = GATConv(hidden_channels, out_channels, edge_dim=num_edge_features)
         self.activation = ReLU()
         self.dropout = Dropout(0.5)
 
-    def forward(self, x, edge_index):
-        x = self.embed(x, edge_index)
+    def forward(self, data: Data):
+        x, edge_index, edge_attr = data.x, data.edge_index, data.edge_attr
+        x = self.embed(x, edge_index, edge_attr=edge_attr)
         h = self.activation(x)
         h = self.dropout(h)
-        x = self.classifier(h, edge_index)
+        x = self.classifier(h, edge_index, edge_attr=edge_attr)
         return x, h
 
 
-model = MLP(dataset.num_features, 128, dataset.num_classes).to(device)
+model = MLP(dataset.num_features, dataset.num_edge_features, 128, dataset.num_classes).to(device)
 print(model)
 print("\n")
-
 
 def accuracy(logits, labels):
     pred = torch.argmax(logits, dim=1)
     acc = torch.mean((pred == labels).float())
     return acc
-
 
 criterion = torch.nn.CrossEntropyLoss()  # Define loss criterion.
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)  # Define optimizer.
@@ -88,7 +85,7 @@ def evaluate_train() -> float:
     train_accuracy = 0
     for data in train_dataset:
         train_accuracy += accuracy(
-            model.forward(data.x, data.edge_index)[0],
+            model.forward(data)[0],
             data.y,
         )
     return train_accuracy / len(train_dataset)
@@ -98,7 +95,7 @@ def evaluate_test() -> float:
     test_accuracy = 0
     for data in test_dataset:
         test_accuracy += accuracy(
-            model.forward(data.x, data.edge_index)[0],
+            model.forward(data)[0],
             data.y,
         )
     return test_accuracy / len(test_dataset)
@@ -108,7 +105,7 @@ def evaluate_total() -> float:
     total_accuracy = 0
     for data in dataset:
         total_accuracy += accuracy(
-            model.forward(data.x, data.edge_index)[0],
+            model.forward(data)[0],
             data.y,
         )
     return total_accuracy / len(dataset)
@@ -121,7 +118,7 @@ if start_epoch > 0:
 
 def train(data: Data):
     optimizer.zero_grad()
-    out, h = model.forward(data.x, data.edge_index)
+    out, h = model.forward(data)
     loss = criterion(out, data.y)
     acc = accuracy(out, data.y)
     loss.backward()
@@ -140,7 +137,8 @@ for epoch in range(start_epoch, n_epochs):
         loss, h, acc = train(data)
         epoch_acc += acc
     epoch_acc /= len(train_dataset)
-    print(f"Epoch: {epoch:03d}, Train Acc: {epoch_acc:.4f}")
+    if epoch % 100 == 0:
+        print(f"Epoch: {epoch:03d}, Train Acc: {epoch_acc:.4f}")
     save(f"epoch-{epoch}.pth")
 train_end_time = time.perf_counter()
 print(f"Training time: {pretty_duration(train_end_time - train_start_time)}")
