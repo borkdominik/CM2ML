@@ -22,8 +22,6 @@ class CM2MLDataset(InMemoryDataset, FeatureTransformer):
             dataset_input: Dataset = json.load(file)
             data = dataset_input["data"]
             metadata = dataset_input["metadata"]
-            self.edge_features = metadata["edgeFeatures"]
-            self.node_features = metadata["nodeFeatures"]
             data_entries = self.fit_transform(data, metadata)
             base_data, slices = self.collate(data_entries)
             torch.save((base_data, slices), dataset_cache_file)

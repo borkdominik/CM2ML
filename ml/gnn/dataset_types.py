@@ -8,6 +8,7 @@ EdgeIndex: TypeAlias = List[List[int]]
 
 RawFeatureVector: TypeAlias = List[Optional[str]]
 
+FeatureSource = Union[Literal["nodeFeatureVectors"], Literal["edgeFeatureVectors"]]
 
 class DatasetDataEntry(TypedDict):
     format: Literal["list"]

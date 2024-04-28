@@ -2,8 +2,8 @@ from typing import Optional
 from dataset_types import (
     DatasetData,
     DatasetDataEntry,
-    DatasetMetadata,
     FeatureMetadata,
+    FeatureSource,
     FeatureType,
     RawFeatureVector,
 )
@@ -11,8 +11,9 @@ from category_encoder import CategoryEncoder
 
 
 class FeatureFitter:
-    def __init__(self) -> None:
+    def __init__(self, source: FeatureSource) -> None:
         self.encoders: dict[int, CategoryEncoder] = {}
+        self.source = source
 
     def get_encoder(self, index: int) -> CategoryEncoder:
         key = f"{index}"
@@ -24,16 +25,23 @@ class FeatureFitter:
         for _, encoder in self.encoders.items():
             encoder.freeze()
 
-    def fit(self, data: DatasetData, metadata: DatasetMetadata) -> None:
+    def fit(
+        self,
+        data: DatasetData,
+        metadata: FeatureMetadata,
+    ) -> None:
         for _, entry in data.items():
             self.fit_entry(entry, metadata)
         self.freeze()
 
-    def fit_entry(self, entry: DatasetDataEntry, metadata: DatasetMetadata) -> None:
-        node_features = entry["nodeFeatureVectors"]
-        node_feature_metadata = metadata["nodeFeatures"]
-        for _, feature_vector in enumerate(node_features):
-            self.fit_features(feature_vector, node_feature_metadata)
+    def fit_entry(
+        self,
+        entry: DatasetDataEntry,
+        metadata: FeatureMetadata,
+    ) -> None:
+        features = entry[self.source]
+        for _, feature_vector in enumerate(features):
+            self.fit_features(feature_vector, metadata)
 
     def fit_features(
         self, feature_vector: RawFeatureVector, feature_metadata: FeatureMetadata
@@ -63,7 +71,7 @@ class FeatureFitter:
     def fit_category_feature(
         self,
         feature: Optional[str],
-        feature_index: int,
+        feature_index: int
     ) -> None:
         encoder = self.get_encoder(feature_index)
         if feature is not None:
