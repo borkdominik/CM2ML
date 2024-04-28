@@ -18,6 +18,7 @@ def train_model(
     num_epochs,
     start_epoch: int,
     patience: int,
+    unique_hash: str,
 ):
     def train(data: Data):
         optimizer.zero_grad()
@@ -30,7 +31,7 @@ def train_model(
 
     if start_epoch > 0:
         resume_epoch = start_epoch - 1
-        resume(f"{name}-{resume_epoch}.pth")
+        resume(f"{name}-{unique_hash}-{resume_epoch}.pth")
 
     print(f"Training {name}...")
     train_start_time = time.perf_counter()
@@ -42,10 +43,10 @@ def train_model(
         for data in train_dataset:
             loss, h, acc = train(data)
             epoch_acc += acc
-        save(f"{name}-{epoch}.pth", model, optimizer)
+        save(f"{name}-{unique_hash}-{epoch}.pth", model, optimizer)
         epoch_acc /= len(train_dataset)
         if epoch % 100 == 0:
-            print(f"Epoch: {epoch:03d}, Train Acc: {epoch_acc:.4f}")
+            print(f"Epoch: {epoch:03d}, Train Acc: {epoch_acc * 100:.2f} %")
         model.eval()
         with torch.no_grad():
             test_loss = 0
@@ -60,7 +61,6 @@ def train_model(
                 if remaining_patience == 0:
                     print(f"Early stopping in epoch {epoch}")
                     break
-
 
     train_end_time = time.perf_counter()
     print(f"Training time: {pretty_duration(train_end_time - train_start_time)}")

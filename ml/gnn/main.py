@@ -9,18 +9,18 @@ from utils import device, pretty_duration
 
 # torch.manual_seed(140)
 
-dataset_file = "test.json"
-n_epochs = 2000
+dataset_file = "equal-paths.json"
+num_epochs = 2000
 start_epoch = 0
 hidden_channels = 128
 patience = 10
+
+unique_hash = hash(f"{dataset_file}-{num_epochs}-{hidden_channels}-{patience}")
 
 dataset_load_start_time = time.perf_counter()
 dataset = CM2MLDataset(dataset_file)
 dataset_load_end_time = time.perf_counter()
 dataset.to(device)
-train_dataset = dataset[0:2]
-test_dataset = dataset[2:]
 print("======================")
 print(
     f"Dataset load time: {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
@@ -30,10 +30,15 @@ print(f"Number of node features: {dataset.num_features}")
 print(f"Number of edge features: {dataset.num_edge_features}")
 print(f"Number of classes: {dataset.num_classes}")
 
+train_dataset = dataset[0:2]
+test_dataset = dataset[2:]
+
+
 def accuracy(logits, labels):
     pred = torch.argmax(logits, dim=1)
     acc = torch.mean((pred == labels).float())
     return acc
+
 
 print("======================")
 gat_model = GATModel(
@@ -50,9 +55,10 @@ train_model(
     optimizer=torch.optim.Adam(gat_model.parameters(), lr=0.01),
     criterion=torch.nn.CrossEntropyLoss(),
     accuracy=accuracy,
-    num_epochs=n_epochs,
+    num_epochs=num_epochs,
     start_epoch=start_epoch,
     patience=patience,
+    unique_hash=unique_hash,
 )
 evaluate_model("GAT", gat_model, train_dataset, test_dataset, accuracy)
 
@@ -69,9 +75,10 @@ train_model(
     optimizer=torch.optim.Adam(gcn_model.parameters(), lr=0.01),
     criterion=torch.nn.CrossEntropyLoss(),
     accuracy=accuracy,
-    num_epochs=n_epochs,
+    num_epochs=num_epochs,
     start_epoch=start_epoch,
     patience=patience,
+    unique_hash=unique_hash,
 )
 evaluate_model("GCN", gcn_model, train_dataset, test_dataset, accuracy)
 print("======================")

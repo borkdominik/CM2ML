@@ -1,7 +1,7 @@
 from typing import Optional, Set
 
 
-class CategoryEncoder():
+class CategoryEncoder:
     def __init__(self):
         self.category_set: Set[Optional[str]] = set()
 
