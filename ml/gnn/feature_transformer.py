@@ -67,10 +67,11 @@ class FeatureTransformer():
         # train_mask = torch.tensor(
         #     [index % 4 == 0 for index, _ in enumerate(node_features)], dtype=torch.bool
         # )
+        edge_index = torch.tensor(edge_index, dtype=torch.long).transpose(0, 1) if len(edge_index) > 0 else torch.empty((2, 0), dtype=torch.long)
         return Data(
             x=torch.tensor(node_features, dtype=torch.float),
             y=y,
-            edge_index=torch.tensor(edge_index, dtype=torch.long).transpose(0, 1),
+            edge_index=edge_index,
             edge_attr=torch.tensor(edge_features, dtype=torch.float),
             # train_mask=train_mask,
         )

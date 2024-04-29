@@ -36,9 +36,9 @@ class BaseModel(torch.nn.Module):
 
     def fit(
         self,
-        train_dataset,
-        test_dataset,
-        num_epochs,
+        train_dataset: List[Data],
+        test_dataset: List[Data],
+        num_epochs: int,
         patience: int,
         start_epoch: int = 0,
     ):

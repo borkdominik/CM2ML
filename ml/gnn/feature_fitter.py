@@ -47,11 +47,11 @@ class FeatureFitter:
         self, feature_vector: RawFeatureVector, feature_metadata: FeatureMetadata
     ) -> None:
         for feature_index, feature in enumerate(feature_vector):
-            _feature_name, feature_type = feature_metadata[feature_index]
-            self.fit_feature(feature_index, feature, feature_type)
+            feature_name, feature_type = feature_metadata[feature_index]
+            self.fit_feature(feature_index, feature, feature_type, feature_name)
 
     def fit_feature(
-        self, feature_index: int, feature: Optional[str], feature_type: FeatureType
+        self, feature_index: int, feature: Optional[str], feature_type: FeatureType, feature_name: str
     ) -> None:
         if feature_type == "category" or feature_type == "string":
             # TODO/Jan: Treat string features as categories for now
@@ -66,7 +66,7 @@ class FeatureFitter:
         elif feature_type == "integer" or feature_type == "float":
             pass
         else:
-            raise ValueError(f"Unknown feature type: {feature_type}")
+            raise ValueError(f"Unknown type '{feature_type}' for feature '{feature_name}'")
 
     def fit_category_feature(
         self,
