@@ -8,7 +8,7 @@ from utils import pretty_duration
 
 torch.manual_seed(42)
 
-dataset_file = "equal-paths.json"
+dataset_file = "type.json"
 num_epochs = 2000
 start_epoch = 0
 hidden_channels = 128

@@ -12,18 +12,20 @@ class CM2MLDataset(InMemoryDataset):
 
     def __init__(self, dataset_file: str):
         super().__init__(None)
+
         dataset_path = f"{script_dir}/dataset/{dataset_file}"
         dataset_cache_file = f"{script_dir}/__pycache__/{dataset_file}.dataset"
+
         if os.path.isfile(dataset_cache_file):
             self.data, self.slices = torch.load(dataset_cache_file)
             self.to(device)
             return
-        self.transformer = FeatureTransformer()
+
         with open(dataset_path, "r") as file:
             dataset_input: Dataset = json.load(file)
             data = dataset_input["data"]
             metadata = dataset_input["metadata"]
-            data_entries = self.transformer.fit_transform(data, metadata)
+            data_entries = FeatureTransformer().fit_transform(data, metadata)
             base_data, slices = self.collate(data_entries)
             torch.save((base_data, slices), dataset_cache_file)
             self.data, self.slices = base_data, slices

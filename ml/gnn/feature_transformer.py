@@ -54,7 +54,10 @@ class FeatureTransformer():
                 feature_vector, metadata["edgeFeatures"], "edgeFeatureVectors"
             )
         edge_index = entry["list"]
-        actual_types = list(map(lambda features: features[type_index], node_features))
+        actual_types = []
+        for _node_index, features in enumerate(node_features):
+            actual_types.append(features[type_index])
+            features[type_index] = 0
         y = torch.tensor(actual_types, dtype=torch.long)
         # Select a single training node for each community
         # (we just use the first one).
