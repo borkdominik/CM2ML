@@ -1,19 +1,20 @@
 import type { Attributable, AttributeName, AttributeType, GraphEdge, GraphModel, GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
+export type FeatureType = AttributeType | `encoded-${Exclude<AttributeType, 'unknown'>}`
 /**
  * A feature metadata tuple.
  * The first item is the name of the attribute corresponding to the feature.
  * The second item is the type of the attribute corresponding to the feature.
  */
-export type FeatureMetadata = (readonly [AttributeName, AttributeType])[]
+export type FeatureMetadata = (readonly [AttributeName, FeatureType])[]
 
 /**
  * A feature vector.
  * null values indicate missing features.
  * The index of the feature corresponds to the index of the feature metadata tuple.
  */
-export type FeatureVector = (string | null)[]
+export type FeatureVector = (number | string | null)[]
 
 export function deriveFeatures(models: GraphModel[]) {
   const nodes = Stream.from(models).flatMap(({ nodes }) => nodes)

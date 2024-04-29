@@ -15,7 +15,7 @@ export function FeatureVector({ data }: FeatureVectorProps) {
 
   function formatIndex(index: number) {
     // pad index to always have the same length
-    return index.toString().padStart(features.length.toString().length, ' ')
+    return index.toString().padStart((features.length - 1).toString().length, ' ')
   }
   return (
     <div className="flex flex-col flex-wrap font-mono text-xs">

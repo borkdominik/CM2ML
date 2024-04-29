@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/graph-encoder",
+  "name": "@cm2ml/feature-encoder",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/borkdominik/CM2ML.git",
-    "directory": "packages/encoder/graph-encoder"
+    "directory": "packages/encoder/feature-encoder"
   },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"
@@ -36,7 +36,6 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
-    "@cm2ml/feature-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@yeger/streams": "1.1.7"

@@ -9,6 +9,7 @@ import { UmlParser } from '@cm2ml/uml'
 
 export * from '@cm2ml/archimate'
 export * from '@cm2ml/ecore'
+export * from '@cm2ml/feature-encoder'
 export * from '@cm2ml/graph-encoder'
 export * from '@cm2ml/one-hot-encoder'
 export * from '@cm2ml/tree-encoder'

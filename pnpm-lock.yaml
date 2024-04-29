@@ -78,8 +78,36 @@ importers:
         specifier: 1.4.0
         version: 1.4.0(@types/node@20.12.3)(@vitest/ui@1.4.0)(terser@5.26.0)
 
+  packages/encoder/feature-encoder:
+    dependencies:
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../../framework/ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../../framework/plugin
+      '@yeger/streams':
+        specifier: 1.1.7
+        version: 1.1.7
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.4.3
+        version: 5.4.3
+      vite:
+        specifier: 5.2.7
+        version: 5.2.7(@types/node@20.12.3)(terser@5.26.0)
+      vite-plugin-lib:
+        specifier: 2.0.9
+        version: 2.0.9(@types/node@20.12.3)(rollup@4.13.0)(typescript@5.4.3)(vite@5.2.7(@types/node@20.12.3)(terser@5.26.0))
+
   packages/encoder/graph-encoder:
     dependencies:
+      '@cm2ml/feature-encoder':
+        specifier: workspace:*
+        version: link:../feature-encoder
       '@cm2ml/ir':
         specifier: workspace:*
         version: link:../../framework/ir
@@ -158,6 +186,9 @@ importers:
       '@cm2ml/ecore':
         specifier: workspace:*
         version: link:../../languages/ecore
+      '@cm2ml/feature-encoder':
+        specifier: workspace:*
+        version: link:../../encoder/feature-encoder
       '@cm2ml/graph-encoder':
         specifier: workspace:*
         version: link:../../encoder/graph-encoder
@@ -11407,7 +11438,7 @@ snapshots:
       '@vue/compiler-dom': 3.4.20
       '@vue/shared': 3.4.20
       computeds: 0.0.1
-      minimatch: 9.0.3
+      minimatch: 9.0.4
       muggle-string: 0.3.1
       path-browserify: 1.0.1
       vue-template-compiler: 2.7.14
