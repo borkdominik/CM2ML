@@ -2,8 +2,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 
-import type { ExecutionError, METADATA_KEY, Parameter, ParameterMetadata, Plugin } from '@cm2ml/plugin'
-import { getTypeConstructor } from '@cm2ml/plugin'
+import type { ExecutionError, Parameter, ParameterMetadata, Plugin } from '@cm2ml/plugin'
+import { METADATA_KEY, getTypeConstructor } from '@cm2ml/plugin'
 import type { PluginAdapterConfiguration } from '@cm2ml/plugin-adapter'
 import { PluginAdapter, groupBatchedOutput } from '@cm2ml/plugin-adapter'
 import { getMessage } from '@cm2ml/utils'
@@ -168,7 +168,7 @@ function batchedPluginActionHandler<Out, Parameters extends ParameterMetadata>(
     if (merge) {
       const mergedOutput = Object.fromEntries(results.map(({ index, result }) => [inputFiles[index]!, result]))
       // eslint-disable-next-line no-console
-      console.log(getResultAsText({ metadata, data: mergedOutput }, normalizedOptions.pretty))
+      console.log(getResultAsText({ [METADATA_KEY]: metadata, data: mergedOutput }, normalizedOptions.pretty))
     } else {
       errors.forEach(({ error, index }) => {
         console.error(`\n${inputFiles[index]}:\n ${error.message}\n`)
@@ -187,7 +187,7 @@ function batchedPluginActionHandler<Out, Parameters extends ParameterMetadata>(
 
   if (merge) {
     const mergedOutput = Object.fromEntries(results.map(({ index, result }) => [inputFiles[index]!, result]))
-    const mergedResultText = getResultAsText({ metadata, data: mergedOutput }, normalizedOptions.pretty)
+    const mergedResultText = getResultAsText({ [METADATA_KEY]: metadata, data: mergedOutput }, normalizedOptions.pretty)
     fs.writeFileSync(outDir, mergedResultText)
   } else {
     fs.mkdirSync(outDir, { recursive: true })
