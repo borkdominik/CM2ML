@@ -19,8 +19,8 @@ export const FeatureEncoder = definePlugin({
       defaultValue: false,
     },
   },
-  batchMetadataCollector: (models: GraphModel[]) => {
-    return deriveFeatures(models)
+  batchMetadataCollector: (models: GraphModel[], parameters) => {
+    return deriveFeatures(models, parameters)
   },
   invoke(input, _parameters, features) {
     return {

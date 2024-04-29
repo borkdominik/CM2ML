@@ -1,8 +1,8 @@
 import type { Attributable, AttributeName, AttributeType, GraphEdge, GraphModel, GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
-import type { Encoder } from './encoder'
-import { CategoryEncoder, EncoderProvider } from './encoder'
+import type { Encoder, EncoderProviderSettings } from './encoder'
+import { EncoderProvider } from './encoder'
 
 export type RawFeatureType = AttributeType
 
@@ -33,28 +33,26 @@ export type FeatureMetadata = (readonly [FeatureName, FeatureType, Encoder | und
  */
 export type FeatureVector = (number | string | null)[]
 
-export function deriveFeatures(models: GraphModel[]) {
+export interface FeatureDeriverSettings extends EncoderProviderSettings {
+  onlyEncodedFeatures: boolean
+}
+
+export function deriveFeatures(models: GraphModel[], settings: FeatureDeriverSettings) {
   const nodes = Stream.from(models).flatMap(({ nodes }) => nodes)
   const edges = Stream.from(models).flatMap(({ edges }) => edges)
-  const nodeFeatures = getFeatureMetadata(nodes)
-  const edgeFeatures = getFeatureMetadata(edges)
-  const edgeFeaturesWithoutTag = [...edgeFeatures]
-  edgeFeatures.push(['tag', 'category', new CategoryEncoder()])
+  const nodeFeatures = getFeatureMetadata(nodes, settings)
+  const edgeFeatures = getFeatureMetadata(edges, settings)
   return {
     nodeFeatures,
     getNodeFeatureVector: (node: GraphNode) => createFeatureVectorFromMetadata(nodeFeatures, node),
     edgeFeatures,
-    getEdgeFeatureVector: (edge: GraphEdge) => {
-      const featureVector = createFeatureVectorFromMetadata(edgeFeaturesWithoutTag, edge)
-      featureVector.push(edge.tag)
-      return featureVector
-    },
+    getEdgeFeatureVector: (edge: GraphEdge) => createFeatureVectorFromMetadata(edgeFeatures, edge),
   }
 }
 
-function getFeatureMetadata(attributables: Stream<Attributable>): FeatureMetadata {
+function getFeatureMetadata(attributables: Stream<Attributable>, settings: FeatureDeriverSettings): FeatureMetadata {
   const uniqueFeaturesKeys = new Set<string>()
-  const encoderProvider = new EncoderProvider()
+  const encoderProvider = new EncoderProvider(settings)
   return attributables
     .flatMap((attributable) => Stream.from(attributable.attributes))
     .map(([name, { type, value }]) => {
@@ -64,11 +62,14 @@ function getFeatureMetadata(attributables: Stream<Attributable>): FeatureMetadat
     })
     .filter(([name, type]) => {
       const key = `${name}:${type}`
-      if (!uniqueFeaturesKeys.has(key)) {
-        uniqueFeaturesKeys.add(key)
-        return true
+      if (uniqueFeaturesKeys.has(key)) {
+        return false
       }
-      return false
+      if (settings.onlyEncodedFeatures && !type.startsWith('encoded-')) {
+        return false
+      }
+      uniqueFeaturesKeys.add(key)
+      return true
     })
     .toArray()
     .sort(([a], [b]) => a.localeCompare(b))
@@ -77,13 +78,10 @@ function getFeatureMetadata(attributables: Stream<Attributable>): FeatureMetadat
 function createFeatureVectorFromMetadata(template: FeatureMetadata, attributable: Attributable): FeatureVector {
   return template.map(([attributeName, type, encoder]) => {
     const attribute = attributable.getAttribute(attributeName)
-    if (attribute === undefined) {
+    if (attribute !== undefined && attribute.type !== type.replace('encoded-', '')) {
       return null
     }
-    if (attribute.type !== type.replace('encoded-', '')) {
-      return null
-    }
-    const value = attribute.value.literal
+    const value = attribute?.value.literal ?? null
     if (!encoder) {
       return value
     }

@@ -5,10 +5,22 @@ export interface Encoder {
   transform: (value: string | null) => number
 }
 
+export interface EncoderProviderSettings {
+  rawFeatures: boolean
+
+}
+
 export class EncoderProvider {
   private readonly encoders = new Map<string, Encoder>()
 
+  public constructor(
+    private readonly settings: EncoderProviderSettings,
+  ) {}
+
   public getEncoder(name: FeatureName, type: RawFeatureType): Encoder | undefined {
+    if (this.settings.rawFeatures) {
+      return undefined
+    }
     const key = `${name}:${type}`
     const encoder = this.encoders.get(key)
     if (encoder) {
