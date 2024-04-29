@@ -8,11 +8,16 @@ export type { FeatureMetadata, FeatureType, FeatureVector } from './features'
 export const FeatureEncoder = definePlugin({
   name: 'feature-encoder',
   parameters: {
-    // rawFeatures: {
-    //   type: 'boolean',
-    //   description: 'Do not encode features.',
-    //   defaultValue: false,
-    // },
+    rawFeatures: {
+      type: 'boolean',
+      description: 'Do not encode features.',
+      defaultValue: false,
+    },
+    onlyEncodedFeatures: {
+      type: 'boolean',
+      description: 'Only emit features that are encoded.',
+      defaultValue: false,
+    },
   },
   batchMetadataCollector: (models: GraphModel[]) => {
     return deriveFeatures(models)

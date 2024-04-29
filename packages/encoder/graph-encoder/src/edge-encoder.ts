@@ -47,8 +47,8 @@ export const EdgeEncoder = definePlugin({
       nodeFeatureVectors,
       edgeFeatureVectors,
       [METADATA_KEY]: {
-        edgeFeatures,
-        nodeFeatures,
+        edgeFeatures: edgeFeatures.map(([name, type]) => [name, type]),
+        nodeFeatures: nodeFeatures.map(([name, type]) => [name, type]),
       },
     }
   },

@@ -1,13 +1,30 @@
 import type { Attributable, AttributeName, AttributeType, GraphEdge, GraphModel, GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
-export type FeatureType = AttributeType | `encoded-${Exclude<AttributeType, 'unknown'>}`
+import type { Encoder } from './encoder'
+import { CategoryEncoder, EncoderProvider } from './encoder'
+
+export type RawFeatureType = AttributeType
+
+function toEncodedFeatureType(type: RawFeatureType): EncodedFeatureType {
+  if (type === 'unknown') {
+    throw new Error('Cannot encode unknown feature')
+  }
+  return `encoded-${type}`
+}
+
+export type EncodedFeatureType = `encoded-${Exclude<RawFeatureType, 'unknown'>}`
+
+export type FeatureType = RawFeatureType | EncodedFeatureType
+
+export type FeatureName = AttributeName
+
 /**
  * A feature metadata tuple.
  * The first item is the name of the attribute corresponding to the feature.
  * The second item is the type of the attribute corresponding to the feature.
  */
-export type FeatureMetadata = (readonly [AttributeName, FeatureType])[]
+export type FeatureMetadata = (readonly [FeatureName, FeatureType, Encoder | undefined])[]
 
 /**
  * A feature vector.
@@ -22,7 +39,7 @@ export function deriveFeatures(models: GraphModel[]) {
   const nodeFeatures = getFeatureMetadata(nodes)
   const edgeFeatures = getFeatureMetadata(edges)
   const edgeFeaturesWithoutTag = [...edgeFeatures]
-  edgeFeatures.push(['tag', 'category'])
+  edgeFeatures.push(['tag', 'category', new CategoryEncoder()])
   return {
     nodeFeatures,
     getNodeFeatureVector: (node: GraphNode) => createFeatureVectorFromMetadata(nodeFeatures, node),
@@ -36,11 +53,15 @@ export function deriveFeatures(models: GraphModel[]) {
 }
 
 function getFeatureMetadata(attributables: Stream<Attributable>): FeatureMetadata {
-  // Convert to object to remove duplicates
   const uniqueFeaturesKeys = new Set<string>()
+  const encoderProvider = new EncoderProvider()
   return attributables
     .flatMap((attributable) => Stream.from(attributable.attributes))
-    .map(([name, { type }]) => [name, type] as const)
+    .map(([name, { type, value }]) => {
+      const encoder = encoderProvider.getEncoder(name, type)
+      encoder?.fit(value.literal)
+      return [name, encoder ? toEncodedFeatureType(type) : type, encoder] as const
+    })
     .filter(([name, type]) => {
       const key = `${name}:${type}`
       if (!uniqueFeaturesKeys.has(key)) {
@@ -54,14 +75,18 @@ function getFeatureMetadata(attributables: Stream<Attributable>): FeatureMetadat
 }
 
 function createFeatureVectorFromMetadata(template: FeatureMetadata, attributable: Attributable): FeatureVector {
-  return template.map(([attributeName, type]) => {
+  return template.map(([attributeName, type, encoder]) => {
     const attribute = attributable.getAttribute(attributeName)
     if (attribute === undefined) {
       return null
     }
-    if (attribute.type !== type) {
+    if (attribute.type !== type.replace('encoded-', '')) {
       return null
     }
-    return attribute.value.literal
+    const value = attribute.value.literal
+    if (!encoder) {
+      return value
+    }
+    return encoder.transform(value)
   })
 }
