@@ -49,13 +49,17 @@ export function transformNodeToEdge(
     node.parent?.addChild(child)
   })
   // create all combinations of edges
-  const edges = sources.flatMap((source) => {
-    return targets.map((target) => {
-      const edge = node.model.addEdge(tag, source, target)
-      copyAttributes(node, edge)
-      return edge
+  const edges = sources
+    .filter((source) => !source.isRemoved)
+    .flatMap((source) => {
+      return targets
+        .filter((target) => !target.isRemoved)
+        .map((target) => {
+          const edge = node.model.addEdge(tag, source, target)
+          copyAttributes(node, edge)
+          return edge
+        })
     })
-  })
   node.model.removeNode(node)
   return edges
 }
@@ -67,7 +71,7 @@ export type Handler<HandlerParameters extends HandlerPropagation> = (
   parameters: HandlerParameters,
 ) => void | Callback
 
-export interface HandlerPropagation {}
+export interface HandlerPropagation { }
 
 export interface Definition<
   Type extends string,
@@ -216,7 +220,7 @@ export class MetamodelElement<
   public createPassthroughHandler(
     attributeDefaults: Record<string, AttributeConfiguration> = {},
   ) {
-    return this.createHandler(() => {}, attributeDefaults)
+    return this.createHandler(() => { }, attributeDefaults)
   }
 
   public createHandler(
@@ -252,12 +256,12 @@ export class MetamodelElement<
 
   public narrowType(node: GraphNode) {
     if (!this?.type) {
-    // No type information for narrowing
+      // No type information for narrowing
       return
     }
     const currentType = this.configuration.getType(node)
     if (!currentType) {
-    // No type set, set type to provided type
+      // No type set, set type to provided type
       node.addAttribute({ name: this.configuration.typeAttributeName, type: 'category', value: { literal: this.type } })
       return
     }

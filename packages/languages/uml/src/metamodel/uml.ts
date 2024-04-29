@@ -421,11 +421,6 @@ export function transformNodeToEdgeCallback(node: GraphNode, sources: GraphNode 
   const edgeTargets = Array.isArray(targets) ? targets : [targets]
   const tag = getEdgeTagForRelationship(node)
   return () => {
-    const children = node.children
-    children.forEach((child) => {
-      node.removeChild(child)
-      node.parent?.addChild(child)
-    })
     transformNodeToEdge(node, edgeSources, edgeTargets, tag)
   }
 }

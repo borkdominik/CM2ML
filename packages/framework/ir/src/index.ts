@@ -9,6 +9,7 @@ export interface Show {
 
 export interface ModelMember {
   readonly model: GraphModel
+  readonly isRemoved: boolean
 }
 
 export interface Settings {
@@ -86,6 +87,13 @@ export class GraphModel implements Show {
     return node
   }
 
+  /**
+   * Remove a node from this model.
+   * Warning: All children of the node will be removed as well.
+   * Warning: All edges connected to the node will be removed as well.
+   * Warning: It is no longer safe to access {@link GraphNode.model} after this operation.
+   * @param node - The node to remove
+   */
   public removeNode(node: GraphNode) {
     this.purgeNode(node, new Set())
   }
@@ -104,6 +112,8 @@ export class GraphModel implements Show {
     node.children.forEach((child) => this.purgeNode(child, protectedNodes))
     node.parent?.removeChild(node)
     this.#nodes.delete(node)
+    // @ts-expect-error Evil illegal const assignment
+    node.model = undefined
   }
 
   public addEdge(tag: string, source: GraphNode, target: GraphNode) {
@@ -116,11 +126,18 @@ export class GraphModel implements Show {
     return edge
   }
 
+  /**
+   * Remove an edge from this model.
+   * Warning: It is no longer safe to access {@link GraphEdge.model} after this operation.
+   * @param edge - The edge to remove
+   */
   public removeEdge(edge: GraphEdge) {
     requireSameModel(this, edge)
     edge.source.removeOutgoingEdge(edge)
     edge.target.removeIncomingEdge(edge)
     this.#edges.delete(edge)
+    // @ts-expect-error Evil illegal const assignment
+    edge.model = undefined
   }
 
   public debug(prefix: DebugPrefix, message: string | (() => string)) {
@@ -158,7 +175,11 @@ export class GraphNode implements Attributable, ModelMember, Show {
   public constructor(
     public readonly model: GraphModel,
     public tag: string,
-  ) {}
+  ) { }
+
+  public get isRemoved(): boolean {
+    return this.model === undefined
+  }
 
   public get id(): string | undefined {
     return this.getAttribute(this.model.settings.idAttribute)?.value.literal
@@ -331,7 +352,11 @@ export class GraphEdge implements Attributable, ModelMember, Show {
     public readonly tag: string,
     public readonly source: GraphNode,
     public readonly target: GraphNode,
-  ) {}
+  ) { }
+
+  public get isRemoved(): boolean {
+    return this.model === undefined
+  }
 
   public getAttribute(name: AttributeName): Attribute | undefined {
     return this.#attributeDelegate.getAttribute(name)
@@ -361,9 +386,9 @@ function requireSameModel(
   first: ModelMember | GraphModel,
   second: ModelMember | GraphModel,
 ) {
-  const firstModel = first instanceof GraphModel ? first : first.model
-  const secondModel = second instanceof GraphModel ? second : second.model
-  if (firstModel !== secondModel) {
+  const firstModel: GraphModel | undefined = first instanceof GraphModel ? first : first.model
+  const secondModel: GraphModel | undefined = second instanceof GraphModel ? second : second.model
+  if (firstModel !== secondModel || firstModel === undefined || secondModel === undefined) {
     throw new Error('Both entities must be members of the same model')
   }
 }

@@ -32,7 +32,6 @@ export const GraphEncoder = definePlugin({
   },
   invoke(input, { includeEqualPaths, sparse, weighted }, { nodeFeatures, getNodeFeatureVector, edgeFeatures, getEdgeFeatureVector }) {
     const sortedIds = getSortedIds(input)
-
     const sortedEdges = getRelevantEdges(input, includeEqualPaths).toArray().sort(createEdgeSorter(sortedIds))
     const edgeEncoder = sparse ? encodeAsSparseList : encodeAsAdjacencyMatrix
     const edgeEncoding = edgeEncoder(new Set(sortedEdges), sortedIds, weighted)
@@ -58,6 +57,7 @@ export const GraphEncoder = definePlugin({
   },
 })
 
+// TODO/Jan: Require IDs to be set?
 function getSortedIds(model: GraphModel) {
   return Stream.from(model.nodes)
     .map((node) => node.id)
@@ -86,7 +86,13 @@ function encodeAsSparseList(
       throw new Error('Missing id attribute in target element.')
     }
     const sourceIndex = sortedIds.indexOf(sourceId)
+    if (sourceIndex === -1) {
+      throw new Error(`Source node ${sourceId} not in model.`)
+    }
     const targetIndex = sortedIds.indexOf(targetId)
+    if (targetIndex === -1) {
+      throw new Error(`Target node ${targetId} not in model.`)
+    }
     const entry = weighted
       ? ([
           sourceIndex,
@@ -162,7 +168,13 @@ function fillAdjacencyMatrix(
       throw new Error('Missing id attribute in target element.')
     }
     const sourceIndex = sortedIds.indexOf(sourceId)
+    if (sourceIndex === -1) {
+      throw new Error(`Source node ${sourceId} not in model.`)
+    }
     const targetIndex = sortedIds.indexOf(targetId)
+    if (targetIndex === -1) {
+      throw new Error(`Target node ${targetId} not in model.`)
+    }
     const value = weighted ? getWeightedValue(edge, edges) : 1
     matrix[sourceIndex]![targetIndex] = value
   })
