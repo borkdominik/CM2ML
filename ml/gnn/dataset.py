@@ -8,8 +8,7 @@ from feature_transformer import FeatureTransformer
 from utils import device, script_dir
 
 
-class CM2MLDataset(InMemoryDataset, FeatureTransformer):
-    feature_encoders = []
+class CM2MLDataset(InMemoryDataset):
 
     def __init__(self, dataset_file: str):
         super().__init__(None)
@@ -19,11 +18,12 @@ class CM2MLDataset(InMemoryDataset, FeatureTransformer):
             self.data, self.slices = torch.load(dataset_cache_file)
             self.to(device)
             return
+        self.transformer = FeatureTransformer()
         with open(dataset_path, "r") as file:
             dataset_input: Dataset = json.load(file)
             data = dataset_input["data"]
             metadata = dataset_input["metadata"]
-            data_entries = self.fit_transform(data, metadata)
+            data_entries = self.transformer.fit_transform(data, metadata)
             base_data, slices = self.collate(data_entries)
             torch.save((base_data, slices), dataset_cache_file)
             self.data, self.slices = base_data, slices

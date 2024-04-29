@@ -1,5 +1,6 @@
 import time
 from typing import List
+from numpy import NaN
 import torch
 from torch_geometric.data import Data
 
@@ -104,6 +105,8 @@ class BaseModel(torch.nn.Module):
                 self.forward(data)[0],
                 data.y,
             )
+        if len(dataset) == 0:
+            return NaN
         return total_accuracy / len(dataset)
 
     def evaluate(self, train_dataset: List[Data], test_dataset: List[Data]) -> None:
