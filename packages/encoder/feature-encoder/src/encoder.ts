@@ -98,7 +98,7 @@ export class IntegerEncoder implements Encoder {
   private maximum = Number.MIN_SAFE_INTEGER
 
   public fit(value: string | null) {
-    if (value === null) {
+    if (value === null || value === '') {
       return
     }
     if (value === '*') {
@@ -113,7 +113,7 @@ export class IntegerEncoder implements Encoder {
   }
 
   public transform(value: string | null) {
-    if (value === null) {
+    if (value === null || value === '') {
       return 0
     }
     if (value === '*') {
