@@ -72,7 +72,8 @@ function encodeAsSparseList(
 ) {
   const list = new Array<
     readonly [number, number] | readonly [number, number, number]
-  >()
+    >()
+  const indexRecord = createIndexRecord(sortedIds)
   edges.forEach((edge) => {
     const sourceId = edge.source.id
     const targetId = edge.target.id
@@ -82,12 +83,12 @@ function encodeAsSparseList(
     if (targetId === undefined) {
       throw new Error('Missing id attribute in target element.')
     }
-    const sourceIndex = sortedIds.indexOf(sourceId)
-    if (sourceIndex === -1) {
+    const sourceIndex = indexRecord[sourceId]
+    if (sourceIndex === undefined) {
       throw new Error(`Source node ${sourceId} not in model.`)
     }
-    const targetIndex = sortedIds.indexOf(targetId)
-    if (targetIndex === -1) {
+    const targetIndex = indexRecord[targetId]
+    if (targetIndex === undefined) {
       throw new Error(`Target node ${targetId} not in model.`)
     }
     const entry = weighted
@@ -155,6 +156,7 @@ function fillAdjacencyMatrix(
   sortedIds: string[],
   weighted: boolean,
 ) {
+  const indexRecord = createIndexRecord(sortedIds)
   edges.forEach((edge) => {
     const sourceId = edge.source.id
     const targetId = edge.target.id
@@ -164,12 +166,12 @@ function fillAdjacencyMatrix(
     if (targetId === undefined) {
       throw new Error('Missing id attribute in target element.')
     }
-    const sourceIndex = sortedIds.indexOf(sourceId)
-    if (sourceIndex === -1) {
+    const sourceIndex = indexRecord[sourceId]
+    if (sourceIndex === undefined) {
       throw new Error(`Source node ${sourceId} not in model.`)
     }
-    const targetIndex = sortedIds.indexOf(targetId)
-    if (targetIndex === -1) {
+    const targetIndex = indexRecord[targetId]
+    if (targetIndex === undefined) {
       throw new Error(`Target node ${targetId} not in model.`)
     }
     const value = weighted ? getWeightedValue(edge, edges) : 1
@@ -237,4 +239,12 @@ function createEdgeSorter(sortedIds: string[]) {
     }
     return 0
   }
+}
+
+function createIndexRecord(sortedIds: string[]) {
+  const indexRecord: Record<string, number> = {}
+  sortedIds.forEach((id, index) => {
+    indexRecord[id] = index
+  })
+  return indexRecord
 }
