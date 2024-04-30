@@ -19,6 +19,8 @@ export type FeatureType = RawFeatureType | EncodedFeatureType
 
 export type FeatureName = AttributeName
 
+export type SerializableFeatureMetadata = (readonly [FeatureName, FeatureType])[]
+
 /**
  * A feature metadata tuple.
  * The first item is the name of the attribute corresponding to the feature.

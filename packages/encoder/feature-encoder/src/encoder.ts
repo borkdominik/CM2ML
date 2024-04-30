@@ -7,7 +7,10 @@ export interface Encoder {
 
 export interface EncoderProviderSettings {
   rawFeatures: boolean
-
+  rawCategories: boolean
+  rawBooleans: boolean
+  rawStrings: boolean
+  rawNumerics: boolean
 }
 
 export class EncoderProvider {
@@ -35,25 +38,25 @@ export class EncoderProvider {
   }
 
   private createEncoder(type: RawFeatureType): Encoder | undefined {
-    if (type === 'category') {
+    if (type === 'category' && !this.settings.rawCategories) {
       return new CategoryEncoder()
     }
-    if (type === 'boolean') {
+    if (type === 'boolean' && !this.settings.rawBooleans) {
       return new BooleanEncoder()
     }
-    if (type === 'integer') {
+    if (type === 'integer' && !this.settings.rawNumerics) {
       return new IntegerEncoder()
     }
-    if (type === 'float') {
+    if (type === 'float' && !this.settings.rawNumerics) {
       return new FloatEncoder()
     }
-    if (type === 'string') {
+    if (type === 'string' && !this.settings.rawStrings) {
       return new StringEncoder()
     }
     if (type === 'unknown') {
       return undefined
     }
-    throw new TypeError(`Unknown encoder type: ${type}`)
+    return undefined
   }
 }
 

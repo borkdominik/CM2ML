@@ -1,8 +1,8 @@
-import type { FeatureMetadata, FeatureVector as FeatureVectorType } from '@cm2ml/builtin'
+import type { FeatureVector as FeatureVectorType, SerializableFeatureMetadata } from '@cm2ml/builtin'
 import { useMemo } from 'react'
 
 export interface FeatureVectorProps {
-  data: FeatureMetadata | FeatureVectorType
+  data: FeatureVectorType | SerializableFeatureMetadata
 }
 
 export function FeatureVector({ data }: FeatureVectorProps) {
@@ -34,6 +34,6 @@ export function FeatureVector({ data }: FeatureVectorProps) {
   )
 }
 
-function isFeatureMetadata(data: FeatureMetadata | FeatureVectorType): data is FeatureMetadata {
+function isFeatureMetadata(data: FeatureVectorType | SerializableFeatureMetadata): data is SerializableFeatureMetadata {
   return Array.isArray(data[0])
 }
