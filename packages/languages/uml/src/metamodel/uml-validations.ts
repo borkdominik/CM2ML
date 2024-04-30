@@ -10,7 +10,7 @@ export function validateUmlModel(
   model: GraphModel,
   handlerParameters: UmlHandlerParameters,
 ) {
-  if (!model.settings.strict || !model.settings.debug) {
+  if (!model.settings.strict) {
     return
   }
   model.debug('Parser', 'Validating UML model')

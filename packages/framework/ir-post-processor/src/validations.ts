@@ -2,7 +2,7 @@ import type { Attributable, GraphModel } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
 export function validateModel(model: GraphModel) {
-  if (!model.settings.strict || !model.settings.debug) {
+  if (!model.settings.strict) {
     return
   }
   model.debug('IR', 'Validating IR')
