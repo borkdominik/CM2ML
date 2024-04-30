@@ -19,14 +19,14 @@ export type FeatureType = RawFeatureType | EncodedFeatureType
 
 export type FeatureName = AttributeName
 
-export type SerializableFeatureMetadata = (readonly [FeatureName, FeatureType])[]
+export type FeatureMetadata = (readonly [FeatureName, FeatureType])[]
 
 /**
  * A feature metadata tuple.
  * The first item is the name of the attribute corresponding to the feature.
  * The second item is the type of the attribute corresponding to the feature.
  */
-export type FeatureMetadata = (readonly [FeatureName, FeatureType, Encoder | undefined])[]
+export type InternalFeatureMetadata = (readonly [FeatureName, FeatureType, Encoder | undefined])[]
 
 /**
  * A feature vector.
@@ -42,17 +42,20 @@ export interface FeatureDeriverSettings extends EncoderProviderSettings {
 export function deriveFeatures(models: GraphModel[], settings: FeatureDeriverSettings) {
   const nodes = Stream.from(models).flatMap(({ nodes }) => nodes)
   const edges = Stream.from(models).flatMap(({ edges }) => edges)
-  const nodeFeatures = getFeatureMetadata(nodes, settings)
-  const edgeFeatures = getFeatureMetadata(edges, settings)
+  const internalNodeFeatures = getFeatureMetadata(nodes, settings)
+  const internalEdgeFeatures = getFeatureMetadata(edges, settings)
+  const nodeFeatures: FeatureMetadata = internalNodeFeatures.map(([name, type]) => [name, type] as const)
+  const edgeFeatures: FeatureMetadata = internalEdgeFeatures.map(([name, type]) => [name, type] as const)
   return {
-    nodeFeatures,
-    getNodeFeatureVector: (node: GraphNode) => createFeatureVectorFromMetadata(nodeFeatures, node),
+    // Omit encoder from feature metadata to prevent leaking of internals
     edgeFeatures,
-    getEdgeFeatureVector: (edge: GraphEdge) => createFeatureVectorFromMetadata(edgeFeatures, edge),
+    nodeFeatures,
+    getNodeFeatureVector: (node: GraphNode) => createFeatureVectorFromMetadata(internalNodeFeatures, node),
+    getEdgeFeatureVector: (edge: GraphEdge) => createFeatureVectorFromMetadata(internalEdgeFeatures, edge),
   }
 }
 
-function getFeatureMetadata(attributables: Stream<Attributable>, settings: FeatureDeriverSettings): FeatureMetadata {
+function getFeatureMetadata(attributables: Stream<Attributable>, settings: FeatureDeriverSettings): InternalFeatureMetadata {
   const uniqueFeaturesKeys = new Set<string>()
   const encoderProvider = new EncoderProvider(settings)
   return attributables
@@ -77,7 +80,7 @@ function getFeatureMetadata(attributables: Stream<Attributable>, settings: Featu
     .sort(([a], [b]) => a.localeCompare(b))
 }
 
-function createFeatureVectorFromMetadata(template: FeatureMetadata, attributable: Attributable): FeatureVector {
+function createFeatureVectorFromMetadata(template: InternalFeatureMetadata, attributable: Attributable): FeatureVector {
   return template.map(([attributeName, type, encoder]) => {
     const value = getRawValue(attributable, attributeName, type)
     if (!encoder) {

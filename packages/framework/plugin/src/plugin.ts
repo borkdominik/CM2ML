@@ -16,7 +16,13 @@ export type PluginInvoke<In, Out, Parameters extends ParameterMetadata, BatchMet
   batchMetadata: BatchMetadata,
 ) => Out
 
+export type InferIn<P> = P extends Plugin<infer In, any, any, any> ? In : never
+
 export type InferOut<P> = P extends Plugin<any, infer Out, any, any> ? Out : never
+
+export type InferParameters<P> = P extends Plugin<any, any, infer Parameters, any> ? Parameters : never
+
+export type InferBatchMetadata<P> = P extends Plugin<any, any, any, infer BatchMetadata> ? BatchMetadata : never
 
 export class Plugin<In, Out, Parameters extends ParameterMetadata, BatchMetadata = undefined> {
   private readonly validator: ReturnType<typeof deriveValidator>

@@ -1,4 +1,4 @@
-import type { AdjacencyList, FeatureVector as FeatureVectorType, SerializableFeatureMetadata } from '@cm2ml/builtin'
+import type { AdjacencyList, FeatureMetadata, FeatureVector as FeatureVectorType } from '@cm2ml/builtin'
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { useMemo } from 'react'
@@ -13,9 +13,9 @@ import { FeatureVector } from './Features'
 interface ListProps {
   list: AdjacencyList
   nodes: string[]
-  nodeFeatures: SerializableFeatureMetadata
+  nodeFeatures: FeatureMetadata
   nodeFeatureVectors: FeatureVectorType[]
-  edgeFeatures: SerializableFeatureMetadata
+  edgeFeatures: FeatureMetadata
   edgeFeatureVectors: FeatureVectorType[]
 }
 

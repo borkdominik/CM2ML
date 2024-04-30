@@ -3,7 +3,7 @@ import { definePlugin } from '@cm2ml/plugin'
 
 import { deriveFeatures } from './features'
 
-export type { FeatureName, FeatureMetadata, FeatureType, FeatureVector, SerializableFeatureMetadata } from './features'
+export type { FeatureName, FeatureMetadata, FeatureType, FeatureVector } from './features'
 
 export const FeatureEncoder = definePlugin({
   name: 'feature-encoder',
