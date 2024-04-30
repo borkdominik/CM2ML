@@ -1,6 +1,18 @@
 from typing import List, Literal, Optional, Tuple, TypeAlias, TypedDict, Union
 
-FeatureType: TypeAlias = Literal["category", "string", "boolean", "integer", "float"]
+FeatureType: TypeAlias = Literal[
+    "category",
+    "string",
+    "boolean",
+    "integer",
+    "float",
+    "unknown",
+    "encoded-category",
+    "encoded-string",
+    "encoded-boolean",
+    "encoded-integer",
+    "encoded-float",
+]
 
 FeatureMetadata: TypeAlias = List[Tuple[str, FeatureType]]
 

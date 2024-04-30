@@ -53,6 +53,8 @@ class FeatureFitter:
     def fit_feature(
         self, feature_index: int, feature: Optional[str], feature_type: FeatureType, feature_name: str
     ) -> None:
+        if feature_type.startswith("encoded-"):
+            return
         if feature_type == "category" or feature_type == "string":
             # TODO/Jan: Treat string features as categories for now
             self.fit_category_feature(

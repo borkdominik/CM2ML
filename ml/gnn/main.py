@@ -8,16 +8,16 @@ from utils import pretty_duration
 
 torch.manual_seed(42)
 
-dataset_file = "type.json"
+dataset_file = "big.json"
 num_epochs = 2000
 start_epoch = 0
 hidden_channels = 128
 patience = 10
 
+print("======================")
 dataset_load_start_time = time.perf_counter()
 dataset = CM2MLDataset(dataset_file)
 dataset_load_end_time = time.perf_counter()
-print("======================")
 print(
     f"Dataset load time: {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
 )

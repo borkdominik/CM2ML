@@ -17,10 +17,12 @@ class CM2MLDataset(InMemoryDataset):
         dataset_cache_file = f"{script_dir}/__pycache__/{dataset_file}.dataset"
 
         if os.path.isfile(dataset_cache_file):
+            print("Loading dataset from cache...")
             self.data, self.slices = torch.load(dataset_cache_file)
             self.to(device)
             return
 
+        print("Loading dataset...")
         with open(dataset_path, "r") as file:
             dataset_input: Dataset = json.load(file)
             data = dataset_input["data"]
