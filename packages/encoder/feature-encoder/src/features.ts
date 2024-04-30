@@ -79,14 +79,21 @@ function getFeatureMetadata(attributables: Stream<Attributable>, settings: Featu
 
 function createFeatureVectorFromMetadata(template: FeatureMetadata, attributable: Attributable): FeatureVector {
   return template.map(([attributeName, type, encoder]) => {
-    const attribute = attributable.getAttribute(attributeName)
-    if (attribute !== undefined && attribute.type !== type.replace('encoded-', '')) {
-      return null
-    }
-    const value = attribute?.value.literal ?? null
+    const value = getRawValue(attributable, attributeName, type)
     if (!encoder) {
       return value
     }
     return encoder.transform(value)
   })
+}
+
+function getRawValue(attributable: Attributable, name: AttributeName, type: FeatureType) {
+  const attribute = attributable.getAttribute(name)
+  if (attribute === undefined) {
+    return null
+  }
+  if (attribute.type !== type.replace('encoded-', '')) {
+    return null
+  }
+  return attribute?.value.literal ?? null
 }
