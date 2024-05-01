@@ -8,7 +8,7 @@
     "url": "https://github.com/borkdominik/CM2ML"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=20.11.0"
   },
   "scripts": {
     "build": "nr turbo run build",

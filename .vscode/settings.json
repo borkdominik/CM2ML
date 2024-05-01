@@ -45,7 +45,6 @@
   "markdownlint.config": {
     "MD033": false
   },
-  "vitest.commandLine": "pnpm test --run",
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -61,5 +60,6 @@
     "models/**/dataset/**/*": true
   },
   "typescript.preferences.importModuleSpecifier": "relative",
-  "bigUML.hideUnotation": true
+  "bigUML.hideUnotation": true,
+  "turbo.useLocalTurbo": true
 }
