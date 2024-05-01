@@ -98,30 +98,24 @@ export class IntegerEncoder implements Encoder {
   private maximum = Number.MIN_SAFE_INTEGER
 
   public fit(value: string | null) {
-    if (value === null || value === '') {
+    if (value === null) {
       return
-    }
-    if (value === '*') {
-      return // ignore wildcard
     }
     const number = parseInt(value, 10)
     if (isNaN(number)) {
-      throw new TypeError(`Invalid integer: ${value}`)
+      return
     }
     this.minimum = Math.min(this.minimum, number)
     this.maximum = Math.max(this.maximum, number)
   }
 
   public transform(value: string | null) {
-    if (value === null || value === '') {
+    if (value === null) {
       return 0
-    }
-    if (value === '*') {
-      return this.maximum
     }
     const number = parseInt(value, 10)
     if (isNaN(number)) {
-      throw new TypeError(`Invalid integer: ${value}`)
+      return 0
     }
     return (number - this.minimum) / (this.maximum - this.minimum)
   }
@@ -137,7 +131,7 @@ export class FloatEncoder implements Encoder {
     }
     const number = parseFloat(value)
     if (isNaN(number)) {
-      throw new TypeError(`Invalid float: ${value}`)
+      return
     }
     this.minimum = Math.min(this.minimum, number)
     this.maximum = Math.max(this.maximum, number)
@@ -149,7 +143,7 @@ export class FloatEncoder implements Encoder {
     }
     const number = parseFloat(value)
     if (isNaN(number)) {
-      throw new TypeError(`Invalid float: ${value}`)
+      return 0
     }
     return (number - this.minimum) / (this.maximum - this.minimum)
   }
