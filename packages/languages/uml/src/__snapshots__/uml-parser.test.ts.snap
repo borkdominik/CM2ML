@@ -573,6 +573,579 @@ exports[`uml-parser > invalid models > should not parse invalid model ../../../m
 
 exports[`uml-parser > invalid models > should not parse invalid model ../../../models/uml/dataset/ffec14974404d79da3b9fd4336a608795fe1b9017fe5fe8357c633a24a8512d5.uml 1`] = `[Error: Id _LovLYB_-Edyi3tc0vUUiUQ already registered]`;
 
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/0390aa780981baeb9c88926789a9a864e3dbae961118a2f17f3a87a0cc3bb493.uml 1`] = `[Error: Id _WRAyIJZhEdyRIrYBxybDuw already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/0934baad8a3f4e534b997c65c0d8fe9c480cfa6bdf9396fce0e03c4f35304d93.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/080364b14ef24331b00049e387697986ed7f05c16d93a6b32f36c356c3cb6ef5.uml 1`] = `[Error: Node _xmKqoMAXEd-WluVYiXTpAQ has duplicate outgoing edges with tag superClass and target _cBuRwMAXEd-WluVYiXTpAQ]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/086943006eec3dd2a28d9d053703ea1faf80f8aacdef0b993bb213ea3c38d304.uml 1`] = `
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Process Order" visibility="public" xmi:id="_zkjUUAktEdyF_oRbgI8ypA" xmi:type="Activity">
+  <node isControlType="false" isLeaf="false" name="Requested Order" ordering="FIFO" xmi:id="_5-t7YAktEdyF_oRbgI8ypA" xmi:type="ActivityParameterNode" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Receive Order" xmi:id="_rAsAYAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Fill Order" xmi:id="_4o7-wAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Ship Order" xmi:id="_6InBwAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Close Order" xmi:id="_8M8RAAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" xmi:id="_FSuw0AkvEdyF_oRbgI8ypA" xmi:type="InitialNode" />
+  <node isLeaf="false" xmi:id="_IDUpIAkvEdyF_oRbgI8ypA" xmi:type="MergeNode" />
+  <node isLeaf="false" xmi:id="_UwEokAkvEdyF_oRbgI8ypA" xmi:type="ForkNode" />
+  <node isCombineDuplicate="true" isLeaf="false" xmi:id="_ZBhPoAkvEdyF_oRbgI8ypA" xmi:type="JoinNode" />
+  <node isLeaf="false" xmi:id="_aHQvsAkvEdyF_oRbgI8ypA" xmi:type="DecisionNode" />
+  <node isLeaf="false" xmi:id="_jboeEAkvEdyF_oRbgI8ypA" xmi:type="ActivityFinalNode" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Send Invoise" xmi:id="_oNj8AAkvEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Make Payment" xmi:id="_p3z3UAkvEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node incoming="_6emqcAkvEdyF_oRbgI8ypA" name="Invoice" outgoing="_6_FhUAkvEdyF_oRbgI8ypA" xmi:id="_toU7kAkvEdyF_oRbgI8ypA" xmi:type="Pin" />
+  <node incoming="_7p28oAkvEdyF_oRbgI8ypA" name="Accept Payment" outgoing="_8kagYAkvEdyF_oRbgI8ypA" xmi:id="_yGJKsAkvEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <edge source="_5-t7YAktEdyF_oRbgI8ypA" target="_rAsAYAkuEdyF_oRbgI8ypA" xmi:id="_M5RrcAkvEdyF_oRbgI8ypA" xmi:type="ObjectFlow" />
+  <edge source="_rAsAYAkuEdyF_oRbgI8ypA" target="_IDUpIAkvEdyF_oRbgI8ypA" xmi:id="_NfIKgAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_FSuw0AkvEdyF_oRbgI8ypA" target="_rAsAYAkuEdyF_oRbgI8ypA" xmi:id="_P8pV0AkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_4o7-wAkuEdyF_oRbgI8ypA" target="_UwEokAkvEdyF_oRbgI8ypA" xmi:id="_WaxP0AkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_UwEokAkvEdyF_oRbgI8ypA" target="_6InBwAkuEdyF_oRbgI8ypA" xmi:id="_f_YZoAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_6InBwAkuEdyF_oRbgI8ypA" target="_ZBhPoAkvEdyF_oRbgI8ypA" xmi:id="_g5f4gAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_ZBhPoAkvEdyF_oRbgI8ypA" target="_aHQvsAkvEdyF_oRbgI8ypA" xmi:id="_h1ZgEAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_aHQvsAkvEdyF_oRbgI8ypA" target="_8M8RAAkuEdyF_oRbgI8ypA" xmi:id="_ifuPcAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_8M8RAAkuEdyF_oRbgI8ypA" target="_jboeEAkvEdyF_oRbgI8ypA" xmi:id="_kYRsgAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_UwEokAkvEdyF_oRbgI8ypA" target="_oNj8AAkvEdyF_oRbgI8ypA" xmi:id="_3_dHcAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_oNj8AAkvEdyF_oRbgI8ypA" target="_toU7kAkvEdyF_oRbgI8ypA" xmi:id="_6emqcAkvEdyF_oRbgI8ypA" xmi:type="ObjectFlow" />
+  <edge source="_toU7kAkvEdyF_oRbgI8ypA" target="_p3z3UAkvEdyF_oRbgI8ypA" xmi:id="_6_FhUAkvEdyF_oRbgI8ypA" xmi:type="ObjectFlow" />
+  <edge source="_p3z3UAkvEdyF_oRbgI8ypA" target="_yGJKsAkvEdyF_oRbgI8ypA" xmi:id="_7p28oAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_yGJKsAkvEdyF_oRbgI8ypA" target="_ZBhPoAkvEdyF_oRbgI8ypA" xmi:id="_8kagYAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_IDUpIAkvEdyF_oRbgI8ypA" target="_4o7-wAkuEdyF_oRbgI8ypA" xmi:id="_9bL-UKTVEdy7eaLHH7_7yw" xmi:type="ControlFlow">
+    <guard value="order accepted" xmi:id="_AS7AcKTWEdy7eaLHH7_7yw" xmi:type="LiteralString" />
+  </edge>
+  <edge source="_IDUpIAkvEdyF_oRbgI8ypA" target="_aHQvsAkvEdyF_oRbgI8ypA" xmi:id="_HKEecKTWEdy7eaLHH7_7yw" xmi:type="ControlFlow">
+    <guard value="order rejected" xmi:id="_NVZ_UKTWEdy7eaLHH7_7yw" xmi:type="LiteralString" />
+  </edge>
+</packagedElement>]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/0b01763511a89d396ba9f6aa5b14ac94f23875280cead245404f1744c25d579a.uml 1`] = `[Error: Node _-0b1AHE-EeSWfKgkZBUWEQ has duplicate outgoing edges with tag superClass and target _sDYAMHEyEeSWfKgkZBUWEQ]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/0d30f96045cc652e095149b01540e8fb66d3c809a9dc4e60ad4fdad2ce45b7d3.uml 1`] = `[Error: Node _LcW6sDQrEea2g9XcQHd57g has duplicate outgoing edges with tag superClass and target _UZ9XoDNWEeauH7kqLpraog]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/0d5912ac87d1559fed1297cffbb53ebb6393878e4829bb85e64b50ff894e020a.uml 1`] = `[Error: Id mGaF746D.AACAQWP_classifier already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/1a29a93587fccaa56c6e2747928bd4f9a83ea4fe94e51f9ed746e79718772d10.uml 1`] = `[Error: Id _xe6yQv8hEduoUYpSwhcX5Q already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/1b6d8c54c2e2c485d2c4ec74a1508cac190cb6fb09a54accf6803dbc8a6d475f.uml 1`] = `[Error: Node _j3eVQG__EeSEXudraKyXUQ has duplicate outgoing edges with tag superClass and target _q7zxIFUYEeS2OeOtCVTLqA]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/1fade04ffc56a362995833908c552f7eadc314d25582607ca4c3338fb0f80b1a.uml 1`] = `
+[Error: No handler for node with tag node and type undefined of parent <ownedBehavior isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="act" visibility="public" xmi:id="_0gnIsINKEeCIH8Kj2lf4sQ" xmi:type="Activity">
+  <ownedAttribute aggregation="none" isBehavior="false" isComposite="false" isConjugated="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isService="true" isStatic="false" isUnique="true" xmi:id="_OitYoINLEeCIH8Kj2lf4sQ" xmi:type="Port" />
+  <node isLeaf="false" xmi:id="_0C_jIINLEeCIH8Kj2lf4sQ" xmi:type="InitialNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isReplaceAll="false" xmi:id="_eo1HoINLEeCIH8Kj2lf4sQ" xmi:type="AddVariableValueAction">
+    <value isControl="false" isControlType="false" isLeaf="false" isOrdered="false" isUnique="true" ordering="FIFO" xmi:id="_WRwSgINMEeCIH8Kj2lf4sQ" xmi:type="InputPin" />
+  </node>
+  <node isLeaf="false" isLocallyReentrant="false" xmi:id="_gRu_IINLEeCIH8Kj2lf4sQ" xmi:type="ReadVariableAction">
+    <result isControl="false" isControlType="false" isLeaf="false" isOrdered="false" isUnique="true" ordering="FIFO" xmi:id="_g-vPEINLEeCIH8Kj2lf4sQ" xmi:type="OutputPin" />
+  </node>
+  <node isControl="false" isControlType="false" isLeaf="false" isOrdered="false" isUnique="true" ordering="FIFO" xmi:id="_k4oRwINLEeCIH8Kj2lf4sQ" xmi:type="OutputPin" />
+  <node xmi:id="__hxTkINLEeCIH8Kj2lf4sQ" xmi:type="Pin" />
+  <edge source="_0C_jIINLEeCIH8Kj2lf4sQ" target="_eo1HoINLEeCIH8Kj2lf4sQ" xmi:id="_OYwV8INMEeCIH8Kj2lf4sQ" xmi:type="ControlFlow" />
+  <edge xmi:id="_Y2kYoINMEeCIH8Kj2lf4sQ" xmi:type="ObjectFlow" />
+</ownedBehavior>]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/1fbcfb1cee242133b138d0017013cd495477440b05e8f8a7a56fe56737698ed7.uml 1`] = `[Error: Id _JIdMgDD-EeO0x_xk1yyKWg already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/2a0f1e4a7394af04aacd525f376875bc28575470d55fd347e66324fa0155e49f.uml 1`] = `[Error: Id _HqeLkDD-EeO0x_xk1yyKWg already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/2b61758478e971d0b65edb96511f5f4b286fb8cf0b8690139044864f9123c9ba.uml 1`] = `[Error: Expected exactly one root element]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/2da29b0b92bf5445d09d803040b60e1650074621cfb43eb158a43fd8187e2955.uml 1`] = `[Error: Node _F-VKMJGaEeKJkfI6m7M3jg has duplicate outgoing edges with tag superClass and target _hYo_sJGZEeKJkfI6m7M3jg]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/2e5851e4f6b34f49cb272534e70489f0cfd9b3756b127a92cd2bb41cde98b464.uml 1`] = `
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Activity edge examples" visibility="public" xmi:id="_SmtZMOiAEd24DqgmtBhSOA" xmi:type="Activity">
+  <node name="Cricket Player" outgoing="_mivp0OiAEd24DqgmtBhSOA" xmi:id="_dXKrEOiAEd24DqgmtBhSOA" xmi:type="Pin" />
+  <node incoming="_mivp0OiAEd24DqgmtBhSOA" name="Form Cricket Team" xmi:id="_kkhpoOiAEd24DqgmtBhSOA" xmi:type="OpaqueAction" />
+  <node inState="_CtaIwOiBEd24DqgmtBhSOA" name="Task" outgoing="_XrTfAOiBEd24DqgmtBhSOA" xmi:id="_JKVI4OiBEd24DqgmtBhSOA" xmi:type="Pin" />
+  <node incoming="_XrTfAOiBEd24DqgmtBhSOA" name="Send Job Invoice" xmi:id="_WCsicOiBEd24DqgmtBhSOA" xmi:type="OpaqueAction" />
+  <node name="Bid arrives" outgoing="_6hiooOiCEd24DqgmtBhSOA" xmi:id="_1-giUOiCEd24DqgmtBhSOA" xmi:type="AcceptEventAction" />
+  <node incoming="_6hiooOiCEd24DqgmtBhSOA" name="Bids for Proposal" outgoing="_Ni3kgOiDEd24DqgmtBhSOA" xmi:id="_5DgkYOiCEd24DqgmtBhSOA" xmi:type="Pin" />
+  <node name="Ready to award bid" outgoing="_OqPcQOiDEd24DqgmtBhSOA" xmi:id="_DSlngOiDEd24DqgmtBhSOA" xmi:type="AcceptEventAction" />
+  <node incoming="_Rkg1AOiDEd24DqgmtBhSOA" name="Award Bid" xmi:id="_J6iy8OiDEd24DqgmtBhSOA" xmi:type="OpaqueAction" />
+  <node incoming="_Ni3kgOiDEd24DqgmtBhSOA _OqPcQOiDEd24DqgmtBhSOA" outgoing="_Rkg1AOiDEd24DqgmtBhSOA" xmi:id="_L_d4EOiDEd24DqgmtBhSOA" xmi:type="JoinNode" />
+  <edge source="_dXKrEOiAEd24DqgmtBhSOA" target="_kkhpoOiAEd24DqgmtBhSOA" xmi:id="_mivp0OiAEd24DqgmtBhSOA" xmi:type="ObjectFlow">
+    <weight value="11" xmi:id="_vfHu8OiAEd24DqgmtBhSOA" xmi:type="LiteralInteger" />
+  </edge>
+  <edge source="_JKVI4OiBEd24DqgmtBhSOA" target="_WCsicOiBEd24DqgmtBhSOA" xmi:id="_XrTfAOiBEd24DqgmtBhSOA" xmi:type="ObjectFlow">
+    <weight value="no_of_job_tasks" xmi:id="_vZ1UYOiCEd24DqgmtBhSOA" xmi:type="LiteralString" />
+  </edge>
+  <edge source="_1-giUOiCEd24DqgmtBhSOA" target="_5DgkYOiCEd24DqgmtBhSOA" xmi:id="_6hiooOiCEd24DqgmtBhSOA" xmi:type="ObjectFlow" />
+  <edge source="_5DgkYOiCEd24DqgmtBhSOA" target="_L_d4EOiDEd24DqgmtBhSOA" xmi:id="_Ni3kgOiDEd24DqgmtBhSOA" xmi:type="ObjectFlow">
+    <weight xmi:id="_du-mwOiDEd24DqgmtBhSOA" xmi:type="LiteralNull" />
+  </edge>
+  <edge source="_DSlngOiDEd24DqgmtBhSOA" target="_L_d4EOiDEd24DqgmtBhSOA" xmi:id="_OqPcQOiDEd24DqgmtBhSOA" xmi:type="ControlFlow" />
+  <edge source="_L_d4EOiDEd24DqgmtBhSOA" target="_J6iy8OiDEd24DqgmtBhSOA" xmi:id="_Rkg1AOiDEd24DqgmtBhSOA" xmi:type="ControlFlow" />
+</packagedElement>]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/3b7c2b547b19aa3bf242b10bbfa3f809c8684a51d806be496a4e0e4a28f00410.uml 1`] = `[Error: Id _KMGe8LZDEeWZwYkJ7VRa0A already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/3d09b512c4b31971960d5805a6bd6d59307bbae75d4706fc5242c5dc437bde17.uml 1`] = `[Error: Id _1778529697 already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/4aecc78e166edd7726482363a6350c1bfbd8d3f3c7ee12b1a54939a6b3daafcf.uml 1`] = `[Error: Node _UkOj2dJAEeGCrI2l36sLrg has duplicate outgoing edges with tag superClass and target _DJdZIDflEeKEOs6yTQFaQw]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/5bb7e8963745e101ebf1af633e966c58e43508168c4ea54779c60f047f1bcbd1.uml 1`] = `[Error: Node _V8h4oK9gEd2G_KSiQbu_LA has duplicate outgoing edges with tag superClass and target _edc8YK9WEd2G_KSiQbu_LA]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/5d0796573a2811bbbd67ab9ee58cef85529fb277dfd96e6f8957fa22ed503fe1.uml 1`] = `[Error: Id _27AfMnyrEeGGysvE_Ik5ig already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/5e19e6b9d29840bc07c1a67ad0237b85e0d40524b53eca316796f0af9213ca5c.uml 1`] = `[Error: Id Association122 already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/5ea112d943e8825da525c48e2a673ab0fac03004c644d66322e30ce195a55d7e.uml 1`] = `
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Process Order" visibility="public" xmi:id="_zkjUUAktEdyF_oRbgI8ypA" xmi:type="Activity">
+  <node isControlType="false" isLeaf="false" name="Requested Order" ordering="FIFO" xmi:id="_5-t7YAktEdyF_oRbgI8ypA" xmi:type="ActivityParameterNode" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Receive Order" xmi:id="_rAsAYAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Fill Order" xmi:id="_4o7-wAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Ship Order" xmi:id="_6InBwAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Close Order" xmi:id="_8M8RAAkuEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" xmi:id="_FSuw0AkvEdyF_oRbgI8ypA" xmi:type="InitialNode" />
+  <node isLeaf="false" xmi:id="_IDUpIAkvEdyF_oRbgI8ypA" xmi:type="MergeNode" />
+  <node isLeaf="false" xmi:id="_UwEokAkvEdyF_oRbgI8ypA" xmi:type="ForkNode" />
+  <node isCombineDuplicate="true" isLeaf="false" xmi:id="_ZBhPoAkvEdyF_oRbgI8ypA" xmi:type="JoinNode" />
+  <node isLeaf="false" xmi:id="_aHQvsAkvEdyF_oRbgI8ypA" xmi:type="DecisionNode" />
+  <node isLeaf="false" xmi:id="_jboeEAkvEdyF_oRbgI8ypA" xmi:type="ActivityFinalNode" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Send Invoise" xmi:id="_oNj8AAkvEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node isLeaf="false" isLocallyReentrant="false" name="Make Payment" xmi:id="_p3z3UAkvEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <node incoming="_6emqcAkvEdyF_oRbgI8ypA" name="Invoice" outgoing="_6_FhUAkvEdyF_oRbgI8ypA" xmi:id="_toU7kAkvEdyF_oRbgI8ypA" xmi:type="Pin" />
+  <node incoming="_7p28oAkvEdyF_oRbgI8ypA" name="Accept Payment" outgoing="_8kagYAkvEdyF_oRbgI8ypA" xmi:id="_yGJKsAkvEdyF_oRbgI8ypA" xmi:type="OpaqueAction" />
+  <edge source="_5-t7YAktEdyF_oRbgI8ypA" target="_rAsAYAkuEdyF_oRbgI8ypA" xmi:id="_M5RrcAkvEdyF_oRbgI8ypA" xmi:type="ObjectFlow" />
+  <edge source="_rAsAYAkuEdyF_oRbgI8ypA" target="_IDUpIAkvEdyF_oRbgI8ypA" xmi:id="_NfIKgAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_FSuw0AkvEdyF_oRbgI8ypA" target="_rAsAYAkuEdyF_oRbgI8ypA" xmi:id="_P8pV0AkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_4o7-wAkuEdyF_oRbgI8ypA" target="_UwEokAkvEdyF_oRbgI8ypA" xmi:id="_WaxP0AkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_UwEokAkvEdyF_oRbgI8ypA" target="_6InBwAkuEdyF_oRbgI8ypA" xmi:id="_f_YZoAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_6InBwAkuEdyF_oRbgI8ypA" target="_ZBhPoAkvEdyF_oRbgI8ypA" xmi:id="_g5f4gAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_ZBhPoAkvEdyF_oRbgI8ypA" target="_aHQvsAkvEdyF_oRbgI8ypA" xmi:id="_h1ZgEAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_aHQvsAkvEdyF_oRbgI8ypA" target="_8M8RAAkuEdyF_oRbgI8ypA" xmi:id="_ifuPcAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_8M8RAAkuEdyF_oRbgI8ypA" target="_jboeEAkvEdyF_oRbgI8ypA" xmi:id="_kYRsgAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_UwEokAkvEdyF_oRbgI8ypA" target="_oNj8AAkvEdyF_oRbgI8ypA" xmi:id="_3_dHcAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_oNj8AAkvEdyF_oRbgI8ypA" target="_toU7kAkvEdyF_oRbgI8ypA" xmi:id="_6emqcAkvEdyF_oRbgI8ypA" xmi:type="ObjectFlow" />
+  <edge source="_toU7kAkvEdyF_oRbgI8ypA" target="_p3z3UAkvEdyF_oRbgI8ypA" xmi:id="_6_FhUAkvEdyF_oRbgI8ypA" xmi:type="ObjectFlow" />
+  <edge source="_p3z3UAkvEdyF_oRbgI8ypA" target="_yGJKsAkvEdyF_oRbgI8ypA" xmi:id="_7p28oAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_yGJKsAkvEdyF_oRbgI8ypA" target="_ZBhPoAkvEdyF_oRbgI8ypA" xmi:id="_8kagYAkvEdyF_oRbgI8ypA" xmi:type="ControlFlow" />
+  <edge source="_IDUpIAkvEdyF_oRbgI8ypA" target="_4o7-wAkuEdyF_oRbgI8ypA" xmi:id="_9bL-UKTVEdy7eaLHH7_7yw" xmi:type="ControlFlow">
+    <guard value="order accepted" xmi:id="_AS7AcKTWEdy7eaLHH7_7yw" xmi:type="LiteralString" />
+  </edge>
+  <edge source="_IDUpIAkvEdyF_oRbgI8ypA" target="_aHQvsAkvEdyF_oRbgI8ypA" xmi:id="_HKEecKTWEdy7eaLHH7_7yw" xmi:type="ControlFlow">
+    <guard value="order rejected" xmi:id="_NVZ_UKTWEdy7eaLHH7_7yw" xmi:type="LiteralString" />
+  </edge>
+</packagedElement>]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/7b925ad4bf5313963e94529765fa6168712835d7dff16e32244e3058af316edb.uml 1`] = `[Error: Id _qd2lQEKzEeG7Y_yIlM-slAA already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/7fc541e9043b7e86dbb1fa20a670dbc3d727096b16de143f940e471f7f7592d0.uml 1`] = `
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Activity partition using swimlane example" visibility="public" xmi:id="_hU3k8KJFEdyGqNfYOUez1Q" xmi:type="Activity">
+  <node isLeaf="false" xmi:id="_3yFY4KJFEdyGqNfYOUez1Q" xmi:type="InitialNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Receive Order" xmi:id="_7rO0sKJFEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" name="DecisionNode" xmi:id="_CUXE0KJGEdyGqNfYOUez1Q" xmi:type="DecisionNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Fill Order" xmi:id="_Dsk08KJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" xmi:id="_GRYUAKJGEdyGqNfYOUez1Q" xmi:type="ForkNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Ship Order" xmi:id="_IbqaQKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isCombineDuplicate="true" isLeaf="false" xmi:id="_LIE9MKJGEdyGqNfYOUez1Q" xmi:type="JoinNode" />
+  <node isLeaf="false" xmi:id="_MCL1AKJGEdyGqNfYOUez1Q" xmi:type="MergeNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Close Order" xmi:id="_MzqVQKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Send Invoice" xmi:id="_TsIo8KJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" name="Invoice" xmi:id="_WfGf0KJGEdyGqNfYOUez1Q" xmi:type="Pin" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" incoming="_ojbn8KJGEdyGqNfYOUez1Q" name="Invoice" outgoing="_piw-AKJGEdyGqNfYOUez1Q" xmi:id="_dyjfUKJGEdyGqNfYOUez1Q" xmi:type="Pin" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" incoming="_rBFWIKJGEdyGqNfYOUez1Q" name="Accept Payment" outgoing="_vP-_gKJGEdyGqNfYOUez1Q" xmi:id="_hot4kKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_tDu_0KJFEdyGqNfYOUez1Q" incoming="_piw-AKJGEdyGqNfYOUez1Q" name="Make Payment" outgoing="_rBFWIKJGEdyGqNfYOUez1Q" xmi:id="_jhafkKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_kVigoKJFEdyGqNfYOUez1Q" incoming="_HzULYKJHEdyGqNfYOUez1Q" xmi:id="_GIeaMKJHEdyGqNfYOUez1Q" xmi:type="ActivityFinalNode" />
+  <edge source="_TsIo8KJGEdyGqNfYOUez1Q" target="_dyjfUKJGEdyGqNfYOUez1Q" xmi:id="_ojbn8KJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_dyjfUKJGEdyGqNfYOUez1Q" target="_jhafkKJGEdyGqNfYOUez1Q" xmi:id="_piw-AKJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_jhafkKJGEdyGqNfYOUez1Q" target="_hot4kKJGEdyGqNfYOUez1Q" xmi:id="_rBFWIKJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_hot4kKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" xmi:id="_vP-_gKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_GRYUAKJGEdyGqNfYOUez1Q" target="_TsIo8KJGEdyGqNfYOUez1Q" xmi:id="_ypGQYKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_GRYUAKJGEdyGqNfYOUez1Q" target="_IbqaQKJGEdyGqNfYOUez1Q" xmi:id="_2zOugKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_IbqaQKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" xmi:id="_4YQyoKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_3yFY4KJFEdyGqNfYOUez1Q" target="_7rO0sKJFEdyGqNfYOUez1Q" xmi:id="_6FfJcKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_7rO0sKJFEdyGqNfYOUez1Q" target="_CUXE0KJGEdyGqNfYOUez1Q" xmi:id="_7UxAAKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge name="" source="_CUXE0KJGEdyGqNfYOUez1Q" target="_Dsk08KJGEdyGqNfYOUez1Q" xmi:id="_8O330KJGEdyGqNfYOUez1Q" xmi:type="ControlFlow">
+    <guard name="" value="order accepted" xmi:id="_DArnIDDDEd2KWMNscJaUhw" xmi:type="LiteralString" />
+  </edge>
+  <edge source="_Dsk08KJGEdyGqNfYOUez1Q" target="_GRYUAKJGEdyGqNfYOUez1Q" xmi:id="_95HzIKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_LIE9MKJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" xmi:id="_DalQkKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_MCL1AKJGEdyGqNfYOUez1Q" target="_MzqVQKJGEdyGqNfYOUez1Q" xmi:id="_EHINgKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_MzqVQKJGEdyGqNfYOUez1Q" target="_GIeaMKJHEdyGqNfYOUez1Q" xmi:id="_HzULYKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_CUXE0KJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" xmi:id="_J4YacKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <group name="Order Department" node="_3yFY4KJFEdyGqNfYOUez1Q _7rO0sKJFEdyGqNfYOUez1Q _CUXE0KJGEdyGqNfYOUez1Q _Dsk08KJGEdyGqNfYOUez1Q _GRYUAKJGEdyGqNfYOUez1Q _IbqaQKJGEdyGqNfYOUez1Q _LIE9MKJGEdyGqNfYOUez1Q _MCL1AKJGEdyGqNfYOUez1Q _MzqVQKJGEdyGqNfYOUez1Q _GIeaMKJHEdyGqNfYOUez1Q" xmi:id="_kVigoKJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+  <group name="Acctg Department" node="_TsIo8KJGEdyGqNfYOUez1Q _WfGf0KJGEdyGqNfYOUez1Q _dyjfUKJGEdyGqNfYOUez1Q _hot4kKJGEdyGqNfYOUez1Q" xmi:id="_oxQeAKJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+  <group name="Customer" node="_jhafkKJGEdyGqNfYOUez1Q" xmi:id="_tDu_0KJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+</packagedElement>]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/8beee7e0fd2e9f74d26dc7e8c3905f8e7e4e8a48064a52a26e70917f9184deef.uml 1`] = `[Error: Id _4Qge8PjgEeqA4v_JqiO9QA already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/9a16867844a856e572c16eb85203084c3f1f96df9d2189f6b8807e38140ed429.uml 1`] = `[Error: Node _Gi710GttEeSEZL3QrtoX8Q has duplicate outgoing edges with tag superClass and target _TNkFYGwdEeSU8tZ6yHag1w]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/9dcd1712dcc15e60434ddfbe6ca53de74bebd1408e999adebb37cad9c2fecb44.uml 1`] = `[Error: Node _UkOj2dJAEeGCrI2l36sLrg has duplicate outgoing edges with tag superClass and target _DJdZIDflEeKEOs6yTQFaQw]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/32fd7205f5ca476fe21aed299a9d511dc6da6363ce86235de0ce90163f222e87.uml 1`] = `[Error: Id _WRAyIJZhEdyRIrYBxybDuw already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/50a618fdd612b5985f634dc800ea7dad21ee7ff28cbf83b2cd7dce4b31195b80.uml 1`] = `[Error: Node _xmKqoMAXEd-WluVYiXTpAQ has duplicate outgoing edges with tag superClass and target _cBuRwMAXEd-WluVYiXTpAQ]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/61ae90150db5d0d8a96d5d8da14b59adba5c98d409bd8dbf35121faa65887ce1.uml 1`] = `[Error: Node _UkOj2dJAEeGCrI2l36sLrg has duplicate outgoing edges with tag superClass and target _DJdZIDflEeKEOs6yTQFaQw]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/63e616a28519d28bc54a752ab5e302ebffde453ddd89a97674de824d2bdceb39.uml 1`] = `[Error: Node _XgstoJJkEd-D1fG_mLVkIQ has duplicate outgoing edges with tag superClass and target _pKPCEJJiEd-D1fG_mLVkIQ]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/64a09e0475267e1d0a88c409d9c4a55c35113471292d53d43ee45b0a24f6f4cf.uml 1`] = `
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Object node notations" visibility="public" xmi:id="_NlQNcKJKEdy6lo8fyt_TJQ" xmi:type="Activity">
+  <node isControlType="false" isLeaf="false" name="name" ordering="FIFO" xmi:id="_TTIrYKJMEdy6lo8fyt_TJQ" xmi:type="CentralBufferNode" />
+  <node isControlType="false" isLeaf="false" name="name" ordering="FIFO" xmi:id="_UXYWoKJMEdy6lo8fyt_TJQ" xmi:type="DataStoreNode">
+    <upperBound value="2" visibility="public" xmi:id="_hPRPEKJMEdy6lo8fyt_TJQ" xmi:type="LiteralInteger" />
+  </node>
+  <node name="name" ordering="LIFO" xmi:id="_zV9-kDC-Ed2Dn5GmDgY-wA" xmi:type="Pin" />
+</packagedElement>]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/69feb7e87370b76e608986ae612d3aeee5af1c12d107beb02c651f516f966ea6.uml 1`] = `[Error: Node _1K1jIMQNEeW5yIwM1qJkzg has duplicate outgoing edges with tag superClass and target _dcbQ8LulEeWOF77yPHPRXw]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/72d84465a3a1f9c93b7739446afcfeda875f5165a0b36e158b07848342d57f9b.uml 1`] = `[Error: Node _a3uHkPNwEeGJnprbyco2Kw has duplicate outgoing edges with tag superClass and target _13q-gPN-EeGJnprbyco2Kw]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/81c3b0f1c4ca0ccac17588d4f57f45b4bcb2c5da11cdc01efb1a054bd6ad17ce.uml 1`] = `[Error: Node _Hz4LSK9eEd6KLrDsd6Ph6Q has duplicate outgoing edges with tag superClass and target _WrH98MkpEd6vlLe7L8BfWw]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/84cb37f59c916b05d4a36a8b28f9bc1ccd1a59230be0bd1f7caa0c327f58cd31.uml 1`] = `[Error: Id _ta668BHxEdy60uogpInBRQ already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/91ac0c7e6fc04b3e265879951d5177774b67284781e1d0e0ee43b6dfc31e8938.uml 1`] = `[Error: Node _s8peeMR3Ed6DKJk3cfnjrA has duplicate outgoing edges with tag superClass and target _cvdliMR0Ed6DKJk3cfnjrA]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/95a971f649c5b184b43b3b00ee8a058b043d8d701c8ee8b0f4c3d45969a3d56d.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/217ce1849957ba325ddac1da6b96c86fae68f1166d0f3bfd8c4b5d1b5e9bdc8b.uml 1`] = `[Error: Node _u5V8QC2CEeGnpqOpZuWPOw has duplicate outgoing edges with tag superClass and target _RqFpQC2BEeGnpqOpZuWPOw]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/470ecc0168d34cede4c836f64afd5a5718a604973e87e35ce3898dd06c5780f6.uml 1`] = `[Error: Id _lkrEgEohEeqZG5NsJreXng already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/480b03d525aa50a0d02596ebfa4e7175ee396e59634002d51e320f3b52c9c427.uml 1`] = `[Error: Id _ceRk04KwEduhx-zbn2bvqg already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/625a14f0e74e8813f7d3c5ea8b6a64bd50878f198c4a06c008c5c00020d9a589.uml 1`] = `[Error: Node _0Cqb0K9jEd6KLrDsd6Ph6Q has duplicate outgoing edges with tag superClass and target _1Fa5WK9jEd6KLrDsd6Ph6Q]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/1231f8d154fad979a3d87596e4dba7408ce1135082b49242f5ffaa4a93439870.uml 1`] = `[Error: Node _UOat4NkiEee58tKsVPJ6VQ has duplicate outgoing edges with tag superClass and target __0pN0NkgEee58tKsVPJ6VQ]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/3807e34fc85f8809dc5c50a60191724554649c8de42af4dfcccf39329a84d890.uml 1`] = `[Error: Id _4Qge8PjgEeqA4v_JqiO9QA already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/4418bc1c53bd2581f5b1a28b361295edc9339859580efba835fd57728d34c802.uml 1`] = `[Error: Node _0Cqb0K9jEd6KLrDsd6Ph6Q has duplicate outgoing edges with tag superClass and target _1Fa5WK9jEd6KLrDsd6Ph6Q]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/6830b29249843c656edf64e6dfe6b91d0ddc4e669730b99238880e9e323b1253.uml 1`] = `
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Activity partition using swimlane example" visibility="public" xmi:id="_hU3k8KJFEdyGqNfYOUez1Q" xmi:type="Activity">
+  <node isLeaf="false" xmi:id="_3yFY4KJFEdyGqNfYOUez1Q" xmi:type="InitialNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Receive Order" xmi:id="_7rO0sKJFEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" name="DecisionNode" xmi:id="_CUXE0KJGEdyGqNfYOUez1Q" xmi:type="DecisionNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Fill Order" xmi:id="_Dsk08KJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" xmi:id="_GRYUAKJGEdyGqNfYOUez1Q" xmi:type="ForkNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Ship Order" xmi:id="_IbqaQKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isCombineDuplicate="true" isLeaf="false" xmi:id="_LIE9MKJGEdyGqNfYOUez1Q" xmi:type="JoinNode" />
+  <node isLeaf="false" xmi:id="_MCL1AKJGEdyGqNfYOUez1Q" xmi:type="MergeNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Close Order" xmi:id="_MzqVQKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Send Invoice" xmi:id="_TsIo8KJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" name="Invoice" xmi:id="_WfGf0KJGEdyGqNfYOUez1Q" xmi:type="Pin" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" incoming="_ojbn8KJGEdyGqNfYOUez1Q" name="Invoice" outgoing="_piw-AKJGEdyGqNfYOUez1Q" xmi:id="_dyjfUKJGEdyGqNfYOUez1Q" xmi:type="Pin" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" incoming="_rBFWIKJGEdyGqNfYOUez1Q" name="Accept Payment" outgoing="_vP-_gKJGEdyGqNfYOUez1Q" xmi:id="_hot4kKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_tDu_0KJFEdyGqNfYOUez1Q" incoming="_piw-AKJGEdyGqNfYOUez1Q" name="Make Payment" outgoing="_rBFWIKJGEdyGqNfYOUez1Q" xmi:id="_jhafkKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_kVigoKJFEdyGqNfYOUez1Q" incoming="_HzULYKJHEdyGqNfYOUez1Q" xmi:id="_GIeaMKJHEdyGqNfYOUez1Q" xmi:type="ActivityFinalNode" />
+  <edge source="_TsIo8KJGEdyGqNfYOUez1Q" target="_dyjfUKJGEdyGqNfYOUez1Q" xmi:id="_ojbn8KJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_dyjfUKJGEdyGqNfYOUez1Q" target="_jhafkKJGEdyGqNfYOUez1Q" xmi:id="_piw-AKJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_jhafkKJGEdyGqNfYOUez1Q" target="_hot4kKJGEdyGqNfYOUez1Q" xmi:id="_rBFWIKJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_hot4kKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" xmi:id="_vP-_gKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_GRYUAKJGEdyGqNfYOUez1Q" target="_TsIo8KJGEdyGqNfYOUez1Q" xmi:id="_ypGQYKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_GRYUAKJGEdyGqNfYOUez1Q" target="_IbqaQKJGEdyGqNfYOUez1Q" xmi:id="_2zOugKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_IbqaQKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" xmi:id="_4YQyoKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_3yFY4KJFEdyGqNfYOUez1Q" target="_7rO0sKJFEdyGqNfYOUez1Q" xmi:id="_6FfJcKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_7rO0sKJFEdyGqNfYOUez1Q" target="_CUXE0KJGEdyGqNfYOUez1Q" xmi:id="_7UxAAKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_CUXE0KJGEdyGqNfYOUez1Q" target="_Dsk08KJGEdyGqNfYOUez1Q" xmi:id="_8O330KJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_Dsk08KJGEdyGqNfYOUez1Q" target="_GRYUAKJGEdyGqNfYOUez1Q" xmi:id="_95HzIKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_LIE9MKJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" xmi:id="_DalQkKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_MCL1AKJGEdyGqNfYOUez1Q" target="_MzqVQKJGEdyGqNfYOUez1Q" xmi:id="_EHINgKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_MzqVQKJGEdyGqNfYOUez1Q" target="_GIeaMKJHEdyGqNfYOUez1Q" xmi:id="_HzULYKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_CUXE0KJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" xmi:id="_J4YacKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <group name="Order Department" node="_3yFY4KJFEdyGqNfYOUez1Q _7rO0sKJFEdyGqNfYOUez1Q _CUXE0KJGEdyGqNfYOUez1Q _Dsk08KJGEdyGqNfYOUez1Q _GRYUAKJGEdyGqNfYOUez1Q _IbqaQKJGEdyGqNfYOUez1Q _LIE9MKJGEdyGqNfYOUez1Q _MCL1AKJGEdyGqNfYOUez1Q _MzqVQKJGEdyGqNfYOUez1Q _GIeaMKJHEdyGqNfYOUez1Q" xmi:id="_kVigoKJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+  <group name="Acctg Department" node="_TsIo8KJGEdyGqNfYOUez1Q _WfGf0KJGEdyGqNfYOUez1Q _dyjfUKJGEdyGqNfYOUez1Q _hot4kKJGEdyGqNfYOUez1Q" xmi:id="_oxQeAKJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+  <group name="Customer" node="_jhafkKJGEdyGqNfYOUez1Q" xmi:id="_tDu_0KJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+</packagedElement>]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/8289f587db498fea1ccf9d7e6186c2f687dec97ff95557d025d5b30ba1f3e27e.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/33661a041dc4efc51cd4f05e8ba1415f2409f94a7335872aee2d812275f267d2.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/79014b6756bad500fbd4edd5e256665759437736e14c5432602f03d90d2033ae.uml 1`] = `[Error: Id _6rjvIMJTEeSoML005LCRPA already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/1128005f61433c19ddb913f1716cb2165edfc973d455a3152fa2190b12b5f9f9.uml 1`] = `[Error: Id Association119 already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/1831658a2d93946723191887f0b2f33eb2cc05700b7cc45c9605a188a5b7478c.uml 1`] = `[Error: Id _id_Class already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/86069121b9cee5f9a6113da953d7b8937fa49afe2069644114b0504190972fe6.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/a0781c0e549192e20ecdbd8e452b5314779e10cdd9eff0d47580d755cb13bcb5.uml 1`] = `[Error: Attribute HEAD of node <Operation <ownedOperation="" HEAD="" concurrency="sequential" isAbstract="false" isLeaf="false" isQuery="false" isStatic="false" name="exibirHorarios" qualifiedName="modelo::Maquina::exibirHorarios" xmi:id="_33NCwLE3Eeex4PxdPta0tA" xmi:type="Operation" /> is of unknown type]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/a4f7a328882535dd39a40de29e2ab479243500b223d7fc31fd964fd5ed1f685e.uml 1`] = `[Error: Id stacks_fUo-QBt1Eea5NKvb7KrMNA already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/a5aa9ab2d76ac96a9cb39ed64c9bc4c4186a2e714dc328560229bdcbaeee6af0.uml 1`] = `[Error: Expected exactly one root element]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/aabcfc2782ceda1f79973e7c2c6fd5bf0fe88897ef7a17128e92d5809d4be2dc.uml 1`] = `[Error: Id 110 already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/adb6a2d5439121fc72ac9c7a89e6ad5c003da479cba8ddf91ed686ca81024abb.uml 1`] = `[Error: Node _0Cqb0K9jEd6KLrDsd6Ph6Q has duplicate outgoing edges with tag superClass and target _1Fa5WK9jEd6KLrDsd6Ph6Q]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/af14cd918fc0e004ca0a5de7f61dc9fa3f80d63cf39d55f7a0e0718ca25154e8.uml 1`] = `[Error: Expected exactly one root element]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/be08a4c4cb217459e987843fe849e83f11aca5dd770e620a89eee23d7c0c815d.uml 1`] = `
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Activity partition using swimlane example" visibility="public" xmi:id="_hU3k8KJFEdyGqNfYOUez1Q" xmi:type="Activity">
+  <node isLeaf="false" xmi:id="_3yFY4KJFEdyGqNfYOUez1Q" xmi:type="InitialNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Receive Order" xmi:id="_7rO0sKJFEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" name="DecisionNode" xmi:id="_CUXE0KJGEdyGqNfYOUez1Q" xmi:type="DecisionNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Fill Order" xmi:id="_Dsk08KJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" xmi:id="_GRYUAKJGEdyGqNfYOUez1Q" xmi:type="ForkNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Ship Order" xmi:id="_IbqaQKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isCombineDuplicate="true" isLeaf="false" xmi:id="_LIE9MKJGEdyGqNfYOUez1Q" xmi:type="JoinNode" />
+  <node isLeaf="false" xmi:id="_MCL1AKJGEdyGqNfYOUez1Q" xmi:type="MergeNode" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Close Order" xmi:id="_MzqVQKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node isLeaf="false" isLocallyReentrant="false" isSynchronous="true" name="Send Invoice" xmi:id="_TsIo8KJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" name="Invoice" xmi:id="_WfGf0KJGEdyGqNfYOUez1Q" xmi:type="Pin" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" incoming="_ojbn8KJGEdyGqNfYOUez1Q" name="Invoice" outgoing="_piw-AKJGEdyGqNfYOUez1Q" xmi:id="_dyjfUKJGEdyGqNfYOUez1Q" xmi:type="Pin" />
+  <node inPartition="_oxQeAKJFEdyGqNfYOUez1Q" incoming="_rBFWIKJGEdyGqNfYOUez1Q" name="Accept Payment" outgoing="_vP-_gKJGEdyGqNfYOUez1Q" xmi:id="_hot4kKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_tDu_0KJFEdyGqNfYOUez1Q" incoming="_piw-AKJGEdyGqNfYOUez1Q" name="Make Payment" outgoing="_rBFWIKJGEdyGqNfYOUez1Q" xmi:id="_jhafkKJGEdyGqNfYOUez1Q" xmi:type="CallOperationAction" />
+  <node inPartition="_kVigoKJFEdyGqNfYOUez1Q" incoming="_HzULYKJHEdyGqNfYOUez1Q" xmi:id="_GIeaMKJHEdyGqNfYOUez1Q" xmi:type="ActivityFinalNode" />
+  <edge source="_TsIo8KJGEdyGqNfYOUez1Q" target="_dyjfUKJGEdyGqNfYOUez1Q" xmi:id="_ojbn8KJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_dyjfUKJGEdyGqNfYOUez1Q" target="_jhafkKJGEdyGqNfYOUez1Q" xmi:id="_piw-AKJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_jhafkKJGEdyGqNfYOUez1Q" target="_hot4kKJGEdyGqNfYOUez1Q" xmi:id="_rBFWIKJGEdyGqNfYOUez1Q" xmi:type="ObjectFlow" />
+  <edge source="_hot4kKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" xmi:id="_vP-_gKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_GRYUAKJGEdyGqNfYOUez1Q" target="_TsIo8KJGEdyGqNfYOUez1Q" xmi:id="_ypGQYKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_GRYUAKJGEdyGqNfYOUez1Q" target="_IbqaQKJGEdyGqNfYOUez1Q" xmi:id="_2zOugKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_IbqaQKJGEdyGqNfYOUez1Q" target="_LIE9MKJGEdyGqNfYOUez1Q" xmi:id="_4YQyoKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_3yFY4KJFEdyGqNfYOUez1Q" target="_7rO0sKJFEdyGqNfYOUez1Q" xmi:id="_6FfJcKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_7rO0sKJFEdyGqNfYOUez1Q" target="_CUXE0KJGEdyGqNfYOUez1Q" xmi:id="_7UxAAKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge name="" source="_CUXE0KJGEdyGqNfYOUez1Q" target="_Dsk08KJGEdyGqNfYOUez1Q" xmi:id="_8O330KJGEdyGqNfYOUez1Q" xmi:type="ControlFlow">
+    <guard name="" value="order accepted" xmi:id="_DArnIDDDEd2KWMNscJaUhw" xmi:type="LiteralString" />
+  </edge>
+  <edge source="_Dsk08KJGEdyGqNfYOUez1Q" target="_GRYUAKJGEdyGqNfYOUez1Q" xmi:id="_95HzIKJGEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_LIE9MKJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" xmi:id="_DalQkKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_MCL1AKJGEdyGqNfYOUez1Q" target="_MzqVQKJGEdyGqNfYOUez1Q" xmi:id="_EHINgKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_MzqVQKJGEdyGqNfYOUez1Q" target="_GIeaMKJHEdyGqNfYOUez1Q" xmi:id="_HzULYKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <edge source="_CUXE0KJGEdyGqNfYOUez1Q" target="_MCL1AKJGEdyGqNfYOUez1Q" xmi:id="_J4YacKJHEdyGqNfYOUez1Q" xmi:type="ControlFlow" />
+  <group name="Order Department" node="_3yFY4KJFEdyGqNfYOUez1Q _7rO0sKJFEdyGqNfYOUez1Q _CUXE0KJGEdyGqNfYOUez1Q _Dsk08KJGEdyGqNfYOUez1Q _GRYUAKJGEdyGqNfYOUez1Q _IbqaQKJGEdyGqNfYOUez1Q _LIE9MKJGEdyGqNfYOUez1Q _MCL1AKJGEdyGqNfYOUez1Q _MzqVQKJGEdyGqNfYOUez1Q _GIeaMKJHEdyGqNfYOUez1Q" xmi:id="_kVigoKJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+  <group name="Acctg Department" node="_TsIo8KJGEdyGqNfYOUez1Q _WfGf0KJGEdyGqNfYOUez1Q _dyjfUKJGEdyGqNfYOUez1Q _hot4kKJGEdyGqNfYOUez1Q" xmi:id="_oxQeAKJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+  <group name="Customer" node="_jhafkKJGEdyGqNfYOUez1Q" xmi:id="_tDu_0KJFEdyGqNfYOUez1Q" xmi:type="ActivityPartition" />
+</packagedElement>]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/cdeac60ad94c739df2051fe0649ce72d1c56cdf44c30b7de550ce24e0897b342.uml 1`] = `[Error: Expected exactly one root element]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/d4a85c281e1e172578e055c6c7f3a0e365efa711765db8558c0eb90efc7110af.uml 1`] = `[Error: Node _SoO_oPpUEeCbIZwHSJSkOQ has duplicate outgoing edges with tag superClass and target _wXyNQPS4EeCQ4s2W2w_p6A]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/d7e92eda9a8dc016511672503a0f19d13033bb1b3532b6d5b20ba0a74a32daa1.uml 1`] = `[Error: Node _0Cqb0K9jEd6KLrDsd6Ph6Q has duplicate outgoing edges with tag superClass and target _1Fa5WK9jEd6KLrDsd6Ph6Q]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/d221df3d85a5927cdfd7deeae92187f2a1b9129ce9587e3edb2d5bdfccd6cdff.uml 1`] = `
+[Error: Attribute metaclassReference of node <Package metaclassReference="_pnK3ACpoEeaibdPncpUwfA" name="Core" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core" visibility="public" xmi:id="_Q9bJsCluEeaibdPncpUwfA" xmi:type="Package">
+  <ElementImport alias="Class" visibility="public" xmi:id="_pnK3ACpoEeaibdPncpUwfA" xmi:type="ElementImport">
+    <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-23" xmi:type="Class" />
+  </ElementImport>
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreComputationNode" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreComputationNode" visibility="public" xmi:id="_lG6AcCluEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Generalization isSubstitutable="true" xmi:id="_hwLz4C5eEeaF_sH3mLTVKg" xmi:type="Generalization" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasSuccessor" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreComputationNode::hasSuccessor" upper="*" xmi:id="_oWUlECpmEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="0" visibility="public" xmi:id="_qSL00CpmEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_qSNC8CpmEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="processInputData" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreComputationNode::processInputData" upper="*" xmi:id="_wIBm0CpmEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="0" visibility="public" xmi:id="_57tHYCpmEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_57vjoCpmEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="realise" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreComputationNode::realise" xmi:id="_stCmUCppEeaibdPncpUwfA" xmi:type="Property" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="produceOutputData" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreComputationNode::produceOutputData" upper="*" xmi:id="_yUYpUCppEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_1wBpwCppEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_1wC34CppEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
+    </Property>
+  </Stereotype>
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDataSource" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDataSource" visibility="public" xmi:id="_r1_uoCluEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Generalization isSubstitutable="true" xmi:id="_bSmP8C5fEeaF_sH3mLTVKg" xmi:type="Generalization" />
+  </Stereotype>
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreStorageNode" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreStorageNode" visibility="public" xmi:id="_slNlECluEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Generalization isSubstitutable="true" xmi:id="_V7slEClvEeaibdPncpUwfA" xmi:type="Generalization" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="database" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreStorageNode::database" xmi:id="_Pn4j8Co7EeaibdPncpUwfA" xmi:type="Property">
+      <PrimitiveType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-24" xmi:type="PrimitiveType" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="user" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreStorageNode::user" xmi:id="_dDxhUCo7EeaibdPncpUwfA" xmi:type="Property">
+      <PrimitiveType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-25" xmi:type="PrimitiveType" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="password" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreStorageNode::password" xmi:id="_froUYCo7EeaibdPncpUwfA" xmi:type="Property">
+      <PrimitiveType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-26" xmi:type="PrimitiveType" />
+    </Property>
+  </Stereotype>
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDirectAcyclicGraph" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDirectAcyclicGraph" visibility="public" xmi:id="_2HB5kCluEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Generalization isSubstitutable="true" xmi:id="_LnTawC5qEeaF_sH3mLTVKg" xmi:type="Generalization">
+      <Stereotype isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-27" xmi:type="Stereotype" />
+    </Generalization>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="hasSourceNode" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDirectAcyclicGraph::hasSourceNode" upper="*" xmi:id="_5tJY4CpkEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_2egq8CpqEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_2eh5ECpqEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="base_Class" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDirectAcyclicGraph::base_Class" xmi:id="_QpsI0S5lEeaF_sH3mLTVKg" xmi:type="Property">
+      <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-28" xmi:type="Class" />
+    </Property>
+  </Stereotype>
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDAGNode" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDAGNode" visibility="public" xmi:id="_8x7EQCluEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Generalization isSubstitutable="true" xmi:id="_siEzsC5fEeaF_sH3mLTVKg" xmi:type="Generalization" />
+    <Generalization isSubstitutable="true" xmi:id="_DlxcAC5kEeaF_sH3mLTVKg" xmi:type="Generalization">
+      <Stereotype isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-29" xmi:type="Stereotype" />
+    </Generalization>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="parallelism" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDAGNode::parallelism" xmi:id="_6vmJ0CpjEeaibdPncpUwfA" xmi:type="Property">
+      <DataType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-30" xmi:type="DataType" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="operation" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDAGNode::operation" xmi:id="_bDV-ACpkEeaibdPncpUwfA" xmi:type="Property">
+      <Enumeration isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-31" xmi:type="Enumeration" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasSuccessor" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDAGNode::hasSuccessor" upper="*" xmi:id="_jHCusCpkEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="0" visibility="public" xmi:id="_rTd9kCpkEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_rTfLsCpkEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
+    </Property>
+  </Stereotype>
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreDAGSourceNode" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDAGSourceNode" visibility="public" xmi:id="_9mn3oCluEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Generalization isSubstitutable="true" xmi:id="_CjRW8CpjEeaibdPncpUwfA" xmi:type="Generalization" />
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="readFrom" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreDAGSourceNode::readFrom" upper="*" xmi:id="_IEueQCpsEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_QH5DcCpsEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_QH6RkCpsEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
+    </Property>
+  </Stereotype>
+  <Stereotype isAbstract="true" isActive="false" isFinalSpecialization="false" isLeaf="false" name="CoreData" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreData" visibility="public" xmi:id="_KUZx0ClvEeaibdPncpUwfA" xmi:type="Stereotype">
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" lower="1" name="location" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreData::location" upper="*" xmi:id="_F2Tw0CpqEeaibdPncpUwfA" xmi:type="Property">
+      <LiteralInteger value="1" visibility="public" xmi:id="_Hb_VMCpqEeaibdPncpUwfA" xmi:type="LiteralInteger" />
+      <LiteralUnlimitedNatural value="*" visibility="public" xmi:id="_Hb_8QCpqEeaibdPncpUwfA" xmi:type="LiteralUnlimitedNatural" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasSpecification" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreData::hasSpecification" xmi:id="_FOmTwCpuEeaibdPncpUwfA" xmi:type="Property">
+      <DataType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-32" xmi:type="DataType" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="hasVolume" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreData::hasVolume" xmi:id="_OcLdoCpuEeaibdPncpUwfA" xmi:type="Property">
+      <DataType isAbstract="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-33" xmi:type="DataType" />
+    </Property>
+    <Property aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="base_Class" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::CoreData::base_Class" xmi:id="_DHOXci5nEeaF_sH3mLTVKg" xmi:type="Property">
+      <Class isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" visibility="public" xmi:id="eu.yeger#generated-id-34" xmi:type="Class" />
+    </Property>
+  </Stereotype>
+  <Extension isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" isRequired="false" name="E_CoreDirectAcyclicGraph_Class1" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::E_CoreDirectAcyclicGraph_Class1" visibility="public" xmi:id="_Qpq6sC5lEeaF_sH3mLTVKg" xmi:type="Extension">
+    <ExtensionEnd aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="extension_CoreDirectAcyclicGraph" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::E_CoreDirectAcyclicGraph_Class1::extension_CoreDirectAcyclicGraph" xmi:id="_QpsI0C5lEeaF_sH3mLTVKg" xmi:type="ExtensionEnd" />
+  </Extension>
+  <Extension isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" isRequired="false" name="E_CoreData_Class1" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::E_CoreData_Class1" visibility="public" xmi:id="_DHOXcC5nEeaF_sH3mLTVKg" xmi:type="Extension">
+    <ExtensionEnd aggregation="composite" isComposite="true" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="extension_CoreData" qualifiedName="DICE::DICE_UML_Extensions::DTSM::Core::E_CoreData_Class1::extension_CoreData" xmi:id="_DHOXcS5nEeaF_sH3mLTVKg" xmi:type="ExtensionEnd" />
+  </Extension>
+</Package> is of unknown type]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/d516b67c9011a32599fda3665daed165a05ff1b646fcd9086d629e008caeeea8.uml 1`] = `[Error: Id _KMGe8LZDEeWZwYkJ7VRa0A already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/dd6319bb612d7f1f3e841734ce79638c50b3f5cd9da15476746dbebd886079f9.uml 1`] = `[Error: Id 128 already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/deba6074c1892c262330ce68a4e516c0e224724d169c24c9ff4926ab1960b083.uml 1`] = `
+[Error: No handler for node with tag uml:Diagram and type undefined of parent <uml:Model name="profFor progging" qualifiedName="profFor progging" visibility="public" xmi:id="FRqn1qyCaeFs_BEE" xmi:type="Model">
+  <profileApplication isStrict="true" xmi:id="FRqn1qyCaeFs_BEE_FRqn1qyCaeFs_BEE_content_profileApplication" xmi:type="ProfileApplication">
+    <appliedProfile href="3 ))) Test xmi.profile.uml#FRqn1qyCaeFs_BEE_profile" visibility="public" xmi:id="eu.yeger#generated-id-1" xmi:type="Profile" />
+  </profileApplication>
+  <packagedElement isAbstract="false" isLeaf="false" name="firstPackage" qualifiedName="profFor progging::firstPackage" visibility="public" xmi:id="ckSkdqyCaeFs_D9P" xmi:type="Package">
+    <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Class1" qualifiedName="profFor progging::firstPackage::Class1" visibility="public" xmi:id="VrqkdqyCaeFs_D9a" xmi:type="Class">
+      <ownedAttribute aggregation="shared" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="true" isUnique="true" lower="0" name="attribute1" ownerScope="classifier" qualifiedName="profFor progging::firstPackage::Class1::attribute1" upper="1" visibility="private" xmi:id="84CUdqyCaeFs_Ey7" xmi:type="Property">
+        <lowerValue value="0" visibility="public" xmi:id="84CUdqyCaeFs_Ey7_multiplicity_lowerValue" xmi:type="LiteralString" />
+        <upperValue value="1" visibility="public" xmi:id="84CUdqyCaeFs_Ey7_multiplicity_upperValue" xmi:type="LiteralString" />
+        <defaultValue value="28" visibility="public" xmi:id="84CUdqyCaeFs_Ey7_initialValue" xmi:type="LiteralString" />
+      </ownedAttribute>
+      <ownedOperation concurrency="sequential" isAbstract="false" isLeaf="false" isOrdered="false" isQuery="false" isStatic="false" isUnique="true" name="operation1" ownerScope="instance" qualifiedName="profFor progging::firstPackage::Class1::operation1" visibility="public" xmi:id="OqeUdqyCaeFs_Ez3" xmi:type="Operation">
+        <ownedParameter direction="return" isException="false" isOrdered="false" isStream="false" isUnique="true" xmi:id="OqeUdqyCaeFs_Ez3_return" xmi:type="Parameter" />
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement isAbstract="false" isLeaf="false" name="SecondPackage" qualifiedName="profFor progging::firstPackage::SecondPackage" visibility="public" xmi:id="s72kdqyCaeFs_D_0" xmi:type="Package">
+      <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="Class2" qualifiedName="profFor progging::firstPackage::SecondPackage::Class2" visibility="public" xmi:id="ltJkdqyCaeFs_EBB" xmi:type="Class">
+        <ownedAttribute aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="role1" qualifiedName="profFor progging::firstPackage::SecondPackage::Class2::role1" xmi:id="bqNkdqyCaeFs_EGT" xmi:type="Property" />
+      </packagedElement>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement isAbstract="false" isDerived="false" isFinalSpecialization="false" isLeaf="false" name="assoc1" qualifiedName="profFor progging::assoc1" visibility="public" xmi:id="HSNkdqyCaeFs_EGR" xmi:type="Association">
+    <ownedEnd aggregation="none" isComposite="false" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isOrdered="false" isReadOnly="false" isStatic="false" isUnique="true" name="" qualifiedName="profFor progging::assoc1::" xmi:id="W6NkdqyCaeFs_EGW" xmi:type="Property" />
+  </packagedElement>
+  <uml:Diagram diagramType="ClassDiagram" documentation="" name="class diagramm 1" toolName="Visual Paradigm for UML" xmi:id="6iskdqyCaeFs_D9J">
+    <uml:Diagram.element xmi:id="eu.yeger#generated-id-2">
+      <uml:DiagramElement geometry="110,180,120,60" preferredShapeType="Class" subject="VrqkdqyCaeFs_D9a" xmi:id=".rqkdqyCaeFs_D9Z">
+        <elementFill color1="122,207,245,255" color2="" style="1" transparency="0" type="1" xmi:id="eu.yeger#generated-id-3" />
+        <elementFont bold="false" color="0,0,0,255" italic="false" name="Dialog" size="11" style="0" xmi:id="eu.yeger#generated-id-4" />
+        <elementLine color="0,0,0,255" style="1" transparency="0" weight="1.0" xmi:id="eu.yeger#generated-id-5" />
+      </uml:DiagramElement>
+      <uml:DiagramElement geometry="290,140,180,150" preferredShapeType="Package" subject="s72kdqyCaeFs_D_0" xmi:id="s72kdqyCaeFs_D_z">
+        <elementFill color1="122,207,245,255" color2="" style="1" transparency="0" type="1" xmi:id="eu.yeger#generated-id-6" />
+        <elementFont bold="false" color="0,0,0,255" italic="false" name="Dialog" size="11" style="0" xmi:id="eu.yeger#generated-id-7" />
+        <elementLine color="0,0,0,255" style="1" transparency="0" weight="1.0" xmi:id="eu.yeger#generated-id-8" />
+      </uml:DiagramElement>
+      <uml:DiagramElement geometry="310,180,80,40" preferredShapeType="Class" subject="ltJkdqyCaeFs_EBB" xmi:id="ltJkdqyCaeFs_EBA">
+        <elementFill color1="122,207,245,255" color2="" style="1" transparency="0" type="1" xmi:id="eu.yeger#generated-id-9" />
+        <elementFont bold="false" color="0,0,0,255" italic="false" name="Dialog" size="11" style="0" xmi:id="eu.yeger#generated-id-10" />
+        <elementLine color="0,0,0,255" style="1" transparency="0" weight="1.0" xmi:id="eu.yeger#generated-id-11" />
+      </uml:DiagramElement>
+      <uml:DiagramElement geometry="230,200;309,200;" preferredShapeType="Association" subject="HSNkdqyCaeFs_EGR" xmi:id="QGNkdqyCaeFs_EGw">
+        <elementFont bold="false" color="0,0,0,255" italic="false" name="Dialog" size="11" style="0" xmi:id="eu.yeger#generated-id-12" />
+        <elementLine color="0,0,0,255" style="1" transparency="0" weight="1.0" xmi:id="eu.yeger#generated-id-13" />
+      </uml:DiagramElement>
+    </uml:Diagram.element>
+  </uml:Diagram>
+  <packagedElement name="byte" visibility="public" xmi:id="byte_id" xmi:type="DataType" />
+  <packagedElement name="int" visibility="public" xmi:id="int_id" xmi:type="DataType" />
+</uml:Model>]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/e1f383323b0308d345c9277bd73a99ecb0e9d873882a388f2b6b6a3c20966679.uml 1`] = `[Error: Id _4Qge8PjgEeqA4v_JqiO9QA already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/e3a166c9e9020ffc0384e4faadff4e04c0bd25fbb227a2d496b1cf0bea30d869.uml 1`] = `[Error: Attribute isActive of node <PrimitiveType isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="ZonedDateTime" qualifiedName="untitled::ZonedDateTime" visibility="public" xmi:id="70S2TEqFS_malgOr" xmi:type="PrimitiveType" /> is of unknown type]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/e2282fa6e18b03f53a19e30ec9b3053ec1dd3e4982281c260995a83d7715f637.uml 1`] = `[Error: Id _FVm44EoNEeWHt5v0-LD9uA already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/e93156c36900566c5a4eca2621fab9d0d920f9eb6fbed2bce00df00a57bc0f25.uml 1`] = `[Error: Id  already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/ead93c92b5a21957b514039593dd446b850cfb4298580811d1dc17028a7ab4b3.uml 1`] = `[Error: Id _HALBQEqVEeCTurDhhRqwBw already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/eae72f7ed192d8e515dc9ff0654e614bb86a8f8ed40cf9feba39c6d481afcdba.uml 1`] = `
+[Error: No handler for node with tag node and type undefined of parent <packagedElement isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" isReadOnly="false" isReentrant="true" isSingleExecution="false" name="Object node notations" visibility="public" xmi:id="_NlQNcKJKEdy6lo8fyt_TJQ" xmi:type="Activity">
+  <node isControlType="false" isLeaf="false" name="name" ordering="FIFO" xmi:id="_TTIrYKJMEdy6lo8fyt_TJQ" xmi:type="CentralBufferNode" />
+  <node isControlType="false" isLeaf="false" name="name" ordering="FIFO" xmi:id="_UXYWoKJMEdy6lo8fyt_TJQ" xmi:type="DataStoreNode">
+    <upperBound value="2" visibility="public" xmi:id="_hPRPEKJMEdy6lo8fyt_TJQ" xmi:type="LiteralInteger" />
+  </node>
+  <node name="name" ordering="LIFO" xmi:id="_VZ15MKJMEdy6lo8fyt_TJQ" xmi:type="Pin" />
+</packagedElement>]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/ebbff49e82715f08a04334878e1d96087ed5057e9346d49c4ad1c8bc88b2effc.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/ed68e0a3f777e691c543fa5b7fb6c64d60d5965e69b11795877febf38903d8e6.uml 1`] = `
+[Error: No handler for node with tag importedElement and type undefined of parent <elementImport visibility="public" xmi:id="_hGRV8NzwEeiOPJBrCHaltw" xmi:type="ElementImport">
+  <importedElement href="//PLATFORM_RESOURCE/CommRoQMEObjects/model/commObject/CommRoQMEObjects.comm#//@elements.0/CommQoSMetrics" xmi:id="eu.yeger#generated-id-1" xmi:type="CommunicationObject" />
+</elementImport>]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/f0cb46bb4e2127bd31c4e8d2a39f337d83e2a460a5f76412cd537b7aef8fe01a.uml 1`] = `[Error: Id _KRHHYATyEdyMwcS56ZZh9w already registered]`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/f714e9bae75061d697292a4d6f4dd19f03a611321c2b03bfa04eebef308b2990.uml 1`] = `
+[Error: Attribute isActive of node <Enumeration isAbstract="false" isActive="false" isFinalSpecialization="false" isLeaf="false" name="MyEnumeration2" qualifiedName="untitled::MyEnumeration2" visibility="public" xmi:id="F9YMKnKD.AACAQvD" xmi:type="Enumeration">
+  <EnumerationLiteral name="VALUE_A" qualifiedName="untitled::MyEnumeration2::VALUE_A" visibility="public" xmi:id="u2KcKnKD.AACAQza" xmi:type="EnumerationLiteral" />
+</Enumeration> is of unknown type]
+`;
+
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/src/../../../../models/uml/dataset/ffec14974404d79da3b9fd4336a608795fe1b9017fe5fe8357c633a24a8512d5.uml 1`] = `[Error: Id _LovLYB_-Edyi3tc0vUUiUQ already registered]`;
+
 exports[`uml-parser > with configuration 'default' > should parse model +0 1`] = `
 "<Model xmi:id="_Cfp0UGmxEe2kLe5KTNzRtw" name="clazz" xmi:type="Model" visibility="public">
   <Class xmi:type="Class" xmi:id="_QE0EkK7gEe2EZoZ5sgiBCg" name="asd" isAbstract="false" isActive="false" isFinalSpecialization="false" visibility="public" isLeaf="false">

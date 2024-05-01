@@ -7,7 +7,7 @@ import { UmlParser } from './index'
 
 // Green: 0-46657 -> 100%
 
-const umlModelDir = '../../../models/uml'
+const umlModelDir = `${import.meta.dirname}/../../../../models/uml`
 
 const { validModels, invalidModels } = getFiles({
   startIndex: 0,

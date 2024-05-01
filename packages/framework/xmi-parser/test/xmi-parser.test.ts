@@ -6,7 +6,7 @@ import { createXmiParser } from '../src/index'
 
 describe('xmi-parser', () => {
   it('should parse', () => {
-    const input = fs.readFileSync('../../../models/xmi-model.xmi', 'utf-8')
+    const input = fs.readFileSync(`${import.meta.dirname}/../../../../models/xmi-model.xmi`, 'utf-8')
     const xmiParser = createXmiParser('id', () => {})
     const output = xmiParser.validateAndInvoke(input, {
       debug: false,

@@ -17,7 +17,7 @@ describe('ir model', () => {
 
     const edges = model.edges
     expect(edges.size).toBe(1)
-    expect(edges.values().next()).toBe(edge)
+    expect(edges.values().next().value).toBe(edge)
     expect(edge.source).toBe(model.root)
     expect(edge.target).toBe(child)
   })

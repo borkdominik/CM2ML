@@ -64,7 +64,7 @@ export default defineConfig({
 })
 
 function getExampleModels() {
-  const modelsDir = '../../models'
+  const modelsDir = `${import.meta.dirname}/../../models`
   const languages = readdirSync(modelsDir, { withFileTypes: true }).filter((entry) => entry.isDirectory())
   return languages.map(({ name: language }) => {
     return {
