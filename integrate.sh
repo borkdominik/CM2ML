@@ -2,6 +2,7 @@
 # Next run `source integrate.sh` in the root directory of the project
 conda activate cm2ml
 rm -f ml/gnn/dataset/integration.json
+rm -f ml/gnn/__pycache__/integration.json.dataset
 time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-raw-graph ./models/uml/dataset --start 1 --limit 20000 --strict --merge --out ml/gnn/dataset/integration.json --continue-on-error --relationships-as-edges --include-equal-paths
 cd ml/gnn
 time python main.py integration.json
