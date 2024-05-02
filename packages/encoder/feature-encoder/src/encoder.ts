@@ -1,8 +1,10 @@
 import type { FeatureName, RawFeatureType } from './features'
 
 export interface Encoder {
-  fit: (value: string | null) => void
+  fit?: (value: string | null) => void
   transform: (value: string | null) => number
+  export?: () => Record<string, number> | null
+  import?: (data: Record<string, number>) => void
 }
 
 export interface EncoderProviderSettings {
@@ -110,33 +112,28 @@ export class CategoryEncoder implements Encoder {
     }
     return index + 1
   }
+
+  public export() {
+    return Object.fromEntries(this.categories)
+  }
+
+  public import(data: Record<string, number>) {
+    if (this.categories.size > 0) {
+      throw new Error('Cannot import data into a non-empty encoder')
+    }
+    for (const [category, index] of Object.entries(data)) {
+      this.categories.set(category, index)
+    }
+  }
 }
 
 export class BooleanEncoder implements Encoder {
-  public fit(_value: string | null) {
-  }
-
   public transform(value: string | null) {
     return value === 'true' ? 1 : 0
   }
 }
 
 export class IntegerEncoder implements Encoder {
-  private minimum = Number.MAX_SAFE_INTEGER
-  private maximum = Number.MIN_SAFE_INTEGER
-
-  public fit(value: string | null) {
-    if (value === null) {
-      return
-    }
-    const number = parseInt(value, 10)
-    if (isNaN(number)) {
-      return
-    }
-    this.minimum = Math.min(this.minimum, number)
-    this.maximum = Math.max(this.maximum, number)
-  }
-
   public transform(value: string | null) {
     if (value === null) {
       return 0
@@ -145,26 +142,11 @@ export class IntegerEncoder implements Encoder {
     if (isNaN(number)) {
       return 0
     }
-    return (number - this.minimum) / (this.maximum - this.minimum)
+    return number
   }
 }
 
 export class FloatEncoder implements Encoder {
-  private minimum = Number.MAX_VALUE
-  private maximum = Number.MIN_VALUE
-
-  public fit(value: string | null) {
-    if (value === null) {
-      return
-    }
-    const number = parseFloat(value)
-    if (isNaN(number)) {
-      return
-    }
-    this.minimum = Math.min(this.minimum, number)
-    this.maximum = Math.max(this.maximum, number)
-  }
-
   public transform(value: string | null) {
     if (value === null) {
       return 0
@@ -173,7 +155,7 @@ export class FloatEncoder implements Encoder {
     if (isNaN(number)) {
       return 0
     }
-    return (number - this.minimum) / (this.maximum - this.minimum)
+    return number
   }
 }
 

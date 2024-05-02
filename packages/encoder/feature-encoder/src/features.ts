@@ -34,7 +34,7 @@ export type FeatureType = z.infer<typeof FeatureTypeSchema>
 
 export type FeatureName = AttributeName
 
-export const FeatureMetadataSchema = z.array(z.tuple([z.string(), FeatureTypeSchema]))
+export const FeatureMetadataSchema = z.array(z.tuple([z.string(), FeatureTypeSchema, z.record(z.number()).nullable()]))
 
 export type FeatureMetadata = z.infer<typeof FeatureMetadataSchema>// (readonly [FeatureName, FeatureType])[]
 
@@ -63,8 +63,8 @@ export function deriveFeatures(models: GraphModel[], settings: FeatureDeriverSet
   const edges = Stream.from(models).flatMap(({ edges }) => edges)
   const internalNodeFeatures = getFeatureMetadata(nodes, settings, settings.nodeFeatureOverride)
   const internalEdgeFeatures = getFeatureMetadata(edges, settings, settings.edgeFeatureOverride)
-  const nodeFeatures: FeatureMetadata = internalNodeFeatures.map(([name, type]) => [name, type] as const)
-  const edgeFeatures: FeatureMetadata = internalEdgeFeatures.map(([name, type]) => [name, type] as const)
+  const nodeFeatures: FeatureMetadata = internalNodeFeatures.map(([name, type, encoder]) => [name, type, encoder?.export?.() ?? null] as const)
+  const edgeFeatures: FeatureMetadata = internalEdgeFeatures.map(([name, type, encoder]) => [name, type, encoder?.export?.() ?? null] as const)
   return {
     // Omit encoder from feature metadata to prevent leaking of internals
     edgeFeatures,
@@ -78,10 +78,29 @@ function getFeatureMetadata(attributables: Stream<Attributable>, settings: Featu
   function toKey(name: FeatureName, type: FeatureType) {
     return `${name}:${type}`
   }
-  const allowedFeatures: ReadonlySet<string> | null = override ? new Set(override.map(([name, type]) => toKey(name, isEncodedFeatureType(type) ? toRawFeatureType(type) : type))) : null
-  const isFeatureAllowed = (name: FeatureName, type: FeatureType) => !allowedFeatures || allowedFeatures.has(toKey(name, type))
-  const uniqueFeaturesKeys = new Set<string>()
   const encoderProvider = new EncoderProvider(settings)
+
+  const uniqueFeaturesKeys = new Set<string>()
+
+  const resolvedOverride = Stream.from(override ?? [])
+    .map(([name, type, data]) => {
+      const rawType = isEncodedFeatureType(type) ? toRawFeatureType(type) : type
+      const encoder = encoderProvider.getEncoder(name, rawType)
+      if (encoder && data !== null) {
+        encoder.import?.(data)
+      }
+      uniqueFeaturesKeys.add(toKey(name, rawType))
+      return [name, rawType, encoder] as const
+    })
+    .toArray()
+
+  const allowedFeatures: ReadonlySet<string> | null = Stream
+    .from(resolvedOverride)
+    .map(([name, type]) => toKey(name, type))
+    .toSet()
+
+  const isFeatureAllowed = (name: FeatureName, type: FeatureType) => allowedFeatures.size === 0 || allowedFeatures.has(toKey(name, type))
+
   const featureMetadata = attributables
     .flatMap((attributable) => Stream.from(attributable.attributes))
     .map(([name, { type, value }]) => {
@@ -93,7 +112,7 @@ function getFeatureMetadata(attributables: Stream<Attributable>, settings: Featu
       if (settings.onlyEncodedFeatures && !encoder) {
         return null
       }
-      encoder?.fit(value.literal)
+      encoder?.fit?.(value.literal)
       return [name, encoder ? toEncodedFeatureType(type) : type, encoder] as const
     })
     .filterNonNull()
@@ -108,23 +127,11 @@ function getFeatureMetadata(attributables: Stream<Attributable>, settings: Featu
       return true
     })
     .toArray()
-  if (override) {
-    override.forEach(([name, type]) => {
-      // Get the raw type to check if the feature is being encoded
-      const rawType = isEncodedFeatureType(type) ? toRawFeatureType(type) : type
-      // Check if the feature is being encoded.
-      // It does NOT suffice to check if there is an encoder for the feature,
-      // since the feature could be absent from the attributables.
-      const finalType = encoderProvider.canEncode(rawType) ? toEncodedFeatureType(rawType) : rawType
-      const encoder = encoderProvider.getEncoder(name, rawType)
-      if (settings.onlyEncodedFeatures && !encoder) {
-        return
-      }
-      if (!uniqueFeaturesKeys.has(toKey(name, finalType))) {
-        featureMetadata.push([name, finalType, encoder])
-      }
-    })
+
+  if (resolvedOverride.length > 0) {
+    return resolvedOverride
   }
+
   return featureMetadata.sort(([a], [b]) => a.localeCompare(b))
 }
 
