@@ -1,6 +1,10 @@
+import { z } from 'zod'
+
 export type AttributeName = string
 
-export type AttributeType = 'unknown' | 'string' | 'category' | 'integer' | 'float' | 'boolean'
+export const AttributeTypeSchema = z.enum(['unknown', 'string', 'category', 'integer', 'float', 'boolean'])
+
+export type AttributeType = z.infer<typeof AttributeTypeSchema>
 
 export interface SimpleAttribute {
   readonly name: AttributeName

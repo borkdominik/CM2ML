@@ -18,10 +18,38 @@ export class EncoderProvider {
 
   public constructor(
     private readonly settings: EncoderProviderSettings,
-  ) {}
+  ) { }
 
-  public getEncoder(name: FeatureName, type: RawFeatureType): Encoder | undefined {
+  /**
+   * Check if a given type can (and will) be encoded by this provider.
+   * The result depends on the {@link settings} of the provider.
+   */
+  public canEncode(type: RawFeatureType): boolean {
     if (this.settings.rawFeatures) {
+      return false
+    }
+    if (type === 'category') {
+      return !this.settings.rawCategories
+    }
+    if (type === 'boolean') {
+      return !this.settings.rawBooleans
+    }
+    if (type === 'integer' || type === 'float') {
+      return !this.settings.rawNumerics
+    }
+    if (type === 'string') {
+      return !this.settings.rawStrings
+    }
+    return false
+  }
+
+  /**
+   * Get the encoder for a given feature name and type.
+   * If the encoder does not exist yet, it will be created once.
+   * If the type cannot be encoded, this method returns undefined.
+   */
+  public getEncoder(name: FeatureName, type: RawFeatureType): Encoder | undefined {
+    if (!this.canEncode(type)) {
       return undefined
     }
     const key = `${name}:${type}`
@@ -38,19 +66,19 @@ export class EncoderProvider {
   }
 
   private createEncoder(type: RawFeatureType): Encoder | undefined {
-    if (type === 'category' && !this.settings.rawCategories) {
+    if (type === 'category') {
       return new CategoryEncoder()
     }
-    if (type === 'boolean' && !this.settings.rawBooleans) {
+    if (type === 'boolean') {
       return new BooleanEncoder()
     }
-    if (type === 'integer' && !this.settings.rawNumerics) {
+    if (type === 'integer') {
       return new IntegerEncoder()
     }
-    if (type === 'float' && !this.settings.rawNumerics) {
+    if (type === 'float') {
       return new FloatEncoder()
     }
-    if (type === 'string' && !this.settings.rawStrings) {
+    if (type === 'string') {
       return new StringEncoder()
     }
     if (type === 'unknown') {
