@@ -1,9 +1,9 @@
 import time
-from typing import List
 from numpy import NaN
 import torch
 from torch_geometric.data import Data
 
+from dataset import CM2MLDataset
 from utils import device, pretty_duration, script_dir
 
 
@@ -37,8 +37,8 @@ class BaseModel(torch.nn.Module):
 
     def fit(
         self,
-        train_dataset: List[Data],
-        test_dataset: List[Data],
+        train_dataset: CM2MLDataset,
+        validation_dataset: CM2MLDataset,
         num_epochs: int,
         patience: int,
         start_epoch: int = 0,
@@ -56,21 +56,24 @@ class BaseModel(torch.nn.Module):
         for epoch in range(start_epoch, num_epochs):
             self.train()
             epoch_acc = 0
+            epoch_loss = 0
             for data in train_dataset:
                 loss, h, acc = self.__train(data)
                 epoch_acc += acc
+                epoch_loss += loss
             self.save(epoch)
             epoch_acc /= len(train_dataset)
-            if epoch % 10 == 0:
-                print(f"Epoch: {epoch:03d}, Train Acc: {epoch_acc * 100:.2f} %")
+            epoch_loss /= len(train_dataset)
+            if epoch % 5 == 0:
+                print(f"Epoch: {epoch:03d}, Loss: {epoch_loss:.2f}, Acc: {epoch_acc * 100:.2f} %")
             self.eval()
             with torch.no_grad():
-                test_loss = 0
-                for data in test_dataset:
+                validation_loss = 0
+                for data in validation_dataset:
                     out, h = self.forward(data)
-                    test_loss += self.criterion(out, data.y)
-                if test_loss < best_loss:
-                    best_loss = test_loss
+                    validation_loss += self.criterion(out, data.y)
+                if validation_loss < best_loss:
+                    best_loss = validation_loss
                     remaining_patience = patience
                 else:
                     remaining_patience -= 1
@@ -97,7 +100,7 @@ class BaseModel(torch.nn.Module):
         self.load_state_dict(checkpoint["model"])
         self.optimizer.load_state_dict(checkpoint["optimizer"])
 
-    def evaluate_dataset(self, dataset: List[Data]) -> float:
+    def evaluate_dataset(self, dataset: CM2MLDataset) -> float:
         self.eval()
         total_accuracy = 0
         for data in dataset:
@@ -109,9 +112,16 @@ class BaseModel(torch.nn.Module):
             return NaN
         return total_accuracy / len(dataset)
 
-    def evaluate(self, train_dataset: List[Data], test_dataset: List[Data]) -> None:
+    def evaluate(
+        self,
+        train_dataset: CM2MLDataset,
+        validation_dataset: CM2MLDataset,
+        test_dataset: CM2MLDataset,
+    ) -> None:
         print(f"Evaluating {self.name}...")
         train_accuracy = self.evaluate_dataset(train_dataset)
+        validation_accuracy = self.evaluate_dataset(validation_dataset)
         test_accuracy = self.evaluate_dataset(test_dataset)
         print(f"Train accuracy: {train_accuracy * 100:.2f} %")
+        print(f"Validation accuracy: {validation_accuracy * 100:.2f} %")
         print(f"Test accuracy: {test_accuracy * 100:.2f} %")
