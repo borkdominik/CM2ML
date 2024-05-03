@@ -90,13 +90,13 @@ function getFeatureMetadata(attributables: Stream<Attributable>, settings: Featu
         encoder.import?.(data)
       }
       uniqueFeaturesKeys.add(toKey(name, rawType))
-      return [name, rawType, encoder] as const
+      return [name, encoder ? toEncodedFeatureType(rawType) : rawType, encoder] as const
     })
     .toArray()
 
   const allowedFeatures: ReadonlySet<string> | null = Stream
     .from(resolvedOverride)
-    .map(([name, type]) => toKey(name, type))
+    .map(([name, type]) => toKey(name, isEncodedFeatureType(type) ? toRawFeatureType(type) : type))
     .toSet()
 
   const isFeatureAllowed = (name: FeatureName, type: FeatureType) => allowedFeatures.size === 0 || allowedFeatures.has(toKey(name, type))

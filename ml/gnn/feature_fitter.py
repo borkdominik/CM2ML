@@ -47,7 +47,7 @@ class FeatureFitter:
         self, feature_vector: RawFeatureVector, feature_metadata: FeatureMetadata
     ) -> None:
         for feature_index, feature in enumerate(feature_vector):
-            feature_name, feature_type = feature_metadata[feature_index]
+            feature_name, feature_type, _ = feature_metadata[feature_index]
             self.fit_feature(feature_index, feature, feature_type, feature_name)
 
     def fit_feature(

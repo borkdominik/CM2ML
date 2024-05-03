@@ -94,7 +94,7 @@ describe('feature encoder', () => {
         rawFeatures: false,
         onlyEncodedFeatures: false,
         rawCategories: false,
-        rawBooleans: false,
+        rawBooleans: true,
         rawNumerics: false,
         rawStrings: false,
         nodeFeatures: '[["a", "encoded-category", { "a-0": 1, "a-2": 2 }], ["b", "category", { "b-1": 2, "b-2": 1 }], ["d", "boolean", null]]',
@@ -105,7 +105,7 @@ describe('feature encoder', () => {
       [
         [
           "a",
-          "category",
+          "encoded-category",
           {
             "a-0": 1,
             "a-1": 3,
@@ -114,7 +114,7 @@ describe('feature encoder', () => {
         ],
         [
           "b",
-          "category",
+          "encoded-category",
           {
             "b-1": 2,
             "b-2": 1,
@@ -129,6 +129,6 @@ describe('feature encoder', () => {
     `)
 
     const featureVector = result.features.getNodeFeatureVector(result.input.root)
-    expect(featureVector).toEqual([3, 2, 0])
+    expect(featureVector).toEqual([3, 2, null])
   })
 })

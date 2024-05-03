@@ -123,7 +123,7 @@ class FeatureTransformer:
         source: FeatureSource,
     ) -> ProcessedFeatureVector:
         for feature_index, feature_value in enumerate(feature_vector):
-            _feature_name, feature_type = metadata[feature_index]
+            _feature_name, feature_type, _ = metadata[feature_index]
             feature_vector[feature_index] = self.transform_feature(
                 feature_value, feature_index, feature_type, source
             )

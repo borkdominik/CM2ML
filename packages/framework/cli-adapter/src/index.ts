@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs'
 import process from 'node:process'
 
 import type { ExecutionError, METADATA_KEY, Parameter, ParameterMetadata, Plugin } from '@cm2ml/plugin'
@@ -10,6 +11,7 @@ import type { Command } from 'cac'
 import { cac } from 'cac'
 
 import { batchedPluginActionHandler } from './batched-plugin-action-handler'
+import { getFeatureMetadataFromFile } from './feature-metadata-extractor'
 import { pluginActionHandler } from './plugin-action-handler'
 
 class CLI extends PluginAdapter<string, PluginAdapterConfiguration> {
@@ -37,8 +39,8 @@ class CLI extends PluginAdapter<string, PluginAdapterConfiguration> {
     command.option('--merge', 'Merge all results into a single output', { default: false, type: [Boolean] })
     command.option('--start <start>', 'Index of the first model to encode', { default: undefined, type: [undefinedAwareConstructor(Number)] })
     command.option('--limit <limit>', 'Maximum number of models to encode', { default: undefined, type: [undefinedAwareConstructor(Number)] })
-    command.action((inputFile: string, options: Record<string, unknown>) =>
-      batchedPluginActionHandler(plugin, inputFile, options),
+    command.action((inputDir: string, options: Record<string, unknown>) =>
+      batchedPluginActionHandler(plugin, inputDir, options),
     )
   }
 
@@ -65,6 +67,35 @@ function registerCommandOptions<Parameters extends ParameterMetadata>(
           createOptionDescription(parameter),
           {
             // type: [getTypeConstructor('array<string>')],
+          },
+      )
+      return
+    }
+    if (parameter.type === 'string' && ['nodeFeatures', 'edgeFeatures'].includes(name)) {
+      // These parameters are often too large for shell arguments, so we have to use a file instead
+      command.option(
+          `--${createOptionName(name)} <${name}File>`,
+          createOptionDescription(parameter),
+          {
+            default: parameter.defaultValue,
+            type: [(input: unknown) => {
+              if (!input) {
+                return parameter.defaultValue
+              }
+              const inputFile = String(input)
+              if (!inputFile) {
+                return parameter.defaultValue
+              }
+              try {
+                // check if the file exists
+                if (!existsSync(inputFile)) {
+                  return inputFile
+                }
+              } catch (error) {
+                return inputFile
+              }
+              return getFeatureMetadataFromFile(inputFile, `__metadata__.${name}`)
+            }],
           },
       )
       return

@@ -51,6 +51,9 @@ export function batchedPluginActionHandler<Out, Parameters extends ParameterMeta
     const mergedOutput = Object.fromEntries(results.map(({ index, result }) => [inputFiles[index]!, result]))
     const mergedResultText = getResultAsText({ [METADATA_KEY]: metadata, data: mergedOutput }, normalizedOptions.pretty)
     writeFileSync(outDir, mergedResultText)
+    errors.forEach(({ error, index }) => {
+      console.error(`\n${inputFiles[index]}:\n ${error.message}\n`)
+    })
   } else {
     mkdirSync(outDir, { recursive: true })
     errors.forEach(({ error, index }) => {

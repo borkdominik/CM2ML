@@ -1,0 +1,9 @@
+{
+  "__metadata__": {
+    "nodeFeatures": [
+      ["a", "encoded-category", { "a-0": 1, "a-2": 2 }],
+      ["b", "category", { "b-1": 2, "b-2": 1 }],
+      ["d", "boolean", null]
+    ]
+  }
+}
