@@ -98,7 +98,7 @@ export class CategoryEncoder implements Encoder {
       return
     }
     if (!this.categories.has(category)) {
-      this.categories.set(category, this.categories.size)
+      this.categories.set(category, this.categories.size + 1)
     }
   }
 
@@ -110,7 +110,7 @@ export class CategoryEncoder implements Encoder {
     if (index === undefined) {
       throw new Error(`Unknown category: ${category}`)
     }
-    return index + 1
+    return index
   }
 
   public export() {

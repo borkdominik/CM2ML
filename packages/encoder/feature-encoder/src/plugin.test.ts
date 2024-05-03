@@ -44,22 +44,22 @@ describe('feature encoder', () => {
           "a",
           "encoded-category",
           {
-            "a-1": 0,
-            "a-2": 1,
+            "a-1": 1,
+            "a-2": 2,
           },
         ],
         [
           "b",
           "encoded-category",
           {
-            "b-1": 0,
+            "b-1": 1,
           },
         ],
         [
           "b",
           "encoded-string",
           {
-            "b-2": 0,
+            "b-2": 1,
           },
         ],
       ]
@@ -97,7 +97,7 @@ describe('feature encoder', () => {
         rawBooleans: false,
         rawNumerics: false,
         rawStrings: false,
-        nodeFeatures: '[["a", "encoded-category", { "a-0": 0, "a-2": 1 }], ["b", "category", { "b-1": 1, "b-2": 0 }], ["d", "boolean", null]]',
+        nodeFeatures: '[["a", "encoded-category", { "a-0": 1, "a-2": 2 }], ["b", "category", { "b-1": 2, "b-2": 1 }], ["d", "boolean", null]]',
         edgeFeatures: '',
       })
 
@@ -107,17 +107,17 @@ describe('feature encoder', () => {
           "a",
           "category",
           {
-            "a-0": 0,
-            "a-1": 2,
-            "a-2": 1,
+            "a-0": 1,
+            "a-1": 3,
+            "a-2": 2,
           },
         ],
         [
           "b",
           "category",
           {
-            "b-1": 1,
-            "b-2": 0,
+            "b-1": 2,
+            "b-2": 1,
           },
         ],
         [
