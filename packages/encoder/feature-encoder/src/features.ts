@@ -63,10 +63,10 @@ export function deriveFeatures(models: GraphModel[], settings: FeatureDeriverSet
   const edges = Stream.from(models).flatMap(({ edges }) => edges)
   const internalNodeFeatures = getFeatureMetadata(nodes, settings, settings.nodeFeatureOverride)
   const internalEdgeFeatures = getFeatureMetadata(edges, settings, settings.edgeFeatureOverride)
+  // Omit encoder from feature metadata to prevent leaking of internals
   const nodeFeatures: FeatureMetadata = internalNodeFeatures.map(([name, type, encoder]) => [name, type, encoder?.export?.() ?? null] as const)
   const edgeFeatures: FeatureMetadata = internalEdgeFeatures.map(([name, type, encoder]) => [name, type, encoder?.export?.() ?? null] as const)
   return {
-    // Omit encoder from feature metadata to prevent leaking of internals
     edgeFeatures,
     nodeFeatures,
     getNodeFeatureVector: (node: GraphNode) => createFeatureVectorFromMetadata(internalNodeFeatures, node),
