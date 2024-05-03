@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { definePlugin } from './plugin'
+import { definePlugin } from '../src/plugin'
 
 function sum(values: number[]) {
   return values.reduce((acc, value) => acc + value, 0)

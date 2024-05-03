@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { BooleanEncoder, CategoryEncoder, FloatEncoder, IntegerEncoder, StringEncoder } from './encoder'
+import { BooleanEncoder, CategoryEncoder, FloatEncoder, IntegerEncoder, StringEncoder } from '../src/encoder'
 
 describe('feature encoders', () => {
   describe('for categories', () => {

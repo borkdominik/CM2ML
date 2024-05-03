@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { batchedCompose, compose } from './composition'
+import { batchedCompose, compose } from '../src/composition'
+
 import { add, multiply, power } from './plugins.test'
 
 describe('batch metadata', () => {

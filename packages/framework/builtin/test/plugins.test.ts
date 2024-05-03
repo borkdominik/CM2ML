@@ -2,9 +2,9 @@ import { readFileSync } from 'node:fs'
 
 import { describe, expect, it } from 'vitest'
 
-import { getPluginsToTest } from './test-utils'
+import { plugins } from '../src/index'
 
-import { plugins } from './index'
+import { getPluginsToTest } from './test-utils'
 
 const testCases = getPluginsToTest(plugins)
 

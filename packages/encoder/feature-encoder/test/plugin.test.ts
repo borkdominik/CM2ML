@@ -2,7 +2,7 @@ import { GraphModel } from '@cm2ml/ir'
 import { batch } from '@cm2ml/plugin'
 import { describe, expect, it } from 'vitest'
 
-import { FeatureEncoder } from './index'
+import { FeatureEncoder } from '../src/index'
 
 describe('feature encoder', () => {
   it('encodes features', () => {

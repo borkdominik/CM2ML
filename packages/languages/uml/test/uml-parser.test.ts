@@ -3,7 +3,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { getMessage } from '@cm2ml/utils'
 import { describe, expect, it } from 'vitest'
 
-import { UmlParser } from './index'
+import { UmlParser } from '../src/index'
 
 // Green: 0-46657 -> 100%
 

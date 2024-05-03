@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import { batch, batchTryCatch, compose } from './composition'
-import { ExecutionError } from './error'
+import { batch, batchTryCatch, compose } from '../src/composition'
+import { ExecutionError } from '../src/error'
+
 import { add, throwIfEven } from './plugins.test'
 
 describe('composition', () => {

@@ -1,7 +1,8 @@
 import { getMessage } from '@cm2ml/utils'
 import { describe, expect, it } from 'vitest'
 
-import { ExecutionError, catching, trying } from './error'
+import { ExecutionError, catching, trying } from '../src/error'
+
 import { add, passthrough, throwingPlugin } from './plugins.test'
 
 const withTrying = trying(throwingPlugin)

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { BooleanEncoder, CategoryEncoder, EncoderProvider, FloatEncoder, IntegerEncoder, StringEncoder } from './encoder'
+import { BooleanEncoder, CategoryEncoder, EncoderProvider, FloatEncoder, IntegerEncoder, StringEncoder } from '../src/encoder'
 
 describe('encoder provider', () => {
   it('provides the correct encoder', () => {
