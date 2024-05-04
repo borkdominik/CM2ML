@@ -13,7 +13,7 @@ class CM2MLDataset(InMemoryDataset):
     def __init__(self, dataset_file: str):
         super().__init__(None)
 
-        dataset_path = f"{script_dir}/../dataset/{dataset_file}"
+        dataset_path = f"{script_dir}/../../dataset/{dataset_file}"
         dataset_cache_file = f"{script_dir}/../cache/{dataset_file}.dataset"
 
         if os.path.isfile(dataset_cache_file):

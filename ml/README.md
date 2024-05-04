@@ -24,4 +24,4 @@
 
 ## Encoding & Training
 
-Use the `encode`, `train`, and `train:only` via `turbo` to encode and train the model.
+Use the `encode:*` and `train:*` `turbo`-tasks to encode and train the model.

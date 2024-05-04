@@ -17,10 +17,8 @@
   "scripts": {
     "conda:load": "source scripts/conda-load.sh",
     "conda:save": "source scripts/conda-save.sh",
-    "encode": "source scripts/encode.sh",
-    "integrate": "cd .. && pnpm turbo run encode train",
-    "train": "source scripts/train.sh",
-    "train:only": "source scripts/train.sh"
+    "encode:graph": "source scripts/encode-graph.sh",
+    "train:gnn": "source scripts/train-gnn.sh"
   },
   "dependencies": {
     "@cm2ml/cli": "workspace:*"

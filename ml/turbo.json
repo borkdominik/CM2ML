@@ -2,16 +2,14 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "pipeline": {
-    "encode": {
-      "inputs": ["scripts/encode.sh"],
+    "encode:graph": {
+      "inputs": ["scripts/encode-graph.sh"],
+      "outputs": ["dataset/graph_train.json", "dataset/graph_validation.json", "dataset/graph_test.json"],
       "dependsOn": ["^build"]
     },
-    "train": {
-      "inputs": ["scripts/train.sh", "gnn/dataset/integration_train.json", "gnn/dataset/integration_validation.json", "gnn/dataset/integration_test.json", "gnn/src/**"],
-      "dependsOn": ["encode"]
-    },
-    "train:only": {
-      "inputs": ["scripts/train.sh", "gnn/dataset/integration_train.json", "gnn/dataset/integration_validation.json", "gnn/dataset/integration_test.json", "gnn/src/**"]
+    "train:gnn": {
+      "inputs": ["scripts/train-gnn.sh", "dataset/graph_train.json", "dataset/graph_validation.json", "dataset/graph_test.json", "gnn/src/**"],
+      "dependsOn": ["encode:graph"]
     }
   }
 }
