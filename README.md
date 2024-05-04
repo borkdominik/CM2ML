@@ -31,6 +31,7 @@
 
 ## Other
 
+- [@cm2ml/ml](./ml)
 - [@cm2ml/scripts](./packages/scripts)
 - [@cm2ml/tsconfig](./packages/tsconfig)
 - [@cm2ml/utils](./packages/utils)

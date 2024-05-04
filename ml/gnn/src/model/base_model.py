@@ -21,7 +21,7 @@ class BaseModel(torch.nn.Module):
         super(BaseModel, self).__init__()
         self.name = name
         self.accuracy = accuracy
-        self.checkpoint_file = f"{script_dir}/checkpoints/{name}.pt"
+        self.checkpoint_file = f"{script_dir}/../checkpoints/{name}.pt"
 
     def forward(self, data: Data):
         raise NotImplementedError

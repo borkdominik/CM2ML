@@ -78,6 +78,12 @@ importers:
         specifier: 1.5.3
         version: 1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(terser@5.26.0)
 
+  ml:
+    dependencies:
+      '@cm2ml/cli':
+        specifier: workspace:*
+        version: link:../packages/framework/cli
+
   packages/encoder/feature-encoder:
     dependencies:
       '@cm2ml/ir':
@@ -15221,7 +15227,7 @@ snapshots:
 
   regenerator-transform@0.15.2:
     dependencies:
-      '@babel/runtime': 7.24.0
+      '@babel/runtime': 7.24.5
 
   regexp-tree@0.1.27: {}
 
@@ -17084,7 +17090,7 @@ snapshots:
       '@apideck/better-ajv-errors': 0.3.6(ajv@8.12.0)
       '@babel/core': 7.23.6
       '@babel/preset-env': 7.23.7(@babel/core@7.23.6)
-      '@babel/runtime': 7.24.0
+      '@babel/runtime': 7.24.5
       '@rollup/plugin-babel': 5.3.1(@babel/core@7.23.6)(@types/babel__core@7.20.5)(rollup@2.79.1)
       '@rollup/plugin-node-resolve': 11.2.1(rollup@2.79.1)
       '@rollup/plugin-replace': 2.4.2(rollup@2.79.1)

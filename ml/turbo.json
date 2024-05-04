@@ -1,0 +1,17 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "pipeline": {
+    "encode": {
+      "inputs": ["scripts/encode.sh"],
+      "dependsOn": ["^build"]
+    },
+    "train": {
+      "inputs": ["scripts/train.sh", "gnn/dataset/integration_train.json", "gnn/dataset/integration_validation.json", "gnn/dataset/integration_test.json", "gnn/src/**"],
+      "dependsOn": ["encode"]
+    },
+    "train:only": {
+      "inputs": ["scripts/train.sh", "gnn/dataset/integration_train.json", "gnn/dataset/integration_validation.json", "gnn/dataset/integration_test.json", "gnn/src/**"]
+    }
+  }
+}

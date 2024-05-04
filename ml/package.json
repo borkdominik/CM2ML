@@ -1,0 +1,28 @@
+{
+  "name": "@cm2ml/ml",
+  "version": "0.0.0",
+  "author": {
+    "name": "Jan Müller",
+    "url": "https://github.com/DerYeger"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borkdominik/CM2ML.git",
+    "directory": "ml"
+  },
+  "bugs": {
+    "url": "https://github.com/borkdominik/CM2ML/issues"
+  },
+  "scripts": {
+    "conda:load": "source scripts/conda-load.sh",
+    "conda:save": "source scripts/conda-save.sh",
+    "encode": "source scripts/encode.sh",
+    "integrate": "cd .. && pnpm turbo run encode train",
+    "train": "source scripts/train.sh",
+    "train:only": "source scripts/train.sh"
+  },
+  "dependencies": {
+    "@cm2ml/cli": "workspace:*"
+  }
+}
