@@ -15,9 +15,9 @@ class GCNModel(BaseModel):
     ):
         super(GCNModel, self).__init__("GCN", accuracy=accuracy)
         self.embed = GCNConv(num_node_features, hidden_channels)
-        self.classifier = GCNConv(hidden_channels, out_channels)
         self.activation = ReLU()
-        self.dropout = Dropout(0.5)
+        self.dropout = Dropout(0.1)
+        self.classifier = GCNConv(hidden_channels, out_channels)
         self.optimizer = torch.optim.Adam(self.parameters(), lr=0.01)
         self.criterion = torch.nn.CrossEntropyLoss()
 

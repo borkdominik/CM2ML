@@ -13,16 +13,23 @@ class GATModel(BaseModel):
         num_edge_features: int,
         hidden_channels: int,
         out_channels: int,
+        heads: int = 5,
     ):
         super(GATModel, self).__init__("GAT", accuracy=accuracy)
         self.embed = GATConv(
-            num_node_features, hidden_channels, edge_dim=num_edge_features
-        )
-        self.classifier = GATConv(
-            hidden_channels, out_channels, edge_dim=num_edge_features
+            in_channels=num_node_features,
+            out_channels=hidden_channels,
+            edge_dim=num_edge_features,
+            heads=heads,
         )
         self.activation = ReLU()
-        self.dropout = Dropout(0.5)
+        self.dropout = Dropout(0.1)
+        self.classifier = GATConv(
+            in_channels=hidden_channels * heads,
+            out_channels=out_channels,
+            edge_dim=num_edge_features,
+            heads=heads,
+        )
         self.optimizer = torch.optim.Adam(self.parameters(), lr=0.01)
         self.criterion = torch.nn.CrossEntropyLoss()
 

@@ -23,8 +23,7 @@ if (
 
 num_epochs = 2000
 start_epoch = 0
-hidden_channels = 128
-patience = 10
+patience = 5
 
 print("======================")
 print("Train dataset file:", train_dataset_file)
@@ -74,6 +73,12 @@ max_num_classes = max(
     test_dataset.num_classes,
 )
 
+num_uml_types = 193
+num_node_features = train_dataset.num_features
+num_edge_features = train_dataset.num_edge_features
+hidden_channels = max_num_classes * 10
+out_channels = max_num_classes
+
 if (
     train_dataset.num_features != validation_dataset.num_features
     or train_dataset.num_features != test_dataset.num_features
@@ -86,10 +91,10 @@ if (
     exit("Train, validation or test dataset edge features do not match")
 
 GATModel(
-    num_node_features=train_dataset.num_features,
-    num_edge_features=train_dataset.num_edge_features,
+    num_node_features=num_node_features,
+    num_edge_features=num_edge_features,
     hidden_channels=hidden_channels,
-    out_channels=max_num_classes,
+    out_channels=out_channels,
 ).fit(
     train_dataset=train_dataset,
     validation_dataset=validation_dataset,
@@ -104,9 +109,9 @@ GATModel(
 print("======================")
 
 GCNModel(
-    num_node_features=train_dataset.num_features,
+    num_node_features=num_node_features,
     hidden_channels=hidden_channels,
-    out_channels=max_num_classes,
+    out_channels=out_channels,
 ).fit(
     train_dataset=train_dataset,
     validation_dataset=validation_dataset,
