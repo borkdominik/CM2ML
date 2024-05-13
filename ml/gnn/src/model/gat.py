@@ -13,7 +13,7 @@ class GATModel(BaseModel):
         num_edge_features: int,
         hidden_channels: int,
         out_channels: int,
-        heads: int = 5,
+        heads: int = 1,
     ):
         super(GATModel, self).__init__("GAT", accuracy=accuracy)
         self.embed = GATConv(

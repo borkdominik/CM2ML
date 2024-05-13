@@ -28,7 +28,7 @@ patience = 5
 print("======================")
 print("Train dataset file:", train_dataset_file)
 dataset_load_start_time = time.perf_counter()
-train_dataset = CM2MLDataset(train_dataset_file)
+train_dataset = CM2MLDataset("train", train_dataset_file)
 dataset_load_end_time = time.perf_counter()
 print(
     f"Train dataset load time: {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
@@ -42,7 +42,7 @@ print("======================")
 
 print("Validation dataset file:", validation_dataset_file)
 dataset_load_start_time = time.perf_counter()
-validation_dataset = CM2MLDataset(validation_dataset_file)
+validation_dataset = CM2MLDataset("validation", validation_dataset_file)
 dataset_load_end_time = time.perf_counter()
 print(
     f"Validation dataset load time: {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
@@ -56,7 +56,7 @@ print("======================")
 
 print("Test dataset file:", test_dataset_file)
 dataset_load_start_time = time.perf_counter()
-test_dataset = CM2MLDataset(test_dataset_file)
+test_dataset = CM2MLDataset("test", test_dataset_file)
 dataset_load_end_time = time.perf_counter()
 print(
     f"Test dataset load time: {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
@@ -76,7 +76,7 @@ max_num_classes = max(
 num_uml_types = 193
 num_node_features = train_dataset.num_features
 num_edge_features = train_dataset.num_edge_features
-hidden_channels = max_num_classes * 10
+hidden_channels = max_num_classes * 2
 out_channels = max_num_classes
 
 if (

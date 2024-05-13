@@ -1,5 +1,4 @@
 import time
-from numpy import NaN
 import torch
 from torch_geometric.data import Data
 
@@ -7,10 +6,10 @@ from dataset import CM2MLDataset
 from utils import device, pretty_duration, script_dir
 
 
-def accuracy(logits: torch.Tensor, labels: torch.Tensor) -> torch.Tensor:
+def accuracy(logits: torch.Tensor, labels: torch.Tensor) -> tuple[torch.Tensor, int]:
     pred = torch.argmax(logits, dim=1)
-    acc = torch.mean((pred == labels).float())
-    return acc
+    correct_predictions = torch.sum((pred == labels).float())
+    return correct_predictions, len(logits)
 
 
 class BaseModel(torch.nn.Module):
@@ -30,10 +29,10 @@ class BaseModel(torch.nn.Module):
         self.optimizer.zero_grad()
         out, h = self.forward(data)
         loss = self.criterion(out, data.y)
-        acc = self.accuracy(out, data.y)
+        correct_predictions, prediction_count = self.accuracy(out, data.y)
         loss.backward()
         self.optimizer.step()
-        return loss, h, acc
+        return loss, correct_predictions, prediction_count
 
     def fit(
         self,
@@ -55,17 +54,23 @@ class BaseModel(torch.nn.Module):
         remaining_patience = patience
         for epoch in range(start_epoch, num_epochs):
             self.train()
-            epoch_acc = 0
+            epoch_correct_predictions = 0
+            epoch_total_prediction_count = 0
             epoch_loss = 0
             for data in train_dataset:
-                loss, h, acc = self.__train(data)
-                epoch_acc += acc
+                loss, correct_predictions, prediction_count = self.__train(data)
+                epoch_correct_predictions += correct_predictions
+                epoch_total_prediction_count += prediction_count
                 epoch_loss += loss
             self.save(epoch)
-            epoch_acc /= len(train_dataset)
+            epoch_accuracy = 0
+            if epoch_total_prediction_count > 0:
+                epoch_accuracy = epoch_correct_predictions / epoch_total_prediction_count
             epoch_loss /= len(train_dataset)
             if epoch % 5 == 0:
-                print(f"Epoch: {epoch:03d}, Loss: {epoch_loss:.2f}, Acc: {epoch_acc * 100:.2f} %")
+                print(
+                    f"Epoch: {epoch:03d}, Loss: {epoch_loss:.2f}, Acc: {epoch_accuracy:.2%}, Pred: {epoch_correct_predictions:.0f}/{epoch_total_prediction_count}"
+                )
             self.eval()
             with torch.no_grad():
                 validation_loss = 0
@@ -100,17 +105,23 @@ class BaseModel(torch.nn.Module):
         self.load_state_dict(checkpoint["model"])
         self.optimizer.load_state_dict(checkpoint["optimizer"])
 
-    def evaluate_dataset(self, dataset: CM2MLDataset) -> float:
+    def evaluate_dataset(self, dataset: CM2MLDataset) -> None:
         self.eval()
-        total_accuracy = 0
+        total_correct_predictions = 0
+        total_prediction_count = 0
         for data in dataset:
-            total_accuracy += self.accuracy(
+            correct_predictions, prediction_count = self.accuracy(
                 self.forward(data)[0],
                 data.y,
             )
-        if len(dataset) == 0:
-            return NaN
-        return total_accuracy / len(dataset)
+            total_correct_predictions += correct_predictions
+            total_prediction_count += prediction_count
+        total_accuracy = 0
+        if total_prediction_count > 0:
+            total_accuracy = total_correct_predictions / total_prediction_count
+        print(
+            f"\t{dataset.name}\n\t\taccuracy: {total_accuracy:.2%}\n\t\tpredictions: {total_correct_predictions:.0f}/{total_prediction_count}"
+        )
 
     def evaluate(
         self,
@@ -119,10 +130,7 @@ class BaseModel(torch.nn.Module):
         test_dataset: CM2MLDataset,
     ):
         print(f"Evaluating {self.name}...")
-        train_accuracy = self.evaluate_dataset(train_dataset)
-        validation_accuracy = self.evaluate_dataset(validation_dataset)
-        test_accuracy = self.evaluate_dataset(test_dataset)
-        print(f"Train accuracy: {train_accuracy * 100:.2f} %")
-        print(f"Validation accuracy: {validation_accuracy * 100:.2f} %")
-        print(f"Test accuracy: {test_accuracy * 100:.2f} %")
+        self.evaluate_dataset(train_dataset)
+        self.evaluate_dataset(validation_dataset)
+        self.evaluate_dataset(test_dataset)
         return self

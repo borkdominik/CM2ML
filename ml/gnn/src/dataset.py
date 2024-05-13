@@ -10,8 +10,9 @@ from utils import device, script_dir
 
 class CM2MLDataset(InMemoryDataset):
 
-    def __init__(self, dataset_file: str):
+    def __init__(self, name: str, dataset_file: str):
         super().__init__(None)
+        self.name = name
 
         dataset_path = f"{script_dir}/../../dataset/{dataset_file}"
         dataset_cache_file = f"{script_dir}/../cache/{dataset_file}.dataset"
