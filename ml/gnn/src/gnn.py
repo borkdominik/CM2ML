@@ -37,6 +37,10 @@ print(f"Number of graphs: {len(train_dataset)}")
 print(f"Number of node features: {train_dataset.num_features}")
 print(f"Number of edge features: {train_dataset.num_edge_features}")
 print(f"Number of classes: {train_dataset.num_classes}")
+print(f"Number of nodes: {train_dataset.num_nodes}")
+print(
+    f"Average number of nodes per graph: {train_dataset.num_nodes / len(train_dataset):.2f}"
+)
 
 print("======================")
 
@@ -51,6 +55,10 @@ print(f"Number of graphs: {len(validation_dataset)}")
 print(f"Number of node features: {validation_dataset.num_features}")
 print(f"Number of edge features: {validation_dataset.num_edge_features}")
 print(f"Number of classes: {validation_dataset.num_classes}")
+print(f"Number of nodes: {validation_dataset.num_nodes}")
+print(
+    f"Average number of nodes per graph: {validation_dataset.num_nodes / len(validation_dataset):.2f}"
+)
 
 print("======================")
 
@@ -65,6 +73,10 @@ print(f"Number of graphs: {len(test_dataset)}")
 print(f"Number of node features: {test_dataset.num_features}")
 print(f"Number of edge features: {test_dataset.num_edge_features}")
 print(f"Number of classes: {test_dataset.num_classes}")
+print(f"Number of nodes: {test_dataset.num_nodes}")
+print(
+    f"Average number of nodes per graph: {test_dataset.num_nodes / len(test_dataset):.2f}"
+)
 print("======================")
 
 max_num_classes = max(

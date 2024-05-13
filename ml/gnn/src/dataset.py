@@ -19,17 +19,25 @@ class CM2MLDataset(InMemoryDataset):
 
         if os.path.isfile(dataset_cache_file):
             print("Loading dataset from cache...")
-            self.data, self.slices = torch.load(dataset_cache_file)
+            self.data, self.slices, self.num_nodes = torch.load(dataset_cache_file)
             self.to(device)
-            return
+        else:
+            print("Loading dataset...")
+            with open(dataset_path, "r") as file:
+                dataset_input: Dataset = json.load(file)
+                data = dataset_input["data"]
+                metadata = dataset_input["__metadata__"]
+                data_entries = FeatureTransformer().fit_transform(data, metadata)
+                base_data, slices = self.collate(data_entries)
+                self.num_nodes = sum([len(data.x) for data in data_entries])
+                torch.save((base_data, slices, self.num_nodes), dataset_cache_file)
+                self.data, self.slices = base_data, slices
+                self.to(device)
 
-        print("Loading dataset...")
-        with open(dataset_path, "r") as file:
-            dataset_input: Dataset = json.load(file)
-            data = dataset_input["data"]
-            metadata = dataset_input["__metadata__"]
-            data_entries = FeatureTransformer().fit_transform(data, metadata)
-            base_data, slices = self.collate(data_entries)
-            torch.save((base_data, slices), dataset_cache_file)
-            self.data, self.slices = base_data, slices
-            self.to(device)
+    def print_metrics(self) -> None:
+        print(f"\tNumber of graphs: {len(self)}")
+        print(f"\tNumber of node features: {self.num_features}")
+        print(f"\tNumber of edge features: {self.num_edge_features}")
+        print(f"\tNumber of classes: {self.num_classes}")
+        print(f"\tNumber of nodes: {self.num_nodes}")
+        print(f"\tAverage number of nodes per graph: {self.num_nodes / len(self):.2f}")

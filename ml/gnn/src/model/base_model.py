@@ -69,7 +69,7 @@ class BaseModel(torch.nn.Module):
             epoch_loss /= len(train_dataset)
             if epoch % 5 == 0:
                 print(
-                    f"Epoch: {epoch:03d}, Loss: {epoch_loss:.2f}, Acc: {epoch_accuracy:.2%}, Pred: {epoch_correct_predictions:.0f}/{epoch_total_prediction_count}"
+                    f"\tEpoch: {epoch:03d}, Loss: {epoch_loss:.2f}, Acc: {epoch_accuracy:.2%}, Pred: {epoch_correct_predictions:.0f}/{epoch_total_prediction_count}"
                 )
             self.eval()
             with torch.no_grad():
@@ -120,7 +120,7 @@ class BaseModel(torch.nn.Module):
         if total_prediction_count > 0:
             total_accuracy = total_correct_predictions / total_prediction_count
         print(
-            f"\t{dataset.name}\n\t\taccuracy: {total_accuracy:.2%}\n\t\tpredictions: {total_correct_predictions:.0f}/{total_prediction_count}"
+            f"\t{dataset.name}\n\t\tAcc: {total_accuracy:.2%}\n\t\tPred: {total_correct_predictions:.0f}/{total_prediction_count}"
         )
 
     def evaluate(
