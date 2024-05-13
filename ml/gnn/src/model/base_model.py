@@ -117,7 +117,7 @@ class BaseModel(torch.nn.Module):
         train_dataset: CM2MLDataset,
         validation_dataset: CM2MLDataset,
         test_dataset: CM2MLDataset,
-    ) -> None:
+    ):
         print(f"Evaluating {self.name}...")
         train_accuracy = self.evaluate_dataset(train_dataset)
         validation_accuracy = self.evaluate_dataset(validation_dataset)
@@ -125,3 +125,4 @@ class BaseModel(torch.nn.Module):
         print(f"Train accuracy: {train_accuracy * 100:.2f} %")
         print(f"Validation accuracy: {validation_accuracy * 100:.2f} %")
         print(f"Test accuracy: {test_accuracy * 100:.2f} %")
+        return self

@@ -95,6 +95,10 @@ GATModel(
     num_edge_features=num_edge_features,
     hidden_channels=hidden_channels,
     out_channels=out_channels,
+).evaluate(
+    train_dataset=train_dataset,
+    validation_dataset=validation_dataset,
+    test_dataset=test_dataset,
 ).fit(
     train_dataset=train_dataset,
     validation_dataset=validation_dataset,
@@ -112,6 +116,10 @@ GCNModel(
     num_node_features=num_node_features,
     hidden_channels=hidden_channels,
     out_channels=out_channels,
+).evaluate(
+    train_dataset=train_dataset,
+    validation_dataset=validation_dataset,
+    test_dataset=test_dataset,
 ).fit(
     train_dataset=train_dataset,
     validation_dataset=validation_dataset,
