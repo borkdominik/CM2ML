@@ -1,17 +1,16 @@
 import sys
-import time
 import torch
 
 from dataset import CM2MLDataset
 from model.gat import GATModel
 from model.gcn import GCNModel
-from utils import pretty_duration
 
 torch.manual_seed(42)
 
 train_dataset_file = sys.argv[1]
 validation_dataset_file = sys.argv[2]
 test_dataset_file = sys.argv[3]
+
 if (
     train_dataset_file is None
     or validation_dataset_file is None
@@ -26,57 +25,11 @@ start_epoch = 0
 patience = 5
 
 print("======================")
-print("Train dataset file:", train_dataset_file)
-dataset_load_start_time = time.perf_counter()
-train_dataset = CM2MLDataset("train", train_dataset_file)
-dataset_load_end_time = time.perf_counter()
-print(
-    f"Train dataset load time: {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
-)
-print(f"Number of graphs: {len(train_dataset)}")
-print(f"Number of node features: {train_dataset.num_features}")
-print(f"Number of edge features: {train_dataset.num_edge_features}")
-print(f"Number of classes: {train_dataset.num_classes}")
-print(f"Number of nodes: {train_dataset.num_nodes}")
-print(
-    f"Average number of nodes per graph: {train_dataset.num_nodes / len(train_dataset):.2f}"
-)
-
+train_dataset = CM2MLDataset("train", train_dataset_file).print_metrics()
 print("======================")
-
-print("Validation dataset file:", validation_dataset_file)
-dataset_load_start_time = time.perf_counter()
-validation_dataset = CM2MLDataset("validation", validation_dataset_file)
-dataset_load_end_time = time.perf_counter()
-print(
-    f"Validation dataset load time: {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
-)
-print(f"Number of graphs: {len(validation_dataset)}")
-print(f"Number of node features: {validation_dataset.num_features}")
-print(f"Number of edge features: {validation_dataset.num_edge_features}")
-print(f"Number of classes: {validation_dataset.num_classes}")
-print(f"Number of nodes: {validation_dataset.num_nodes}")
-print(
-    f"Average number of nodes per graph: {validation_dataset.num_nodes / len(validation_dataset):.2f}"
-)
-
+validation_dataset = CM2MLDataset("validation", validation_dataset_file).print_metrics()
 print("======================")
-
-print("Test dataset file:", test_dataset_file)
-dataset_load_start_time = time.perf_counter()
-test_dataset = CM2MLDataset("test", test_dataset_file)
-dataset_load_end_time = time.perf_counter()
-print(
-    f"Test dataset load time: {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
-)
-print(f"Number of graphs: {len(test_dataset)}")
-print(f"Number of node features: {test_dataset.num_features}")
-print(f"Number of edge features: {test_dataset.num_edge_features}")
-print(f"Number of classes: {test_dataset.num_classes}")
-print(f"Number of nodes: {test_dataset.num_nodes}")
-print(
-    f"Average number of nodes per graph: {test_dataset.num_nodes / len(test_dataset):.2f}"
-)
+test_dataset = CM2MLDataset("test", test_dataset_file).print_metrics()
 print("======================")
 
 max_num_classes = max(
