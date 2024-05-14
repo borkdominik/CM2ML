@@ -39,20 +39,24 @@ dependencies:
   - libxml2=2.10.4=h0b34f26_2
   - llvm-openmp=14.0.6=hc6e5704_0
   - lz4-c=1.9.4=h313beb8_0
+  - markdown-it-py=2.2.0=py310hca03da5_1
+  - mdurl=0.1.0=py310hca03da5_0
   - ncurses=6.4=h313beb8_0
   - nettle=3.7.3=h84b5d62_1
   - numpy=1.26.4=py310h3b2db8e_0
   - numpy-base=1.26.4=py310ha9811e2_0
   - openh264=1.8.0=h98b2900_0
   - openjpeg=2.3.0=h7a6adac_2
-  - openssl=3.0.13=h1a28f6b_0
+  - openssl=3.0.13=h1a28f6b_1
   - pillow=10.2.0=py310h80987f9_0
   - pip=23.3.1=py310hca03da5_0
+  - pygments=2.15.1=py310hca03da5_1
   - pysocks=1.7.1=py310hca03da5_0
   - python=3.10.14=hb885b13_0
   - pytorch=1.13.1=py3.10_0
   - readline=8.2=h1a28f6b_0
   - requests=2.31.0=py310hca03da5_1
+  - rich=13.3.5=py310hca03da5_0
   - setuptools=68.2.2=py310hca03da5_0
   - sqlite=3.41.2=h80987f9_0
   - tk=8.6.12=hb8d0fd4_0

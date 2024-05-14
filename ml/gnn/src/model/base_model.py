@@ -1,9 +1,11 @@
 import time
 import torch
+from rich.layout import Layout
 from torch_geometric.data import Data
 
 from dataset import CM2MLDataset
-from utils import device, pretty_duration, script_dir
+from layout_proxy import LayoutProxy
+from utils import device, pretty_duration, script_dir, text_padding
 
 
 def accuracy(logits: torch.Tensor, labels: torch.Tensor) -> tuple[torch.Tensor, int]:
@@ -16,11 +18,11 @@ class BaseModel(torch.nn.Module):
     optimizer: torch.optim.Optimizer
     criterion: torch.nn.Module
 
-    def __init__(self, name: str, accuracy):
+    def __init__(self, name: str, layout: Layout):
         super(BaseModel, self).__init__()
         self.name = name
-        self.accuracy = accuracy
         self.checkpoint_file = f"{script_dir}/../checkpoints/{name}.pt"
+        self.layout_proxy = LayoutProxy(layout, self.name)
 
     def forward(self, data: Data):
         raise NotImplementedError
@@ -29,7 +31,7 @@ class BaseModel(torch.nn.Module):
         self.optimizer.zero_grad()
         out, h = self.forward(data)
         loss = self.criterion(out, data.y)
-        correct_predictions, prediction_count = self.accuracy(out, data.y)
+        correct_predictions, prediction_count = accuracy(out, data.y)
         loss.backward()
         self.optimizer.step()
         return loss, correct_predictions, prediction_count
@@ -47,7 +49,7 @@ class BaseModel(torch.nn.Module):
             self.resume(resume_epoch)
 
         self.to(device)
-        print(f"Training {self.name}...")
+        self.layout_proxy.print("Training...")
 
         train_start_time = time.perf_counter()
         best_loss = float("inf")
@@ -68,8 +70,8 @@ class BaseModel(torch.nn.Module):
                 epoch_accuracy = epoch_correct_predictions / epoch_total_prediction_count
             epoch_loss /= len(train_dataset)
             if epoch % 5 == 0:
-                print(
-                    f"\tEpoch: {epoch:03d}, Loss: {epoch_loss:.2f}, Acc: {epoch_accuracy:.2%}, Pred: {epoch_correct_predictions:.0f}/{epoch_total_prediction_count}"
+                self.layout_proxy.print(
+                    f"{text_padding}Epoch: {epoch:03d}, Loss: {epoch_loss:.2f}, Acc: {epoch_accuracy:.2%}, Pred: {epoch_correct_predictions:.0f}/{epoch_total_prediction_count}"
                 )
             self.eval()
             with torch.no_grad():
@@ -83,10 +85,12 @@ class BaseModel(torch.nn.Module):
                 else:
                     remaining_patience -= 1
                     if remaining_patience == 0:
-                        print(f"Early stopping in epoch {epoch}")
+                        self.layout_proxy.print(f"{text_padding}Early stopping in epoch {epoch}")
                         break
         train_end_time = time.perf_counter()
-        print(f"Training time: {pretty_duration(train_end_time - train_start_time)}")
+        self.layout_proxy.print(
+            f"{text_padding}Training time: {pretty_duration(train_end_time - train_start_time)}"
+        )
         return self
 
     def save(self, epoch: int) -> None:
@@ -110,7 +114,7 @@ class BaseModel(torch.nn.Module):
         total_correct_predictions = 0
         total_prediction_count = 0
         for data in dataset:
-            correct_predictions, prediction_count = self.accuracy(
+            correct_predictions, prediction_count = accuracy(
                 self.forward(data)[0],
                 data.y,
             )
@@ -119,8 +123,8 @@ class BaseModel(torch.nn.Module):
         total_accuracy = 0
         if total_prediction_count > 0:
             total_accuracy = total_correct_predictions / total_prediction_count
-        print(
-            f"\t{dataset.name}\n\t\tAcc: {total_accuracy:.2%}\n\t\tPred: {total_correct_predictions:.0f}/{total_prediction_count}"
+        self.layout_proxy.print(
+            f"{text_padding}{dataset.name}: Acc: {total_accuracy:.2%}, Pred: {total_correct_predictions:.0f}/{total_prediction_count}"
         )
 
     def evaluate(
@@ -129,7 +133,7 @@ class BaseModel(torch.nn.Module):
         validation_dataset: CM2MLDataset,
         test_dataset: CM2MLDataset,
     ):
-        print(f"Evaluating {self.name}...")
+        self.layout_proxy.print("Evaluating...")
         self.evaluate_dataset(train_dataset)
         self.evaluate_dataset(validation_dataset)
         self.evaluate_dataset(test_dataset)

@@ -3,7 +3,7 @@ from torch.nn import Dropout, ReLU
 from torch_geometric.data import Data
 from torch_geometric.nn import GCNConv
 
-from model.base_model import BaseModel, accuracy
+from model.base_model import BaseModel
 
 
 class GCNModel(BaseModel):
@@ -12,8 +12,9 @@ class GCNModel(BaseModel):
         num_node_features: int,
         hidden_channels: int,
         out_channels: int,
+        layout,
     ):
-        super(GCNModel, self).__init__("GCN", accuracy=accuracy)
+        super(GCNModel, self).__init__("GCN", layout=layout)
         self.embed = GCNConv(num_node_features, hidden_channels)
         self.activation = ReLU()
         self.dropout = Dropout(0.1)

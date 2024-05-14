@@ -3,7 +3,7 @@ from torch.nn import Dropout, ReLU
 from torch_geometric.data import Data
 from torch_geometric.nn import GATConv
 
-from model.base_model import BaseModel, accuracy
+from model.base_model import BaseModel
 
 
 class GATModel(BaseModel):
@@ -13,9 +13,10 @@ class GATModel(BaseModel):
         num_edge_features: int,
         hidden_channels: int,
         out_channels: int,
+        layout,
         heads: int = 1,
     ):
-        super(GATModel, self).__init__("GAT", accuracy=accuracy)
+        super(GATModel, self).__init__("GAT", layout=layout)
         self.embed = GATConv(
             in_channels=num_node_features,
             out_channels=hidden_channels,
