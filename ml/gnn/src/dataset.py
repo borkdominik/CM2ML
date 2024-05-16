@@ -1,5 +1,6 @@
 import json
 import os
+import numpy as np
 from rich.layout import Layout
 import time
 import torch
@@ -11,10 +12,21 @@ from layout_proxy import LayoutProxy
 from utils import device, pretty_duration, script_dir, text_padding
 
 
+def softmax(x):
+    # From https://stackoverflow.com/a/38250088
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum(axis=0)
+
+
 class CM2MLDataset(InMemoryDataset):
     def __init__(self, name: str, dataset_file: str, layout: Layout):
         super().__init__(None)
         self.name = name
+
+        # To be initialized in print_label_metrics
+        self.top_n = 0
+        self.top_n_classes = []
+        self.class_weights = []
 
         self.dataset_path = f"{script_dir}/../../dataset/{dataset_file}"
         self.dataset_cache_file = f"{script_dir}/../cache/{dataset_file}.dataset"
@@ -64,10 +76,11 @@ class CM2MLDataset(InMemoryDataset):
         )
         return self
 
-    def print_label_metrics(self):
+    def print_label_metrics(self, max_num_classes: int):
         self.layout_proxy.print("Counting label occurrences...")
-        occurrences = [sum(self._data.y == i).item() for i in range(self.num_classes)]
-        average = sum(occurrences) / len(occurrences)
+        occurrences = [sum(self._data.y == i).item() for i in range(max_num_classes)]
+        total_occurrences = sum(occurrences)
+        average = total_occurrences / len(occurrences)
         median = occurrences[len(occurrences) // 2]
         self.layout_proxy.print(f"{text_padding}avg: {average:.2f}")
         self.layout_proxy.print(f"{text_padding}med: {median}")
@@ -83,13 +96,16 @@ class CM2MLDataset(InMemoryDataset):
         self.layout_proxy.print(
             f"{text_padding}max: {max_occurrences} ({self.get_label_name_by_index(max_index)})"
         )
-        top_n = 5
-        top_n_classes = sorted(
+        self.top_n = 5
+        self.top_n_classes = sorted(
             range(len(occurrences)), key=lambda i: occurrences[i], reverse=True
-        )[:top_n]
+        )[: self.top_n]
         self.layout_proxy.print(
-            f"{text_padding}top {top_n}: {', '.join(list(map(lambda i: self.get_label_name_by_index(i), top_n_classes)))}"
+            f"{text_padding}top {self.top_n}: {', '.join(list(map(lambda i: self.get_label_name_by_index(i), self.top_n_classes)))}"
         )
+        self.class_weights = [
+            (occurrences[i] / total_occurrences) for i in range(len(occurrences))
+        ]
         return self
 
     def get_label_name_by_index(self, index: int) -> str:

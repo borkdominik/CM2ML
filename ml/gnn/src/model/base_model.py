@@ -1,4 +1,5 @@
 import time
+from typing import List
 import torch
 from rich.layout import Layout
 from torch_geometric.data import Data
@@ -12,6 +13,47 @@ def accuracy(logits: torch.Tensor, labels: torch.Tensor) -> tuple[torch.Tensor, 
     pred = torch.argmax(logits, dim=1)
     correct_predictions = torch.sum((pred == labels).float())
     return correct_predictions, len(logits)
+
+
+def top_n_accuracy(
+    logits: torch.Tensor, labels: torch.Tensor, top_n_classes: List[int]
+) -> tuple[torch.Tensor, int, torch.Tensor, int]:
+    pred = torch.argmax(logits, dim=1)
+    correct_predictions = 0
+    top_n_correct_predictions = 0
+    top_n_prediction_count = 0
+    for i in range(len(pred)):
+        if labels[i] in top_n_classes:
+            top_n_prediction_count += 1
+        if pred[i] == labels[i]:
+            correct_predictions += 1
+            if labels[i] in top_n_classes:
+                top_n_correct_predictions += 1
+
+    return (
+        correct_predictions,
+        len(logits),
+        top_n_correct_predictions,
+        top_n_prediction_count,
+    )
+
+
+def weighted_accuracy(
+    logits: torch.Tensor, labels: torch.Tensor, weights: List[float]
+) -> tuple[torch.Tensor, int, torch.Tensor, int]:
+    weighted_correct_predictions = 0
+    total_weighted_predictions = 0
+    for i in range(len(logits)):
+        pred_index = None
+        max_value = float("-inf")
+        for j in range(len(logits[i])):
+            if logits[i][j] > max_value:
+                max_value = logits[i][j]
+                pred_index = j
+        total_weighted_predictions += weights[pred_index]
+        if pred_index == labels[i]:
+            weighted_correct_predictions += weights[pred_index]
+    return (weighted_correct_predictions, total_weighted_predictions)
 
 
 class BaseModel(torch.nn.Module):
@@ -67,7 +109,9 @@ class BaseModel(torch.nn.Module):
             self.save(epoch)
             epoch_accuracy = 0
             if epoch_total_prediction_count > 0:
-                epoch_accuracy = epoch_correct_predictions / epoch_total_prediction_count
+                epoch_accuracy = (
+                    epoch_correct_predictions / epoch_total_prediction_count
+                )
             epoch_loss /= len(train_dataset)
             if epoch % 5 == 0:
                 self.layout_proxy.print(
@@ -85,7 +129,9 @@ class BaseModel(torch.nn.Module):
                 else:
                     remaining_patience -= 1
                     if remaining_patience == 0:
-                        self.layout_proxy.print(f"{text_padding}Early stopping in epoch {epoch}")
+                        self.layout_proxy.print(
+                            f"{text_padding}Early stopping in epoch {epoch}"
+                        )
                         break
         train_end_time = time.perf_counter()
         self.layout_proxy.print(
@@ -113,18 +159,42 @@ class BaseModel(torch.nn.Module):
         self.eval()
         total_correct_predictions = 0
         total_prediction_count = 0
+        total_top_n_correct_predictions = 0
+        total_top_n_prediction_count = 0
+        total_weighted_correct_predictions = 0
+        total_weighted_prediction_count = 0
         for data in dataset:
-            correct_predictions, prediction_count = accuracy(
-                self.forward(data)[0],
-                data.y,
-            )
+            out = self.forward(data)[0]
+            (
+                correct_predictions,
+                prediction_count,
+                top_n_correct_predictions,
+                top_n_prediction_count,
+            ) = top_n_accuracy(out, data.y, dataset.top_n_classes)
             total_correct_predictions += correct_predictions
             total_prediction_count += prediction_count
+            total_top_n_correct_predictions += top_n_correct_predictions
+            total_top_n_prediction_count += top_n_prediction_count
+            (weighted_correct_predictions, weighted_prediction_count) = (
+                weighted_accuracy(out, data.y, dataset.class_weights)
+            )
+            total_weighted_correct_predictions += weighted_correct_predictions
+            total_weighted_prediction_count += weighted_prediction_count
         total_accuracy = 0
         if total_prediction_count > 0:
             total_accuracy = total_correct_predictions / total_prediction_count
+        total_top_n_accuracy = 0
+        if total_top_n_prediction_count > 0:
+            total_top_n_accuracy = (
+                total_top_n_correct_predictions / total_top_n_prediction_count
+            )
+        total_weighted_accuracy = 0
+        if total_weighted_prediction_count > 0:
+            total_weighted_accuracy = (
+                total_weighted_correct_predictions / total_weighted_prediction_count
+            )
         self.layout_proxy.print(
-            f"{text_padding}{dataset.name}: Acc: {total_accuracy:.2%}, Pred: {total_correct_predictions:.0f}/{total_prediction_count}"
+            f"{text_padding}{dataset.name}: Acc: {total_accuracy:.2%}, Pred: {total_correct_predictions:.0f}/{total_prediction_count}, Acc@{dataset.top_n}: {total_top_n_accuracy:.2%}, Pred@{dataset.top_n}: {total_top_n_correct_predictions:.0f}/{total_top_n_prediction_count}, Wgth: {total_weighted_accuracy:.2%}"
         )
 
     def evaluate(
