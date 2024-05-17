@@ -1,5 +1,8 @@
 # ML
 
+> Tip: Use the `ml` script of the root package for cleaner terminal output.
+> E.g., `pnpm run ml train:gnn`.
+
 ## Conda Setup
 
 > All `.sh` scripts must be run from this directory.

@@ -8,7 +8,7 @@ test_start=$(($validation_start + $validation_size + 1))
 
 input=../models/uml/dataset
 
-parameters=("--strict" "--merge" "--continue-on-error" "--relationships-as-edges" "--include-equal-paths" "--raw-strings" "--only-encoded-features")
+parameters=("--strict" "--merge" "--continue-on-error" "--relationships-as-edges" "--include-equal-paths" "--raw-strings" "--only-encoded-features" "--edge-tag-as-attribute")
 feature_overrides=("--node-features" "dataset/graph_train.json" "--edge-features" "dataset/graph_train.json")
 
 time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-raw-graph "$input" --start "$train_start" --limit "$train_size" --out dataset/graph_train.json "${parameters[@]}" && \

@@ -7,7 +7,7 @@ export interface Encoder {
   import?: (data: Record<string, number>) => void
 }
 
-export interface EncoderProviderSettings {
+export interface FeatureEncoderProviderSettings {
   rawFeatures: boolean
   rawCategories: boolean
   rawBooleans: boolean
@@ -15,11 +15,11 @@ export interface EncoderProviderSettings {
   rawNumerics: boolean
 }
 
-export class EncoderProvider {
+export class FeatureEncoderProvider {
   private readonly encoders = new Map<string, Encoder>()
 
   public constructor(
-    private readonly settings: EncoderProviderSettings,
+    private readonly settings: FeatureEncoderProviderSettings,
   ) { }
 
   /**

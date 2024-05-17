@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
-import { BooleanEncoder, CategoryEncoder, EncoderProvider, FloatEncoder, IntegerEncoder, StringEncoder } from '../src/encoder'
+import { BooleanEncoder, CategoryEncoder, FeatureEncoderProvider, FloatEncoder, IntegerEncoder, StringEncoder } from '../src/encoder'
 
 describe('encoder provider', () => {
   it('provides the correct encoder', () => {
-    const provider = new EncoderProvider({
+    const provider = new FeatureEncoderProvider({
       rawFeatures: false,
       rawCategories: false,
       rawBooleans: false,
@@ -20,7 +20,7 @@ describe('encoder provider', () => {
   })
 
   it('provides unique encoders for different features', () => {
-    const provider = new EncoderProvider({
+    const provider = new FeatureEncoderProvider({
       rawFeatures: false,
       rawCategories: false,
       rawBooleans: false,
@@ -33,7 +33,7 @@ describe('encoder provider', () => {
   })
 
   it('provides the same encoder for the same feature', () => {
-    const provider = new EncoderProvider({
+    const provider = new FeatureEncoderProvider({
       rawFeatures: false,
       rawCategories: false,
       rawBooleans: false,
@@ -47,7 +47,7 @@ describe('encoder provider', () => {
 
   describe('settings', () => {
     it('does not provide encoders for raw features', () => {
-      const provider = new EncoderProvider({
+      const provider = new FeatureEncoderProvider({
         rawFeatures: true,
         rawCategories: false,
         rawBooleans: false,
@@ -62,7 +62,7 @@ describe('encoder provider', () => {
     })
 
     it('does not provide encoders for raw categories', () => {
-      const provider = new EncoderProvider({
+      const provider = new FeatureEncoderProvider({
         rawFeatures: false,
         rawCategories: true,
         rawBooleans: false,
@@ -73,7 +73,7 @@ describe('encoder provider', () => {
     })
 
     it('does not provide encoders for raw booleans', () => {
-      const provider = new EncoderProvider({
+      const provider = new FeatureEncoderProvider({
         rawFeatures: false,
         rawCategories: false,
         rawBooleans: true,
@@ -84,7 +84,7 @@ describe('encoder provider', () => {
     })
 
     it('does not provide encoders for raw numerics', () => {
-      const provider = new EncoderProvider({
+      const provider = new FeatureEncoderProvider({
         rawFeatures: false,
         rawCategories: false,
         rawBooleans: false,
@@ -96,7 +96,7 @@ describe('encoder provider', () => {
     })
 
     it('does not provide encoders for raw strings', () => {
-      const provider = new EncoderProvider({
+      const provider = new FeatureEncoderProvider({
         rawFeatures: false,
         rawCategories: false,
         rawBooleans: false,

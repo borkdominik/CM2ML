@@ -4,13 +4,35 @@ import { Stream } from '@yeger/streams'
 
 import { validateModel } from './validations'
 
+const TAG_ATTRIBUTE_NAME = 'eu.yeger.tag'
+
 export const IrPostProcessor = definePlugin({
   name: 'ir-post-processor',
   parameters: {
+    nodeTagAsAttribute: {
+      type: 'boolean',
+      description: 'Include node tags as a feature.',
+      defaultValue: false,
+    },
+    edgeTagAsAttribute: {
+      type: 'boolean',
+      description: 'Include edge tags as a feature.',
+      defaultValue: false,
+    },
   },
-  invoke: (model: GraphModel) => {
+  invoke: (model: GraphModel, parameters) => {
     if (!model.settings.strict) {
       removeInvalidNodesFromModel(model)
+    }
+    if (parameters.nodeTagAsAttribute) {
+      model.nodes.forEach((node) => {
+        node.addAttribute({ name: TAG_ATTRIBUTE_NAME, type: 'category', value: { literal: node.tag } })
+      })
+    }
+    if (parameters.edgeTagAsAttribute) {
+      model.edges.forEach((edge) => {
+        edge.addAttribute({ name: TAG_ATTRIBUTE_NAME, type: 'category', value: { literal: edge.tag } })
+      })
     }
     validateModel(model)
     return model

@@ -2,8 +2,8 @@ import { type Attributable, type AttributeName, AttributeTypeSchema, type GraphE
 import { Stream } from '@yeger/streams'
 import { z } from 'zod'
 
-import type { Encoder, EncoderProviderSettings } from './encoder'
-import { EncoderProvider } from './encoder'
+import type { Encoder, FeatureEncoderProviderSettings } from './encoder'
+import { FeatureEncoderProvider } from './encoder'
 
 export const RawFeatureTypeSchema = AttributeTypeSchema
 
@@ -52,15 +52,15 @@ export type InternalFeatureMetadata = (readonly [FeatureName, FeatureType, Encod
  */
 export type FeatureVector = (number | string | null)[]
 
-export interface FeatureDeriverSettings extends EncoderProviderSettings {
+export interface FeatureDeriverSettings extends FeatureEncoderProviderSettings {
   onlyEncodedFeatures: boolean
   nodeFeatureOverride: FeatureMetadata | null
   edgeFeatureOverride: FeatureMetadata | null
 }
 
 export function deriveFeatures(models: GraphModel[], settings: FeatureDeriverSettings) {
-  const nodes = Stream.from(models).flatMap(({ nodes }) => nodes)
-  const edges = Stream.from(models).flatMap(({ edges }) => edges)
+  const nodes = Stream.from(models).flatMap(({ nodes }) => nodes).cache()
+  const edges = Stream.from(models).flatMap(({ edges }) => edges).cache()
   const internalNodeFeatures = getFeatureMetadata(nodes, settings, settings.nodeFeatureOverride)
   const internalEdgeFeatures = getFeatureMetadata(edges, settings, settings.edgeFeatureOverride)
   // Omit encoder from feature metadata to prevent leaking of internals
@@ -78,7 +78,7 @@ function getFeatureMetadata(attributables: Stream<Attributable>, settings: Featu
   function toKey(name: FeatureName, type: FeatureType) {
     return `${name}:${type}`
   }
-  const encoderProvider = new EncoderProvider(settings)
+  const encoderProvider = new FeatureEncoderProvider(settings)
 
   const uniqueFeaturesKeys = new Set<string>()
 
