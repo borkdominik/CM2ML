@@ -40,7 +40,7 @@
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/plugin-adapter": "workspace:*",
     "@cm2ml/utils": "workspace:*",
-    "@yeger/streams": "1.1.7",
+    "@yeger/streams": "1.1.8",
     "cac": "6.7.14"
   },
   "devDependencies": {

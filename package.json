@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@9.0.6",
+  "packageManager": "pnpm@9.1.1",
   "repository": {
     "url": "https://github.com/borkdominik/CM2ML"
   },
@@ -46,21 +46,21 @@
     "@commitlint/cli": "19.3.0",
     "@commitlint/config-conventional": "19.2.2",
     "@turbo/gen": "1.13.3",
-    "@types/node": "20.12.8",
-    "@vitest/coverage-v8": "1.5.3",
-    "@vitest/ui": "1.5.3",
+    "@types/node": "20.12.12",
+    "@vitest/coverage-v8": "1.6.0",
+    "@vitest/ui": "1.6.0",
     "@yeger/eslint-config": "2.2.0",
-    "@yeger/turbo-graph": "2.0.2",
+    "@yeger/turbo-graph": "2.0.3",
     "cross-env": "7.0.3",
-    "eslint": "9.1.1",
+    "eslint": "9.2.0",
     "husky": "9.0.11",
     "lint-staged": "15.2.2",
     "publint": "0.2.7",
-    "rimraf": "5.0.5",
+    "rimraf": "5.0.7",
     "syncpack": "12.3.2",
     "taze": "0.13.8",
     "turbo": "1.13.3",
-    "vitest": "1.5.3"
+    "vitest": "1.6.0"
   },
   "lint-staged": {
     "*.{astro,cjs,html,js,jsx,json,md,mjs,mts,svelte,ts,tsx,vue,yaml,yml}": "eslint --fix --rule \"tailwindcss/classnames-order: 0\""

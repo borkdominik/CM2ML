@@ -37,7 +37,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "zod": "3.23.6"
+    "zod": "3.23.8"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

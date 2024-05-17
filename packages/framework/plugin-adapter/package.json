@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@cm2ml/plugin": "workspace:*",
-    "@yeger/streams": "1.1.7"
+    "@yeger/streams": "1.1.8"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
