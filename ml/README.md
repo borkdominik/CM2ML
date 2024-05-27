@@ -58,7 +58,7 @@ bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-raw-graph ../models/uml/data
   "pipeline": {
     "encode:{ENCODING}": {
       "inputs": ["scripts/encode-{ENCODING}.sh"],
-      "outputs": ["dataset/{ENCODING}_train.json", "dataset/{ENCODING}_validation.json", "dataset/{ENCODING}_test.json"],
+      "outputs": [".input/{ENCODING}_train.json", ".input/{ENCODING}_validation.json", ".input/{ENCODING}_test.json"],
       "dependsOn": ["^build"]
     }
   }
@@ -95,7 +95,7 @@ python {EVALUATION}/src/{EVALUATION}.py {ENCODING}_train.json {ENCODING}_validat
 {
   "pipeline": {
     "train:{EVALUATION}": {
-      "inputs": ["scripts/train-{EVALUATION}.sh", "dataset/{ENCODING}_train.json", "dataset/{ENCODING}_validation.json", "dataset/{ENCODING}_test.json", "{EVALUATION}/src/**"],
+      "inputs": ["scripts/train-{EVALUATION}.sh", ".input/{ENCODING}_train.json", ".input/{ENCODING}_validation.json", ".input/{ENCODING}_test.json", "{EVALUATION}/src/**"],
       "dependsOn": ["encode:{ENCODING}"]
     }
   }

@@ -39,7 +39,7 @@ layout["models"].split_row(
     Layout(WaitingSpinner("GCN"), name="gcn"),
 )
 
-with Live(layout, screen=False, redirect_stderr=False) as live:
+with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=0.5) as live:
     train_dataset = CM2MLDataset(
         "train", train_dataset_file, layout["datasets"]["train"]
     )

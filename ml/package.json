@@ -15,6 +15,7 @@
     "url": "https://github.com/borkdominik/CM2ML/issues"
   },
   "scripts": {
+    "clean": "rimraf .input/*.json .output/*.log **/.cache/**.dataset **/.checkpoint/*.pt",
     "conda:load": "source scripts/conda-load.sh",
     "conda:save": "source scripts/conda-save.sh",
     "encode:graph": "source scripts/encode-graph.sh",
@@ -22,5 +23,8 @@
   },
   "dependencies": {
     "@cm2ml/cli": "workspace:*"
+  },
+  "devDependencies": {
+    "rimraf": "5.0.7"
   }
 }

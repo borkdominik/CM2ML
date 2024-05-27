@@ -4,11 +4,12 @@
   "pipeline": {
     "encode:graph": {
       "inputs": ["scripts/encode-graph.sh"],
-      "outputs": ["dataset/graph_train.json", "dataset/graph_validation.json", "dataset/graph_test.json"],
+      "outputs": [".input/graph_train.json", ".input/graph_validation.json", ".input/graph_test.json"],
       "dependsOn": ["^build"]
     },
     "train:gnn": {
-      "inputs": ["scripts/train-gnn.sh", "dataset/graph_train.json", "dataset/graph_validation.json", "dataset/graph_test.json", "gnn/src/**"],
+      "inputs": ["scripts/train-gnn.sh", ".input/graph_train.json", ".input/graph_validation.json", ".input/graph_test.json", "gnn/src/**"],
+      "env": ["NAME"],
       "dependsOn": ["encode:graph"]
     }
   }

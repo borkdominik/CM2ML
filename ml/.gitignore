@@ -1,9 +1,11 @@
 cache
 !cache/.gitkeep
-checkpoints
-!checkpoints/.gitkeep
-dataset
-!dataset/.gitkeep
+.checkpoints
+!.checkpoints/.gitkeep
+.input
+!.input/.gitkeep
+.output
+!.output/.gitkeep
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python

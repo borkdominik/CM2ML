@@ -28,8 +28,8 @@ class CM2MLDataset(InMemoryDataset):
         self.top_n_classes = []
         self.class_weights = []
 
-        self.dataset_path = f"{script_dir}/../../dataset/{dataset_file}"
-        self.dataset_cache_file = f"{script_dir}/../cache/{dataset_file}.dataset"
+        self.dataset_path = f"{script_dir}/../../.input/{dataset_file}"
+        self.dataset_cache_file = f"{script_dir}/../.cache/{dataset_file}.dataset"
 
         self.is_cached = os.path.isfile(self.dataset_cache_file)
 

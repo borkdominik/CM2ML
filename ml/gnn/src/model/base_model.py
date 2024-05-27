@@ -63,7 +63,7 @@ class BaseModel(torch.nn.Module):
     def __init__(self, name: str, layout: Layout):
         super(BaseModel, self).__init__()
         self.name = name
-        self.checkpoint_file = f"{script_dir}/../checkpoints/{name}.pt"
+        self.checkpoint_file = f"{script_dir}/../.checkpoints/{name}.pt"
         self.layout_proxy = LayoutProxy(layout, self.name)
 
     def forward(self, data: Data):
