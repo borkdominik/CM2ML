@@ -11,16 +11,27 @@ const refine = createRefiner(Archimate, inferArchimateHandler)
 
 export const ArchimateRefiner = definePlugin({
   name: 'archimate',
-  parameters: {},
-  invoke: (input: GraphModel, _parameters) => {
+  parameters: {
+    relationshipsAsNodes: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Treat relationships as nodes',
+    },
+    viewsAsNodes: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Include views and link their respective elements',
+    },
+  },
+  invoke: (input: GraphModel, parameters) => {
+    // console.log(parameters)
     removeUnsupportedNodes(input)
     if (input.root.tag === 'archimate:model') {
-      const handlerParameters = {}
-      const model = refine(input, handlerParameters)
-      validateArchimateModel(model, handlerParameters)
+      const model = refine(input, parameters)
+      validateArchimateModel(model, parameters)
       return model
     } else if (input.root.tag === 'model') {
-      return input
+      throw new Error('Invalid format! Please choose a different parser.')
     } else {
       throw new Error('Invalid ArchiMate file format!')
     }
@@ -44,8 +55,7 @@ function handleTextNode(node: GraphNode, textContent: string) {
   if (!['purpose', 'documentation'].includes(tag)) {
     return
   }
-  // TODO/Archimate: Define type
-  node.addAttribute({ name: 'text', type: 'unknown', value: { literal: textContent } })
+  node.addAttribute({ name: 'text', type: 'string', value: { literal: textContent } })
 }
 
 export const ArchimateParser = compose(

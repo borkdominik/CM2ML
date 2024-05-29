@@ -1,5 +1,5 @@
 import type { Parser } from '@cm2ml/builtin'
-import { ArchimateParser, UmlParser } from '@cm2ml/builtin'
+import { ArchimateParser, ArchimateXmlParser, UmlParser } from '@cm2ml/builtin'
 
 import { prettifyParserName } from './pluginNames'
 
@@ -20,6 +20,8 @@ export const exampleModels: [string, PreparedExample[]][] = __EXAMPLE_MODELS.map
     return [prettifyParserName(language), prepareUmlExampleModels(models)]
   } else if (language === 'archimate') {
     return [prettifyParserName(language), prepareArchimateExampleModels(models)]
+  } else if (language === 'archimate-xml') {
+    return [prettifyParserName(language), prepareArchimateXmlExampleModels(models)]
   }
   return [prettifyParserName(language), []]
 })
@@ -46,5 +48,16 @@ function prepareArchimateExampleModels(exampleModels: ExampleModel[]): PreparedE
 
     },
     parser: ArchimateParser,
+  }))
+}
+
+function prepareArchimateXmlExampleModels(exampleModels: ExampleModel[]): PreparedExample[] {
+  return exampleModels.map(({ name, model }) => ({
+    name,
+    serializedModel: model,
+    parameters: {
+
+    },
+    parser: ArchimateXmlParser,
   }))
 }
