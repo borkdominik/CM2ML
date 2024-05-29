@@ -1,4 +1,4 @@
-train_size=2000
+train_size=20
 validation_size=500
 test_size=500
 

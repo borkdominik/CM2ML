@@ -1,11 +1,10 @@
-import { readFileSync } from 'node:fs'
-
+import { METADATA_KEY } from '@cm2ml/plugin'
 import { getMessage } from '@cm2ml/utils'
 
-export function getFeatureMetadataFromFile(file: string, path: string) {
+export function getFeatureMetadataFromFile(fileContent: string, key: 'edgeFeatures' | 'nodeFeatures') {
   try {
-    const content = readFileSync(file, 'utf8')
-    const parsed = JSON.parse(content)
+    const parsed = JSON.parse(fileContent)
+    const path = `${METADATA_KEY}.${key}`
     const pathSegments = path.split('.')
 
     function followPath(obj: unknown, segments: string[]) {
@@ -24,6 +23,6 @@ export function getFeatureMetadataFromFile(file: string, path: string) {
     const result = followPath(parsed, pathSegments)
     return JSON.stringify(result)
   } catch (error) {
-    throw new Error(`Unable to extract metadata from ${file}: ${getMessage(error)}`)
+    throw new Error(`Unable to extract metadata from file: ${getMessage(error)}`)
   }
 }

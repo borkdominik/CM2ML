@@ -96,6 +96,9 @@ importers:
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../../framework/plugin
+      '@cm2ml/utils':
+        specifier: workspace:*
+        version: link:../../utils
       '@yeger/streams':
         specifier: 1.1.8
         version: 1.1.8

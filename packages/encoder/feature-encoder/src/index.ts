@@ -2,6 +2,7 @@ import type { GraphModel } from '@cm2ml/ir'
 import { ValidationError, definePlugin } from '@cm2ml/plugin'
 import { ZodError } from 'zod'
 
+import { getFeatureMetadataFromFile } from './feature-metadata-extractor'
 import { FeatureMetadataSchema, deriveFeatures } from './features'
 
 export type { FeatureName, FeatureMetadata, FeatureType, FeatureVector } from './features'
@@ -43,11 +44,13 @@ export const FeatureEncoder = definePlugin({
       type: 'string',
       description: 'Override the node features. Must be a serialization of the feature metadata.',
       defaultValue: '',
+      processFile: (fileContent: string) => getFeatureMetadataFromFile(fileContent, 'nodeFeatures'),
     },
     edgeFeatures: {
       type: 'string',
       description: 'Override the edge features. Must be a serialization of the feature metadata.',
       defaultValue: '',
+      processFile: (fileContent: string) => getFeatureMetadataFromFile(fileContent, 'edgeFeatures'),
     },
   },
   batchMetadataCollector: (models: GraphModel[], parameters) => {

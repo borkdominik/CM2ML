@@ -18,6 +18,7 @@ export type PrimitiveParameter = ParameterBase & Readonly<
     readonly type: 'string'
     readonly defaultValue: string
     readonly allowedValues?: readonly string[]
+    readonly processFile?: (fileContent: string) => string
   }
   | {
     readonly type: 'boolean'

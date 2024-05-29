@@ -1,4 +1,4 @@
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import process from 'node:process'
 
 import type { ExecutionError, METADATA_KEY, Parameter, ParameterMetadata, Plugin } from '@cm2ml/plugin'
@@ -11,7 +11,6 @@ import type { Command } from 'cac'
 import { cac } from 'cac'
 
 import { batchedPluginActionHandler } from './batched-plugin-action-handler'
-import { getFeatureMetadataFromFile } from './feature-metadata-extractor'
 import { pluginActionHandler } from './plugin-action-handler'
 
 class CLI extends PluginAdapter<string, PluginAdapterConfiguration> {
@@ -71,7 +70,7 @@ function registerCommandOptions<Parameters extends ParameterMetadata>(
       )
       return
     }
-    if (parameter.type === 'string' && ['nodeFeatures', 'edgeFeatures'].includes(name)) {
+    if (parameter.type === 'string' && parameter.processFile !== undefined) {
       // These parameters are often too large for shell arguments, so we have to use a file instead
       command.option(
           `--${createOptionName(name)} <${name}File>`,
@@ -94,7 +93,8 @@ function registerCommandOptions<Parameters extends ParameterMetadata>(
               } catch (error) {
                 return inputFile
               }
-              return getFeatureMetadataFromFile(inputFile, `__metadata__.${name}`)
+              const fileContent = readFileSync(inputFile, 'utf8')
+              return parameter.processFile!(fileContent)
             }],
           },
       )

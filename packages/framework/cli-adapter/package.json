@@ -33,8 +33,7 @@
     "check:publish": "publint run --strict",
     "check:tsc": "tsc",
     "dev": "vite build --watch",
-    "lint": "yeger-lint",
-    "test": "vitest"
+    "lint": "yeger-lint"
   },
   "dependencies": {
     "@cm2ml/plugin": "workspace:*",
