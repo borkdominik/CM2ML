@@ -50,7 +50,8 @@ class CM2MLDataset(InMemoryDataset):
                 self.metadata = dataset_input["__metadata__"]
                 data_entries = FeatureTransformer().fit_transform(data, self.metadata)
                 base_data, slices = self.collate(data_entries)
-                self.num_nodes = sum([len(data.x) for data in data_entries])
+                self.node_counts = [len(data.x) for data in data_entries]
+                self.num_nodes = sum(self.node_counts)
                 torch.save(
                     (base_data, slices, self.num_nodes, self.metadata),
                     self.dataset_cache_file,
@@ -72,7 +73,18 @@ class CM2MLDataset(InMemoryDataset):
         self.layout_proxy.print(f"{text_padding}# classes: {self.num_classes}")
         self.layout_proxy.print(f"{text_padding}# nodes: {self.num_nodes}")
         self.layout_proxy.print(
-            f"{text_padding}⌀ nodes/graph: {self.num_nodes / len(self):.2f}"
+            f"{text_padding}avg nodes/graph: {self.num_nodes / len(self):.2f}"
+        )
+        self.node_counts.sort()
+        median_node_count = self.node_counts[len(self.node_counts) // 2]
+        self.layout_proxy.print(
+            f"{text_padding}med nodes/graph: {median_node_count}"
+        )
+        self.layout_proxy.print(
+            f"{text_padding}min nodes/graph: {self.node_counts[0]}"
+        )
+        self.layout_proxy.print(
+            f"{text_padding}max nodes/graph: {self.node_counts[-1]}"
         )
         return self
 
