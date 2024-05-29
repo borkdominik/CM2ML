@@ -57,8 +57,7 @@
     "**/.project": true,
     "**/.settings": true,
     "**/*.unotation": true,
-    "ml/.input/**/*": true,
-    "ml/**/.cache/**/*": true,
+    "ml/.input/**/*.json": true,
     "models/**/dataset/**/*": true
   },
   "typescript.preferences.importModuleSpecifier": "relative",

@@ -1,10 +1,12 @@
+import os
+from rich.console import Console
 from rich.live import Live
 from rich.layout import Layout
 import sys
 import torch
 
 from dataset import CM2MLDataset
-from utils import WaitingSpinner
+from utils import script_dir, WaitingSpinner
 from model.gat import GATModel
 from model.gcn import GCNModel
 
@@ -39,7 +41,7 @@ layout["models"].split_row(
     Layout(WaitingSpinner("GCN"), name="gcn"),
 )
 
-with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=0.5) as live:
+with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=4) as live:
     train_dataset = CM2MLDataset(
         "train", train_dataset_file, layout["datasets"]["train"]
     )
@@ -128,3 +130,16 @@ with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=0.5) a
         validation_dataset=validation_dataset,
         test_dataset=test_dataset,
     )
+
+
+    console = Console()
+    with console.capture() as capture:
+        console.print(layout)
+    output = capture.get()
+    output_dir = f"{script_dir}/../../.output"
+    output_file = "gnn"
+    if "NAME" in os.environ:
+        output_file = f"{output_file}_{os.environ['NAME']}"
+    output_path = f"{output_dir}/{output_file}.log"
+    with open(output_path, "w") as file:
+        file.write(output)

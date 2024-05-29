@@ -7,4 +7,4 @@ rm -f gnn/.cache/graph_test.json.dataset
 
 source scripts/conda-activate.sh
 
-python gnn/src/gnn.py graph_train.json graph_validation.json graph_test.json | tee .output/gnn_$NAME.log
+python gnn/src/gnn.py graph_train.json graph_validation.json graph_test.json
