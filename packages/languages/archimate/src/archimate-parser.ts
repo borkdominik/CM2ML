@@ -24,31 +24,43 @@ export const ArchimateRefiner = definePlugin({
     },
   },
   invoke: (input: GraphModel, parameters) => {
-    // console.log(parameters)
-    removeUnsupportedNodes(input)
+    removeUnsupportedNodes(input, parameters.viewsAsNodes)
     if (input.root.tag === 'archimate:model') {
       const model = refine(input, parameters)
       validateArchimateModel(model, parameters)
       return model
     } else if (input.root.tag === 'model') {
-      throw new Error('Invalid format! Please choose a different parser.')
+      throw new Error('Invalid format! Please choose a different ArchiMate parser.')
     } else {
       throw new Error('Invalid ArchiMate file format!')
     }
   },
 })
 
-function removeUnsupportedNodes(model: GraphModel) {
-  model.nodes.forEach((node: GraphNode) => {
-    if (isViewFolder(node)) {
-      model.removeNode(node)
-    }
-  })
+function removeUnsupportedNodes(model: GraphModel, viewsAsNodes: boolean) {
+  if (!viewsAsNodes) {
+    model.nodes.forEach((node: GraphNode) => {
+      if (isViewFolder(node)) {
+        model.removeNode(node)
+      }
+    })
+  }
 }
 
 function isViewFolder(node: GraphNode): boolean {
   return (node.tag === 'folder' && node.getAttribute('name')?.value.literal === 'Views')
 }
+
+/*
+function isArchiFormat(input: GraphModel) {
+  const xmlnsArchimate = input.root.getAttribute('xmlns:archimate');
+  console.log(xmlnsArchimate)
+  if (input.root.tag === 'archimate:model') {
+    return true
+  }
+  return false
+}
+*/
 
 function handleTextNode(node: GraphNode, textContent: string) {
   const tag = node.tag

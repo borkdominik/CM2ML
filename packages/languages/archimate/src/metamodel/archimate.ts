@@ -124,6 +124,7 @@ const RelationshipTypes = {
   AssignmentRelationship: 'AssignmentRelationship',
   SpecializationRelationship: 'SpecializationRelationship',
   AccessRelationship: 'AccessRelationship',
+  // TODO: Specialisation / Realisation
 } as const
 
 const Types = {
@@ -131,6 +132,8 @@ const Types = {
   folder: 'folder',
   purpose: 'purpose',
   documentation: 'documentation',
+  ArchimateDiagramModel: 'ArchimateDiagramModel',
+  DiagramObject: 'DiagramObject',
   ...BusinessTypes,
   ...ApplicationTypes,
   ...TechnologyTypes,
@@ -173,7 +176,6 @@ export const Archimate = {
   getType,
   isValidTag,
   isValidType,
-  // Tags,
   Types,
   typeAttributeName: Attributes['xsi:type'],
 } as const

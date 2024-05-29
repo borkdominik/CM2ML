@@ -130,3 +130,7 @@ export const Triggering = define(Archimate.Types.TriggeringRelationship, undefin
 export const Assignment = define(Archimate.Types.AssignmentRelationship, undefined, Relationship)
 export const Specialization = define(Archimate.Types.SpecializationRelationship, undefined, Relationship)
 export const Access = define(Archimate.Types.AccessRelationship, undefined, Relationship)
+
+// Views
+export const ArchimateDiagramModel = define(Archimate.Types.ArchimateDiagramModel, undefined)
+export const DiagramObject = define(Archimate.Types.DiagramObject, undefined)

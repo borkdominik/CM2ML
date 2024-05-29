@@ -13,6 +13,7 @@ const layerFolders = new Set([
   'Other',
 ])
 const relationFolder = 'Relations'
+const viewFolder = 'Views'
 
 /**
  * Folders are handled by extracting their elements and adding them to the root model,
@@ -35,6 +36,8 @@ export const FolderHandler = Folder.createHandler(
       processElements(folder, folderName)
     } else if (folderName === relationFolder) {
       processRelations(folder, relationshipsAsNodes)
+    } else if (folderName === viewFolder) {
+      processViews(folder)
     } else {
       throw new Error(`Unsupported folder name '${folderName}'`)
     }
@@ -78,6 +81,14 @@ function processRelations(folder: GraphNode, relationshipsAsNodes: boolean) {
     } else {
       folder.model.addEdge(relationType, sourceNode, targetNode)
     }
+  })
+  folder.model.removeNode(folder)
+}
+
+function processViews(folder: GraphNode) {
+  folder.children.forEach((view) => {
+    folder.removeChild(view)
+    folder.model.root.addChild(view)
   })
   folder.model.removeNode(folder)
 }
