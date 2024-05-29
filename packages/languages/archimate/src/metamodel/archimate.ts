@@ -14,7 +14,7 @@ const Attributes = {
 
 export type ArchimateTag = never
 
-function isValidTag(tag: string | undefined): tag is ArchimateTag {
+function isValidTag(_tag: string | undefined): _tag is ArchimateTag {
   return false
 }
 
