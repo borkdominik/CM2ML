@@ -88,10 +88,14 @@ class CM2MLDataset(InMemoryDataset):
         )
         return self
 
-    def print_label_metrics(self, max_num_classes: int):
+    def print_and_calculate_label_metrics(self, max_num_classes: int):
         self.layout_proxy.print("Counting label occurrences...")
-        occurrences = [sum(self._data.y == i).item() for i in range(max_num_classes)]
+        occurrences = [sum(self._data.y == i).item() for i in range(self.num_classes)]
         total_occurrences = sum(occurrences)
+        if total_occurrences != self.num_nodes:
+            raise ValueError(
+                f"Total occurrences {total_occurrences} does not match num_nodes {self.num_nodes}"
+            )
         average = total_occurrences / len(occurrences)
         median = occurrences[len(occurrences) // 2]
         self.layout_proxy.print(f"{text_padding}avg: {average:.2f}")
@@ -103,7 +107,7 @@ class CM2MLDataset(InMemoryDataset):
             f"{text_padding}min: {min_occurrences} ({self.get_label_name_by_index(min_index)})"
         )
         max_occurrences, max_index = max(
-            (occurrences[i], i) for i in range(len(occurrences))
+            (occurrences[i], i) for i in range(1, len(occurrences))
         )
         self.layout_proxy.print(
             f"{text_padding}max: {max_occurrences} ({self.get_label_name_by_index(max_index)})"
@@ -116,7 +120,7 @@ class CM2MLDataset(InMemoryDataset):
             f"{text_padding}top {self.top_n}: {', '.join(list(map(lambda i: self.get_label_name_by_index(i), self.top_n_classes)))}"
         )
         self.class_weights = [
-            (occurrences[i] / total_occurrences) for i in range(len(occurrences))
+            (occurrences[i] / total_occurrences if i < len(occurrences) else 0) for i in range(max_num_classes)
         ]
         return self
 
@@ -124,14 +128,15 @@ class CM2MLDataset(InMemoryDataset):
         node_features = self.metadata["nodeFeatures"]
         if index == 0:
             return "None"
-        label_index = None
+        label_feature_index = None
         for i, feature in enumerate(node_features):
             if feature[0] == "xmi:type" or feature[0] == "xsi:type":
-                label_index = i
+                label_feature_index = i
                 break
-        if label_index is None:
-            return "Unknown"
-        for key, value in node_features[label_index][2].items():
+        if label_feature_index is None:
+            raise ValueError("No label feature index found")
+        feature = node_features[label_feature_index]
+        for key, value in feature[2].items():
             if value == index:
                 return key
-        return "Unknown"
+        raise ValueError(f"No label found for value index {index} of feature {feature[0]}")

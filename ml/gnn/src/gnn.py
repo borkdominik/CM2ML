@@ -95,9 +95,9 @@ with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=4) as 
     validation_dataset.print_metrics()
     test_dataset.print_metrics()
 
-    train_dataset.print_label_metrics(max_num_classes)
-    validation_dataset.print_label_metrics(max_num_classes)
-    test_dataset.print_label_metrics(max_num_classes)
+    train_dataset.print_and_calculate_label_metrics(max_num_classes)
+    validation_dataset.print_and_calculate_label_metrics(max_num_classes)
+    test_dataset.print_and_calculate_label_metrics(max_num_classes)
 
     gat.evaluate(
         train_dataset=train_dataset,
