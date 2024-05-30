@@ -3,11 +3,11 @@ import { createRefiner } from '@cm2ml/metamodel-refiner'
 import { compose, definePlugin } from '@cm2ml/plugin'
 import { createXmiParser } from '@cm2ml/xmi-parser'
 
+import { isArchiFormat, restructureArchiXml } from './formats/archi-format'
+import { isOpenGroupFormat, restructureOpenGroupXml } from './formats/opengroup-format'
 import { Archimate } from './metamodel/archimate'
 import { inferArchimateHandler } from './metamodel/archimate-handler-registry'
 import { validateArchimateModel } from './metamodel/archimate-validations'
-import { isArchiFormat, restructureArchiXml } from './formats/archi-format'
-import { isOpenGroupFormat, restructureOpenGroupXml } from './formats/opengroup-format'
 
 const refine = createRefiner(Archimate, inferArchimateHandler)
 
@@ -27,7 +27,7 @@ export const ArchimateRefiner = definePlugin({
   },
   invoke: (input: GraphModel, parameters) => {
     removeUnsupportedNodes(input, parameters.viewsAsNodes)
-    preprocess(input);
+    preprocess(input)
     const model = refine(input, parameters)
     validateArchimateModel(model, parameters)
     return model

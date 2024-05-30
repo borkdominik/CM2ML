@@ -47,8 +47,8 @@ function prepareArchimateExampleModels(exampleModels: ExampleModel[]): PreparedE
       debug: false,
       strict: true,
       relationshipsAsEdges: false,
-      viewsAsNodes: false
+      viewsAsNodes: false,
     },
-    parser: ArchimateParser
+    parser: ArchimateParser,
   }))
 }
