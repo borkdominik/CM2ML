@@ -7,6 +7,7 @@ const Attributes = {
   type: 'type',
   'xsi:type': 'xsi:type',
   documentation: 'documentation',
+  purpose: 'purpose',
   layer: 'layer',
   source: 'source',
   target: 'target',
@@ -124,14 +125,11 @@ const RelationshipTypes = {
   AssignmentRelationship: 'AssignmentRelationship',
   SpecializationRelationship: 'SpecializationRelationship',
   AccessRelationship: 'AccessRelationship',
-  // TODO: Specialisation / Realisation
+  // TODO: handle Specialisation / Realisation (i.e., UK vs American English)
 } as const
 
 const Types = {
   model: 'model',
-  folder: 'folder',
-  purpose: 'purpose',
-  documentation: 'documentation',
   ArchimateDiagramModel: 'ArchimateDiagramModel',
   DiagramObject: 'DiagramObject',
   ...BusinessTypes,

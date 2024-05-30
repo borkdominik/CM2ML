@@ -6,6 +6,8 @@ import { createXmiParser } from '@cm2ml/xmi-parser'
 import { Archimate } from './metamodel/archimate'
 import { inferArchimateHandler } from './metamodel/archimate-handler-registry'
 import { validateArchimateModel } from './metamodel/archimate-validations'
+import { isArchiFormat, restructureArchiXml } from './formats/archi-format'
+import { isOpenGroupFormat, restructureOpenGroupXml } from './formats/opengroup-format'
 
 const refine = createRefiner(Archimate, inferArchimateHandler)
 
@@ -25,46 +27,43 @@ export const ArchimateRefiner = definePlugin({
   },
   invoke: (input: GraphModel, parameters) => {
     removeUnsupportedNodes(input, parameters.viewsAsNodes)
-    if (input.root.tag === 'archimate:model') {
-      const model = refine(input, parameters)
-      validateArchimateModel(model, parameters)
-      return model
-    } else if (input.root.tag === 'model') {
-      throw new Error('Invalid format! Please choose a different ArchiMate parser.')
-    } else {
-      throw new Error('Invalid ArchiMate file format!')
-    }
+    preprocess(input);
+    const model = refine(input, parameters)
+    validateArchimateModel(model, parameters)
+    return model
   },
 })
 
-function removeUnsupportedNodes(model: GraphModel, viewsAsNodes: boolean) {
-  if (!viewsAsNodes) {
-    model.nodes.forEach((node: GraphNode) => {
-      if (isViewFolder(node)) {
-        model.removeNode(node)
-      }
-    })
+function preprocess(input: GraphModel) {
+  if (isArchiFormat(input)) {
+    restructureArchiXml(input)
+  } else if (isOpenGroupFormat(input)) {
+    restructureOpenGroupXml(input)
+  } else {
+    throw new Error('Unknown ArchiMate format!')
   }
 }
 
-function isViewFolder(node: GraphNode): boolean {
-  return (node.tag === 'folder' && node.getAttribute('name')?.value.literal === 'Views')
+function removeUnsupportedNodes(input: GraphModel, viewsAsNodes: boolean) {
+  input.nodes.forEach((node) => {
+    if (!viewsAsNodes && isViewElement(node)) {
+      input.removeNode(node)
+    } else if (node.tag === 'bounds' || node.tag === 'style') {
+      input.removeNode(node)
+    }
+  })
 }
 
-/*
-function isArchiFormat(input: GraphModel) {
-  const xmlnsArchimate = input.root.getAttribute('xmlns:archimate');
-  console.log(xmlnsArchimate)
-  if (input.root.tag === 'archimate:model') {
-    return true
-  }
-  return false
+function isViewElement(node: GraphNode): boolean {
+  // Views are stored within a <views> tag in opengroup format
+  return (node.tag === 'views') ||
+    // or as multiple <element> tags in archi format
+    (node.tag === 'element' && node.getAttribute('xsi:type')?.value.literal === 'ArchimateDiagramModel')
 }
-*/
 
 function handleTextNode(node: GraphNode, textContent: string) {
   const tag = node.tag
-  if (!['purpose', 'documentation'].includes(tag)) {
+  if (!['purpose', 'documentation', 'name'].includes(tag)) {
     return
   }
   node.addAttribute({ name: 'text', type: 'string', value: { literal: textContent } })

@@ -11,4 +11,5 @@ export function validateArchimateModel(
   }
   model.debug('Parser', 'Validating ArchiMate model...')
   model.debug('Parser', 'All ArchiMate validations passed')
+  // TODO: validate model
 }

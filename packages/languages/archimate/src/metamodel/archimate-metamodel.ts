@@ -34,11 +34,6 @@ export const Model = define(Archimate.Types.model, undefined)
 export const Element = defineAbstract(Archimate.AbstractTypes.Element)
 export const Relationship = defineAbstract(Archimate.AbstractTypes.Relationship)
 
-// Additional types
-export const Folder = define(Archimate.Types.folder, undefined)
-export const Purpose = define(Archimate.Types.purpose, undefined)
-export const Documentation = define(Archimate.Types.documentation, undefined)
-
 // Business Types
 export const BusinessActor = define(Archimate.Types.BusinessActor, undefined, Element)
 export const BusinessRole = define(Archimate.Types.BusinessRole, undefined, Element)

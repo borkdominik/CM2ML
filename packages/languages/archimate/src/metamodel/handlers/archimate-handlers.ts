@@ -1,12 +1,8 @@
 import { Access, Aggregation, AndJunction, ApplicationCollaboration, ApplicationComponent, ApplicationEvent, ApplicationFunction, ApplicationInteraction, ApplicationInterface, ApplicationProcess, ApplicationService, type ArchimateMetamodelElement, Artifact, Assessment, Assignment, Association, BusinessActor, BusinessCollaboration, BusinessEvent, BusinessFunction, BusinessInteraction, BusinessInterface, BusinessObject, BusinessProcess, BusinessRole, BusinessService, Capability, CommunicationNetwork, Composition, Constraint, Contract, CourseOfAction, DataObject, Deliverable, Device, DistributionNetwork, Driver, Equipment, Facility, Flow, Gap, Goal, Grouping, ImplementationEvent, Influence, Junction, Location, Material, Meaning, Node, OrJunction, Outcome, Path, Plateau, Principle, Product, Realization, Representation, Requirement, Resource, Serving, Specialization, Stakeholder, SystemSoftware, TechnologyCollaboration, TechnologyEvent, TechnologyFunction, TechnologyInteraction, TechnologyInterface, TechnologyProcess, TechnologyService, Triggering, Value, ValueStream, WorkPackage } from '../archimate-metamodel'
 import { ArchimateDiagramModelHandler } from './ArchimateDiagramModel'
 import { DiagramObjectHandler } from './DiagramObject'
-
-import { DocumentationHandler } from './Documentation'
 import { ElementHandler } from './Element'
-import { FolderHandler } from './Folder'
 import { ModelHandler } from './Model'
-import { PurposeHandler } from './Purpose'
 import { RelationshipHandler } from './Relationship'
 
 export const archimateHandlers: Record<
@@ -14,11 +10,8 @@ export const archimateHandlers: Record<
   ArchimateMetamodelElement
 > = {
   ModelHandler,
-  FolderHandler,
   ElementHandler,
   RelationshipHandler,
-  PurposeHandler,
-  DocumentationHandler,
   ArchimateDiagramModelHandler,
   DiagramObjectHandler,
   ...createPassthroughHandlers([
