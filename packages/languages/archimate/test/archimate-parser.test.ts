@@ -33,6 +33,10 @@ const archiFormatModels = getFiles('.archimate')
 const opengroupFormatModels = getFiles('.xml')
 // const opengroupFormatModels = getFiles('.xml', { start: 0, end: 100 });
 
+// 3) All models (both formats):
+// Models       1927
+// Tests        7708 passed
+// Duration     135.52s
 const allModels = archiFormatModels.concat(...opengroupFormatModels)
 
 // Avoid running test, since it fails when the dataset is missing

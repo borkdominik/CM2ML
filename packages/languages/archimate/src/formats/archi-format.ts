@@ -15,22 +15,14 @@ export function isArchiFormat(input: GraphModel) {
 }
 
 export function restructureArchiXml(input: GraphModel) {
-  // TODO: persist metadata
   input.nodes.forEach((node) => {
     if (node.tag === 'folder') {
       handleFolderNode(node, input)
     } else if (node.tag === 'archimate:model' || node.tag === 'element') {
-      node.children.forEach((child) => {
-        if (child.tag === 'documentation' || child.tag === 'purpose') {
-          const text = child.getAttribute('text')?.value.literal
-          if (text) {
-            node.addAttribute({ name: Archimate.Attributes.documentation, type: 'string', value: { literal: text } })
-          }
-          input.removeNode(child)
-        }
-      })
+      handleChildDocumentationNode(node, input)
     }
   })
+  // TODO: persistMetadata(input)
 }
 
 function handleFolderNode(node: GraphNode, input: GraphModel) {
@@ -38,10 +30,21 @@ function handleFolderNode(node: GraphNode, input: GraphModel) {
     if (child.tag === 'element') {
       node.removeChild(child)
       input.root.addChild(child)
-    }
-    if (child.tag === 'folder') {
+    } else if (child.tag === 'folder') {
       handleFolderNode(child, input)
     }
   })
   input.root.model.removeNode(node)
+}
+
+function handleChildDocumentationNode(node: GraphNode, input: GraphModel) {
+  node.children.forEach((child) => {
+    if (child.tag === 'documentation' || child.tag === 'purpose') {
+      const text = child.getAttribute('text')?.value.literal
+      if (text) {
+        node.addAttribute({ name: Archimate.Attributes.documentation, type: 'string', value: { literal: text } })
+      }
+      input.removeNode(child)
+    }
+  })
 }

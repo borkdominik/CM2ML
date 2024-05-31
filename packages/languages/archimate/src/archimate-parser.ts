@@ -28,14 +28,41 @@ export const ArchimateRefiner = definePlugin({
   invoke: (input: GraphModel, parameters) => {
     removeUnsupportedNodes(input, parameters.viewsAsNodes)
     preprocess(input)
-    renameTypes(input)
+    renameDeprecatedTypes(input)
     const model = refine(input, parameters)
     validateArchimateModel(model, parameters)
     return model
   },
 })
 
-function renameTypes(input: GraphModel) {
+function removeUnsupportedNodes(input: GraphModel, viewsAsNodes: boolean) {
+  const tagsToRemove = new Set([
+    'metadata', // TODO: persist metadata
+    'bounds', 'style', // ignore style (i.e. colors) and bounds (i.e x,y coordinates) of diagram elements
+    'property', 'propertyDefinitions', 'properties', // TODO: support custom properties?
+    'profile', 'organizations', 'viewpoints' // unused tags
+  ]);
+  const xsiTypeToRemove = new Set(['SketchModel', 'CanvasModel']);
+
+  input.nodes.forEach((node) => {
+    const xsiType = node.getAttribute(Archimate.Attributes['xsi:type'])?.value.literal;
+    if ((!viewsAsNodes && isViewElement(node)) || tagsToRemove.has(node.tag) || (xsiType && xsiTypeToRemove.has(xsiType))) {
+      input.removeNode(node)
+    }
+  })
+}
+
+function preprocess(input: GraphModel) {
+  if (isArchiFormat(input)) {
+    restructureArchiXml(input)
+  } else if (isOpenGroupFormat(input)) {
+    restructureOpenGroupXml(input)
+  } else {
+    throw new Error('Unknown ArchiMate format!')
+  }
+}
+
+function renameDeprecatedTypes(input: GraphModel) {
   input.nodes.forEach((node) => {
     const type = node.getAttribute(Archimate.Attributes['xsi:type'])?.value.literal
     switch (type) {
@@ -70,42 +97,11 @@ function renameType(node: GraphNode, newType: string) {
   node.addAttribute({ name: Archimate.Attributes['xsi:type'], type: 'string', value: { literal: newType } })
 }
 
-function preprocess(input: GraphModel) {
-  if (isArchiFormat(input)) {
-    restructureArchiXml(input)
-  } else if (isOpenGroupFormat(input)) {
-    restructureOpenGroupXml(input)
-  } else {
-    throw new Error('Unknown ArchiMate format!')
-  }
-}
-
-function removeUnsupportedNodes(input: GraphModel, viewsAsNodes: boolean) {
-  input.nodes.forEach((node) => {
-    if (!viewsAsNodes && isViewElement(node)) {
-      input.removeNode(node)
-    } else if (node.tag === 'metadata') {
-      // TODO: persist metadata
-      input.removeNode(node)
-    } else if (node.tag === 'bounds' || node.tag === 'style') {
-      // ignore style (i.e. colors) and bounds (i.e x,y coordinates) of diagram objects
-      input.removeNode(node)
-    } else if (node.tag === 'property' || node.tag === 'propertyDefinitions' || node.tag === 'properties') {
-      // TODO: support custom properties
-      input.removeNode(node)
-    } else if (node.getAttribute(Archimate.Attributes['xsi:type'])?.value.literal === 'SketchModel' || node.getAttribute(Archimate.Attributes['xsi:type'])?.value.literal === 'CanvasModel') {
-      input.removeNode(node)
-    } else if (node.tag === 'profile' || node.tag === 'organizations' || node.tag === 'viewpoints') {
-      input.removeNode(node)
-    }
-  })
-}
-
 function isViewElement(node: GraphNode): boolean {
   // Views are stored within a <views> tag in opengroup format
   return (node.tag === 'views') ||
     // or as multiple <element> tags in archi format
-    (node.tag === 'element' && node.getAttribute('xsi:type')?.value.literal === 'ArchimateDiagramModel')
+    (node.tag === 'element' && node.getAttribute(Archimate.Attributes['xsi:type'])?.value.literal === Archimate.Types.ArchimateDiagramModel)
 }
 
 function handleTextNode(node: GraphNode, textContent: string) {

@@ -14,17 +14,17 @@ export function isOpenGroupFormat(input: GraphModel) {
 
 export function restructureOpenGroupXml(input: GraphModel) {
   // TODO: persist metadata
-  renameIdAttributes(input, 'identifier')
+  renameIdAttributes(input)
   input.nodes.forEach((node) => {
     switch (node.tag) {
       case 'metadata':
         input.removeNode(node)
         break
       case 'name':
-        handleName(node, input)
+        handleText(node, input, Archimate.Attributes.name)
         break
       case 'documentation':
-        handleDocumentation(node, input)
+        handleText(node, input, Archimate.Attributes.documentation)
         break
       case 'elements':
         handleElements(node, input)
@@ -39,28 +39,21 @@ export function restructureOpenGroupXml(input: GraphModel) {
   })
 }
 
-function renameIdAttributes(input: GraphModel, idAttribute: string) {
+// Rename `identifier` to `id` to match other format
+function renameIdAttributes(input: GraphModel) {
   input.nodes.forEach((node) => {
-    const id = node.getAttribute(idAttribute)?.value.literal
+    const id = node.getAttribute('identifier')?.value.literal
     if (id) {
-      node.removeAttribute(idAttribute)
+      node.removeAttribute('identifier')
       node.addAttribute({ name: Archimate.Attributes.id, type: 'string', value: { literal: id } }, true)
     }
   })
 }
 
-function handleName(node: GraphNode, input: GraphModel) {
+function handleText(node: GraphNode, input: GraphModel, attribute: string) {
   const text = node.getAttribute('text')?.value.literal
   if (text) {
-    node.parent?.addAttribute({ name: Archimate.Attributes.name, type: 'string', value: { literal: text } })
-  }
-  input.removeNode(node)
-}
-
-function handleDocumentation(node: GraphNode, input: GraphModel) {
-  const text = node.getAttribute('text')?.value.literal
-  if (text) {
-    node.parent?.addAttribute({ name: Archimate.Attributes.documentation, type: 'string', value: { literal: text } })
+    node.parent?.addAttribute({ name: attribute, type: 'string', value: { literal: text } })
   }
   input.removeNode(node)
 }
@@ -92,6 +85,7 @@ function handleViews(viewsElement: GraphNode, input: GraphModel) {
   if (diagrams.tag !== 'diagrams' || viewsElement.children.size !== 1) {
     throw new Error('Should contain exactly one <diagrams> element')
   }
+  // TODO: improve this
   diagrams.children.forEach((view) => {
     if (view.getAttribute('xsi:type')?.value.literal !== 'Diagram') {
       return
