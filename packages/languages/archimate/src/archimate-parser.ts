@@ -28,11 +28,47 @@ export const ArchimateRefiner = definePlugin({
   invoke: (input: GraphModel, parameters) => {
     removeUnsupportedNodes(input, parameters.viewsAsNodes)
     preprocess(input)
+    renameTypes(input)
     const model = refine(input, parameters)
     validateArchimateModel(model, parameters)
     return model
   },
 })
+
+function renameTypes(input: GraphModel) {
+  input.nodes.forEach((node) => {
+    const type = node.getAttribute(Archimate.Attributes['xsi:type'])?.value.literal
+    switch (type) {
+      case 'InfrastructureInterface':
+      case 'InfrastructureFunction':
+      case 'InfrastructureService':
+        renameType(node, type.replace('Infrastructure', 'Technology'))
+        break
+      case 'CommunicationPath':
+        renameType(node, Archimate.Types.Path)
+        break
+      case 'Network':
+        renameType(node, Archimate.Types.CommunicationNetwork)
+        break
+      case 'RealisationRelationship':
+        renameType(node, Archimate.Types.RealizationRelationship)
+        break
+      case 'SpecialisationRelationship':
+        renameType(node, Archimate.Types.SpecializationRelationship)
+        break
+      case 'UsedByRelationship':
+        renameType(node, Archimate.Types.ServingRelationship)
+        break
+      default:
+        break
+    }
+  })
+}
+
+function renameType(node: GraphNode, newType: string) {
+  node.removeAttribute(Archimate.Attributes['xsi:type'])
+  node.addAttribute({ name: Archimate.Attributes['xsi:type'], type: 'string', value: { literal: newType } })
+}
 
 function preprocess(input: GraphModel) {
   if (isArchiFormat(input)) {
@@ -48,7 +84,18 @@ function removeUnsupportedNodes(input: GraphModel, viewsAsNodes: boolean) {
   input.nodes.forEach((node) => {
     if (!viewsAsNodes && isViewElement(node)) {
       input.removeNode(node)
+    } else if (node.tag === 'metadata') {
+      // TODO: persist metadata
+      input.removeNode(node)
     } else if (node.tag === 'bounds' || node.tag === 'style') {
+      // ignore style (i.e. colors) and bounds (i.e x,y coordinates) of diagram objects
+      input.removeNode(node)
+    } else if (node.tag === 'property' || node.tag === 'propertyDefinitions' || node.tag === 'properties') {
+      // TODO: support custom properties
+      input.removeNode(node)
+    } else if (node.getAttribute(Archimate.Attributes['xsi:type'])?.value.literal === 'SketchModel' || node.getAttribute(Archimate.Attributes['xsi:type'])?.value.literal === 'CanvasModel') {
+      input.removeNode(node)
+    } else if (node.tag === 'profile' || node.tag === 'organizations' || node.tag === 'viewpoints') {
       input.removeNode(node)
     }
   })

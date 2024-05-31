@@ -7,7 +7,10 @@ import { Archimate } from '../metamodel/archimate'
 export function isArchiFormat(input: GraphModel) {
   return (
     input.root.tag === 'archimate:model' &&
-    input.root.getAttribute('xmlns:archimate')?.value.literal === 'http://www.archimatetool.com/archimate'
+    (
+      input.root.getAttribute('xmlns:archimate')?.value.literal === 'http://www.archimatetool.com/archimate' ||
+      input.root.getAttribute('xmlns:archimate')?.value.literal === 'http://www.bolton.ac.uk/archimate'
+    )
   )
 }
 
@@ -32,8 +35,13 @@ export function restructureArchiXml(input: GraphModel) {
 
 function handleFolderNode(node: GraphNode, input: GraphModel) {
   node.children.forEach((child) => {
-    node.removeChild(child)
-    input.root.addChild(child)
+    if (child.tag === 'element') {
+      node.removeChild(child)
+      input.root.addChild(child)
+    }
+    if (child.tag === 'folder') {
+      handleFolderNode(child, input)
+    }
   })
   input.root.model.removeNode(node)
 }
