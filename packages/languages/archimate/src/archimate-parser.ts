@@ -38,14 +38,19 @@ export const ArchimateRefiner = definePlugin({
 function removeUnsupportedNodes(input: GraphModel, viewsAsNodes: boolean) {
   const tagsToRemove = new Set([
     'metadata', // TODO: persist metadata
-    'bounds', 'style', // ignore style (i.e. colors) and bounds (i.e x,y coordinates) of diagram elements
-    'property', 'propertyDefinitions', 'properties', // TODO: support custom properties?
-    'profile', 'organizations', 'viewpoints' // unused tags
-  ]);
-  const xsiTypeToRemove = new Set(['SketchModel', 'CanvasModel']);
+    'bounds',
+    'style', // ignore style (i.e. colors) and bounds (i.e x,y coordinates) of diagram elements
+    'property',
+    'propertyDefinitions',
+    'properties', // TODO: support custom properties?
+    'profile',
+    'organizations',
+    'viewpoints', // unused tags
+  ])
+  const xsiTypeToRemove = new Set(['SketchModel', 'CanvasModel'])
 
   input.nodes.forEach((node) => {
-    const xsiType = node.getAttribute(Archimate.Attributes['xsi:type'])?.value.literal;
+    const xsiType = node.getAttribute(Archimate.Attributes['xsi:type'])?.value.literal
     if ((!viewsAsNodes && isViewElement(node)) || tagsToRemove.has(node.tag) || (xsiType && xsiTypeToRemove.has(xsiType))) {
       input.removeNode(node)
     }
