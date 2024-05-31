@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
 
 import { getMessage } from '@cm2ml/utils'
 import { describe, expect, it } from 'vitest'
@@ -51,6 +51,9 @@ describe('archimate-parser', () => {
 
 function getFiles(fileExtension: '.archimate' | '.xml', options?: { start: number, end: number }) {
   const modelDir = fileExtension === '.archimate' ? `${datasetDir}/archi-format` : `${datasetDir}/opengroup-format`
+  if (!existsSync(modelDir)) {
+    return []
+  }
   const datasetFiles = readdirSync(modelDir)
     .filter((file) => file.endsWith(fileExtension))
     .filter((file) => !excludedModels.has(file))
