@@ -113,6 +113,25 @@ const OtherTypes = {
   AndJunction: 'AndJunction',
 } as const
 
+const layerTypes = {
+  Business: { ...BusinessTypes },
+  Application: { ...ApplicationTypes },
+  Technology: { ...TechnologyTypes },
+  Physical: { ...PhysicalTypes },
+  Motivation: { ...MotivationTypes },
+  Strategy: { ...StrategyTypes },
+  Implementation_Migration: { ...ImplementationMigrationTypes },
+  Other: { ...OtherTypes },
+}
+
+export const typeToLayerMap: Record<string, string> = {}
+
+Object.entries(layerTypes).forEach(([layer, types]) => {
+  Object.keys(types).forEach((type) => {
+    typeToLayerMap[type] = layer
+  })
+})
+
 const RelationshipTypes = {
   AssociationRelationship: 'AssociationRelationship',
   RealizationRelationship: 'RealizationRelationship',
