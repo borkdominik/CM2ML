@@ -90,12 +90,12 @@ function removeUnsupportedNodes(input: GraphModel, viewsAsNodes: boolean) {
     } else if (node.tag === 'bounds' || node.tag === 'style') {
       // ignore style (i.e. colors) and bounds (i.e x,y coordinates) of diagram objects
       input.removeNode(node)
-    } else if (node.tag === 'property' || node.tag === 'propertyDefinitions' || node.tag === 'properties') {
+    } else if (node.tag === 'property' || node.tag === 'propertyDefinitions' || node.tag === 'properties') {
       // TODO: support custom properties
       input.removeNode(node)
     } else if (node.getAttribute(Archimate.Attributes['xsi:type'])?.value.literal === 'SketchModel' || node.getAttribute(Archimate.Attributes['xsi:type'])?.value.literal === 'CanvasModel') {
       input.removeNode(node)
-    } else if (node.tag === 'profile' || node.tag === 'organizations' || node.tag === 'viewpoints') {
+    } else if (node.tag === 'profile' || node.tag === 'organizations' || node.tag === 'viewpoints') {
       input.removeNode(node)
     }
   })
