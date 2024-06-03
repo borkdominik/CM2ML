@@ -3,6 +3,8 @@ import { definePlugin } from '@cm2ml/plugin'
 
 import { createTree } from './tree-transformer'
 
+export type * from './tree-model'
+
 export const TreeEncoder = definePlugin({
   name: 'tree',
   parameters: {},

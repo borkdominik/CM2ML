@@ -4,6 +4,7 @@ export interface TreeModel {
 
 export interface TreeNode {
   readonly value?: string
+  readonly children?: TreeNode[]
 }
 
 export interface RootNode extends TreeNode {
@@ -28,6 +29,7 @@ export interface NameValueNode extends TreeNode {
    * The name of the class.
    */
   readonly value: string
+  readonly children?: never
 }
 
 export interface AttributesNode extends TreeNode {
@@ -48,6 +50,7 @@ export interface AttributeValueNode extends TreeNode {
    * The value of the attribute.
    */
   readonly value: string
+  readonly children?: never
 }
 
 export interface AssociationsNode extends TreeNode {
@@ -68,4 +71,5 @@ export interface AssociationTypeNode extends TreeNode {
    * The type of the association.
    */
   readonly value: string
+  readonly children?: never
 }
