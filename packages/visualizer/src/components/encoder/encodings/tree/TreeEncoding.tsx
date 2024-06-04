@@ -1,6 +1,7 @@
 import type { TreeModel } from '@cm2ml/builtin'
 import { TreeEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
+import { METADATA_KEY } from '@cm2ml/plugin'
 import { useEffect } from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Position, useReactFlow } from 'reactflow'
 
@@ -22,15 +23,20 @@ export function TreeEncoding({ model, parameters }: Props) {
   if (error || !encoding) {
     return <Hint error={error} />
   }
-  return <FlowGraph encoding={encoding} />
+  return <FlowGraph tree={encoding.tree} vocabulary={encoding[METADATA_KEY].staticVocabulary} />
 }
 
 const nodeTypes = {
   default: FlowTreeNode,
 }
 
-function FlowGraph({ encoding }: { encoding: TreeModel }) {
-  const flowGraph = useFlowGraph(encoding)
+interface FlowGraphProps {
+  tree: TreeModel
+  vocabulary: string[]
+}
+
+function FlowGraph({ tree, vocabulary }: FlowGraphProps) {
+  const flowGraph = useFlowGraph(tree, vocabulary)
   const { nodes, edges } = flowGraph
   return (
     <div className="size-full">
@@ -61,14 +67,19 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
   const isOrigin = data.parent === undefined
   const isTerminal = data.children.length === 0
   return (
-    <div className="flex flex-col">
+    <div>
       {isOrigin
         ? null
         : (
           <Handle type="target" position={Position.Top} isConnectable={false} />
           )}
       <div
-        className="flex flex-col break-words rounded p-4"
+        className="break-words rounded-sm px-2 py-1 font-mono"
+        style={{
+          outlineStyle: 'solid',
+          outlineColor: data.color,
+          outlineWidth: 2,
+        }}
       >
         {data.value}
       </div>

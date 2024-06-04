@@ -1,6 +1,8 @@
 import type { TreeModel, TreeNode } from '@cm2ml/builtin'
 import { Stream } from '@yeger/streams'
 import { graphStratify, sugiyama } from 'd3-dag'
+import { scaleOrdinal } from 'd3-scale'
+import { schemeSet2 as colorScheme } from 'd3-scale-chromatic'
 import { useMemo } from 'react'
 import type { Edge, Node } from 'reactflow'
 
@@ -18,24 +20,39 @@ const DEFAULT_SIZE_CONFIG: SizeConfig = {
   verticalSpacing: 80,
 }
 
-export function useFlowGraph(tree: TreeModel) {
+export function useFlowGraph(tree: TreeModel, vocabulary: string[]) {
   return useMemo(() => {
-    const nodes = createNodes(tree)
+    const nodes = createNodes(tree, vocabulary)
     const hierarchy = createHierarchy(nodes)
     return createFlowGraph(hierarchy, DEFAULT_SIZE_CONFIG)
   }, [tree])
 }
 
-export type FlowNode = TreeNode & { id: string, parent?: FlowNode, value?: string, children: FlowNode[] }
+export type FlowNode = TreeNode & { id: string, parent?: FlowNode, value?: string, children: FlowNode[], color?: string }
 
 export type FlowGraphModel = ReturnType<typeof useFlowGraph>
 
-function createNodes(tree: TreeModel) {
+function createNodes(tree: TreeModel, staticVocabulary: string[]) {
   const nodes: FlowNode[] = []
+  const getColor = scaleOrdinal(colorScheme).domain(staticVocabulary)
+
+  /**
+   * TODO/Jan: Only start new color if the parent node is static and the current node is not
+   */
+  function makeColor(node: TreeNode, parent?: FlowNode) {
+    if (!node.isStaticNode) {
+      return parent?.color
+    }
+    if (!node.value) {
+      return undefined
+    }
+    return getColor(node.value)
+  }
 
   function convertNode(node: TreeNode, index: number, parent?: FlowNode) {
     const id = `${parent ? `${parent.id}.` : ''}${index}`
-    const flowNode: FlowNode = { id, parent, value: node.value, children: [] }
+
+    const flowNode: FlowNode = { id, parent, value: node.value, children: [], isStaticNode: node.isStaticNode, color: makeColor(node, parent) }
     nodes.push(flowNode)
     const children = node.children
     if (!children) {

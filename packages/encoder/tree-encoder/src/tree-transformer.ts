@@ -13,8 +13,9 @@ function requireId(node: GraphNode): string {
 export function createTree(model: GraphModel): TreeModel {
   return {
     root: {
-      value: 'model',
+      value: 'MODEL',
       children: createClassNodes(model),
+      isStaticNode: true,
     },
   }
 }
@@ -27,6 +28,7 @@ function createClassNode(node: GraphNode): ClassNode {
   return {
     value: 'CLS',
     children: [createNameNode(node), createAttributesNode(node), createAssociationsNode(node)],
+    isStaticNode: true,
   }
 }
 
@@ -34,12 +36,14 @@ function createNameNode(node: GraphNode): NameNode {
   return {
     value: 'NAME',
     children: [createNameValueNode(node)],
+    isStaticNode: true,
   }
 }
 
 function createNameValueNode(node: GraphNode): NameValueNode {
   return {
-    value: requireId(node), // TODO: e.g., xmi:type for UML
+    value: requireId(node), // TODO/Jan: e.g., xmi:type for UML
+    isStaticNode: false,
   }
 }
 
@@ -47,6 +51,7 @@ function createAttributesNode(node: GraphNode): AttributesNode {
   return {
     value: 'ATTR',
     children: createAttributeNameNodes(node),
+    isStaticNode: true,
   }
 }
 
@@ -58,12 +63,14 @@ function createAttributeNameNode(attribute: Attribute): AttributeNameNode {
   return {
     value: attribute.name,
     children: [createAttributeValueNode(attribute)],
+    isStaticNode: false,
   }
 }
 
 function createAttributeValueNode(attribute: Attribute): AttributeValueNode {
   return {
     value: attribute.value.literal,
+    isStaticNode: false,
   }
 }
 
@@ -71,6 +78,7 @@ function createAssociationsNode(node: GraphNode): AssociationsNode {
   return {
     value: 'ASSOC',
     children: createAssociationTargetNodes(node),
+    isStaticNode: true,
   }
 }
 
@@ -82,11 +90,13 @@ function createAssociationTargetNode(edge: GraphEdge): AssociationTargetNode {
   return {
     value: requireId(edge.target), // TODO/Jan
     children: [createAssociationTypeNode(edge)],
+    isStaticNode: false,
   }
 }
 
 function createAssociationTypeNode(edge: GraphEdge): AssociationTypeNode {
   return {
     value: edge.tag,
+    isStaticNode: false,
   }
 }

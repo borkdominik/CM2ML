@@ -5,23 +5,28 @@ export interface TreeModel {
 export interface TreeNode {
   readonly value?: string
   readonly children?: TreeNode[]
+  readonly isStaticNode: boolean
 }
 
 export interface RootNode extends TreeNode {
   /**
    * Contains the classes of the model.
    */
+  readonly value: 'MODEL'
   readonly children: ClassNode[]
+  readonly isStaticNode: true
 }
 
 export interface ClassNode extends TreeNode {
   readonly value: 'CLS'
   readonly children: [NameNode, AttributesNode, AssociationsNode]
+  readonly isStaticNode: true
 }
 
 export interface NameNode extends TreeNode {
   readonly value: 'NAME'
   readonly children: [NameValueNode]
+  readonly isStaticNode: true
 }
 
 export interface NameValueNode extends TreeNode {
@@ -30,11 +35,13 @@ export interface NameValueNode extends TreeNode {
    */
   readonly value: string
   readonly children?: never
+  readonly isStaticNode: false
 }
 
 export interface AttributesNode extends TreeNode {
   readonly value: 'ATTR'
   readonly children: AttributeNameNode[]
+  readonly isStaticNode: true
 }
 
 export interface AttributeNameNode extends TreeNode {
@@ -43,6 +50,7 @@ export interface AttributeNameNode extends TreeNode {
    */
   readonly value: string
   readonly children: [AttributeValueNode]
+  readonly isStaticNode: false
 }
 
 export interface AttributeValueNode extends TreeNode {
@@ -51,11 +59,13 @@ export interface AttributeValueNode extends TreeNode {
    */
   readonly value: string
   readonly children?: never
+  readonly isStaticNode: false
 }
 
 export interface AssociationsNode extends TreeNode {
   readonly value: 'ASSOC'
   readonly children: AssociationTargetNode[]
+  readonly isStaticNode: true
 }
 
 export interface AssociationTargetNode extends TreeNode {
@@ -64,6 +74,7 @@ export interface AssociationTargetNode extends TreeNode {
    */
   readonly value: string
   readonly children: [AssociationTypeNode]
+  readonly isStaticNode: false
 }
 
 export interface AssociationTypeNode extends TreeNode {
@@ -72,4 +83,5 @@ export interface AssociationTypeNode extends TreeNode {
    */
   readonly value: string
   readonly children?: never
+  readonly isStaticNode: false
 }
