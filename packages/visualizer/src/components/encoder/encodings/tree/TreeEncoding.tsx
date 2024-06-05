@@ -37,7 +37,7 @@ interface FlowGraphProps {
 
 function FlowGraph({ tree, vocabulary }: FlowGraphProps) {
   const flowGraph = useFlowGraph(tree, vocabulary)
-  const { nodes, edges } = flowGraph
+  const { nodes, edges, type } = flowGraph
   return (
     <div className="size-full">
       <ReactFlow
@@ -58,7 +58,8 @@ function FlowGraph({ tree, vocabulary }: FlowGraphProps) {
         <Controls showInteractive={false} />
         <MiniMap zoomable />
         <ViewFitter flowGraph={flowGraph} />
-        <Panel position="top-right" className="font-mono text-xs opacity-30">
+        <Panel position="top-right" className="font-mono text-xs opacity-50">
+          {type === 'sugiyama' ? '✨ ' : '🌲 '}
           {nodes.length}
           {' '}
           {nodes.length > 1 ? 'nodes' : 'node'}

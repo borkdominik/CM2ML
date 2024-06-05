@@ -1,10 +1,11 @@
 import type { TreeModel, TreeNode } from '@cm2ml/builtin'
 import { Stream } from '@yeger/streams'
-import { stratify, tree } from 'd3-hierarchy'
+import { sugiyama, graphStratify as sugiyamaStratify } from 'd3-dag'
+import { tree, stratify as treeStratify } from 'd3-hierarchy'
 import { scaleOrdinal } from 'd3-scale'
 import { schemeCategory10 as colorScheme } from 'd3-scale-chromatic'
 import { useMemo } from 'react'
-import type { Edge } from 'reactflow'
+import type { Edge, Node } from 'reactflow'
 
 export interface SizeConfig {
   width: number
@@ -13,7 +14,14 @@ export interface SizeConfig {
   verticalSpacing: number
 }
 
-const DEFAULT_SIZE_CONFIG: SizeConfig = {
+const sugiyamaSizeConfig: SizeConfig = {
+  width: 120,
+  height: 60,
+  horizontalSpacing: 80,
+  verticalSpacing: 80,
+}
+
+const treeSizeConfig: SizeConfig = {
   width: 80,
   height: 50,
   horizontalSpacing: 20,
@@ -23,8 +31,8 @@ const DEFAULT_SIZE_CONFIG: SizeConfig = {
 export function useFlowGraph(tree: TreeModel, vocabulary: string[]) {
   return useMemo(() => {
     const nodes = createNodes(tree, vocabulary)
-    const hierarchy = createHierarchy(nodes, DEFAULT_SIZE_CONFIG)
-    return createFlowGraph(hierarchy, DEFAULT_SIZE_CONFIG)
+    const hierarchy = createHierarchy(nodes)
+    return createFlowGraph(hierarchy)
   }, [tree])
 }
 
@@ -74,36 +82,79 @@ function createNodes(tree: TreeModel, staticVocabulary: string[]) {
   return nodes
 }
 
+export interface Hierarchy {
+  nodes: Node<FlowNode>[]
+  sizeConfig: SizeConfig
+  type: 'tree' | 'sugiyama'
+}
+
+function createHierarchy(nodes: FlowNode[]): Hierarchy {
+  if (isLargeModel(nodes)) {
+    return createTreeHierarchy(nodes, treeSizeConfig)
+  }
+  return createSugiyamaHierarchy(nodes, sugiyamaSizeConfig)
+}
+
+function isLargeModel(nodes: FlowNode[]) {
+  return nodes.length > 750
+}
+
 /**
  * Create a (tree) hierarchy layout from the given nodes.
  */
-function createHierarchy(nodes: FlowNode[], sizeConfig: SizeConfig) {
-  const treeLayout = tree<FlowNode>()
-  const hierarchy = stratify<FlowNode>()
-    .id((node) => node.id)
+function createTreeHierarchy(nodes: FlowNode[], sizeConfig: SizeConfig) {
+  const { width, height, horizontalSpacing, verticalSpacing } = sizeConfig
+  const createHierarchy = treeStratify<FlowNode>()
     .parentId((node) => node.parent?.id)
-  const rootNode = hierarchy(nodes)
-  const layout = treeLayout.nodeSize(
+  const hierarchy = createHierarchy(nodes)
+  const layout = tree<FlowNode>().nodeSize(
     [
-      sizeConfig.width + sizeConfig.horizontalSpacing,
-      sizeConfig.height + sizeConfig.verticalSpacing,
+      width + horizontalSpacing,
+      height + verticalSpacing,
     ],
-  )(rootNode)
-  return layout
+  )
+  const layoutResult = layout(hierarchy)
+  const mappedNodes = layoutResult
     .descendants()
     .map((node) => ({
       id: node.data.id,
       data: node.data,
       position: { x: node.x, y: node.y },
     }))
+  return { nodes: mappedNodes, sizeConfig, type: 'tree' as const }
+}
+
+/**
+ * Create a (sugiyama) hierarchy layout from the given nodes.
+ */
+function createSugiyamaHierarchy(nodes: FlowNode[], sizeConfig: SizeConfig) {
+  const { width, height, horizontalSpacing, verticalSpacing } = sizeConfig
+  const createHierarchy = sugiyamaStratify()
+    .parentIds((node: FlowNode) => node.parent ? [node.parent.id] : [])
+  const hierarchy = createHierarchy(nodes)
+  const layout = sugiyama().nodeSize([
+    width + horizontalSpacing,
+    height + verticalSpacing,
+  ])
+  layout(hierarchy)
+  const mappedNodes = Stream.from(hierarchy.nodes())
+    .map<Node<FlowNode>>(
+      (node) =>
+        ({
+          id: node.data.id,
+          data: node.data,
+          position: { x: node.x, y: node.y },
+        }) as const,
+    )
+    .toArray()
+  return { nodes: mappedNodes, sizeConfig, type: 'sugiyama' as const }
 }
 
 function createFlowGraph(
-  nodes: ReturnType<typeof createHierarchy>,
-  sizeConfig: SizeConfig,
+  hierarchy: Hierarchy,
 ) {
   const edges = Stream
-    .from(nodes)
+    .from(hierarchy.nodes)
     .flatMap<Edge<unknown>>((node) =>
       Stream
         .from(node.data.children ?? [])
@@ -113,5 +164,5 @@ function createFlowGraph(
           target: child.id,
         })),
     ).toArray()
-  return { nodes, edges, sizeConfig }
+  return { ...hierarchy, edges }
 }
