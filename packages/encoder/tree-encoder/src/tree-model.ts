@@ -3,7 +3,7 @@ export interface TreeModel {
 }
 
 export interface TreeNode {
-  readonly value?: string
+  readonly value: string
   readonly children?: TreeNode[]
   readonly isStaticNode: boolean
 }

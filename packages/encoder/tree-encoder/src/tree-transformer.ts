@@ -5,7 +5,7 @@ import type { AssociationTargetNode, AssociationTypeNode, AssociationsNode, Attr
 
 function requireId(node: GraphNode): string {
   if (!node.id) {
-    throw new Error('Node has no id.')
+    throw new Error('Node has no id. Tree encoding requires all nodes to have IDs assigned.')
   }
   return node.id
 }

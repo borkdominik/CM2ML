@@ -28,7 +28,7 @@ export function useFlowGraph(tree: TreeModel, vocabulary: string[]) {
   }, [tree])
 }
 
-export type FlowNode = TreeNode & { id: string, parent?: FlowNode, value?: string, children: FlowNode[], color?: string }
+export type FlowNode = TreeNode & { id: string, parent?: FlowNode, value: string, children: FlowNode[], color?: string }
 
 export type FlowGraphModel = ReturnType<typeof useFlowGraph>
 
@@ -42,9 +42,6 @@ function createNodes(tree: TreeModel, staticVocabulary: string[]) {
   function makeColor(node: TreeNode, parent?: FlowNode) {
     if (!node.isStaticNode) {
       return parent?.color
-    }
-    if (!node.value) {
-      return undefined
     }
     return getColor(node.value)
   }
@@ -100,7 +97,7 @@ function createFlowGraph(
           id: node.data.id,
           data: {
             ...node.data,
-            label: node.data.value ?? '',
+            label: node.data.value,
           },
           position: { x: node.x, y: node.y },
         }) as const,
