@@ -1,10 +1,10 @@
 import type { TreeModel, TreeNode } from '@cm2ml/builtin'
 import { Stream } from '@yeger/streams'
-import { graphStratify, sugiyama } from 'd3-dag'
+import { stratify, tree } from 'd3-hierarchy'
 import { scaleOrdinal } from 'd3-scale'
 import { schemeCategory10 as colorScheme } from 'd3-scale-chromatic'
 import { useMemo } from 'react'
-import type { Edge, Node } from 'reactflow'
+import type { Edge } from 'reactflow'
 
 export interface SizeConfig {
   width: number
@@ -14,21 +14,26 @@ export interface SizeConfig {
 }
 
 const DEFAULT_SIZE_CONFIG: SizeConfig = {
-  width: 120,
-  height: 60,
-  horizontalSpacing: 80,
-  verticalSpacing: 80,
+  width: 80,
+  height: 50,
+  horizontalSpacing: 20,
+  verticalSpacing: 50,
 }
 
 export function useFlowGraph(tree: TreeModel, vocabulary: string[]) {
   return useMemo(() => {
     const nodes = createNodes(tree, vocabulary)
-    const hierarchy = createHierarchy(nodes)
+    const hierarchy = createHierarchy(nodes, DEFAULT_SIZE_CONFIG)
     return createFlowGraph(hierarchy, DEFAULT_SIZE_CONFIG)
   }, [tree])
 }
 
-export type FlowNode = TreeNode & { id: string, parent?: FlowNode, value: string, children: FlowNode[], color?: string }
+export type FlowNode = Omit<TreeNode, 'children'> & {
+  id: string
+  children: FlowNode[]
+  color?: string
+  parent?: FlowNode
+}
 
 export type FlowGraphModel = ReturnType<typeof useFlowGraph>
 
@@ -52,7 +57,7 @@ function createNodes(tree: TreeModel, staticVocabulary: string[]) {
   function convertNode(node: TreeNode, index: number, parent?: FlowNode) {
     const id = `${parent ? `${parent.id}.` : ''}${index}`
 
-    const flowNode: FlowNode = { id, parent, value: node.value, children: [], isStaticNode: node.isStaticNode, color: makeColor(node, parent) }
+    const flowNode: FlowNode = { id, children: [], color: makeColor(node, parent), isStaticNode: node.isStaticNode, parent, value: node.value }
     nodes.push(flowNode)
     const children = node.children
     if (!children) {
@@ -72,42 +77,41 @@ function createNodes(tree: TreeModel, staticVocabulary: string[]) {
 /**
  * Create a (tree) hierarchy layout from the given nodes.
  */
-function createHierarchy(nodes: FlowNode[]) {
-  const stratify = graphStratify()
-    .parentIds((node: FlowNode) => node.parent ? [node.parent.id] : [])
-  return stratify(nodes)
+function createHierarchy(nodes: FlowNode[], sizeConfig: SizeConfig) {
+  const treeLayout = tree<FlowNode>()
+  const hierarchy = stratify<FlowNode>()
+    .id((node) => node.id)
+    .parentId((node) => node.parent?.id)
+  const rootNode = hierarchy(nodes)
+  const layout = treeLayout.nodeSize(
+    [
+      sizeConfig.width + sizeConfig.horizontalSpacing,
+      sizeConfig.height + sizeConfig.verticalSpacing,
+    ],
+  )(rootNode)
+  return layout
+    .descendants()
+    .map((node) => ({
+      id: node.data.id,
+      data: node.data,
+      position: { x: node.x, y: node.y },
+    }))
 }
 
 function createFlowGraph(
-  hierarchy: ReturnType<typeof createHierarchy>,
+  nodes: ReturnType<typeof createHierarchy>,
   sizeConfig: SizeConfig,
 ) {
-  const { width, height, horizontalSpacing, verticalSpacing } = sizeConfig
-  const layout = sugiyama().nodeSize([
-    width + horizontalSpacing,
-    height + verticalSpacing,
-  ])
-  const layoutResult = layout(hierarchy)
-  const nodes = Stream.from(hierarchy.nodes())
-    .map<Node<FlowNode>>(
-      (node) =>
-        ({
-          id: node.data.id,
-          data: {
-            ...node.data,
-            label: node.data.value,
-          },
-          position: { x: node.x, y: node.y },
-        }) as const,
-    )
-    .toArray()
-  const edges = Stream.from(nodes).flatMap<Edge<unknown>>((node) =>
-    Stream
-      .from(node.data.children ?? [])
-      .map((child) => ({
-        id: `edge-${node.id}-${child.id}`,
-        source: node.id,
-        target: child.id,
-      }))).toArray()
-  return { nodes, edges, sizeConfig, layoutResult }
+  const edges = Stream
+    .from(nodes)
+    .flatMap<Edge<unknown>>((node) =>
+      Stream
+        .from(node.data.children ?? [])
+        .map((child) => ({
+          id: `edge-${node.id}-${child.id}`,
+          source: node.id,
+          target: child.id,
+        })),
+    ).toArray()
+  return { nodes, edges, sizeConfig }
 }
