@@ -1,38 +1,72 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "experimentalUI": false,
-  "globalEnv": ["CI"],
-  "pipeline": {
+  "ui": "stream",
+  "globalEnv": [
+    "CI"
+  ],
+  "tasks": {
     "check:publish": {
-      "dependsOn": ["build", "generate"]
+      "dependsOn": [
+        "build",
+        "generate"
+      ]
     },
     "check:tsc": {
-      "dependsOn": ["^build", "codegen"]
+      "dependsOn": [
+        "^build",
+        "codegen"
+      ]
     },
     "build": {
-      "dependsOn": ["^build", "codegen"],
-      "outputs": ["dist/**", ".next/**"]
+      "dependsOn": [
+        "^build",
+        "codegen"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
     },
     "generate": {
-      "dependsOn": ["build"],
-      "outputs": ["dist/**", ".next/**"]
+      "dependsOn": [
+        "build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
     },
     "codegen": {},
     "preview": {
-      "dependsOn": ["build", "generate"],
+      "dependsOn": [
+        "build",
+        "generate"
+      ],
       "cache": false
     },
     "test": {
-      "dependsOn": ["^build", "codegen"],
-      "outputs": ["coverage/**"],
-      "env": ["COVERAGE"]
+      "dependsOn": [
+        "^build",
+        "codegen"
+      ],
+      "outputs": [
+        "coverage/**"
+      ],
+      "env": [
+        "COVERAGE"
+      ]
     },
     "dev": {
-      "dependsOn": ["codegen"],
+      "dependsOn": [
+        "codegen"
+      ],
       "cache": false
     },
     "lint": {
-      "dependsOn": ["^build", "build"]
+      "dependsOn": [
+        "^build",
+        "build"
+      ]
     },
     "//#lint:root": {
       "inputs": [

@@ -1,16 +1,37 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "extends": ["//"],
-  "pipeline": {
+  "extends": [
+    "//"
+  ],
+  "tasks": {
     "encode:graph": {
-      "inputs": ["scripts/encode-graph.sh"],
-      "outputs": [".input/graph_train.json", ".input/graph_validation.json", ".input/graph_test.json"],
-      "dependsOn": ["^build"]
+      "inputs": [
+        "scripts/encode-graph.sh"
+      ],
+      "outputs": [
+        ".input/graph_train.json",
+        ".input/graph_validation.json",
+        ".input/graph_test.json"
+      ],
+      "dependsOn": [
+        "^build"
+      ]
     },
     "train:gnn": {
-      "inputs": ["scripts/train-gnn.sh", ".input/graph_train.json", ".input/graph_validation.json", ".input/graph_test.json", "gnn/src/**"],
-      "env": ["NAME"],
-      "dependsOn": ["encode:graph"]
+      "inputs": [
+        "scripts/train-gnn.sh",
+        ".input/graph_train.json",
+        ".input/graph_validation.json",
+        ".input/graph_test.json",
+        "gnn/src/**",
+        "!**/__pycache__"
+      ],
+      "env": [
+        "NAME"
+      ],
+      "dependsOn": [
+        "encode:graph"
+      ]
     }
   }
 }

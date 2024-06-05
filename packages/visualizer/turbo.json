@@ -1,9 +1,13 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "extends": ["//"],
-  "pipeline": {
+  "extends": [
+    "//"
+  ],
+  "tasks": {
     "codegen": {
-      "inputs": ["public/logo.svg"]
+      "inputs": [
+        "public/logo.svg"
+      ]
     }
   }
 }
