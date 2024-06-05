@@ -2,7 +2,7 @@ import type { TreeModel, TreeNode } from '@cm2ml/builtin'
 import { Stream } from '@yeger/streams'
 import { graphStratify, sugiyama } from 'd3-dag'
 import { scaleOrdinal } from 'd3-scale'
-import { schemeSet2 as colorScheme } from 'd3-scale-chromatic'
+import { schemeCategory10 as colorScheme } from 'd3-scale-chromatic'
 import { useMemo } from 'react'
 import type { Edge, Node } from 'reactflow'
 
@@ -34,16 +34,19 @@ export type FlowGraphModel = ReturnType<typeof useFlowGraph>
 
 function createNodes(tree: TreeModel, staticVocabulary: string[]) {
   const nodes: FlowNode[] = []
-  const getColor = scaleOrdinal(colorScheme).domain(staticVocabulary)
+  const getColor = scaleOrdinal(colorScheme).domain([...staticVocabulary, ...staticVocabulary.map((v) => `${v}__child`)])
 
-  /**
-   * TODO/Jan: Only start new color if the parent node is static and the current node is not
-   */
   function makeColor(node: TreeNode, parent?: FlowNode) {
-    if (!node.isStaticNode) {
-      return parent?.color
+    if (node.isStaticNode) {
+      return getColor(node.value)
     }
-    return getColor(node.value)
+    if (!parent) {
+      return undefined
+    }
+    if (parent.isStaticNode) {
+      return getColor(`${parent.value}__child`)
+    }
+    return parent.color
   }
 
   function convertNode(node: TreeNode, index: number, parent?: FlowNode) {
@@ -71,13 +74,8 @@ function createNodes(tree: TreeModel, staticVocabulary: string[]) {
  */
 function createHierarchy(nodes: FlowNode[]) {
   const stratify = graphStratify()
-  return stratify([
-    ...nodes.map((node) => ({
-      ...node,
-      id: node.id,
-      parentIds: node.parent ? [node.parent.id] : [],
-    })),
-  ])
+    .parentIds((node: FlowNode) => node.parent ? [node.parent.id] : [])
+  return stratify(nodes)
 }
 
 function createFlowGraph(

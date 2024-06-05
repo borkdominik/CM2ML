@@ -50,7 +50,7 @@ function FlowGraph({ tree, vocabulary }: FlowGraphProps) {
         nodesDraggable={false}
         nodesFocusable={false}
         zoomOnDoubleClick={false}
-        minZoom={0.05}
+        minZoom={0.2}
         maxZoom={1}
         onlyRenderVisibleElements
       >
