@@ -3,7 +3,7 @@ import { TreeEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { METADATA_KEY } from '@cm2ml/plugin'
 import { useEffect } from 'react'
-import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Position, useReactFlow } from 'reactflow'
+import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Panel, Position, useReactFlow } from 'reactflow'
 
 import 'reactflow/dist/style.css'
 
@@ -58,6 +58,11 @@ function FlowGraph({ tree, vocabulary }: FlowGraphProps) {
         <Controls showInteractive={false} />
         <MiniMap zoomable />
         <ViewFitter flowGraph={flowGraph} />
+        <Panel position="top-right" className="font-mono text-xs opacity-30">
+          {nodes.length}
+          {' '}
+          {nodes.length > 1 ? 'nodes' : 'node'}
+        </Panel>
       </ReactFlow>
     </div>
   )
