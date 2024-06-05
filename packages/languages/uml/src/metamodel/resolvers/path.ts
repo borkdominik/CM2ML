@@ -54,7 +54,7 @@ function resolveTaggedSegment(node: GraphNode, segment: string) {
 
 function resolveIndexedSegment(node: GraphNode, segment: string, createMatcher: (string: string) => ((node: GraphNode) => boolean)) {
   // regex that checks if segment ends with dot followed by a number
-  if (!/\.(\d+)$/.test(segment)) {
+  if (!/\.\d+$/.test(segment)) {
     return undefined
   }
 
