@@ -9,3 +9,7 @@ class TreeModel(TypedDict):
 
 class TreeEncodingEntry(TypedDict):
     tree: TreeModel
+
+class TreeDatasetEntry(TypedDict):
+    x: TreeModel
+    y: TreeModel

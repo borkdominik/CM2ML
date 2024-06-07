@@ -2,13 +2,13 @@ export interface TreeModel {
   readonly root: RootNode
 }
 
-export interface TreeNode {
+export interface TreeNode<Children extends unknown[]> {
   readonly value: string
-  readonly children?: TreeNode[]
+  readonly children: Children
   readonly isStaticNode: boolean
 }
 
-export interface RootNode extends TreeNode {
+export interface RootNode extends TreeNode<ClassNode[]> {
   /**
    * Contains the classes of the model.
    */
@@ -17,71 +17,62 @@ export interface RootNode extends TreeNode {
   readonly isStaticNode: true
 }
 
-export interface ClassNode extends TreeNode {
+export interface ClassNode extends TreeNode<[NameNode, AttributesNode, AssociationsNode]> {
   readonly value: 'CLS'
-  readonly children: [NameNode, AttributesNode, AssociationsNode]
   readonly isStaticNode: true
 }
 
-export interface NameNode extends TreeNode {
+export interface NameNode extends TreeNode<[NameValueNode]> {
   readonly value: 'NAME'
-  readonly children: [NameValueNode]
   readonly isStaticNode: true
 }
 
-export interface NameValueNode extends TreeNode {
+export interface NameValueNode extends TreeNode<[]> {
   /**
    * The name of the class.
    */
   readonly value: string
-  readonly children?: never
   readonly isStaticNode: false
 }
 
-export interface AttributesNode extends TreeNode {
+export interface AttributesNode extends TreeNode<AttributeNameNode[]> {
   readonly value: 'ATTR'
-  readonly children: AttributeNameNode[]
   readonly isStaticNode: true
 }
 
-export interface AttributeNameNode extends TreeNode {
+export interface AttributeNameNode extends TreeNode<[AttributeValueNode]> {
   /**
    * The name of the attribute.
    */
   readonly value: string
-  readonly children: [AttributeValueNode]
   readonly isStaticNode: false
 }
 
-export interface AttributeValueNode extends TreeNode {
+export interface AttributeValueNode extends TreeNode<[]> {
   /**
    * The value of the attribute.
    */
   readonly value: string
-  readonly children?: never
   readonly isStaticNode: false
 }
 
-export interface AssociationsNode extends TreeNode {
+export interface AssociationsNode extends TreeNode<AssociationTargetNode[]> {
   readonly value: 'ASSOC'
-  readonly children: AssociationTargetNode[]
   readonly isStaticNode: true
 }
 
-export interface AssociationTargetNode extends TreeNode {
+export interface AssociationTargetNode extends TreeNode<[AssociationTypeNode]> {
   /**
    * The target of the association.
    */
   readonly value: string
-  readonly children: [AssociationTypeNode]
   readonly isStaticNode: false
 }
 
-export interface AssociationTypeNode extends TreeNode {
+export interface AssociationTypeNode extends TreeNode<[]> {
   /**
    * The type of the association.
    */
   readonly value: string
-  readonly children?: never
   readonly isStaticNode: false
 }

@@ -43,6 +43,7 @@ function createNameNode(node: GraphNode): NameNode {
 function createNameValueNode(node: GraphNode): NameValueNode {
   return {
     value: requireId(node), // TODO/Jan: e.g., xmi:type for UML
+    children: [],
     isStaticNode: false,
   }
 }
@@ -70,6 +71,7 @@ function createAttributeNameNode(attribute: Attribute): AttributeNameNode {
 function createAttributeValueNode(attribute: Attribute): AttributeValueNode {
   return {
     value: attribute.value.literal,
+    children: [],
     isStaticNode: false,
   }
 }
@@ -97,6 +99,7 @@ function createAssociationTargetNode(edge: GraphEdge): AssociationTargetNode {
 function createAssociationTypeNode(edge: GraphEdge): AssociationTypeNode {
   return {
     value: edge.tag,
+    children: [],
     isStaticNode: false,
   }
 }

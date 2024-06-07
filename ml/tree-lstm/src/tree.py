@@ -1,4 +1,5 @@
 import sys
+from paper.mdeoperation import run
 from tree_dataset import TreeDataset
 from utils import merge_vocabularies
 
@@ -23,3 +24,5 @@ total_vocabulary = merge_vocabularies(
     [train_dataset.vocabulary, validation_dataset.vocabulary, test_dataset.vocabulary]
 )
 print(f"Total vocabulary size: {len(total_vocabulary)}")
+
+run(train_dataset, validation_dataset, test_dataset, total_vocabulary)

@@ -6,12 +6,13 @@ from typing import List
 
 import torch
 import torch.utils
-from tree_dataset_types import TreeEncodingEntry
+from tree_dataset_types import TreeDatasetEntry, TreeEncodingEntry
 from utils import pretty_duration, script_dir
 
 
 
 class TreeDataset(torch.utils.data.Dataset):
+    data: List[TreeDatasetEntry]
     def __init__(self, name: str, dataset_file: str) -> None:
         self.dataset_path = f"{script_dir}/../../.input/{dataset_file}"
         self.dataset_cache_file = f"{script_dir}/../.cache/{dataset_file}.dataset"
@@ -43,7 +44,7 @@ class TreeDataset(torch.utils.data.Dataset):
             f"Processed in {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
         )
 
-    def create_data(self, entry: TreeEncodingEntry):
+    def create_data(self, entry: TreeEncodingEntry) -> TreeDatasetEntry:
         tree = entry["tree"]
         clone = copy.deepcopy(tree)
         # remove xmi:type and xsi:type
