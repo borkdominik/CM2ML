@@ -19,6 +19,7 @@
     "conda:load": "source scripts/conda-load.sh",
     "conda:save": "source scripts/conda-save.sh",
     "encode:graph": "source scripts/encode-graph.sh",
+    "encode:tree": "source scripts/encode-tree.sh",
     "train:gnn": "source scripts/train-gnn.sh"
   },
   "dependencies": {

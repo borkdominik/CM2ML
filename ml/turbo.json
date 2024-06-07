@@ -17,6 +17,19 @@
         "^build"
       ]
     },
+    "encode:tree": {
+      "inputs": [
+        "scripts/encode-tree.sh"
+      ],
+      "outputs": [
+        ".input/tree_train.json",
+        ".input/tree_validation.json",
+        ".input/tree_test.json"
+      ],
+      "dependsOn": [
+        "^build"
+      ]
+    },
     "train:gnn": {
       "inputs": [
         "scripts/train-gnn.sh",
