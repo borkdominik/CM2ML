@@ -20,7 +20,8 @@
     "conda:save": "source scripts/conda-save.sh",
     "encode:graph": "source scripts/encode-graph.sh",
     "encode:tree": "source scripts/encode-tree.sh",
-    "train:gnn": "source scripts/train-gnn.sh"
+    "train:gnn": "source scripts/train-gnn.sh",
+    "train:tree-lstm": "source scripts/train-tree-lstm.sh"
   },
   "dependencies": {
     "@cm2ml/cli": "workspace:*"

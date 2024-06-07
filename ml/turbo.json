@@ -45,6 +45,22 @@
       "dependsOn": [
         "encode:graph"
       ]
+    },
+    "train:tree-lstm": {
+      "inputs": [
+        "scripts/train-tree-lstm.sh",
+        ".input/tree_train.json",
+        ".input/tree_validation.json",
+        ".input/tree_test.json",
+        "tree-lstm/src/**",
+        "!**/__pycache__"
+      ],
+      "env": [
+        "NAME"
+      ],
+      "dependsOn": [
+        "encode:tree"
+      ]
     }
   }
 }
