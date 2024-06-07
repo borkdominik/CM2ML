@@ -1,5 +1,5 @@
-cache
-!cache/.gitkeep
+# .cache
+!.cache/.gitkeep
 .checkpoints
 !.checkpoints/.gitkeep
 .input
