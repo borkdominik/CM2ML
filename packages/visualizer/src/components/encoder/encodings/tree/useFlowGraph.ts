@@ -1,4 +1,4 @@
-import type { TreeModel, TreeNode } from '@cm2ml/builtin'
+import type { RecursiveTreeNode, TreeModel } from '@cm2ml/builtin'
 import { Stream } from '@yeger/streams'
 import { sugiyama, graphStratify as sugiyamaStratify } from 'd3-dag'
 import { tree, stratify as treeStratify } from 'd3-hierarchy'
@@ -36,7 +36,7 @@ export function useFlowGraph(tree: TreeModel, vocabulary: string[]) {
   }, [tree])
 }
 
-export type FlowNode = Omit<TreeNode, 'children'> & {
+export type FlowNode = Omit<RecursiveTreeNode, 'children'> & {
   id: string
   children: FlowNode[]
   color?: string
@@ -49,7 +49,7 @@ function createNodes(tree: TreeModel, staticVocabulary: string[]) {
   const nodes: FlowNode[] = []
   const getColor = scaleOrdinal(colorScheme).domain([...staticVocabulary, ...staticVocabulary.map((v) => `${v}__child`)])
 
-  function makeColor(node: TreeNode, parent?: FlowNode) {
+  function makeColor(node: RecursiveTreeNode, parent?: FlowNode) {
     if (node.isStaticNode) {
       return getColor(node.value)
     }
@@ -62,7 +62,7 @@ function createNodes(tree: TreeModel, staticVocabulary: string[]) {
     return parent.color
   }
 
-  function convertNode(node: TreeNode, index: number, parent?: FlowNode) {
+  function convertNode(node: RecursiveTreeNode, index: number, parent?: FlowNode) {
     const id = `${parent ? `${parent.id}.` : ''}${index}`
 
     const flowNode: FlowNode = { id, children: [], color: makeColor(node, parent), isStaticNode: node.isStaticNode, parent, value: node.value }

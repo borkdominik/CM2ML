@@ -8,6 +8,8 @@ export interface TreeNode<Children extends unknown[]> {
   readonly isStaticNode: boolean
 }
 
+export type RecursiveTreeNode = TreeNode<RecursiveTreeNode[]>
+
 export interface RootNode extends TreeNode<ClassNode[]> {
   /**
    * Contains the classes of the model.
