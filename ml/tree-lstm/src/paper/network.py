@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch import Tensor, cuda
+from torch import cuda
 from torch.autograd import Variable
 from torch.nn.utils import clip_grad_norm
 import torch.nn.functional as F
@@ -11,7 +11,7 @@ import paper.data_utils as data_utils
 
 
 def repackage_state(h):
-    """Wraps hidden states in new Variables, to detach them from their history."""
+    """Detach hidden states from their history."""
     if isinstance(h, torch.Tensor):
         return h.detach()
     else:

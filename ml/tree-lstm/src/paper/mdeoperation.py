@@ -107,6 +107,7 @@ def evaluate(model, test_set, source_vocab, target_vocab):
     acc_programs = 0
     tot_programs = len(test_set)
     res = []
+    # model.eval()
 
     for idx in range(0, len(test_set), args.batch_size):
         encoder_inputs, decoder_inputs = model.get_batch(test_set, start_idx=idx)
@@ -214,6 +215,7 @@ def train(
             args.max_source_len,
             args.max_target_len,
         )
+        # model.train()
         #      else:
         #          print("Loading pretrained model")
         #          pretrained_model = torch.load(pretrained_model_path)
@@ -463,26 +465,24 @@ def test(
 # args = parser.parse_args()
 args = {
     "param_init": 0.1,
-    "num_epochs": 1, # TODO/Jan: Increase epoch count
+    "num_epochs": 10, # TODO/Jan: Increase epoch count
     "learning_rate": 0.005,
     "learning_rate_decay_factor": 0.8,
     "learning_rate_decay_steps": 2000,
     "max_gradient_norm": 5.0,
     "batch_size": 2, # 64,
-    "max_depth": 100,
+    "max_depth": 10,
     "hidden_size": 32,
     "embedding_size": 32,
     "dropout_rate": 0,
     "num_layers": 1,
-    "source_vocab_size": 0,
-    "target_vocab_size": 0,
     "train_dir_checkpoints": f"{script_dir}/../.checkpoints/tree-lstm.pt",
     # "training_dataset": "/home/lola/nn/models_train.json",
     # "validation_dataset": "/home/lola/nn/models_valid.json",
     # "test_dataset": "/home/lola/nn/models_test.json",
     "load_model": None, # "/home/lola/nn/neuralnetwork.pth",
     "vocab_filename": None,
-    "steps_per_checkpoint": 500,
+    "steps_per_checkpoint": 8,
     "max_source_len": 115,
     "max_target_len": 315,
     "test": False,
@@ -505,8 +505,6 @@ class Args:
     embedding_size: int
     dropout_rate: float
     num_layers: int
-    source_vocab_size: int
-    target_vocab_size: int
     train_dir_checkpoints: str
     load_model: Union[str, None]
     vocab_filename: Union[str, None]

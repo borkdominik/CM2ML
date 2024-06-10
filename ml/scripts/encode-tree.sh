@@ -1,6 +1,6 @@
-train_size=200
-validation_size=50
-test_size=50
+train_size=16
+validation_size=4
+test_size=4
 
 train_start=1
 validation_start=$(($train_size + $train_start))

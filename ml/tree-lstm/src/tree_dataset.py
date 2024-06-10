@@ -46,11 +46,11 @@ class TreeDataset(torch.utils.data.Dataset):
 
     def create_data(self, entry: TreeEncodingEntry) -> TreeDatasetEntry:
         tree = entry["tree"]
-        clone = copy.deepcopy(tree)
+        input = copy.deepcopy(tree)
         # remove xmi:type and xsi:type
-        root = clone["root"]
-        classes = root["children"]
-        for c in classes:
+        input_root = input["root"]
+        input_root_classes = input_root["children"]
+        for c in input_root_classes:
             attrs = c["children"][1]["children"]
             attrs = [
                 attr
@@ -58,7 +58,22 @@ class TreeDataset(torch.utils.data.Dataset):
                 if attr["value"] != "xmi:type" and attr["value"] != "xsi:type"
             ]
             c["children"][1]["children"] = attrs
-        return {"x": clone, "y": tree}
+        output = copy.deepcopy(tree)
+        # remove xmi:type and xsi:type
+        output_root = output["root"]
+        output_root_classes = output_root["children"]
+        for c in output_root_classes:
+            attrs = c["children"][1]["children"]
+            attrs = [
+                attr
+                for _, attr in enumerate(attrs)
+                if attr["value"] == "xmi:type" or attr["value"] == "xsi:type"
+            ]
+            c["children"][1]["children"] = attrs
+            if len(c["children"]) > 2:
+                # remove ASSOCs from label
+                del c["children"][2]
+        return {"x": input, "y": output}
 
     def __len__(self):
         return len(self.data)
