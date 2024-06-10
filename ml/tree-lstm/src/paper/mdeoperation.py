@@ -95,9 +95,9 @@ def step_tree2tree(model, encoder_inputs, init_decoder_inputs, feed_previous=Fal
         encoder_inputs[idx].clear_states()
 
     if feed_previous:
-        return total_loss.data[0], output_predictions
+        return total_loss.item(), output_predictions
     else:
-        return total_loss.data[0]
+        return total_loss.item()
 
 
 def evaluate(model, test_set, source_vocab, target_vocab):
@@ -178,6 +178,7 @@ def evaluate(model, test_set, source_vocab, target_vocab):
 def train(
     training_dataset: TreeDataset,
     validation_dataset: TreeDataset,
+    test_dataset: TreeDataset,
     source_vocab,
     target_vocab,
     no_train,
@@ -279,7 +280,7 @@ def train(
                     sys.stdout.flush()
         time_training = datetime.datetime.now() - start_datetime
         print("Saving model")
-        torch.save(model.state_dict(), "/home/lola/nn/neuralnetwork.pth")
+        torch.save(model.state_dict(), f"{script_dir}/../.cache/neuralnetwork.pth")
     else:  # not train_model
         print("Loading the pretrained model")
         model = create_model(
@@ -294,7 +295,6 @@ def train(
 
     print("Evaluating model")
     start_evaluation_datetime = datetime.datetime.now()
-    test_dataset = json.load(open(args.test_dataset, "r"))
     test_set = data_utils.prepare_data(test_dataset, source_vocab, target_vocab)
     evaluate(
         model,
@@ -470,8 +470,8 @@ args = {
     "max_gradient_norm": 5.0,
     "batch_size": 2, # 64,
     "max_depth": 100,
-    "hidden_size": 256,
-    "embedding_size": 256,
+    "hidden_size": 32,
+    "embedding_size": 32,
     "dropout_rate": 0,
     "num_layers": 1,
     "source_vocab_size": 0,
@@ -536,6 +536,7 @@ def run(training_dataset: TreeDataset, validation_dataset: TreeDataset, test_dat
         train(
             training_dataset,
             validation_dataset,
+            test_dataset,
             source_vocab,
             target_vocab,
             args.no_train,

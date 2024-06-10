@@ -12,10 +12,9 @@ import paper.data_utils as data_utils
 
 def repackage_state(h):
     """Wraps hidden states in new Variables, to detach them from their history."""
-    if type(h) == Variable or type(h) == Tensor and h.shape == torch.Size([]):
-        return Variable(h.data)
+    if isinstance(h, torch.Tensor):
+        return h.detach()
     else:
-        # TODO/Jan: Fix
         return tuple(repackage_state(v) for v in h)
 
 
@@ -671,7 +670,7 @@ class Tree2TreeModel(nn.Module):
                         nxt_l_prediction_idx = prediction_managers[
                             current_prediction_manager_idx
                         ].create_binary_tree(
-                            predictions_l[i].data[0],
+                            predictions_l[i].item(),
                             current_prediction_idx,
                             current_prediction_tree.depth + 1,
                         )
@@ -680,7 +679,7 @@ class Tree2TreeModel(nn.Module):
                         ].lchild = nxt_l_prediction_idx
                         prediction_managers[current_prediction_manager_idx].trees[
                             nxt_l_prediction_idx
-                        ].prediction = predictions_l[i].data[0]
+                        ].prediction = predictions_l[i].item()
                         prediction_managers[current_prediction_manager_idx].trees[
                             nxt_l_prediction_idx
                         ].target = target_idx
@@ -694,12 +693,12 @@ class Tree2TreeModel(nn.Module):
                             (current_prediction_manager_idx, nxt_l_prediction_idx)
                         )
                     else:
-                        if predictions_l[i].data[0] != data_utils.EOS_ID:
+                        if predictions_l[i].item() != data_utils.EOS_ID:
                             if target_tree is None or target_tree.lchild is None:
                                 nxt_l_prediction_idx = prediction_managers[
                                     current_prediction_manager_idx
                                 ].create_binary_tree(
-                                    predictions_l[i].data[0],
+                                    predictions_l[i].item(),
                                     current_prediction_idx,
                                     current_prediction_tree.depth + 1,
                                 )
@@ -710,7 +709,7 @@ class Tree2TreeModel(nn.Module):
                                 nxt_l_prediction_idx = prediction_managers[
                                     current_prediction_manager_idx
                                 ].create_binary_tree(
-                                    predictions_l[i].data[0],
+                                    predictions_l[i].item(),
                                     current_prediction_idx,
                                     current_prediction_tree.depth + 1,
                                 )
@@ -724,7 +723,7 @@ class Tree2TreeModel(nn.Module):
                             ].lchild = nxt_l_prediction_idx
                             prediction_managers[current_prediction_manager_idx].trees[
                                 nxt_l_prediction_idx
-                            ].prediction = predictions_l[i].data[0]
+                            ].prediction = predictions_l[i].item()
                             prediction_managers[current_prediction_manager_idx].trees[
                                 nxt_l_prediction_idx
                             ].state = states_l[0][:, i, :], states_l[1][:, i, :]
@@ -736,13 +735,13 @@ class Tree2TreeModel(nn.Module):
                             )
                         if target_idx == 0:
                             continue
-                        if predictions_r[i].data[0] == data_utils.EOS_ID:
+                        if predictions_r[i].item() == data_utils.EOS_ID:
                             continue
                         if target_tree is None or target_tree.rchild is None:
                             nxt_r_prediction_idx = prediction_managers[
                                 current_prediction_manager_idx
                             ].create_binary_tree(
-                                predictions_r[i].data[0],
+                                predictions_r[i].item(),
                                 current_prediction_idx,
                                 current_prediction_tree.depth + 1,
                             )
@@ -753,7 +752,7 @@ class Tree2TreeModel(nn.Module):
                             nxt_r_prediction_idx = prediction_managers[
                                 current_prediction_manager_idx
                             ].create_binary_tree(
-                                predictions_r[i].data[0],
+                                predictions_r[i].item(),
                                 current_prediction_idx,
                                 current_prediction_tree.depth + 1,
                             )
@@ -765,7 +764,7 @@ class Tree2TreeModel(nn.Module):
                         ].rchild = nxt_r_prediction_idx
                         prediction_managers[current_prediction_manager_idx].trees[
                             nxt_r_prediction_idx
-                        ].prediction = predictions_r[i].data[0]
+                        ].prediction = predictions_r[i].item()
                         prediction_managers[current_prediction_manager_idx].trees[
                             nxt_r_prediction_idx
                         ].state = states_r[0][:, i, :], states_r[1][:, i, :]

@@ -101,7 +101,7 @@ def ast_to_token_ids(code, vocab):
 def serialize_tree(tree):
     current = []
     current.append(LEFT_BRACKET_ID)
-    current.append(tree["root"])
+    current.append(tree["value"])
     if len(tree["children"]) > 0:
         for sub_tree in tree["children"]:
             child = serialize_tree(sub_tree)
@@ -127,7 +127,7 @@ def serialize_tree_with_vocabulary(tree, vocabulary):
 def serialize_tree_with_vocabulary_aux(tree, reversed_vocabulary):
     current = []
     # current.append("(")
-    current.append(idx_to_token(tree["root"], reversed_vocabulary))
+    current.append(idx_to_token(tree["value"], reversed_vocabulary))
     if len(tree["children"]) > 0:
         for sub_tree in tree["children"]:
             child = serialize_tree_with_vocabulary_aux(sub_tree, reversed_vocabulary)
