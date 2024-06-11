@@ -1,5 +1,5 @@
 import pickle
-from paper.Tree import TreeManager
+from paper.Tree import BinaryTreeManager
 from tree_dataset import TreeDataset
 
 # Special vocabulary symbols
@@ -165,13 +165,12 @@ def prepare_data(init_data: TreeDataset, source_vocab, target_vocab):
     return data
 
 
+# init_dataset: list[tuple[TreeNode, TreeNode]]
 def build_trees(init_dataset):
-    data_set = []
-    for source, target in init_dataset:
-        source_trees = TreeManager()
-        source_trees.build_binary_tree_from_dict(source)
-
-        target_trees = TreeManager()
-        target_trees.build_binary_tree_from_dict(target)
-        data_set.append((source, target, source_trees, target_trees))
+    # data_set: list[tuple[TreeNode, TreeNode, TreeManager, TreeManager]]
+    data_set: list[tuple] = []
+    for source_tree, target_tree in init_dataset:
+        source_tree_manager = BinaryTreeManager(source_tree)
+        target_tree_manager = BinaryTreeManager(target_tree)
+        data_set.append((source_tree, target_tree, source_tree_manager, target_tree_manager))
     return data_set

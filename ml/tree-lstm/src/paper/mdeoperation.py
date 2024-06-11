@@ -11,7 +11,7 @@ from typing import Union
 import torch
 
 from torch import cuda
-from torch.nn.utils import clip_grad_norm
+from torch.nn.utils import clip_grad_norm_
 
 import paper.data_utils as data_utils
 import paper.network as network
@@ -58,7 +58,12 @@ def create_model(
     return model
 
 
-def step_tree2tree(model, encoder_inputs, init_decoder_inputs, feed_previous=False):
+def step_tree2tree(
+    model: network.Tree2TreeModel,
+    encoder_inputs,
+    init_decoder_inputs,
+    feed_previous=False,
+):
     if feed_previous is False:
         model.dropout_rate = args.dropout_rate
     else:
@@ -88,7 +93,7 @@ def step_tree2tree(model, encoder_inputs, init_decoder_inputs, feed_previous=Fal
         model.optimizer.zero_grad()
         total_loss.backward()
         if args.max_gradient_norm > 0:
-            clip_grad_norm(model.parameters(), args.max_gradient_norm)
+            clip_grad_norm_(model.parameters(), args.max_gradient_norm)
         model.optimizer.step()
 
     for idx in range(len(encoder_inputs)):
@@ -100,7 +105,7 @@ def step_tree2tree(model, encoder_inputs, init_decoder_inputs, feed_previous=Fal
         return total_loss.item()
 
 
-def evaluate(model, test_set, source_vocab, target_vocab):
+def evaluate(model: network.Tree2TreeModel, test_set, source_vocab, target_vocab):
     test_loss = 0
     acc_tokens = 0
     tot_tokens = 0
@@ -128,8 +133,8 @@ def evaluate(model, test_set, source_vocab, target_vocab):
             (
                 current_source,
                 current_target,
-                current_source_manager,
-                current_target_manager,
+                _current_source_manager,
+                _current_target_manager,
             ) = test_set[idx + i]
 
             current_target_print = data_utils.serialize_tree_with_vocabulary(
@@ -149,14 +154,14 @@ def evaluate(model, test_set, source_vocab, target_vocab):
                 current_output, target_vocab
             )
             # print("--Current source / Current target / Current output--")
-            print(current_source_print)
-            print(current_target_print)
-            print(current_output_print)
+            print(f"{current_source_print} source")
+            print(f"{current_target_print} target")
+            print(f"{current_output_print} output")
             # print(source_vocab)
             print("---")
 
             tot_tokens += len(current_target)
-            all_correct = 1
+            all_correct = len(current_target) == len(current_output)
             wrong_tokens = 0
             for j in range(len(current_output)):
                 if j >= len(current_target):
@@ -312,9 +317,7 @@ def train(
     )
 
 
-def test(
-    test_dataset, source_vocab, target_vocab
-):
+def test(test_dataset, source_vocab, target_vocab):
     model = create_model(
         len(source_vocab),
         len(target_vocab),
@@ -465,24 +468,24 @@ def test(
 # args = parser.parse_args()
 args = {
     "param_init": 0.1,
-    "num_epochs": 10, # TODO/Jan: Increase epoch count
+    "num_epochs": 10,  # TODO/Jan: Increase epoch count
     "learning_rate": 0.005,
     "learning_rate_decay_factor": 0.8,
     "learning_rate_decay_steps": 2000,
     "max_gradient_norm": 5.0,
-    "batch_size": 2, # 64,
+    "batch_size": 2,  # 64,
     "max_depth": 10,
-    "hidden_size": 32,
-    "embedding_size": 32,
+    "hidden_size": 64,
+    "embedding_size": 64,
     "dropout_rate": 0,
     "num_layers": 1,
     "train_dir_checkpoints": f"{script_dir}/../.checkpoints/tree-lstm.pt",
     # "training_dataset": "/home/lola/nn/models_train.json",
     # "validation_dataset": "/home/lola/nn/models_valid.json",
     # "test_dataset": "/home/lola/nn/models_test.json",
-    "load_model": None, # "/home/lola/nn/neuralnetwork.pth",
+    "load_model": None,  # "/home/lola/nn/neuralnetwork.pth",
     "vocab_filename": None,
-    "steps_per_checkpoint": 8,
+    "steps_per_checkpoint": 100,
     "max_source_len": 115,
     "max_target_len": 315,
     "test": False,
@@ -490,6 +493,7 @@ args = {
     "no_pf": False,
     "no_train": False,
 }
+
 
 @dataclass
 class Args:
@@ -516,10 +520,16 @@ class Args:
     no_pf: bool
     no_train: bool
 
+
 args = Args(**args)
 
 
-def run(training_dataset: TreeDataset, validation_dataset: TreeDataset, test_dataset: TreeDataset, vocab):
+def run(
+    training_dataset: TreeDataset,
+    validation_dataset: TreeDataset,
+    test_dataset: TreeDataset,
+    vocab,
+):
     if args.no_attention:
         args.no_pf = True
     source_vocab = vocab

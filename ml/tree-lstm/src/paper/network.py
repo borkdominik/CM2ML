@@ -2,10 +2,9 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch import cuda
-from torch.autograd import Variable
-from torch.nn.utils import clip_grad_norm
+from torch.nn.utils import clip_grad_norm_
 import torch.nn.functional as F
-from paper.Tree import TreeManager
+from paper.Tree import BinaryTreeManager
 
 import paper.data_utils as data_utils
 
@@ -76,32 +75,32 @@ class TreeEncoder(nn.Module):
         encoder_outputs = self.calc_root(embedding, children_h, children_c)
         return encoder_outputs
 
-    def forward(self, encoder_managers):
+    def forward(self, encoder_managers: list[BinaryTreeManager]):
         queue = []
         head = 0
-        max_num_trees = 0
+        max_num_nodes = 0
         visited_idx = []
 
         for encoder_manager_idx in range(len(encoder_managers)):
             encoder_manager = encoder_managers[encoder_manager_idx]
-            max_num_trees = max(max_num_trees, encoder_manager.num_trees)
-            idx = encoder_manager.num_trees - 1
+            max_num_nodes = max(max_num_nodes, encoder_manager.num_nodes)
+            idx = encoder_manager.num_nodes - 1
             while idx >= 0:
-                current_tree = encoder_manager.get_tree(idx)
+                current_tree = encoder_manager.get_node(idx)
                 canVisited = True
                 if current_tree.lchild is not None:
-                    ltree = encoder_manager.get_tree(current_tree.lchild)
+                    ltree = encoder_manager.get_node(current_tree.lchild)
                     if ltree.state is None:
                         canVisited = False
                 if current_tree.rchild is not None:
-                    rtree = encoder_manager.get_tree(current_tree.rchild)
+                    rtree = encoder_manager.get_node(current_tree.rchild)
                     if rtree.state is None:
                         canVisited = False
                 if canVisited:
-                    root = current_tree.root
+                    tree_node_value = current_tree.value
                     if current_tree.lchild is None:
-                        children_c = Variable(torch.zeros(self.hidden_size))
-                        children_h = Variable(torch.zeros(self.hidden_size))
+                        children_c = torch.zeros(self.hidden_size)
+                        children_h = torch.zeros(self.hidden_size)
                         if self.cuda_flag:
                             children_c = children_c.cuda()
                             children_h = children_h.cuda()
@@ -110,8 +109,8 @@ class TreeEncoder(nn.Module):
                         children_h = children_h
                         children_c = children_c
                     if current_tree.rchild is None:
-                        rchild_c = Variable(torch.zeros(self.hidden_size))
-                        rchild_h = Variable(torch.zeros(self.hidden_size))
+                        rchild_c = torch.zeros(self.hidden_size)
+                        rchild_h = torch.zeros(self.hidden_size)
                         if self.cuda_flag:
                             rchild_c = rchild_c.cuda()
                             rchild_h = rchild_h.cuda()
@@ -124,7 +123,13 @@ class TreeEncoder(nn.Module):
                         children_c = torch.stack([children_c, rchild_c], dim=0)
                         children_h = torch.stack([children_h, rchild_h], dim=0)
                     queue.append(
-                        (encoder_manager_idx, idx, root, children_h, children_c)
+                        (
+                            encoder_manager_idx,
+                            idx,
+                            tree_node_value,
+                            children_h,
+                            children_c,
+                        )
                     )
                 else:
                     break
@@ -135,12 +140,14 @@ class TreeEncoder(nn.Module):
             encoder_inputs = []
             children_h = []
             children_c = []
-            tree_idxes = []
+            tree_idxes: list[tuple[int, int]] = []
             while head < len(queue):
-                encoder_manager_idx, idx, root, child_h, child_c = queue[head]
-                current_tree = encoder_managers[encoder_manager_idx].get_tree(idx)
+                encoder_manager_idx, idx, tree_node_value, child_h, child_c = queue[
+                    head
+                ]
+                current_tree = encoder_managers[encoder_manager_idx].get_node(idx)
                 tree_idxes.append((encoder_manager_idx, idx))
-                encoder_inputs.append(root)
+                encoder_inputs.append(tree_node_value)
                 children_h.append(child_h)
                 children_c.append(child_c)
                 head += 1
@@ -154,11 +161,11 @@ class TreeEncoder(nn.Module):
                 current_encoder_manager_idx, current_idx = tree_idxes[i]
                 child_h = encoder_outputs[0][i]
                 child_c = encoder_outputs[1][i]
-                encoder_managers[current_encoder_manager_idx].trees[
+                encoder_managers[current_encoder_manager_idx].get_node(
                     current_idx
-                ].state = child_h, child_c
+                ).state = child_h, child_c
 
-                current_tree = encoder_managers[current_encoder_manager_idx].get_tree(
+                current_tree = encoder_managers[current_encoder_manager_idx].get_node(
                     current_idx
                 )
 
@@ -168,22 +175,22 @@ class TreeEncoder(nn.Module):
                     idx = visited_idx[encoder_manager_idx]
 
                     while idx >= 0:
-                        current_tree = encoder_manager.get_tree(idx)
+                        current_tree = encoder_manager.get_node(idx)
                         canVisited = True
                         if current_tree.lchild is not None:
-                            ltree = encoder_manager.get_tree(current_tree.lchild)
+                            ltree = encoder_manager.get_node(current_tree.lchild)
                             if ltree.state is None:
                                 canVisited = False
                         if current_tree.rchild is not None:
-                            rtree = encoder_manager.get_tree(current_tree.rchild)
+                            rtree = encoder_manager.get_node(current_tree.rchild)
                             if rtree.state is None:
                                 canVisited = False
 
                         if canVisited:
-                            root = current_tree.root
+                            tree_node_value = current_tree.value
                             if current_tree.lchild is None:
-                                children_c = Variable(torch.zeros(self.hidden_size))
-                                children_h = Variable(torch.zeros(self.hidden_size))
+                                children_c = torch.zeros(self.hidden_size)
+                                children_h = torch.zeros(self.hidden_size)
                                 if self.cuda_flag:
                                     children_c = children_c.cuda()
                                     children_h = children_h.cuda()
@@ -193,8 +200,8 @@ class TreeEncoder(nn.Module):
                                 children_c = children_c
 
                             if current_tree.rchild is None:
-                                rchild_c = Variable(torch.zeros(self.hidden_size))
-                                rchild_h = Variable(torch.zeros(self.hidden_size))
+                                rchild_c = torch.zeros(self.hidden_size)
+                                rchild_h = torch.zeros(self.hidden_size)
                                 if self.cuda_flag:
                                     rchild_c = rchild_c.cuda()
                                     rchild_h = rchild_h.cuda()
@@ -206,14 +213,20 @@ class TreeEncoder(nn.Module):
                             children_c = torch.stack([children_c, rchild_c], dim=0)
                             children_h = torch.stack([children_h, rchild_h], dim=0)
                             queue.append(
-                                (encoder_manager_idx, idx, root, children_h, children_c)
+                                (
+                                    encoder_manager_idx,
+                                    idx,
+                                    tree_node_value,
+                                    children_h,
+                                    children_c,
+                                )
                             )
                         else:
                             break
                         idx -= 1
                     visited_idx[encoder_manager_idx] = idx
 
-        PAD_state_token = Variable(torch.zeros(self.hidden_size))
+        PAD_state_token = torch.zeros(self.hidden_size)
         if self.cuda_flag:
             PAD_state_token = PAD_state_token.cuda()
 
@@ -222,21 +235,21 @@ class TreeEncoder(nn.Module):
         init_encoder_outputs = []
         init_attention_masks = []
         for encoder_manager in encoder_managers:
-            root = encoder_manager.get_tree(0)
-            h, c = root.state
+            tree_node_value = encoder_manager.get_node(0)
+            h, c = tree_node_value.state
             encoder_h_state.append(h)
             encoder_c_state.append(c)
             init_encoder_output = []
-            for tree in encoder_manager.trees:
-                init_encoder_output.append(tree.state[0])
+            for node in encoder_manager.nodes:
+                init_encoder_output.append(node.state[0])
             attention_mask = [0] * len(init_encoder_output)
             current_len = len(init_encoder_output)
-            if current_len < max_num_trees:
+            if current_len < max_num_nodes:
                 init_encoder_output = init_encoder_output + [PAD_state_token] * (
-                    max_num_trees - current_len
+                    max_num_nodes - current_len
                 )
-                attention_mask = attention_mask + [1] * (max_num_trees - current_len)
-            attention_mask = Variable(torch.ByteTensor(attention_mask))
+                attention_mask = attention_mask + [1] * (max_num_nodes - current_len)
+            attention_mask = torch.ByteTensor(attention_mask)
             if self.cuda_flag:
                 attention_mask = attention_mask.cuda()
             init_attention_masks.append(attention_mask)
@@ -257,20 +270,20 @@ class TreeEncoder(nn.Module):
 class Tree2TreeModel(nn.Module):
     def __init__(
         self,
-        source_vocab_size,
-        target_vocab_size,
+        source_vocab_size: int,
+        target_vocab_size: int,
         source_vocab,
         target_vocab,
-        max_depth,
-        embedding_size,
-        hidden_size,
-        num_layers,
-        max_gradient_norm,
-        batch_size,
-        learning_rate,
-        dropout_rate,
-        no_pf,
-        no_attention,
+        max_depth: int,
+        embedding_size: int,
+        hidden_size: int,
+        num_layers: int,
+        max_gradient_norm: float,
+        batch_size: int,
+        learning_rate: float,
+        dropout_rate: float,
+        no_pf: bool,
+        no_attention: bool,
     ):
         super(Tree2TreeModel, self).__init__()
         self.source_vocab_size = source_vocab_size
@@ -343,7 +356,7 @@ class Tree2TreeModel(nn.Module):
             self.hidden_size, self.target_vocab_size, bias=True
         )
 
-        self.loss_function = nn.CrossEntropyLoss(size_average=False)
+        self.loss_function = nn.CrossEntropyLoss(reduction="sum")
         self.optimizer = optim.Adam(self.parameters(), lr=self.learning_rate)
 
     def init_weights(self, param_init):
@@ -356,7 +369,7 @@ class Tree2TreeModel(nn.Module):
 
     def train(self):
         if self.max_gradient_norm > 0:
-            clip_grad_norm(self.parameters(), self.max_gradient_norm)
+            clip_grad_norm_(self.parameters(), self.max_gradient_norm)
         self.optimizer.step()
 
     def attention(self, encoder_outputs, attention_masks, decoder_output):
@@ -365,7 +378,7 @@ class Tree2TreeModel(nn.Module):
         if len(dotted.size()) == 1:
             dotted = dotted.unsqueeze(0)
         dotted.data.masked_fill_(attention_masks.data.bool(), -float("inf"))
-        attention = nn.Softmax()(dotted)
+        attention = nn.Softmax(dim=1)(dotted)
         encoder_attention = torch.bmm(
             torch.transpose(encoder_outputs, 1, 2), attention.unsqueeze(2)
         )
@@ -377,20 +390,20 @@ class Tree2TreeModel(nn.Module):
         )
         return res
 
-    def tree2seq(self, prediction_manager, current_idx):
-        current_tree = prediction_manager.get_tree(current_idx)
-        if current_tree.prediction == data_utils.EOS_ID:
+    def tree2seq(self, prediction_manager: BinaryTreeManager, current_idx: int):
+        current_node = prediction_manager.get_node(current_idx)
+        if current_node.prediction == data_utils.EOS_ID:
             return []
         prediction = [data_utils.LEFT_BRACKET_ID]
-        prediction.append(current_tree.prediction)
-        if current_tree.lchild is not None:
+        prediction.append(current_node.prediction)
+        if current_node.lchild is not None:
             prediction = prediction + self.tree2seq(
-                prediction_manager, current_tree.lchild
+                prediction_manager, current_node.lchild
             )
         prediction.append(data_utils.RIGHT_BRACKET_ID)
-        if current_tree.rchild is not None:
+        if current_node.rchild is not None:
             prediction = prediction + self.tree2seq(
-                prediction_manager, current_tree.rchild
+                prediction_manager, current_node.rchild
             )
         return prediction
 
@@ -447,33 +460,38 @@ class Tree2TreeModel(nn.Module):
             attention_output_r,
         )
 
-    def forward(self, encoder_managers, decoder_managers, feed_previous=False):
+    def forward(
+        self,
+        encoder_managers: list[BinaryTreeManager],
+        decoder_managers: list[BinaryTreeManager],
+        feed_previous=False,
+    ):
         init_encoder_outputs, init_attention_masks, encoder_h_state, encoder_c_state = (
             self.encoder(encoder_managers)
         )
 
-        queue = []
+        queue: list[tuple[int, int]] = []
 
-        prediction_managers = []
+        prediction_managers: list[BinaryTreeManager] = []
         for idx in range(len(decoder_managers)):
-            prediction_managers.append(TreeManager())
+            prediction_managers.append(BinaryTreeManager())
 
         for idx in range(len(decoder_managers)):
             # current_target_manager_idx = idx
             # current_target_idx = 0
-            current_prediction_idx = prediction_managers[idx].create_binary_tree(
+            current_prediction_idx = prediction_managers[idx].create_node(
                 data_utils.GO_ID, None, 0
             )
-            prediction_managers[idx].trees[current_prediction_idx].state = (
+            prediction_managers[idx].get_node(current_prediction_idx).state = (
                 encoder_h_state[idx].unsqueeze(0),
                 encoder_c_state[idx].unsqueeze(0),
             )
-            prediction_managers[idx].trees[current_prediction_idx].target = 0
+            prediction_managers[idx].get_node(current_prediction_idx).target = 0
             queue.append((idx, current_prediction_idx))
 
         head = 0
         predictions_per_batch = []
-        EOS_token = Variable(torch.LongTensor([data_utils.EOS_ID]))
+        EOS_token = torch.LongTensor([data_utils.EOS_ID])
 
         while head < len(queue):
             init_h_states = []
@@ -484,20 +502,20 @@ class Tree2TreeModel(nn.Module):
             attention_masks = []
             target_seqs_l = []
             target_seqs_r = []
-            tree_idxes = []
+            tree_idxes: list[tuple[int, int]] = []
             while head < len(queue):
-                current_tree = prediction_managers[queue[head][0]].get_tree(
+                current_tree = prediction_managers[queue[head][0]].get_node(
                     queue[head][1]
                 )
                 target_manager_idx = queue[head][0]
                 target_idx = current_tree.target
                 if target_idx is not None:
-                    target_tree = decoder_managers[target_manager_idx].get_tree(
+                    target_node = decoder_managers[target_manager_idx].get_node(
                         target_idx
                     )
                 else:
-                    target_tree = None
-                if target_tree is not None:
+                    target_node = None
+                if target_node is not None:
                     init_h_state = current_tree.state[0]
                     init_c_state = current_tree.state[1]
                     init_h_state = torch.cat([init_h_state] * self.num_layers, dim=0)
@@ -505,32 +523,32 @@ class Tree2TreeModel(nn.Module):
                     init_h_states.append(init_h_state)
                     init_c_states.append(init_c_state)
                     tree_idxes.append((queue[head][0], queue[head][1]))
-                    decoder_input = current_tree.root
+                    decoder_input = current_tree.value
                     decoder_inputs.append(decoder_input)
                     if current_tree.attention is None:
-                        attention_input = Variable(torch.zeros(self.hidden_size))
+                        attention_input = torch.zeros(self.hidden_size)
                         if self.cuda_flag:
                             attention_input = attention_input.cuda()
                     else:
                         attention_input = current_tree.attention
                     attention_inputs.append(attention_input)
                     if queue[head][1] == 0:
-                        target_seq_l = target_tree.root
+                        target_seq_l = target_node.value
                         target_seq_r = EOS_token
                     else:
-                        if target_tree is not None and target_tree.lchild is not None:
+                        if target_node is not None and target_node.lchild is not None:
                             target_seq_l = (
                                 decoder_managers[target_manager_idx]
-                                .trees[target_tree.lchild]
-                                .root
+                                .get_node(target_node.lchild)
+                                .value
                             )
                         else:
                             target_seq_l = EOS_token
-                        if target_tree is not None and target_tree.rchild is not None:
+                        if target_node is not None and target_node.rchild is not None:
                             target_seq_r = (
                                 decoder_managers[target_manager_idx]
-                                .trees[target_tree.rchild]
-                                .root
+                                .get_node(target_node.rchild)
+                                .value
                             )
                         else:
                             target_seq_r = EOS_token
@@ -580,88 +598,102 @@ class Tree2TreeModel(nn.Module):
                 target_manager_idx = current_prediction_manager_idx
                 current_prediction_tree = prediction_managers[
                     current_prediction_manager_idx
-                ].get_tree(current_prediction_idx)
+                ].get_node(current_prediction_idx)
                 target_idx = current_prediction_tree.target
                 if target_idx is None:
-                    target_tree = None
+                    target_node = None
                 else:
-                    target_tree = decoder_managers[target_manager_idx].get_tree(
+                    target_node = decoder_managers[target_manager_idx].get_node(
                         target_idx
                     )
                 if feed_previous is False:
                     if current_prediction_idx == 0:
                         nxt_l_prediction_idx = prediction_managers[
                             current_prediction_manager_idx
-                        ].create_binary_tree(
-                            target_tree.root,
+                        ].create_node(
+                            target_node.value,
                             current_prediction_idx,
                             current_prediction_tree.depth + 1,
                         )
-                        prediction_managers[current_prediction_manager_idx].trees[
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             current_prediction_idx
-                        ].lchild = nxt_l_prediction_idx
-                        prediction_managers[current_prediction_manager_idx].trees[
+                        ).lchild = nxt_l_prediction_idx
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             nxt_l_prediction_idx
-                        ].target = target_idx
-                        prediction_managers[current_prediction_manager_idx].trees[
+                        ).target = target_idx
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             nxt_l_prediction_idx
-                        ].state = states_l[0][:, i, :], states_l[1][:, i, :]
-                        prediction_managers[current_prediction_manager_idx].trees[
+                        ).state = states_l[0][:, i, :], states_l[1][:, i, :]
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             nxt_l_prediction_idx
-                        ].attention = attention_outputs_l[i]
+                        ).attention = attention_outputs_l[i]
                         queue.append(
                             (current_prediction_manager_idx, nxt_l_prediction_idx)
                         )
                     else:
-                        if target_tree.lchild is not None:
+                        if target_node.lchild is not None:
                             nxt_l_prediction_idx = prediction_managers[
                                 current_prediction_manager_idx
-                            ].create_binary_tree(
+                            ].create_node(
                                 decoder_managers[target_manager_idx]
-                                .trees[target_tree.lchild]
-                                .root,
+                                .get_node(target_node.lchild)
+                                .value,
                                 current_prediction_idx,
                                 current_prediction_tree.depth + 1,
                             )
-                            prediction_managers[current_prediction_manager_idx].trees[
-                                nxt_l_prediction_idx
-                            ].target = target_tree.lchild
-                            prediction_managers[current_prediction_manager_idx].trees[
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(nxt_l_prediction_idx).target = target_node.lchild
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(
                                 current_prediction_idx
-                            ].lchild = nxt_l_prediction_idx
-                            prediction_managers[current_prediction_manager_idx].trees[
+                            ).lchild = nxt_l_prediction_idx
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(nxt_l_prediction_idx).state = (
+                                states_l[0][:, i, :],
+                                states_l[1][:, i, :],
+                            )
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(
                                 nxt_l_prediction_idx
-                            ].state = states_l[0][:, i, :], states_l[1][:, i, :]
-                            prediction_managers[current_prediction_manager_idx].trees[
-                                nxt_l_prediction_idx
-                            ].attention = attention_outputs_l[i]
+                            ).attention = attention_outputs_l[i]
                             queue.append(
                                 (current_prediction_manager_idx, nxt_l_prediction_idx)
                             )
                         if target_idx == 0:
                             continue
-                        if target_tree.rchild is not None:
+                        if target_node.rchild is not None:
                             nxt_r_prediction_idx = prediction_managers[
                                 current_prediction_manager_idx
-                            ].create_binary_tree(
+                            ].create_node(
                                 decoder_managers[target_manager_idx]
-                                .trees[target_tree.rchild]
-                                .root,
+                                .get_node(target_node.rchild)
+                                .value,
                                 current_prediction_idx,
                                 current_prediction_tree.depth + 1,
                             )
-                            prediction_managers[current_prediction_manager_idx].trees[
-                                nxt_r_prediction_idx
-                            ].target = target_tree.rchild
-                            prediction_managers[current_prediction_manager_idx].trees[
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(nxt_r_prediction_idx).target = target_node.rchild
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(
                                 current_prediction_idx
-                            ].rchild = nxt_r_prediction_idx
-                            prediction_managers[current_prediction_manager_idx].trees[
+                            ).rchild = nxt_r_prediction_idx
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(nxt_r_prediction_idx).state = (
+                                states_r[0][:, i, :],
+                                states_r[1][:, i, :],
+                            )
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(
                                 nxt_r_prediction_idx
-                            ].state = states_r[0][:, i, :], states_r[1][:, i, :]
-                            prediction_managers[current_prediction_manager_idx].trees[
-                                nxt_r_prediction_idx
-                            ].attention = attention_outputs_r[i]
+                            ).attention = attention_outputs_r[i]
                             queue.append(
                                 (current_prediction_manager_idx, nxt_r_prediction_idx)
                             )
@@ -669,67 +701,76 @@ class Tree2TreeModel(nn.Module):
                     if current_prediction_idx == 0:
                         nxt_l_prediction_idx = prediction_managers[
                             current_prediction_manager_idx
-                        ].create_binary_tree(
+                        ].create_node(
                             predictions_l[i].item(),
                             current_prediction_idx,
                             current_prediction_tree.depth + 1,
                         )
-                        prediction_managers[current_prediction_manager_idx].trees[
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             current_prediction_idx
-                        ].lchild = nxt_l_prediction_idx
-                        prediction_managers[current_prediction_manager_idx].trees[
+                        ).lchild = nxt_l_prediction_idx
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             nxt_l_prediction_idx
-                        ].prediction = predictions_l[i].item()
-                        prediction_managers[current_prediction_manager_idx].trees[
+                        ).prediction = predictions_l[i].item()
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             nxt_l_prediction_idx
-                        ].target = target_idx
-                        prediction_managers[current_prediction_manager_idx].trees[
+                        ).target = target_idx
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             nxt_l_prediction_idx
-                        ].state = states_l[0][:, i, :], states_l[1][:, i, :]
-                        prediction_managers[current_prediction_manager_idx].trees[
+                        ).state = states_l[0][:, i, :], states_l[1][:, i, :]
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             nxt_l_prediction_idx
-                        ].attention = attention_outputs_l[i]
+                        ).attention = attention_outputs_l[i]
                         queue.append(
                             (current_prediction_manager_idx, nxt_l_prediction_idx)
                         )
                     else:
                         if predictions_l[i].item() != data_utils.EOS_ID:
-                            if target_tree is None or target_tree.lchild is None:
+                            if target_node is None or target_node.lchild is None:
                                 nxt_l_prediction_idx = prediction_managers[
                                     current_prediction_manager_idx
-                                ].create_binary_tree(
+                                ].create_node(
                                     predictions_l[i].item(),
                                     current_prediction_idx,
                                     current_prediction_tree.depth + 1,
                                 )
                                 prediction_managers[
                                     current_prediction_manager_idx
-                                ].trees[nxt_l_prediction_idx].target = None
+                                ].get_node(nxt_l_prediction_idx).target = None
                             else:
                                 nxt_l_prediction_idx = prediction_managers[
                                     current_prediction_manager_idx
-                                ].create_binary_tree(
+                                ].create_node(
                                     predictions_l[i].item(),
                                     current_prediction_idx,
                                     current_prediction_tree.depth + 1,
                                 )
                                 prediction_managers[
                                     current_prediction_manager_idx
-                                ].trees[
+                                ].get_node(
                                     nxt_l_prediction_idx
-                                ].target = target_tree.lchild
-                            prediction_managers[current_prediction_manager_idx].trees[
+                                ).target = target_node.lchild
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(
                                 current_prediction_idx
-                            ].lchild = nxt_l_prediction_idx
-                            prediction_managers[current_prediction_manager_idx].trees[
+                            ).lchild = nxt_l_prediction_idx
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(nxt_l_prediction_idx).prediction = predictions_l[
+                                i
+                            ].item()
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(nxt_l_prediction_idx).state = (
+                                states_l[0][:, i, :],
+                                states_l[1][:, i, :],
+                            )
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(
                                 nxt_l_prediction_idx
-                            ].prediction = predictions_l[i].item()
-                            prediction_managers[current_prediction_manager_idx].trees[
-                                nxt_l_prediction_idx
-                            ].state = states_l[0][:, i, :], states_l[1][:, i, :]
-                            prediction_managers[current_prediction_manager_idx].trees[
-                                nxt_l_prediction_idx
-                            ].attention = attention_outputs_l[i]
+                            ).attention = attention_outputs_l[i]
                             queue.append(
                                 (current_prediction_manager_idx, nxt_l_prediction_idx)
                             )
@@ -737,40 +778,40 @@ class Tree2TreeModel(nn.Module):
                             continue
                         if predictions_r[i].item() == data_utils.EOS_ID:
                             continue
-                        if target_tree is None or target_tree.rchild is None:
+                        if target_node is None or target_node.rchild is None:
                             nxt_r_prediction_idx = prediction_managers[
                                 current_prediction_manager_idx
-                            ].create_binary_tree(
+                            ].create_node(
                                 predictions_r[i].item(),
                                 current_prediction_idx,
                                 current_prediction_tree.depth + 1,
                             )
-                            prediction_managers[current_prediction_manager_idx].trees[
-                                nxt_r_prediction_idx
-                            ].target = None
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(nxt_r_prediction_idx).target = None
                         else:
                             nxt_r_prediction_idx = prediction_managers[
                                 current_prediction_manager_idx
-                            ].create_binary_tree(
+                            ].create_node(
                                 predictions_r[i].item(),
                                 current_prediction_idx,
                                 current_prediction_tree.depth + 1,
                             )
-                            prediction_managers[current_prediction_manager_idx].trees[
-                                nxt_r_prediction_idx
-                            ].target = target_tree.rchild
-                        prediction_managers[current_prediction_manager_idx].trees[
+                            prediction_managers[
+                                current_prediction_manager_idx
+                            ].get_node(nxt_r_prediction_idx).target = target_node.rchild
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             current_prediction_idx
-                        ].rchild = nxt_r_prediction_idx
-                        prediction_managers[current_prediction_manager_idx].trees[
+                        ).rchild = nxt_r_prediction_idx
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             nxt_r_prediction_idx
-                        ].prediction = predictions_r[i].item()
-                        prediction_managers[current_prediction_manager_idx].trees[
+                        ).prediction = predictions_r[i].item()
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             nxt_r_prediction_idx
-                        ].state = states_r[0][:, i, :], states_r[1][:, i, :]
-                        prediction_managers[current_prediction_manager_idx].trees[
+                        ).state = states_r[0][:, i, :], states_r[1][:, i, :]
+                        prediction_managers[current_prediction_manager_idx].get_node(
                             nxt_r_prediction_idx
-                        ].attention = attention_outputs_r[i]
+                        ).attention = attention_outputs_r[i]
                         queue.append(
                             (current_prediction_manager_idx, nxt_r_prediction_idx)
                         )
