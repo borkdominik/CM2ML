@@ -270,10 +270,8 @@ class TreeEncoder(nn.Module):
 class Tree2TreeModel(nn.Module):
     def __init__(
         self,
-        source_vocab_size: int,
-        target_vocab_size: int,
-        source_vocab,
-        target_vocab,
+        source_vocab: data_utils.Vocab,
+        target_vocab: data_utils.Vocab,
         max_depth: int,
         embedding_size: int,
         hidden_size: int,
@@ -286,8 +284,8 @@ class Tree2TreeModel(nn.Module):
         no_attention: bool,
     ):
         super(Tree2TreeModel, self).__init__()
-        self.source_vocab_size = source_vocab_size
-        self.target_vocab_size = target_vocab_size
+        self.source_vocab_size = len(source_vocab)
+        self.target_vocab_size = len(target_vocab)
         self.source_vocab = source_vocab
         self.target_vocab = target_vocab
         self.max_depth = max_depth
@@ -817,7 +815,7 @@ class Tree2TreeModel(nn.Module):
                         )
         return predictions_per_batch, prediction_managers
 
-    def get_batch(self, data, start_idx):
+    def get_batch(self, data: data_utils.EncodedDataset, start_idx: int):
         encoder_managers, decoder_managers = [], []
 
         for i in range(self.batch_size):

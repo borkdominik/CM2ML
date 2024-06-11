@@ -1,8 +1,8 @@
-from typing import List, TypedDict
+from typing import TypedDict
 
 class TreeNode(TypedDict):
     value: str
-    children: List["TreeNode"]
+    children: list["TreeNode"]
 
 class TreeModel(TypedDict):
     root: TreeNode

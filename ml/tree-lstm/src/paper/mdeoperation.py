@@ -2,7 +2,6 @@
 
 from dataclasses import dataclass
 import datetime
-import json
 import os
 import random
 import sys
@@ -20,17 +19,11 @@ from utils import script_dir
 
 
 def create_model(
-    source_vocab_size,
-    target_vocab_size,
-    source_vocab,
-    target_vocab,
-    dropout_rate,
-    max_source_len,
-    max_target_len,
-):
+    source_vocab: data_utils.Vocab,
+    target_vocab: data_utils.Vocab,
+    dropout_rate: float,
+) -> network.Tree2TreeModel:
     model = network.Tree2TreeModel(
-        source_vocab_size,
-        target_vocab_size,
         source_vocab,
         target_vocab,
         args.max_depth,
@@ -60,8 +53,8 @@ def create_model(
 
 def step_tree2tree(
     model: network.Tree2TreeModel,
-    encoder_inputs,
-    init_decoder_inputs,
+    encoder_inputs,  # TODO/Jan: Type!
+    init_decoder_inputs,  # TODO/Jan: Type!
     feed_previous=False,
 ):
     if feed_previous is False:
@@ -105,17 +98,22 @@ def step_tree2tree(
         return total_loss.item()
 
 
-def evaluate(model: network.Tree2TreeModel, test_set, source_vocab, target_vocab):
+def evaluate(
+    model: network.Tree2TreeModel,
+    test_dataset: data_utils.EncodedDataset,  # TODO/Jan: Type!
+    source_vocab: data_utils.Vocab,
+    target_vocab: data_utils.Vocab,
+):
     test_loss = 0
     acc_tokens = 0
     tot_tokens = 0
-    acc_programs = 0
-    tot_programs = len(test_set)
+    acc_trees = 0
+    tot_trees = len(test_dataset)
     res = []
     # model.eval()
 
-    for idx in range(0, len(test_set), args.batch_size):
-        encoder_inputs, decoder_inputs = model.get_batch(test_set, start_idx=idx)
+    for idx in range(0, len(test_dataset), args.batch_size):
+        encoder_inputs, decoder_inputs = model.get_batch(test_dataset, start_idx=idx)
 
         eval_loss, raw_outputs = step_tree2tree(
             model, encoder_inputs, decoder_inputs, feed_previous=True
@@ -123,7 +121,7 @@ def evaluate(model: network.Tree2TreeModel, test_set, source_vocab, target_vocab
 
         test_loss += len(encoder_inputs) * eval_loss
         for i in range(len(encoder_inputs)):
-            if idx + i >= len(test_set):
+            if idx + i >= len(test_dataset):
                 break
             current_output = []
 
@@ -135,7 +133,7 @@ def evaluate(model: network.Tree2TreeModel, test_set, source_vocab, target_vocab
                 current_target,
                 _current_source_manager,
                 _current_target_manager,
-            ) = test_set[idx + i]
+            ) = test_dataset[idx + i]
 
             current_target_print = data_utils.serialize_tree_with_vocabulary(
                 current_target, target_vocab
@@ -171,23 +169,23 @@ def evaluate(model: network.Tree2TreeModel, test_set, source_vocab, target_vocab
                 else:
                     all_correct = 0
                     wrong_tokens += 1
-            acc_programs += all_correct
+            acc_trees += all_correct
 
-    print(acc_tokens, tot_tokens, acc_programs, tot_programs)
-    test_loss /= tot_programs
+    print(acc_tokens, tot_tokens, acc_trees, tot_trees)
+    test_loss /= tot_trees
     print("  eval: loss %.2f" % test_loss)
     print("  eval: accuracy of tokens %.2f" % (acc_tokens * 1.0 / tot_tokens))
-    print("  eval: accuracy of programs %.2f" % (acc_programs * 1.0 / tot_programs))
-    print(acc_tokens, tot_tokens, acc_programs, tot_programs)
+    print("  eval: accuracy of programs %.2f" % (acc_trees * 1.0 / tot_trees))
+    print(acc_tokens, tot_tokens, acc_trees, tot_trees)
 
 
 def train(
-    training_dataset: TreeDataset,
-    validation_dataset: TreeDataset,
-    test_dataset: TreeDataset,
-    source_vocab,
-    target_vocab,
-    no_train,
+    training_dataset: data_utils.EncodedDataset,
+    validation_dataset: data_utils.EncodedDataset,
+    test_dataset: data_utils.EncodedDataset,
+    source_vocab: data_utils.Vocab,
+    target_vocab: data_utils.Vocab,
+    no_train: bool,
 ):
     train_model = not no_train
     time_training = 0
@@ -195,13 +193,6 @@ def train(
     #    pretrained_model_path = "/home/lola/nn/neuralnetwork.pth";
     if train_model:
         print("Reading training and val data:")
-        train_set = data_utils.prepare_data(
-            training_dataset, source_vocab, target_vocab
-        )
-        val_set = data_utils.prepare_data(
-            validation_dataset, source_vocab, target_vocab
-        )
-
         if not os.path.isdir(args.train_dir_checkpoints):
             os.makedirs(args.train_dir_checkpoints)
 
@@ -212,13 +203,9 @@ def train(
 
         print("Creating %d layers of %d units." % (args.num_layers, args.hidden_size))
         model = create_model(
-            len(source_vocab),
-            len(target_vocab),
             source_vocab,
             target_vocab,
             args.dropout_rate,
-            args.max_source_len,
-            args.max_target_len,
         )
         # model.train()
         #      else:
@@ -231,17 +218,17 @@ def train(
         current_step = 0
         previous_losses = []
 
-        training_dataset_size = len(train_set)
+        training_dataset_size = len(training_dataset)
 
         for epoch in range(args.num_epochs):
             print("epoch: %s/%s" % (epoch + 1, args.num_epochs))
             batch = 0
-            random.shuffle(train_set)
+            random.shuffle(training_dataset)
             for batch_idx in range(0, training_dataset_size, args.batch_size):
                 batch += 1
                 start_time = time.time()
                 encoder_inputs, decoder_inputs = model.get_batch(
-                    train_set, start_idx=batch_idx
+                    training_dataset, start_idx=batch_idx
                 )
 
                 step_loss = step_tree2tree(
@@ -253,7 +240,7 @@ def train(
                 current_step += 1
 
                 print(
-                    "   batch: %s/%s" % (batch, training_dataset_size / args.batch_size)
+                    "   batch: %d/%d" % (batch, training_dataset_size / args.batch_size)
                 )
 
                 if (
@@ -277,7 +264,7 @@ def train(
                     step_time, loss = 0.0, 0.0
 
                     encoder_inputs, decoder_inputs = model.get_batch(
-                        val_set, start_idx=0
+                        validation_dataset, start_idx=0
                     )
 
                     eval_loss, decoder_outputs = step_tree2tree(
@@ -291,21 +278,16 @@ def train(
     else:  # not train_model
         print("Loading the pretrained model")
         model = create_model(
-            len(source_vocab),
-            len(target_vocab),
             source_vocab,
             target_vocab,
             args.dropout_rate,
-            args.max_source_len,
-            args.max_target_len,
         )
 
     print("Evaluating model")
     start_evaluation_datetime = datetime.datetime.now()
-    test_set = data_utils.prepare_data(test_dataset, source_vocab, target_vocab)
     evaluate(
         model,
-        test_set,
+        test_dataset,
         source_vocab,
         target_vocab,
     )
@@ -317,223 +299,109 @@ def train(
     )
 
 
-def test(test_dataset, source_vocab, target_vocab):
+def test(
+    test_dataset: data_utils.EncodedDataset,
+    source_vocab: data_utils.Vocab,
+    target_vocab: data_utils.Vocab,
+):
     model = create_model(
-        len(source_vocab),
-        len(target_vocab),
         source_vocab,
         target_vocab,
         0.0,
-        args.max_source_len,
-        args.max_target_len,
     )
-    test_set = data_utils.prepare_data(test_dataset, source_vocab, target_vocab)
     evaluate(
         model,
-        test_set,
+        test_dataset,
         source_vocab,
         target_vocab,
     )
-
-
-# parser = argparse.ArgumentParser()
-# parser.add_argument(
-#     "--param_init",
-#     type=float,
-#     default=0.1,
-#     help="Parameters are initialized over uniform distribution in (-param_init, param_init)",
-# )
-# parser.add_argument(
-#     "--num_epochs", type=int, default=30, help="number of training epochs"
-# )  # default 30
-# parser.add_argument(
-#     "--learning_rate",
-#     type=float,
-#     default=0.005,  # default 0.005
-#     help="learning rate",
-# )
-# parser.add_argument(
-#     "--learning_rate_decay_factor",
-#     type=float,
-#     default=0.8,
-#     help="learning rate decays by this much",
-# )
-# parser.add_argument(
-#     "--learning_rate_decay_steps",
-#     type=int,
-#     default=2000,  # default=2000
-#     help="decay the learning rate after certain steps",
-# )
-# parser.add_argument(
-#     "--max_gradient_norm", type=float, default=5.0, help="clip gradients to this norm"
-# )
-# parser.add_argument(
-#     "--batch_size",
-#     type=int,
-#     default=64,  # default 100
-#     help="batch size",
-# )
-# parser.add_argument(
-#     "--max_depth", type=int, default=100, help="max depth for tree models"
-# )
-# parser.add_argument(
-#     "--hidden_size", type=int, default=256, help="size of each model layer"
-# )
-# parser.add_argument(
-#     "--embedding_size", type=int, default=256, help="size of the embedding"
-# )
-# parser.add_argument(
-#     "--dropout_rate",
-#     type=float,
-#     default=0.75,  # default=0.5
-#     help="dropout rate",
-# )
-# parser.add_argument(
-#     "--num_layers",
-#     type=int,
-#     default=1,  # default=1,
-#     help="number of layers in the model",
-# )
-# parser.add_argument(
-#     "--source_vocab_size",
-#     type=int,
-#     default=0,
-#     help="source vocabulary size (0: no limit)",
-# )
-# parser.add_argument(
-#     "--target_vocab_size",
-#     type=int,
-#     default=0,
-#     help="target vocabulary size (0: no limit)",
-# )
-# parser.add_argument(
-#     "--train_dir_checkpoints",
-#     type=str,
-#     default="/home/lola/nn/checkpoints",  # default='../model_ckpts/tree2tree/',
-#     help="training directory - checkpoints",
-# )
-# parser.add_argument(
-#     "--training_dataset",
-#     type=str,
-#     default="/home/lola/nn/models_train.json",  # default='../data/CS-JS/BL/preprocessed_progs_train.json',
-#     help="training dataset path",
-# )
-# parser.add_argument(
-#     "--validation_dataset",
-#     type=str,
-#     default="/home/lola/nn/models_valid.json",  # default='../data/CS-JS/BL/preprocessed_progs_valid.json',
-#     help="validation dataset path",
-# )
-# parser.add_argument(
-#     "--test_dataset",
-#     type=str,
-#     default="/home/lola/nn/models_test.json",  # default='../data/CS-JS/BL/preprocessed_progs_test.json',
-#     help="test dataset path",
-# )
-# parser.add_argument(
-#     "--load_model",
-#     type=str,
-#     default="/home/lola/nn/neuralnetwork.pth",  # default=None
-#     help="path to the pretrained model",
-# )
-# parser.add_argument(
-#     "--vocab_filename", type=str, default=None, help="filename for the vocabularies"
-# )
-# parser.add_argument(
-#     "--steps_per_checkpoint",
-#     type=int,
-#     default=500,
-#     help="number of training steps per checkpoint",
-# )
-# parser.add_argument(
-#     "--max_source_len", type=int, default=115, help="max length for input"
-# )
-# parser.add_argument(
-#     "--max_target_len", type=int, default=315, help="max length for output"
-# )
-# parser.add_argument("--test", action="store_true", help="set to true for testing")
-# parser.add_argument(
-#     "--no_attention", action="store_true", help="set to true to disable attention"
-# )
-# parser.add_argument(
-#     "--no_pf",
-#     action="store_true",
-#     help="set to true to disable parent attention feeding",
-# )
-# parser.add_argument(
-#     "--no_train",
-#     help="set to true to prevent the network from training",
-#     action="store_true",
-# )
-# args = parser.parse_args()
-args = {
-    "param_init": 0.1,
-    "num_epochs": 10,  # TODO/Jan: Increase epoch count
-    "learning_rate": 0.005,
-    "learning_rate_decay_factor": 0.8,
-    "learning_rate_decay_steps": 2000,
-    "max_gradient_norm": 5.0,
-    "batch_size": 2,  # 64,
-    "max_depth": 10,
-    "hidden_size": 64,
-    "embedding_size": 64,
-    "dropout_rate": 0,
-    "num_layers": 1,
-    "train_dir_checkpoints": f"{script_dir}/../.checkpoints/tree-lstm.pt",
-    # "training_dataset": "/home/lola/nn/models_train.json",
-    # "validation_dataset": "/home/lola/nn/models_valid.json",
-    # "test_dataset": "/home/lola/nn/models_test.json",
-    "load_model": None,  # "/home/lola/nn/neuralnetwork.pth",
-    "vocab_filename": None,
-    "steps_per_checkpoint": 100,
-    "max_source_len": 115,
-    "max_target_len": 315,
-    "test": False,
-    "no_attention": False,
-    "no_pf": False,
-    "no_train": False,
-}
 
 
 @dataclass
 class Args:
+    # Parameters are initialized over uniform distribution in (-param_init, param_init)
     param_init: float
     num_epochs: int
     learning_rate: float
+    # learning rate decays by this much
     learning_rate_decay_factor: float
+    # decay the learning rate after certain steps
     learning_rate_decay_steps: int
+    # clip gradients to this norm
     max_gradient_norm: float
     batch_size: int
+    # max depth for tree models
     max_depth: int
+    # size of each model layer
     hidden_size: int
     embedding_size: int
     dropout_rate: float
+    # number of layers in the model
     num_layers: int
     train_dir_checkpoints: str
+    # path to the pretrained tree2tree model
     load_model: Union[str, None]
-    vocab_filename: Union[str, None]
+    # number of training steps per checkpoint
     steps_per_checkpoint: int
+    # max length for input
     max_source_len: int
+    # max length for output
     max_target_len: int
+    # set to true for testing
     test: bool
+    # set to true to disable attention
     no_attention: bool
+    # set to true to disable parent attention feeding
     no_pf: bool
+    # set to true to prevent the network from training
     no_train: bool
 
 
-args = Args(**args)
+args = Args(
+    **{
+        "param_init": 0.1,
+        "num_epochs": 20,
+        "learning_rate": 0.005,
+        "learning_rate_decay_factor": 0.8,
+        "learning_rate_decay_steps": 2000,
+        "max_gradient_norm": 5.0,
+        "batch_size": 2,  # 64,
+        "max_depth": 100,
+        "hidden_size": 128,
+        "embedding_size": 128,
+        "dropout_rate": 0,
+        "num_layers": 1,
+        "train_dir_checkpoints": f"{script_dir}/../.checkpoints/tree-lstm.pt",
+        "load_model": None,  # f"{script_dir}/../.cache/neuralnetwork.pth",
+        "steps_per_checkpoint": 100,
+        "max_source_len": 115,
+        "max_target_len": 315,
+        "test": False,
+        "no_attention": False,
+        "no_pf": False,
+        "no_train": False,
+    }
+)
 
 
 def run(
     training_dataset: TreeDataset,
     validation_dataset: TreeDataset,
     test_dataset: TreeDataset,
-    vocab,
+    vocab: list[str],
 ):
     if args.no_attention:
         args.no_pf = True
-    source_vocab = vocab
-    target_vocab = vocab
+    source_vocab, target_vocab = data_utils.build_vocab(
+        [training_dataset, validation_dataset, test_dataset]
+    )
+    print(f"Source vocabulary size: {len(source_vocab)}")
+    print(f"Target vocabulary size: {len(target_vocab)}")
+    training_dataset = data_utils.prepare_data(training_dataset, source_vocab, target_vocab)
+    validation_dataset = data_utils.prepare_data(
+        validation_dataset, source_vocab, target_vocab
+    )
+    test_dataset = data_utils.prepare_data(test_dataset, source_vocab, target_vocab)
     if args.test:
         test(
             test_dataset,

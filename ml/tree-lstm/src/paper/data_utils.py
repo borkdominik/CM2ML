@@ -1,6 +1,7 @@
-import pickle
+from typing import TypeAlias, TypedDict
 from paper.Tree import BinaryTreeManager
 from tree_dataset import TreeDataset
+from tree_dataset_types import TreeNode
 
 # Special vocabulary symbols
 _PAD = b"_PAD"
@@ -20,80 +21,50 @@ NT_ID = 4
 LEFT_BRACKET_ID = 5
 RIGHT_BRACKET_ID = 6
 
+Vocab: TypeAlias = dict[str, int]
 
-def add_tokens_from_code(code, vocab):
-    tok = str(code["value"])
+
+class EncodedTreeNode(TypedDict):
+    value: int
+    children: list["EncodedTreeNode"]
+
+
+def add_tokens_from_node(node: TreeNode, vocab: list[str]):
+    tok = str(node["value"])
     if tok not in vocab:
         vocab.append(tok)
-    for sub_tree in code["children"]:
-        vocab = add_tokens_from_code(sub_tree, vocab)
+    for child_node in node["children"]:
+        vocab = add_tokens_from_node(child_node, vocab)
     return vocab
 
 
-def get_max_num_children(tree):
-    max_num_children = len(tree["children"])
-    for child in tree["children"]:
-        t = get_max_num_children(child)
-        max_num_children = max(t, max_num_children)
-    return max_num_children
-
-
-def calStat(data, serialize):
-    if serialize:
-        min_len = 10000
-        max_len = 0
-        avg_len = 0
-        for seq in data:
-            length = len(seq)
-            min_len = min(min_len, length)
-            max_len = max(max_len, length)
-            avg_len += length
-        return min_len, max_len, avg_len * 1.0 / len(data)
-    min_len = 0
-    max_len = 0
-    avg_len = 0
-    for tree in data:
-        current_len = get_max_num_children(tree)
-        avg_len = avg_len + current_len
-        max_len = max(max_len, current_len)
-    return min_len, max_len, avg_len * 1.0 / len(data)
-
-
-def build_vocab(train_data, vocab_filename):
-    if not vocab_filename:
-        source_vocab_list = []
-        target_vocab_list = []
-        for prog in train_data:
-            source_prog = prog["source_ast"]
-
-            target_prog = prog["target_ast"]
-
-            source_vocab_list = add_tokens_from_code(source_prog, source_vocab_list)
-            target_vocab_list = add_tokens_from_code(target_prog, target_vocab_list)
-        vocab = {}
-        vocab["source"] = source_vocab_list
-        vocab["target"] = target_vocab_list
-    else:
-        vocab = pickle.load(open(vocab_filename))
-        source_vocab_list = vocab["source"]
-        target_vocab_list = vocab["target"]
-
+def build_vocab(
+    datasets: list[TreeDataset],
+) -> tuple[Vocab, Vocab]:
+    source_vocab_list: list[str] = []
+    target_vocab_list: list[str] = []
+    for dataset in datasets:
+        for entry in dataset.data:
+            source_tree = entry["x"]["root"]
+            target_tree = entry["y"]["root"]
+            source_vocab_list = add_tokens_from_node(source_tree, source_vocab_list)
+            target_vocab_list = add_tokens_from_node(target_tree, target_vocab_list)
     source_vocab_list = _START_VOCAB[:] + source_vocab_list
     target_vocab_list = _START_VOCAB[:] + target_vocab_list
-    source_vocab_dict = {}
-    target_vocab_dict = {}
+    source_vocab_dict: Vocab = {}
+    target_vocab_dict: Vocab = {}
     for idx, token in enumerate(source_vocab_list):
         source_vocab_dict[token] = idx
     for idx, token in enumerate(target_vocab_list):
         target_vocab_dict[token] = idx
-    return source_vocab_dict, target_vocab_dict, source_vocab_list, target_vocab_list
+    return source_vocab_dict, target_vocab_dict
 
 
-def ast_to_token_ids(code, vocab):
-    current = {}
-    current["value"] = vocab.get(str(code["value"]), UNK_ID)
+def ast_to_token_ids(tree_node: TreeNode, vocab: Vocab) -> EncodedTreeNode:
+    current: EncodedTreeNode = {}
+    current["value"] = vocab.get(str(tree_node["value"]), UNK_ID)
     current["children"] = []
-    for sub_tree in code["children"]:
+    for sub_tree in tree_node["children"]:
         current["children"].append(ast_to_token_ids(sub_tree, vocab))
     return current
 
@@ -151,8 +122,15 @@ def idx_to_token(token, reversed_vocab):
     return reversed_vocab.get(token, "none")
 
 
-def prepare_data(init_data: TreeDataset, source_vocab, target_vocab):
-    data = []
+EncodedDataset: TypeAlias = list[
+    tuple[EncodedTreeNode, EncodedTreeNode, BinaryTreeManager, BinaryTreeManager]
+]
+
+
+def prepare_data(
+    init_data: TreeDataset, source_vocab: Vocab, target_vocab: Vocab
+) -> EncodedDataset:
+    data: EncodedDataset = []
     for _index, tree_model in enumerate(init_data.data):
         # print(init_data)
         input = tree_model["x"]["root"]
@@ -161,16 +139,17 @@ def prepare_data(init_data: TreeDataset, source_vocab, target_vocab):
         label = ast_to_token_ids(label, target_vocab)
         data.append((input, label))
         # print("Trees %s" % data)
-    data = build_trees(data)
-    return data
+    return build_trees(data)
 
 
-# init_dataset: list[tuple[TreeNode, TreeNode]]
-def build_trees(init_dataset):
-    # data_set: list[tuple[TreeNode, TreeNode, TreeManager, TreeManager]]
-    data_set: list[tuple] = []
+def build_trees(
+    init_dataset: list[tuple[EncodedTreeNode, EncodedTreeNode]],
+) -> EncodedDataset:
+    data_set: EncodedDataset = []
     for source_tree, target_tree in init_dataset:
         source_tree_manager = BinaryTreeManager(source_tree)
         target_tree_manager = BinaryTreeManager(target_tree)
-        data_set.append((source_tree, target_tree, source_tree_manager, target_tree_manager))
+        data_set.append(
+            (source_tree, target_tree, source_tree_manager, target_tree_manager)
+        )
     return data_set
