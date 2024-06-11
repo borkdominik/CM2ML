@@ -37,7 +37,7 @@ def add_tokens_from_node(node: TreeNode, vocab: list[str]):
         vocab = add_tokens_from_node(child_node, vocab)
     return vocab
 
-
+# TODO/Jan: Remove duplicates? Comp. to framework output
 def build_vocab(
     datasets: list[TreeDataset],
 ) -> tuple[Vocab, Vocab]:
@@ -60,13 +60,11 @@ def build_vocab(
     return source_vocab_dict, target_vocab_dict
 
 
-def ast_to_token_ids(tree_node: TreeNode, vocab: Vocab) -> EncodedTreeNode:
-    current: EncodedTreeNode = {}
-    current["value"] = vocab.get(str(tree_node["value"]), UNK_ID)
-    current["children"] = []
+def values_to_token_ids(tree_node: TreeNode, vocab: Vocab) -> EncodedTreeNode:
+    tree_node["value"] = vocab.get(str(tree_node["value"]), UNK_ID)
     for sub_tree in tree_node["children"]:
-        current["children"].append(ast_to_token_ids(sub_tree, vocab))
-    return current
+        values_to_token_ids(sub_tree, vocab)
+    return tree_node
 
 
 def serialize_tree(tree):
@@ -107,18 +105,15 @@ def serialize_tree_with_vocabulary_aux(tree, reversed_vocabulary):
     return current
 
 
-def raw_program_to_token_ids(prog, vocab):
-    return [vocab[str(t)] for t in prog] + [EOS_ID]
-
-
-def reverse_vocab(vocab):
+# TODO/Jan: Only compute this once?
+def reverse_vocab(vocab: Vocab) -> dict[int, str]:
     reversed_vocab = {}
     for token, idx in vocab.items():
         reversed_vocab[idx] = token
     return reversed_vocab
 
 
-def idx_to_token(token, reversed_vocab):
+def idx_to_token(token: int, reversed_vocab: dict[int, str]):
     return reversed_vocab.get(token, "none")
 
 
@@ -132,24 +127,9 @@ def prepare_data(
 ) -> EncodedDataset:
     data: EncodedDataset = []
     for _index, tree_model in enumerate(init_data.data):
-        # print(init_data)
         input = tree_model["x"]["root"]
         label = tree_model["y"]["root"]
-        input = ast_to_token_ids(input, source_vocab)
-        label = ast_to_token_ids(label, target_vocab)
-        data.append((input, label))
-        # print("Trees %s" % data)
-    return build_trees(data)
-
-
-def build_trees(
-    init_dataset: list[tuple[EncodedTreeNode, EncodedTreeNode]],
-) -> EncodedDataset:
-    data_set: EncodedDataset = []
-    for source_tree, target_tree in init_dataset:
-        source_tree_manager = BinaryTreeManager(source_tree)
-        target_tree_manager = BinaryTreeManager(target_tree)
-        data_set.append(
-            (source_tree, target_tree, source_tree_manager, target_tree_manager)
-        )
-    return data_set
+        input = values_to_token_ids(input, source_vocab)
+        label = values_to_token_ids(label, target_vocab)
+        data.append((input, label, BinaryTreeManager(input), BinaryTreeManager(label)))
+    return data
