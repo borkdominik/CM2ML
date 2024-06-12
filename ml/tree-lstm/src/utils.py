@@ -26,10 +26,10 @@ def WaitingSpinner(title: str):
     )
 
 
-def merge_vocabularies(vocabularies):
-    vocabulary = {}
-    for v in vocabularies:
-        for _index, word in enumerate(v):
-            if word not in vocabulary:
-                vocabulary[word] = len(vocabulary)
-    return vocabulary
+def merge_vocabularies(vocabularies: list[list[str]]) -> list[str]:
+    total_vocabulary = []
+    for vocabulary in vocabularies:
+        for token in vocabulary:
+            if token not in total_vocabulary:
+                total_vocabulary.append(token)
+    return total_vocabulary
