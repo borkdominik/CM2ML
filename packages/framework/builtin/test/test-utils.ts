@@ -1,8 +1,8 @@
 import { readdirSync } from 'node:fs'
 
-import type { Plugin } from '@cm2ml/plugin'
+import type { PrecomposedPlugin } from '../src'
 
-export function getPluginsToTest(plugins: Plugin<any, unknown, any, unknown>[]) {
+export function getPluginsToTest(plugins: PrecomposedPlugin[]) {
   return plugins
     .filter(isPluginReadyForTest)
     .map((plugin) => {
@@ -11,7 +11,7 @@ export function getPluginsToTest(plugins: Plugin<any, unknown, any, unknown>[]) 
     })
 }
 
-function isPluginReadyForTest(plugin: Plugin<any, unknown, any, unknown>) {
+function isPluginReadyForTest(plugin: PrecomposedPlugin) {
   const name = plugin.name.toLowerCase()
   if (name.includes('ecore')) {
     return false
@@ -28,7 +28,7 @@ function isPluginReadyForTest(plugin: Plugin<any, unknown, any, unknown>) {
   return true
 }
 
-function getInputDir(plugin: Plugin<any, unknown, any, unknown>) {
+function getInputDir(plugin: PrecomposedPlugin) {
   const basePath = `${import.meta.dirname}/../../../../models`
   const name = plugin.name.toLowerCase().replace('batch-', '')
   if (name.startsWith('uml')) {

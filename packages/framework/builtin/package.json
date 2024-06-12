@@ -46,7 +46,8 @@
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/tree-encoder": "workspace:*",
     "@cm2ml/uml": "workspace:*",
-    "@cm2ml/xmi-parser": "workspace:*"
+    "@cm2ml/xmi-parser": "workspace:*",
+    "@yeger/streams": "1.1.8"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

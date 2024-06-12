@@ -5,7 +5,7 @@ import time
 
 import torch
 import torch.utils
-from tree_dataset_types import TreeDatasetEntry, TreeEncodingEntry
+from tree_dataset_types import TreeDatasetEntry, TreeModel
 from utils import pretty_duration, script_dir
 
 
@@ -29,9 +29,9 @@ class TreeDataset(torch.utils.data.Dataset):
         else:
             with open(self.dataset_path, "r") as file:
                 dataset_input = json.load(file)
-                data = dataset_input["data"]
+                data: dict[str, TreeModel] = dataset_input["data"]
                 self.data = list(map(lambda entry: self.create_data(data[entry]), data))
-                self.vocabulary: list[str] = dataset_input["__metadata__"]["vocabulary"]
+                self.vocabulary: list[str] = dataset_input["metadata"]["vocabulary"]
                 torch.save(
                     (self.data, self.vocabulary),
                     self.dataset_cache_file,
@@ -44,8 +44,7 @@ class TreeDataset(torch.utils.data.Dataset):
             f"Processed in {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
         )
 
-    def create_data(self, entry: TreeEncodingEntry) -> TreeDatasetEntry:
-        tree = entry["tree"]
+    def create_data(self, tree: TreeModel) -> TreeDatasetEntry:
         input = copy.deepcopy(tree)
         # remove xmi:type and xsi:type
         input_root = input["root"]

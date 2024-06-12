@@ -10,6 +10,6 @@ describe('cli formatter action handler', () => {
   it('formats feature metadata', () => {
     const fileContent = readFileSync('test/fixture.json', 'utf8')
     const result = getFeatureMetadataFromFile(fileContent, 'nodeFeatures')
-    expect(result).toEqual(JSON.stringify(fixture.__metadata__.nodeFeatures))
+    expect(result).toEqual(JSON.stringify(fixture.metadata.nodeFeatures))
   })
 })

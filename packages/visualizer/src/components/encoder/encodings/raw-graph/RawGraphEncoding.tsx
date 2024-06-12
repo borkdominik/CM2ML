@@ -18,18 +18,19 @@ export function RawGraphEncoding({ model, parameters }: Props) {
   if (error || !encoding) {
     return <Hint error={error} />
   }
-  if (encoding.format === 'list') {
-    if (encoding.list.length === 0) {
+  const { data } = encoding
+  if (data.format === 'list') {
+    if (data.list.length === 0) {
       return <Hint text="No edges" />
     }
-    return <SparseList {...encoding} {...encoding.__metadata__} />
+    return <SparseList {...data} {...encoding.metadata} />
   }
-  if (encoding.matrix.every((row) => row.every((weight) => weight === 0))) {
+  if (data.matrix.every((row) => row.every((weight) => weight === 0))) {
     return <Hint text="No edges" />
   }
   return (
     <div className="h-full p-2">
-      <Grid matrix={encoding.matrix} nodes={encoding.nodes} />
+      <Grid matrix={data.matrix} nodes={data.nodes} />
     </div>
   )
 }

@@ -1,18 +1,11 @@
-import type { ParameterMetadata, Plugin } from '@cm2ml/plugin'
-import { ExecutionError, METADATA_KEY } from '@cm2ml/plugin'
+import type { ParameterMetadata, Plugin, StructuredOutput } from '@cm2ml/plugin'
+import { ExecutionError } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
-export interface PluginAdapterConfiguration {
-  batched: boolean
-}
+export type SupportedPlugin<In, Out> = Plugin<In, Out, ParameterMetadata>
 
-export type RegularPlugin<In> = Plugin<In, unknown, ParameterMetadata>
-export type BatchedPlugin<In> = Plugin<In[], { data: unknown[], [METADATA_KEY]: unknown }, ParameterMetadata>
-
-export type SupportedPlugin<In> = RegularPlugin<In> | BatchedPlugin<In>
-
-export abstract class PluginAdapter<In, Configuration extends PluginAdapterConfiguration = PluginAdapterConfiguration> {
-  protected plugins = new Map<string, Plugin<In, unknown, any> | Plugin<In[], { data: unknown[], [METADATA_KEY]: unknown }, any>>()
+export abstract class PluginAdapter<In, Out> {
+  protected plugins = new Map<string, Plugin<In, Out, any>>()
 
   private started = false
 
@@ -20,36 +13,25 @@ export abstract class PluginAdapter<In, Configuration extends PluginAdapterConfi
    *
    * Use {@link apply} for per-plugin configurations.
    */
-  public applyAll(plugins: SupportedPlugin<In>[], configuration: Configuration) {
-    Stream.from(plugins).forEach((plugin) => this.apply(plugin, configuration))
+  public applyAll(plugins: SupportedPlugin<In, Out>[]) {
+    Stream.from(plugins).forEach((plugin) => this.apply(plugin))
     return this
   }
 
   public apply(
-    plugin: SupportedPlugin<In>,
-    configuration: Configuration,
-  ): PluginAdapter<In, Configuration> {
+    plugin: SupportedPlugin<In, Out>,
+  ): PluginAdapter<In, Out> {
     this.requireNotStarted()
     if (this.plugins.has(plugin.name)) {
       throw new Error(`Plugin ${plugin.name} already applied.`)
     }
     this.plugins.set(plugin.name, plugin)
-    if (configuration.batched) {
-      this.onApplyBatched(plugin as BatchedPlugin<In>, configuration)
-      return this
-    }
-    this.onApply(plugin as RegularPlugin<In>, configuration)
+    this.onApply(plugin)
     return this
   }
 
-  protected abstract onApply<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<In, Out, Parameters>,
-    configuration: Configuration,
-  ): void
-
-  protected abstract onApplyBatched<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<In[], { data: Out[], [METADATA_KEY]: unknown }, Parameters>,
-    configuration: Configuration,
+  protected abstract onApply<Parameters extends ParameterMetadata>(
+    plugin: Plugin<In, Out, Parameters>
   ): void
 
   public start() {
@@ -67,9 +49,9 @@ export abstract class PluginAdapter<In, Configuration extends PluginAdapterConfi
   }
 }
 
-export function groupBatchedOutput<Out>(output: { data: (Out | ExecutionError)[], [METADATA_KEY]: unknown }) {
+export function groupStructuredOutput<Out>(output: StructuredOutput<(Out | ExecutionError)[], unknown>) {
   const withIndex = output.data.map((value, index) => ({ value, index }))
   const errors = withIndex.filter(({ value }) => value instanceof ExecutionError).map(({ value, index }) => ({ error: value as ExecutionError, index }))
   const results = withIndex.filter(({ value }) => !(value instanceof ExecutionError)).map(({ value, index }) => ({ result: value as Out, index }))
-  return { errors, results, metadata: output[METADATA_KEY] }
+  return { errors, results, metadata: output.metadata }
 }

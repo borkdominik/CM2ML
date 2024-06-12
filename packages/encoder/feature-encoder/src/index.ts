@@ -1,13 +1,13 @@
-import type { GraphModel } from '@cm2ml/ir'
-import { ValidationError, definePlugin } from '@cm2ml/plugin'
+import { GraphModel } from '@cm2ml/ir'
+import { ExecutionError, ValidationError, defineStructuredBatchPlugin } from '@cm2ml/plugin'
 import { ZodError } from 'zod'
 
 import { getFeatureMetadataFromFile } from './feature-metadata-extractor'
 import { FeatureMetadataSchema, deriveFeatures } from './features'
 
-export type { FeatureName, FeatureMetadata, FeatureType, FeatureVector } from './features'
+export type { FeatureName, FeatureMetadata, FeatureType, FeatureVector, FeatureContext } from './features'
 
-export const FeatureEncoder = definePlugin({
+export const FeatureEncoder = defineStructuredBatchPlugin({
   name: 'feature-encoder',
   parameters: {
     rawFeatures: {
@@ -53,22 +53,26 @@ export const FeatureEncoder = definePlugin({
       processFile: (fileContent: string) => getFeatureMetadataFromFile(fileContent, 'edgeFeatures'),
     },
   },
-  batchMetadataCollector: (models: GraphModel[], parameters) => {
+  invoke(input: (GraphModel | ExecutionError)[], parameters) {
     try {
+      const models = input.filter((item): item is GraphModel => item instanceof GraphModel)
       const nodeFeatureOverride = parameters.nodeFeatures !== '' ? FeatureMetadataSchema.parse(JSON.parse(parameters.nodeFeatures)) : null
       const edgeFeatureOverride = parameters.edgeFeatures !== '' ? FeatureMetadataSchema.parse(JSON.parse(parameters.edgeFeatures)) : null
-      return deriveFeatures(models, { ...parameters, nodeFeatureOverride, edgeFeatureOverride })
+      const features = deriveFeatures(models, { ...parameters, nodeFeatureOverride, edgeFeatureOverride })
+      return input.map((item) => {
+        if (item instanceof ExecutionError) {
+          return item
+        }
+        return {
+          data: item,
+          metadata: features,
+        }
+      })
     } catch (error) {
       if (error instanceof ZodError) {
         throw ValidationError.fromZodError(error)
       }
       throw error
-    }
-  },
-  invoke(input, _parameters, features) {
-    return {
-      input,
-      features,
     }
   },
 })

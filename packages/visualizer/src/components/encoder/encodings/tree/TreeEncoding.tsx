@@ -1,7 +1,5 @@
-import type { TreeModel } from '@cm2ml/builtin'
-import { TreeEncoder } from '@cm2ml/builtin'
+import { TreeEncoder, type TreeModel } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
-import { METADATA_KEY } from '@cm2ml/plugin'
 import { useEffect } from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Panel, Position, useReactFlow } from 'reactflow'
 
@@ -23,7 +21,7 @@ export function TreeEncoding({ model, parameters }: Props) {
   if (error || !encoding) {
     return <Hint error={error} />
   }
-  return <FlowGraph tree={encoding.tree} vocabulary={encoding[METADATA_KEY].staticVocabulary} />
+  return <FlowGraph tree={encoding.data} vocabulary={encoding.metadata.staticVocabulary} />
 }
 
 const nodeTypes = {

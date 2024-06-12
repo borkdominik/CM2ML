@@ -2,10 +2,6 @@ import { describe, expect, it } from 'vitest'
 
 import { definePlugin } from '../src/plugin'
 
-function sum(values: number[]) {
-  return values.reduce((acc, value) => acc + value, 0)
-}
-
 export interface TestBatchMetadata {
   sum: number
   intermediateResults: number[]
@@ -24,9 +20,6 @@ export const add = definePlugin({
   parameters: {
     summand: { type: 'number', description: 'A summand', defaultValue: 0 },
   },
-  batchMetadataCollector: (batch: number[]) => {
-    return { sum: sum(batch), intermediateResults: batch }
-  },
   invoke: (input: number, parameters) => {
     return input + parameters.summand
   },
@@ -37,10 +30,7 @@ export const power = definePlugin({
   parameters: {
     exponent: { type: 'number', description: 'An exponent', defaultValue: 1 },
   },
-  batchMetadataCollector: (batch: number[]) => {
-    return { sum: sum(batch), intermediateResults: batch }
-  },
-  invoke: (input: number, parameters, batchMetadata) => ({ result: input ** parameters.exponent, batchMetadata }),
+  invoke: (input: number, parameters) => ({ result: input ** parameters.exponent }),
 })
 
 export const throwingPlugin = definePlugin({

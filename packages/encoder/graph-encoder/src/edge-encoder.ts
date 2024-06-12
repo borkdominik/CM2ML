@@ -1,10 +1,9 @@
-import type { FeatureEncoder } from '@cm2ml/feature-encoder'
+import type { FeatureContext } from '@cm2ml/feature-encoder'
 import type { GraphEdge, GraphModel } from '@cm2ml/ir'
-import type { InferOut } from '@cm2ml/plugin'
-import { METADATA_KEY, definePlugin } from '@cm2ml/plugin'
+import { defineStructuredPlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
-export const EdgeEncoder = definePlugin({
+export const EdgeEncoder = defineStructuredPlugin({
   name: 'edge-encoder',
   parameters: {
     weighted: {
@@ -25,28 +24,28 @@ export const EdgeEncoder = definePlugin({
       defaultValue: false,
     },
   },
-  invoke({ input, features }: InferOut<typeof FeatureEncoder>, { includeEqualPaths, sparse, weighted }) {
-    const sortedIds = getSortedIds(input)
-    const sortedEdges = getRelevantEdges(input, includeEqualPaths).toArray().sort(createEdgeSorter(sortedIds))
+  invoke({ data, metadata: features }: { data: GraphModel, metadata: FeatureContext }, { includeEqualPaths, sparse, weighted }) {
+    const { nodeFeatures, getNodeFeatureVector, edgeFeatures, getEdgeFeatureVector } = features
+    const sortedIds = getSortedIds(data)
+    const sortedEdges = getRelevantEdges(data, includeEqualPaths).toArray().sort(createEdgeSorter(sortedIds))
     const edgeEncoder = sparse ? encodeAsSparseList : encodeAsAdjacencyMatrix
     const edgeEncoding = edgeEncoder(new Set(sortedEdges), sortedIds, weighted)
 
-    const { nodeFeatures, getNodeFeatureVector, edgeFeatures, getEdgeFeatureVector } = features
-
     const nodeFeatureVectors = Stream
       .from(sortedIds)
-      .map((id) => input.getNodeById(id))
+      .map((id) => data.getNodeById(id))
       .filterNonNull()
       .map(getNodeFeatureVector)
       .toArray()
 
     const edgeFeatureVectors = sortedEdges.map(getEdgeFeatureVector)
-
     return {
-      ...edgeEncoding,
-      nodeFeatureVectors,
-      edgeFeatureVectors,
-      [METADATA_KEY]: {
+      data: {
+        ...edgeEncoding,
+        nodeFeatureVectors,
+        edgeFeatureVectors,
+      },
+      metadata: {
         edgeFeatures,
         nodeFeatures,
       },
@@ -72,7 +71,7 @@ function encodeAsSparseList(
 ) {
   const list = new Array<
     readonly [number, number] | readonly [number, number, number]
-    >()
+  >()
   const indexRecord = createIndexRecord(sortedIds)
   edges.forEach((edge) => {
     const sourceId = edge.source.id

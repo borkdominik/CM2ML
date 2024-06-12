@@ -32,7 +32,7 @@ export interface Props {
 
 export function Parameters({ parameters, setValues, values }: Props) {
   const sortedParameters = useMemo(
-    () => Object.entries(parameters).sort(([a], [b]) => a.localeCompare(b)),
+    () => Object.entries(parameters).filter(([name]) => name !== 'continueOnError').sort(([a], [b]) => a.localeCompare(b)),
     [parameters],
   )
   const [open, setOpen] = useState(() => {
@@ -40,6 +40,10 @@ export function Parameters({ parameters, setValues, values }: Props) {
       ([name, value]) => parameters[name]?.defaultValue === value,
     )
   })
+
+  if (sortedParameters.length === 0) {
+    return null
+  }
 
   const resetParameters = () => {
     setValues(getNewParameters(parameters, {}, undefined))

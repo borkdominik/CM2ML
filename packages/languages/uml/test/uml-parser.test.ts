@@ -98,13 +98,13 @@ const showDebugOutput = validModels.length === 1
 
 describe('uml-parser', () => {
   describe.each(getConfigurations())('with configuration $name', (configuration) => {
-    it.each(validModels)('should parse model $index', ({ file, snapshot }) => {
+    it.each(validModels)('should parse model $index', async ({ file, snapshot }) => {
       const serializedModel = readFileSync(file, 'utf-8')
       try {
         const result = UmlParser.validateAndInvoke(serializedModel, { ...configuration, debug: true, strict: true })
         expect(result).toBeDefined()
         if (snapshot) {
-          expect(result.show()).toMatchFileSnapshot(`./__snapshots__/${file.replace(umlModelDir, '').replace('.uml', '')}/${configuration.name.replaceAll(' ', '-')}.txt`)
+          await expect(result.show()).toMatchFileSnapshot(`./__snapshots__/${file.replace(umlModelDir, '').replace('.uml', '')}/${configuration.name.replaceAll(' ', '-')}.txt`)
         }
         if (showDebugOutput) {
           // eslint-disable-next-line no-console

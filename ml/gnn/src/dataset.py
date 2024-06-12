@@ -47,7 +47,7 @@ class CM2MLDataset(InMemoryDataset):
             with open(self.dataset_path, "r") as file:
                 dataset_input: Dataset = json.load(file)
                 data = dataset_input["data"]
-                self.metadata = dataset_input["__metadata__"]
+                self.metadata = dataset_input["metadata"]
                 data_entries = FeatureTransformer().fit_transform(data, self.metadata)
                 base_data, slices = self.collate(data_entries)
                 self.node_counts = [len(data.x) for data in data_entries]

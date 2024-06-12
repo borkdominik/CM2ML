@@ -1,28 +1,21 @@
 import process from 'node:process'
 
 import { ExecutionError, ValidationError, getTypeConstructor } from '@cm2ml/plugin'
-import type { METADATA_KEY, ParameterMetadata, Plugin } from '@cm2ml/plugin'
+import type { ParameterMetadata, Plugin, StructuredOutput } from '@cm2ml/plugin'
 import { PluginAdapter } from '@cm2ml/plugin-adapter'
 import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { fastify } from 'fastify'
 
-class Server extends PluginAdapter<string> {
+class Server extends PluginAdapter<string[], StructuredOutput<unknown[], unknown>> {
   private readonly server = fastify()
 
-  protected onApply<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<string, Out, Parameters>,
+  protected onApply<Parameters extends ParameterMetadata>(
+    plugin: Plugin<string[], StructuredOutput<unknown[], unknown>, Parameters>,
   ) {
     this.server.post(`/encoders/${plugin.name}`, async (request, reply) =>
       pluginRequestHandler(plugin, request, reply))
-  }
-
-  protected onApplyBatched<Out, Parameters extends ParameterMetadata>(
-    plugin: Plugin<string[], { data: Out[], [METADATA_KEY]: unknown }, Parameters>,
-  ) {
-    this.server.post(`/encoders/${plugin.name}`, async (request, reply) =>
-      batchedPluginRequestHandler(plugin, request, reply))
   }
 
   protected onStart() {
@@ -92,40 +85,8 @@ function isValidRequestBody<Batched extends boolean>(
   return true
 }
 
-function pluginRequestHandler<Out, Parameters extends ParameterMetadata>(
-  plugin: Plugin<string, Out, Parameters>,
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  try {
-    const body = request.body
-    if (!isValidRequestBody(body, false)) {
-      reply.statusCode = 422
-      return {
-        error: 'Invalid request body',
-      }
-    }
-
-    const parameters = getParametersFromBody(body, plugin.parameters)
-    const result = plugin.validateAndInvoke(body.input, parameters)
-    reply.statusCode = 200
-    return result
-  } catch (error) {
-    if (error instanceof ValidationError) {
-      reply.statusCode = 422
-      return {
-        error: error.message,
-      }
-    }
-    reply.statusCode = 500
-    return {
-      error: getMessage(error),
-    }
-  }
-}
-
-function batchedPluginRequestHandler<Out, Parameters extends ParameterMetadata>(
-  plugin: Plugin<string[], { data: Out[], [METADATA_KEY]: unknown }, Parameters>,
+function pluginRequestHandler<Parameters extends ParameterMetadata>(
+  plugin: Plugin<string[], StructuredOutput<unknown[], unknown>, Parameters>,
   request: FastifyRequest,
   reply: FastifyReply,
 ) {

@@ -3,9 +3,10 @@ import { EcoreParser } from '@cm2ml/ecore'
 import { GraphEncoder } from '@cm2ml/graph-encoder'
 import type { GraphModel } from '@cm2ml/ir'
 import { OneHotEncoder } from '@cm2ml/one-hot-encoder'
-import { type Plugin, batchedCompose, compose, liftMetadata } from '@cm2ml/plugin'
+import { type ExecutionError, type Plugin, type StructuredOutput, batchTryCatch, compose, liftMetadata } from '@cm2ml/plugin'
 import { TreeEncoder } from '@cm2ml/tree-encoder'
 import { UmlParser } from '@cm2ml/uml'
+import { Stream } from '@yeger/streams'
 
 export * from '@cm2ml/archimate'
 export * from '@cm2ml/ecore'
@@ -16,35 +17,33 @@ export * from '@cm2ml/tree-encoder'
 export * from '@cm2ml/uml'
 export * from '@cm2ml/xmi-parser'
 
-export type Parser = Plugin<string, GraphModel, any, any>
+export type Parser = Plugin<string, GraphModel, any>
 
 export const parsers: Parser[] = [ArchimateParser, EcoreParser, UmlParser]
-
 export const parserMap = {
   [ArchimateParser.name]: ArchimateParser,
   [EcoreParser.name]: EcoreParser,
   [UmlParser.name]: UmlParser,
 }
 
-export type EncoderMetadata = any
-
-export type Encoder<Encoding = unknown> = Plugin<GraphModel, Encoding, any, any>
+export type Encoder<Data = unknown, Metadata = unknown> = Plugin<(GraphModel | ExecutionError)[], (StructuredOutput<Data, Metadata> | ExecutionError)[], any>
 
 export const encoders: Encoder[] = [GraphEncoder, TreeEncoder, OneHotEncoder]
-
 export const encoderMap = {
   [GraphEncoder.name]: GraphEncoder,
   [TreeEncoder.name]: TreeEncoder,
   [OneHotEncoder.name]: OneHotEncoder,
 }
 
-export const plugins = parsers.flatMap((parser) =>
-  encoders.map((encoder) => compose(parser, encoder)),
-)
+type LiftedEncoder<Data = unknown, Metadata = unknown> = Plugin<(GraphModel | ExecutionError)[], StructuredOutput<(Data | ExecutionError)[], Metadata>, any>
+const liftedEncoders: LiftedEncoder[] = Stream.from(encoders).map((encoder) => compose(encoder, liftMetadata(), encoder.name)).toArray()
 
-export const batchedPlugins = parsers.flatMap((parser) =>
-  encoders.map((encoder) => {
-    const batched = batchedCompose(parser, encoder)
-    return compose(batched, liftMetadata(), batched.name)
-  }),
-)
+export type PrecomposedPlugin = Plugin<string[], StructuredOutput<(unknown | ExecutionError)[], unknown>, any>
+
+export const plugins: PrecomposedPlugin[] = Stream
+  .from(parsers)
+  .map((parser) => batchTryCatch(parser, parser.name))
+  .flatMap((parser) =>
+    liftedEncoders.map((encoder) => compose(parser, encoder)),
+  )
+  .toArray()

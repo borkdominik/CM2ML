@@ -1,5 +1,5 @@
 import { GraphModel } from '@cm2ml/ir'
-import { batch } from '@cm2ml/plugin'
+import { ExecutionError } from '@cm2ml/plugin'
 import { describe, expect, it } from 'vitest'
 
 import { FeatureEncoder } from '../src/index'
@@ -22,7 +22,7 @@ describe('feature encoder', () => {
     secondModel.root.addAttribute({ name: 'a', type: 'category', value: { literal: 'a-2' } })
     secondModel.root.addAttribute({ name: 'b', type: 'string', value: { literal: 'b-2' } })
 
-    const [firstResult, secondResult] = batch(FeatureEncoder)
+    const [firstResult, secondResult] = FeatureEncoder
       .validateAndInvoke([firstModel, secondModel], {
         rawFeatures: false,
         onlyEncodedFeatures: false,
@@ -34,11 +34,11 @@ describe('feature encoder', () => {
         edgeFeatures: '',
       })
 
-    expect(firstResult).toBeDefined()
-    expect(secondResult).toBeDefined()
+    expectResultToBeNotBeAnExecutionError(firstResult)
+    expectResultToBeNotBeAnExecutionError(secondResult)
 
-    expect(firstResult!.features).toBe(secondResult!.features)
-    expect(firstResult!.features.nodeFeatures).toMatchInlineSnapshot(`
+    expect(firstResult.metadata).toBe(secondResult.metadata)
+    expect(firstResult.metadata.nodeFeatures).toMatchInlineSnapshot(`
       [
         [
           "a",
@@ -65,13 +65,13 @@ describe('feature encoder', () => {
       ]
     `)
 
-    const firstFeatureVector = firstResult!.features.getNodeFeatureVector(firstResult!.input.root)
+    const firstFeatureVector = firstResult.metadata.getNodeFeatureVector(firstResult.data.root)
     expect(firstFeatureVector).toEqual([
       1,
       1,
       0,
     ])
-    const secondFeatureVector = secondResult!.features.getNodeFeatureVector(secondResult!.input.root)
+    const secondFeatureVector = secondResult.metadata.getNodeFeatureVector(secondResult.data.root)
     expect(secondFeatureVector).toEqual([
       2,
       0,
@@ -89,8 +89,8 @@ describe('feature encoder', () => {
     firstModel.root.addAttribute({ name: 'b', type: 'category', value: { literal: 'b-1' } })
     firstModel.root.addAttribute({ name: 'c', type: 'category', value: { literal: 'c-1' } })
 
-    const result = FeatureEncoder
-      .validateAndInvoke(firstModel, {
+    const [result] = FeatureEncoder
+      .validateAndInvoke([firstModel], {
         rawFeatures: false,
         onlyEncodedFeatures: false,
         rawCategories: false,
@@ -101,7 +101,9 @@ describe('feature encoder', () => {
         edgeFeatures: '',
       })
 
-    expect(result.features.nodeFeatures).toMatchInlineSnapshot(`
+    expectResultToBeNotBeAnExecutionError(result)
+
+    expect(result.metadata.nodeFeatures).toMatchInlineSnapshot(`
       [
         [
           "a",
@@ -128,7 +130,12 @@ describe('feature encoder', () => {
       ]
     `)
 
-    const featureVector = result.features.getNodeFeatureVector(result.input.root)
+    const featureVector = result.metadata.getNodeFeatureVector(result.data.root)
     expect(featureVector).toEqual([3, 2, null])
   })
 })
+
+function expectResultToBeNotBeAnExecutionError<T>(result: T | ExecutionError | undefined): asserts result is T {
+  expect(result).toBeDefined()
+  expect(result).not.toBeInstanceOf(ExecutionError)
+}

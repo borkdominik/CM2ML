@@ -10,10 +10,10 @@ const testCases = getPluginsToTest(plugins)
 
 describe('plugins', () => {
   describe.each(testCases)('%s', (_, plugin, inputDir, inputFiles) => {
-    it.each(inputFiles)('parses %s', (inputFile) => {
+    it.each(inputFiles)('parses %s', async (inputFile) => {
       const input = readFileSync(`${inputDir}/${inputFile}`, 'utf-8')
-      const output = plugin.validateAndInvoke(input, {})
-      expect(output).toMatchFileSnapshot(`./__snapshots__/${plugin.name}/${inputFile}.txt`)
+      const output = plugin.validateAndInvoke([input], {})
+      await expect(output).toMatchFileSnapshot(`./__snapshots__/${plugin.name}/${inputFile}.txt`)
     })
   })
 })

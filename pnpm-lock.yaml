@@ -229,6 +229,9 @@ importers:
       '@cm2ml/xmi-parser':
         specifier: workspace:*
         version: link:../xmi-parser
+      '@yeger/streams':
+        specifier: 1.1.8
+        version: 1.1.8
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*

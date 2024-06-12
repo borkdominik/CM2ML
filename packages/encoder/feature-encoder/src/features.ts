@@ -58,6 +58,8 @@ export interface FeatureDeriverSettings extends FeatureEncoderProviderSettings {
   edgeFeatureOverride: FeatureMetadata | null
 }
 
+export type FeatureContext = ReturnType<typeof deriveFeatures>
+
 export function deriveFeatures(models: GraphModel[], settings: FeatureDeriverSettings) {
   const nodes = Stream.from(models).flatMap(({ nodes }) => nodes).cache()
   const edges = Stream.from(models).flatMap(({ edges }) => edges).cache()

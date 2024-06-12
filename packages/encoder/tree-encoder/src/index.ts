@@ -1,5 +1,5 @@
 import type { GraphModel } from '@cm2ml/ir'
-import { METADATA_KEY, compose, definePlugin } from '@cm2ml/plugin'
+import { ExecutionError, batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
 
 import type { TreeModel } from './tree-model'
 import { createTree } from './tree-transformer'
@@ -18,13 +18,19 @@ const TreeTransformer = definePlugin({
 const BuildVocabulary = definePlugin({
   name: 'build-vocabulary',
   parameters: {},
-  batchMetadataCollector: (batch: TreeModel[], _parameters) => getVocabularies(batch),
-  invoke(input: TreeModel, _parameters, vocabulary) {
-    return {
-      tree: input,
-      [METADATA_KEY]: vocabulary,
-    }
+  invoke(input: (TreeModel | ExecutionError)[], _parameters) {
+    const trees = input.filter((item): item is TreeModel => !(item instanceof ExecutionError))
+    const vocabularies = getVocabularies(trees)
+    return input.map((item) => {
+      if (item instanceof ExecutionError) {
+        return item
+      }
+      return {
+        data: item,
+        metadata: vocabularies,
+      }
+    })
   },
 })
 
-export const TreeEncoder = compose(TreeTransformer, BuildVocabulary, TreeTransformer.name)
+export const TreeEncoder = compose(batchTryCatch(TreeTransformer), BuildVocabulary, TreeTransformer.name)

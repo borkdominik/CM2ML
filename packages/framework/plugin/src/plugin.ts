@@ -1,5 +1,6 @@
 import { ZodError } from 'zod'
 
+import type { ExecutionError } from './error'
 import type { ParameterMetadata, ResolveParameters } from './parameters'
 import { ValidationError, deriveValidator } from './parameters'
 
@@ -8,30 +9,24 @@ export type PluginMetadata<Parameters extends ParameterMetadata> = Readonly<{
   readonly parameters: Parameters
 }>
 
-export type BatchMetadataCollector<In, Parameters extends ParameterMetadata, BatchMetadata> = (batch: In[], parameters: Readonly<ResolveParameters<Parameters>>) => BatchMetadata
-
-export type PluginInvoke<In, Out, Parameters extends ParameterMetadata, BatchMetadata> = (
+export type PluginInvoke<In, Out, Parameters extends ParameterMetadata> = (
   input: In,
   parameters: Readonly<ResolveParameters<Parameters>>,
-  batchMetadata: BatchMetadata,
 ) => Out
 
-export type InferIn<P> = P extends Plugin<infer In, any, any, any> ? In : never
+export type InferIn<P> = P extends Plugin<infer In, any, any> ? In : never
 
-export type InferOut<P> = P extends Plugin<any, infer Out, any, any> ? Out : never
+export type InferOut<P> = P extends Plugin<any, infer Out, any> ? Out : never
 
-export type InferParameters<P> = P extends Plugin<any, any, infer Parameters, any> ? Parameters : never
+export type InferParameters<P> = P extends Plugin<any, any, infer Parameters> ? Parameters : never
 
-export type InferBatchMetadata<P> = P extends Plugin<any, any, any, infer BatchMetadata> ? BatchMetadata : never
-
-export class Plugin<In, Out, Parameters extends ParameterMetadata, BatchMetadata = undefined> {
+export class Plugin<In, Out, Parameters extends ParameterMetadata> {
   private readonly validator: ReturnType<typeof deriveValidator>
 
   public constructor(
     public readonly name: string,
     public readonly parameters: Parameters,
-    public readonly invoke: PluginInvoke<In, Out, Parameters, BatchMetadata>,
-    public readonly batchMetadataCollector: BatchMetadataCollector<In, Parameters, BatchMetadata>,
+    public readonly invoke: PluginInvoke<In, Out, Parameters>,
   ) {
     this.validator = deriveValidator(parameters)
   }
@@ -39,8 +34,7 @@ export class Plugin<In, Out, Parameters extends ParameterMetadata, BatchMetadata
   /** Validate the passed parameters and invoke the plugin if successful */
   public validateAndInvoke(input: In, parameters: unknown): Out {
     const validatedParameters = this.validate(parameters)
-    const batchMetadata = this.batchMetadataCollector([input], validatedParameters)
-    return this.invoke(input, validatedParameters, batchMetadata)
+    return this.invoke(input, validatedParameters)
   }
 
   public validate(
@@ -57,35 +51,35 @@ export class Plugin<In, Out, Parameters extends ParameterMetadata, BatchMetadata
   }
 }
 
-export function definePlugin<In, Out, Parameters extends ParameterMetadata, BatchMetadata>(
-  data: PluginMetadata<Parameters> & {
-    invoke: PluginInvoke<In, Out, Parameters, BatchMetadata>
-    batchMetadataCollector: BatchMetadataCollector<In, Parameters, BatchMetadata>
-  },
-): Plugin<In, Out, Parameters, BatchMetadata>
 export function definePlugin<In, Out, Parameters extends ParameterMetadata>(
   data: PluginMetadata<Parameters> & {
-    invoke: PluginInvoke<In, Out, Parameters, undefined>
-  }
-): Plugin<In, Out, Parameters, undefined>
-export function definePlugin<In, Out, Parameters extends ParameterMetadata, BatchMetadata>(
-  data: PluginMetadata<Parameters> & {
-    invoke: PluginInvoke<In, Out, Parameters, BatchMetadata | undefined>
-    batchMetadataCollector?: BatchMetadataCollector<In, Parameters, BatchMetadata>
+    invoke: PluginInvoke<In, Out, Parameters>
   },
 ) {
-  if (data.batchMetadataCollector) {
-    return new Plugin(
-      data.name,
-      data.parameters,
-      data.invoke,
-      data.batchMetadataCollector,
-    )
-  }
   return new Plugin(
     data.name,
     data.parameters,
     data.invoke,
-    () => undefined,
   )
+}
+
+export interface StructuredOutput<Data, Metadata> {
+  data: Data
+  metadata: Metadata
+}
+
+export function defineStructuredPlugin<In, Data, Metadata, Parameters extends ParameterMetadata>(
+  data: PluginMetadata<Parameters> & {
+    invoke: PluginInvoke<In, StructuredOutput<Data, Metadata>, Parameters>
+  },
+) {
+  return definePlugin(data)
+}
+
+export function defineStructuredBatchPlugin<In, Data, Metadata, Parameters extends ParameterMetadata>(
+  data: PluginMetadata<Parameters> & {
+    invoke: PluginInvoke<In, (StructuredOutput<Data, Metadata> | ExecutionError)[], Parameters>
+  },
+) {
+  return definePlugin(data)
 }

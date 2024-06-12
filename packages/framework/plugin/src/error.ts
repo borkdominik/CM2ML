@@ -7,23 +7,19 @@ import { definePlugin } from './plugin'
 /**
  * Wraps a plugin to catch errors and return a {@link ExecutionError} instead.
  */
-export function trying<In, Out, Parameters extends ParameterMetadata, BatchMetadata>(plugin: Plugin<In, Out, Parameters, BatchMetadata>, name = `trying-${plugin.name}`): Plugin<In | ExecutionError, Out | ExecutionError, Parameters, BatchMetadata> {
+export function trying<In, Out, Parameters extends ParameterMetadata>(plugin: Plugin<In, Out, Parameters>, name = `trying-${plugin.name}`): Plugin<In | ExecutionError, Out | ExecutionError, Parameters> {
   return definePlugin({
     name,
     parameters: plugin.parameters,
-    invoke: (input: In | ExecutionError, parameters, batchMetadata) => {
-      if (input instanceof ExecutionError) {
-        return input
-      }
+    invoke: (input: In | ExecutionError, parameters) => {
       try {
-        return plugin.invoke(input, parameters, batchMetadata)
+        if (input instanceof ExecutionError) {
+          return input
+        }
+        return plugin.invoke(input, parameters)
       } catch (error) {
         return new ExecutionError(error, plugin.name)
       }
-    },
-    batchMetadataCollector: (batch: (In | ExecutionError)[], parameters) => {
-      const filteredBatch = batch.filter((item) => !(item instanceof ExecutionError)) as In[]
-      return plugin.batchMetadataCollector(filteredBatch, parameters)
     },
   })
 }
@@ -46,6 +42,20 @@ export function catching<In>() {
         throw input
       }
       return input
+    },
+  })
+}
+
+export function throwing<In, Out, Parameters extends ParameterMetadata>(plugin: Plugin<In, Out | ExecutionError, Parameters>, name = `throwing-${plugin.name}`): Plugin<In, Out, Parameters> {
+  return definePlugin({
+    name,
+    parameters: plugin.parameters,
+    invoke: (input: In, parameters) => {
+      const result = plugin.invoke(input, parameters)
+      if (result instanceof ExecutionError) {
+        throw result
+      }
+      return result
     },
   })
 }

@@ -1,10 +1,9 @@
-import { METADATA_KEY } from '@cm2ml/plugin'
 import { getMessage } from '@cm2ml/utils'
 
 export function getFeatureMetadataFromFile(fileContent: string, key: 'edgeFeatures' | 'nodeFeatures') {
   try {
     const parsed = JSON.parse(fileContent)
-    const path = `${METADATA_KEY}.${key}`
+    const path = `metadata.${key}`
     const pathSegments = path.split('.')
 
     function followPath(obj: unknown, segments: string[]) {

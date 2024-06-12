@@ -7,9 +7,6 @@ class TreeNode(TypedDict):
 class TreeModel(TypedDict):
     root: TreeNode
 
-class TreeEncodingEntry(TypedDict):
-    tree: TreeModel
-
 class TreeDatasetEntry(TypedDict):
     x: TreeModel
     y: TreeModel
