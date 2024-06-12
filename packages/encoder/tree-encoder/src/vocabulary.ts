@@ -30,10 +30,10 @@ function getVocabulary(trees: TreeModel[], vocabularyType: VocabularyType) {
 }
 
 function getValues(node: RecursiveTreeNode, vocabularyType: VocabularyType): Stream<string> {
-  const matchesVocabularyType = (node.isStaticNode && vocabularyType === 'static') || (!node.isStaticNode && vocabularyType === 'dynamic')
-  const selfStream = matchesVocabularyType && node.value !== undefined ? Stream.fromSingle(node.value) : Stream.empty<string>()
+  const matchesVocabularyType = node.isStaticNode === (vocabularyType === 'static')
+  const selfStream = matchesVocabularyType ? Stream.fromSingle(node.value) : Stream.empty<string>()
   const childStream = Stream
-    .from(node.children ?? [])
+    .from(node.children)
     .flatMap((child) => getValues(child, vocabularyType))
   return selfStream.concat(childStream)
 }
