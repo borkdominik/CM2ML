@@ -4,7 +4,7 @@ import torch.optim as optim
 from torch import cuda
 from torch.nn.utils import clip_grad_norm_
 import torch.nn.functional as F
-from paper.Tree import BinaryTreeManager
+from paper.binary_tree import BinaryTreeManager
 
 import paper.data_utils as data_utils
 
@@ -79,7 +79,7 @@ class TreeEncoder(nn.Module):
         queue = []
         head = 0
         max_num_nodes = 0
-        visited_idx = []
+        visited_idx: list[int] = []
 
         for encoder_manager_idx in range(len(encoder_managers)):
             encoder_manager = encoder_managers[encoder_manager_idx]
@@ -405,7 +405,7 @@ class Tree2TreeModel(nn.Module):
             )
         return prediction
 
-    def predict(self, decoder_output, encoder_outputs, attention_masks):
+    def predict(self, decoder_output, encoder_outputs, attention_masks):  # TODO/Jan: Type!
         if self.no_attention:
             output = decoder_output
             attention_output = decoder_output
@@ -422,11 +422,11 @@ class Tree2TreeModel(nn.Module):
 
     def decode(
         self,
-        encoder_outputs,
-        attention_masks,
-        init_state,
-        init_decoder_inputs,
-        attention_inputs,
+        encoder_outputs: torch.Tensor,
+        attention_masks: torch.Tensor,
+        init_state: tuple[list[torch.Tensor], list[torch.Tensor]],
+        init_decoder_inputs: torch.Tensor,
+        attention_inputs: list[torch.Tensor],
     ):
         embedding = self.decoder_embedding(init_decoder_inputs)
         state_l = repackage_state(init_state)
@@ -450,12 +450,12 @@ class Tree2TreeModel(nn.Module):
             output_r, encoder_outputs, attention_masks
         )
         return (
-            prediction_l,
-            prediction_r,
-            state_l,
-            state_r,
-            attention_output_l,
-            attention_output_r,
+            prediction_l,  # TODO/Jan: Type!
+            prediction_r,  # TODO/Jan: Type!
+            state_l,  # TODO/Jan: Type!
+            state_r,  # TODO/Jan: Type!
+            attention_output_l,  # TODO/Jan: Type!
+            attention_output_r,  # TODO/Jan: Type!
         )
 
     def forward(
@@ -465,7 +465,7 @@ class Tree2TreeModel(nn.Module):
         feed_previous=False,
     ):
         init_encoder_outputs, init_attention_masks, encoder_h_state, encoder_c_state = (
-            self.encoder(encoder_managers)
+            self.encoder.forward(encoder_managers)
         )
 
         queue: list[tuple[int, int]] = []
@@ -488,25 +488,25 @@ class Tree2TreeModel(nn.Module):
             queue.append((idx, current_prediction_idx))
 
         head = 0
-        predictions_per_batch = []
+        predictions_per_batch = []  # TODO/Jan: Type!
         EOS_token = torch.LongTensor([data_utils.EOS_ID])
 
         while head < len(queue):
-            init_h_states = []
-            init_c_states = []
-            decoder_inputs = []
-            attention_inputs = []
-            encoder_outputs = []
-            attention_masks = []
-            target_seqs_l = []
-            target_seqs_r = []
+            init_h_states: list[torch.Tensor] = []
+            init_c_states: list[torch.Tensor] = []
+            decoder_inputs = []  # TODO/Jan: Type!
+            attention_inputs: list[torch.Tensor] = []
+            encoder_outputs = []  # TODO/Jan: Type!
+            attention_masks = []  # TODO/Jan: Type!
+            target_seqs_l: list[torch.Tensor] = []
+            target_seqs_r: list[torch.Tensor] = []
             tree_idxes: list[tuple[int, int]] = []
             while head < len(queue):
-                current_tree = prediction_managers[queue[head][0]].get_node(
+                current_node = prediction_managers[queue[head][0]].get_node(
                     queue[head][1]
                 )
                 target_manager_idx = queue[head][0]
-                target_idx = current_tree.target
+                target_idx = current_node.target
                 if target_idx is not None:
                     target_node = decoder_managers[target_manager_idx].get_node(
                         target_idx
@@ -514,21 +514,21 @@ class Tree2TreeModel(nn.Module):
                 else:
                     target_node = None
                 if target_node is not None:
-                    init_h_state = current_tree.state[0]
-                    init_c_state = current_tree.state[1]
+                    init_h_state = current_node.state[0]
+                    init_c_state = current_node.state[1]
                     init_h_state = torch.cat([init_h_state] * self.num_layers, dim=0)
                     init_c_state = torch.cat([init_c_state] * self.num_layers, dim=0)
                     init_h_states.append(init_h_state)
                     init_c_states.append(init_c_state)
                     tree_idxes.append((queue[head][0], queue[head][1]))
-                    decoder_input = current_tree.value
+                    decoder_input = current_node.value
                     decoder_inputs.append(decoder_input)
-                    if current_tree.attention is None:
+                    if current_node.attention is None:
                         attention_input = torch.zeros(self.hidden_size)
                         if self.cuda_flag:
                             attention_input = attention_input.cuda()
                     else:
-                        attention_input = current_tree.attention
+                        attention_input = current_node.attention
                     attention_inputs.append(attention_input)
                     if queue[head][1] == 0:
                         target_seq_l = target_node.value
@@ -561,14 +561,14 @@ class Tree2TreeModel(nn.Module):
             init_c_states = torch.stack(init_c_states, dim=1)
             decoder_inputs = torch.stack(decoder_inputs, dim=0)
             attention_inputs = torch.stack(attention_inputs, dim=0).unsqueeze(1)
-            target_seqs_l = torch.cat(target_seqs_l, 0)
-            target_seqs_r = torch.cat(target_seqs_r, 0)
+            target_seqs_l: torch.Tensor = torch.cat(target_seqs_l, 0)
+            target_seqs_r: torch.Tensor = torch.cat(target_seqs_r, 0)
             if self.cuda_flag:
                 decoder_inputs = decoder_inputs.cuda()
                 target_seqs_l = target_seqs_l.cuda()
                 target_seqs_r = target_seqs_r.cuda()
-            encoder_outputs = torch.stack(encoder_outputs, dim=0)
-            attention_masks = torch.stack(attention_masks, dim=0)
+            encoder_outputs: torch.Tensor = torch.stack(encoder_outputs, dim=0)
+            attention_masks: torch.Tensor = torch.stack(attention_masks, dim=0)
 
             (
                 predictions_logits_l,
@@ -816,7 +816,8 @@ class Tree2TreeModel(nn.Module):
         return predictions_per_batch, prediction_managers
 
     def get_batch(self, data: data_utils.EncodedDataset, start_idx: int):
-        encoder_managers, decoder_managers = [], []
+        encoder_managers: list[BinaryTreeManager] = []
+        decoder_managers: list[BinaryTreeManager] = []
 
         for i in range(self.batch_size):
             if i + start_idx < len(data):

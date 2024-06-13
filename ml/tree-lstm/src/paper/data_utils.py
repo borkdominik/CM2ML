@@ -1,5 +1,5 @@
 from typing import TypeAlias, TypedDict
-from paper.Tree import BinaryTreeManager
+from paper.binary_tree import BinaryTreeManager
 from tree_dataset import TreeDataset
 from tree_dataset_types import TreeNode
 

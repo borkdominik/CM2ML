@@ -5,17 +5,16 @@ from tree_dataset_types import TreeNode
 
 
 class BinaryTreeNode:
-    def __init__(self, value, parent: Union[int, None], depth: int):
+    def __init__(self, value: Union[int, torch.Tensor], parent: Union[int, None], depth: int):
         if type(value) == int:  # noqa: E721
-            self.value = [value]
-            self.value = torch.LongTensor(self.value)
+            self.value = torch.LongTensor([value])
         else:
-            self.value = value
+            self.value: torch.Tensor = value
         self.lchild: Union[int, None] = None
         self.rchild: Union[int, None] = None
         self.parent = parent
         self.depth = depth
-        self.state = None
+        self.state: Union[tuple[torch.Tensor, torch.Tensor], None] = None
         self.target = None
         self.prediction = None
         self.attention = None

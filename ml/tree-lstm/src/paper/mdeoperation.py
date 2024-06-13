@@ -53,17 +53,19 @@ def create_model(
 
 def step_tree2tree(
     model: network.Tree2TreeModel,
-    encoder_inputs,  # TODO/Jan: Type!
-    init_decoder_inputs,  # TODO/Jan: Type!
-    feed_previous=False,
+    encoder_inputs: list[data_utils.BinaryTreeManager],
+    init_decoder_inputs: list[data_utils.BinaryTreeManager],
+    feed_previous: bool,
 ):
     if feed_previous is False:
         model.dropout_rate = args.dropout_rate
     else:
         model.dropout_rate = 0.0
 
-    predictions_per_batch, prediction_managers = model(
-        encoder_inputs, init_decoder_inputs, feed_previous=feed_previous
+    predictions_per_batch, prediction_managers = model.forward(
+        encoder_inputs,
+        init_decoder_inputs,
+        feed_previous=feed_previous,
     )
 
     total_loss = None
@@ -392,16 +394,23 @@ def run(
 ):
     if args.no_attention:
         args.no_pf = True
+    now = datetime.datetime.now()
     source_vocab, target_vocab = data_utils.build_vocab(
         [training_dataset, validation_dataset, test_dataset]
     )
+
+    print(f"Vocabulary built in {datetime.datetime.now() - now}")
     print(f"Source vocabulary size: {len(source_vocab)}")
     print(f"Target vocabulary size: {len(target_vocab)}")
-    training_dataset = data_utils.prepare_data(training_dataset, source_vocab, target_vocab)
+    now = datetime.datetime.now()
+    training_dataset = data_utils.prepare_data(
+        training_dataset, source_vocab, target_vocab
+    )
     validation_dataset = data_utils.prepare_data(
         validation_dataset, source_vocab, target_vocab
     )
     test_dataset = data_utils.prepare_data(test_dataset, source_vocab, target_vocab)
+    print(f"Data prepared in {datetime.datetime.now() - now}")
     if args.test:
         test(
             test_dataset,
