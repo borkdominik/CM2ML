@@ -9,9 +9,15 @@ export type * from './tree-model'
 
 const TreeTransformer = definePlugin({
   name: 'tree',
-  parameters: {},
-  invoke(input: GraphModel, _parameters) {
-    return createTree(input)
+  parameters: {
+    replaceNodeIds: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Replace node ids with generated ids. This keeps vocabulary size small.',
+    },
+  },
+  invoke(input: GraphModel, parameters) {
+    return createTree(input, parameters.replaceNodeIds)
   },
 })
 
