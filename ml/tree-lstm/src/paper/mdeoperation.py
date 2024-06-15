@@ -176,7 +176,8 @@ def evaluate(
     print(acc_tokens, tot_tokens, acc_trees, tot_trees)
     test_loss /= tot_trees
     print("  eval: loss %.2f" % test_loss)
-    print("  eval: accuracy of tokens %.2f" % (acc_tokens * 1.0 / tot_tokens))
+    if tot_tokens != 0:
+        print("  eval: accuracy of tokens %.2f" % (acc_tokens * 1.0 / tot_tokens))
     print("  eval: accuracy of programs %.2f" % (acc_trees * 1.0 / tot_trees))
     print(acc_tokens, tot_tokens, acc_trees, tot_trees)
 
@@ -362,20 +363,20 @@ class Args:
 args = Args(
     **{
         "param_init": 0.1,
-        "num_epochs": 20,
+        "num_epochs": 30,
         "learning_rate": 0.005,
         "learning_rate_decay_factor": 0.8,
         "learning_rate_decay_steps": 2000,
         "max_gradient_norm": 5.0,
-        "batch_size": 2,  # 64,
+        "batch_size": 2,
         "max_depth": 100,
-        "hidden_size": 128,
-        "embedding_size": 128,
+        "hidden_size": 256,
+        "embedding_size": 256,
         "dropout_rate": 0,
         "num_layers": 1,
         "train_dir_checkpoints": f"{script_dir}/../.checkpoints/tree-lstm.pt",
         "load_model": None,  # f"{script_dir}/../.cache/neuralnetwork.pth",
-        "steps_per_checkpoint": 100,
+        "steps_per_checkpoint": 500,
         "max_source_len": 115,
         "max_target_len": 315,
         "test": False,

@@ -9,7 +9,6 @@ from tree_dataset_types import TreeDatasetEntry, TreeModel
 from utils import pretty_duration, script_dir
 
 
-
 class TreeDataset(torch.utils.data.Dataset):
     def __init__(self, name: str, dataset_file: str) -> None:
         self.name = name
@@ -58,20 +57,21 @@ class TreeDataset(torch.utils.data.Dataset):
             ]
             c["children"][1]["children"] = attrs
         output = copy.deepcopy(tree)
-        # remove xmi:type and xsi:type
+        # restructure output
         output_root = output["root"]
         output_root_classes = output_root["children"]
-        for c in output_root_classes:
-            attrs = c["children"][1]["children"]
-            attrs = [
-                attr
-                for _, attr in enumerate(attrs)
-                if attr["value"] == "xmi:type" or attr["value"] == "xsi:type"
-            ]
-            c["children"][1]["children"] = attrs
-            if len(c["children"]) > 2:
-                # remove ASSOCs from label
-                del c["children"][2]
+        del output_root["isStaticNode"]
+        for i, c in enumerate(output_root_classes):
+            name = c["children"][0]["children"][0]["value"]
+            type = None
+            for attr in c["children"][1]["children"]:
+                if attr["value"] == "xmi:type" or attr["value"] == "xsi:type":
+                    type = attr["children"][0]["value"]
+                    break
+            if type is None:
+                raise ValueError(f"Type not found for class {name}")
+            output_root_classes[i] = {"value": type, "children": []}
+            # output_root_classes[i] = { "value": name, "children": [{ "value": type, "children": [] }]}
         return {"x": input, "y": output}
 
     def __len__(self):
