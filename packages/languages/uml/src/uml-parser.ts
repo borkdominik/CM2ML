@@ -4,6 +4,7 @@ import { IrPostProcessor } from '@cm2ml/ir-post-processor'
 import { createRefiner } from '@cm2ml/metamodel-refiner'
 import { compose, definePlugin } from '@cm2ml/plugin'
 import { createXmiParser } from '@cm2ml/xmi-parser'
+import { nanoid } from 'nanoid'
 
 import { resolveDeployedElements } from './metamodel/resolvers/deployedElements'
 import { resolveImportedMembers } from './metamodel/resolvers/importedMembers'
@@ -11,6 +12,8 @@ import { resolveInheritedMembers } from './metamodel/resolvers/inheritedMember'
 import { Uml } from './metamodel/uml'
 import { inferUmlHandler } from './metamodel/uml-handler-registry'
 import { validateUmlModel } from './metamodel/uml-validations'
+
+const DEFAULT_ID_PREFIX = 'eu.yeger'
 
 const refine = createRefiner(Uml, inferUmlHandler)
 
@@ -39,10 +42,15 @@ const UmlRefiner = definePlugin({
       description: 'Blacklist of UML element types to exclude from the model. Has precedence over the whitelist.',
       allowedValues: Object.keys(Uml.Types),
     },
+    randomizedIdPrefix: {
+      type: 'boolean',
+      defaultValue: false,
+      description: `Use a randomized prefix for generated ids, instead of "${DEFAULT_ID_PREFIX}".`,
+    },
   },
   invoke: (input: GraphModel, parameters) => {
     removeUnsupportedNodes(input)
-    generateIds(input)
+    generateIds(input, parameters.randomizedIdPrefix ? nanoid() : DEFAULT_ID_PREFIX)
     const model = refine(input, parameters)
     if (!parameters.onlyContainmentAssociations) {
       resolveInheritedMembers(model)
@@ -57,11 +65,11 @@ const UmlRefiner = definePlugin({
   },
 })
 
-function generateIds(model: GraphModel) {
+function generateIds(model: GraphModel, prefix: string) {
   let id = 0
   model.nodes.forEach((node) => {
     if (!node.id) {
-      node.addAttribute({ name: Uml.Attributes['xmi:id'], type: 'string', value: { literal: `eu.yeger#generated-id-${id++}` } }, false)
+      node.addAttribute({ name: Uml.Attributes['xmi:id'], type: 'string', value: { literal: `${prefix}#generated-id-${id++}` } }, false)
     }
   })
   if (id > 0) {

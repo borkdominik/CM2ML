@@ -44,7 +44,8 @@
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/utils": "workspace:*",
     "@cm2ml/xmi-parser": "workspace:*",
-    "@yeger/streams": "1.1.8"
+    "@yeger/streams": "1.1.8",
+    "nanoid": "5.0.7"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
