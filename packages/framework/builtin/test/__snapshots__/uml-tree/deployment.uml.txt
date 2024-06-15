@@ -1,0 +1,2768 @@
+{
+  "data": [
+    {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Model",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedType",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedType",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedType",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedType",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedType",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedType",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Node",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "DeploymentTarget",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isAbstract",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isActive",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isFinalSpecialization",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model::DeploymentTarget",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isLeaf",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "deployment",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_J7D7cPigEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "deployment",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_MNBXAPigEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_J7D7cPigEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_J7D7cPigEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_J7D7cPigEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_MNBXAPigEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_MNBXAPigEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_MNBXAPigEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "deployedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "deployedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "deployedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_J7D7cPigEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Deployment",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_J7D7cPigEe6PhJwEQ2R2dA",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "FirstDeployment",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model::DeploymentTarget::FirstDeployment",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "location",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "deployedArtifact",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "client",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "source",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "supplier",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_MNBXAPigEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Deployment",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_MNBXAPigEe6PhJwEQ2R2dA",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "SecondDeployment",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model::DeploymentTarget::SecondDeployment",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "location",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "deployedArtifact",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "client",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "source",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "supplier",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Artifact",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "FirstArtifact",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "fileName",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isAbstract",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isFinalSpecialization",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model::FirstArtifact",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isLeaf",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "manifestation",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_uXlYUPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "manifestation",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_3aJlAPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_uXlYUPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_uXlYUPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_uXlYUPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_3aJlAPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_3aJlAPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_3aJlAPifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_uXlYUPifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Manifestation",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_uXlYUPifEe6PhJwEQ2R2dA",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "FirstManifestation",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model::FirstArtifact::FirstManifestation",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "utilizedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "client",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "source",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "supplier",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "supplier",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_3aJlAPifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Manifestation",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_3aJlAPifEe6PhJwEQ2R2dA",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "SecondManifestation",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model::FirstArtifact::SecondManifestation",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "utilizedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "client",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "source",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "supplier",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Artifact",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "SecondArtifact",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isAbstract",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isFinalSpecialization",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model::SecondArtifact",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isLeaf",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "manifestation",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_CMuWwPigEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_CMuWwPigEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_CMuWwPigEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_CMuWwPigEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_CMuWwPigEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Manifestation",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_CMuWwPigEe6PhJwEQ2R2dA",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ThirdManifestation",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model::SecondArtifact::ThirdManifestation",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "utilizedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "client",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "source",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "supplier",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Class",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "FirstDeployedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isAbstract",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isActive",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isFinalSpecialization",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model::FirstDeployedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isLeaf",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Class",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "SecondDeployedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isAbstract",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isActive",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isFinalSpecialization",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model::SecondDeployedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isLeaf",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Class",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ThirdDeployedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isAbstract",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isActive",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isFinalSpecialization",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "model::ThirdDeployedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isLeaf",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+        ],
+        "isStaticNode": true,
+        "value": "MODEL",
+      },
+    },
+  ],
+  "metadata": {
+    "dynamicVocabulary": [
+      "",
+      "Artifact",
+      "Class",
+      "Deployment",
+      "DeploymentTarget",
+      "FirstArtifact",
+      "FirstDeployedElement",
+      "FirstDeployment",
+      "FirstManifestation",
+      "Manifestation",
+      "Model",
+      "Node",
+      "SecondArtifact",
+      "SecondDeployedElement",
+      "SecondDeployment",
+      "SecondManifestation",
+      "ThirdDeployedElement",
+      "ThirdManifestation",
+      "_0V2YcPidEe6PhJwEQ2R2dA",
+      "_3aJlAPifEe6PhJwEQ2R2dA",
+      "_7flJUPifEe6PhJwEQ2R2dA",
+      "_9-mJcPifEe6PhJwEQ2R2dA",
+      "_CMuWwPigEe6PhJwEQ2R2dA",
+      "_FIW24PifEe6PhJwEQ2R2dA",
+      "_J7D7cPigEe6PhJwEQ2R2dA",
+      "_MNBXAPigEe6PhJwEQ2R2dA",
+      "_RGi8oPieEe6PhJwEQ2R2dA",
+      "_onBH4PifEe6PhJwEQ2R2dA",
+      "_qiUW8PifEe6PhJwEQ2R2dA",
+      "_uXlYUPifEe6PhJwEQ2R2dA",
+      "client",
+      "deployedArtifact",
+      "deployedElement",
+      "deployment",
+      "false",
+      "fileName",
+      "isAbstract",
+      "isActive",
+      "isFinalSpecialization",
+      "isLeaf",
+      "location",
+      "manifestation",
+      "member",
+      "model",
+      "model::DeploymentTarget",
+      "model::DeploymentTarget::FirstDeployment",
+      "model::DeploymentTarget::SecondDeployment",
+      "model::FirstArtifact",
+      "model::FirstArtifact::FirstManifestation",
+      "model::FirstArtifact::SecondManifestation",
+      "model::FirstDeployedElement",
+      "model::SecondArtifact",
+      "model::SecondArtifact::ThirdManifestation",
+      "model::SecondDeployedElement",
+      "model::ThirdDeployedElement",
+      "name",
+      "namespace",
+      "ownedElement",
+      "ownedMember",
+      "ownedType",
+      "owner",
+      "package",
+      "packagedElement",
+      "public",
+      "qualifiedName",
+      "relatedElement",
+      "source",
+      "supplier",
+      "target",
+      "utilizedElement",
+      "visibility",
+      "xmi:id",
+      "xmi:type",
+    ],
+    "staticVocabulary": [
+      "ASSOC",
+      "ATTR",
+      "CLS",
+      "MODEL",
+      "NAME",
+    ],
+    "vocabulary": [
+      "",
+      "ASSOC",
+      "ATTR",
+      "Artifact",
+      "CLS",
+      "Class",
+      "Deployment",
+      "DeploymentTarget",
+      "FirstArtifact",
+      "FirstDeployedElement",
+      "FirstDeployment",
+      "FirstManifestation",
+      "MODEL",
+      "Manifestation",
+      "Model",
+      "NAME",
+      "Node",
+      "SecondArtifact",
+      "SecondDeployedElement",
+      "SecondDeployment",
+      "SecondManifestation",
+      "ThirdDeployedElement",
+      "ThirdManifestation",
+      "_0V2YcPidEe6PhJwEQ2R2dA",
+      "_3aJlAPifEe6PhJwEQ2R2dA",
+      "_7flJUPifEe6PhJwEQ2R2dA",
+      "_9-mJcPifEe6PhJwEQ2R2dA",
+      "_CMuWwPigEe6PhJwEQ2R2dA",
+      "_FIW24PifEe6PhJwEQ2R2dA",
+      "_J7D7cPigEe6PhJwEQ2R2dA",
+      "_MNBXAPigEe6PhJwEQ2R2dA",
+      "_RGi8oPieEe6PhJwEQ2R2dA",
+      "_onBH4PifEe6PhJwEQ2R2dA",
+      "_qiUW8PifEe6PhJwEQ2R2dA",
+      "_uXlYUPifEe6PhJwEQ2R2dA",
+      "client",
+      "deployedArtifact",
+      "deployedElement",
+      "deployment",
+      "false",
+      "fileName",
+      "isAbstract",
+      "isActive",
+      "isFinalSpecialization",
+      "isLeaf",
+      "location",
+      "manifestation",
+      "member",
+      "model",
+      "model::DeploymentTarget",
+      "model::DeploymentTarget::FirstDeployment",
+      "model::DeploymentTarget::SecondDeployment",
+      "model::FirstArtifact",
+      "model::FirstArtifact::FirstManifestation",
+      "model::FirstArtifact::SecondManifestation",
+      "model::FirstDeployedElement",
+      "model::SecondArtifact",
+      "model::SecondArtifact::ThirdManifestation",
+      "model::SecondDeployedElement",
+      "model::ThirdDeployedElement",
+      "name",
+      "namespace",
+      "ownedElement",
+      "ownedMember",
+      "ownedType",
+      "owner",
+      "package",
+      "packagedElement",
+      "public",
+      "qualifiedName",
+      "relatedElement",
+      "source",
+      "supplier",
+      "target",
+      "utilizedElement",
+      "visibility",
+      "xmi:id",
+      "xmi:type",
+    ],
+  },
+}

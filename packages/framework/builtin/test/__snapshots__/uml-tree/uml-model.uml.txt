@@ -1,0 +1,3821 @@
+{
+  "data": [
+    {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Model",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestedPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestedPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestedPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestedPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestedPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "App",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "com.example.app",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "URI",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package::App",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestingPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedType",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_KrFesfn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_KrFesfn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "elementImport",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_5AugUPn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packageImport",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_uBXk4M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "importedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_5AugUPn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_uBXk4M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_KrFesfn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_KrFesfn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_KrFesfn-Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_5AugUPn-Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_5AugUPn-Ee2smM55zuHUhw",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "AppLauncher",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "alias",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "private",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ElementImport",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "importedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "importingNamespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "source",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_uBXk4M4OEe2WfbpzO7t8-A",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_uBXk4M4OEe2WfbpzO7t8-A",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "PackageImport",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "importedPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "importingNamespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "source",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_KrFesfn-Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Class",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_KrFesfn-Ee2smM55zuHUhw",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Main",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isAbstract",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isActive",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isFinalSpecialization",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package::App::Main",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isLeaf",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Lib",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "com.example.lib",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "URI",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package::Lib",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestingPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedType",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packageMerge",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_2IFB4PYREe2O9IdeA_KGyQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packageMerge",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4Xgt4PYREe2O9IdeA_KGyQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_2IFB4PYREe2O9IdeA_KGyQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4Xgt4PYREe2O9IdeA_KGyQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_2IFB4PYREe2O9IdeA_KGyQ",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_2IFB4PYREe2O9IdeA_KGyQ",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "PackageMerge",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "mergedPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "receivingPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "source",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_4Xgt4PYREe2O9IdeA_KGyQ",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_4Xgt4PYREe2O9IdeA_KGyQ",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "PackageMerge",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "mergedPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "receivingPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "source",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Class",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Launcher",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isAbstract",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isActive",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isFinalSpecialization",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package::Lib::Launcher",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isLeaf",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Utils",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package::Utils",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestingPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Dependency",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "client",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "source",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "supplier",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Logic",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package::Logic",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestingPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packageImport",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qfI0QM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_qfI0QM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "importedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_qfI0QM4OEe2WfbpzO7t8-A",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_qfI0QM4OEe2WfbpzO7t8-A",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "private",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "PackageImport",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "importedPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "importingNamespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "source",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "StdLib",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package::StdLib",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestingPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestedPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestedPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Collections",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package::StdLib::Collections",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestingPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedType",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedType",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "elementImport",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_gg-iAPoAEe2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "importedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_gg-iAPoAEe2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_gg-iAPoAEe2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_gg-iAPoAEe2smM55zuHUhw",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ElementImport",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "importedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "target",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "importingNamespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "source",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "relatedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Class",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ArrayList",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isAbstract",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isActive",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isFinalSpecialization",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package::StdLib::Collections::ArrayList",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isLeaf",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Class",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "List",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "true",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isAbstract",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isActive",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isFinalSpecialization",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package::StdLib::Collections::List",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isLeaf",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Math",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package::StdLib::Math",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "nestingPackage",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedType",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "packagedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedMember",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "member",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "ownedElement",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "isStaticNode": false,
+                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "NAME",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Class",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:type",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "_dHjvIPoAEe2smM55zuHUhw",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "xmi:id",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "Int",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "name",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isAbstract",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isActive",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isFinalSpecialization",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package::StdLib::Math::Int",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "qualifiedName",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "public",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "visibility",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "false",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "isLeaf",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ATTR",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "package",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "namespace",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [],
+                        "isStaticNode": false,
+                        "value": "owner",
+                      },
+                    ],
+                    "isStaticNode": false,
+                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                  },
+                ],
+                "isStaticNode": true,
+                "value": "ASSOC",
+              },
+            ],
+            "isStaticNode": true,
+            "value": "CLS",
+          },
+        ],
+        "isStaticNode": true,
+        "value": "MODEL",
+      },
+    },
+  ],
+  "metadata": {
+    "dynamicVocabulary": [
+      "App",
+      "AppLauncher",
+      "ArrayList",
+      "Class",
+      "Collections",
+      "Dependency",
+      "ElementImport",
+      "Int",
+      "Launcher",
+      "Lib",
+      "List",
+      "Logic",
+      "Main",
+      "Math",
+      "Model",
+      "Package",
+      "PackageImport",
+      "PackageMerge",
+      "StdLib",
+      "URI",
+      "Utils",
+      "_2IFB4PYREe2O9IdeA_KGyQ",
+      "_4EHcMM4OEe2WfbpzO7t8-A",
+      "_4Xgt4PYREe2O9IdeA_KGyQ",
+      "_59v3UM4OEe2WfbpzO7t8-A",
+      "_5AugUPn-Ee2smM55zuHUhw",
+      "_KrFesfn-Ee2smM55zuHUhw",
+      "_Mmu2kPn_Ee2smM55zuHUhw",
+      "_Oj0OUPn_Ee2smM55zuHUhw",
+      "_PTF5sc4OEe2NwpxoRjsNIQ",
+      "_PwW58Pn_Ee2smM55zuHUhw",
+      "_QGY-4M4OEe2NwpxoRjsNIQ",
+      "_RY5voM4OEe2NwpxoRjsNIQ",
+      "_U4qQgPn_Ee2smM55zuHUhw",
+      "_dHjvIPoAEe2smM55zuHUhw",
+      "_gg-iAPoAEe2smM55zuHUhw",
+      "_gu8-gPn-Ee2smM55zuHUhw",
+      "_kjCCMM4OEe2WfbpzO7t8-A",
+      "_lJmS8M4OEe2WfbpzO7t8-A",
+      "_qfI0QM4OEe2WfbpzO7t8-A",
+      "_uBXk4M4OEe2WfbpzO7t8-A",
+      "alias",
+      "client",
+      "com.example.app",
+      "com.example.lib",
+      "elementImport",
+      "false",
+      "importedElement",
+      "importedMember",
+      "importedPackage",
+      "importingNamespace",
+      "isAbstract",
+      "isActive",
+      "isFinalSpecialization",
+      "isLeaf",
+      "member",
+      "mergedPackage",
+      "name",
+      "namespace",
+      "nestedPackage",
+      "nestingPackage",
+      "ownedElement",
+      "ownedMember",
+      "ownedType",
+      "owner",
+      "package",
+      "package::App",
+      "package::App::Main",
+      "package::Lib",
+      "package::Lib::Launcher",
+      "package::Logic",
+      "package::StdLib",
+      "package::StdLib::Collections",
+      "package::StdLib::Collections::ArrayList",
+      "package::StdLib::Collections::List",
+      "package::StdLib::Math",
+      "package::StdLib::Math::Int",
+      "package::Utils",
+      "packageImport",
+      "packageMerge",
+      "packagedElement",
+      "private",
+      "public",
+      "qualifiedName",
+      "receivingPackage",
+      "relatedElement",
+      "source",
+      "supplier",
+      "target",
+      "true",
+      "visibility",
+      "xmi:id",
+      "xmi:type",
+    ],
+    "staticVocabulary": [
+      "ASSOC",
+      "ATTR",
+      "CLS",
+      "MODEL",
+      "NAME",
+    ],
+    "vocabulary": [
+      "ASSOC",
+      "ATTR",
+      "App",
+      "AppLauncher",
+      "ArrayList",
+      "CLS",
+      "Class",
+      "Collections",
+      "Dependency",
+      "ElementImport",
+      "Int",
+      "Launcher",
+      "Lib",
+      "List",
+      "Logic",
+      "MODEL",
+      "Main",
+      "Math",
+      "Model",
+      "NAME",
+      "Package",
+      "PackageImport",
+      "PackageMerge",
+      "StdLib",
+      "URI",
+      "Utils",
+      "_2IFB4PYREe2O9IdeA_KGyQ",
+      "_4EHcMM4OEe2WfbpzO7t8-A",
+      "_4Xgt4PYREe2O9IdeA_KGyQ",
+      "_59v3UM4OEe2WfbpzO7t8-A",
+      "_5AugUPn-Ee2smM55zuHUhw",
+      "_KrFesfn-Ee2smM55zuHUhw",
+      "_Mmu2kPn_Ee2smM55zuHUhw",
+      "_Oj0OUPn_Ee2smM55zuHUhw",
+      "_PTF5sc4OEe2NwpxoRjsNIQ",
+      "_PwW58Pn_Ee2smM55zuHUhw",
+      "_QGY-4M4OEe2NwpxoRjsNIQ",
+      "_RY5voM4OEe2NwpxoRjsNIQ",
+      "_U4qQgPn_Ee2smM55zuHUhw",
+      "_dHjvIPoAEe2smM55zuHUhw",
+      "_gg-iAPoAEe2smM55zuHUhw",
+      "_gu8-gPn-Ee2smM55zuHUhw",
+      "_kjCCMM4OEe2WfbpzO7t8-A",
+      "_lJmS8M4OEe2WfbpzO7t8-A",
+      "_qfI0QM4OEe2WfbpzO7t8-A",
+      "_uBXk4M4OEe2WfbpzO7t8-A",
+      "alias",
+      "client",
+      "com.example.app",
+      "com.example.lib",
+      "elementImport",
+      "false",
+      "importedElement",
+      "importedMember",
+      "importedPackage",
+      "importingNamespace",
+      "isAbstract",
+      "isActive",
+      "isFinalSpecialization",
+      "isLeaf",
+      "member",
+      "mergedPackage",
+      "name",
+      "namespace",
+      "nestedPackage",
+      "nestingPackage",
+      "ownedElement",
+      "ownedMember",
+      "ownedType",
+      "owner",
+      "package",
+      "package::App",
+      "package::App::Main",
+      "package::Lib",
+      "package::Lib::Launcher",
+      "package::Logic",
+      "package::StdLib",
+      "package::StdLib::Collections",
+      "package::StdLib::Collections::ArrayList",
+      "package::StdLib::Collections::List",
+      "package::StdLib::Math",
+      "package::StdLib::Math::Int",
+      "package::Utils",
+      "packageImport",
+      "packageMerge",
+      "packagedElement",
+      "private",
+      "public",
+      "qualifiedName",
+      "receivingPackage",
+      "relatedElement",
+      "source",
+      "supplier",
+      "target",
+      "true",
+      "visibility",
+      "xmi:id",
+      "xmi:type",
+    ],
+  },
+}

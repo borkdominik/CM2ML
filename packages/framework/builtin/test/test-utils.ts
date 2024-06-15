@@ -19,9 +19,6 @@ function isPluginReadyForTest(plugin: PrecomposedPlugin) {
   if (name.includes('archimate')) {
     return false
   }
-  if (name.includes('tree')) {
-    return false
-  }
   if (name.includes('one-hot')) {
     return false
   }
