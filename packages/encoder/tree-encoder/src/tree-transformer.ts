@@ -1,3 +1,4 @@
+import type { FeatureContext } from '@cm2ml/feature-encoder'
 import type { Attribute, GraphEdge, GraphModel, GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
@@ -7,7 +8,7 @@ class TreeMapperContext {
   private nodeIdMapping: Record<string, `id_${number}`> = {}
   private id_counter = 0
 
-  public constructor(private readonly replaceNodeIds: boolean) {}
+  public constructor(public readonly featureContext: FeatureContext, private readonly replaceNodeIds: boolean) {}
 
   public registerNode(node: GraphNode): void {
     if (this.replaceNodeIds) {
@@ -16,11 +17,21 @@ class TreeMapperContext {
   }
 
   public mapId(node: GraphNode): string {
-    return this.nodeIdMapping[requireId(node)] ?? requireId(node)
+    const idAttribute = node.attributes.get(node.model.settings.idAttribute)
+    if (!idAttribute) {
+      throw new Error('Node has an id attribute. Tree encoding requires all nodes to have IDs assigned.')
+    }
+    return this.mapAttribute(idAttribute)
   }
 
   public mapAttribute(attribute: Attribute): string {
-    return this.nodeIdMapping[attribute.value.literal] ?? attribute.value.literal
+    const mappedId = this.nodeIdMapping[attribute.value.literal]
+    if (mappedId) {
+      // attribute value is a node id
+      return mappedId
+    }
+    return `${this.featureContext.mapNodeAttribute(attribute)}`
+    return `${attribute.name}_${attribute.type}_${this.featureContext.mapNodeAttribute(attribute)}`
   }
 }
 
@@ -31,13 +42,21 @@ function requireId(node: GraphNode): string {
   return node.id
 }
 
-export function createTree(model: GraphModel, replaceNodeIds: boolean): TreeModel {
-  const context = new TreeMapperContext(replaceNodeIds)
-  return {
+export function createTree(model: GraphModel, featureContext: FeatureContext, replaceNodeIds: boolean) {
+  const context = new TreeMapperContext(featureContext, replaceNodeIds)
+  model.nodes.forEach((node) => context.registerNode(node))
+  const tree: TreeModel = {
     root: {
       value: 'MODEL',
       children: createClassNodes(model, context),
       isStaticNode: true,
+    },
+  }
+  return {
+    data: tree,
+    metadata: {
+      nodeFeatures: featureContext.nodeFeatures,
+      edgeFeatures: featureContext.edgeFeatures,
     },
   }
 }
@@ -79,10 +98,17 @@ function createAttributesNode(node: GraphNode, context: TreeMapperContext): Attr
 }
 
 function createAttributeNameNodes(node: GraphNode, context: TreeMapperContext): AttributeNameNode[] {
-  return Stream.from(node.attributes.values()).map((attribute) => createAttributeNameNode(attribute, context)).toArray()
+  return Stream
+    .from(node.attributes.values())
+    .map((attribute) => createAttributeNameNode(attribute, context))
+    .filterNonNull()
+    .toArray()
 }
 
-function createAttributeNameNode(attribute: Attribute, context: TreeMapperContext): AttributeNameNode {
+function createAttributeNameNode(attribute: Attribute, context: TreeMapperContext): AttributeNameNode | null {
+  if (context.featureContext.onlyEncodedFeatures && !context.featureContext.canEncodeNodeAttribute(attribute)) {
+    return null
+  }
   return {
     value: attribute.name,
     children: [createAttributeValueNode(attribute, context)],

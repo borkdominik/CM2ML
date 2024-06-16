@@ -10,7 +10,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                 ],
                 "isStaticNode": true,
@@ -23,7 +23,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -34,7 +34,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -45,7 +45,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Model",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -56,7 +56,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -67,7 +67,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -88,7 +88,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -99,7 +99,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -110,7 +110,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -121,7 +121,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -132,7 +132,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -143,7 +143,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -154,7 +154,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -165,7 +165,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -176,7 +176,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -187,7 +187,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -198,7 +198,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -209,7 +209,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -220,7 +220,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -231,7 +231,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -242,7 +242,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -253,7 +253,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -264,7 +264,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -275,7 +275,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -286,7 +286,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -297,7 +297,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -308,7 +308,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -319,7 +319,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -330,7 +330,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -341,7 +341,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -352,7 +352,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                 ],
                 "isStaticNode": true,
@@ -369,7 +369,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                 ],
                 "isStaticNode": true,
@@ -382,7 +382,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Package",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -393,7 +393,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -404,7 +404,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "App",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -415,7 +415,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "com.example.app",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -426,7 +426,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -437,7 +437,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package::App",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -458,7 +458,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -469,7 +469,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_KrFesfn-Ee2smM55zuHUhw",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -480,7 +480,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_KrFesfn-Ee2smM55zuHUhw",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -491,7 +491,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -502,7 +502,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -513,7 +513,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_5AugUPn-Ee2smM55zuHUhw",
+                    "value": "3",
                   },
                   {
                     "children": [
@@ -524,7 +524,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_uBXk4M4OEe2WfbpzO7t8-A",
+                    "value": "4",
                   },
                   {
                     "children": [
@@ -535,7 +535,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                    "value": "9",
                   },
                   {
                     "children": [
@@ -546,7 +546,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                    "value": "9",
                   },
                   {
                     "children": [
@@ -557,7 +557,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_5AugUPn-Ee2smM55zuHUhw",
+                    "value": "3",
                   },
                   {
                     "children": [
@@ -568,7 +568,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_uBXk4M4OEe2WfbpzO7t8-A",
+                    "value": "4",
                   },
                   {
                     "children": [
@@ -579,7 +579,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_KrFesfn-Ee2smM55zuHUhw",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -590,7 +590,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_KrFesfn-Ee2smM55zuHUhw",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -601,7 +601,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_KrFesfn-Ee2smM55zuHUhw",
+                    "value": "5",
                   },
                 ],
                 "isStaticNode": true,
@@ -618,7 +618,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_5AugUPn-Ee2smM55zuHUhw",
+                    "value": "3",
                   },
                 ],
                 "isStaticNode": true,
@@ -631,7 +631,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_5AugUPn-Ee2smM55zuHUhw",
+                        "value": "3",
                       },
                     ],
                     "isStaticNode": false,
@@ -642,7 +642,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "AppLauncher",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -653,7 +653,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "private",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -664,7 +664,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "ElementImport",
+                        "value": "3",
                       },
                     ],
                     "isStaticNode": false,
@@ -685,7 +685,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                    "value": "9",
                   },
                   {
                     "children": [
@@ -696,7 +696,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                    "value": "9",
                   },
                   {
                     "children": [
@@ -707,7 +707,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -718,7 +718,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -729,7 +729,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -740,7 +740,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                    "value": "9",
                   },
                   {
                     "children": [
@@ -751,7 +751,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                 ],
                 "isStaticNode": true,
@@ -768,7 +768,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_uBXk4M4OEe2WfbpzO7t8-A",
+                    "value": "4",
                   },
                 ],
                 "isStaticNode": true,
@@ -781,7 +781,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_uBXk4M4OEe2WfbpzO7t8-A",
+                        "value": "4",
                       },
                     ],
                     "isStaticNode": false,
@@ -792,7 +792,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "PackageImport",
+                        "value": "4",
                       },
                     ],
                     "isStaticNode": false,
@@ -803,7 +803,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -824,7 +824,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -835,7 +835,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -846,7 +846,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -857,7 +857,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -868,7 +868,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -879,7 +879,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -890,7 +890,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                 ],
                 "isStaticNode": true,
@@ -907,7 +907,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_KrFesfn-Ee2smM55zuHUhw",
+                    "value": "5",
                   },
                 ],
                 "isStaticNode": true,
@@ -920,7 +920,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Class",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -931,7 +931,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_KrFesfn-Ee2smM55zuHUhw",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -942,7 +942,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Main",
+                        "value": "3",
                       },
                     ],
                     "isStaticNode": false,
@@ -953,7 +953,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -964,7 +964,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -975,7 +975,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -986,7 +986,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package::App::Main",
+                        "value": "3",
                       },
                     ],
                     "isStaticNode": false,
@@ -997,7 +997,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -1008,7 +1008,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -1029,7 +1029,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -1040,7 +1040,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -1051,7 +1051,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_QGY-4M4OEe2NwpxoRjsNIQ",
+                    "value": "2",
                   },
                 ],
                 "isStaticNode": true,
@@ -1068,7 +1068,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                 ],
                 "isStaticNode": true,
@@ -1081,7 +1081,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Package",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -1092,7 +1092,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                        "value": "6",
                       },
                     ],
                     "isStaticNode": false,
@@ -1103,7 +1103,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Lib",
+                        "value": "4",
                       },
                     ],
                     "isStaticNode": false,
@@ -1114,7 +1114,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "com.example.lib",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -1125,7 +1125,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -1136,7 +1136,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package::Lib",
+                        "value": "4",
                       },
                     ],
                     "isStaticNode": false,
@@ -1157,7 +1157,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -1168,7 +1168,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                    "value": "9",
                   },
                   {
                     "children": [
@@ -1179,7 +1179,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                    "value": "9",
                   },
                   {
                     "children": [
@@ -1190,7 +1190,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_2IFB4PYREe2O9IdeA_KGyQ",
+                    "value": "7",
                   },
                   {
                     "children": [
@@ -1201,7 +1201,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4Xgt4PYREe2O9IdeA_KGyQ",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -1212,7 +1212,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -1223,7 +1223,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -1234,7 +1234,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_2IFB4PYREe2O9IdeA_KGyQ",
+                    "value": "7",
                   },
                   {
                     "children": [
@@ -1245,7 +1245,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4Xgt4PYREe2O9IdeA_KGyQ",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -1256,7 +1256,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                    "value": "9",
                   },
                   {
                     "children": [
@@ -1267,7 +1267,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                    "value": "9",
                   },
                   {
                     "children": [
@@ -1278,7 +1278,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                    "value": "9",
                   },
                 ],
                 "isStaticNode": true,
@@ -1295,7 +1295,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_2IFB4PYREe2O9IdeA_KGyQ",
+                    "value": "7",
                   },
                 ],
                 "isStaticNode": true,
@@ -1308,7 +1308,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_2IFB4PYREe2O9IdeA_KGyQ",
+                        "value": "7",
                       },
                     ],
                     "isStaticNode": false,
@@ -1319,7 +1319,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "PackageMerge",
+                        "value": "6",
                       },
                     ],
                     "isStaticNode": false,
@@ -1340,7 +1340,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -1351,7 +1351,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -1362,7 +1362,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -1373,7 +1373,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -1384,7 +1384,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -1395,7 +1395,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -1406,7 +1406,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                 ],
                 "isStaticNode": true,
@@ -1423,7 +1423,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_4Xgt4PYREe2O9IdeA_KGyQ",
+                    "value": "8",
                   },
                 ],
                 "isStaticNode": true,
@@ -1436,7 +1436,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_4Xgt4PYREe2O9IdeA_KGyQ",
+                        "value": "8",
                       },
                     ],
                     "isStaticNode": false,
@@ -1447,7 +1447,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "PackageMerge",
+                        "value": "6",
                       },
                     ],
                     "isStaticNode": false,
@@ -1468,7 +1468,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -1479,7 +1479,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -1490,7 +1490,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -1501,7 +1501,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -1512,7 +1512,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -1523,7 +1523,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -1534,7 +1534,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                 ],
                 "isStaticNode": true,
@@ -1551,7 +1551,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                    "value": "9",
                   },
                 ],
                 "isStaticNode": true,
@@ -1564,7 +1564,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Class",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -1575,7 +1575,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_gu8-gPn-Ee2smM55zuHUhw",
+                        "value": "9",
                       },
                     ],
                     "isStaticNode": false,
@@ -1586,7 +1586,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Launcher",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -1597,7 +1597,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -1608,7 +1608,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -1619,7 +1619,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -1630,7 +1630,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package::Lib::Launcher",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -1641,7 +1641,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -1652,7 +1652,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -1673,7 +1673,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -1684,7 +1684,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -1695,7 +1695,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RY5voM4OEe2NwpxoRjsNIQ",
+                    "value": "6",
                   },
                 ],
                 "isStaticNode": true,
@@ -1712,7 +1712,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                 ],
                 "isStaticNode": true,
@@ -1725,7 +1725,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Package",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -1736,7 +1736,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                        "value": "10",
                       },
                     ],
                     "isStaticNode": false,
@@ -1747,7 +1747,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Utils",
+                        "value": "6",
                       },
                     ],
                     "isStaticNode": false,
@@ -1758,7 +1758,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -1769,7 +1769,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package::Utils",
+                        "value": "6",
                       },
                     ],
                     "isStaticNode": false,
@@ -1790,7 +1790,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -1801,7 +1801,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -1812,7 +1812,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -1823,7 +1823,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -1834,7 +1834,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -1845,7 +1845,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -1856,7 +1856,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                    "value": "11",
                   },
                 ],
                 "isStaticNode": true,
@@ -1873,7 +1873,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                    "value": "11",
                   },
                 ],
                 "isStaticNode": true,
@@ -1886,7 +1886,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Dependency",
+                        "value": "7",
                       },
                     ],
                     "isStaticNode": false,
@@ -1897,7 +1897,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                        "value": "11",
                       },
                     ],
                     "isStaticNode": false,
@@ -1908,7 +1908,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -1929,7 +1929,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -1940,7 +1940,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -1951,7 +1951,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -1962,7 +1962,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -1973,7 +1973,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -1984,7 +1984,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -1995,7 +1995,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -2006,7 +2006,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                 ],
                 "isStaticNode": true,
@@ -2023,7 +2023,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                 ],
                 "isStaticNode": true,
@@ -2036,7 +2036,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Package",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -2047,7 +2047,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                        "value": "12",
                       },
                     ],
                     "isStaticNode": false,
@@ -2058,7 +2058,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Logic",
+                        "value": "7",
                       },
                     ],
                     "isStaticNode": false,
@@ -2069,7 +2069,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -2080,7 +2080,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package::Logic",
+                        "value": "7",
                       },
                     ],
                     "isStaticNode": false,
@@ -2101,7 +2101,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -2112,7 +2112,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -2123,7 +2123,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -2134,7 +2134,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qfI0QM4OEe2WfbpzO7t8-A",
+                    "value": "13",
                   },
                   {
                     "children": [
@@ -2145,7 +2145,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qfI0QM4OEe2WfbpzO7t8-A",
+                    "value": "13",
                   },
                   {
                     "children": [
@@ -2156,7 +2156,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -2167,7 +2167,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_59v3UM4OEe2WfbpzO7t8-A",
+                    "value": "11",
                   },
                 ],
                 "isStaticNode": true,
@@ -2184,7 +2184,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_qfI0QM4OEe2WfbpzO7t8-A",
+                    "value": "13",
                   },
                 ],
                 "isStaticNode": true,
@@ -2197,7 +2197,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_qfI0QM4OEe2WfbpzO7t8-A",
+                        "value": "13",
                       },
                     ],
                     "isStaticNode": false,
@@ -2208,7 +2208,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "private",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -2219,7 +2219,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "PackageImport",
+                        "value": "4",
                       },
                     ],
                     "isStaticNode": false,
@@ -2240,7 +2240,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -2251,7 +2251,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -2262,7 +2262,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -2273,7 +2273,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -2284,7 +2284,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -2295,7 +2295,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_kjCCMM4OEe2WfbpzO7t8-A",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -2306,7 +2306,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_lJmS8M4OEe2WfbpzO7t8-A",
+                    "value": "12",
                   },
                 ],
                 "isStaticNode": true,
@@ -2323,7 +2323,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                 ],
                 "isStaticNode": true,
@@ -2336,7 +2336,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Package",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -2347,7 +2347,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                        "value": "14",
                       },
                     ],
                     "isStaticNode": false,
@@ -2358,7 +2358,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "StdLib",
+                        "value": "8",
                       },
                     ],
                     "isStaticNode": false,
@@ -2369,7 +2369,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -2380,7 +2380,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package::StdLib",
+                        "value": "8",
                       },
                     ],
                     "isStaticNode": false,
@@ -2401,7 +2401,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -2412,7 +2412,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                   {
                     "children": [
@@ -2423,7 +2423,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                    "value": "19",
                   },
                   {
                     "children": [
@@ -2434,7 +2434,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                   {
                     "children": [
@@ -2445,7 +2445,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                    "value": "19",
                   },
                   {
                     "children": [
@@ -2456,7 +2456,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -2467,7 +2467,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PTF5sc4OEe2NwpxoRjsNIQ",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -2478,7 +2478,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                   {
                     "children": [
@@ -2489,7 +2489,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                   {
                     "children": [
@@ -2500,7 +2500,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                   {
                     "children": [
@@ -2511,7 +2511,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                    "value": "19",
                   },
                   {
                     "children": [
@@ -2522,7 +2522,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                    "value": "19",
                   },
                   {
                     "children": [
@@ -2533,7 +2533,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                    "value": "19",
                   },
                 ],
                 "isStaticNode": true,
@@ -2550,7 +2550,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                 ],
                 "isStaticNode": true,
@@ -2563,7 +2563,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Package",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -2574,7 +2574,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                        "value": "15",
                       },
                     ],
                     "isStaticNode": false,
@@ -2585,7 +2585,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Collections",
+                        "value": "9",
                       },
                     ],
                     "isStaticNode": false,
@@ -2596,7 +2596,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -2607,7 +2607,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package::StdLib::Collections",
+                        "value": "9",
                       },
                     ],
                     "isStaticNode": false,
@@ -2628,7 +2628,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -2639,7 +2639,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                    "value": "17",
                   },
                   {
                     "children": [
@@ -2650,7 +2650,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                    "value": "18",
                   },
                   {
                     "children": [
@@ -2661,7 +2661,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                    "value": "17",
                   },
                   {
                     "children": [
@@ -2672,7 +2672,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                    "value": "18",
                   },
                   {
                     "children": [
@@ -2683,7 +2683,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -2694,7 +2694,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -2705,7 +2705,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_gg-iAPoAEe2smM55zuHUhw",
+                    "value": "16",
                   },
                   {
                     "children": [
@@ -2716,7 +2716,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                    "value": "20",
                   },
                   {
                     "children": [
@@ -2727,7 +2727,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                    "value": "20",
                   },
                   {
                     "children": [
@@ -2738,7 +2738,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_gg-iAPoAEe2smM55zuHUhw",
+                    "value": "16",
                   },
                   {
                     "children": [
@@ -2749,7 +2749,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                    "value": "17",
                   },
                   {
                     "children": [
@@ -2760,7 +2760,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                    "value": "17",
                   },
                   {
                     "children": [
@@ -2771,7 +2771,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                    "value": "17",
                   },
                   {
                     "children": [
@@ -2782,7 +2782,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                    "value": "18",
                   },
                   {
                     "children": [
@@ -2793,7 +2793,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                    "value": "18",
                   },
                   {
                     "children": [
@@ -2804,7 +2804,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                    "value": "18",
                   },
                 ],
                 "isStaticNode": true,
@@ -2821,7 +2821,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_gg-iAPoAEe2smM55zuHUhw",
+                    "value": "16",
                   },
                 ],
                 "isStaticNode": true,
@@ -2834,7 +2834,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_gg-iAPoAEe2smM55zuHUhw",
+                        "value": "16",
                       },
                     ],
                     "isStaticNode": false,
@@ -2845,7 +2845,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "ElementImport",
+                        "value": "3",
                       },
                     ],
                     "isStaticNode": false,
@@ -2856,7 +2856,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -2877,7 +2877,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                    "value": "20",
                   },
                   {
                     "children": [
@@ -2888,7 +2888,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                    "value": "20",
                   },
                   {
                     "children": [
@@ -2899,7 +2899,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                   {
                     "children": [
@@ -2910,7 +2910,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                   {
                     "children": [
@@ -2921,7 +2921,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                   {
                     "children": [
@@ -2932,7 +2932,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                    "value": "20",
                   },
                   {
                     "children": [
@@ -2943,7 +2943,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                 ],
                 "isStaticNode": true,
@@ -2960,7 +2960,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                    "value": "17",
                   },
                 ],
                 "isStaticNode": true,
@@ -2973,7 +2973,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Class",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -2984,7 +2984,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_PwW58Pn_Ee2smM55zuHUhw",
+                        "value": "17",
                       },
                     ],
                     "isStaticNode": false,
@@ -2995,7 +2995,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "ArrayList",
+                        "value": "10",
                       },
                     ],
                     "isStaticNode": false,
@@ -3006,7 +3006,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -3017,7 +3017,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -3028,7 +3028,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -3039,7 +3039,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package::StdLib::Collections::ArrayList",
+                        "value": "10",
                       },
                     ],
                     "isStaticNode": false,
@@ -3050,7 +3050,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -3061,7 +3061,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -3082,7 +3082,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                   {
                     "children": [
@@ -3093,7 +3093,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                   {
                     "children": [
@@ -3104,7 +3104,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                 ],
                 "isStaticNode": true,
@@ -3121,7 +3121,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                    "value": "18",
                   },
                 ],
                 "isStaticNode": true,
@@ -3134,7 +3134,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Class",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -3145,7 +3145,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_U4qQgPn_Ee2smM55zuHUhw",
+                        "value": "18",
                       },
                     ],
                     "isStaticNode": false,
@@ -3156,7 +3156,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "List",
+                        "value": "11",
                       },
                     ],
                     "isStaticNode": false,
@@ -3167,7 +3167,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "true",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -3178,7 +3178,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -3189,7 +3189,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -3200,7 +3200,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package::StdLib::Collections::List",
+                        "value": "11",
                       },
                     ],
                     "isStaticNode": false,
@@ -3211,7 +3211,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -3222,7 +3222,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -3243,7 +3243,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                   {
                     "children": [
@@ -3254,7 +3254,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                   {
                     "children": [
@@ -3265,7 +3265,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Mmu2kPn_Ee2smM55zuHUhw",
+                    "value": "15",
                   },
                 ],
                 "isStaticNode": true,
@@ -3282,7 +3282,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                    "value": "19",
                   },
                 ],
                 "isStaticNode": true,
@@ -3295,7 +3295,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Package",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -3306,7 +3306,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                        "value": "19",
                       },
                     ],
                     "isStaticNode": false,
@@ -3317,7 +3317,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Math",
+                        "value": "12",
                       },
                     ],
                     "isStaticNode": false,
@@ -3328,7 +3328,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -3339,7 +3339,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package::StdLib::Math",
+                        "value": "12",
                       },
                     ],
                     "isStaticNode": false,
@@ -3360,7 +3360,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -3371,7 +3371,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                    "value": "20",
                   },
                   {
                     "children": [
@@ -3382,7 +3382,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                    "value": "20",
                   },
                   {
                     "children": [
@@ -3393,7 +3393,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -3404,7 +3404,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_4EHcMM4OEe2WfbpzO7t8-A",
+                    "value": "14",
                   },
                   {
                     "children": [
@@ -3415,7 +3415,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                    "value": "20",
                   },
                   {
                     "children": [
@@ -3426,7 +3426,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                    "value": "20",
                   },
                   {
                     "children": [
@@ -3437,7 +3437,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                    "value": "20",
                   },
                 ],
                 "isStaticNode": true,
@@ -3454,7 +3454,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_dHjvIPoAEe2smM55zuHUhw",
+                    "value": "20",
                   },
                 ],
                 "isStaticNode": true,
@@ -3467,7 +3467,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Class",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -3478,7 +3478,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_dHjvIPoAEe2smM55zuHUhw",
+                        "value": "20",
                       },
                     ],
                     "isStaticNode": false,
@@ -3489,7 +3489,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Int",
+                        "value": "13",
                       },
                     ],
                     "isStaticNode": false,
@@ -3500,7 +3500,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -3511,7 +3511,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -3522,7 +3522,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -3533,7 +3533,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "package::StdLib::Math::Int",
+                        "value": "13",
                       },
                     ],
                     "isStaticNode": false,
@@ -3544,7 +3544,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -3555,7 +3555,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -3576,7 +3576,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                    "value": "19",
                   },
                   {
                     "children": [
@@ -3587,7 +3587,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                    "value": "19",
                   },
                   {
                     "children": [
@@ -3598,7 +3598,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_Oj0OUPn_Ee2smM55zuHUhw",
+                    "value": "19",
                   },
                 ],
                 "isStaticNode": true,
@@ -3615,207 +3615,258 @@
     },
   ],
   "metadata": {
-    "dynamicVocabulary": [
-      "App",
-      "AppLauncher",
-      "ArrayList",
-      "Class",
-      "Collections",
-      "Dependency",
-      "ElementImport",
-      "Int",
-      "Launcher",
-      "Lib",
-      "List",
-      "Logic",
-      "Main",
-      "Math",
-      "Model",
-      "Package",
-      "PackageImport",
-      "PackageMerge",
-      "StdLib",
-      "URI",
-      "Utils",
-      "_2IFB4PYREe2O9IdeA_KGyQ",
-      "_4EHcMM4OEe2WfbpzO7t8-A",
-      "_4Xgt4PYREe2O9IdeA_KGyQ",
-      "_59v3UM4OEe2WfbpzO7t8-A",
-      "_5AugUPn-Ee2smM55zuHUhw",
-      "_KrFesfn-Ee2smM55zuHUhw",
-      "_Mmu2kPn_Ee2smM55zuHUhw",
-      "_Oj0OUPn_Ee2smM55zuHUhw",
-      "_PTF5sc4OEe2NwpxoRjsNIQ",
-      "_PwW58Pn_Ee2smM55zuHUhw",
-      "_QGY-4M4OEe2NwpxoRjsNIQ",
-      "_RY5voM4OEe2NwpxoRjsNIQ",
-      "_U4qQgPn_Ee2smM55zuHUhw",
-      "_dHjvIPoAEe2smM55zuHUhw",
-      "_gg-iAPoAEe2smM55zuHUhw",
-      "_gu8-gPn-Ee2smM55zuHUhw",
-      "_kjCCMM4OEe2WfbpzO7t8-A",
-      "_lJmS8M4OEe2WfbpzO7t8-A",
-      "_qfI0QM4OEe2WfbpzO7t8-A",
-      "_uBXk4M4OEe2WfbpzO7t8-A",
-      "alias",
-      "client",
-      "com.example.app",
-      "com.example.lib",
-      "elementImport",
-      "false",
-      "importedElement",
-      "importedMember",
-      "importedPackage",
-      "importingNamespace",
-      "isAbstract",
-      "isActive",
-      "isFinalSpecialization",
-      "isLeaf",
-      "member",
-      "mergedPackage",
-      "name",
-      "namespace",
-      "nestedPackage",
-      "nestingPackage",
-      "ownedElement",
-      "ownedMember",
-      "ownedType",
-      "owner",
-      "package",
-      "package::App",
-      "package::App::Main",
-      "package::Lib",
-      "package::Lib::Launcher",
-      "package::Logic",
-      "package::StdLib",
-      "package::StdLib::Collections",
-      "package::StdLib::Collections::ArrayList",
-      "package::StdLib::Collections::List",
-      "package::StdLib::Math",
-      "package::StdLib::Math::Int",
-      "package::Utils",
-      "packageImport",
-      "packageMerge",
-      "packagedElement",
-      "private",
-      "public",
-      "qualifiedName",
-      "receivingPackage",
-      "relatedElement",
-      "source",
-      "supplier",
-      "target",
-      "true",
-      "visibility",
-      "xmi:id",
-      "xmi:type",
+    "edgeFeatures": [],
+    "nodeFeatures": [
+      [
+        "alias",
+        "encoded-string",
+        {
+          "AppLauncher": 1,
+        },
+      ],
+      [
+        "isAbstract",
+        "encoded-boolean",
+        null,
+      ],
+      [
+        "isActive",
+        "encoded-boolean",
+        null,
+      ],
+      [
+        "isFinalSpecialization",
+        "encoded-boolean",
+        null,
+      ],
+      [
+        "isLeaf",
+        "encoded-boolean",
+        null,
+      ],
+      [
+        "name",
+        "encoded-string",
+        {
+          "App": 2,
+          "ArrayList": 10,
+          "Collections": 9,
+          "Int": 13,
+          "Launcher": 5,
+          "Lib": 4,
+          "List": 11,
+          "Logic": 7,
+          "Main": 3,
+          "Math": 12,
+          "StdLib": 8,
+          "Utils": 6,
+          "package": 1,
+        },
+      ],
+      [
+        "qualifiedName",
+        "encoded-string",
+        {
+          "package": 1,
+          "package::App": 2,
+          "package::App::Main": 3,
+          "package::Lib": 4,
+          "package::Lib::Launcher": 5,
+          "package::Logic": 7,
+          "package::StdLib": 8,
+          "package::StdLib::Collections": 9,
+          "package::StdLib::Collections::ArrayList": 10,
+          "package::StdLib::Collections::List": 11,
+          "package::StdLib::Math": 12,
+          "package::StdLib::Math::Int": 13,
+          "package::Utils": 6,
+        },
+      ],
+      [
+        "URI",
+        "encoded-string",
+        {
+          "com.example.app": 1,
+          "com.example.lib": 2,
+        },
+      ],
+      [
+        "visibility",
+        "encoded-category",
+        {
+          "private": 2,
+          "public": 1,
+        },
+      ],
+      [
+        "xmi:id",
+        "encoded-string",
+        {
+          "_2IFB4PYREe2O9IdeA_KGyQ": 7,
+          "_4EHcMM4OEe2WfbpzO7t8-A": 14,
+          "_4Xgt4PYREe2O9IdeA_KGyQ": 8,
+          "_59v3UM4OEe2WfbpzO7t8-A": 11,
+          "_5AugUPn-Ee2smM55zuHUhw": 3,
+          "_KrFesfn-Ee2smM55zuHUhw": 5,
+          "_Mmu2kPn_Ee2smM55zuHUhw": 15,
+          "_Oj0OUPn_Ee2smM55zuHUhw": 19,
+          "_PTF5sc4OEe2NwpxoRjsNIQ": 1,
+          "_PwW58Pn_Ee2smM55zuHUhw": 17,
+          "_QGY-4M4OEe2NwpxoRjsNIQ": 2,
+          "_RY5voM4OEe2NwpxoRjsNIQ": 6,
+          "_U4qQgPn_Ee2smM55zuHUhw": 18,
+          "_dHjvIPoAEe2smM55zuHUhw": 20,
+          "_gg-iAPoAEe2smM55zuHUhw": 16,
+          "_gu8-gPn-Ee2smM55zuHUhw": 9,
+          "_kjCCMM4OEe2WfbpzO7t8-A": 10,
+          "_lJmS8M4OEe2WfbpzO7t8-A": 12,
+          "_qfI0QM4OEe2WfbpzO7t8-A": 13,
+          "_uBXk4M4OEe2WfbpzO7t8-A": 4,
+        },
+      ],
+      [
+        "xmi:type",
+        "encoded-category",
+        {
+          "Class": 5,
+          "Dependency": 7,
+          "ElementImport": 3,
+          "Model": 1,
+          "Package": 2,
+          "PackageImport": 4,
+          "PackageMerge": 6,
+        },
+      ],
     ],
-    "staticVocabulary": [
-      "ASSOC",
-      "ATTR",
-      "CLS",
-      "MODEL",
-      "NAME",
-    ],
-    "vocabulary": [
-      "ASSOC",
-      "ATTR",
-      "App",
-      "AppLauncher",
-      "ArrayList",
-      "CLS",
-      "Class",
-      "Collections",
-      "Dependency",
-      "ElementImport",
-      "Int",
-      "Launcher",
-      "Lib",
-      "List",
-      "Logic",
-      "MODEL",
-      "Main",
-      "Math",
-      "Model",
-      "NAME",
-      "Package",
-      "PackageImport",
-      "PackageMerge",
-      "StdLib",
-      "URI",
-      "Utils",
-      "_2IFB4PYREe2O9IdeA_KGyQ",
-      "_4EHcMM4OEe2WfbpzO7t8-A",
-      "_4Xgt4PYREe2O9IdeA_KGyQ",
-      "_59v3UM4OEe2WfbpzO7t8-A",
-      "_5AugUPn-Ee2smM55zuHUhw",
-      "_KrFesfn-Ee2smM55zuHUhw",
-      "_Mmu2kPn_Ee2smM55zuHUhw",
-      "_Oj0OUPn_Ee2smM55zuHUhw",
-      "_PTF5sc4OEe2NwpxoRjsNIQ",
-      "_PwW58Pn_Ee2smM55zuHUhw",
-      "_QGY-4M4OEe2NwpxoRjsNIQ",
-      "_RY5voM4OEe2NwpxoRjsNIQ",
-      "_U4qQgPn_Ee2smM55zuHUhw",
-      "_dHjvIPoAEe2smM55zuHUhw",
-      "_gg-iAPoAEe2smM55zuHUhw",
-      "_gu8-gPn-Ee2smM55zuHUhw",
-      "_kjCCMM4OEe2WfbpzO7t8-A",
-      "_lJmS8M4OEe2WfbpzO7t8-A",
-      "_qfI0QM4OEe2WfbpzO7t8-A",
-      "_uBXk4M4OEe2WfbpzO7t8-A",
-      "alias",
-      "client",
-      "com.example.app",
-      "com.example.lib",
-      "elementImport",
-      "false",
-      "importedElement",
-      "importedMember",
-      "importedPackage",
-      "importingNamespace",
-      "isAbstract",
-      "isActive",
-      "isFinalSpecialization",
-      "isLeaf",
-      "member",
-      "mergedPackage",
-      "name",
-      "namespace",
-      "nestedPackage",
-      "nestingPackage",
-      "ownedElement",
-      "ownedMember",
-      "ownedType",
-      "owner",
-      "package",
-      "package::App",
-      "package::App::Main",
-      "package::Lib",
-      "package::Lib::Launcher",
-      "package::Logic",
-      "package::StdLib",
-      "package::StdLib::Collections",
-      "package::StdLib::Collections::ArrayList",
-      "package::StdLib::Collections::List",
-      "package::StdLib::Math",
-      "package::StdLib::Math::Int",
-      "package::Utils",
-      "packageImport",
-      "packageMerge",
-      "packagedElement",
-      "private",
-      "public",
-      "qualifiedName",
-      "receivingPackage",
-      "relatedElement",
-      "source",
-      "supplier",
-      "target",
-      "true",
-      "visibility",
-      "xmi:id",
-      "xmi:type",
-    ],
+    "vocabularies": {
+      "dynamicVocabulary": [
+        "0",
+        "1",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "2",
+        "20",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "URI",
+        "alias",
+        "client",
+        "elementImport",
+        "importedElement",
+        "importedMember",
+        "importedPackage",
+        "importingNamespace",
+        "isAbstract",
+        "isActive",
+        "isFinalSpecialization",
+        "isLeaf",
+        "member",
+        "mergedPackage",
+        "name",
+        "namespace",
+        "nestedPackage",
+        "nestingPackage",
+        "ownedElement",
+        "ownedMember",
+        "ownedType",
+        "owner",
+        "package",
+        "packageImport",
+        "packageMerge",
+        "packagedElement",
+        "qualifiedName",
+        "receivingPackage",
+        "relatedElement",
+        "source",
+        "supplier",
+        "target",
+        "visibility",
+        "xmi:id",
+        "xmi:type",
+      ],
+      "staticVocabulary": [
+        "ASSOC",
+        "ATTR",
+        "CLS",
+        "MODEL",
+        "NAME",
+      ],
+      "vocabulary": [
+        "0",
+        "1",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "2",
+        "20",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "ASSOC",
+        "ATTR",
+        "CLS",
+        "MODEL",
+        "NAME",
+        "URI",
+        "alias",
+        "client",
+        "elementImport",
+        "importedElement",
+        "importedMember",
+        "importedPackage",
+        "importingNamespace",
+        "isAbstract",
+        "isActive",
+        "isFinalSpecialization",
+        "isLeaf",
+        "member",
+        "mergedPackage",
+        "name",
+        "namespace",
+        "nestedPackage",
+        "nestingPackage",
+        "ownedElement",
+        "ownedMember",
+        "ownedType",
+        "owner",
+        "package",
+        "packageImport",
+        "packageMerge",
+        "packagedElement",
+        "qualifiedName",
+        "receivingPackage",
+        "relatedElement",
+        "source",
+        "supplier",
+        "target",
+        "visibility",
+        "xmi:id",
+        "xmi:type",
+      ],
+    },
   },
 }

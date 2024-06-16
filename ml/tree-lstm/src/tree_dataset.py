@@ -30,7 +30,7 @@ class TreeDataset(torch.utils.data.Dataset):
                 dataset_input = json.load(file)
                 data: dict[str, TreeModel] = dataset_input["data"]
                 self.data = list(map(lambda entry: self.create_data(data[entry]), data))
-                self.vocabulary: list[str] = dataset_input["metadata"]["vocabulary"]
+                self.vocabulary: list[str] = dataset_input["metadata"]["vocabularies"]["vocabulary"]
                 torch.save(
                     (self.data, self.vocabulary),
                     self.dataset_cache_file,

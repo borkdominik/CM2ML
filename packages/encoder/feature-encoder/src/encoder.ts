@@ -26,7 +26,7 @@ export class FeatureEncoderProvider {
    * Check if a given type can (and will) be encoded by this provider.
    * The result depends on the {@link settings} of the provider.
    */
-  private canEncode(type: RawFeatureType): boolean {
+  public canEncode(type: RawFeatureType): boolean {
     if (this.settings.rawFeatures) {
       return false
     }

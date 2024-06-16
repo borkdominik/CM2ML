@@ -1,4 +1,4 @@
-import { type Attributable, type AttributeName, AttributeTypeSchema, type GraphEdge, type GraphModel, type GraphNode } from '@cm2ml/ir'
+import { type Attributable, type Attribute, type AttributeName, AttributeTypeSchema, type GraphEdge, type GraphModel, type GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 import { z } from 'zod'
 
@@ -63,20 +63,52 @@ export type FeatureContext = ReturnType<typeof deriveFeatures>
 export function deriveFeatures(models: GraphModel[], settings: FeatureDeriverSettings) {
   const nodes = Stream.from(models).flatMap(({ nodes }) => nodes).cache()
   const edges = Stream.from(models).flatMap(({ edges }) => edges).cache()
-  const internalNodeFeatures = getFeatureMetadata(nodes, settings, settings.nodeFeatureOverride)
-  const internalEdgeFeatures = getFeatureMetadata(edges, settings, settings.edgeFeatureOverride)
+  const { template: internalNodeFeatures, encoderProvider: nodeEncoderProvider } = getFeatureMetadata(nodes, settings, settings.nodeFeatureOverride)
+  const { template: internalEdgeFeatures, encoderProvider: edgeEncoderProvider } = getFeatureMetadata(edges, settings, settings.edgeFeatureOverride)
   // Omit encoder from feature metadata to prevent leaking of internals
   const nodeFeatures: FeatureMetadata = internalNodeFeatures.map(([name, type, encoder]) => [name, type, encoder?.export?.() ?? null] as const)
   const edgeFeatures: FeatureMetadata = internalEdgeFeatures.map(([name, type, encoder]) => [name, type, encoder?.export?.() ?? null] as const)
+
   return {
     edgeFeatures,
     nodeFeatures,
+    onlyEncodedFeatures: settings.onlyEncodedFeatures,
+    canEncodeNodeAttribute: (attribute: Attribute) => nodeEncoderProvider.canEncode(attribute.type),
+    canEncodeEdgeAttribute: (attribute: Attribute) => edgeEncoderProvider.canEncode(attribute.type),
+    mapNodeAttribute: createAttributeMapper(nodeEncoderProvider),
+    mapEdgeAttribute: createAttributeMapper(edgeEncoderProvider),
     getNodeFeatureVector: (node: GraphNode) => createFeatureVectorFromMetadata(internalNodeFeatures, node),
     getEdgeFeatureVector: (edge: GraphEdge) => createFeatureVectorFromMetadata(internalEdgeFeatures, edge),
   }
 }
 
-function getFeatureMetadata(attributables: Stream<Attributable>, settings: FeatureDeriverSettings, override: FeatureMetadata | null): InternalFeatureMetadata {
+export type FeatureEncoderRegistry = ReturnType<typeof createEncoderRegistry>
+
+function registryKey(source: Attribute | InternalFeatureMetadata[number]) {
+  if (Array.isArray(source)) {
+    const [name, type] = source
+    return `${name}-${toRawFeatureType(type)}`
+  }
+  const attribute = source as Attribute
+  return `${attribute.name}-${attribute.type}`
+}
+
+function createEncoderRegistry(template: InternalFeatureMetadata) {
+  return Object.fromEntries(template.map((entry) => ([registryKey(entry), entry[2]])))
+}
+
+function createAttributeMapper(encoderProvider: FeatureEncoderProvider) {
+  return (attribute: Attribute) => {
+    const encoder = encoderProvider.getEncoder(attribute.name, attribute.type)
+    const value = attribute.value.literal
+    if (!encoder) {
+      return value
+    }
+    return encoder.transform(value)
+  }
+}
+
+function getFeatureMetadata(attributables: Stream<Attributable>, settings: FeatureDeriverSettings, override: FeatureMetadata | null): { template: InternalFeatureMetadata, encoderProvider: FeatureEncoderProvider } {
   function toKey(name: FeatureName, type: FeatureType) {
     return `${name}:${type}`
   }
@@ -131,10 +163,10 @@ function getFeatureMetadata(attributables: Stream<Attributable>, settings: Featu
     .toArray()
 
   if (resolvedOverride.length > 0) {
-    return resolvedOverride
+    return { template: resolvedOverride, encoderProvider }
   }
 
-  return featureMetadata.sort(([a], [b]) => a.localeCompare(b))
+  return { template: featureMetadata.sort(([a], [b]) => a.localeCompare(b)), encoderProvider }
 }
 
 function createFeatureVectorFromMetadata(template: InternalFeatureMetadata, attributable: Attributable): FeatureVector {

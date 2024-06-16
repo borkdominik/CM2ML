@@ -21,7 +21,7 @@ export function TreeEncoding({ model, parameters }: Props) {
   if (error || !encoding) {
     return <Hint error={error} />
   }
-  return <FlowGraph tree={encoding.data} vocabulary={encoding.metadata.staticVocabulary} />
+  return <FlowGraph tree={encoding.data} vocabulary={encoding.metadata.vocabularies.staticVocabulary} />
 }
 
 const nodeTypes = {

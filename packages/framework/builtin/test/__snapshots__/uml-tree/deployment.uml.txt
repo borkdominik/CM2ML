@@ -10,7 +10,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                 ],
                 "isStaticNode": true,
@@ -23,7 +23,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -34,7 +34,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -45,7 +45,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Model",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -56,7 +56,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -67,7 +67,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -88,7 +88,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -99,7 +99,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -110,7 +110,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -121,7 +121,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -132,7 +132,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -143,7 +143,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -154,7 +154,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -165,7 +165,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -176,7 +176,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -187,7 +187,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -198,7 +198,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -209,7 +209,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -220,7 +220,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -231,7 +231,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -242,7 +242,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -253,7 +253,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -264,7 +264,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -275,7 +275,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -286,7 +286,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -297,7 +297,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -308,7 +308,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -319,7 +319,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -330,7 +330,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -341,7 +341,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -352,7 +352,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -363,7 +363,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -374,7 +374,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -385,7 +385,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -396,7 +396,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -407,7 +407,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                    "value": "12",
                   },
                 ],
                 "isStaticNode": true,
@@ -424,7 +424,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                 ],
                 "isStaticNode": true,
@@ -437,7 +437,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Node",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -448,7 +448,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -459,7 +459,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "DeploymentTarget",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -470,7 +470,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -481,7 +481,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -492,7 +492,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -503,7 +503,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -514,7 +514,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model::DeploymentTarget",
+                        "value": "2",
                       },
                     ],
                     "isStaticNode": false,
@@ -525,7 +525,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -546,7 +546,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -557,7 +557,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -568,7 +568,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -579,7 +579,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_J7D7cPigEe6PhJwEQ2R2dA",
+                    "value": "3",
                   },
                   {
                     "children": [
@@ -590,7 +590,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_MNBXAPigEe6PhJwEQ2R2dA",
+                    "value": "4",
                   },
                   {
                     "children": [
@@ -601,7 +601,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_J7D7cPigEe6PhJwEQ2R2dA",
+                    "value": "3",
                   },
                   {
                     "children": [
@@ -612,7 +612,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_J7D7cPigEe6PhJwEQ2R2dA",
+                    "value": "3",
                   },
                   {
                     "children": [
@@ -623,7 +623,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_J7D7cPigEe6PhJwEQ2R2dA",
+                    "value": "3",
                   },
                   {
                     "children": [
@@ -634,7 +634,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_MNBXAPigEe6PhJwEQ2R2dA",
+                    "value": "4",
                   },
                   {
                     "children": [
@@ -645,7 +645,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_MNBXAPigEe6PhJwEQ2R2dA",
+                    "value": "4",
                   },
                   {
                     "children": [
@@ -656,7 +656,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_MNBXAPigEe6PhJwEQ2R2dA",
+                    "value": "4",
                   },
                   {
                     "children": [
@@ -667,7 +667,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -678,7 +678,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -689,7 +689,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                    "value": "12",
                   },
                 ],
                 "isStaticNode": true,
@@ -706,7 +706,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_J7D7cPigEe6PhJwEQ2R2dA",
+                    "value": "3",
                   },
                 ],
                 "isStaticNode": true,
@@ -719,7 +719,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Deployment",
+                        "value": "3",
                       },
                     ],
                     "isStaticNode": false,
@@ -730,7 +730,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_J7D7cPigEe6PhJwEQ2R2dA",
+                        "value": "3",
                       },
                     ],
                     "isStaticNode": false,
@@ -741,7 +741,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "FirstDeployment",
+                        "value": "3",
                       },
                     ],
                     "isStaticNode": false,
@@ -752,7 +752,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -763,7 +763,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model::DeploymentTarget::FirstDeployment",
+                        "value": "3",
                       },
                     ],
                     "isStaticNode": false,
@@ -784,7 +784,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -795,7 +795,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -806,7 +806,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -817,7 +817,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -828,7 +828,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -839,7 +839,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -850,7 +850,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -861,7 +861,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -872,7 +872,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -883,7 +883,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                 ],
                 "isStaticNode": true,
@@ -900,7 +900,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_MNBXAPigEe6PhJwEQ2R2dA",
+                    "value": "4",
                   },
                 ],
                 "isStaticNode": true,
@@ -913,7 +913,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Deployment",
+                        "value": "3",
                       },
                     ],
                     "isStaticNode": false,
@@ -924,7 +924,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_MNBXAPigEe6PhJwEQ2R2dA",
+                        "value": "4",
                       },
                     ],
                     "isStaticNode": false,
@@ -935,7 +935,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "SecondDeployment",
+                        "value": "4",
                       },
                     ],
                     "isStaticNode": false,
@@ -946,7 +946,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -957,7 +957,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model::DeploymentTarget::SecondDeployment",
+                        "value": "4",
                       },
                     ],
                     "isStaticNode": false,
@@ -978,7 +978,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -989,7 +989,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -1000,7 +1000,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -1011,7 +1011,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -1022,7 +1022,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -1033,7 +1033,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -1044,7 +1044,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -1055,7 +1055,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -1066,7 +1066,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                   {
                     "children": [
@@ -1077,7 +1077,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_RGi8oPieEe6PhJwEQ2R2dA",
+                    "value": "2",
                   },
                 ],
                 "isStaticNode": true,
@@ -1094,7 +1094,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                 ],
                 "isStaticNode": true,
@@ -1107,7 +1107,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Artifact",
+                        "value": "4",
                       },
                     ],
                     "isStaticNode": false,
@@ -1118,7 +1118,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -1129,7 +1129,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "FirstArtifact",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -1140,7 +1140,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -1151,7 +1151,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -1162,7 +1162,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -1173,7 +1173,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model::FirstArtifact",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -1184,7 +1184,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -1195,7 +1195,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -1216,7 +1216,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -1227,7 +1227,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_uXlYUPifEe6PhJwEQ2R2dA",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -1238,7 +1238,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_3aJlAPifEe6PhJwEQ2R2dA",
+                    "value": "7",
                   },
                   {
                     "children": [
@@ -1249,7 +1249,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -1260,7 +1260,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -1271,7 +1271,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_uXlYUPifEe6PhJwEQ2R2dA",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -1282,7 +1282,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_uXlYUPifEe6PhJwEQ2R2dA",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -1293,7 +1293,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_uXlYUPifEe6PhJwEQ2R2dA",
+                    "value": "6",
                   },
                   {
                     "children": [
@@ -1304,7 +1304,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_3aJlAPifEe6PhJwEQ2R2dA",
+                    "value": "7",
                   },
                   {
                     "children": [
@@ -1315,7 +1315,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_3aJlAPifEe6PhJwEQ2R2dA",
+                    "value": "7",
                   },
                   {
                     "children": [
@@ -1326,7 +1326,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_3aJlAPifEe6PhJwEQ2R2dA",
+                    "value": "7",
                   },
                 ],
                 "isStaticNode": true,
@@ -1343,7 +1343,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_uXlYUPifEe6PhJwEQ2R2dA",
+                    "value": "6",
                   },
                 ],
                 "isStaticNode": true,
@@ -1356,7 +1356,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Manifestation",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -1367,7 +1367,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_uXlYUPifEe6PhJwEQ2R2dA",
+                        "value": "6",
                       },
                     ],
                     "isStaticNode": false,
@@ -1378,7 +1378,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "FirstManifestation",
+                        "value": "6",
                       },
                     ],
                     "isStaticNode": false,
@@ -1389,7 +1389,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -1400,7 +1400,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model::FirstArtifact::FirstManifestation",
+                        "value": "6",
                       },
                     ],
                     "isStaticNode": false,
@@ -1421,7 +1421,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -1432,7 +1432,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -1443,7 +1443,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -1454,7 +1454,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -1465,7 +1465,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -1476,7 +1476,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -1487,7 +1487,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -1498,7 +1498,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -1509,7 +1509,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                    "value": "10",
                   },
                   {
                     "children": [
@@ -1520,7 +1520,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -1531,7 +1531,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -1542,7 +1542,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                 ],
                 "isStaticNode": true,
@@ -1559,7 +1559,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_3aJlAPifEe6PhJwEQ2R2dA",
+                    "value": "7",
                   },
                 ],
                 "isStaticNode": true,
@@ -1572,7 +1572,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Manifestation",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -1583,7 +1583,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_3aJlAPifEe6PhJwEQ2R2dA",
+                        "value": "7",
                       },
                     ],
                     "isStaticNode": false,
@@ -1594,7 +1594,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "SecondManifestation",
+                        "value": "7",
                       },
                     ],
                     "isStaticNode": false,
@@ -1605,7 +1605,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -1616,7 +1616,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model::FirstArtifact::SecondManifestation",
+                        "value": "7",
                       },
                     ],
                     "isStaticNode": false,
@@ -1637,7 +1637,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -1648,7 +1648,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -1659,7 +1659,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -1670,7 +1670,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -1681,7 +1681,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -1692,7 +1692,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -1703,7 +1703,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                   {
                     "children": [
@@ -1714,7 +1714,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                   {
                     "children": [
@@ -1725,7 +1725,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_FIW24PifEe6PhJwEQ2R2dA",
+                    "value": "5",
                   },
                 ],
                 "isStaticNode": true,
@@ -1742,7 +1742,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                 ],
                 "isStaticNode": true,
@@ -1755,7 +1755,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Artifact",
+                        "value": "4",
                       },
                     ],
                     "isStaticNode": false,
@@ -1766,7 +1766,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                        "value": "8",
                       },
                     ],
                     "isStaticNode": false,
@@ -1777,7 +1777,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "SecondArtifact",
+                        "value": "8",
                       },
                     ],
                     "isStaticNode": false,
@@ -1788,7 +1788,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -1799,7 +1799,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -1810,7 +1810,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model::SecondArtifact",
+                        "value": "8",
                       },
                     ],
                     "isStaticNode": false,
@@ -1821,7 +1821,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -1832,7 +1832,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -1853,7 +1853,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -1864,7 +1864,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_CMuWwPigEe6PhJwEQ2R2dA",
+                    "value": "9",
                   },
                   {
                     "children": [
@@ -1875,7 +1875,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -1886,7 +1886,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -1897,7 +1897,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_CMuWwPigEe6PhJwEQ2R2dA",
+                    "value": "9",
                   },
                   {
                     "children": [
@@ -1908,7 +1908,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_CMuWwPigEe6PhJwEQ2R2dA",
+                    "value": "9",
                   },
                   {
                     "children": [
@@ -1919,7 +1919,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_CMuWwPigEe6PhJwEQ2R2dA",
+                    "value": "9",
                   },
                 ],
                 "isStaticNode": true,
@@ -1936,7 +1936,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_CMuWwPigEe6PhJwEQ2R2dA",
+                    "value": "9",
                   },
                 ],
                 "isStaticNode": true,
@@ -1949,7 +1949,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Manifestation",
+                        "value": "5",
                       },
                     ],
                     "isStaticNode": false,
@@ -1960,7 +1960,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_CMuWwPigEe6PhJwEQ2R2dA",
+                        "value": "9",
                       },
                     ],
                     "isStaticNode": false,
@@ -1971,7 +1971,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "ThirdManifestation",
+                        "value": "9",
                       },
                     ],
                     "isStaticNode": false,
@@ -1982,7 +1982,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -1993,7 +1993,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model::SecondArtifact::ThirdManifestation",
+                        "value": "9",
                       },
                     ],
                     "isStaticNode": false,
@@ -2014,7 +2014,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -2025,7 +2025,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -2036,7 +2036,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -2047,7 +2047,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -2058,7 +2058,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -2069,7 +2069,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -2080,7 +2080,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                    "value": "12",
                   },
                   {
                     "children": [
@@ -2091,7 +2091,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                   {
                     "children": [
@@ -2102,7 +2102,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_9-mJcPifEe6PhJwEQ2R2dA",
+                    "value": "8",
                   },
                 ],
                 "isStaticNode": true,
@@ -2119,7 +2119,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                    "value": "10",
                   },
                 ],
                 "isStaticNode": true,
@@ -2132,7 +2132,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Class",
+                        "value": "6",
                       },
                     ],
                     "isStaticNode": false,
@@ -2143,7 +2143,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_onBH4PifEe6PhJwEQ2R2dA",
+                        "value": "10",
                       },
                     ],
                     "isStaticNode": false,
@@ -2154,7 +2154,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "FirstDeployedElement",
+                        "value": "10",
                       },
                     ],
                     "isStaticNode": false,
@@ -2165,7 +2165,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -2176,7 +2176,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -2187,7 +2187,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -2198,7 +2198,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model::FirstDeployedElement",
+                        "value": "10",
                       },
                     ],
                     "isStaticNode": false,
@@ -2209,7 +2209,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -2220,7 +2220,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -2241,7 +2241,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -2252,7 +2252,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -2263,7 +2263,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                 ],
                 "isStaticNode": true,
@@ -2280,7 +2280,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                    "value": "11",
                   },
                 ],
                 "isStaticNode": true,
@@ -2293,7 +2293,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Class",
+                        "value": "6",
                       },
                     ],
                     "isStaticNode": false,
@@ -2304,7 +2304,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_qiUW8PifEe6PhJwEQ2R2dA",
+                        "value": "11",
                       },
                     ],
                     "isStaticNode": false,
@@ -2315,7 +2315,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "SecondDeployedElement",
+                        "value": "11",
                       },
                     ],
                     "isStaticNode": false,
@@ -2326,7 +2326,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -2337,7 +2337,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -2348,7 +2348,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -2359,7 +2359,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model::SecondDeployedElement",
+                        "value": "11",
                       },
                     ],
                     "isStaticNode": false,
@@ -2370,7 +2370,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -2381,7 +2381,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -2402,7 +2402,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -2413,7 +2413,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -2424,7 +2424,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                 ],
                 "isStaticNode": true,
@@ -2441,7 +2441,7 @@
                   {
                     "children": [],
                     "isStaticNode": false,
-                    "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                    "value": "12",
                   },
                 ],
                 "isStaticNode": true,
@@ -2454,7 +2454,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "Class",
+                        "value": "6",
                       },
                     ],
                     "isStaticNode": false,
@@ -2465,7 +2465,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "_7flJUPifEe6PhJwEQ2R2dA",
+                        "value": "12",
                       },
                     ],
                     "isStaticNode": false,
@@ -2476,7 +2476,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "ThirdDeployedElement",
+                        "value": "12",
                       },
                     ],
                     "isStaticNode": false,
@@ -2487,7 +2487,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -2498,7 +2498,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -2509,7 +2509,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -2520,7 +2520,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "model::ThirdDeployedElement",
+                        "value": "12",
                       },
                     ],
                     "isStaticNode": false,
@@ -2531,7 +2531,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "public",
+                        "value": "1",
                       },
                     ],
                     "isStaticNode": false,
@@ -2542,7 +2542,7 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "false",
+                        "value": "0",
                       },
                     ],
                     "isStaticNode": false,
@@ -2563,7 +2563,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -2574,7 +2574,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                   {
                     "children": [
@@ -2585,7 +2585,7 @@
                       },
                     ],
                     "isStaticNode": false,
-                    "value": "_0V2YcPidEe6PhJwEQ2R2dA",
+                    "value": "1",
                   },
                 ],
                 "isStaticNode": true,
@@ -2602,167 +2602,210 @@
     },
   ],
   "metadata": {
-    "dynamicVocabulary": [
-      "",
-      "Artifact",
-      "Class",
-      "Deployment",
-      "DeploymentTarget",
-      "FirstArtifact",
-      "FirstDeployedElement",
-      "FirstDeployment",
-      "FirstManifestation",
-      "Manifestation",
-      "Model",
-      "Node",
-      "SecondArtifact",
-      "SecondDeployedElement",
-      "SecondDeployment",
-      "SecondManifestation",
-      "ThirdDeployedElement",
-      "ThirdManifestation",
-      "_0V2YcPidEe6PhJwEQ2R2dA",
-      "_3aJlAPifEe6PhJwEQ2R2dA",
-      "_7flJUPifEe6PhJwEQ2R2dA",
-      "_9-mJcPifEe6PhJwEQ2R2dA",
-      "_CMuWwPigEe6PhJwEQ2R2dA",
-      "_FIW24PifEe6PhJwEQ2R2dA",
-      "_J7D7cPigEe6PhJwEQ2R2dA",
-      "_MNBXAPigEe6PhJwEQ2R2dA",
-      "_RGi8oPieEe6PhJwEQ2R2dA",
-      "_onBH4PifEe6PhJwEQ2R2dA",
-      "_qiUW8PifEe6PhJwEQ2R2dA",
-      "_uXlYUPifEe6PhJwEQ2R2dA",
-      "client",
-      "deployedArtifact",
-      "deployedElement",
-      "deployment",
-      "false",
-      "fileName",
-      "isAbstract",
-      "isActive",
-      "isFinalSpecialization",
-      "isLeaf",
-      "location",
-      "manifestation",
-      "member",
-      "model",
-      "model::DeploymentTarget",
-      "model::DeploymentTarget::FirstDeployment",
-      "model::DeploymentTarget::SecondDeployment",
-      "model::FirstArtifact",
-      "model::FirstArtifact::FirstManifestation",
-      "model::FirstArtifact::SecondManifestation",
-      "model::FirstDeployedElement",
-      "model::SecondArtifact",
-      "model::SecondArtifact::ThirdManifestation",
-      "model::SecondDeployedElement",
-      "model::ThirdDeployedElement",
-      "name",
-      "namespace",
-      "ownedElement",
-      "ownedMember",
-      "ownedType",
-      "owner",
-      "package",
-      "packagedElement",
-      "public",
-      "qualifiedName",
-      "relatedElement",
-      "source",
-      "supplier",
-      "target",
-      "utilizedElement",
-      "visibility",
-      "xmi:id",
-      "xmi:type",
+    "edgeFeatures": [],
+    "nodeFeatures": [
+      [
+        "fileName",
+        "encoded-string",
+        {
+          "": 1,
+        },
+      ],
+      [
+        "isAbstract",
+        "encoded-boolean",
+        null,
+      ],
+      [
+        "isActive",
+        "encoded-boolean",
+        null,
+      ],
+      [
+        "isFinalSpecialization",
+        "encoded-boolean",
+        null,
+      ],
+      [
+        "isLeaf",
+        "encoded-boolean",
+        null,
+      ],
+      [
+        "name",
+        "encoded-string",
+        {
+          "DeploymentTarget": 2,
+          "FirstArtifact": 5,
+          "FirstDeployedElement": 10,
+          "FirstDeployment": 3,
+          "FirstManifestation": 6,
+          "SecondArtifact": 8,
+          "SecondDeployedElement": 11,
+          "SecondDeployment": 4,
+          "SecondManifestation": 7,
+          "ThirdDeployedElement": 12,
+          "ThirdManifestation": 9,
+          "model": 1,
+        },
+      ],
+      [
+        "qualifiedName",
+        "encoded-string",
+        {
+          "model": 1,
+          "model::DeploymentTarget": 2,
+          "model::DeploymentTarget::FirstDeployment": 3,
+          "model::DeploymentTarget::SecondDeployment": 4,
+          "model::FirstArtifact": 5,
+          "model::FirstArtifact::FirstManifestation": 6,
+          "model::FirstArtifact::SecondManifestation": 7,
+          "model::FirstDeployedElement": 10,
+          "model::SecondArtifact": 8,
+          "model::SecondArtifact::ThirdManifestation": 9,
+          "model::SecondDeployedElement": 11,
+          "model::ThirdDeployedElement": 12,
+        },
+      ],
+      [
+        "visibility",
+        "encoded-category",
+        {
+          "public": 1,
+        },
+      ],
+      [
+        "xmi:id",
+        "encoded-string",
+        {
+          "_0V2YcPidEe6PhJwEQ2R2dA": 1,
+          "_3aJlAPifEe6PhJwEQ2R2dA": 7,
+          "_7flJUPifEe6PhJwEQ2R2dA": 12,
+          "_9-mJcPifEe6PhJwEQ2R2dA": 8,
+          "_CMuWwPigEe6PhJwEQ2R2dA": 9,
+          "_FIW24PifEe6PhJwEQ2R2dA": 5,
+          "_J7D7cPigEe6PhJwEQ2R2dA": 3,
+          "_MNBXAPigEe6PhJwEQ2R2dA": 4,
+          "_RGi8oPieEe6PhJwEQ2R2dA": 2,
+          "_onBH4PifEe6PhJwEQ2R2dA": 10,
+          "_qiUW8PifEe6PhJwEQ2R2dA": 11,
+          "_uXlYUPifEe6PhJwEQ2R2dA": 6,
+        },
+      ],
+      [
+        "xmi:type",
+        "encoded-category",
+        {
+          "Artifact": 4,
+          "Class": 6,
+          "Deployment": 3,
+          "Manifestation": 5,
+          "Model": 1,
+          "Node": 2,
+        },
+      ],
     ],
-    "staticVocabulary": [
-      "ASSOC",
-      "ATTR",
-      "CLS",
-      "MODEL",
-      "NAME",
-    ],
-    "vocabulary": [
-      "",
-      "ASSOC",
-      "ATTR",
-      "Artifact",
-      "CLS",
-      "Class",
-      "Deployment",
-      "DeploymentTarget",
-      "FirstArtifact",
-      "FirstDeployedElement",
-      "FirstDeployment",
-      "FirstManifestation",
-      "MODEL",
-      "Manifestation",
-      "Model",
-      "NAME",
-      "Node",
-      "SecondArtifact",
-      "SecondDeployedElement",
-      "SecondDeployment",
-      "SecondManifestation",
-      "ThirdDeployedElement",
-      "ThirdManifestation",
-      "_0V2YcPidEe6PhJwEQ2R2dA",
-      "_3aJlAPifEe6PhJwEQ2R2dA",
-      "_7flJUPifEe6PhJwEQ2R2dA",
-      "_9-mJcPifEe6PhJwEQ2R2dA",
-      "_CMuWwPigEe6PhJwEQ2R2dA",
-      "_FIW24PifEe6PhJwEQ2R2dA",
-      "_J7D7cPigEe6PhJwEQ2R2dA",
-      "_MNBXAPigEe6PhJwEQ2R2dA",
-      "_RGi8oPieEe6PhJwEQ2R2dA",
-      "_onBH4PifEe6PhJwEQ2R2dA",
-      "_qiUW8PifEe6PhJwEQ2R2dA",
-      "_uXlYUPifEe6PhJwEQ2R2dA",
-      "client",
-      "deployedArtifact",
-      "deployedElement",
-      "deployment",
-      "false",
-      "fileName",
-      "isAbstract",
-      "isActive",
-      "isFinalSpecialization",
-      "isLeaf",
-      "location",
-      "manifestation",
-      "member",
-      "model",
-      "model::DeploymentTarget",
-      "model::DeploymentTarget::FirstDeployment",
-      "model::DeploymentTarget::SecondDeployment",
-      "model::FirstArtifact",
-      "model::FirstArtifact::FirstManifestation",
-      "model::FirstArtifact::SecondManifestation",
-      "model::FirstDeployedElement",
-      "model::SecondArtifact",
-      "model::SecondArtifact::ThirdManifestation",
-      "model::SecondDeployedElement",
-      "model::ThirdDeployedElement",
-      "name",
-      "namespace",
-      "ownedElement",
-      "ownedMember",
-      "ownedType",
-      "owner",
-      "package",
-      "packagedElement",
-      "public",
-      "qualifiedName",
-      "relatedElement",
-      "source",
-      "supplier",
-      "target",
-      "utilizedElement",
-      "visibility",
-      "xmi:id",
-      "xmi:type",
-    ],
+    "vocabularies": {
+      "dynamicVocabulary": [
+        "0",
+        "1",
+        "10",
+        "11",
+        "12",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "client",
+        "deployedArtifact",
+        "deployedElement",
+        "deployment",
+        "fileName",
+        "isAbstract",
+        "isActive",
+        "isFinalSpecialization",
+        "isLeaf",
+        "location",
+        "manifestation",
+        "member",
+        "name",
+        "namespace",
+        "ownedElement",
+        "ownedMember",
+        "ownedType",
+        "owner",
+        "package",
+        "packagedElement",
+        "qualifiedName",
+        "relatedElement",
+        "source",
+        "supplier",
+        "target",
+        "utilizedElement",
+        "visibility",
+        "xmi:id",
+        "xmi:type",
+      ],
+      "staticVocabulary": [
+        "ASSOC",
+        "ATTR",
+        "CLS",
+        "MODEL",
+        "NAME",
+      ],
+      "vocabulary": [
+        "0",
+        "1",
+        "10",
+        "11",
+        "12",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "ASSOC",
+        "ATTR",
+        "CLS",
+        "MODEL",
+        "NAME",
+        "client",
+        "deployedArtifact",
+        "deployedElement",
+        "deployment",
+        "fileName",
+        "isAbstract",
+        "isActive",
+        "isFinalSpecialization",
+        "isLeaf",
+        "location",
+        "manifestation",
+        "member",
+        "name",
+        "namespace",
+        "ownedElement",
+        "ownedMember",
+        "ownedType",
+        "owner",
+        "package",
+        "packagedElement",
+        "qualifiedName",
+        "relatedElement",
+        "source",
+        "supplier",
+        "target",
+        "utilizedElement",
+        "visibility",
+        "xmi:id",
+        "xmi:type",
+      ],
+    },
   },
 }
