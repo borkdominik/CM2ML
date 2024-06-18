@@ -155,10 +155,9 @@ def evaluate(
                 current_output, target_vocab
             )
             # print("--Current source / Current target / Current output--")
-            print(f"{current_source_print} source")
-            print(f"{current_target_print} target")
-            print(f"{current_output_print} output")
-            # print(source_vocab)
+            # print(f"source {current_source_print}")
+            print(f"target {current_target_print}")
+            print(f"output {current_output_print}")
             print("---")
 
             tot_tokens += len(current_target)
@@ -218,16 +217,20 @@ def train(
         #          model.load_state_dict(pretrained_model)
 
         print("Training model")
-        step_time, loss = 0.0, 0.0
+        epoch_time, loss = 0.0, 0.0
         current_step = 0
         previous_losses = []
 
         training_dataset_size = len(training_dataset)
 
+        best_loss = float("inf")
+        remaining_patience = args.patience
+
         for epoch in range(args.num_epochs):
             print("epoch: %s/%s" % (epoch + 1, args.num_epochs))
             batch = 0
             random.shuffle(training_dataset)
+            number_of_batches = ceil(training_dataset_size / args.batch_size)
             for batch_idx in range(0, training_dataset_size, args.batch_size):
                 batch += 1
                 start_time = time.time()
@@ -235,17 +238,15 @@ def train(
                     training_dataset, start_idx=batch_idx
                 )
 
-                step_loss = step_tree2tree(
+                batch_loss = step_tree2tree(
                     model, encoder_inputs, decoder_inputs, feed_previous=False
                 )
 
-                step_time += (time.time() - start_time) / args.steps_per_checkpoint
-                loss += step_loss / args.steps_per_checkpoint
+                epoch_time += (time.time() - start_time)
+                loss += batch_loss
                 current_step += 1
 
-                print(
-                    "   batch: %d/%d" % (batch, ceil(training_dataset_size / args.batch_size))
-                )
+                print("   batch: %d/%d" % (batch, number_of_batches))
 
                 if (
                     current_step % args.learning_rate_decay_steps == 0
@@ -253,29 +254,40 @@ def train(
                 ):
                     model.decay_learning_rate(args.learning_rate_decay_factor)
 
-                if current_step % args.steps_per_checkpoint == 0:
+            loss /= number_of_batches
+
+            print(
+                "learning rate %.4f epoch-time %.2f loss "
+                "%.2f" % (model.learning_rate, epoch_time, loss)
+            )
+            previous_losses.append(loss)
+            ckpt_path = os.path.join(
+                args.train_dir_checkpoints,
+                "translate_" + str(current_step) + ".ckpt",
+            )
+            ckpt = model.state_dict()
+            torch.save(ckpt, ckpt_path)
+            epoch_time, loss = 0.0, 0.0
+
+            encoder_inputs, decoder_inputs = model.get_batch(
+                validation_dataset, start_idx=0
+            )
+
+            eval_loss, decoder_outputs = step_tree2tree(
+                model, encoder_inputs, decoder_inputs, feed_previous=True
+            )
+            print("  eval: loss %.2f" % eval_loss)
+            if eval_loss < best_loss:
+                best_loss = eval_loss
+                remaining_patience = args.patience
+            else:
+                remaining_patience -= 1
+                if remaining_patience == 0:
                     print(
-                        "learning rate %.4f step-time %.2f loss "
-                        "%.2f" % (model.learning_rate, step_time, loss)
+                        f"Early stopping in epoch {epoch}"
                     )
-                    previous_losses.append(loss)
-                    ckpt_path = os.path.join(
-                        args.train_dir_checkpoints,
-                        "translate_" + str(current_step) + ".ckpt",
-                    )
-                    ckpt = model.state_dict()
-                    torch.save(ckpt, ckpt_path)
-                    step_time, loss = 0.0, 0.0
-
-                    encoder_inputs, decoder_inputs = model.get_batch(
-                        validation_dataset, start_idx=0
-                    )
-
-                    eval_loss, decoder_outputs = step_tree2tree(
-                        model, encoder_inputs, decoder_inputs, feed_previous=True
-                    )
-                    print("  eval: loss %.2f" % eval_loss)
-                    sys.stdout.flush()
+                    break
+            sys.stdout.flush()
         time_training = datetime.datetime.now() - start_datetime
         print("Saving model")
         torch.save(model.state_dict(), f"{script_dir}/../.cache/neuralnetwork.pth")
@@ -345,8 +357,6 @@ class Args:
     train_dir_checkpoints: str
     # path to the pretrained tree2tree model
     load_model: Union[str, None]
-    # number of training steps per checkpoint
-    steps_per_checkpoint: int
     # max length for input
     max_source_len: int
     # max length for output
@@ -359,17 +369,19 @@ class Args:
     no_pf: bool
     # set to true to prevent the network from training
     no_train: bool
+    # early-stopping patience
+    patience: int
 
 
 args = Args(
     **{
         "param_init": 0.1,
-        "num_epochs": 30,
+        "num_epochs": 50,
         "learning_rate": 0.005,
         "learning_rate_decay_factor": 0.8,
         "learning_rate_decay_steps": 2000,
         "max_gradient_norm": 5.0,
-        "batch_size": 16,
+        "batch_size": 32,
         "max_depth": 100,
         "hidden_size": 256,
         "embedding_size": 256,
@@ -377,13 +389,13 @@ args = Args(
         "num_layers": 1,
         "train_dir_checkpoints": f"{script_dir}/../.checkpoints/tree-lstm.pt",
         "load_model": None,  # f"{script_dir}/../.cache/neuralnetwork.pth",
-        "steps_per_checkpoint": 500,
         "max_source_len": 115,
         "max_target_len": 315,
         "test": False,
         "no_attention": False,
         "no_pf": False,
         "no_train": False,
+        "patience": 3
     }
 )
 

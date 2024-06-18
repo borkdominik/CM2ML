@@ -820,16 +820,11 @@ class Tree2TreeModel(nn.Module):
         decoder_managers: list[BinaryTreeManager] = []
 
         for i in range(self.batch_size):
-            if i + start_idx < len(data):
-                encoder_input, decoder_input, encoder_manager, decoder_manager = data[
-                    i + start_idx
-                ]
-            else:
-                # print(f"len: {len(data)}, index: {i + start_idx - len(data)}")
-                encoder_input, decoder_input, encoder_manager, decoder_manager = data[
-                    i + start_idx - len(data)
-                ]
-
+            if i + start_idx >= len(data):
+                break
+            encoder_input, decoder_input, encoder_manager, decoder_manager = data[
+                i + start_idx
+            ]
             encoder_managers.append(encoder_manager)
             decoder_managers.append(decoder_manager)
 
