@@ -1,6 +1,7 @@
 {
   "data": [
     {
+      "numNodes": 888,
       "root": {
         "children": [
           {

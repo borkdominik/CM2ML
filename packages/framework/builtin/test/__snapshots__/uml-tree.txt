@@ -1,6 +1,7 @@
 {
   "data": [
     {
+      "numNodes": 2938,
       "root": {
         "children": [
           {
@@ -16281,6 +16282,7 @@
       },
     },
     {
+      "numNodes": 469,
       "root": {
         "children": [
           {
@@ -18881,6 +18883,7 @@
       },
     },
     {
+      "numNodes": 888,
       "root": {
         "children": [
           {
@@ -23805,6 +23808,7 @@
       },
     },
     {
+      "numNodes": 651,
       "root": {
         "children": [
           {

@@ -1,5 +1,6 @@
 export interface TreeModel {
   readonly root: RootNode
+  readonly numNodes: number
 }
 
 export interface TreeNode<Children extends unknown[]> {

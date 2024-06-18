@@ -7,6 +7,7 @@ describe('vocabulary', () => {
   it('should return the static and dynamic vocabularies', () => {
     const inputTrees: TreeModel[] = [
       {
+        numNodes: -1,
         root: {
           value: 'MODEL',
           isStaticNode: true,
@@ -56,6 +57,7 @@ describe('vocabulary', () => {
         },
       },
       {
+        numNodes: -1,
         root: {
           value: 'MODEL',
           isStaticNode: true,

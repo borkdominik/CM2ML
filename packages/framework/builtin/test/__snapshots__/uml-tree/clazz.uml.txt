@@ -1,6 +1,7 @@
 {
   "data": [
     {
+      "numNodes": 2938,
       "root": {
         "children": [
           {
