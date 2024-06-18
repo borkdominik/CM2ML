@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 import datetime
+from math import ceil
 import os
 import random
 import sys
@@ -243,7 +244,7 @@ def train(
                 current_step += 1
 
                 print(
-                    "   batch: %d/%d" % (batch, training_dataset_size / args.batch_size)
+                    "   batch: %d/%d" % (batch, ceil(training_dataset_size / args.batch_size))
                 )
 
                 if (
@@ -368,7 +369,7 @@ args = Args(
         "learning_rate_decay_factor": 0.8,
         "learning_rate_decay_steps": 2000,
         "max_gradient_norm": 5.0,
-        "batch_size": 2,
+        "batch_size": 16,
         "max_depth": 100,
         "hidden_size": 256,
         "embedding_size": 256,

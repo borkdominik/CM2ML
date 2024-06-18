@@ -20,6 +20,10 @@ train_dataset = TreeDataset("train", train_dataset_file)
 validation_dataset = TreeDataset("validation", validation_dataset_file)
 test_dataset = TreeDataset("test", test_dataset_file)
 
+print(f"Train dataset size: {len(train_dataset)}")
+print(f"Validation dataset size: {len(validation_dataset)}")
+print(f"Test dataset size: {len(test_dataset)}")
+
 total_vocabulary = merge_vocabularies(
     [train_dataset.vocabulary, validation_dataset.vocabulary, test_dataset.vocabulary]
 )

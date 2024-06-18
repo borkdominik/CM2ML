@@ -2,6 +2,7 @@ import copy
 import json
 import os
 import time
+from typing import Union
 
 import torch
 import torch.utils
@@ -29,7 +30,7 @@ class TreeDataset(torch.utils.data.Dataset):
             with open(self.dataset_path, "r") as file:
                 dataset_input = json.load(file)
                 data: dict[str, TreeModel] = dataset_input["data"]
-                self.data = list(map(lambda entry: self.create_data(data[entry]), data))
+                self.data = list(filter(lambda entry: entry is not None, map(lambda entry: self.create_data(data[entry]), data)))
                 self.vocabulary: list[str] = dataset_input["metadata"]["vocabularies"]["vocabulary"]
                 torch.save(
                     (self.data, self.vocabulary),
@@ -43,11 +44,14 @@ class TreeDataset(torch.utils.data.Dataset):
             f"Processed in {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
         )
 
-    def create_data(self, tree: TreeModel) -> TreeDatasetEntry:
+    def create_data(self, tree: TreeModel) -> Union[TreeDatasetEntry, None]:
+        if (tree["numNodes"] > 3000):
+            return None
+
         input = copy.deepcopy(tree)
-        # remove xmi:type and xsi:type
         input_root = input["root"]
         input_root_classes = input_root["children"]
+        # remove xmi:type and xsi:type
         for c in input_root_classes:
             attrs = c["children"][1]["children"]
             attrs = [
@@ -56,10 +60,11 @@ class TreeDataset(torch.utils.data.Dataset):
                 if attr["value"] != "xmi:type" and attr["value"] != "xsi:type"
             ]
             c["children"][1]["children"] = attrs
+
         output = copy.deepcopy(tree)
-        # restructure output
         output_root = output["root"]
         output_root_classes = output_root["children"]
+        # restructure output
         del output_root["isStaticNode"]
         for i, c in enumerate(output_root_classes):
             name = c["children"][0]["children"][0]["value"]
