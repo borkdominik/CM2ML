@@ -516,8 +516,9 @@ class Tree2TreeModel(nn.Module):
                 if target_node is not None:
                     init_h_state = current_node.state[0]
                     init_c_state = current_node.state[1]
-                    init_h_state = torch.cat([init_h_state] * self.num_layers, dim=0)
-                    init_c_state = torch.cat([init_c_state] * self.num_layers, dim=0)
+                    if init_h_state.shape[0] != self.num_layers:
+                        init_h_state = torch.cat([init_h_state] * self.num_layers, dim=0)
+                        init_c_state = torch.cat([init_c_state] * self.num_layers, dim=0)
                     init_h_states.append(init_h_state)
                     init_c_states.append(init_c_state)
                     tree_idxes.append((queue[head][0], queue[head][1]))

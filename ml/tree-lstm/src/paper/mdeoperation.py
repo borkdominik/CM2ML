@@ -385,8 +385,8 @@ args = Args(
         "max_depth": 100,
         "hidden_size": 256,
         "embedding_size": 256,
-        "dropout_rate": 0,
-        "num_layers": 1,
+        "dropout_rate": 0.5,
+        "num_layers": 2,
         "train_dir_checkpoints": f"{script_dir}/../.checkpoints/tree-lstm.pt",
         "load_model": None,  # f"{script_dir}/../.cache/neuralnetwork.pth",
         "max_source_len": 115,
@@ -395,7 +395,7 @@ args = Args(
         "no_attention": False,
         "no_pf": False,
         "no_train": False,
-        "patience": 3
+        "patience": 5,
     }
 )
 
