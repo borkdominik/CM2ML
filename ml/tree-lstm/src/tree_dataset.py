@@ -85,7 +85,7 @@ class TreeDataset(torch.utils.data.Dataset):
                     type = attr["children"][0]["value"]
                     break
             if type is None:
-                raise ValueError(f"Type not found for class {name}")
+                raise ValueError(f"Type not found for class {name}. Increase the training data size to include both xmi:type and xsi:type samples.")
             output_root_classes[i] = {"value": type, "children": []}
         return {"x": input, "y": output}
 
@@ -94,31 +94,39 @@ class TreeDataset(torch.utils.data.Dataset):
     ) -> TreeDatasetEntry:
         input = copy.deepcopy(tree)
         input_root = input["root"]
-        input_root_objects = list(filter(is_obj_node, input_root["children"]))
+        input_root_objects = input_root["children"]
         # remove xmi:type and xsi:type from input
-        for c in input_root_objects:
-            atts = c["children"][1]["children"]
+        for obj in input_root_objects:
+            if not is_obj_node(obj):
+                continue
+            atts = obj["children"][1]["children"]
             atts = [
                 attr
                 for _, attr in enumerate(atts)
                 if attr["value"] != "xmi:type" and attr["value"] != "xsi:type"
             ]
-            c["children"][1]["children"] = atts
+            obj["children"][1]["children"] = atts
 
         output = copy.deepcopy(tree)
         output_root = output["root"]
-        output_root_classes = list(filter(is_obj_node, output_root["children"]))
+        output_root_objs = output_root["children"]
         # restructure output
-        for i, c in enumerate(output_root_classes):
-            identifier = c["children"][0]["value"]
+        new_output_root_objs = []
+        for i, obj in enumerate(output_root_objs):
+            if not is_obj_node(obj):
+                continue
+            identifier = obj["children"][0]["value"]
             type = None
-            for attr in c["children"][1]["children"]:
+            for attr in obj["children"][1]["children"]:
                 if attr["value"] == "xmi:type" or attr["value"] == "xsi:type":
                     type = attr["children"][0]["value"]
                     break
             if type is None:
-                raise ValueError(f"Type not found for element {identifier}")
-            output_root_classes[i] = {"value": type, "children": []}
+                raise ValueError(
+                    f"Type not found for obj {identifier}. Increase the training data size to include both xmi:type and xsi:type samples."
+                )
+            new_output_root_objs.append({"value": type, "children": []})
+        output_root["children"] = new_output_root_objs
         return {"x": input, "y": output}
 
     def __len__(self) -> int:
@@ -129,3 +137,8 @@ class TreeDataset(torch.utils.data.Dataset):
 
 def is_obj_node(treeNode: TreeNode) -> bool:
     return treeNode["value"] == "OBJ"
+
+def print_tree(node: TreeNode):
+    print(node["value"])
+    for child in node["children"]:
+        print_tree(child)
