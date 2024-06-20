@@ -1,6 +1,7 @@
 {
   "data": [
     {
+      "format": "local",
       "numNodes": 888,
       "root": {
         "children": [
@@ -76,7 +77,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -346,7 +347,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -402,7 +403,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -496,7 +497,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -552,7 +553,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -580,7 +581,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -702,7 +703,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -1148,7 +1149,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -1204,7 +1205,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -1287,7 +1288,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -1343,7 +1344,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -1426,7 +1427,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -1647,7 +1648,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -1697,7 +1698,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -1885,7 +1886,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -1957,7 +1958,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -2035,7 +2036,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -2063,7 +2064,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -2185,7 +2186,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -2378,7 +2379,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -2533,7 +2534,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -2627,7 +2628,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -2694,7 +2695,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -2722,7 +2723,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -2789,7 +2790,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -2817,7 +2818,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -2862,7 +2863,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -2923,7 +2924,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -2968,7 +2969,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -2996,7 +2997,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -3118,7 +3119,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -3212,7 +3213,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -3400,7 +3401,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -3450,7 +3451,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -3572,7 +3573,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -3677,7 +3678,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -3865,7 +3866,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -3915,7 +3916,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -3993,7 +3994,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -4142,7 +4143,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -4220,7 +4221,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -4259,7 +4260,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -4370,7 +4371,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -4453,7 +4454,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -4564,7 +4565,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -4592,7 +4593,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -4670,7 +4671,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -4775,7 +4776,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -4831,7 +4832,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ATTR",
+                "value": "ATTRS",
               },
               {
                 "children": [
@@ -4914,7 +4915,7 @@
                   },
                 ],
                 "isStaticNode": true,
-                "value": "ASSOC",
+                "value": "ASSOCS",
               },
             ],
             "isStaticNode": true,
@@ -5271,8 +5272,8 @@
         "xmi:type",
       ],
       "staticVocabulary": [
-        "ASSOC",
-        "ATTR",
+        "ASSOCS",
+        "ATTRS",
         "CLS",
         "MODEL",
         "NAME",
@@ -5304,8 +5305,8 @@
         "7",
         "8",
         "9",
-        "ASSOC",
-        "ATTR",
+        "ASSOCS",
+        "ATTRS",
         "CLS",
         "MODEL",
         "NAME",

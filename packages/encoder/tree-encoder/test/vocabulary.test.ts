@@ -1,12 +1,14 @@
 import { describe, expect, it } from 'vitest'
 
 import type { TreeModel } from '../src'
+import type { LocalRootNode } from '../src/tree-transformer/local-tree-transformer'
 import { getVocabularies } from '../src/vocabulary'
 
 describe('vocabulary', () => {
   it('should return the static and dynamic vocabularies', () => {
-    const inputTrees: TreeModel[] = [
+    const inputTrees: TreeModel<LocalRootNode>[] = [
       {
+        format: 'local',
         numNodes: -1,
         root: {
           value: 'MODEL',
@@ -28,7 +30,7 @@ describe('vocabulary', () => {
                   ],
                 },
                 {
-                  value: 'ATTR',
+                  value: 'ATTRS',
                   isStaticNode: true,
                   children: [
                     {
@@ -45,7 +47,7 @@ describe('vocabulary', () => {
                   ],
                 },
                 {
-                  value: 'ASSOC',
+                  value: 'ASSOCS',
                   isStaticNode: true,
                   children: [
 
@@ -57,6 +59,7 @@ describe('vocabulary', () => {
         },
       },
       {
+        format: 'local',
         numNodes: -1,
         root: {
           value: 'MODEL',
@@ -78,7 +81,7 @@ describe('vocabulary', () => {
                   ],
                 },
                 {
-                  value: 'ATTR',
+                  value: 'ATTRS',
                   isStaticNode: true,
                   children: [
                     {
@@ -95,7 +98,7 @@ describe('vocabulary', () => {
                   ],
                 },
                 {
-                  value: 'ASSOC',
+                  value: 'ASSOCS',
                   isStaticNode: true,
                   children: [
 
@@ -119,7 +122,7 @@ describe('vocabulary', () => {
                   ],
                 },
                 {
-                  value: 'ATTR',
+                  value: 'ATTRS',
                   isStaticNode: true,
                   children: [
                     {
@@ -136,7 +139,7 @@ describe('vocabulary', () => {
                   ],
                 },
                 {
-                  value: 'ASSOC',
+                  value: 'ASSOCS',
                   isStaticNode: true,
                   children: [
 
@@ -160,15 +163,15 @@ describe('vocabulary', () => {
           "b-attr-value",
         ],
         "staticVocabulary": [
-          "ASSOC",
-          "ATTR",
+          "ASSOCS",
+          "ATTRS",
           "CLS",
           "MODEL",
           "NAME",
         ],
         "vocabulary": [
-          "ASSOC",
-          "ATTR",
+          "ASSOCS",
+          "ATTRS",
           "CLS",
           "MODEL",
           "NAME",

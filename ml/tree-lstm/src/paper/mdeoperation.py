@@ -143,7 +143,7 @@ def evaluate(
             )
             current_target = data_utils.serialize_tree(current_target)
 
-            current_source_print = data_utils.serialize_tree_with_vocabulary(
+            _current_source_print = data_utils.serialize_tree_with_vocabulary(
                 current_source, source_vocab
             )
             current_source = data_utils.serialize_tree(current_source)

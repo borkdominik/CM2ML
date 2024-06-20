@@ -1,4 +1,4 @@
-import { TreeEncoder, type TreeModel } from '@cm2ml/builtin'
+import { type RecursiveTreeNode, TreeEncoder, type TreeModel } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { useEffect } from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Panel, Position, useReactFlow } from 'reactflow'
@@ -29,7 +29,7 @@ const nodeTypes = {
 }
 
 interface FlowGraphProps {
-  tree: TreeModel
+  tree: TreeModel<RecursiveTreeNode>
   vocabulary: string[]
 }
 

@@ -8,7 +8,7 @@ test_start=$(($validation_start + $validation_size + 1))
 
 input=../models/uml/dataset
 
-parameters=("--strict" "--continue-on-error" "--relationships-as-edges" "--pretty" "--only-containment-associations" "--replace-node-ids" "--raw-strings" "--only-encoded-features")
+parameters=("--strict" "--format" "local" "--continue-on-error" "--relationships-as-edges" "--pretty" "--only-containment-associations" "--replace-node-ids" "--raw-strings" "--only-encoded-features")
 feature_overrides=()
 
 time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-tree "$input" --start "$train_start" --limit "$train_size" --out .input/tree_train.json "${parameters[@]}" && \

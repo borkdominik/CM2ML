@@ -2,7 +2,7 @@ import { Stream } from '@yeger/streams'
 
 import type { RecursiveTreeNode, TreeModel } from './tree-model'
 
-export function getVocabularies(trees: TreeModel[]) {
+export function getVocabularies(trees: TreeModel<RecursiveTreeNode>[]) {
   const staticVocabulary = getVocabulary(trees, 'static')
   const dynamicVocabulary = getVocabulary(trees, 'dynamic')
   const vocabulary = Stream
@@ -20,7 +20,7 @@ export function getVocabularies(trees: TreeModel[]) {
 
 type VocabularyType = 'static' | 'dynamic'
 
-function getVocabulary(trees: TreeModel[], vocabularyType: VocabularyType) {
+function getVocabulary(trees: TreeModel<RecursiveTreeNode>[], vocabularyType: VocabularyType) {
   return Stream
     .from(trees)
     .flatMap(({ root }) => getValues(root, vocabularyType))

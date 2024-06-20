@@ -28,7 +28,7 @@ const treeSizeConfig: SizeConfig = {
   verticalSpacing: 50,
 }
 
-export function useFlowGraph(tree: TreeModel, vocabulary: string[]) {
+export function useFlowGraph(tree: TreeModel<RecursiveTreeNode>, vocabulary: string[]) {
   return useMemo(() => {
     const nodes = createNodes(tree, vocabulary)
     const hierarchy = createHierarchy(nodes)
@@ -45,7 +45,7 @@ export type FlowNode = Omit<RecursiveTreeNode, 'children'> & {
 
 export type FlowGraphModel = ReturnType<typeof useFlowGraph>
 
-function createNodes(tree: TreeModel, staticVocabulary: string[]) {
+function createNodes(tree: TreeModel<RecursiveTreeNode>, staticVocabulary: string[]) {
   const nodes: FlowNode[] = []
   const getColor = scaleOrdinal(colorScheme).domain([...staticVocabulary, ...staticVocabulary.map((v) => `${v}__child`)])
 
