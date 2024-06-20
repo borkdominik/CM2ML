@@ -137,7 +137,7 @@ export class LocalTreeTransformer extends TreeTransformer<LocalRootNode> {
   }
 
   private createAttributeNameNode(attribute: Attribute): LocalAttributeNameNode | null {
-    if (this.featureContext.onlyEncodedFeatures && !this.featureContext.canEncodeNodeAttribute(attribute)) {
+    if (!this.includeAttribute(attribute)) {
       return null
     }
     return this.createNode({

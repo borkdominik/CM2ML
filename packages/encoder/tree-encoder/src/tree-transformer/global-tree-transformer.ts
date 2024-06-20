@@ -138,7 +138,7 @@ export class GlobalTreeTransformer extends TreeTransformer<GlobalRootNode> {
   }
 
   private createAttributeNameNode(attribute: Attribute): GlobalAttributeNameNode | null {
-    if (this.featureContext.onlyEncodedFeatures && !this.featureContext.canEncodeNodeAttribute(attribute)) {
+    if (!this.includeAttribute(attribute)) {
       return null
     }
     return this.createNode({

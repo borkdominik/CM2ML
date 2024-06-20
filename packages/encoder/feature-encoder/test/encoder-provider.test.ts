@@ -11,12 +11,12 @@ describe('encoder provider', () => {
       rawNumerics: false,
       rawStrings: false,
     })
-    expect(provider.getEncoder('a', 'category')).toBeInstanceOf(CategoryEncoder)
-    expect(provider.getEncoder('a', 'boolean')).toBeInstanceOf(BooleanEncoder)
-    expect(provider.getEncoder('a', 'integer')).toBeInstanceOf(IntegerEncoder)
-    expect(provider.getEncoder('a', 'float')).toBeInstanceOf(FloatEncoder)
-    expect(provider.getEncoder('a', 'string')).toBeInstanceOf(StringEncoder)
-    expect(provider.getEncoder('a', 'unknown')).toBeUndefined()
+    expect(provider.getOrCreateEncoder('a', 'category')).toBeInstanceOf(CategoryEncoder)
+    expect(provider.getOrCreateEncoder('a', 'boolean')).toBeInstanceOf(BooleanEncoder)
+    expect(provider.getOrCreateEncoder('a', 'integer')).toBeInstanceOf(IntegerEncoder)
+    expect(provider.getOrCreateEncoder('a', 'float')).toBeInstanceOf(FloatEncoder)
+    expect(provider.getOrCreateEncoder('a', 'string')).toBeInstanceOf(StringEncoder)
+    expect(provider.getOrCreateEncoder('a', 'unknown')).toBeUndefined()
   })
 
   it('provides unique encoders for different features', () => {
@@ -27,8 +27,8 @@ describe('encoder provider', () => {
       rawNumerics: false,
       rawStrings: false,
     })
-    const encoder1 = provider.getEncoder('a', 'category')
-    const encoder2 = provider.getEncoder('b', 'category')
+    const encoder1 = provider.getOrCreateEncoder('a', 'category')
+    const encoder2 = provider.getOrCreateEncoder('b', 'category')
     expect(encoder1).not.toBe(encoder2)
   })
 
@@ -40,8 +40,8 @@ describe('encoder provider', () => {
       rawNumerics: false,
       rawStrings: false,
     })
-    const encoder1 = provider.getEncoder('a', 'category')
-    const encoder2 = provider.getEncoder('a', 'category')
+    const encoder1 = provider.getOrCreateEncoder('a', 'category')
+    const encoder2 = provider.getOrCreateEncoder('a', 'category')
     expect(encoder1).toBe(encoder2)
   })
 
@@ -54,11 +54,11 @@ describe('encoder provider', () => {
         rawNumerics: false,
         rawStrings: false,
       })
-      expect(provider.getEncoder('a', 'category')).toBeUndefined()
-      expect(provider.getEncoder('a', 'boolean')).toBeUndefined()
-      expect(provider.getEncoder('a', 'integer')).toBeUndefined()
-      expect(provider.getEncoder('a', 'float')).toBeUndefined()
-      expect(provider.getEncoder('a', 'string')).toBeUndefined()
+      expect(provider.getOrCreateEncoder('a', 'category')).toBeUndefined()
+      expect(provider.getOrCreateEncoder('a', 'boolean')).toBeUndefined()
+      expect(provider.getOrCreateEncoder('a', 'integer')).toBeUndefined()
+      expect(provider.getOrCreateEncoder('a', 'float')).toBeUndefined()
+      expect(provider.getOrCreateEncoder('a', 'string')).toBeUndefined()
     })
 
     it('does not provide encoders for raw categories', () => {
@@ -69,7 +69,7 @@ describe('encoder provider', () => {
         rawNumerics: false,
         rawStrings: false,
       })
-      expect(provider.getEncoder('a', 'category')).toBeUndefined()
+      expect(provider.getOrCreateEncoder('a', 'category')).toBeUndefined()
     })
 
     it('does not provide encoders for raw booleans', () => {
@@ -80,7 +80,7 @@ describe('encoder provider', () => {
         rawNumerics: false,
         rawStrings: false,
       })
-      expect(provider.getEncoder('a', 'boolean')).toBeUndefined()
+      expect(provider.getOrCreateEncoder('a', 'boolean')).toBeUndefined()
     })
 
     it('does not provide encoders for raw numerics', () => {
@@ -91,8 +91,8 @@ describe('encoder provider', () => {
         rawNumerics: true,
         rawStrings: false,
       })
-      expect(provider.getEncoder('a', 'integer')).toBeUndefined()
-      expect(provider.getEncoder('a', 'float')).toBeUndefined()
+      expect(provider.getOrCreateEncoder('a', 'integer')).toBeUndefined()
+      expect(provider.getOrCreateEncoder('a', 'float')).toBeUndefined()
     })
 
     it('does not provide encoders for raw strings', () => {
@@ -103,7 +103,7 @@ describe('encoder provider', () => {
         rawNumerics: false,
         rawStrings: true,
       })
-      expect(provider.getEncoder('a', 'string')).toBeUndefined()
+      expect(provider.getOrCreateEncoder('a', 'string')).toBeUndefined()
     })
   })
 })

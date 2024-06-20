@@ -10,7 +10,7 @@ export abstract class TreeTransformer<Root extends TreeNode<unknown[]>> {
 
   public readonly treeModel: TreeModel<Root>
 
-  public constructor(model: GraphModel, public readonly featureContext: FeatureContext, private readonly replaceNodeIds: boolean) {
+  public constructor(model: GraphModel, private readonly featureContext: FeatureContext, private readonly replaceNodeIds: boolean) {
     model.nodes.forEach((node) => this.registerNode(node))
     this.treeModel = this.createTreeModel(model.root)
   }
@@ -39,6 +39,10 @@ export abstract class TreeTransformer<Root extends TreeNode<unknown[]>> {
     }
     return `${this.featureContext.mapNodeAttribute(attribute)}`
     return `${attribute.name}_${attribute.type}_${this.featureContext.mapNodeAttribute(attribute)}`
+  }
+
+  protected includeAttribute(attribute: Attribute) {
+    return !this.featureContext.onlyEncodedFeatures || this.featureContext.canEncodeNodeAttribute(attribute)
   }
 
   protected createNode<T extends TreeNode<unknown[]>>(node: T): T {

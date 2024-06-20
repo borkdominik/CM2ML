@@ -1,3 +1,5 @@
+import type { Attribute } from '@cm2ml/ir'
+
 import type { FeatureName, RawFeatureType } from './features'
 
 export interface Encoder {
@@ -26,7 +28,7 @@ export class FeatureEncoderProvider {
    * Check if a given type can (and will) be encoded by this provider.
    * The result depends on the {@link settings} of the provider.
    */
-  public canEncode(type: RawFeatureType): boolean {
+  public canEncodeType(type: RawFeatureType): boolean {
     if (this.settings.rawFeatures) {
       return false
     }
@@ -45,13 +47,22 @@ export class FeatureEncoderProvider {
     return false
   }
 
+  public canEncodeAttribute(attribute: Attribute): boolean {
+    return this.getEncoder(attribute.name, attribute.type) !== undefined
+  }
+
+  public getEncoder(name: FeatureName, type: RawFeatureType): Encoder | undefined {
+    const key = `${name}:${type}`
+    return this.encoders.get(key)
+  }
+
   /**
    * Get the encoder for a given feature name and type.
    * If the encoder does not exist yet, it will be created once.
    * If the type cannot be encoded, this method returns undefined.
    */
-  public getEncoder(name: FeatureName, type: RawFeatureType): Encoder | undefined {
-    if (!this.canEncode(type)) {
+  public getOrCreateEncoder(name: FeatureName, type: RawFeatureType): Encoder | undefined {
+    if (!this.canEncodeType(type)) {
       return undefined
     }
     const key = `${name}:${type}`

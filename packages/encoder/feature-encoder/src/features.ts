@@ -73,8 +73,8 @@ export function deriveFeatures(models: GraphModel[], settings: FeatureDeriverSet
     edgeFeatures,
     nodeFeatures,
     onlyEncodedFeatures: settings.onlyEncodedFeatures,
-    canEncodeNodeAttribute: (attribute: Attribute) => nodeEncoderProvider.canEncode(attribute.type),
-    canEncodeEdgeAttribute: (attribute: Attribute) => edgeEncoderProvider.canEncode(attribute.type),
+    canEncodeNodeAttribute: (attribute: Attribute) => nodeEncoderProvider.canEncodeAttribute(attribute),
+    canEncodeEdgeAttribute: (attribute: Attribute) => edgeEncoderProvider.canEncodeAttribute(attribute),
     mapNodeAttribute: createAttributeMapper(nodeEncoderProvider),
     mapEdgeAttribute: createAttributeMapper(edgeEncoderProvider),
     getNodeFeatureVector: (node: GraphNode) => createFeatureVectorFromMetadata(internalNodeFeatures, node),
@@ -119,7 +119,7 @@ function getFeatureMetadata(attributables: Stream<Attributable>, settings: Featu
   const resolvedOverride = Stream.from(override ?? [])
     .map(([name, type, data]) => {
       const rawType = isEncodedFeatureType(type) ? toRawFeatureType(type) : type
-      const encoder = encoderProvider.getEncoder(name, rawType)
+      const encoder = encoderProvider.getOrCreateEncoder(name, rawType)
       if (encoder && data !== null) {
         encoder.import?.(data)
       }
@@ -142,7 +142,7 @@ function getFeatureMetadata(attributables: Stream<Attributable>, settings: Featu
         // I.e., the feature is not present in the override
         return null
       }
-      const encoder = encoderProvider.getEncoder(name, type)
+      const encoder = encoderProvider.getOrCreateEncoder(name, type)
       if (settings.onlyEncodedFeatures && !encoder) {
         return null
       }
