@@ -79,7 +79,7 @@
     "postcss": "8.4.38",
     "shadcn-ui": "0.8.0",
     "tailwindcss": "3.4.3",
-    "typescript": "5.4.5",
+    "typescript": "5.5.2",
     "vite": "5.2.12",
     "vite-plugin-pwa": "0.20.0",
     "workbox-window": "7.1.0"

@@ -55,7 +55,7 @@ export const FeatureEncoder = defineStructuredBatchPlugin({
   },
   invoke(input: (GraphModel | ExecutionError)[], parameters) {
     try {
-      const models = input.filter((item): item is GraphModel => item instanceof GraphModel)
+      const models = input.filter((item) => item instanceof GraphModel)
       const nodeFeatureOverride = parameters.nodeFeatures !== '' ? FeatureMetadataSchema.parse(JSON.parse(parameters.nodeFeatures)) : null
       const edgeFeatureOverride = parameters.edgeFeatures !== '' ? FeatureMetadataSchema.parse(JSON.parse(parameters.edgeFeatures)) : null
       const features = deriveFeatures(models, { ...parameters, nodeFeatureOverride, edgeFeatureOverride })
