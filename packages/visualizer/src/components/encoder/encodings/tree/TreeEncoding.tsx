@@ -21,7 +21,7 @@ export function TreeEncoding({ model, parameters }: Props) {
   if (error || !encoding) {
     return <Hint error={error} />
   }
-  return <FlowGraph tree={encoding.data} vocabulary={encoding.metadata.vocabularies.staticVocabulary} />
+  return <FlowGraph tree={encoding.data} staticVocabulary={encoding.metadata.vocabularies.staticVocabulary} vocabulary={encoding.metadata.vocabularies.vocabulary} />
 }
 
 const nodeTypes = {
@@ -30,11 +30,12 @@ const nodeTypes = {
 
 interface FlowGraphProps {
   tree: TreeModel<RecursiveTreeNode>
+  staticVocabulary: string[]
   vocabulary: string[]
 }
 
-function FlowGraph({ tree, vocabulary }: FlowGraphProps) {
-  const flowGraph = useFlowGraph(tree, vocabulary)
+function FlowGraph({ tree, vocabulary, staticVocabulary }: FlowGraphProps) {
+  const flowGraph = useFlowGraph(tree, staticVocabulary)
   const { nodes, edges, type } = flowGraph
   return (
     <div className="size-full">
@@ -56,11 +57,21 @@ function FlowGraph({ tree, vocabulary }: FlowGraphProps) {
         <Controls showInteractive={false} />
         <MiniMap zoomable />
         <ViewFitter flowGraph={flowGraph} />
-        <Panel position="top-right" className="font-mono text-xs opacity-50">
-          {type === 'sugiyama' ? '✨ ' : '🌲 '}
-          {nodes.length}
-          {' '}
-          {nodes.length > 1 ? 'nodes' : 'node'}
+        <Panel position="top-left" className="font-mono text-xs opacity-50">
+          {tree.format}
+        </Panel>
+        <Panel position="top-right" className="font-mono text-xs opacity-50 flex flex-col items-end gap-1">
+          <span>
+            {type === 'sugiyama' ? '✨ ' : '🌲 '}
+            {nodes.length}
+            {' '}
+            {nodes.length > 1 ? 'nodes' : 'node'}
+          </span>
+          <span>
+            {vocabulary.length}
+            {' '}
+            {vocabulary.length > 1 ? 'words' : 'word'}
+          </span>
         </Panel>
       </ReactFlow>
     </div>

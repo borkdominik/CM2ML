@@ -2,7 +2,7 @@
   "data": [
     {
       "format": "local",
-      "numNodes": 888,
+      "numNodes": 838,
       "root": {
         "children": [
           {
@@ -20,17 +20,6 @@
               },
               {
                 "children": [
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "1",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
                   {
                     "children": [
                       {
@@ -384,17 +373,6 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "2",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
                         "value": "1",
                       },
                     ],
@@ -534,17 +512,6 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "3",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
                         "value": "1",
                       },
                     ],
@@ -612,17 +579,6 @@
                     ],
                     "isStaticNode": false,
                     "value": "xmi:type",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "4",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
                   },
                   {
                     "children": [
@@ -1186,17 +1142,6 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "5",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
                         "value": "1",
                       },
                     ],
@@ -1325,17 +1270,6 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "6",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
                         "value": "1",
                       },
                     ],
@@ -1458,17 +1392,6 @@
                     ],
                     "isStaticNode": false,
                     "value": "xmi:type",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "7",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
                   },
                   {
                     "children": [
@@ -1735,17 +1658,6 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "8",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
                         "value": "4",
                       },
                     ],
@@ -1995,17 +1907,6 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "9",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
                         "value": "5",
                       },
                     ],
@@ -2095,17 +1996,6 @@
                     ],
                     "isStaticNode": false,
                     "value": "xmi:type",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "10",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
                   },
                   {
                     "children": [
@@ -2416,17 +2306,6 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "11",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
                         "value": "7",
                       },
                     ],
@@ -2665,17 +2544,6 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "12",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
                         "value": "0",
                       },
                     ],
@@ -2760,17 +2628,6 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "13",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
                         "value": "0",
                       },
                     ],
@@ -2849,17 +2706,6 @@
                     ],
                     "isStaticNode": false,
                     "value": "xmi:type",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "14",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
                   },
                 ],
                 "isStaticNode": true,
@@ -2956,17 +2802,6 @@
                     "isStaticNode": false,
                     "value": "xmi:type",
                   },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "15",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
                 ],
                 "isStaticNode": true,
                 "value": "ATTRS",
@@ -3028,17 +2863,6 @@
                     ],
                     "isStaticNode": false,
                     "value": "xmi:type",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "16",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
                   },
                   {
                     "children": [
@@ -3244,17 +3068,6 @@
                     ],
                     "isStaticNode": false,
                     "value": "xmi:type",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "17",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
                   },
                   {
                     "children": [
@@ -3488,17 +3301,6 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "18",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
                         "value": "10",
                       },
                     ],
@@ -3709,17 +3511,6 @@
                     ],
                     "isStaticNode": false,
                     "value": "xmi:type",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "19",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
                   },
                   {
                     "children": [
@@ -3947,17 +3738,6 @@
                     ],
                     "isStaticNode": false,
                     "value": "xmi:type",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "20",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
                   },
                   {
                     "children": [
@@ -4180,17 +3960,6 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "21",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
                         "value": "13",
                       },
                     ],
@@ -4291,17 +4060,6 @@
                     ],
                     "isStaticNode": false,
                     "value": "xmi:type",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "22",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
                   },
                   {
                     "children": [
@@ -4491,17 +4249,6 @@
                       {
                         "children": [],
                         "isStaticNode": false,
-                        "value": "23",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
                         "value": "15",
                       },
                     ],
@@ -4624,17 +4371,6 @@
                     ],
                     "isStaticNode": false,
                     "value": "xmi:type",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "24",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
                   },
                   {
                     "children": [
@@ -4807,17 +4543,6 @@
                     ],
                     "isStaticNode": false,
                     "value": "xmi:type",
-                  },
-                  {
-                    "children": [
-                      {
-                        "children": [],
-                        "isStaticNode": false,
-                        "value": "25",
-                      },
-                    ],
-                    "isStaticNode": false,
-                    "value": "xmi:id",
                   },
                   {
                     "children": [
@@ -5268,7 +4993,6 @@
         "upperValue",
         "value",
         "visibility",
-        "xmi:id",
         "xmi:type",
       ],
       "staticVocabulary": [
@@ -5381,7 +5105,6 @@
         "upperValue",
         "value",
         "visibility",
-        "xmi:id",
         "xmi:type",
       ],
     },
