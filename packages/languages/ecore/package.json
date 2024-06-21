@@ -43,13 +43,13 @@
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/utils": "workspace:*",
     "@cm2ml/xmi-parser": "workspace:*",
-    "@yeger/streams": "1.1.8"
+    "@yeger/streams": "1.1.9"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
     "typescript": "5.5.2",
-    "vite": "5.2.12",
-    "vite-plugin-lib": "2.0.10"
+    "vite": "5.3.1",
+    "vite-plugin-lib": "2.0.11"
   },
   "publishConfig": {
     "access": "public"
