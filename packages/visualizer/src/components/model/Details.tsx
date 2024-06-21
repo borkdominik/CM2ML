@@ -231,7 +231,7 @@ function NodeSelectionButton({ id }: { id: string | undefined }) {
     <Button
       variant="link"
       className="size-fit p-0 font-mono text-xs"
-      onClick={() => setSelection({ selection: id, animate: true })}
+      onClick={() => setSelection({ selection: id, origin: 'details' })}
     >
       {id}
     </Button>
@@ -255,7 +255,7 @@ function EdgeSelectionButton({
     <Button
       variant="link"
       className="size-fit p-0 font-mono text-xs"
-      onClick={() => setSelection({ selection: [[sourceId, targetId]], animate: true })}
+      onClick={() => setSelection({ selection: [[sourceId, targetId]], origin: 'details' })}
     >
       {label}
     </Button>

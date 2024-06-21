@@ -102,7 +102,7 @@ function Label({ index, node, offset }: LabelProps) {
 
   const onPointerDown = (event: PointerEvent<SVGTextElement>) => {
     event.stopPropagation()
-    setSelection({ selection: node, animate: true })
+    setSelection({ selection: node, origin: 'graph' })
   }
 
   return (
@@ -185,7 +185,7 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
 
   const onPointerDown = (event: PointerEvent<SVGRectElement>) => {
     event.stopPropagation()
-    setSelection({ selection: [[sourceId, targetId]], animate: true })
+    setSelection({ selection: [[sourceId, targetId]], origin: 'graph' })
   }
 
   return (

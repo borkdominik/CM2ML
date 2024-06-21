@@ -8,7 +8,7 @@ export type EdgeSelection = (readonly [string, string])[]
 
 export interface Selection {
   selection: NodeSelection | EdgeSelection
-  animate?: boolean
+  origin: 'ir' | 'graph' | 'tree' | 'details' | 'command'
 }
 
 export interface SelectionState {

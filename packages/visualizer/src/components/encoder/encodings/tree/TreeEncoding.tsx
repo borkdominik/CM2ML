@@ -5,6 +5,8 @@ import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Pa
 
 import 'reactflow/dist/style.css'
 
+import type { EdgeSelection, NodeSelection } from '../../../../lib/useSelection'
+import { isNodeSelection, useSelection } from '../../../../lib/useSelection'
 import type { ParameterValues } from '../../../Parameters'
 import { Hint } from '../../../ui/hint'
 import { useEncoder } from '../../useEncoder'
@@ -78,9 +80,21 @@ function FlowGraph({ tree, vocabulary, staticVocabulary }: FlowGraphProps) {
   )
 }
 
+function isFlowNodeSelected(flowNode: FlowNode, selection: NodeSelection | EdgeSelection | undefined) {
+  if (!selection) {
+    return false
+  }
+  if (isNodeSelection(selection)) {
+    return selection === flowNode.value
+  }
+}
+
 function FlowTreeNode({ data }: { data: FlowNode }) {
   const isOrigin = data.parent === undefined
   const isTerminal = data.children.length === 0
+  const selection = useSelection.use.selection()
+  const setSelection = useSelection.use.setSelection()
+  const isSelected = isFlowNodeSelected(data, selection?.selection)
   return (
     <div>
       {isOrigin
@@ -93,8 +107,9 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
         style={{
           outlineStyle: 'solid',
           outlineColor: data.color,
-          outlineWidth: 2,
+          outlineWidth: isSelected ? 6 : 2,
         }}
+        onClick={() => setSelection({ selection: data.value, origin: 'tree' })}
       >
         {data.value}
       </div>
@@ -116,11 +131,27 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
  * It needs to be a child of the {@link ReactFlow} component and not a hook, because it needs access to the react flow instance via {@link useReactFlow}.
  */
 function ViewFitter({ flowGraph }: { flowGraph: FlowGraphModel }) {
-  const reactFlow = useReactFlow()
+  const { origin: source, selection } = useSelection.use.selection() ?? {}
+  const reactFlow = useReactFlow<FlowNode>()
   useEffect(() => {
     setTimeout(() => {
+      const selectedNodeId = selection && isNodeSelection(selection) ? selection : undefined
+      const selectedNodes = selectedNodeId ? reactFlow.getNodes().filter((node) => node.data.value === selectedNodeId) : []
+      const firstSelectedNode = selectedNodes.sort((a, b) => {
+        if (a.position.y === b.position.y) {
+          return a.position.x > b.position.x ? 1 : -1
+        }
+        return a.position.y > b.position.y ? 1 : -1
+      })[0]
+      if (firstSelectedNode) {
+        if (source === 'tree') {
+          return
+        }
+        reactFlow.setCenter(firstSelectedNode.position.x, firstSelectedNode.position.y, { duration: 200, zoom: 1 })
+        return
+      }
       reactFlow.fitView({ duration: 200 })
     }, 200)
-  }, [reactFlow, flowGraph])
+  }, [reactFlow, flowGraph, selection])
   return null
 }

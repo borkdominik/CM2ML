@@ -8,7 +8,7 @@ import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
 import { colors } from '../../colors'
 import { useModelState } from '../../lib/useModelState'
-import { useSelection } from '../../lib/useSelection'
+import { isNodeSelection, useSelection } from '../../lib/useSelection'
 import { cn } from '../../lib/utils'
 import { Progress } from '../ui/progress'
 
@@ -65,7 +65,7 @@ function useVisNetwok(
   container: RefObject<HTMLDivElement | null>,
 ) {
   const setFit = useModelState.use.setFit()
-  const { selection, animate: animateSelection } = useSelection.use.selection() ?? {}
+  const { selection, origin: selectionOrigin } = useSelection.use.selection() ?? {}
   const setSelection = useSelection.use.setSelection()
   const clearSelection = useSelection.use.clearSelection()
   const [network, setNetwork] = useState<Network | null>(null)
@@ -131,12 +131,12 @@ function useVisNetwok(
     setFit(() => network.fit())
     function selectNodes(selectedNodes: string[]) {
       if (selectedNodes.length === 1) {
-        setSelection({ selection: selectedNodes[0]! })
+        setSelection({ selection: selectedNodes[0]!, origin: 'ir' })
         return
       }
       if (selectedNodes.length === 2) {
         const [sourceId, targetId] = selectedNodes
-        setSelection({ selection: [[sourceId!, targetId!]] })
+        setSelection({ selection: [[sourceId!, targetId!]], origin: 'ir' })
       }
     }
     network.on(
@@ -163,7 +163,7 @@ function useVisNetwok(
           return
         }
         const reversed = edge.toReversed() as [string, string]
-        setSelection({ selection: [edge, reversed] })
+        setSelection({ selection: [edge, reversed], origin: 'ir' })
       }
     })
     network.on('deselectNode', clearSelection)
@@ -204,9 +204,13 @@ function useVisNetwok(
       network.unselectAll()
       return
     }
-    if (typeof selection === 'string') {
+    if (isNodeSelection(selection)) {
+      if (model.getNodeById(selection) === undefined) {
+        clearSelection()
+        return
+      }
       network.selectNodes([selection])
-      if (animateSelection) {
+      if (selectionOrigin !== 'ir') {
         network?.fit({ nodes: [selection], animation: true })
       }
       return
@@ -215,10 +219,10 @@ function useVisNetwok(
       createEdgeId(sourceId, targetId),
     )
     network.selectEdges(edgeIds)
-    if (animateSelection) {
+    if (selectionOrigin !== 'ir') {
       network?.fit({ nodes: selection.flat(), animation: true })
     }
-  }, [network, selection, animateSelection])
+  }, [network, selection, selectionOrigin])
 
   return {
     isReady: stabilizationProgress === 1,
