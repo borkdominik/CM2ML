@@ -1,5 +1,6 @@
 import type { FeatureContext } from '@cm2ml/feature-encoder'
 import type { Attribute, GraphModel, GraphNode } from '@cm2ml/ir'
+import { Stream } from '@yeger/streams'
 
 import type { TreeModel, TreeNode } from '../tree-model'
 
@@ -38,16 +39,25 @@ export abstract class TreeTransformer<Root extends TreeNode<unknown[]>> {
       return mappedId
     }
     return `${this.featureContext.mapNodeAttribute(attribute)}`
+    // TODO/Jan: Enable less concise version via parameter?
     return `${attribute.name}_${attribute.type}_${this.featureContext.mapNodeAttribute(attribute)}`
   }
 
-  protected includeAttribute(attribute: Attribute) {
+  private includeAttribute(attribute: Attribute) {
     return !this.featureContext.onlyEncodedFeatures || this.featureContext.canEncodeNodeAttribute(attribute)
   }
 
   protected createNode<T extends TreeNode<unknown[]>>(node: T): T {
     this.nodeCount++
     return node
+  }
+
+  protected getFilteredAttributes(node: GraphNode) {
+    return Stream
+      .from(node.attributes.values())
+      .filter((attribute) => this.includeAttribute(attribute))
+      // do not include the node's identifier in the regular attributes
+      .filter((attribute) => attribute.value.literal !== node.id)
   }
 }
 

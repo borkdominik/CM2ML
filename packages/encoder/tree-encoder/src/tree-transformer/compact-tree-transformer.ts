@@ -5,39 +5,26 @@ import type { TreeModel, TreeNode } from '../tree-model'
 
 import { TreeTransformer } from './tree-transformer'
 
-export interface LocalRootNode extends TreeNode<LocalClassNode[]> {
+export interface CompactRootNode extends TreeNode<CompactClassNode[]> {
   /**
    * Contains the classes of the model.
    */
   readonly value: 'MODEL'
-  readonly children: LocalClassNode[]
+  readonly children: CompactClassNode[]
   readonly isStaticNode: true
 }
 
-export interface LocalClassNode extends TreeNode<[LocalNameNode, LocalAttributesNode, LocalAssociationsNode]> {
-  readonly value: 'CLS'
-  readonly isStaticNode: true
-}
-
-export interface LocalNameNode extends TreeNode<[LocalNameValueNode]> {
-  readonly value: 'NAME'
-  readonly isStaticNode: true
-}
-
-export interface LocalNameValueNode extends TreeNode<[]> {
-  /**
-   * The name of the class.
-   */
+export interface CompactClassNode extends TreeNode<[CompactAttributesNode, CompactAssociationsNode]> {
   readonly value: string
   readonly isStaticNode: false
 }
 
-export interface LocalAttributesNode extends TreeNode<LocalAttributeNameNode[]> {
+export interface CompactAttributesNode extends TreeNode<CompactAttributeNameNode[]> {
   readonly value: 'ATTRS'
   readonly isStaticNode: true
 }
 
-export interface LocalAttributeNameNode extends TreeNode<[LocalAttributeValueNode]> {
+export interface CompactAttributeNameNode extends TreeNode<[CompactAttributeValueNode]> {
   /**
    * The name of the attribute.
    */
@@ -45,7 +32,7 @@ export interface LocalAttributeNameNode extends TreeNode<[LocalAttributeValueNod
   readonly isStaticNode: false
 }
 
-export interface LocalAttributeValueNode extends TreeNode<[]> {
+export interface CompactAttributeValueNode extends TreeNode<[]> {
   /**
    * The value of the attribute.
    */
@@ -53,12 +40,12 @@ export interface LocalAttributeValueNode extends TreeNode<[]> {
   readonly isStaticNode: false
 }
 
-export interface LocalAssociationsNode extends TreeNode<LocalAssociationTargetNode[]> {
+export interface CompactAssociationsNode extends TreeNode<CompactAssociationTargetNode[]> {
   readonly value: 'ASSOCS'
   readonly isStaticNode: true
 }
 
-export interface LocalAssociationTargetNode extends TreeNode<[LocalAssociationTypeNode]> {
+export interface CompactAssociationTargetNode extends TreeNode<[CompactAssociationTypeNode]> {
   /**
    * The target of the association.
    */
@@ -66,7 +53,7 @@ export interface LocalAssociationTargetNode extends TreeNode<[LocalAssociationTy
   readonly isStaticNode: false
 }
 
-export interface LocalAssociationTypeNode extends TreeNode<[]> {
+export interface CompactAssociationTypeNode extends TreeNode<[]> {
   /**
    * The type of the association.
    */
@@ -74,17 +61,17 @@ export interface LocalAssociationTypeNode extends TreeNode<[]> {
   readonly isStaticNode: false
 }
 
-export class LocalTreeTransformer extends TreeTransformer<LocalRootNode> {
-  protected override createTreeModel(rootNode: GraphNode): TreeModel<LocalRootNode> {
+export class CompactTreeTransformer extends TreeTransformer<CompactRootNode> {
+  protected override createTreeModel(rootNode: GraphNode): TreeModel<CompactRootNode> {
     const root = this.createRootNode(rootNode.model)
     return {
       root,
       numNodes: this.nodeCount,
-      format: 'local',
+      format: 'compact',
     }
   }
 
-  private createRootNode(model: GraphModel): LocalRootNode {
+  private createRootNode(model: GraphModel): CompactRootNode {
     return this.createNode({
       value: 'MODEL',
       children: this.createClassNodes(model),
@@ -92,35 +79,19 @@ export class LocalTreeTransformer extends TreeTransformer<LocalRootNode> {
     })
   }
 
-  private createClassNodes(model: GraphModel): LocalClassNode[] {
+  private createClassNodes(model: GraphModel): CompactClassNode[] {
     return Stream.from(model.nodes).map((node) => this.createClassNode(node)).toArray()
   }
 
-  private createClassNode(node: GraphNode): LocalClassNode {
-    return this.createNode({
-      value: 'CLS',
-      children: [this.createNameNode(node), this.createAttributesNode(node), this.createAssociationsNode(node)],
-      isStaticNode: true,
-    })
-  }
-
-  private createNameNode(node: GraphNode): LocalNameNode {
-    return this.createNode({
-      value: 'NAME',
-      children: [this.createNameValueNode(node)],
-      isStaticNode: true,
-    })
-  }
-
-  private createNameValueNode(node: GraphNode): LocalNameValueNode {
+  private createClassNode(node: GraphNode): CompactClassNode {
     return this.createNode({
       value: this.mapId(node),
-      children: [],
+      children: [this.createAttributesNode(node), this.createAssociationsNode(node)],
       isStaticNode: false,
     })
   }
 
-  private createAttributesNode(node: GraphNode): LocalAttributesNode {
+  private createAttributesNode(node: GraphNode): CompactAttributesNode {
     return this.createNode({
       value: 'ATTRS',
       children: this.createAttributeNameNodes(node),
@@ -128,14 +99,14 @@ export class LocalTreeTransformer extends TreeTransformer<LocalRootNode> {
     })
   }
 
-  private createAttributeNameNodes(node: GraphNode): LocalAttributeNameNode[] {
+  private createAttributeNameNodes(node: GraphNode): CompactAttributeNameNode[] {
     return this
       .getFilteredAttributes(node)
       .map((attribute) => this.createAttributeNameNode(attribute))
       .toArray()
   }
 
-  private createAttributeNameNode(attribute: Attribute): LocalAttributeNameNode {
+  private createAttributeNameNode(attribute: Attribute): CompactAttributeNameNode {
     return this.createNode({
       value: attribute.name,
       children: [this.createAttributeValueNode(attribute)] as const,
@@ -143,7 +114,7 @@ export class LocalTreeTransformer extends TreeTransformer<LocalRootNode> {
     })
   }
 
-  private createAttributeValueNode(attribute: Attribute): LocalAttributeValueNode {
+  private createAttributeValueNode(attribute: Attribute): CompactAttributeValueNode {
     return this.createNode({
       value: this.mapAttribute(attribute),
       children: [],
@@ -151,7 +122,7 @@ export class LocalTreeTransformer extends TreeTransformer<LocalRootNode> {
     })
   }
 
-  private createAssociationsNode(node: GraphNode): LocalAssociationsNode {
+  private createAssociationsNode(node: GraphNode): CompactAssociationsNode {
     return this.createNode({
       value: 'ASSOCS',
       children: this.createAssociationTargetNodes(node),
@@ -159,11 +130,11 @@ export class LocalTreeTransformer extends TreeTransformer<LocalRootNode> {
     })
   }
 
-  private createAssociationTargetNodes(node: GraphNode): LocalAssociationTargetNode[] {
+  private createAssociationTargetNodes(node: GraphNode): CompactAssociationTargetNode[] {
     return Stream.from(node.outgoingEdges).map((edge) => this.createAssociationTargetNode(edge)).toArray()
   }
 
-  private createAssociationTargetNode(edge: GraphEdge): LocalAssociationTargetNode {
+  private createAssociationTargetNode(edge: GraphEdge): CompactAssociationTargetNode {
     return this.createNode({
       value: this.mapId(edge.target),
       children: [this.createAssociationTypeNode(edge)],
@@ -171,7 +142,7 @@ export class LocalTreeTransformer extends TreeTransformer<LocalRootNode> {
     })
   }
 
-  private createAssociationTypeNode(edge: GraphEdge): LocalAssociationTypeNode {
+  private createAssociationTypeNode(edge: GraphEdge): CompactAssociationTypeNode {
     return this.createNode({
       value: edge.tag,
       children: [],

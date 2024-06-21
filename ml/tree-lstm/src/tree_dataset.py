@@ -52,12 +52,44 @@ class TreeDataset(torch.utils.data.Dataset):
     def create_data(self, tree: TreeModel) -> Union[TreeDatasetEntry, None]:
         if tree["numNodes"] > 3000:
             return None
-        if tree["format"] == "local":
+        if tree["format"] == "compact":
+            return self.create_data_from_compact_tree(tree)
+        elif tree["format"] == "local":
             return self.create_data_from_local_tree(tree)
         elif tree["format"] == "global":
             return self.create_data_from_global_tree(tree)
         else:
             raise ValueError(f"Unknown tree format: {tree['format']}")
+
+    def create_data_from_compact_tree(self, tree: TreeModel) -> TreeDatasetEntry:
+        input = copy.deepcopy(tree)
+        input_root = input["root"]
+        input_root_classes = input_root["children"]
+        # remove xmi:type and xsi:type from input
+        for c in input_root_classes:
+            attrs = c["children"][1]["children"]
+            attrs = [
+                attr
+                for _, attr in enumerate(attrs)
+                if attr["value"] != "xmi:type" and attr["value"] != "xsi:type"
+            ]
+            c["children"][1]["children"] = attrs
+
+        output = copy.deepcopy(tree)
+        output_root = output["root"]
+        output_root_classes = output_root["children"]
+        # restructure output
+        for i, c in enumerate(output_root_classes):
+            name = c["value"][0]
+            type = None
+            for attr in c["children"][0]["children"]:
+                if attr["value"] == "xmi:type" or attr["value"] == "xsi:type":
+                    type = attr["children"][0]["value"]
+                    break
+            if type is None:
+                raise ValueError(f"Type not found for class {name}. Increase the training data size to include both xmi:type and xsi:type samples.")
+            output_root_classes[i] = {"value": type, "children": []}
+        return {"x": input, "y": output}
 
     def create_data_from_local_tree(self, tree: TreeModel) -> TreeDatasetEntry:
         input = copy.deepcopy(tree)

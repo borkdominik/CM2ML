@@ -130,17 +130,13 @@ export class GlobalTreeTransformer extends TreeTransformer<GlobalRootNode> {
   }
 
   private createAttributeNameNodes(node: GraphNode): GlobalAttributeNameNode[] {
-    return Stream
-      .from(node.attributes.values())
+    return this
+      .getFilteredAttributes(node)
       .map((attribute) => this.createAttributeNameNode(attribute))
-      .filterNonNull()
       .toArray()
   }
 
-  private createAttributeNameNode(attribute: Attribute): GlobalAttributeNameNode | null {
-    if (!this.includeAttribute(attribute)) {
-      return null
-    }
+  private createAttributeNameNode(attribute: Attribute): GlobalAttributeNameNode {
     return this.createNode({
       value: attribute.name,
       children: [this.createAttributeValueNode(attribute)] as const,

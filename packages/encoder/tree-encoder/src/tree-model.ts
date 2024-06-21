@@ -1,4 +1,8 @@
-export const treeFormats = ['local', 'global'] as const
+export const treeFormats = ['compact', 'local', 'global'] as const
+
+export function isValidTreeFormat(format: string): format is TreeFormat {
+  return treeFormats.includes(format as TreeFormat)
+}
 
 export type TreeFormat = typeof treeFormats[number]
 
