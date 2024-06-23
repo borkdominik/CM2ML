@@ -81,6 +81,7 @@ export class LocalTreeTransformer extends TreeTransformer<LocalRootNode> {
       root,
       numNodes: this.nodeCount,
       format: 'local',
+      idMapping: this.idMapping,
     }
   }
 

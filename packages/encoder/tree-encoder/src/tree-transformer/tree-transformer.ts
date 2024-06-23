@@ -8,12 +8,17 @@ export abstract class TreeTransformer<Root extends TreeNode<unknown[]>> {
   private nodeIdMapping: Record<string, `id_${number}`> = {}
   private id_counter = 0
   protected nodeCount = 0
+  readonly #idMapping: Record<string, string> = {}
 
   public readonly treeModel: TreeModel<Root>
 
   public constructor(model: GraphModel, private readonly featureContext: FeatureContext, private readonly replaceNodeIds: boolean) {
     model.nodes.forEach((node) => this.registerNode(node))
     this.treeModel = this.createTreeModel(model.root)
+  }
+
+  protected get idMapping(): Readonly<Record<string, string>> {
+    return this.#idMapping
   }
 
   public registerNode(node: GraphNode): void {
@@ -29,7 +34,9 @@ export abstract class TreeTransformer<Root extends TreeNode<unknown[]>> {
     if (!idAttribute) {
       throw new Error('Node has an id attribute. Tree encoding requires all nodes to have IDs assigned.')
     }
-    return this.mapAttribute(idAttribute)
+    const mappedId = this.mapAttribute(idAttribute)
+    this.#idMapping[mappedId] = idAttribute.value.literal
+    return mappedId
   }
 
   protected mapAttribute(attribute: Attribute): string {

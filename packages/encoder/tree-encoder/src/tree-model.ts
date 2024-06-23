@@ -10,6 +10,7 @@ export interface TreeModel<Root extends TreeNode<unknown[]>> {
   readonly root: Root
   readonly numNodes: number
   readonly format: TreeFormat
+  readonly idMapping: Record<string, string>
 }
 
 export interface TreeNode<Children extends unknown[]> {

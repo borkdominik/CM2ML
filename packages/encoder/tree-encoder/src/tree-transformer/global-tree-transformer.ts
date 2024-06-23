@@ -84,6 +84,7 @@ export class GlobalTreeTransformer extends TreeTransformer<GlobalRootNode> {
       root,
       numNodes: this.nodeCount,
       format: 'global',
+      idMapping: this.idMapping,
     }
   }
 

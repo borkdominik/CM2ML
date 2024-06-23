@@ -68,6 +68,7 @@ export class CompactTreeTransformer extends TreeTransformer<CompactRootNode> {
       root,
       numNodes: this.nodeCount,
       format: 'compact',
+      idMapping: this.idMapping,
     }
   }
 
