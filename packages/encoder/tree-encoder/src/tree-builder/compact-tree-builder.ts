@@ -3,7 +3,7 @@ import { Stream } from '@yeger/streams'
 
 import type { TreeModel, TreeNode } from '../tree-model'
 
-import { TreeTransformer } from './tree-transformer'
+import { TreeBuilder } from './tree-builder'
 
 export interface CompactRootNode extends TreeNode<CompactClassNode[]> {
   /**
@@ -61,7 +61,7 @@ export interface CompactAssociationTypeNode extends TreeNode<[]> {
   readonly isStaticNode: false
 }
 
-export class CompactTreeTransformer extends TreeTransformer<CompactRootNode> {
+export class CompactTreeBuilder extends TreeBuilder<CompactRootNode> {
   protected override createTreeModel(rootNode: GraphNode): TreeModel<CompactRootNode> {
     const root = this.createRootNode(rootNode.model)
     return {

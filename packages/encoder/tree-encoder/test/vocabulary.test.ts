@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import type { TreeModel } from '../src'
-import type { LocalRootNode } from '../src/tree-transformer/local-tree-transformer'
+import type { LocalRootNode } from '../src/tree-builder/local-tree-builder'
 import { getVocabularies } from '../src/vocabulary'
 
 describe('vocabulary', () => {

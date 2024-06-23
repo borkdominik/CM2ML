@@ -3,7 +3,7 @@ import { Stream } from '@yeger/streams'
 
 import type { TreeModel, TreeNode } from '../tree-model'
 
-import { TreeTransformer } from './tree-transformer'
+import { TreeBuilder } from './tree-builder'
 
 export interface GlobalRootNode extends TreeNode<(GlobalObjectNode | GlobalAssociationNode)[]> {
   /**
@@ -77,7 +77,7 @@ export interface GlobalAssociationTargetNode extends TreeNode<[]> {
   readonly isStaticNode: false
 }
 
-export class GlobalTreeTransformer extends TreeTransformer<GlobalRootNode> {
+export class GlobalTreeBuilder extends TreeBuilder<GlobalRootNode> {
   protected override createTreeModel(rootNode: GraphNode): TreeModel<GlobalRootNode> {
     const root = this.createRootNode(rootNode.model)
     return {

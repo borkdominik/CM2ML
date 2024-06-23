@@ -4,7 +4,7 @@ import { Stream } from '@yeger/streams'
 
 import type { TreeModel, TreeNode } from '../tree-model'
 
-export abstract class TreeTransformer<Root extends TreeNode<unknown[]>> {
+export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
   private nodeIdMapping: Record<string, `id_${number}`> = {}
   private id_counter = 0
   protected nodeCount = 0

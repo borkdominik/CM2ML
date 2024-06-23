@@ -4,19 +4,19 @@ import type { GraphModel } from '@cm2ml/ir'
 import type { InferOut } from '@cm2ml/plugin'
 import { ExecutionError, batchTryCatch, compose, definePlugin, defineStructuredPlugin } from '@cm2ml/plugin'
 
-import type { RecursiveTreeNode, TreeNodeValue } from './tree-model'
+import { CompactTreeBuilder } from './tree-builder/compact-tree-builder'
+import { GlobalTreeBuilder } from './tree-builder/global-tree-builder'
+import { LocalTreeBuilder } from './tree-builder/local-tree-builder'
 import { isValidTreeFormat, treeFormats } from './tree-model'
-import { CompactTreeTransformer } from './tree-transformer/compact-tree-transformer'
-import { GlobalTreeTransformer } from './tree-transformer/global-tree-transformer'
-import { LocalTreeTransformer } from './tree-transformer/local-tree-transformer'
+import type { RecursiveTreeNode, TreeNodeValue } from './tree-model'
 import { getVocabularies } from './vocabulary'
 
 export type * from './tree-model'
 
-const treeTransformers = {
-  compact: CompactTreeTransformer,
-  local: LocalTreeTransformer,
-  global: GlobalTreeTransformer,
+const treeBuilders = {
+  compact: CompactTreeBuilder,
+  local: LocalTreeBuilder,
+  global: GlobalTreeBuilder,
 }
 
 const TreeTransformer = defineStructuredPlugin({
@@ -39,7 +39,7 @@ const TreeTransformer = defineStructuredPlugin({
       if (!isValidTreeFormat(parameters.format)) {
         throw new Error(`Invalid tree format: ${parameters.format}.`)
       }
-      const Transformer = treeTransformers[parameters.format]
+      const Transformer = treeBuilders[parameters.format]
       return new Transformer(model, featureContext, parameters.replaceNodeIds).treeModel
     }
     const treeModel = createTreeModel()
