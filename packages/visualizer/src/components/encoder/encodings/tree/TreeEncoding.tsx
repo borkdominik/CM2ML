@@ -1,11 +1,10 @@
 import { type RecursiveTreeNode, TreeEncoder, type TreeModel } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Panel, Position, useReactFlow } from 'reactflow'
 
 import 'reactflow/dist/style.css'
 
-import type { EdgeSelection, NodeSelection } from '../../../../lib/useSelection'
 import { isNodeSelection, useSelection } from '../../../../lib/useSelection'
 import type { ParameterValues } from '../../../Parameters'
 import { Hint } from '../../../ui/hint'
@@ -58,11 +57,11 @@ function FlowGraph({ tree, vocabulary, staticVocabulary }: FlowGraphProps) {
         <Background variant={BackgroundVariant.Dots} />
         <Controls showInteractive={false} />
         <MiniMap zoomable />
-        <ViewFitter flowGraph={flowGraph} />
+        <ViewFitter flowGraph={flowGraph} idMapping={tree.idMapping} />
         <Panel position="top-left" className="font-mono text-xs opacity-50">
           {tree.format}
         </Panel>
-        <Panel position="top-right" className="font-mono text-xs opacity-50 flex flex-col items-end gap-1">
+        <Panel position="top-right" className="flex flex-col items-end gap-1 font-mono text-xs opacity-50">
           <span>
             {type === 'sugiyama' ? '✨ ' : '🌲 '}
             {nodes.length}
@@ -80,21 +79,24 @@ function FlowGraph({ tree, vocabulary, staticVocabulary }: FlowGraphProps) {
   )
 }
 
-function isFlowNodeSelected(flowNode: FlowNode, selection: NodeSelection | EdgeSelection | undefined) {
+function useIsFlowNodeSelected(flowNode: FlowNode) {
+  const { selection } = useSelection.use.selection() ?? {}
+  const reversedMapping = useReversedMapping(flowNode.idMapping)
   if (!selection) {
     return false
   }
   if (isNodeSelection(selection)) {
-    return selection === flowNode.value
+    const mappedSelection = reversedMapping[selection] ?? selection
+    return mappedSelection === flowNode.value
   }
+  return false
 }
 
 function FlowTreeNode({ data }: { data: FlowNode }) {
   const isOrigin = data.parent === undefined
   const isTerminal = data.children.length === 0
-  const selection = useSelection.use.selection()
   const setSelection = useSelection.use.setSelection()
-  const isSelected = isFlowNodeSelected(data, selection?.selection)
+  const isSelected = useIsFlowNodeSelected(data)
   return (
     <div>
       {isOrigin
@@ -109,7 +111,7 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
           outlineColor: data.color,
           outlineWidth: isSelected ? 6 : 2,
         }}
-        onClick={() => setSelection({ selection: data.value, origin: 'tree' })}
+        onClick={() => setSelection({ selection: data.idMapping[data.value] ?? data.value, origin: 'tree' })}
       >
         {data.value}
       </div>
@@ -126,16 +128,35 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
   )
 }
 
+function useReversedMapping(idMapping: Record<string, string>) {
+  return useMemo(() => {
+    const mapping: Record<string, string> = {}
+    Object.entries(idMapping).forEach(([key, value]) => {
+      mapping[value] = key
+    })
+    return mapping
+  }, [idMapping])
+}
+
 /**
  * Utility component that (re-)fits the view of the ReactFlow component should the input model change.
  * It needs to be a child of the {@link ReactFlow} component and not a hook, because it needs access to the react flow instance via {@link useReactFlow}.
  */
-function ViewFitter({ flowGraph }: { flowGraph: FlowGraphModel }) {
-  const { origin: source, selection } = useSelection.use.selection() ?? {}
+function ViewFitter({ flowGraph, idMapping }: { flowGraph: FlowGraphModel, idMapping: Record<string, string> }) {
   const reactFlow = useReactFlow<FlowNode>()
+
   useEffect(() => {
-    setTimeout(() => {
-      const selectedNodeId = selection && isNodeSelection(selection) ? selection : undefined
+    const timeout = setTimeout(() => {
+      reactFlow.fitView({ duration: 200 })
+    }, 200)
+    return () => clearTimeout(timeout)
+  }, [reactFlow, flowGraph])
+
+  const { origin: source, selection } = useSelection.use.selection() ?? {}
+  const reversedMapping = useReversedMapping(idMapping)
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const selectedNodeId = selection && isNodeSelection(selection) ? reversedMapping[selection] ?? selection : undefined
       const selectedNodes = selectedNodeId ? reactFlow.getNodes().filter((node) => node.data.value === selectedNodeId) : []
       const firstSelectedNode = selectedNodes.sort((a, b) => {
         if (a.position.y === b.position.y) {
@@ -143,15 +164,16 @@ function ViewFitter({ flowGraph }: { flowGraph: FlowGraphModel }) {
         }
         return a.position.y > b.position.y ? 1 : -1
       })[0]
-      if (firstSelectedNode) {
-        if (source === 'tree') {
-          return
-        }
-        reactFlow.setCenter(firstSelectedNode.position.x, firstSelectedNode.position.y, { duration: 200, zoom: 1 })
+      if (!firstSelectedNode) {
         return
       }
-      reactFlow.fitView({ duration: 200 })
+      if (source === 'tree') {
+        return
+      }
+      reactFlow.setCenter(firstSelectedNode.position.x, firstSelectedNode.position.y, { duration: 200, zoom: 1 })
     }, 200)
-  }, [reactFlow, flowGraph, selection])
+    return () => clearTimeout(timeout)
+  }, [reactFlow, selection])
+
   return null
 }

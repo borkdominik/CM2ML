@@ -10,6 +10,7 @@ describe('vocabulary', () => {
       {
         format: 'local',
         numNodes: -1,
+        idMapping: {},
         root: {
           value: 'MODEL',
           isStaticNode: true,
@@ -61,6 +62,7 @@ describe('vocabulary', () => {
       {
         format: 'local',
         numNodes: -1,
+        idMapping: {},
         root: {
           value: 'MODEL',
           isStaticNode: true,

@@ -41,6 +41,7 @@ export type FlowNode = Omit<RecursiveTreeNode, 'children'> & {
   children: FlowNode[]
   color?: string
   parent?: FlowNode
+  idMapping: Record<string, string>
 }
 
 export type FlowGraphModel = ReturnType<typeof useFlowGraph>
@@ -62,23 +63,23 @@ function createNodes(tree: TreeModel<RecursiveTreeNode>, staticVocabulary: strin
     return parent.color
   }
 
-  function convertNode(node: RecursiveTreeNode, index: number, parent?: FlowNode) {
+  function convertNode(node: RecursiveTreeNode, index: number, idMapping: Record<string, string>, parent?: FlowNode) {
     const id = `${parent ? `${parent.id}.` : ''}${index}`
 
-    const flowNode: FlowNode = { id, children: [], color: makeColor(node, parent), isStaticNode: node.isStaticNode, parent, value: node.value }
+    const flowNode: FlowNode = { id, children: [], color: makeColor(node, parent), idMapping, isStaticNode: node.isStaticNode, parent, value: node.value }
     nodes.push(flowNode)
     const children = node.children
     if (!children) {
       return flowNode
     }
     for (const [index, child] of children.entries()) {
-      const childNode = convertNode(child, index, flowNode)
+      const childNode = convertNode(child, index, idMapping, flowNode)
       flowNode.children.push(childNode)
     }
     return flowNode
   }
 
-  convertNode(tree.root, 0)
+  convertNode(tree.root, 0, tree.idMapping)
   return nodes
 }
 
