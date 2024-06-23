@@ -93,7 +93,7 @@ const WordsToIds = definePlugin({
     idStartIndex: {
       type: 'number',
       defaultValue: 0,
-      description: 'The start index for the ids.',
+      description: 'The start index for the ids. Has no effect if wordsToIds is false.',
     },
   },
   invoke(input: BuildVocabularyOutput, parameters) {
@@ -125,7 +125,7 @@ const WordsToIds = definePlugin({
     metadata.vocabularies.vocabulary.forEach((word, index) => {
       word2IdMapping[word] = index + parameters.idStartIndex
     })
-    const id2WordMapping: Id2WordMapping = []
+    const id2WordMapping: Id2WordMapping = {}
     function mapNode(node: RecursiveTreeNode): RecursiveTreeNode {
       const wordId = word2IdMapping[node.value]
       if (wordId === undefined) {

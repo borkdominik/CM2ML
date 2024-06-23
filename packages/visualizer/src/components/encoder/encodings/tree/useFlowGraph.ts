@@ -1,4 +1,4 @@
-import type { Id2WordMapping, NodeIdMapping, RecursiveTreeNode, TreeModel, TreeNodeValue } from '@cm2ml/builtin'
+import type { Id2WordMapping, NodeIdMapping, RecursiveTreeNode, TreeModel, TreeNodeValue, Word2IdMapping } from '@cm2ml/builtin'
 import { Stream } from '@yeger/streams'
 import { sugiyama, graphStratify as sugiyamaStratify } from 'd3-dag'
 import { tree, stratify as treeStratify } from 'd3-hierarchy'
@@ -30,13 +30,10 @@ const treeSizeConfig: SizeConfig = {
 
 export function useFlowGraph(tree: TreeModel<RecursiveTreeNode>, idWordMapping: Id2WordMapping, staticVocabulary: TreeNodeValue[]) {
   return useMemo(() => {
-    const word2IdMapping: Record<TreeNodeValue, number> = {}
-    idWordMapping.forEach((word, id) => {
-      word2IdMapping[word] = id
-    })
-    const nodes = createNodes(tree, idWordMapping, staticVocabulary)
+    const { nodes, reverseNodeIdMapping, word2IdMapping } = createNodes(tree, idWordMapping, staticVocabulary)
     const hierarchy = createHierarchy(nodes)
-    return createFlowGraph(hierarchy)
+    const flowGraph = createFlowGraph(hierarchy)
+    return { flowGraph, reverseNodeIdMapping, word2IdMapping }
   }, [tree])
 }
 
@@ -46,14 +43,32 @@ export type FlowNode = Omit<RecursiveTreeNode, 'children'> & {
   color?: string
   parent?: FlowNode
   nodeIdMapping: NodeIdMapping
-  idWordMapping: Id2WordMapping
+  reverseNodeIdMapping: NodeIdMapping
+  id2WordMapping: Id2WordMapping
+  word2IdMapping: Word2IdMapping
 }
 
-export type FlowGraphModel = ReturnType<typeof useFlowGraph>
+export type FlowGraphModel = ReturnType<typeof useFlowGraph>['flowGraph']
 
-function createNodes(tree: TreeModel<RecursiveTreeNode>, idWordMapping: Id2WordMapping, staticVocabulary: TreeNodeValue[]) {
+function createNodes(tree: TreeModel<RecursiveTreeNode>, id2WordMapping: Id2WordMapping, staticVocabulary: TreeNodeValue[]) {
   const nodes: FlowNode[] = []
   const getColor = scaleOrdinal(colorScheme).domain([...staticVocabulary.map((v) => `${v}`), ...staticVocabulary.map((v) => `${v}__child`)])
+
+  const reverseNodeIdMapping = (function () {
+    const reversedMapping: NodeIdMapping = {}
+    Object.entries(tree.nodeIdMapping).forEach(([newNodeId, originalId]) => {
+      reversedMapping[originalId] = newNodeId
+    })
+    return reversedMapping
+  }())
+
+  const word2IdMapping = (function () {
+    const reversedMapping: Word2IdMapping = {}
+    Object.entries(id2WordMapping).forEach(([id, word]) => {
+      reversedMapping[word] = +id
+    })
+    return reversedMapping
+  }())
 
   function makeColor(node: RecursiveTreeNode, parent?: FlowNode) {
     if (node.isStaticNode) {
@@ -71,7 +86,7 @@ function createNodes(tree: TreeModel<RecursiveTreeNode>, idWordMapping: Id2WordM
   function convertNode(node: RecursiveTreeNode, index: number, parent?: FlowNode) {
     const id = `${parent ? `${parent.id}.` : ''}${index}`
 
-    const flowNode: FlowNode = { id, children: [], color: makeColor(node, parent), nodeIdMapping: tree.nodeIdMapping, idWordMapping, isStaticNode: node.isStaticNode, parent, value: node.value }
+    const flowNode: FlowNode = { id, children: [], color: makeColor(node, parent), nodeIdMapping: tree.nodeIdMapping, reverseNodeIdMapping, id2WordMapping, word2IdMapping, isStaticNode: node.isStaticNode, parent, value: node.value }
     nodes.push(flowNode)
     const children = node.children
     if (!children) {
@@ -85,7 +100,7 @@ function createNodes(tree: TreeModel<RecursiveTreeNode>, idWordMapping: Id2WordM
   }
 
   convertNode(tree.root, 0)
-  return nodes
+  return { nodes, reverseNodeIdMapping, word2IdMapping }
 }
 
 export interface Hierarchy {
