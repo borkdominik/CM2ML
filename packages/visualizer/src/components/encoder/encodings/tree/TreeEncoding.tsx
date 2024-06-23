@@ -1,4 +1,4 @@
-import { type IdMapping, type RecursiveTreeNode, TreeEncoder, type TreeModel, type TreeNodeValue } from '@cm2ml/builtin'
+import { type Id2WordMapping, type NodeIdMapping, type RecursiveTreeNode, TreeEncoder, type TreeModel, type TreeNodeValue, type Word2IdMapping } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { useEffect, useMemo } from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Panel, Position, useReactFlow } from 'reactflow'
@@ -22,7 +22,7 @@ export function TreeEncoding({ model, parameters }: Props) {
   if (error || !encoding) {
     return <Hint error={error} />
   }
-  return <FlowGraph tree={encoding.data} staticVocabulary={encoding.metadata.vocabularies.staticVocabulary} vocabulary={encoding.metadata.vocabularies.vocabulary} />
+  return <FlowGraph tree={encoding.data} idWordMapping={encoding.metadata.id2WordMapping} staticVocabulary={encoding.metadata.vocabularies.staticVocabulary} vocabulary={encoding.metadata.vocabularies.vocabulary} />
 }
 
 const nodeTypes = {
@@ -31,12 +31,13 @@ const nodeTypes = {
 
 interface FlowGraphProps {
   tree: TreeModel<RecursiveTreeNode>
+  idWordMapping: Id2WordMapping
   staticVocabulary: TreeNodeValue[]
   vocabulary: TreeNodeValue[]
 }
 
-function FlowGraph({ tree, vocabulary, staticVocabulary }: FlowGraphProps) {
-  const flowGraph = useFlowGraph(tree, staticVocabulary)
+function FlowGraph({ tree, idWordMapping, vocabulary, staticVocabulary }: FlowGraphProps) {
+  const flowGraph = useFlowGraph(tree, idWordMapping, staticVocabulary)
   const { nodes, edges, type } = flowGraph
   return (
     <div className="size-full">
@@ -57,7 +58,7 @@ function FlowGraph({ tree, vocabulary, staticVocabulary }: FlowGraphProps) {
         <Background variant={BackgroundVariant.Dots} />
         <Controls showInteractive={false} />
         <MiniMap zoomable />
-        <ViewFitter flowGraph={flowGraph} idMapping={tree.idMapping} />
+        <ViewFitter flowGraph={flowGraph} nodeIdMapping={tree.nodeIdMapping} id2WordMapping={idWordMapping} />
         <Panel position="top-left" className="font-mono text-xs opacity-50">
           {tree.format}
         </Panel>
@@ -81,15 +82,16 @@ function FlowGraph({ tree, vocabulary, staticVocabulary }: FlowGraphProps) {
 
 function useIsFlowNodeSelected(flowNode: FlowNode) {
   const { selection } = useSelection.use.selection() ?? {}
-  const reversedMapping = useReversedMapping(flowNode.idMapping)
+  const reversedNodeIdMapping = useReversedNodeIdMapping(flowNode.nodeIdMapping)
+  const word2IdMapping = useWord2IdMapping(flowNode.idWordMapping)
   if (!selection) {
     return false
   }
-  if (isNodeSelection(selection)) {
-    const mappedSelection = reversedMapping[selection] ?? selection
-    return mappedSelection === flowNode.value
+  if (!isNodeSelection(selection)) {
+    return false
   }
-  return false
+  const mappedSelection = mapValueToWordId(selection, reversedNodeIdMapping, word2IdMapping)
+  return flowNode.value === mappedSelection
 }
 
 function FlowTreeNode({ data }: { data: FlowNode }) {
@@ -97,6 +99,10 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
   const isTerminal = data.children.length === 0
   const setSelection = useSelection.use.setSelection()
   const isSelected = useIsFlowNodeSelected(data)
+  const select = () => {
+    const selection = mapWordIdToValue(data.value, data.nodeIdMapping, data.idWordMapping)
+    setSelection({ selection, origin: 'tree' })
+  }
   return (
     <div>
       {isOrigin
@@ -111,7 +117,7 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
           outlineColor: data.color,
           outlineWidth: isSelected ? 6 : 2,
         }}
-        onClick={() => setSelection({ selection: `${data.idMapping[data.value] ?? data.value}`, origin: 'tree' })}
+        onClick={select}
       >
         {data.value}
       </div>
@@ -128,21 +134,31 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
   )
 }
 
-function useReversedMapping(idMapping: IdMapping) {
+function useReversedNodeIdMapping(nodeIdMapping: NodeIdMapping) {
   return useMemo(() => {
-    const mapping: IdMapping = {}
-    Object.entries(idMapping).forEach(([key, value]) => {
-      mapping[value] = key
+    const reversedMapping: NodeIdMapping = {}
+    Object.entries(nodeIdMapping).forEach(([newNodeId, originalId]) => {
+      reversedMapping[originalId] = newNodeId
     })
-    return mapping
-  }, [idMapping])
+    return reversedMapping
+  }, [nodeIdMapping])
+}
+
+function useWord2IdMapping(id2WordMapping: Id2WordMapping) {
+  return useMemo(() => {
+    const reversedMapping: Word2IdMapping = {}
+    Object.entries(id2WordMapping).forEach(([id, word]) => {
+      reversedMapping[word] = +id
+    })
+    return reversedMapping
+  }, [id2WordMapping])
 }
 
 /**
  * Utility component that (re-)fits the view of the ReactFlow component should the input model change.
  * It needs to be a child of the {@link ReactFlow} component and not a hook, because it needs access to the react flow instance via {@link useReactFlow}.
  */
-function ViewFitter({ flowGraph, idMapping }: { flowGraph: FlowGraphModel, idMapping: IdMapping }) {
+function ViewFitter({ flowGraph, nodeIdMapping, id2WordMapping }: { flowGraph: FlowGraphModel, nodeIdMapping: NodeIdMapping, id2WordMapping: Id2WordMapping }) {
   const reactFlow = useReactFlow<FlowNode>()
 
   useEffect(() => {
@@ -153,11 +169,15 @@ function ViewFitter({ flowGraph, idMapping }: { flowGraph: FlowGraphModel, idMap
   }, [reactFlow, flowGraph])
 
   const { origin: source, selection } = useSelection.use.selection() ?? {}
-  const reversedMapping = useReversedMapping(idMapping)
+  const reversedNodeIdMapping = useReversedNodeIdMapping(nodeIdMapping)
+  const word2IdMapping = useWord2IdMapping(id2WordMapping)
   useEffect(() => {
     const timeout = setTimeout(() => {
-      const selectedNodeId = selection && isNodeSelection(selection) ? reversedMapping[selection] ?? selection : undefined
-      const selectedNodes = selectedNodeId ? reactFlow.getNodes().filter((node) => node.data.value === selectedNodeId) : []
+      if (!selection || !isNodeSelection(selection)) {
+        return
+      }
+      const mappedSelection = mapValueToWordId(selection, reversedNodeIdMapping, word2IdMapping)
+      const selectedNodes = reactFlow.getNodes().filter((node) => node.data.value === mappedSelection)
       const firstSelectedNode = selectedNodes.sort((a, b) => {
         if (a.position.y === b.position.y) {
           return a.position.x > b.position.x ? 1 : -1
@@ -173,7 +193,26 @@ function ViewFitter({ flowGraph, idMapping }: { flowGraph: FlowGraphModel, idMap
       reactFlow.setCenter(firstSelectedNode.position.x, firstSelectedNode.position.y, { duration: 200, zoom: 1 })
     }, 200)
     return () => clearTimeout(timeout)
-  }, [reactFlow, selection])
+  }, [reactFlow, selection, reversedNodeIdMapping, id2WordMapping])
 
   return null
+}
+
+function mapValueToWordId(value: string, reversedNodeIdMapping: NodeIdMapping, word2IdMapping: Word2IdMapping) {
+  // 1. Map the original value to a reduced node id (if applicable)
+  const mappedValue = reversedNodeIdMapping[value] ?? value
+  // 2. Map the reduced node id to the word id
+  const mappedWordId = word2IdMapping[mappedValue] ?? mappedValue
+  return mappedWordId
+}
+
+function mapWordIdToValue(wordId: string | number, nodeIdMapping: NodeIdMapping, id2WordMapping: Id2WordMapping) {
+  if (typeof wordId !== 'number') {
+    return wordId
+  }
+  // 1. Map the word id to the word
+  const mappedWord = id2WordMapping[wordId] ?? wordId
+  // 2. Map the reduced node id to the original value (if applicable)
+  const mappedValue = nodeIdMapping[mappedWord] ?? mappedWord
+  return `${mappedValue}`
 }

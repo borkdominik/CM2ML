@@ -2,7 +2,7 @@
   "data": [
     {
       "format": "local",
-      "idMapping": {
+      "nodeIdMapping": {
         "1": "_Cfp0UGmxEe2kLe5KTNzRtw",
         "10": "_O3oqALK1Ee24ffphK9Na6g",
         "11": "_O3oqAbK1Ee24ffphK9Na6g",
@@ -15496,7 +15496,7 @@
     },
     {
       "format": "local",
-      "idMapping": {
+      "nodeIdMapping": {
         "80": "_0V2YcPidEe6PhJwEQ2R2dA",
         "81": "_RGi8oPieEe6PhJwEQ2R2dA",
         "82": "_J7D7cPigEe6PhJwEQ2R2dA",
@@ -17980,7 +17980,7 @@
     },
     {
       "format": "local",
-      "idMapping": {
+      "nodeIdMapping": {
         "100": "_zNKW0Nu5Ee65YvY_tzBAgQ",
         "101": "_ZNSfANu6Ee65YvY_tzBAgQ",
         "102": "_fmHpUNu6Ee65YvY_tzBAgQ",
@@ -22658,7 +22658,7 @@
     },
     {
       "format": "local",
-      "idMapping": {
+      "nodeIdMapping": {
         "117": "_PTF5sc4OEe2NwpxoRjsNIQ",
         "118": "_QGY-4M4OEe2NwpxoRjsNIQ",
         "119": "_5AugUPn-Ee2smM55zuHUhw",
@@ -26076,6 +26076,7 @@
   ],
   "metadata": {
     "edgeFeatures": [],
+    "id2WordMapping": [],
     "nodeFeatures": [
       [
         "aggregation",

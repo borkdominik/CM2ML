@@ -2,13 +2,19 @@ import type { FeatureContext } from '@cm2ml/feature-encoder'
 import type { Attribute, GraphModel, GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
-import type { TreeModel, TreeNode } from '../tree-model'
+import type { NodeIdMapping, TreeModel, TreeNode } from '../tree-model'
 
 export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
-  private nodeIdMapping: Record<string, `id_${number}`> = {}
+  /**
+   * A mapping from the original node IDs to the generated node IDs.
+   */
+  private generatedNodeIdMapping: Record<string, `id_${number}`> = {}
   private id_counter = 0
   protected nodeCount = 0
-  readonly #idMapping: Record<string, string> = {}
+  /**
+   * A mapping from the generated node IDs to the original node IDs.
+   */
+  readonly #nodeIdMapping: NodeIdMapping = {}
 
   public readonly treeModel: TreeModel<Root>
 
@@ -17,13 +23,13 @@ export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
     this.treeModel = this.createTreeModel(model.root)
   }
 
-  protected get idMapping(): Readonly<Record<string, string>> {
-    return this.#idMapping
+  protected get nodeIdMapping(): NodeIdMapping {
+    return this.#nodeIdMapping
   }
 
   public registerNode(node: GraphNode): void {
     if (this.replaceNodeIds) {
-      this.nodeIdMapping[requireId(node)] = `id_${this.id_counter++}`
+      this.generatedNodeIdMapping[requireId(node)] = `id_${this.id_counter++}`
     }
   }
 
@@ -35,12 +41,12 @@ export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
       throw new Error('Node has an id attribute. Tree encoding requires all nodes to have IDs assigned.')
     }
     const mappedId = this.mapAttribute(idAttribute)
-    this.#idMapping[mappedId] = idAttribute.value.literal
+    this.#nodeIdMapping[mappedId] = idAttribute.value.literal
     return mappedId
   }
 
   protected mapAttribute(attribute: Attribute): string {
-    const mappedId = this.nodeIdMapping[attribute.value.literal]
+    const mappedId = this.generatedNodeIdMapping[attribute.value.literal]
     if (mappedId) {
       // attribute value is a node id
       return mappedId
@@ -59,7 +65,7 @@ export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
     return node
   }
 
-  protected getFilteredAttributes(node: GraphNode) {
+  protected getFilteredAttributes(node: GraphNode): Stream<Attribute> {
     return Stream
       .from(node.attributes.values())
       .filter((attribute) => this.includeAttribute(attribute))

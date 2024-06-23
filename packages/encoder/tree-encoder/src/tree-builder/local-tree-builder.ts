@@ -81,7 +81,7 @@ export class LocalTreeBuilder extends TreeBuilder<LocalRootNode> {
       root,
       numNodes: this.nodeCount,
       format: 'local',
-      idMapping: this.idMapping,
+      nodeIdMapping: this.nodeIdMapping,
     }
   }
 

@@ -84,7 +84,7 @@ export class GlobalTreeBuilder extends TreeBuilder<GlobalRootNode> {
       root,
       numNodes: this.nodeCount,
       format: 'global',
-      idMapping: this.idMapping,
+      nodeIdMapping: this.nodeIdMapping,
     }
   }
 

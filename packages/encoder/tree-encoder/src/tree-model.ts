@@ -11,13 +11,13 @@ export type TreeNodeValue = string | number
 /**
  * Key-value mapping from new node ids to original node ids.
  */
-export type IdMapping = Record<TreeNodeValue, TreeNodeValue>
+export type NodeIdMapping = Record<TreeNodeValue, TreeNodeValue>
 
 export interface TreeModel<Root extends TreeNode<unknown[]>> {
   readonly root: Root
   readonly numNodes: number
   readonly format: TreeFormat
-  readonly idMapping: IdMapping
+  readonly nodeIdMapping: NodeIdMapping
 }
 
 export interface TreeNode<Children extends unknown[]> {

@@ -68,7 +68,7 @@ export class CompactTreeBuilder extends TreeBuilder<CompactRootNode> {
       root,
       numNodes: this.nodeCount,
       format: 'compact',
-      idMapping: this.idMapping,
+      nodeIdMapping: this.nodeIdMapping,
     }
   }
 

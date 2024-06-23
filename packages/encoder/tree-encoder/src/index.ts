@@ -74,6 +74,14 @@ const BuildVocabulary = definePlugin({
   },
 })
 
+export type Id2WordMapping = Record<number, TreeNodeValue>
+
+export type Word2IdMapping = Record<TreeNodeValue, number>
+
+type BuildVocabularyOutput = InferOut<typeof BuildVocabulary>
+
+type BuildVocabularyMetadata = Exclude<BuildVocabularyOutput[number], ExecutionError>['metadata']
+
 const WordsToIds = definePlugin({
   name: 'words-to-ids',
   parameters: {
@@ -88,29 +96,51 @@ const WordsToIds = definePlugin({
       description: 'The start index for the ids.',
     },
   },
-  invoke(input: (InferOut<typeof BuildVocabulary>), parameters) {
+  invoke(input: BuildVocabularyOutput, parameters) {
+    function alignOutType() {
+      let metadata: BuildVocabularyMetadata & { id2WordMapping: Id2WordMapping } | null = null
+      return input.map((item) => {
+        if (item instanceof ExecutionError) {
+          return item
+        }
+        const treeModel = item.data
+        if (!metadata) {
+          metadata = { ...item.metadata, id2WordMapping: [] }
+        }
+        return {
+          data: treeModel,
+          metadata,
+        }
+      })
+    }
     if (!parameters.wordsToIds) {
-      return input
+      return alignOutType()
     }
     const firstValidInput = input.find((item): item is Exclude<InferOut<typeof BuildVocabulary>[number], ExecutionError> => !(item instanceof ExecutionError))
     if (!firstValidInput) {
-      return input
+      return alignOutType()
     }
     const metadata = firstValidInput.metadata
-    const wordIdMapping: Record<TreeNodeValue, number> = {}
+    const word2IdMapping: Word2IdMapping = {}
     metadata.vocabularies.vocabulary.forEach((word, index) => {
-      wordIdMapping[word] = index + parameters.idStartIndex
+      word2IdMapping[word] = index + parameters.idStartIndex
     })
+    const id2WordMapping: Id2WordMapping = []
     function mapNode(node: RecursiveTreeNode): RecursiveTreeNode {
-      const newValue = wordIdMapping[node.value]
-      if (newValue === undefined) {
+      const wordId = word2IdMapping[node.value]
+      if (wordId === undefined) {
         throw new Error(`Word not found in vocabulary: ${node.value}. This is an internal error.`)
       }
+      id2WordMapping[wordId] = node.value
       return {
         ...node,
-        value: newValue,
+        value: wordId,
         children: node.children.map(mapNode),
       }
+    }
+    const newMetadata = {
+      ...firstValidInput.metadata,
+      id2WordMapping,
     }
     return input.map((item) => {
       if (item instanceof ExecutionError) {
@@ -122,7 +152,7 @@ const WordsToIds = definePlugin({
           ...treeModel,
           root: mapNode(treeModel.root),
         },
-        metadata: item.metadata,
+        metadata: newMetadata,
       }
     })
   },

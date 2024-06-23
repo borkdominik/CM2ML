@@ -2,7 +2,7 @@
   "data": [
     {
       "format": "local",
-      "idMapping": {
+      "nodeIdMapping": {
         "1": "_yoiHINu2Ee65YvY_tzBAgQ",
         "10": "_ZNSfANu6Ee65YvY_tzBAgQ",
         "11": "_fmHpUNu6Ee65YvY_tzBAgQ",
@@ -4681,6 +4681,7 @@
   ],
   "metadata": {
     "edgeFeatures": [],
+    "id2WordMapping": [],
     "nodeFeatures": [
       [
         "aggregation",
