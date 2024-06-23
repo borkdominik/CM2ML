@@ -1,4 +1,4 @@
-import type { RecursiveTreeNode, TreeModel } from '@cm2ml/builtin'
+import type { IdMapping, RecursiveTreeNode, TreeModel, TreeNodeValue } from '@cm2ml/builtin'
 import { Stream } from '@yeger/streams'
 import { sugiyama, graphStratify as sugiyamaStratify } from 'd3-dag'
 import { tree, stratify as treeStratify } from 'd3-hierarchy'
@@ -28,7 +28,7 @@ const treeSizeConfig: SizeConfig = {
   verticalSpacing: 50,
 }
 
-export function useFlowGraph(tree: TreeModel<RecursiveTreeNode>, vocabulary: string[]) {
+export function useFlowGraph(tree: TreeModel<RecursiveTreeNode>, vocabulary: TreeNodeValue[]) {
   return useMemo(() => {
     const nodes = createNodes(tree, vocabulary)
     const hierarchy = createHierarchy(nodes)
@@ -41,18 +41,18 @@ export type FlowNode = Omit<RecursiveTreeNode, 'children'> & {
   children: FlowNode[]
   color?: string
   parent?: FlowNode
-  idMapping: Record<string, string>
+  idMapping: IdMapping
 }
 
 export type FlowGraphModel = ReturnType<typeof useFlowGraph>
 
-function createNodes(tree: TreeModel<RecursiveTreeNode>, staticVocabulary: string[]) {
+function createNodes(tree: TreeModel<RecursiveTreeNode>, staticVocabulary: TreeNodeValue[]) {
   const nodes: FlowNode[] = []
-  const getColor = scaleOrdinal(colorScheme).domain([...staticVocabulary, ...staticVocabulary.map((v) => `${v}__child`)])
+  const getColor = scaleOrdinal(colorScheme).domain([...staticVocabulary.map((v) => `${v}`), ...staticVocabulary.map((v) => `${v}__child`)])
 
   function makeColor(node: RecursiveTreeNode, parent?: FlowNode) {
     if (node.isStaticNode) {
-      return getColor(node.value)
+      return getColor(`${node.value}`)
     }
     if (!parent) {
       return undefined
@@ -63,7 +63,7 @@ function createNodes(tree: TreeModel<RecursiveTreeNode>, staticVocabulary: strin
     return parent.color
   }
 
-  function convertNode(node: RecursiveTreeNode, index: number, idMapping: Record<string, string>, parent?: FlowNode) {
+  function convertNode(node: RecursiveTreeNode, index: number, idMapping: IdMapping, parent?: FlowNode) {
     const id = `${parent ? `${parent.id}.` : ''}${index}`
 
     const flowNode: FlowNode = { id, children: [], color: makeColor(node, parent), idMapping, isStaticNode: node.isStaticNode, parent, value: node.value }

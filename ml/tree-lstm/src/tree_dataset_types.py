@@ -1,7 +1,7 @@
-from typing import TypedDict
+from typing import TypedDict, Union
 
 class TreeNode(TypedDict):
-    value: str
+    value: Union[str, int]
     children: list["TreeNode"]
 
 class TreeModel(TypedDict):

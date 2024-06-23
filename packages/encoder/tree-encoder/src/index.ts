@@ -4,6 +4,7 @@ import type { GraphModel } from '@cm2ml/ir'
 import type { InferOut } from '@cm2ml/plugin'
 import { ExecutionError, batchTryCatch, compose, definePlugin, defineStructuredPlugin } from '@cm2ml/plugin'
 
+import type { RecursiveTreeNode, TreeNodeValue } from './tree-model'
 import { isValidTreeFormat, treeFormats } from './tree-model'
 import { CompactTreeTransformer } from './tree-transformer/compact-tree-transformer'
 import { GlobalTreeTransformer } from './tree-transformer/global-tree-transformer'
@@ -73,4 +74,62 @@ const BuildVocabulary = definePlugin({
   },
 })
 
-export const TreeEncoder = compose(compose(FeatureEncoder, batchTryCatch(TreeTransformer)), BuildVocabulary, TreeTransformer.name)
+const WordsToIds = definePlugin({
+  name: 'words-to-ids',
+  parameters: {
+    wordsToIds: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Whether to convert words to ids.',
+    },
+    idStartIndex: {
+      type: 'number',
+      defaultValue: 0,
+      description: 'The start index for the ids.',
+    },
+  },
+  invoke(input: (InferOut<typeof BuildVocabulary>), parameters) {
+    if (!parameters.wordsToIds) {
+      return input
+    }
+    const firstValidInput = input.find((item): item is Exclude<InferOut<typeof BuildVocabulary>[number], ExecutionError> => !(item instanceof ExecutionError))
+    if (!firstValidInput) {
+      return input
+    }
+    const metadata = firstValidInput.metadata
+    const wordIdMapping: Record<TreeNodeValue, number> = {}
+    metadata.vocabularies.vocabulary.forEach((word, index) => {
+      wordIdMapping[word] = index + parameters.idStartIndex
+    })
+    function mapNode(node: RecursiveTreeNode): RecursiveTreeNode {
+      const newValue = wordIdMapping[node.value]
+      if (newValue === undefined) {
+        throw new Error(`Word not found in vocabulary: ${node.value}. This is an internal error.`)
+      }
+      return {
+        ...node,
+        value: newValue,
+        children: node.children.map(mapNode),
+      }
+    }
+    return input.map((item) => {
+      if (item instanceof ExecutionError) {
+        return item
+      }
+      const treeModel = item.data
+      return {
+        data: {
+          ...treeModel,
+          root: mapNode(treeModel.root),
+        },
+        metadata: item.metadata,
+      }
+    })
+  },
+})
+
+export const TreeEncoder = compose(
+  compose(FeatureEncoder, batchTryCatch(TreeTransformer)),
+  compose(BuildVocabulary, WordsToIds),
+  TreeTransformer.name,
+)

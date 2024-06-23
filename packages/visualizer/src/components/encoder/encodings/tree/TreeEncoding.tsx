@@ -1,4 +1,4 @@
-import { type RecursiveTreeNode, TreeEncoder, type TreeModel } from '@cm2ml/builtin'
+import { type IdMapping, type RecursiveTreeNode, TreeEncoder, type TreeModel, type TreeNodeValue } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { useEffect, useMemo } from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Panel, Position, useReactFlow } from 'reactflow'
@@ -31,8 +31,8 @@ const nodeTypes = {
 
 interface FlowGraphProps {
   tree: TreeModel<RecursiveTreeNode>
-  staticVocabulary: string[]
-  vocabulary: string[]
+  staticVocabulary: TreeNodeValue[]
+  vocabulary: TreeNodeValue[]
 }
 
 function FlowGraph({ tree, vocabulary, staticVocabulary }: FlowGraphProps) {
@@ -111,7 +111,7 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
           outlineColor: data.color,
           outlineWidth: isSelected ? 6 : 2,
         }}
-        onClick={() => setSelection({ selection: data.idMapping[data.value] ?? data.value, origin: 'tree' })}
+        onClick={() => setSelection({ selection: `${data.idMapping[data.value] ?? data.value}`, origin: 'tree' })}
       >
         {data.value}
       </div>
@@ -128,9 +128,9 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
   )
 }
 
-function useReversedMapping(idMapping: Record<string, string>) {
+function useReversedMapping(idMapping: IdMapping) {
   return useMemo(() => {
-    const mapping: Record<string, string> = {}
+    const mapping: IdMapping = {}
     Object.entries(idMapping).forEach(([key, value]) => {
       mapping[value] = key
     })
@@ -142,7 +142,7 @@ function useReversedMapping(idMapping: Record<string, string>) {
  * Utility component that (re-)fits the view of the ReactFlow component should the input model change.
  * It needs to be a child of the {@link ReactFlow} component and not a hook, because it needs access to the react flow instance via {@link useReactFlow}.
  */
-function ViewFitter({ flowGraph, idMapping }: { flowGraph: FlowGraphModel, idMapping: Record<string, string> }) {
+function ViewFitter({ flowGraph, idMapping }: { flowGraph: FlowGraphModel, idMapping: IdMapping }) {
   const reactFlow = useReactFlow<FlowNode>()
 
   useEffect(() => {

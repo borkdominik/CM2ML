@@ -1,6 +1,6 @@
 import { Stream } from '@yeger/streams'
 
-import type { RecursiveTreeNode, TreeModel } from './tree-model'
+import type { RecursiveTreeNode, TreeModel, TreeNodeValue } from './tree-model'
 
 export function getVocabularies(trees: TreeModel<RecursiveTreeNode>[]) {
   const staticVocabulary = getVocabulary(trees, 'static')
@@ -29,7 +29,7 @@ function getVocabulary(trees: TreeModel<RecursiveTreeNode>[], vocabularyType: Vo
     .sort()
 }
 
-function getValues(node: RecursiveTreeNode, vocabularyType: VocabularyType): Stream<string> {
+function getValues(node: RecursiveTreeNode, vocabularyType: VocabularyType): Stream<TreeNodeValue> {
   const matchesVocabularyType = node.isStaticNode === (vocabularyType === 'static')
   const selfStream = matchesVocabularyType ? Stream.fromSingle(node.value) : Stream.empty<string>()
   const childStream = Stream

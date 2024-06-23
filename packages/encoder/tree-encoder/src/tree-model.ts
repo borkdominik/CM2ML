@@ -6,15 +6,22 @@ export function isValidTreeFormat(format: string): format is TreeFormat {
 
 export type TreeFormat = typeof treeFormats[number]
 
+export type TreeNodeValue = string | number
+
+/**
+ * Key-value mapping from new node ids to original node ids.
+ */
+export type IdMapping = Record<TreeNodeValue, TreeNodeValue>
+
 export interface TreeModel<Root extends TreeNode<unknown[]>> {
   readonly root: Root
   readonly numNodes: number
   readonly format: TreeFormat
-  readonly idMapping: Record<string, string>
+  readonly idMapping: IdMapping
 }
 
 export interface TreeNode<Children extends unknown[]> {
-  readonly value: string
+  readonly value: TreeNodeValue
   readonly children: Children
   readonly isStaticNode: boolean
 }
