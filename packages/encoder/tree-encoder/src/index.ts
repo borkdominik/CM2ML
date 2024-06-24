@@ -74,7 +74,7 @@ const BuildVocabulary = definePlugin({
   },
 })
 
-export type Id2WordMapping = Record<number, TreeNodeValue>
+export type Id2WordMapping = Record<`${number}`, TreeNodeValue>
 
 export type Word2IdMapping = Record<TreeNodeValue, number>
 
@@ -131,7 +131,7 @@ const WordsToIds = definePlugin({
       if (wordId === undefined) {
         throw new Error(`Word not found in vocabulary: ${node.value}. This is an internal error.`)
       }
-      id2WordMapping[wordId] = node.value
+      id2WordMapping[`${wordId}`] = node.value
       return {
         ...node,
         value: wordId,

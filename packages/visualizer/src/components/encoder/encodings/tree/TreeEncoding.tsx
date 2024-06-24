@@ -184,7 +184,7 @@ function mapValueToWordId(value: string, reverseNodeIdMapping: NodeIdMapping, wo
 
 function mapWordIdToValue(wordId: string | number, nodeIdMapping: NodeIdMapping, id2WordMapping: Id2WordMapping) {
   // 1. Map the word id to the word
-  const mappedWord = typeof wordId === 'number' ? id2WordMapping[wordId] ?? wordId : wordId
+  const mappedWord = typeof wordId === 'number' ? id2WordMapping[`${wordId}`] ?? wordId : wordId
   // 2. Map the reduced node id to the original value (if applicable)
   const mappedValue = nodeIdMapping[mappedWord] ?? mappedWord
   return `${mappedValue}`
