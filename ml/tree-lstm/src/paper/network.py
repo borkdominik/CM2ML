@@ -272,7 +272,6 @@ class Tree2TreeModel(nn.Module):
         self,
         source_vocab: data_utils.Vocab,
         target_vocab: data_utils.Vocab,
-        max_depth: int,
         embedding_size: int,
         hidden_size: int,
         num_layers: int,
@@ -288,7 +287,6 @@ class Tree2TreeModel(nn.Module):
         self.target_vocab_size = len(target_vocab)
         self.source_vocab = source_vocab
         self.target_vocab = target_vocab
-        self.max_depth = max_depth
         self.embedding_size = embedding_size
         self.hidden_size = hidden_size
         self.batch_size = batch_size

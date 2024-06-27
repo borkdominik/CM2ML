@@ -27,7 +27,6 @@ def create_model(
     model = network.Tree2TreeModel(
         source_vocab,
         target_vocab,
-        args.max_depth,
         args.embedding_size,
         args.hidden_size,
         args.num_layers,
@@ -346,8 +345,6 @@ class Args:
     # clip gradients to this norm
     max_gradient_norm: float
     batch_size: int
-    # max depth for tree models
-    max_depth: int
     # size of each model layer
     hidden_size: int
     embedding_size: int
@@ -357,10 +354,6 @@ class Args:
     train_dir_checkpoints: str
     # path to the pretrained tree2tree model
     load_model: Union[str, None]
-    # max length for input
-    max_source_len: int
-    # max length for output
-    max_target_len: int
     # set to true for testing
     test: bool
     # set to true to disable attention
@@ -382,15 +375,12 @@ args = Args(
         "learning_rate_decay_steps": 2000,
         "max_gradient_norm": 5.0,
         "batch_size": 32,
-        "max_depth": 100,
         "hidden_size": 256,
         "embedding_size": 256,
         "dropout_rate": 0.5,
         "num_layers": 2,
         "train_dir_checkpoints": f"{script_dir}/../.checkpoints/tree-lstm.pt",
         "load_model": None,  # f"{script_dir}/../.cache/neuralnetwork.pth",
-        "max_source_len": 115,
-        "max_target_len": 315,
         "test": False,
         "no_attention": False,
         "no_pf": False,
