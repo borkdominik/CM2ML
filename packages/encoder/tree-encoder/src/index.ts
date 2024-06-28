@@ -33,6 +33,11 @@ const TreeTransformer = defineStructuredPlugin({
       defaultValue: false,
       description: 'Replace node ids with generated ids. This keeps vocabulary size small.',
     },
+    verboseFeatureValues: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Add name and type prefixes to feature values. This makes values unique across features.',
+    },
   },
   invoke({ data: model, metadata: featureContext }: { data: GraphModel, metadata: FeatureContext }, parameters) {
     function createTreeModel() {
@@ -40,7 +45,7 @@ const TreeTransformer = defineStructuredPlugin({
         throw new Error(`Invalid tree format: ${parameters.format}.`)
       }
       const Transformer = treeBuilders[parameters.format]
-      return new Transformer(model, featureContext, parameters.replaceNodeIds).treeModel
+      return new Transformer(model, featureContext, parameters).treeModel
     }
     const treeModel = createTreeModel()
     return {

@@ -131,13 +131,7 @@ class TreeDataset(torch.utils.data.Dataset):
         for obj in input_root_objects:
             if not is_obj_node(obj):
                 continue
-            atts = obj["children"][1]["children"]
-            atts = [
-                attr
-                for _, attr in enumerate(atts)
-                if attr["value"] != "xmi:type" and attr["value"] != "xsi:type"
-            ]
-            obj["children"][1]["children"] = atts
+            obj["children"][0]["children"] = []
 
         output = copy.deepcopy(tree)
         output_root = output["root"]
@@ -148,11 +142,7 @@ class TreeDataset(torch.utils.data.Dataset):
             if not is_obj_node(obj):
                 continue
             identifier = obj["children"][0]["value"]
-            type = None
-            for attr in obj["children"][1]["children"]:
-                if attr["value"] == "xmi:type" or attr["value"] == "xsi:type":
-                    type = attr["children"][0]["value"]
-                    break
+            type = obj["children"][0]["children"][0]["value"]
             if type is None:
                 raise ValueError(
                     f"Type not found for obj {identifier}. Increase the training data size to include both xmi:type and xsi:type samples."

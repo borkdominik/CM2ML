@@ -37,10 +37,6 @@ export class Metamodel<AttributeName extends string, Type extends string, Tag ex
     this.Tags = tags
   }
 
-  public getId(node: GraphNode): string | undefined {
-    return node.getAttribute(this.idAttribute)?.value.literal
-  }
-
   public getIdAttribute(node: GraphNode): Attribute | undefined {
     return node.getAttribute(this.idAttribute)
   }
@@ -248,7 +244,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
   }
 
   public get id(): string | undefined {
-    return this.model.metamodel.getId(this)
+    return this.model.metamodel.getIdAttribute(this)?.value.literal
   }
 
   public get idAttribute(): Attribute | undefined {

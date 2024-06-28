@@ -4,6 +4,11 @@ import { Stream } from '@yeger/streams'
 
 import type { NodeIdMapping, TreeModel, TreeNode } from '../tree-model'
 
+export interface TreeBuilderSettings {
+  replaceNodeIds: boolean
+  verboseFeatureValues: boolean
+}
+
 export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
   /**
    * A mapping from the original node IDs to the generated node IDs.
@@ -18,7 +23,7 @@ export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
 
   public readonly treeModel: TreeModel<Root>
 
-  public constructor(model: GraphModel, private readonly featureContext: FeatureContext, private readonly replaceNodeIds: boolean) {
+  public constructor(model: GraphModel, private readonly featureContext: FeatureContext, private readonly settings: TreeBuilderSettings) {
     model.nodes.forEach((node) => this.registerNode(node))
     this.treeModel = this.createTreeModel(model.root)
   }
@@ -28,15 +33,30 @@ export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
   }
 
   public registerNode(node: GraphNode): void {
-    if (this.replaceNodeIds) {
-      this.generatedNodeIdMapping[requireId(node)] = `id_${this.id_counter++}`
+    if (this.settings.replaceNodeIds) {
+      this.generatedNodeIdMapping[this.requireId(node)] = `id_${this.id_counter++}`
     }
+  }
+
+  protected requireId(node: GraphNode): string {
+    if (!node.id) {
+      throw new Error('Node has no id. Tree encoding requires all nodes to have IDs assigned.')
+    }
+    return node.id
+  }
+
+  protected requireTypeAttribute(node: GraphNode): Attribute {
+    const typeAttribute = node.typeAttribute
+    if (!typeAttribute) {
+      throw new Error('Node has no type attribute. Tree encoding requires all nodes to have types assigned.')
+    }
+    return typeAttribute
   }
 
   protected abstract createTreeModel(rootNode: GraphNode): TreeModel<Root>
 
   protected mapId(node: GraphNode): string {
-    const idAttribute = node.attributes.get(node.model.metamodel.idAttribute)
+    const idAttribute = node.idAttribute
     if (!idAttribute) {
       throw new Error('Node has an id attribute. Tree encoding requires all nodes to have IDs assigned.')
     }
@@ -51,9 +71,10 @@ export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
       // attribute value is a node id
       return mappedId
     }
+    if (this.settings.verboseFeatureValues) {
+      return `${attribute.name}_${attribute.type}_${this.featureContext.mapNodeAttribute(attribute)}`
+    }
     return `${this.featureContext.mapNodeAttribute(attribute)}`
-    // TODO/Jan: Enable less concise version via parameter?
-    return `${attribute.name}_${attribute.type}_${this.featureContext.mapNodeAttribute(attribute)}`
   }
 
   private includeAttribute(attribute: Attribute) {
@@ -66,17 +87,11 @@ export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
   }
 
   protected getFilteredAttributes(node: GraphNode): Stream<Attribute> {
+    const idAttribute = node.idAttribute
     return Stream
       .from(node.attributes.values())
       .filter((attribute) => this.includeAttribute(attribute))
       // do not include the node's identifier in the regular attributes
-      .filter((attribute) => attribute.value.literal !== node.id)
+      .filter((attribute) => attribute !== idAttribute)
   }
-}
-
-export function requireId(node: GraphNode): string {
-  if (!node.id) {
-    throw new Error('Node has no id. Tree encoding requires all nodes to have IDs assigned.')
-  }
-  return node.id
 }

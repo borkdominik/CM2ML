@@ -19,12 +19,20 @@ export interface GlobalObjectNode extends TreeNode<[GlobalIdentifierNode, Global
   readonly isStaticNode: true
 }
 
-export interface GlobalIdentifierNode extends TreeNode<[]> {
+export interface GlobalIdentifierNode extends TreeNode<[GlobalTypeNode]> {
   /**
    * The unique identifier of the node.
    */
   readonly value: string
-  readonly isStaticNode: true
+  readonly isStaticNode: false
+}
+
+export interface GlobalTypeNode extends TreeNode<[]> {
+  /**
+   * The type of the node.
+   */
+  readonly value: string
+  readonly isStaticNode: false
 }
 
 export interface GlobalAttributesNode extends TreeNode<GlobalAttributeNameNode[]> {
@@ -117,8 +125,18 @@ export class GlobalTreeBuilder extends TreeBuilder<GlobalRootNode> {
   private createIdentifierNode(node: GraphNode): GlobalIdentifierNode {
     return this.createNode({
       value: this.mapId(node),
+      children: [
+        this.createTypeNode(node),
+      ],
+      isStaticNode: false,
+    })
+  }
+
+  private createTypeNode(node: GraphNode): GlobalTypeNode {
+    return this.createNode({
+      value: this.mapAttribute(this.requireTypeAttribute(node)),
       children: [],
-      isStaticNode: true,
+      isStaticNode: false,
     })
   }
 
@@ -131,8 +149,11 @@ export class GlobalTreeBuilder extends TreeBuilder<GlobalRootNode> {
   }
 
   private createAttributeNameNodes(node: GraphNode): GlobalAttributeNameNode[] {
+    const typeAttribute = this.requireTypeAttribute(node)
     return this
       .getFilteredAttributes(node)
+      // do not include the node's type in the regular attributes
+      .filter((attribute) => attribute !== typeAttribute)
       .map((attribute) => this.createAttributeNameNode(attribute))
       .toArray()
   }
