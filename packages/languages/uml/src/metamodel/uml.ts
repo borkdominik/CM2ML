@@ -1,7 +1,7 @@
-import type { Attributable, GraphEdge, GraphNode } from '@cm2ml/ir'
+import type { GraphNode } from '@cm2ml/ir'
+import { Metamodel } from '@cm2ml/ir'
 import type { Callback } from '@cm2ml/metamodel'
 import { transformNodeToEdge } from '@cm2ml/metamodel'
-import { parseNamespace } from '@cm2ml/utils'
 
 const Attributes = {
   aggregation: 'aggregation',
@@ -92,13 +92,11 @@ const Attributes = {
   'xsi:type': 'xsi:type',
 } as const
 
+export type UmlAttribute = keyof typeof Attributes
+
 export type UmlTag = never
 
-function isValidTag(_tag: string | undefined): _tag is UmlTag {
-  return false
-}
-
-const AbstractTypes = {
+const abstractTypes = {
   Action: 'Action',
   ActivityEdge: 'ActivityEdge',
   ActivityGroup: 'ActivityGroup',
@@ -150,7 +148,7 @@ const AbstractTypes = {
   WriteVariableAction: 'WriteVariableAction',
 } as const
 
-export type UmlAbstractType = (typeof AbstractTypes)[keyof typeof AbstractTypes]
+export type UmlAbstractType = (typeof abstractTypes)[keyof typeof abstractTypes]
 
 const Types = {
   Abstraction: 'Abstraction',
@@ -350,30 +348,6 @@ const Types = {
 
 export type UmlType = (typeof Types)[keyof typeof Types]
 
-function isValidType(type: string | undefined): type is UmlType {
-  return type !== undefined && type in Types
-}
-
-// The root element may use its type as its tag
-function getTagType(element: GraphNode | GraphEdge) {
-  const parsedName = parseNamespace(element.tag)
-  const actualName =
-    typeof parsedName === 'object' ? parsedName.name : parsedName
-  if (isValidType(actualName)) {
-    return actualName
-  }
-  return undefined
-}
-
-function getType(element: Attributable) {
-  const typeAttribute = element.getAttribute(Attributes['xmi:type']) ?? element.getAttribute(Attributes['xsi:type'])
-  const type = typeAttribute?.value.literal
-  if (isValidType(type)) {
-    return type
-  }
-  return undefined
-}
-
 const relationshipToEdgeTag: Partial<Record<UmlType, string>> = {
   [Types.Abstraction]: 'abstraction',
   [Types.Association]: 'association',
@@ -402,20 +376,6 @@ const relationshipToEdgeTag: Partial<Record<UmlType, string>> = {
   [Types.Usage]: 'usage',
 }
 
-function getEdgeTagForRelationship(relationship: GraphNode) {
-  const type = getType(relationship)
-  if (!type) {
-    throw new Error(`Could not determine type for ${relationship.id}`)
-  }
-  const tag = relationshipToEdgeTag[type]
-  if (!tag) {
-    throw new Error(
-      `Could not determine edge tag for ${relationship.id} with original tag ${relationship.tag} and type ${getType(relationship)}`,
-    )
-  }
-  return tag
-}
-
 export function transformNodeToEdgeCallback(node: GraphNode, sources: GraphNode | GraphNode[] = [], targets: GraphNode | GraphNode[] = []): Callback {
   const edgeSources = Array.isArray(sources) ? sources : [sources]
   const edgeTargets = Array.isArray(targets) ? targets : [targets]
@@ -425,14 +385,29 @@ export function transformNodeToEdgeCallback(node: GraphNode, sources: GraphNode 
   }
 }
 
-export const Uml = {
-  AbstractTypes,
-  Attributes,
-  Types,
-  typeAttributeName: Attributes['xmi:type'],
-  isValidTag,
-  isValidType,
-  getTagType,
-  getType,
-  getEdgeTagForRelationship,
-} as const
+export function getEdgeTagForRelationship(relationship: GraphNode) {
+  const type = relationship.model.metamodel.getType(relationship)
+  if (!type) {
+    throw new Error(`Could not determine type for ${relationship.id}`)
+  }
+  const tag = relationshipToEdgeTag[type as UmlType]
+  if (!tag) {
+    throw new Error(
+      `Could not determine edge tag for ${relationship.id} with original tag ${relationship.tag} and type ${relationship.type}`,
+    )
+  }
+  return tag
+}
+
+export const Uml = new class extends Metamodel<UmlAttribute, UmlType, UmlTag> {
+  public readonly AbstractTypes = abstractTypes
+  public constructor() {
+    super({
+      Attributes,
+      idAttribute: Attributes['xmi:id'],
+      Types,
+      typeAttributes: [Attributes['xmi:type'], Attributes['xsi:type']],
+      Tags: {},
+    })
+  }
+}()

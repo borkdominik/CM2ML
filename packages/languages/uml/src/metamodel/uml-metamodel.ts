@@ -1,7 +1,7 @@
 import type { HandlerPropagation, MetamodelElement } from '@cm2ml/metamodel'
 import { createMetamodel } from '@cm2ml/metamodel'
 
-import { Uml, type UmlAbstractType, type UmlTag, type UmlType } from './uml'
+import { Uml, type UmlAbstractType, type UmlAttribute, type UmlTag, type UmlType } from './uml'
 
 export interface UmlHandlerParameters extends HandlerPropagation {
   onlyContainmentAssociations: boolean
@@ -9,6 +9,7 @@ export interface UmlHandlerParameters extends HandlerPropagation {
 }
 
 export type UmlMetamodelElement = MetamodelElement<
+  UmlAttribute,
   UmlType,
   UmlAbstractType,
   UmlTag,
@@ -16,6 +17,7 @@ export type UmlMetamodelElement = MetamodelElement<
 >
 
 const { define, defineAbstract } = createMetamodel<
+  UmlAttribute,
   UmlType,
   UmlAbstractType,
   UmlTag,

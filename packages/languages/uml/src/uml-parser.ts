@@ -85,7 +85,7 @@ function removeUnsupportedNodes(model: GraphModel) {
     return node.getAttribute('xsi:nil')?.value.literal === 'true' || node.getAttribute('xmi:nil')?.value.literal === 'true'
   }
   model.nodes.forEach((node) => {
-    const nodeType = node.getAttribute(Uml.typeAttributeName)?.value.literal
+    const nodeType = node.getAttribute(Uml.typeAttributes[0])?.value.literal
     if (unsupportedTags.has(node.tag)) {
       model.debug('Parser', `Removing unsupported node with tag ${node.tag}`)
       model.removeNode(node)
@@ -107,7 +107,7 @@ function pruneNodes(model: GraphModel, whitelist: readonly string[], blacklist: 
     if (!nodeType || (!blacklistSet.has(nodeType) && whitelistSet.has(nodeType))) {
       return
     }
-    model.debug('Parser', `Removing non-whitelisted node with type ${node.getAttribute(Uml.typeAttributeName)?.value.literal ?? node.tag}`)
+    model.debug('Parser', `Removing non-whitelisted node with type ${node.type ?? node.tag}`)
     model.removeNode(node)
   })
 }
@@ -165,7 +165,7 @@ function removeNonUmlAttributes(model: GraphModel) {
   ;[...model.nodes, ...model.edges].forEach((attributable) => {
     attributable.attributes.forEach(({ name }) => {
       if (shouldRemoveAttribute(name)) {
-        model.debug('Parser', `Removing non-UML attribute ${name} from ${attributable instanceof GraphNode ? 'node' : 'edge'} ${attributable.getAttribute(model.settings.idAttribute)?.value.literal ?? attributable.tag}`)
+        model.debug('Parser', `Removing non-UML attribute ${name} from ${attributable instanceof GraphNode ? 'node' : 'edge'} ${attributable.getAttribute(model.metamodel.idAttribute)?.value.literal ?? attributable.tag}`)
         attributable.removeAttribute(name)
       }
     })
@@ -184,7 +184,7 @@ function handleTextNode(node: GraphNode, text: string) {
 }
 
 export const UmlParser = compose(
-  createXmiParser(Uml.Attributes['xmi:id'], handleTextNode),
+  createXmiParser(Uml, handleTextNode),
   compose(UmlRefiner, IrPostProcessor),
   'uml',
 )

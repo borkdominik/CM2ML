@@ -3,6 +3,7 @@ import { createMetamodel } from '@cm2ml/metamodel'
 
 import type {
   ArchimateAbstractType,
+  ArchimateAttribute,
   ArchimateTag,
   ArchimateType,
 } from './archimate'
@@ -14,6 +15,7 @@ export interface ArchimateHandlerParameters extends HandlerPropagation {
 }
 
 export type ArchimateMetamodelElement = MetamodelElement<
+  ArchimateAttribute,
   ArchimateType,
   ArchimateAbstractType,
   ArchimateTag,
@@ -21,6 +23,7 @@ export type ArchimateMetamodelElement = MetamodelElement<
 >
 
 const { define, defineAbstract } = createMetamodel<
+  ArchimateAttribute,
   ArchimateType,
   ArchimateAbstractType,
   ArchimateTag,

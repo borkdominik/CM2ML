@@ -1,8 +1,7 @@
-import type { GraphModel, GraphNode } from '@cm2ml/ir'
+import type { GraphModel, GraphNode, Metamodel } from '@cm2ml/ir'
 import type {
   Callback,
   HandlerPropagation,
-  MetamodelConfiguration,
   MetamodelElement,
 } from '@cm2ml/metamodel'
 import { inferAndSaveType } from '@cm2ml/metamodel'
@@ -10,15 +9,16 @@ import { getMessage } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 
 export function createRefiner<
+  AttributeName extends string,
   Type extends string,
   AbstractType extends string,
   Tag extends string,
   HandlerParameters extends HandlerPropagation,
 >(
-  configuration: MetamodelConfiguration<Type, Tag>,
+  metamodel: Metamodel<AttributeName, Type, Tag>,
   inferHandler: (
     node: GraphNode,
-  ) => MetamodelElement<Type, AbstractType, Tag, HandlerParameters> | undefined,
+  ) => MetamodelElement<AttributeName, Type, AbstractType, Tag, HandlerParameters> | undefined,
 ) {
   function refine(
     model: GraphModel,
@@ -32,12 +32,12 @@ export function createRefiner<
   }
 
   function findModelRoot(node: GraphNode): GraphNode | undefined {
-    if (configuration.getType(node) !== undefined) {
+    if (node.type !== undefined) {
       return node
     }
-    const tagType = configuration.getTagType(node)
+    const tagType = metamodel.getTagType(node)
     if (tagType !== undefined) {
-      inferAndSaveType(node, tagType, configuration)
+      inferAndSaveType(node, tagType, metamodel)
       return node
     }
     return Stream.from(node.children)
@@ -51,7 +51,7 @@ export function createRefiner<
     if (!newRoot) {
       return
     }
-    model.debug('Parser', `Re-rooted model with new root ${configuration.getType(newRoot)} (${
+    model.debug('Parser', `Re-rooted model with new root ${newRoot.type} (${
         newRoot.id
       })`)
     model.root = newRoot
@@ -65,7 +65,7 @@ export function createRefiner<
     if (!handler) {
       const message = `No handler for node with tag ${
         node.tag
-      } and type ${configuration.getType(node)} of parent ${node.parent?.show()}`
+      } and type ${node.type} of parent ${node.parent?.show()}`
       if (node.model.settings.strict) {
         throw new Error(message)
       } else {
@@ -87,8 +87,8 @@ export function createRefiner<
 
   function replaceTagsWithTypes(model: GraphModel) {
     Stream.from(model.nodes).forEach((node) => {
-      const type = configuration.getType(node)
-      if (configuration.isValidType(type)) {
+      const type = node.type
+      if (metamodel.isValidType(type)) {
         node.tag = type
         return
       }

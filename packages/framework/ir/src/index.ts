@@ -1,3 +1,5 @@
+import { parseNamespace } from '@cm2ml/utils'
+
 import type { Attributable, Attribute, AttributeName } from './attributes'
 import { AttributeDelegate } from './attributes'
 
@@ -12,8 +14,71 @@ export interface ModelMember {
   readonly isRemoved: boolean
 }
 
+export interface MetamodelConfiguration<AttributeName extends string, Type extends string, Tag extends string> {
+  Attributes: Record<AttributeName, AttributeName>
+  idAttribute: AttributeName
+  Types: Record<Type, Type>
+  typeAttributes: [AttributeName, ...AttributeName[]]
+  Tags: Record<Tag, Tag>
+}
+
+export class Metamodel<AttributeName extends string, Type extends string, Tag extends string> {
+  public readonly Attributes: Record<AttributeName, AttributeName>
+  public readonly idAttribute: string
+  public readonly typeAttributes: [string, ...string[]]
+  public readonly Types: Record<Type, Type>
+  public readonly Tags: Record<Tag, Tag>
+
+  public constructor({ Attributes, idAttribute, Types: types, typeAttributes, Tags: tags }: MetamodelConfiguration<AttributeName, Type, Tag>) {
+    this.Attributes = Attributes
+    this.idAttribute = idAttribute
+    this.Types = types
+    this.typeAttributes = typeAttributes
+    this.Tags = tags
+  }
+
+  public getId(node: GraphNode): string | undefined {
+    return node.getAttribute(this.idAttribute)?.value.literal
+  }
+
+  public getIdAttribute(node: GraphNode): Attribute | undefined {
+    return node.getAttribute(this.idAttribute)
+  }
+
+  public isValidType(type: string | undefined): type is Type {
+    return type !== undefined && type in this.Types
+  }
+
+  public isValidTag(tag: string | undefined): tag is Tag {
+    return tag !== undefined && tag in this.Tags
+  }
+
+  public getType(element: GraphNode | GraphEdge): Type | undefined {
+    return this.getTypeAttribute(element)?.value.literal as Type | undefined
+  }
+
+  public getTypeAttribute(element: GraphNode | GraphEdge): Attribute | undefined {
+    for (const attribute of this.typeAttributes) {
+      const type = element.getAttribute(attribute)
+      if (this.isValidType(type?.value.literal)) {
+        return type
+      }
+    }
+    return undefined
+  }
+
+  public getTagType(element: GraphNode | GraphEdge): Type | undefined {
+    const parsedName = parseNamespace(element.tag)
+    const actualName =
+      typeof parsedName === 'object' ? parsedName.name : parsedName
+    if (this.isValidType(actualName)) {
+      return actualName
+    }
+    return undefined
+  }
+}
+
 export interface Settings {
-  readonly idAttribute: string
   readonly debug: boolean
   readonly strict: boolean
 }
@@ -30,6 +95,7 @@ export class GraphModel implements Show {
   public readonly metadata: Record<string, string> = {}
 
   public constructor(
+    public readonly metamodel: Metamodel<string, string, string>,
     public readonly settings: Settings,
     rootTag: string,
   ) {
@@ -161,7 +227,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
 
   readonly #attributeDelegate = new AttributeDelegate(
     (attributeName, previousValue) => {
-      if (attributeName === this.model.settings.idAttribute) {
+      if (attributeName === this.model.metamodel.idAttribute) {
         this.model.updateNodeMap(this, previousValue?.literal)
       }
     },
@@ -182,7 +248,19 @@ export class GraphNode implements Attributable, ModelMember, Show {
   }
 
   public get id(): string | undefined {
-    return this.getAttribute(this.model.settings.idAttribute)?.value.literal
+    return this.model.metamodel.getId(this)
+  }
+
+  public get idAttribute(): Attribute | undefined {
+    return this.model.metamodel.getIdAttribute(this)
+  }
+
+  public get type(): string | undefined {
+    return this.model.metamodel.getType(this)
+  }
+
+  public get typeAttribute(): Attribute | undefined {
+    return this.model.metamodel.getTypeAttribute(this)
   }
 
   public get parent(): GraphNode | undefined {
@@ -353,6 +431,10 @@ export class GraphEdge implements Attributable, ModelMember, Show {
     public readonly source: GraphNode,
     public readonly target: GraphNode,
   ) { }
+
+  public get type(): string | undefined {
+    return this.model.metamodel.getType(this)
+  }
 
   public get isRemoved(): boolean {
     return this.model === undefined

@@ -1,4 +1,4 @@
-import type { Attribute, GraphNode, Settings, Value } from '@cm2ml/ir'
+import type { Attribute, GraphNode, Metamodel, Settings, Value } from '@cm2ml/ir'
 import { GraphModel } from '@cm2ml/ir'
 import { definePlugin } from '@cm2ml/plugin'
 import { parseNamespace } from '@cm2ml/utils'
@@ -10,7 +10,7 @@ import { parseDocument } from 'htmlparser2'
 export type TextNodeHandler = (node: GraphNode, text: string) => void
 
 export function createXmiParser(
-  idAttribute: string,
+  metamodel: Metamodel<string, string, string>,
   textNodeHandler: TextNodeHandler,
 ) {
   return definePlugin({
@@ -28,23 +28,25 @@ export function createXmiParser(
       },
     },
     invoke: (input: string, settings) =>
-      parse(input, { ...settings, idAttribute }, textNodeHandler),
+      parse(input, metamodel, settings, textNodeHandler),
   })
 }
 
 function parse(
   xmi: string,
+  metamodel: Metamodel<string, string, string>,
   settings: Settings,
   textNodeHandler: TextNodeHandler,
 ): GraphModel {
   const document = parseDocument(xmi, {
     xmlMode: true,
   })
-  return mapDocument(document, settings, textNodeHandler)
+  return mapDocument(document, metamodel, settings, textNodeHandler)
 }
 
 function mapDocument(
   document: Document,
+  metamodel: Metamodel<string, string, string>,
   settings: Settings,
   textNodeHandler: TextNodeHandler,
 ) {
@@ -56,7 +58,7 @@ function mapDocument(
   if (elementChildren.length !== 1 || !root) {
     throw new Error('Expected exactly one root element')
   }
-  const model = new GraphModel(settings, root.tagName)
+  const model = new GraphModel(metamodel, settings, root.tagName)
   initNodeFromElement(model.root, root, textNodeHandler)
   return model
 }

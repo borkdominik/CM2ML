@@ -36,7 +36,7 @@ export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
   protected abstract createTreeModel(rootNode: GraphNode): TreeModel<Root>
 
   protected mapId(node: GraphNode): string {
-    const idAttribute = node.attributes.get(node.model.settings.idAttribute)
+    const idAttribute = node.attributes.get(node.model.metamodel.idAttribute)
     if (!idAttribute) {
       throw new Error('Node has an id attribute. Tree encoding requires all nodes to have IDs assigned.')
     }

@@ -1,5 +1,4 @@
-import type { Attributable, GraphEdge, GraphNode } from '@cm2ml/ir'
-import { parseNamespace } from '@cm2ml/utils'
+import { Metamodel } from '@cm2ml/ir'
 
 const Attributes = {
   'xsi:id': 'xsi:id',
@@ -7,54 +6,28 @@ const Attributes = {
   'xsi:type': 'xsi:type',
 } as const
 
+export type EcoreAttribute = keyof typeof Attributes
+
 const Tags = {} as const
 
 export type EcoreTag = (typeof Tags)[keyof typeof Tags]
-
-function isValidTag(tag: string | undefined): tag is EcoreTag {
-  return tag !== undefined && tag in Tags
-}
-
-export const AbstractTypes = {} as const
-
-export type EcoreAbstractType =
-  (typeof AbstractTypes)[keyof typeof AbstractTypes]
 
 const Types = {} as const
 
 export type EcoreType = (typeof Types)[keyof typeof Types]
 
-function isValidType(type: string | undefined): type is EcoreType {
-  return type !== undefined && type in Types
-}
+const AbstractTypes = {} as const
 
-function getType(element: Attributable) {
-  const type = element.getAttribute(Attributes['xsi:type'])?.value.literal
-  if (isValidType(type)) {
-    return type
+export type EcoreAbstractType = (typeof AbstractTypes)[keyof typeof AbstractTypes]
+
+export const Ecore = new class extends Metamodel<EcoreAttribute, EcoreType, EcoreTag> {
+  public constructor() {
+    super({
+      Attributes,
+      idAttribute: Attributes['xsi:id'],
+      Tags,
+      Types,
+      typeAttributes: [Attributes['xsi:type']],
+    })
   }
-  return undefined
-}
-
-// The root element may use its type as its tag
-function getTagType(element: GraphNode | GraphEdge) {
-  const parsedName = parseNamespace(element.tag)
-  const actualName =
-    typeof parsedName === 'object' ? parsedName.name : parsedName
-  if (isValidType(actualName)) {
-    return actualName
-  }
-  return undefined
-}
-
-export const Ecore = {
-  Attributes,
-  AbstractTypes,
-  Tags,
-  Types,
-  typeAttributeName: Attributes['xsi:type'],
-  getTagType,
-  getType,
-  isValidTag,
-  isValidType,
-}
+}()

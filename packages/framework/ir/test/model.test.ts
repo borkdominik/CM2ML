@@ -1,11 +1,22 @@
 import { describe, expect, it } from 'vitest'
 
-import { GraphModel } from '../src'
+import { GraphModel, Metamodel } from '../src'
 
 describe('ir model', () => {
   it('can add nodes and edges', () => {
     const model = new GraphModel(
-      { debug: false, idAttribute: 'id', strict: true },
+      new Metamodel({
+        Attributes: {},
+        idAttribute: 'id',
+        typeAttributes: ['type'],
+        Types: {},
+        Tags: {},
+      }),
+      {
+        debug: false,
+
+        strict: true,
+      },
       'root',
     )
 

@@ -1,24 +1,32 @@
-import { GraphModel } from '@cm2ml/ir'
+import { GraphModel, Metamodel } from '@cm2ml/ir'
 import { ExecutionError } from '@cm2ml/plugin'
 import { describe, expect, it } from 'vitest'
 
 import { FeatureEncoder } from '../src/index'
 
+const metamodel = new Metamodel({
+  Attributes: {
+    'id': 'id',
+    'type': 'type',
+  },
+  idAttribute: 'id',
+  typeAttributes: ['type'],
+  Types: {},
+  Tags: {},
+})
+
+const settings = {
+  debug: false,
+  strict: true,
+}
+
 describe('feature encoder', () => {
   it('encodes features', () => {
-    const firstModel = new GraphModel({
-      idAttribute: 'id',
-      debug: false,
-      strict: true,
-    }, 'first')
+    const firstModel = new GraphModel(metamodel, settings, 'first')
     firstModel.root.addAttribute({ name: 'a', type: 'category', value: { literal: 'a-1' } })
     firstModel.root.addAttribute({ name: 'b', type: 'category', value: { literal: 'b-1' } })
 
-    const secondModel = new GraphModel({
-      idAttribute: 'id',
-      debug: false,
-      strict: true,
-    }, 'second')
+    const secondModel = new GraphModel(metamodel, settings, 'second')
     secondModel.root.addAttribute({ name: 'a', type: 'category', value: { literal: 'a-2' } })
     secondModel.root.addAttribute({ name: 'b', type: 'string', value: { literal: 'b-2' } })
 
@@ -80,11 +88,7 @@ describe('feature encoder', () => {
   })
 
   it('loads feature overrides', () => {
-    const firstModel = new GraphModel({
-      idAttribute: 'id',
-      debug: false,
-      strict: true,
-    }, 'first')
+    const firstModel = new GraphModel(metamodel, settings, 'first')
     firstModel.root.addAttribute({ name: 'a', type: 'category', value: { literal: 'a-1' } })
     firstModel.root.addAttribute({ name: 'b', type: 'category', value: { literal: 'b-1' } })
     firstModel.root.addAttribute({ name: 'c', type: 'category', value: { literal: 'c-1' } })

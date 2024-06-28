@@ -22,7 +22,7 @@ const EcoreRefiner = definePlugin({
 })
 
 export const EcoreParser = compose(
-  createXmiParser(Ecore.Attributes['xsi:id'], () => {}),
+  createXmiParser(Ecore, () => { }),
   compose(EcoreRefiner, IrPostProcessor),
   'ecore',
 )

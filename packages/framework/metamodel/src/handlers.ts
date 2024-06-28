@@ -1,39 +1,39 @@
-import type { GraphNode } from '@cm2ml/ir'
+import type { GraphNode, Metamodel } from '@cm2ml/ir'
 
-import type { MetamodelConfiguration } from './configuration'
 import type { HandlerPropagation, MetamodelElement } from './metamodel'
 
 export function createHandlerRegistry<
+  AttributeName extends string,
   Type extends string,
   AbstractType extends string,
   Tag extends string,
   HandlerParameters extends HandlerPropagation,
 >(
-  configuration: MetamodelConfiguration<Type, Tag>,
+  metamodel: Metamodel<AttributeName, Type, Tag>,
   handlers: Record<
     `${string}Handler`,
-    MetamodelElement<Type, AbstractType, Tag, HandlerParameters>
+    MetamodelElement<AttributeName, Type, AbstractType, Tag, HandlerParameters>
   >,
 ) {
   const handlerRegistry = new Map<
     Type | Tag,
-    MetamodelElement<Type, AbstractType, Tag, HandlerParameters>
+    MetamodelElement<AttributeName, Type, AbstractType, Tag, HandlerParameters>
   >()
 
   function getHandler(key: string | undefined) {
-    if (configuration.isValidTag(key) || configuration.isValidType(key)) {
+    if (metamodel.isValidType(key)) {
       return handlerRegistry.get(key)
     }
     return undefined
   }
 
   function inferHandler(node: GraphNode) {
-    return getHandler(configuration.getType(node)) ?? getHandler(node.tag)
+    return getHandler(node.type) ?? getHandler(node.tag)
   }
 
   function registerHandler(
     key: Type | Tag,
-    handler: MetamodelElement<Type, AbstractType, Tag, HandlerParameters>,
+    handler: MetamodelElement<AttributeName, Type, AbstractType, Tag, HandlerParameters>,
   ) {
     if (handlerRegistry.has(key)) {
       throw new Error(`Handler for ${key} already registered`)

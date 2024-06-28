@@ -1,14 +1,12 @@
-import type { Attributable, AttributeType, GraphEdge, GraphNode } from '@cm2ml/ir'
+import type { Attributable, AttributeType, GraphEdge, GraphNode, Metamodel } from '@cm2ml/ir'
 
-import type { MetamodelConfiguration } from './configuration'
-
-export function inferAndSaveType<Type extends string, Tag extends string>(
+export function inferAndSaveType<AttributeName extends string, Type extends string, Tag extends string>(
   node: GraphNode,
   type: Type,
-  configuration: MetamodelConfiguration<Type, Tag>,
+  metamodel: Metamodel<AttributeName, Type, Tag>,
 ) {
-  const currentType = configuration.getType(node)
-  if (configuration.isValidType(currentType)) {
+  const currentType = node.type
+  if (metamodel.isValidType(currentType)) {
     // Valid type attribute already exists
     return
   }
@@ -16,7 +14,7 @@ export function inferAndSaveType<Type extends string, Tag extends string>(
     throw new Error(`Node ${node.id} has invalid type ${currentType}`)
   }
   node.addAttribute({
-    name: configuration.typeAttributeName,
+    name: metamodel.typeAttributes[0],
     value: { literal: type },
     type: 'category',
   })
@@ -74,12 +72,14 @@ export type Handler<HandlerParameters extends HandlerPropagation> = (
 export interface HandlerPropagation { }
 
 export interface Definition<
+  AttributeName extends string,
   Type extends string,
   AbstractType extends string,
   Tag extends string,
   HandlerParameters extends HandlerPropagation,
 > {
   generalizations: MetamodelElement<
+    AttributeName,
     Type,
     AbstractType,
     Tag,
@@ -95,17 +95,18 @@ export interface AttributeConfiguration {
 }
 
 export class MetamodelElement<
+  AttributeName extends string,
   Type extends string,
   AbstractType extends string,
   Tag extends string,
   HandlerParameters extends HandlerPropagation,
 > {
   readonly #generalizations = new Set<
-    MetamodelElement<Type, AbstractType, Tag, HandlerParameters>
+    MetamodelElement<AttributeName, Type, AbstractType, Tag, HandlerParameters>
   >()
 
   readonly #specializations = new Set<
-    MetamodelElement<Type, AbstractType, Tag, HandlerParameters>
+    MetamodelElement<AttributeName, Type, AbstractType, Tag, HandlerParameters>
   >()
 
   readonly #assignableTypes = new Set<Type>()
@@ -118,15 +119,16 @@ export class MetamodelElement<
   public constructor(
     public readonly name: Type | AbstractType,
     public readonly tag: Tag | undefined,
-    public readonly configuration: MetamodelConfiguration<Type, Tag>,
+    public readonly metamodel: Metamodel<AttributeName, Type, Tag>,
     generalizations?: MetamodelElement<
+      AttributeName,
       Type,
       AbstractType,
       Tag,
       HandlerParameters
     >[],
   ) {
-    if (configuration.isValidType(name)) {
+    if (metamodel.isValidType(name)) {
       this.type = name
     }
     if (tag) {
@@ -145,13 +147,13 @@ export class MetamodelElement<
   }
 
   public get generalizations(): ReadonlySet<
-    MetamodelElement<Type, AbstractType, Tag, HandlerParameters>
+    MetamodelElement<AttributeName, Type, AbstractType, Tag, HandlerParameters>
   > {
     return this.#generalizations
   }
 
   public get specializations(): ReadonlySet<
-    MetamodelElement<Type, AbstractType, Tag, HandlerParameters>
+    MetamodelElement<AttributeName, Type, AbstractType, Tag, HandlerParameters>
   > {
     return this.#specializations
   }
@@ -164,17 +166,17 @@ export class MetamodelElement<
     return this.#assignableTypes
   }
 
-  public isAssignable(node: GraphNode | GraphEdge): boolean {
-    const type = this.configuration.getType(node)
-    if (type) {
-      return this.#assignableTypes.has(type)
+  public isAssignable(element: GraphNode | GraphEdge): boolean {
+    const type = element.type
+    if (type !== undefined) {
+      return this.#assignableTypes.has(type as Type) // type cast is not an issue for this check
     }
-    const tag = node.tag
-    if (this.configuration.isValidTag(tag)) {
+    const tag = element.tag
+    if (this.metamodel.isValidTag(tag)) {
       return this.#assignableTags.has(tag)
     }
     // During the transformation, we replace the xmi tags with the UML types, so this additional check is necessary
-    if (this.configuration.isValidType(tag)) {
+    if (this.metamodel.isValidType(tag)) {
       return this.#assignableTypes.has(tag)
     }
     return false
@@ -184,7 +186,7 @@ export class MetamodelElement<
     node: GraphNode,
     parameters: HandlerParameters,
     visited = new Set<
-      MetamodelElement<Type, AbstractType, Tag, HandlerParameters>
+      MetamodelElement<AttributeName, Type, AbstractType, Tag, HandlerParameters>
     >(),
   ): Callback[] {
     if (visited.has(this)) {
@@ -198,7 +200,7 @@ export class MetamodelElement<
       node.model.debug('Parser', message)
     }
     if (this.type) {
-      inferAndSaveType(node, this.type, this.configuration)
+      inferAndSaveType(node, this.type, this.metamodel)
       this.narrowType(node)
     }
     const callback = this.handler?.(node, parameters)
@@ -259,10 +261,10 @@ export class MetamodelElement<
       // No type information for narrowing
       return
     }
-    const currentType = this.configuration.getType(node)
-    if (!currentType) {
+    const currentType = node.type
+    if (currentType === undefined) {
       // No type set, set type to provided type
-      node.addAttribute({ name: this.configuration.typeAttributeName, type: 'category', value: { literal: this.type } })
+      node.addAttribute({ name: this.metamodel.typeAttributes[0], type: 'category', value: { literal: this.type } })
       return
     }
     const isNarrowable = [...this.generalizations.values()].find((generalization) => generalization.type === currentType) !== undefined
@@ -271,11 +273,12 @@ export class MetamodelElement<
       return
     }
     // We can narrow the type further
-    node.addAttribute({ name: this.configuration.typeAttributeName, type: 'category', value: { literal: this.type } }, false)
+    node.addAttribute({ name: this.metamodel.typeAttributes[0], type: 'category', value: { literal: this.type } }, false)
   }
 
   private specialize(
     specialization: MetamodelElement<
+      AttributeName,
       Type,
       AbstractType,
       Tag,
@@ -288,6 +291,7 @@ export class MetamodelElement<
 
   private registerSubSpecialization(
     specialization: MetamodelElement<
+      AttributeName,
       Type,
       AbstractType,
       Tag,
@@ -308,15 +312,17 @@ export class MetamodelElement<
 }
 
 export function createMetamodel<
+  AttributeName extends string,
   Type extends string,
   AbstractType extends string,
   Tag extends string,
   HandlerParameters extends HandlerPropagation,
->(configuration: MetamodelConfiguration<Type, Tag>) {
+  >(configuration: Metamodel<AttributeName, Type, Tag>) {
   function define(
     name: Type,
     tag: Tag | undefined,
     ...generalizations: MetamodelElement<
+      AttributeName,
       Type,
       AbstractType,
       Tag,
@@ -329,6 +335,7 @@ export function createMetamodel<
   function defineAbstract(
     name: AbstractType,
     ...generalizations: MetamodelElement<
+      AttributeName,
       Type,
       AbstractType,
       Tag,
@@ -341,13 +348,14 @@ export function createMetamodel<
 }
 
 export function getParentOfType<
+  AttributeName extends string,
   Type extends string,
   AbstractType extends string,
   Tag extends string,
   HandlerParameters extends HandlerPropagation,
 >(
   node: GraphNode,
-  type: MetamodelElement<Type, AbstractType, Tag, HandlerParameters>,
+  type: MetamodelElement<AttributeName, Type, AbstractType, Tag, HandlerParameters>,
 ) {
   if (!node.parent) {
     return undefined

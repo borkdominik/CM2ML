@@ -118,7 +118,7 @@ function handleTextNode(node: GraphNode, textContent: string) {
 }
 
 export const ArchimateParser = compose(
-  createXmiParser(Archimate.Attributes.id, handleTextNode),
+  createXmiParser(Archimate, handleTextNode),
   ArchimateRefiner,
   // compose(ArchimateRefiner, IrPostProcessor),
   'archimate',

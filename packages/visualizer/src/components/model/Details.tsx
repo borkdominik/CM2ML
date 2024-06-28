@@ -340,7 +340,7 @@ function AttributableDetails({
           </div>
           {attributable.model.getNodeById(attribute.value.literal) !==
           undefined &&
-          attribute.name !== attributable.model.settings.idAttribute
+          attribute.name !== attributable.model.metamodel.idAttribute
             ? (
               <NodeSelectionButton id={attribute.value.literal} />
               )

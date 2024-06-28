@@ -350,6 +350,9 @@ importers:
 
   packages/framework/ir:
     dependencies:
+      '@cm2ml/utils':
+        specifier: workspace:*
+        version: link:../../utils
       zod:
         specifier: 3.23.8
         version: 3.23.8

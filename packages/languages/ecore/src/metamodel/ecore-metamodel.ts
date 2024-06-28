@@ -1,12 +1,13 @@
 import { createMetamodel } from '@cm2ml/metamodel'
 import type { HandlerPropagation, MetamodelElement } from '@cm2ml/metamodel'
 
-import type { EcoreAbstractType, EcoreTag, EcoreType } from './ecore'
+import type { EcoreAbstractType, EcoreAttribute, EcoreTag, EcoreType } from './ecore'
 import { Ecore } from './ecore'
 
 export interface EcoreHandlerParameters extends HandlerPropagation {}
 
 export type EcoreMetamodelElement = MetamodelElement<
+  EcoreAttribute,
   EcoreType,
   EcoreAbstractType,
   EcoreTag,

@@ -63,7 +63,7 @@ function validateAttributes(model: GraphModel) {
       if (type === 'unknown') {
         throw new Error(`Attribute ${name} of node ${formatElement(node)} is of unknown type`)
       }
-      if (name === model.settings.idAttribute) {
+      if (name === model.metamodel.idAttribute) {
         return
       }
       if (!(name in Uml.Attributes)) {
