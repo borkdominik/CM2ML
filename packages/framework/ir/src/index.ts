@@ -15,26 +15,38 @@ export interface ModelMember {
 }
 
 export interface MetamodelConfiguration<AttributeName extends string, Type extends string, Tag extends string> {
-  Attributes: Record<AttributeName, AttributeName>
+  attributes: AttributeName[] | readonly AttributeName[]
   idAttribute: AttributeName
-  Types: Record<Type, Type>
+  types: Type[] | readonly Type[]
   typeAttributes: [AttributeName, ...AttributeName[]]
-  Tags: Record<Tag, Tag>
+  tags: Tag[] | readonly Tag[]
 }
 
-export class Metamodel<AttributeName extends string, Type extends string, Tag extends string> {
-  public readonly Attributes: Record<AttributeName, AttributeName>
-  public readonly idAttribute: string
-  public readonly typeAttributes: [string, ...string[]]
-  public readonly Types: Record<Type, Type>
-  public readonly Tags: Record<Tag, Tag>
+export type IdRecord<T extends string> = {
+  [K in T]: K
+}
 
-  public constructor({ Attributes, idAttribute, Types: types, typeAttributes, Tags: tags }: MetamodelConfiguration<AttributeName, Type, Tag>) {
-    this.Attributes = Attributes
+export class Metamodel<const AttributeName extends string, const Type extends string, const Tag extends string> {
+  public readonly Attributes: IdRecord<AttributeName>
+  public readonly idAttribute: AttributeName
+  public readonly typeAttributes: [AttributeName, ...AttributeName[]]
+  public readonly Types: IdRecord<Type>
+  public readonly Tags: IdRecord<Tag>
+
+  public constructor({ attributes, idAttribute, types, typeAttributes, tags }: MetamodelConfiguration<AttributeName, Type, Tag>) {
+    this.Attributes = Object.fromEntries(attributes.map((attribute) => [attribute, attribute])) as IdRecord<AttributeName>
+    if (this.Attributes[idAttribute] === undefined) {
+      throw new Error(`Id attribute ${idAttribute} must be in attributes`)
+    }
     this.idAttribute = idAttribute
-    this.Types = types
+    this.Types = Object.fromEntries(types.map((type) => [type, type])) as IdRecord<Type>
+    for (const typeAttribute of typeAttributes) {
+      if (this.Attributes[typeAttribute] === undefined) {
+        throw new Error(`Type attribute ${typeAttribute} must be in attributes`)
+      }
+    }
     this.typeAttributes = typeAttributes
-    this.Tags = tags
+    this.Tags = Object.fromEntries(tags.map((tag) => [tag, tag])) as IdRecord<Tag>
   }
 
   public getIdAttribute(node: GraphNode): Attribute | undefined {

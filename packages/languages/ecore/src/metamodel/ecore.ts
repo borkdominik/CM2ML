@@ -1,20 +1,18 @@
 import { Metamodel } from '@cm2ml/ir'
 
-const Attributes = {
-  'xsi:id': 'xsi:id',
+const attributes = [
+  'xsi:id',
   // TODO/Ecore: Is this the correct type?
-  'xsi:type': 'xsi:type',
-} as const
+  'xsi:type',
+] as const
 
-export type EcoreAttribute = keyof typeof Attributes
+export type EcoreAttribute = (typeof attributes)[number]
 
-const Tags = {} as const
+export type EcoreTag = never
 
-export type EcoreTag = (typeof Tags)[keyof typeof Tags]
+const types = [] as const
 
-const Types = {} as const
-
-export type EcoreType = (typeof Types)[keyof typeof Types]
+export type EcoreType = (typeof types)[number]
 
 const AbstractTypes = {} as const
 
@@ -23,11 +21,12 @@ export type EcoreAbstractType = (typeof AbstractTypes)[keyof typeof AbstractType
 export const Ecore = new class extends Metamodel<EcoreAttribute, EcoreType, EcoreTag> {
   public constructor() {
     super({
-      Attributes,
-      idAttribute: Attributes['xsi:id'],
-      Tags,
-      Types,
-      typeAttributes: [Attributes['xsi:type']],
+      attributes,
+      idAttribute: 'xsi:id',
+      types,
+      typeAttributes: ['xsi:type'],
+      tags: [],
+
     })
   }
 }()

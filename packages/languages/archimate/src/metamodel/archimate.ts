@@ -1,18 +1,18 @@
 import { Metamodel } from '@cm2ml/ir'
 
-const Attributes = {
-  id: 'id',
-  name: 'name',
-  type: 'type',
-  'xsi:type': 'xsi:type',
-  documentation: 'documentation',
-  purpose: 'purpose',
-  layer: 'layer',
-  source: 'source',
-  target: 'target',
-} as const
+const Attributes = [
+  'id',
+  'name',
+  'type',
+  'xsi:type',
+  'documentation',
+  'purpose',
+  'layer',
+  'source',
+  'target',
+] as const
 
-export type ArchimateAttribute = keyof typeof Attributes
+export type ArchimateAttribute = (typeof Attributes)[number]
 
 export type ArchimateTag = never
 
@@ -23,92 +23,92 @@ const AbstractTypes = {
 
 export type ArchimateAbstractType = (typeof AbstractTypes)[keyof typeof AbstractTypes]
 
-const BusinessTypes = {
-  BusinessActor: 'BusinessActor',
-  BusinessRole: 'BusinessRole',
-  BusinessCollaboration: 'BusinessCollaboration',
-  BusinessInterface: 'BusinessInterface',
-  BusinessProcess: 'BusinessProcess',
-  BusinessFunction: 'BusinessFunction',
-  BusinessInteraction: 'BusinessInteraction',
-  BusinessService: 'BusinessService',
-  BusinessEvent: 'BusinessEvent',
-  BusinessObject: 'BusinessObject',
-  Contract: 'Contract',
-  Representation: 'Representation',
-  Product: 'Product',
-} as const
+const BusinessTypes = [
+  'BusinessActor',
+  'BusinessRole',
+  'BusinessCollaboration',
+  'BusinessInterface',
+  'BusinessProcess',
+  'BusinessFunction',
+  'BusinessInteraction',
+  'BusinessService',
+  'BusinessEvent',
+  'BusinessObject',
+  'Contract',
+  'Representation',
+  'Product',
+] as const
 
-const ApplicationTypes = {
-  ApplicationComponent: 'ApplicationComponent',
-  ApplicationCollaboration: 'ApplicationCollaboration',
-  ApplicationInterface: 'ApplicationInterface',
-  ApplicationProcess: 'ApplicationProcess',
-  ApplicationFunction: 'ApplicationFunction',
-  ApplicationInteraction: 'ApplicationInteraction',
-  ApplicationService: 'ApplicationService',
-  ApplicationEvent: 'ApplicationEvent',
-  DataObject: 'DataObject',
-} as const
+const ApplicationTypes = [
+  'ApplicationComponent',
+  'ApplicationCollaboration',
+  'ApplicationInterface',
+  'ApplicationProcess',
+  'ApplicationFunction',
+  'ApplicationInteraction',
+  'ApplicationService',
+  'ApplicationEvent',
+  'DataObject',
+] as const
 
-const TechnologyTypes = {
-  Node: 'Node',
-  Device: 'Device',
-  SystemSoftware: 'SystemSoftware',
-  TechnologyCollaboration: 'TechnologyCollaboration',
-  TechnologyInterface: 'TechnologyInterface',
-  TechnologyProcess: 'TechnologyProcess',
-  TechnologyFunction: 'TechnologyFunction',
-  TechnologyInteraction: 'TechnologyInteraction',
-  TechnologyService: 'TechnologyService',
-  TechnologyEvent: 'TechnologyEvent',
-  Artifact: 'Artifact',
-  CommunicationNetwork: 'CommunicationNetwork',
-  Path: 'Path',
-} as const
+const TechnologyTypes = [
+  'Node',
+  'Device',
+  'SystemSoftware',
+  'TechnologyCollaboration',
+  'TechnologyInterface',
+  'TechnologyProcess',
+  'TechnologyFunction',
+  'TechnologyInteraction',
+  'TechnologyService',
+  'TechnologyEvent',
+  'Artifact',
+  'CommunicationNetwork',
+  'Path',
+] as const
 
-const PhysicalTypes = {
-  Equipment: 'Equipment',
-  DistributionNetwork: 'DistributionNetwork',
-  Facility: 'Facility',
-  Material: 'Material',
-} as const
+const PhysicalTypes = [
+  'Equipment',
+  'DistributionNetwork',
+  'Facility',
+  'Material',
+] as const
 
-const MotivationTypes = {
-  Stakeholder: 'Stakeholder',
-  Driver: 'Driver',
-  Assessment: 'Assessment',
-  Goal: 'Goal',
-  Outcome: 'Outcome',
-  Principle: 'Principle',
-  Requirement: 'Requirement',
-  Constraint: 'Constraint',
-  Value: 'Value',
-  Meaning: 'Meaning',
-} as const
+const MotivationTypes = [
+  'Stakeholder',
+  'Driver',
+  'Assessment',
+  'Goal',
+  'Outcome',
+  'Principle',
+  'Requirement',
+  'Constraint',
+  'Value',
+  'Meaning',
+] as const
 
-const StrategyTypes = {
-  Resource: 'Resource',
-  Capability: 'Capability',
-  ValueStream: 'ValueStream',
-  CourseOfAction: 'CourseOfAction',
-} as const
+const StrategyTypes = [
+  'Resource',
+  'Capability',
+  'ValueStream',
+  'CourseOfAction',
+] as const
 
-const ImplementationMigrationTypes = {
-  WorkPackage: 'WorkPackage',
-  ImplementationEvent: 'ImplementationEvent',
-  Deliverable: 'Deliverable',
-  Plateau: 'Plateau',
-  Gap: 'Gap',
-} as const
+const ImplementationMigrationTypes = [
+  'WorkPackage',
+  'ImplementationEvent',
+  'Deliverable',
+  'Plateau',
+  'Gap',
+] as const
 
-const OtherTypes = {
-  Location: 'Location',
-  Grouping: 'Grouping',
-  Junction: 'Junction',
-  OrJunction: 'OrJunction',
-  AndJunction: 'AndJunction',
-} as const
+const OtherTypes = [
+  'Location',
+  'Grouping',
+  'Junction',
+  'OrJunction',
+  'AndJunction',
+] as const
 
 const layerTypes = {
   Business: { ...BusinessTypes },
@@ -129,25 +129,25 @@ Object.entries(layerTypes).forEach(([layer, types]) => {
   })
 })
 
-const RelationshipTypes = {
-  AssociationRelationship: 'AssociationRelationship',
-  RealizationRelationship: 'RealizationRelationship',
-  ServingRelationship: 'ServingRelationship',
-  FlowRelationship: 'FlowRelationship',
-  AggregationRelationship: 'AggregationRelationship',
-  InfluenceRelationship: 'InfluenceRelationship',
-  CompositionRelationship: 'CompositionRelationship',
-  TriggeringRelationship: 'TriggeringRelationship',
-  AssignmentRelationship: 'AssignmentRelationship',
-  SpecializationRelationship: 'SpecializationRelationship',
-  AccessRelationship: 'AccessRelationship',
+const RelationshipTypes = [
+  'AssociationRelationship',
+  'RealizationRelationship',
+  'ServingRelationship',
+  'FlowRelationship',
+  'AggregationRelationship',
+  'InfluenceRelationship',
+  'CompositionRelationship',
+  'TriggeringRelationship',
+  'AssignmentRelationship',
+  'SpecializationRelationship',
+  'AccessRelationship',
   // TODO: handle Specialisation / Realisation (i.e., UK vs American English)
-} as const
+] as const
 
-const Types = {
-  model: 'model',
-  ArchimateDiagramModel: 'ArchimateDiagramModel',
-  DiagramObject: 'DiagramObject',
+const Types = [
+  'model',
+  'ArchimateDiagramModel',
+  'DiagramObject',
   ...BusinessTypes,
   ...ApplicationTypes,
   ...TechnologyTypes,
@@ -157,19 +157,19 @@ const Types = {
   ...ImplementationMigrationTypes,
   ...OtherTypes,
   ...RelationshipTypes,
-} as const
+] as const
 
-export type ArchimateType = (typeof Types)[keyof typeof Types]
+export type ArchimateType = (typeof Types)[number]
 
 export const Archimate = new class extends Metamodel<ArchimateAttribute, ArchimateType, ArchimateTag> {
   public readonly AbstractTypes = AbstractTypes
   public constructor() {
     super({
-      Attributes,
-      idAttribute: Attributes.id,
-      Types,
-      typeAttributes: [Attributes['xsi:type'], Attributes.type],
-      Tags: {},
+      attributes: Attributes,
+      idAttribute: 'id',
+      types: Types,
+      typeAttributes: ['xsi:type', 'type'],
+      tags: [],
     })
   }
 }()

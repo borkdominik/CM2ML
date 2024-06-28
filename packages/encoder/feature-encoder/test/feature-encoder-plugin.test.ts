@@ -5,14 +5,11 @@ import { describe, expect, it } from 'vitest'
 import { FeatureEncoder } from '../src/index'
 
 const metamodel = new Metamodel({
-  Attributes: {
-    'id': 'id',
-    'type': 'type',
-  },
+  attributes: ['id', 'type'],
   idAttribute: 'id',
   typeAttributes: ['type'],
-  Types: {},
-  Tags: {},
+  types: [],
+  tags: [],
 })
 
 const settings = {

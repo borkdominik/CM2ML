@@ -6,15 +6,14 @@ describe('ir model', () => {
   it('can add nodes and edges', () => {
     const model = new GraphModel(
       new Metamodel({
-        Attributes: {},
+        attributes: ['id', 'type'],
         idAttribute: 'id',
         typeAttributes: ['type'],
-        Types: {},
-        Tags: {},
+        types: [],
+        tags: [],
       }),
       {
         debug: false,
-
         strict: true,
       },
       'root',
