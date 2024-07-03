@@ -68,8 +68,8 @@ const UmlRefiner = definePlugin({
 function generateIds(model: GraphModel, prefix: string) {
   let id = 0
   model.nodes.forEach((node) => {
-    if (!node.id) {
-      node.addAttribute({ name: Uml.Attributes['xmi:id'], type: 'string', value: { literal: `${prefix}#generated-id-${id++}` } }, false)
+    if (node.id === undefined) {
+      node.id = `${prefix}#generated-id-${id++}`
     }
   })
   if (id > 0) {

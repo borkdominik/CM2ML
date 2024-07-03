@@ -13,11 +13,7 @@ export function inferAndSaveType<AttributeName extends string, Type extends stri
   if (currentType !== undefined && node.model.settings.strict) {
     throw new Error(`Node ${node.id} has invalid type ${currentType}`)
   }
-  node.addAttribute({
-    name: metamodel.typeAttributes[0],
-    value: { literal: type },
-    type: 'category',
-  })
+  node.type = type
 }
 
 export function copyAttributes(source: Attributable, target: Attributable) {
@@ -264,7 +260,7 @@ export class MetamodelElement<
     const currentType = node.type
     if (currentType === undefined) {
       // No type set, set type to provided type
-      node.addAttribute({ name: this.metamodel.typeAttributes[0], type: 'category', value: { literal: this.type } })
+      node.type = this.type
       return
     }
     const isNarrowable = [...this.generalizations.values()].find((generalization) => generalization.type === currentType) !== undefined
@@ -273,7 +269,7 @@ export class MetamodelElement<
       return
     }
     // We can narrow the type further
-    node.addAttribute({ name: this.metamodel.typeAttributes[0], type: 'category', value: { literal: this.type } }, false)
+    node.type = this.type
   }
 
   private specialize(

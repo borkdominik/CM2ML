@@ -75,6 +75,11 @@ export class Metamodel<const AttributeName extends string, const Type extends st
     return undefined
   }
 
+  public setType(element: GraphNode | GraphEdge, type: string) {
+    const typeAttribute = this.typeAttributes[0]
+    element.addAttribute({ name: typeAttribute, type: 'category', value: { literal: type } }, false)
+  }
+
   public getTagType(element: GraphNode | GraphEdge): Type | undefined {
     const parsedName = parseNamespace(element.tag)
     const actualName =
@@ -277,11 +282,11 @@ export class GraphNode implements Attributable, ModelMember, Show {
   }
 
   /**
-   * Set the id of this node, but never overwrite an existing id.
+   * Set the id of this node, but never overwrite an existing id (that is not empty).
    */
   public set id(id: string) {
     const idAttribute = this.model.metamodel.idAttribute
-    this.addAttribute({ name: idAttribute, type: 'string', value: { literal: id } }, true)
+    this.addAttribute({ name: idAttribute, type: 'string', value: { literal: id } }, !!this.id)
   }
 
   public get idAttribute(): Attribute | undefined {
@@ -296,8 +301,7 @@ export class GraphNode implements Attributable, ModelMember, Show {
    * Set the type of this node.
    */
   public set type(type: string) {
-    const typeAttribute = this.model.metamodel.typeAttributes[0]
-    this.addAttribute({ name: typeAttribute, type: 'category', value: { literal: type } }, false)
+    this.model.metamodel.setType(this, type)
   }
 
   public get typeAttribute(): Attribute | undefined {
@@ -481,8 +485,7 @@ export class GraphEdge implements Attributable, ModelMember, Show {
    * Set the type of this edge.
    */
   public set type(type: string) {
-    const typeAttribute = this.model.metamodel.typeAttributes[0]
-    this.addAttribute({ name: typeAttribute, type: 'category', value: { literal: type } }, false)
+    this.model.metamodel.setType(this, type)
   }
 
   public get isRemoved(): boolean {
