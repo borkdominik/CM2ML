@@ -44,6 +44,12 @@
       ],
       "cache": false
     },
+    "bench": {
+      "dependsOn": [
+        "^build",
+        "codegen"
+      ]
+    },
     "test": {
       "dependsOn": [
         "^build",

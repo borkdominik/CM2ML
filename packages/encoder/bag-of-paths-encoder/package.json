@@ -29,6 +29,7 @@
     "dist/*"
   ],
   "scripts": {
+    "bench": "vitest bench",
     "build": "vite build",
     "check:publish": "publint run --strict",
     "check:tsc": "tsc",
