@@ -19,11 +19,13 @@ const settings = {
 
 describe('feature encoder', () => {
   it('encodes features', () => {
-    const firstModel = new GraphModel(metamodel, settings, 'first')
+    const firstModel = new GraphModel(metamodel, settings)
+    firstModel.createRootNode('first')
     firstModel.root.addAttribute({ name: 'a', type: 'category', value: { literal: 'a-1' } })
     firstModel.root.addAttribute({ name: 'b', type: 'category', value: { literal: 'b-1' } })
 
-    const secondModel = new GraphModel(metamodel, settings, 'second')
+    const secondModel = new GraphModel(metamodel, settings)
+    secondModel.createRootNode('second')
     secondModel.root.addAttribute({ name: 'a', type: 'category', value: { literal: 'a-2' } })
     secondModel.root.addAttribute({ name: 'b', type: 'string', value: { literal: 'b-2' } })
 
@@ -85,7 +87,8 @@ describe('feature encoder', () => {
   })
 
   it('loads feature overrides', () => {
-    const firstModel = new GraphModel(metamodel, settings, 'first')
+    const firstModel = new GraphModel(metamodel, settings)
+    firstModel.createRootNode('first')
     firstModel.root.addAttribute({ name: 'a', type: 'category', value: { literal: 'a-1' } })
     firstModel.root.addAttribute({ name: 'b', type: 'category', value: { literal: 'b-1' } })
     firstModel.root.addAttribute({ name: 'c', type: 'category', value: { literal: 'c-1' } })

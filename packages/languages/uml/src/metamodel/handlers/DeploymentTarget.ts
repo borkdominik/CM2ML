@@ -45,7 +45,7 @@ function addAttribute_deployment_client(deploymentTarget: GraphNode, deployments
   const deploymentTargetId = deploymentTarget.id
   deployments.forEach((deployment) => {
     if (deploymentTargetId && deployment.getAttribute('client') === undefined) {
-      deployment.addAttribute({ name: 'client', type: 'unknown', value: { literal: deploymentTarget.id } })
+      deployment.addAttribute({ name: 'client', type: 'unknown', value: { literal: deploymentTargetId } })
     }
   })
 }

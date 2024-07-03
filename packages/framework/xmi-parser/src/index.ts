@@ -58,8 +58,9 @@ function mapDocument(
   if (elementChildren.length !== 1 || !root) {
     throw new Error('Expected exactly one root element')
   }
-  const model = new GraphModel(metamodel, settings, root.tagName)
-  initNodeFromElement(model.root, root, textNodeHandler)
+  const model = new GraphModel(metamodel, settings)
+  const rootNode = model.createRootNode(root.tagName)
+  initNodeFromElement(rootNode, root, textNodeHandler)
   return model
 }
 

@@ -206,7 +206,7 @@ function EdgeSearchCommandGroup({ model, closeDialog }: EdgeSearchCommandGroupPr
         if (!sourceId || !targetId) {
           return undefined
         }
-        const selection = [edge.source.id, edge.target.id] as const
+        const selection = [sourceId, targetId] as const
         const id = edge.show()
         const tag = edge.tag
         const label = edge.getAttribute('name')?.value.literal

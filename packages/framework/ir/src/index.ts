@@ -98,19 +98,20 @@ export class GraphModel implements Show {
   readonly #nodeMap: Map<string, GraphNode> = new Map()
   readonly #edges = new Set<GraphEdge>()
 
-  #root: GraphNode
+  #root: GraphNode | undefined
 
   public readonly metadata: Record<string, string> = {}
 
   public constructor(
     public readonly metamodel: Metamodel<string, string, string>,
     public readonly settings: Settings,
-    rootTag: string,
   ) {
-    this.#root = this.addNode(rootTag)
   }
 
   public get root(): GraphNode {
+    if (!this.#root) {
+      throw new Error('Root has not been initialized. This is an internal error of the parser.')
+    }
     return this.#root
   }
 
@@ -120,7 +121,10 @@ export class GraphModel implements Show {
    */
   public set root(newRoot: GraphNode) {
     requireSameModel(this, newRoot)
-    this.purgeNode(this.root, new Set([newRoot]))
+    if (this.#root) {
+      // Purge old root node, if present
+      this.purgeNode(this.#root, new Set([newRoot]))
+    }
     newRoot.parent = undefined
     this.#root = newRoot
   }
@@ -158,6 +162,19 @@ export class GraphModel implements Show {
   public addNode(tag: string) {
     const node = new GraphNode(this, tag)
     this.#nodes.add(node)
+    return node
+  }
+
+  /**
+   * Create a root node for this model.
+   * Can only be invoked once, if there is no root node yet.
+   */
+  public createRootNode(tag: string) {
+    if (this.#root !== undefined) {
+      throw new Error('Root node already exists')
+    }
+    const node = this.addNode(tag)
+    this.root = node
     return node
   }
 
@@ -259,12 +276,28 @@ export class GraphNode implements Attributable, ModelMember, Show {
     return this.model.metamodel.getIdAttribute(this)?.value.literal
   }
 
+  /**
+   * Set the id of this node, but never overwrite an existing id.
+   */
+  public set id(id: string) {
+    const idAttribute = this.model.metamodel.idAttribute
+    this.addAttribute({ name: idAttribute, type: 'string', value: { literal: id } }, true)
+  }
+
   public get idAttribute(): Attribute | undefined {
     return this.model.metamodel.getIdAttribute(this)
   }
 
   public get type(): string | undefined {
     return this.model.metamodel.getType(this)
+  }
+
+  /**
+   * Set the type of this node.
+   */
+  public set type(type: string) {
+    const typeAttribute = this.model.metamodel.typeAttributes[0]
+    this.addAttribute({ name: typeAttribute, type: 'category', value: { literal: type } }, false)
   }
 
   public get typeAttribute(): Attribute | undefined {
@@ -442,6 +475,14 @@ export class GraphEdge implements Attributable, ModelMember, Show {
 
   public get type(): string | undefined {
     return this.model.metamodel.getType(this)
+  }
+
+  /**
+   * Set the type of this edge.
+   */
+  public set type(type: string) {
+    const typeAttribute = this.model.metamodel.typeAttributes[0]
+    this.addAttribute({ name: typeAttribute, type: 'category', value: { literal: type } }, false)
   }
 
   public get isRemoved(): boolean {

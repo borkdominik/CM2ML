@@ -16,8 +16,8 @@ describe('ir model', () => {
         debug: false,
         strict: true,
       },
-      'root',
     )
+    model.createRootNode('root')
 
     const child = model.addNode('child')
     model.root.addChild(child)
