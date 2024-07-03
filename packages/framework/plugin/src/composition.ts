@@ -122,7 +122,7 @@ function createInvocationChain<
   P1 extends ParameterMetadata,
   Out,
   P2 extends ParameterMetadata,
-  >(first: Plugin<In, I1, P1>, second: Plugin<I1, Out, P2>): PluginInvoke<In, Out, P1 & P2> {
+>(first: Plugin<In, I1, P1>, second: Plugin<I1, Out, P2>): PluginInvoke<In, Out, P1 & P2> {
   return (
     input: In,
     parameters: Readonly<ResolveParameters<P1>> & Readonly<ResolveParameters<P2>>,

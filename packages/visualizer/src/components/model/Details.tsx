@@ -80,18 +80,18 @@ function ModelStats({ model }: { model: GraphModel }) {
       </div>
       {hasMetadata
         ? (
-          <div className="flex size-full flex-col items-center justify-center">
-            <div>
-              Metadata
-            </div>
-            {Object.entries(model.metadata).map(([key, value]) => (
-              <div key={key}>
-                {key}
-                {' '}
-                {value}
+            <div className="flex size-full flex-col items-center justify-center">
+              <div>
+                Metadata
               </div>
-            ))}
-          </div>
+              {Object.entries(model.metadata).map(([key, value]) => (
+                <div key={key}>
+                  {key}
+                  {' '}
+                  {value}
+                </div>
+              ))}
+            </div>
           )
         : null}
     </div>
@@ -123,15 +123,15 @@ function NodeDetails({ node }: { node: GraphNode }) {
       <AttributableDetails attributable={node} />
       {node.parent
         ? (
-          <div className="space-y-2">
-            <div className="text-sm font-bold">Parent</div>
-            <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
-              <div className="whitespace-pre-wrap text-muted-foreground">
-                {node.parent.tag}
+            <div className="space-y-2">
+              <div className="text-sm font-bold">Parent</div>
+              <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
+                <div className="whitespace-pre-wrap text-muted-foreground">
+                  {node.parent.tag}
+                </div>
+                <NodeSelectionButton id={node.parent.id} />
               </div>
-              <NodeSelectionButton id={node.parent.id} />
             </div>
-          </div>
           )
         : null}
       <div className="space-y-2">
@@ -204,16 +204,16 @@ function NodeEdges({
             />
             {type === 'incoming'
               ? (
-                <>
-                  <span className="text-muted-foreground">from</span>
-                  <NodeSelectionButton id={edge.source.id} />
-                </>
+                  <>
+                    <span className="text-muted-foreground">from</span>
+                    <NodeSelectionButton id={edge.source.id} />
+                  </>
                 )
               : (
-                <>
-                  <span className="text-muted-foreground">to</span>
-                  <NodeSelectionButton id={edge.target.id} />
-                </>
+                  <>
+                    <span className="text-muted-foreground">to</span>
+                    <NodeSelectionButton id={edge.target.id} />
+                  </>
                 )}
           </Fragment>
         ))}
@@ -342,10 +342,10 @@ function AttributableDetails({
           undefined &&
           attribute.name !== attributable.model.metamodel.idAttribute
             ? (
-              <NodeSelectionButton id={attribute.value.literal} />
+                <NodeSelectionButton id={attribute.value.literal} />
               )
             : (
-              <div className="whitespace-pre-wrap">{attribute.value.literal}</div>
+                <div className="whitespace-pre-wrap">{attribute.value.literal}</div>
               )}
         </Fragment>
       ))}

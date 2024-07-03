@@ -135,7 +135,7 @@ export class ValidationError extends Error {
 
 export type ValidationResult<Parameters extends ParameterMetadata> = Readonly<
   z.SafeParseReturnType<unknown, ResolveParameters<Parameters>>
-  >
+>
 
 function getPrimitiveConstructor(primitiveParameterType: PrimitiveParameterType) {
   switch (primitiveParameterType) {

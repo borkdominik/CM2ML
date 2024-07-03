@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/ecore",
+  "name": "@cm2ml/bag-of-paths-encoder",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/borkdominik/CM2ML.git",
-    "directory": "packages/languages/ecore"
+    "directory": "packages/encoder/bag-of-paths-encoder"
   },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"
@@ -34,16 +34,6 @@
     "check:tsc": "tsc",
     "dev": "vite build --watch",
     "lint": "yeger-lint"
-  },
-  "dependencies": {
-    "@cm2ml/ir": "workspace:*",
-    "@cm2ml/ir-post-processor": "workspace:*",
-    "@cm2ml/metamodel": "workspace:*",
-    "@cm2ml/metamodel-refiner": "workspace:*",
-    "@cm2ml/plugin": "workspace:*",
-    "@cm2ml/utils": "workspace:*",
-    "@cm2ml/xmi-parser": "workspace:*",
-    "@yeger/streams": "1.1.9"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

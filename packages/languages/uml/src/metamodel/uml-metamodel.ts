@@ -22,7 +22,7 @@ const { define, defineAbstract } = createMetamodel<
   UmlAbstractType,
   UmlTag,
   UmlHandlerParameters
-  >(Uml)
+>(Uml)
 
 export const Element = defineAbstract(Uml.AbstractTypes.Element)
 

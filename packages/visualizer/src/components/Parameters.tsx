@@ -196,12 +196,12 @@ function StringParameter({
   const input = parameter.allowedValues
     ? (<AllowedValueSelect value={value} allowedValues={parameter.allowedValues} onValueChange={onChange} />)
     : (
-      <Input
-        id={name}
-        value={value}
-        type="text"
-        onChange={(event) => onChange(event.target.value)}
-      />
+        <Input
+          id={name}
+          value={value}
+          type="text"
+          onChange={(event) => onChange(event.target.value)}
+        />
       )
   return (
     <Container>
@@ -229,24 +229,24 @@ function StringArrayInput({
 
   const input = parameter.allowedValues
     ? (
-      <AllowedValueSelect
-        allowedValues={parameter.allowedValues}
-        onValueChange={(selectedValue) => onChange([...values, selectedValue])}
-      />
+        <AllowedValueSelect
+          allowedValues={parameter.allowedValues}
+          onValueChange={(selectedValue) => onChange([...values, selectedValue])}
+        />
       )
     : (
-      <Input
-        id={name}
-        value={inputValue}
-        type="text"
-        onChange={(event) => setInputValue(event.target.value)}
-        onBlur={onInputConfirmed}
-        onKeyDown={(event) => {
-          if (event.key === 'Enter') {
-            onInputConfirmed()
-          }
-        }}
-      />
+        <Input
+          id={name}
+          value={inputValue}
+          type="text"
+          onChange={(event) => setInputValue(event.target.value)}
+          onBlur={onInputConfirmed}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              onInputConfirmed()
+            }
+          }}
+        />
       )
   return (
     <Collapsible>
@@ -280,7 +280,7 @@ function StringArrayInput({
                   <span className="select-none text-balance font-mono">{value}</span>
                 </div>
               ))
-          }
+            }
           </Container>
         </CollapsibleContent>
       </Container>

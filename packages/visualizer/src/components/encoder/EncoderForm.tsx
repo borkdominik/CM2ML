@@ -57,28 +57,28 @@ export function EncoderForm() {
         </div>
         {hasParameters || layout === 'compact'
           ? (
-            <div className="flex flex-col gap-4">
-              {hasParameters
-                ? (
-                  <Parameters
-                    parameters={encoder.parameters}
-                    values={parameters}
-                    setValues={setParameters}
-                  />
-                  )
-                : null}
-              {layout === 'compact'
-                ? (
-                  <Button
-                    disabled={encoder === undefined}
-                    onClick={() => setIsEditing(false)}
-                    className="select-none"
-                  >
-                    Submit
-                  </Button>
-                  )
-                : null}
-            </div>
+              <div className="flex flex-col gap-4">
+                {hasParameters
+                  ? (
+                      <Parameters
+                        parameters={encoder.parameters}
+                        values={parameters}
+                        setValues={setParameters}
+                      />
+                    )
+                  : null}
+                {layout === 'compact'
+                  ? (
+                      <Button
+                        disabled={encoder === undefined}
+                        onClick={() => setIsEditing(false)}
+                        className="select-none"
+                      >
+                        Submit
+                      </Button>
+                    )
+                  : null}
+              </div>
             )
           : null}
       </div>

@@ -40,20 +40,20 @@ function CompactLayout() {
       <ResizablePanel defaultSize={50}>
         {isEditingModel
           ? (
-            <ModelForm />
+              <ModelForm />
             )
           : (
-            <Model />
+              <Model />
             )}
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel>
         {isEditingEncoder
           ? (
-            <EncoderForm />
+              <EncoderForm />
             )
           : (
-            <Encoder />
+              <Encoder />
             )}
       </ResizablePanel>
     </ResizablePanelGroup>

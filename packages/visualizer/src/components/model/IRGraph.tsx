@@ -32,9 +32,9 @@ export function IRGraph({ model }: Props) {
       />
       {!isReady
         ? (
-          <div className="absolute inset-0 flex items-center justify-center p-2">
-            <Progress value={progress} className="max-w-56" />
-          </div>
+            <div className="absolute inset-0 flex items-center justify-center p-2">
+              <Progress value={progress} className="max-w-56" />
+            </div>
           )
         : null}
     </div>

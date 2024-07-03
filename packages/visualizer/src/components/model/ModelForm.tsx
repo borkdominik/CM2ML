@@ -102,11 +102,11 @@ export function ModelForm() {
         <div className="flex flex-col gap-6">
           {parser
             ? (
-              <Parameters
-                parameters={parser.parameters}
-                values={parameters}
-                setValues={setParameters}
-              />
+                <Parameters
+                  parameters={parser.parameters}
+                  values={parameters}
+                  setValues={setParameters}
+                />
               )
             : null}
           <div className="flex flex-col gap-2">
@@ -143,13 +143,13 @@ export function ModelForm() {
           {error ? <Error error={error} /> : null}
           {layout === 'compact'
             ? (
-              <Button
-                disabled={!model}
-                onClick={() => setIsEditing(false)}
-                className="select-none"
-              >
-                Submit
-              </Button>
+                <Button
+                  disabled={!model}
+                  onClick={() => setIsEditing(false)}
+                  className="select-none"
+                >
+                  Submit
+                </Button>
               )
             : null}
         </div>

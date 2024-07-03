@@ -174,17 +174,17 @@ function ListEdge({
   return isTooltipDisabled
     ? entry
     : (
-      <TooltipProvider>
-        <Tooltip disableHoverableContent={isTooltipDisabled}>
-          <TooltipTrigger>{entry}</TooltipTrigger>
-          <TooltipContent>
-            <div>
-              {getOpacity ? (weight ?? 1) : null}
-              {featureVector ? <FeatureVector data={featureVector} /> : null}
-            </div>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+        <TooltipProvider>
+          <Tooltip disableHoverableContent={isTooltipDisabled}>
+            <TooltipTrigger>{entry}</TooltipTrigger>
+            <TooltipContent>
+              <div>
+                {getOpacity ? (weight ?? 1) : null}
+                {featureVector ? <FeatureVector data={featureVector} /> : null}
+              </div>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       )
 }
 

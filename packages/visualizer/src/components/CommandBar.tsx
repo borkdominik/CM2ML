@@ -171,23 +171,23 @@ function NodeSearchCommandGroup({ model, closeDialog }: NodeSearchCommandGroupPr
   return (
     <CommandGroup heading="Nodes">
       {
-            searchableNodes.map(({ label, id, keywords }) => (
-              <CommandItem
-                key={id}
-                onSelect={() => {
-                  setSelection({
-                    selection: id,
-                    origin: 'command',
-                  })
-                  closeDialog()
-                }}
-                value={id}
-                keywords={keywords}
-              >
-                {label ?? id}
-              </CommandItem>
-            ))
-          }
+        searchableNodes.map(({ label, id, keywords }) => (
+          <CommandItem
+            key={id}
+            onSelect={() => {
+              setSelection({
+                selection: id,
+                origin: 'command',
+              })
+              closeDialog()
+            }}
+            value={id}
+            keywords={keywords}
+          >
+            {label ?? id}
+          </CommandItem>
+        ))
+      }
     </CommandGroup>
   )
 }
@@ -224,20 +224,20 @@ function EdgeSearchCommandGroup({ model, closeDialog }: EdgeSearchCommandGroupPr
   return (
     <CommandGroup heading="Edges">
       {
-            searchableEdges.map(({ selection, label, id, tag, keywords }) => (
-              <CommandItem
-                key={id}
-                onSelect={() => {
-                  setSelection({ selection: [selection], origin: 'command' })
-                  closeDialog()
-                }}
-                value={id}
-                keywords={keywords}
-              >
-                {label ?? tag}
-              </CommandItem>
-            ))
-          }
+        searchableEdges.map(({ selection, label, id, tag, keywords }) => (
+          <CommandItem
+            key={id}
+            onSelect={() => {
+              setSelection({ selection: [selection], origin: 'command' })
+              closeDialog()
+            }}
+            value={id}
+            keywords={keywords}
+          >
+            {label ?? tag}
+          </CommandItem>
+        ))
+      }
     </CommandGroup>
   )
 }

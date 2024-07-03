@@ -317,7 +317,7 @@ export function createMetamodel<
   AbstractType extends string,
   Tag extends string,
   HandlerParameters extends HandlerPropagation,
-  >(configuration: Metamodel<AttributeName, Type, Tag>) {
+>(configuration: Metamodel<AttributeName, Type, Tag>) {
   function define(
     name: Type,
     tag: Tag | undefined,

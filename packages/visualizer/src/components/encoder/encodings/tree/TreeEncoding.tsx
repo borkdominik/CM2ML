@@ -106,7 +106,7 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
       {isOrigin
         ? null
         : (
-          <Handle type="target" position={Position.Top} isConnectable={false} />
+            <Handle type="target" position={Position.Top} isConnectable={false} />
           )}
       <div
         className="break-words rounded-sm px-2 py-1 font-mono"
@@ -122,11 +122,11 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
       {isTerminal
         ? null
         : (
-          <Handle
-            type="source"
-            position={Position.Bottom}
-            isConnectable={false}
-          />
+            <Handle
+              type="source"
+              position={Position.Bottom}
+              isConnectable={false}
+            />
           )}
     </div>
   )
