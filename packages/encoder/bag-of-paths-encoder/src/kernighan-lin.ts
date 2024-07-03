@@ -6,16 +6,6 @@ import type { BoPParameters } from './bop-types'
 export function kernighanLin(nodes: GraphNode[], { maxIterations }: Pick<BoPParameters, 'maxIterations'>) {
   const A: GraphNode[] = []
   const B: GraphNode[] = []
-
-  function D(s: GraphNode, internal: GraphNode[], external: GraphNode[]) {
-    const incoming = Stream.from(s.incomingEdges).map(({ source }) => source)
-    const outgoing = Stream.from(s.outgoingEdges).map(({ target }) => target)
-    const connected = incoming.concat(outgoing).cache()
-    const Is = connected.filter((n) => internal.includes(n)).toArray().length
-    const Es = connected.filter((n) => external.includes(n)).toArray().length
-    const Ds = Es - Is
-    return Ds
-  }
   nodes.forEach((node, i) => {
     if (i % 2 === 0) {
       A.push(node)
@@ -23,6 +13,11 @@ export function kernighanLin(nodes: GraphNode[], { maxIterations }: Pick<BoPPara
       B.push(node)
     }
   })
+
+  if (nodes.length <= 2) {
+    return [A, B]
+  }
+
   let iteration = 0
   // eslint-disable-next-line no-unmodified-loop-condition
   while (maxIterations < 0 || iteration++ < maxIterations) {
@@ -97,10 +92,21 @@ export function kernighanLin(nodes: GraphNode[], { maxIterations }: Pick<BoPPara
   return [A, B] as const
 }
 
+function D(s: GraphNode, internal: GraphNode[], external: GraphNode[]) {
+  const incoming = Stream.from(s.incomingEdges).map(({ source }) => source)
+  const outgoing = Stream.from(s.outgoingEdges).map(({ target }) => target)
+  const connected = incoming.concat(outgoing).cache()
+  const Is = connected.filter((n) => internal.includes(n)).toArray().length
+  const Es = connected.filter((n) => external.includes(n)).toArray().length
+  const Ds = Es - Is
+  return Ds
+}
+
 interface GMaxResult {
   k: number
   gMax: number
 }
+
 function findGMax(gv: number[]) {
   function sum(k: number) {
     return gv.slice(0, k).reduce((acc, g) => acc + g, 0)
@@ -117,6 +123,26 @@ function findGMax(gv: number[]) {
   }
   return gMaxResult
 }
+
+// Iterative implementation is somehow slower, TODO/Jan: Bench with real encoding run
+// function findGMax(gv: number[]) {
+//   const bestGMaxResult: GMaxResult = { k: -1, gMax: -Infinity }
+//   const runningSums: number[] = []
+//   for (let k = 0; k < gv.length; k++) {
+//     const previous = runningSums[k - 1] ?? 0
+//     const gMax = gv[k]! + previous
+//     runningSums.push(gMax)
+//     if (gMax > bestGMaxResult.gMax) {
+//       bestGMaxResult.k = k
+//       bestGMaxResult.gMax = gMax
+//     }
+//   }
+//   if (bestGMaxResult.k === -1) {
+//     throw new Error('No gMax result found')
+//   }
+//   bestGMaxResult.k += 1
+//   return bestGMaxResult
+// }
 
 interface MaxResult {
   a: GraphNode

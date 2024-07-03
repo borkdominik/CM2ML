@@ -31,7 +31,7 @@ const nodeIds = [
   'x',
   'y',
   'z',
-]
+].flatMap((id) => Array.from({ length: 10 }).map((_, i) => id.repeat(i + 1)))
 
 const edges = nodeIds.flatMap((source, i) => {
   const t1 = nodeIds[(i + Math.floor(nodeIds.length / 3)) % nodeIds.length]!
@@ -45,5 +45,5 @@ const model = createTestModel(nodeIds, edges)
 const nodes = Array.from(model.nodes)
 
 bench('kernighan-lin algorithm', () => {
-  kernighanLin(nodes, { maxIterations: 1000 })
-}, { iterations: 50, warmupIterations: 20, warmupTime: 2000 })
+  kernighanLin(nodes, { maxIterations: -1 })
+}, { iterations: 10, warmupIterations: 5 })

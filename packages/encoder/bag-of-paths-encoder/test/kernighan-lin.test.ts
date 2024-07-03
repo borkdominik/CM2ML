@@ -33,17 +33,17 @@ describe('kernighan-lin algorithm', () => {
     expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
       [
         [
-          "root",
-          "c",
           "a",
-          "f",
           "b",
+          "c",
+          "f",
+          "root",
         ],
         [
           "d",
-          "h",
           "e",
           "g",
+          "h",
         ],
       ]
     `)
@@ -54,17 +54,17 @@ describe('kernighan-lin algorithm', () => {
     expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
       [
         [
-          "root",
-          "c",
           "a",
-          "f",
           "b",
+          "c",
+          "f",
+          "root",
         ],
         [
           "d",
-          "h",
           "e",
           "g",
+          "h",
         ],
       ]
     `)
@@ -76,17 +76,47 @@ describe('kernighan-lin algorithm', () => {
     expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
       [
         [
-          "root",
-          "b",
-          "d",
-          "f",
-          "h",
-        ],
-        [
           "a",
           "c",
           "e",
           "g",
+        ],
+        [
+          "b",
+          "d",
+          "f",
+          "h",
+          "root",
+        ],
+      ]
+    `)
+  })
+
+  it('can partition a single-entry list', () => {
+    const model = createTestModel([], [])
+    const result = kernighanLin(Array.from(model.nodes), { maxIterations: -1 })
+    // Output is the initial partition, as no iterations are performed
+    expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
+      [
+        [
+          "root",
+        ],
+        [],
+      ]
+    `)
+  })
+
+  it('can partition a dual-entry list', () => {
+    const model = createTestModel(['a'], [['root', 'a']])
+    const result = kernighanLin(Array.from(model.nodes), { maxIterations: -1 })
+    // Output is the initial partition, as no iterations are performed
+    expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
+      [
+        [
+          "a",
+        ],
+        [
+          "root",
         ],
       ]
     `)
