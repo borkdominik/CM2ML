@@ -37,3 +37,4 @@
 - [@cm2ml/tsconfig](./packages/tsconfig)
 - [@cm2ml/utils](./packages/utils)
 - [@cm2ml/visualizer](./packages/visualizer)
+- [kernighan-lin](./packages/kernighan-lin)

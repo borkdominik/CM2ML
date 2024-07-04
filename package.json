@@ -20,7 +20,7 @@
     "dev": "nr turbo run dev --parallel",
     "fix": "nr turbo run lint lint:root --force -- --fix",
     "generate": "nr turbo run generate",
-    "generate-readme": "nr turbo build --filter=@cm2ml/scripts... && generate-readme",
+    "generate-readme": "nr turbo build --filter=@cm2ml/scripts && generate-readme",
     "graph": "turbo-graph build --open",
     "install-hooks": "husky",
     "ml": "pnpm turbo --log-prefix=none",

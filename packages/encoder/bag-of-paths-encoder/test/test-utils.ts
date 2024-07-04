@@ -32,5 +32,11 @@ export function createTestModel(nodes: string[], edges: [string, string][] | (re
 }
 
 export function mapNodesToIds(partitions: readonly GraphNode[][]) {
-  return partitions.map((partition) => partition.map(({ id }) => id).sort()).sort((a, b) => a[0]?.localeCompare(b[0] ?? '') ?? 0)
+  return partitions
+    .map((partition) =>
+      partition.map(({ id }) => id).sort(),
+    )
+    .sort((a, b) =>
+      a[0]?.localeCompare(b[0] ?? '') ?? 0,
+    )
 }

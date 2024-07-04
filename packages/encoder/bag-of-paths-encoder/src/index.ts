@@ -1,7 +1,7 @@
 import type { GraphModel } from '@cm2ml/ir'
 import { batchTryCatch, definePlugin } from '@cm2ml/plugin'
 
-import { partitionNodes } from './partition-nodes'
+import { partitionNodes } from './partitions'
 
 export const BagOfPathsEncoder = batchTryCatch(definePlugin({
   name: 'bag-of-paths',

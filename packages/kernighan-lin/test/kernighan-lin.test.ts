@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
-import { kernighanLin } from '../src/kernighan-lin'
+import { kernighanLin } from '../src'
 
-import { createTestModel, mapNodesToIds } from './test-utils'
+import { createTestGraph, getConnectedVertices, mapToValues } from './test-utils'
 
-const model = createTestModel(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], [
+const vertices = createTestGraph(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], [
   // Very strong connections between a, b, c, f
   ['a', 'b'],
   ['a', 'c'],
@@ -29,15 +29,14 @@ const model = createTestModel(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], [
 
 describe('kernighan-lin algorithm', () => {
   it('creates two partitions', () => {
-    const result = kernighanLin(Array.from(model.nodes), { maxIterations: 100 })
-    expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
+    const result = kernighanLin(vertices, getConnectedVertices, { maxIterations: 10 })
+    expect(mapToValues(result)).toMatchInlineSnapshot(`
       [
         [
           "a",
           "b",
           "c",
           "f",
-          "root",
         ],
         [
           "d",
@@ -50,15 +49,14 @@ describe('kernighan-lin algorithm', () => {
   })
 
   it('terminates with no iteration limit', () => {
-    const result = kernighanLin(Array.from(model.nodes), { maxIterations: -1 })
-    expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
+    const result = kernighanLin(vertices, getConnectedVertices, { maxIterations: -1 })
+    expect(mapToValues(result)).toMatchInlineSnapshot(`
       [
         [
           "a",
           "b",
           "c",
           "f",
-          "root",
         ],
         [
           "d",
@@ -71,9 +69,9 @@ describe('kernighan-lin algorithm', () => {
   })
 
   it('uses the initial partitions with zero iterations', () => {
-    const result = kernighanLin(Array.from(model.nodes), { maxIterations: 0 })
+    const result = kernighanLin(vertices, getConnectedVertices, { maxIterations: 0 })
     // Output is the initial partition, as no iterations are performed
-    expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
+    expect(mapToValues(result)).toMatchInlineSnapshot(`
       [
         [
           "a",
@@ -86,20 +84,19 @@ describe('kernighan-lin algorithm', () => {
           "d",
           "f",
           "h",
-          "root",
         ],
       ]
     `)
   })
 
   it('can partition a single-entry list', () => {
-    const model = createTestModel([], [])
-    const result = kernighanLin(Array.from(model.nodes), { maxIterations: -1 })
+    const vertices = createTestGraph(['a'], [])
+    const result = kernighanLin(vertices, getConnectedVertices, { maxIterations: -1 })
     // Output is the initial partition, as no iterations are performed
-    expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
+    expect(mapToValues(result)).toMatchInlineSnapshot(`
       [
         [
-          "root",
+          "a",
         ],
         [],
       ]
@@ -107,16 +104,35 @@ describe('kernighan-lin algorithm', () => {
   })
 
   it('can partition a dual-entry list', () => {
-    const model = createTestModel(['a'], [['root', 'a']])
-    const result = kernighanLin(Array.from(model.nodes), { maxIterations: -1 })
+    const vertices = createTestGraph(['a', 'b'], [['a', 'b']])
+    const result = kernighanLin(vertices, getConnectedVertices, { maxIterations: -1 })
     // Output is the initial partition, as no iterations are performed
-    expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
+    expect(mapToValues(result)).toMatchInlineSnapshot(`
       [
         [
           "a",
         ],
         [
-          "root",
+          "b",
+        ],
+      ]
+    `)
+  })
+
+  it('can partition an uneven list', () => {
+    const vertices = createTestGraph(['a', 'b', 'c', 'd', 'e'], [['a', 'b'], ['d', 'e']])
+    const result = kernighanLin(vertices, getConnectedVertices, { maxIterations: -1 })
+    // Output is the initial partition, as no iterations are performed
+    expect(mapToValues(result)).toMatchInlineSnapshot(`
+      [
+        [
+          "a",
+          "b",
+        ],
+        [
+          "c",
+          "d",
+          "e",
         ],
       ]
     `)

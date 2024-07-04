@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/bag-of-paths-encoder",
+  "name": "kernighan-lin",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/borkdominik/CM2ML.git",
-    "directory": "packages/encoder/bag-of-paths-encoder"
+    "directory": "packages/kernighan-lin"
   },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"
@@ -29,18 +29,13 @@
     "dist/*"
   ],
   "scripts": {
+    "bench": "vitest bench",
     "build": "vite build",
     "check:publish": "publint run --strict",
     "check:tsc": "tsc",
     "dev": "vite build --watch",
     "lint": "yeger-lint",
     "test": "vitest"
-  },
-  "dependencies": {
-    "@cm2ml/ir": "workspace:*",
-    "@cm2ml/plugin": "workspace:*",
-    "@yeger/streams": "1.1.9",
-    "kernighan-lin": "workspace:*"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
