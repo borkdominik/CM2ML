@@ -32,5 +32,9 @@ export function mapToValues(partitions: [GraphVertex[], GraphVertex[]]) {
 }
 
 export function getConnectedVertices(vertex: GraphVertex) {
-  return vertex.outgoingEdges.concat(vertex.incomingEdges)
+  return new Set(vertex.outgoingEdges.concat(vertex.incomingEdges))
+}
+
+export function cost(a: GraphVertex, b: GraphVertex) {
+  return a.incomingEdges.filter((edge) => edge === b).length + a.outgoingEdges.filter((edge) => edge === b).length
 }

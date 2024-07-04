@@ -1,13 +1,71 @@
+/**
+ * Cost of the edge between two vertices.
+ * Note: Because the algorithm operates on undirected graphs, the cost function must be symmetric.
+ */
+export type CostFunction<Vertex> = (a: Vertex, b: Vertex) => number
+
 export interface Options<Vertex> {
+  /**
+   * Maximum number of iterations. If set to a negative value, the algorithm will run until no further improvement can be made.
+   * Defaults to `10`.
+   */
   maxIterations?: number
-  cost?: (a: Vertex, b: Vertex) => number
+  /**
+   * See {@link CostFunction}.
+   * Defaults to `() => 1`.
+   */
+  cost?: CostFunction<Vertex>
 }
 
-export function kernighanLin<Vertex>(vertices: Vertex[], getConnectedVertices: (vertex: Vertex) => Vertex[], { maxIterations = 10, cost = () => 1 }: Options<Vertex>): [Vertex[], Vertex[]] {
+class CostCache<Vertex> {
+  private cache = new Map<Vertex, Map<Vertex, number>>()
+
+  public constructor(private readonly cost: CostFunction<Vertex>) { }
+
+  private ensureCache(a: Vertex, b: Vertex) {
+    if (!this.cache.has(a)) {
+      this.cache.set(a, new Map())
+    }
+    if (!this.cache.has(b)) {
+      this.cache.set(b, new Map())
+    }
+  }
+
+  private getCachedCost(a: Vertex, b: Vertex) {
+    return this.cache.get(a)!.get(b) ?? this.cache.get(b)!.get(a)
+  }
+
+  public getCost(a: Vertex, b: Vertex) {
+    this.ensureCache(a, b)
+    const cachedCost = this.getCachedCost(a, b)
+    if (cachedCost !== undefined) {
+      return cachedCost
+    }
+    const newCost = this.cost(a, b)
+    this.cache.get(a)!.set(b, newCost)
+    this.cache.get(b)!.set(a, newCost)
+    return newCost
+  }
+}
+
+/**
+ * Partitions a set of vertices using the Kernighan-Lin algorithm.
+ * @param vertices - The vertices to partition. May not contain duplicates.
+ * @param getConnections - A function that returns the connections of a vertex, i.e., the set of vertices a given vertex is connected to.
+ * @param options - The options for the algorithm. See {@link Options}.
+ * @returns The two partitions of the vertices.
+ */
+export function kernighanLin<Vertex>(
+  vertices: Vertex[],
+  getConnections: (vertex: Vertex) => Set<Vertex>,
+  { maxIterations = 10, cost = () => 1 }: Options<Vertex>,
+): [Vertex[], Vertex[]] {
   const A: Vertex[] = []
   const B: Vertex[] = []
-  vertices.forEach((vertex, i) => {
-    if (i % 2 === 0) {
+
+  // 1. Create initial partitions
+  vertices.forEach((vertex, index) => {
+    if (index % 2 === 0) {
       A.push(vertex)
     } else {
       B.push(vertex)
@@ -15,21 +73,33 @@ export function kernighanLin<Vertex>(vertices: Vertex[], getConnectedVertices: (
   })
 
   if (vertices.length <= 2) {
+    // If we have less than 3 vertices, we can't do anything
     return [A, B]
   }
 
-  const connections = new Map<Vertex, Vertex[]>()
-  vertices.forEach((vertex) => {
-    connections.set(vertex, getConnectedVertices(vertex))
-  })
+  // 3. Get all connections
+  const connections = new Map<Vertex, Set<Vertex>>(
+    [...vertices.values()]
+      .map((vertex) =>
+        [vertex, getConnections(vertex)],
+      ),
+  )
 
+  const costCache = new CostCache(cost)
   function D(s: Vertex, internal: Set<Vertex>, external: Set<Vertex>) {
     const connectedVertices = connections.get(s)
     if (connectedVertices === undefined) {
       return 0
     }
-    const Is = sum(connectedVertices.map((v) => internal.has(v) ? cost(s, v) : 0))
-    const Es = sum(connectedVertices.map((v) => external.has(v) ? cost(s, v) : 0))
+    let Is = 0
+    let Es = 0
+    for (const v of connectedVertices) {
+      if (internal.has(v)) {
+        Is += costCache.getCost(s, v)
+      } else if (external.has(v)) {
+        Es += costCache.getCost(s, v)
+      }
+    }
     const Ds = Es - Is
     return Ds
   }
@@ -51,17 +121,19 @@ export function kernighanLin<Vertex>(vertices: Vertex[], getConnectedVertices: (
       }
     }
 
+    // 4. Calculate initial D values
     updateDValues()
 
     const av: Vertex[] = []
     const bv: Vertex[] = []
     const gv: number[] = []
 
+    // 5. Find the optimal swaps
     for (let n = 1; n < vertices.length / 2; n++) {
       let bestSwap: MaxResult<Vertex> | undefined
       for (const a of ASet) {
         for (const b of BSet) {
-          const c = cost(a, b) * (connections.get(a)?.filter((v) => v === b).length ?? 0)
+          const c = costCache.getCost(a, b)
           const g = DValues.get(a)! + DValues.get(b)! - 2 * c
           if (!bestSwap || g > bestSwap.g) {
             bestSwap = { a, b, g }
@@ -74,14 +146,18 @@ export function kernighanLin<Vertex>(vertices: Vertex[], getConnectedVertices: (
       av.push(bestSwap.a)
       bv.push(bestSwap.b)
       gv.push(bestSwap.g)
+      // 6. Remove the vertices from consideration for the current iteration
       ASet.delete(bestSwap.a)
       BSet.delete(bestSwap.b)
+      // 7. Update D values
       updateDValues()
     }
 
+    // 8. Find the best swap amount
     const { k, gMax } = findGMax(gv)
     if (gMax > 0) {
       for (let i = 0; i <= k; i++) {
+        // 9. Swap the vertices
         const avi = av[i]
         const bvi = bv[i]
         if (!avi || !bvi) {
@@ -97,6 +173,7 @@ export function kernighanLin<Vertex>(vertices: Vertex[], getConnectedVertices: (
       }
     }
     if (gMax <= 0) {
+      // 10. No further improvement can be made
       break
     }
   }

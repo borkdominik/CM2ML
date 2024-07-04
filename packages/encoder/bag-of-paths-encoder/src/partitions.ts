@@ -15,14 +15,20 @@ export function partitionNodes(model: GraphModel, parameters: BoPParameters): Gr
   return createPartitions(nodes, parameters)
 }
 
-function getConnectedNodes(node: GraphNode): GraphNode[] {
+function getConnectedNodes(node: GraphNode): Set<GraphNode> {
   const incoming = Stream.from(node.incomingEdges).map((edge) => edge.source)
   const outgoing = Stream.from(node.outgoingEdges).map((edge) => edge.target)
-  return incoming.concat(outgoing).toArray()
+  return incoming.concat(outgoing).toSet()
+}
+
+function getCost(a: GraphNode, b: GraphNode) {
+  const incoming = Stream.from(a.incomingEdges).filter((edge) => edge.source === b)
+  const outgoing = Stream.from(a.outgoingEdges).filter((edge) => edge.target === b)
+  return incoming.concat(outgoing).toArray().length
 }
 
 function createPartitions(nodes: GraphNode[], parameters: BoPParameters): GraphNode[][] {
-  const part = kernighanLin(nodes, getConnectedNodes, parameters)
+  const part = kernighanLin(nodes, getConnectedNodes, { ...parameters, cost: getCost })
   return part.flatMap((partition) => {
     if (partition.length <= parameters.maxPartitionSize) {
       // The partition is small enough, return it as is
