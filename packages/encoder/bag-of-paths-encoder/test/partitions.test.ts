@@ -19,7 +19,7 @@ const model = createTestModel(['a', 'b', 'c', 'd', 'e', 'f'], [
 
 describe('kernighan-lin algorithm', () => {
   it('creates partitions', () => {
-    const result = partitionNodes(model, { maxPartitionSize: 2, maxIterations: 2 })
+    const result = partitionNodes(model, { costType: 'edge-count', maxPartitionSize: 2, maxIterations: 2 })
     expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
       [
         [

@@ -8,13 +8,19 @@ export const BagOfPathsEncoder = batchTryCatch(definePlugin({
   parameters: {
     maxIterations: {
       type: 'number',
-      defaultValue: -1,
-      description: 'The maximum number of iterations to run the algorithm for. Values smaller than 0 enable infinite iterations.',
+      defaultValue: 10,
+      description: 'The maximum number of iterations to run the algorithm for. Negative values 0 enable infinite iterations.',
     },
     maxPartitionSize: {
       type: 'number',
       defaultValue: 100,
       description: 'The maximum number of nodes in each partition.',
+    },
+    costType: {
+      type: 'string',
+      defaultValue: 'edge-count',
+      allowedValues: ['edge-count', 'constant'],
+      description: 'The type of cost function to use.',
     },
   },
   invoke(model: GraphModel, parameters) {

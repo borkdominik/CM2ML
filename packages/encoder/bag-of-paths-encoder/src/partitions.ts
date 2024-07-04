@@ -21,14 +21,15 @@ function getConnectedNodes(node: GraphNode): Set<GraphNode> {
   return incoming.concat(outgoing).toSet()
 }
 
-function getCost(a: GraphNode, b: GraphNode) {
+function edgeCountCost(a: GraphNode, b: GraphNode) {
   const incoming = Stream.from(a.incomingEdges).filter((edge) => edge.source === b)
   const outgoing = Stream.from(a.outgoingEdges).filter((edge) => edge.target === b)
   return incoming.concat(outgoing).toArray().length
 }
 
 function createPartitions(nodes: GraphNode[], parameters: BoPParameters): GraphNode[][] {
-  const part = kernighanLin(nodes, getConnectedNodes, { ...parameters, cost: getCost })
+  const cost = parameters.costType === 'edge-count' ? edgeCountCost : undefined
+  const part = kernighanLin(nodes, getConnectedNodes, { ...parameters, cost })
   return part.flatMap((partition) => {
     if (partition.length <= parameters.maxPartitionSize) {
       // The partition is small enough, return it as is
