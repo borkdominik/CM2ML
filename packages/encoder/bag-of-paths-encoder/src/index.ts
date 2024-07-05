@@ -1,8 +1,10 @@
 import type { GraphModel } from '@cm2ml/ir'
 import { batchTryCatch, definePlugin } from '@cm2ml/plugin'
+import { Stream } from '@yeger/streams'
 
+import { normalizePartition } from './normalization'
 import { partitionNodes } from './partitioning'
-import { restorePartition } from './restoration'
+import { restorePartitionEdges } from './restoration'
 
 export const BagOfPathsEncoder = batchTryCatch(definePlugin({
   name: 'bag-of-paths',
@@ -26,7 +28,12 @@ export const BagOfPathsEncoder = batchTryCatch(definePlugin({
   },
   invoke(model: GraphModel, parameters) {
     return {
-      data: partitionNodes(model, parameters).map(restorePartition).map((nodes) => [...nodes].map(({ type }) => type)),
+      data: Stream.from(partitionNodes(model, parameters))
+        .map(restorePartitionEdges)
+        .map(normalizePartition)
+        .map((nodes) => [...nodes.values()])
+        .map((nodes) => nodes.map(({ id }) => id))
+        .toArray(),
       metadata: {},
     }
   },

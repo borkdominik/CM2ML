@@ -3,7 +3,7 @@ import type { GraphNode } from '@cm2ml/ir'
 /**
  * Add all nodes connected to the nodes in the partition to the partition.
  */
-export function restorePartition(partition: Set<GraphNode>): Set<GraphNode> {
+export function restorePartitionEdges(partition: Set<GraphNode>): Set<GraphNode> {
   function addConnectedNodes(node: GraphNode) {
     node.incomingEdges.forEach((edge) => partition.add(edge.source))
     node.outgoingEdges.forEach((edge) => partition.add(edge.target))

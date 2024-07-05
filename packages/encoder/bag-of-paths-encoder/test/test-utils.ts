@@ -31,6 +31,31 @@ export function createTestModel(nodes: string[], edges: [string, string][] | (re
   return model
 }
 
+/**
+ * Test model with strong connections between:
+ * - root and a
+ * - b and d
+ * - c and e.
+ */
+export const testModel = createTestModel(['a', 'b', 'c', 'd', 'e', 'f'], [
+  // Connections between root and a
+  ['root', 'a'],
+  ['a', 'root'],
+  ['a', 'root'],
+  // Connections between b and d
+  ['b', 'd'],
+  ['d', 'b'],
+  // Connections between c and e
+  ['c', 'e'],
+  ['e', 'c'],
+  // Weak links that will be restored
+  ['root', 'b'],
+  ['root', 'c'],
+  ['root', 'd'],
+  ['root', 'e'],
+  ['root', 'f'],
+])
+
 export function mapNodesToIds(partitions: readonly Set<GraphNode>[]) {
   return partitions
     .map((partition) =>
