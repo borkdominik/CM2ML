@@ -18,13 +18,13 @@ export function createTestGraph(values: string[], edges: [string, string][] | (r
       throw new Error(`Invalid edge: ${sourceValue} -> ${targetValue}`)
     }
   })
-  return [...vertexMap.values()]
+  return new Set(vertexMap.values())
 }
 
-export function mapToValues(partitions: [GraphVertex[], GraphVertex[]]) {
+export function mapToValues(partitions: readonly [Set<GraphVertex>, Set<GraphVertex>]) {
   return partitions
     .map((vertices) =>
-      vertices.map((vertex) => vertex.value).sort(),
+      [...vertices].map((vertex) => vertex.value).sort(),
     )
     .sort((a, b) =>
       a[0]?.localeCompare(b[0] ?? '') ?? 0,

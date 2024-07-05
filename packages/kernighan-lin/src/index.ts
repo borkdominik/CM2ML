@@ -16,37 +16,32 @@ export interface Options<Vertex> {
   cost?: CostFunction<Vertex>
 }
 
+export type AnySet<T> = Set<T> | ReadonlySet<T>
+
 /**
  * Partitions a set of vertices using the Kernighan-Lin algorithm.
- * @param vertices - The vertices to partition. May not contain duplicates.
+ * @param vertices - The set of vertices to partition. Note: The vertices must be hashable to support the usage of sets and maps.
  * @param getConnections - A function that returns the connections of a vertex, i.e., the set of vertices a given vertex is connected to.
  * @param options - The options for the algorithm. See {@link Options}.
  * @returns The two partitions of the vertices.
  */
 export function kernighanLin<Vertex>(
-  vertices: Vertex[],
-  getConnections: (vertex: Vertex) => Set<Vertex>,
+  vertices: AnySet<Vertex>,
+  getConnections: (vertex: Vertex) => AnySet<Vertex>,
   { maxIterations = 10, cost = () => 1 }: Options<Vertex>,
-): [Vertex[], Vertex[]] {
-  const A: Vertex[] = []
-  const B: Vertex[] = []
-
+): readonly [Set<Vertex>, Set<Vertex>] {
   // 1. Create initial partitions
-  vertices.forEach((vertex, index) => {
-    if (index % 2 === 0) {
-      A.push(vertex)
-    } else {
-      B.push(vertex)
-    }
-  })
+  const partitions = createInitialPartitions(vertices)
 
-  if (vertices.length <= 2) {
-    // If we have less than 3 vertices, we can't do anything
-    return [A, B]
+  if (vertices.size <= 2) {
+    // If we have less than 3 vertices, we don't have to do anything
+    return asSets(partitions)
   }
 
+  const [A, B] = partitions
+
   // 3. Get all connections
-  const connections = new Map<Vertex, Set<Vertex>>(
+  const connections = new Map<Vertex, AnySet<Vertex>>(
     [...vertices.values()]
       .map((vertex) =>
         [vertex, getConnections(vertex)],
@@ -97,8 +92,8 @@ export function kernighanLin<Vertex>(
     const gv: number[] = []
 
     // 5. Find the optimal swaps
-    for (let n = 1; n < vertices.length / 2; n++) {
-      let bestSwap: MaxResult<Vertex> | undefined
+    for (let n = 1; n < vertices.size / 2; n++) {
+      let bestSwap: Swap<Vertex> | undefined
       for (const a of ASet) {
         for (const b of BSet) {
           const c = costCache.getCost(a, b)
@@ -109,7 +104,7 @@ export function kernighanLin<Vertex>(
         }
       }
       if (!bestSwap) {
-        throw new Error('No max result found')
+        throw new Error('No max result found. Please report this internal error.')
       }
       av.push(bestSwap.a)
       bv.push(bestSwap.b)
@@ -121,7 +116,7 @@ export function kernighanLin<Vertex>(
       updateDValues()
     }
 
-    // 8. Find the best swap amount
+    // 8. Find the best number of swaps
     const { k, gMax } = findGMax(gv)
     if (gMax > 0) {
       for (let i = 0; i <= k; i++) {
@@ -129,12 +124,12 @@ export function kernighanLin<Vertex>(
         const avi = av[i]
         const bvi = bv[i]
         if (!avi || !bvi) {
-          throw new Error('avi or bvi not found')
+          throw new Error(`avi or bvi not found. Index ${i} out-of-bounds. Please report this internal error.`)
         }
         const aIndex = A.indexOf(avi)
         const bIndex = B.indexOf(bvi)
         if (aIndex === -1 || bIndex === -1) {
-          throw new Error('aIndex or bIndex not found')
+          throw new Error('aIndex or bIndex not found. Please report this internal error.')
         }
         A[aIndex] = bvi
         B[bIndex] = avi
@@ -143,6 +138,20 @@ export function kernighanLin<Vertex>(
     if (gMax <= 0) {
       // 10. No further improvement can be made
       break
+    }
+  }
+  return asSets(partitions)
+}
+
+function createInitialPartitions<Vertex>(vertices: AnySet<Vertex>) {
+  const A: Vertex[] = []
+  const B: Vertex[] = []
+  let index = 0
+  for (const vertex of vertices) {
+    if (index++ % 2 === 0) {
+      A.push(vertex)
+    } else {
+      B.push(vertex)
     }
   }
   return [A, B] as const
@@ -162,7 +171,7 @@ function findGMax(gv: number[]) {
     }
   }
   if (!gMaxResult) {
-    throw new Error('No gMax result found')
+    throw new Error('No gMax result found. Please report this internal error.')
   }
   if (gMaxResult.k === 0) {
     gMaxResult.gMax = gv[0] ?? gMaxResult.gMax
@@ -194,8 +203,12 @@ function sum(values: number[]) {
 //   return bestGMaxResult
 // }
 
-interface MaxResult<Vertex> {
+interface Swap<Vertex> {
   a: Vertex
   b: Vertex
   g: number
+}
+
+function asSets<Vertex>(partitions: readonly [Vertex[], Vertex[]]) {
+  return [new Set(partitions[0]), new Set(partitions[1])] as const
 }

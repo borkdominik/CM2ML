@@ -89,11 +89,12 @@ describe('kernighan-lin algorithm', () => {
     `)
   })
 
-  it('can partition a single-entry list', () => {
-    const vertices = createTestGraph(['a'], [])
-    const result = kernighanLin(vertices, getConnections, { cost, maxIterations: -1 })
-    // Output is the initial partition, as no iterations are performed
-    expect(mapToValues(result)).toMatchInlineSnapshot(`
+  describe('edge cases', () => {
+    it('can partition a single-entry list', () => {
+      const vertices = createTestGraph(['a'], [])
+      const result = kernighanLin(vertices, getConnections, { cost, maxIterations: -1 })
+      // Output is the initial partition, as no iterations are performed
+      expect(mapToValues(result)).toMatchInlineSnapshot(`
       [
         [
           "a",
@@ -101,13 +102,13 @@ describe('kernighan-lin algorithm', () => {
         [],
       ]
     `)
-  })
+    })
 
-  it('can partition a dual-entry list', () => {
-    const vertices = createTestGraph(['a', 'b'], [['a', 'b']])
-    const result = kernighanLin(vertices, getConnections, { cost, maxIterations: -1 })
-    // Output is the initial partition, as no iterations are performed
-    expect(mapToValues(result)).toMatchInlineSnapshot(`
+    it('can partition a dual-entry list', () => {
+      const vertices = createTestGraph(['a', 'b'], [['a', 'b']])
+      const result = kernighanLin(vertices, getConnections, { cost, maxIterations: -1 })
+      // Output is the initial partition, as no iterations are performed
+      expect(mapToValues(result)).toMatchInlineSnapshot(`
       [
         [
           "a",
@@ -117,13 +118,13 @@ describe('kernighan-lin algorithm', () => {
         ],
       ]
     `)
-  })
+    })
 
-  it('can partition an uneven list', () => {
-    const vertices = createTestGraph(['a', 'b', 'c', 'd', 'e'], [['a', 'b'], ['d', 'e']])
-    const result = kernighanLin(vertices, getConnections, { cost, maxIterations: -1 })
-    // Output is the initial partition, as no iterations are performed
-    expect(mapToValues(result)).toMatchInlineSnapshot(`
+    it('can partition an uneven list', () => {
+      const vertices = createTestGraph(['a', 'b', 'c', 'd', 'e'], [['a', 'b'], ['d', 'e']])
+      const result = kernighanLin(vertices, getConnections, { cost, maxIterations: -1 })
+      // Output is the initial partition, as no iterations are performed
+      expect(mapToValues(result)).toMatchInlineSnapshot(`
       [
         [
           "a",
@@ -136,5 +137,6 @@ describe('kernighan-lin algorithm', () => {
         ],
       ]
     `)
+    })
   })
 })

@@ -12,7 +12,7 @@ export function partitionNodes(model: GraphModel, parameters: BoPParameters): Gr
   if (parameters.maxPartitionSize === 1) {
     return nodes.map((node) => [node])
   }
-  return createPartitions(nodes, parameters)
+  return createPartitions(model.nodes, parameters).map((partition) => Array.from(partition))
 }
 
 function getConnectedNodes(node: GraphNode): Set<GraphNode> {
@@ -27,11 +27,11 @@ function edgeCountCost(a: GraphNode, b: GraphNode) {
   return incoming.concat(outgoing).toArray().length
 }
 
-function createPartitions(nodes: GraphNode[], parameters: BoPParameters): GraphNode[][] {
+function createPartitions(nodes: ReadonlySet<GraphNode>, parameters: BoPParameters): Set<GraphNode>[] {
   const cost = parameters.costType === 'edge-count' ? edgeCountCost : undefined
-  const part = kernighanLin(nodes, getConnectedNodes, { ...parameters, cost })
-  return part.flatMap((partition) => {
-    if (partition.length <= parameters.maxPartitionSize) {
+  const partitions = kernighanLin(nodes, getConnectedNodes, { ...parameters, cost })
+  return partitions.flatMap((partition) => {
+    if (partition.size <= parameters.maxPartitionSize) {
       // The partition is small enough, return it as is
       return [partition]
     }
