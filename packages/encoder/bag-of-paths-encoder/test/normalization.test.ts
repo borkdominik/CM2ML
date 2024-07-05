@@ -20,9 +20,15 @@ describe('normalization', () => {
             "node_0",
             [
               "node_3",
+              "node_3",
             ],
             [
-              "node_0",
+              "node_3",
+              "node_1",
+              "node_4",
+              "node_2",
+              "node_5",
+              "node_6",
             ],
           ],
           [
@@ -32,7 +38,7 @@ describe('normalization', () => {
               "node_2",
             ],
             [
-              "node_1",
+              "node_2",
             ],
           ],
           [
@@ -42,7 +48,7 @@ describe('normalization', () => {
               "node_1",
             ],
             [
-              "node_2",
+              "node_1",
             ],
           ],
           [
@@ -51,7 +57,8 @@ describe('normalization', () => {
               "node_0",
             ],
             [
-              "node_3",
+              "node_0",
+              "node_0",
             ],
           ],
           [
@@ -61,7 +68,7 @@ describe('normalization', () => {
               "node_5",
             ],
             [
-              "node_4",
+              "node_5",
             ],
           ],
           [
@@ -71,7 +78,7 @@ describe('normalization', () => {
               "node_4",
             ],
             [
-              "node_5",
+              "node_4",
             ],
           ],
           [
@@ -97,7 +104,7 @@ describe('normalization', () => {
               "node_3",
             ],
             [
-              "node_1",
+              "node_2",
             ],
           ],
           [
@@ -107,14 +114,16 @@ describe('normalization', () => {
               "node_3",
             ],
             [
-              "node_2",
+              "node_1",
             ],
           ],
           [
             "node_3",
             [],
             [
-              "node_3",
+              "node_1",
+              "node_2",
+              "node_0",
             ],
           ],
         ],
@@ -126,7 +135,7 @@ describe('normalization', () => {
 function prettyFormatLabeledNode(labeledNode: LabeledNode) {
   return [
     labeledNode.id,
-    Array.from(labeledNode.incomingEdges).map((node) => node.id),
-    Array.from(labeledNode.outgoingEdges).map((node) => node.id),
+    Array.from(labeledNode.incomingEdges).map(({ source }) => source.id),
+    Array.from(labeledNode.outgoingEdges).map(({ target }) => target.id),
   ]
 }

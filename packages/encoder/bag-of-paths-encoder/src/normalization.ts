@@ -1,4 +1,4 @@
-import type { GraphNode } from '@cm2ml/ir'
+import type { GraphEdge, GraphNode } from '@cm2ml/ir'
 
 export function normalizePartition(partition: Set<GraphNode>) {
   const labeledNodes = createLabeledNodes(partition)
@@ -9,14 +9,14 @@ export function normalizePartition(partition: Set<GraphNode>) {
 export class LabeledNode {
   public readonly label: string | undefined
 
-  public readonly incomingEdges: Set<LabeledNode> = new Set()
-  public readonly outgoingEdges: Set<LabeledNode> = new Set()
+  public readonly incomingEdges: Set<LabeledEdge> = new Set()
+  public readonly outgoingEdges: Set<LabeledEdge> = new Set()
 
   public constructor(
-    public readonly graphNode: GraphNode,
+    public readonly data: GraphNode,
     public index: number,
   ) {
-    this.label = graphNode.type
+    this.label = data.type
   }
 
   public get id() {
@@ -24,23 +24,33 @@ export class LabeledNode {
   }
 }
 
+export class LabeledEdge {
+  public constructor(
+    public readonly source: LabeledNode,
+    public readonly target: LabeledNode,
+    public readonly data: GraphEdge,
+  ) {}
+}
+
 /**
  * Create labeled nodes from a partition of graph nodes.
  */
 function createLabeledNodes(partition: Set<GraphNode>) {
   const labeledNodes = [...partition].map((node, index) => new LabeledNode(node, index))
-  const nodeMap = new Map(labeledNodes.map((labeledNode) => [labeledNode.graphNode, labeledNode]))
+  const nodeMap = new Map(labeledNodes.map((labeledNode) => [labeledNode.data, labeledNode]))
   labeledNodes.forEach((labeledNode) => {
-    labeledNode.graphNode.outgoingEdges.forEach((edge) => {
+    labeledNode.data.outgoingEdges.forEach((edge) => {
       if (!partition.has(edge.target)) {
+        // labeledNode was added via restoration and edge/edge.target is not part of the partition
         return
       }
       const target = nodeMap.get(edge.target)
       if (!target) {
         throw new Error(`Target node ${edge.target.id} of ${edge.source.id} not found. This is an internal error.`)
       }
-      labeledNode.outgoingEdges.add(labeledNode)
-      target.incomingEdges.add(labeledNode)
+      const labeledEdge = new LabeledEdge(labeledNode, target, edge)
+      labeledNode.outgoingEdges.add(labeledEdge)
+      target.incomingEdges.add(labeledEdge)
     })
   })
   return labeledNodes
