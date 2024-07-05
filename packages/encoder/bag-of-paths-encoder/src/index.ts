@@ -1,8 +1,8 @@
 import type { GraphModel } from '@cm2ml/ir'
 import { batchTryCatch, definePlugin } from '@cm2ml/plugin'
 
-import { partitionNodes } from './partitions'
-import { restorePartitions } from './restoration'
+import { partitionNodes } from './partitioning'
+import { restorePartition } from './restoration'
 
 export const BagOfPathsEncoder = batchTryCatch(definePlugin({
   name: 'bag-of-paths',
@@ -26,7 +26,7 @@ export const BagOfPathsEncoder = batchTryCatch(definePlugin({
   },
   invoke(model: GraphModel, parameters) {
     return {
-      data: restorePartitions(partitionNodes(model, parameters)).map((nodes) => nodes.map(({ type }) => type)),
+      data: partitionNodes(model, parameters).map(restorePartition).map((nodes) => [...nodes].map(({ type }) => type)),
       metadata: {},
     }
   },

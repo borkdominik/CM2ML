@@ -1,25 +1,15 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-export function restorePartitions(partitions: GraphNode[][]): GraphNode[][] {
-  return partitions.map(restorePartition)
-}
-
-function restorePartition(partition: GraphNode[]): GraphNode[] {
-  const nodes = new Set(partition)
-  function addNode(node: GraphNode) {
-    if (nodes.has(node)) {
-      return
-    }
-    nodes.add(node)
-  }
+/**
+ * Add all nodes connected to the nodes in the partition to the partition.
+ */
+export function restorePartition(partition: Set<GraphNode>): Set<GraphNode> {
   function addConnectedNodes(node: GraphNode) {
-    for (const edge of node.incomingEdges) {
-      addNode(edge.source)
-    }
-    for (const edge of node.outgoingEdges) {
-      addNode(edge.target)
-    }
+    node.incomingEdges.forEach((edge) => partition.add(edge.source))
+    node.outgoingEdges.forEach((edge) => partition.add(edge.target))
   }
-  partition.forEach(addConnectedNodes)
-  return [...nodes]
+  // We need to copy the partition because we can't modify it while iterating over it.
+  // If we didn't, addConnectedNodes would be called with the new nodes as well.
+  [...partition].forEach(addConnectedNodes)
+  return partition
 }

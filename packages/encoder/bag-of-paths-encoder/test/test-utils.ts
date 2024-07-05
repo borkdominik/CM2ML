@@ -31,10 +31,10 @@ export function createTestModel(nodes: string[], edges: [string, string][] | (re
   return model
 }
 
-export function mapNodesToIds(partitions: readonly GraphNode[][]) {
+export function mapNodesToIds(partitions: readonly Set<GraphNode>[]) {
   return partitions
     .map((partition) =>
-      partition.map(({ id }) => id).sort(),
+      [...partition].map(({ id }) => id).sort(),
     )
     .sort((a, b) =>
       a[0]?.localeCompare(b[0] ?? '') ?? 0,

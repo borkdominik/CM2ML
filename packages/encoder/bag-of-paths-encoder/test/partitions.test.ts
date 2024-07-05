@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { partitionNodes } from '../src/partitions'
+import { partitionNodes } from '../src/partitioning'
 
 import { createTestModel, mapNodesToIds } from './test-utils'
 
