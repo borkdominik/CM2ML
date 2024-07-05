@@ -19,7 +19,7 @@ export interface Options<Vertex> {
 export type AnySet<T> = Set<T> | ReadonlySet<T>
 
 /**
- * Partitions a set of vertices using the Kernighan-Lin algorithm.
+ * Creates two balanced partitions for a set of vertices using the Kernighan-Lin algorithm.
  * @param vertices - The set of vertices to partition. Note: The vertices must be hashable to support the usage of sets and maps.
  * @param getConnections - A function that returns the connections of a vertex, i.e., the set of vertices a given vertex is connected to.
  * @param options - The options for the algorithm. See {@link Options}.
@@ -211,4 +211,38 @@ interface Swap<Vertex> {
 
 function asSets<Vertex>(partitions: readonly [Vertex[], Vertex[]]) {
   return [new Set(partitions[0]), new Set(partitions[1])] as const
+}
+
+export interface RecursiveOptions<Vertex> extends Options<Vertex> {
+  /**
+   * Maximum size for partitions.
+   */
+  maxPartitionSize: number
+}
+
+/**
+ * Creates balanced partitions for a set of vertices using the Kernighan-Lin algorithm.
+ * @param vertices - The set of vertices to partition. Note: The vertices must be hashable to support the usage of sets and maps.
+ * @param getConnections - A function that returns the connections of a vertex, i.e., the set of vertices a given vertex is connected to.
+ * @param options - The options for the algorithm. See {@link RecursiveOptions}.
+ * @returns The partitions of the vertices.
+ */
+export function recursiveKernighanLin<Vertex>(vertices: AnySet<Vertex>, getConnections: (vertex: Vertex) => AnySet<Vertex>, options: RecursiveOptions<Vertex>): Set<Vertex>[] {
+  if (options.maxPartitionSize <= 0) {
+    throw new Error('The partition size limit must be greater than 0.')
+  }
+  if (options.maxPartitionSize === 1) {
+    return Array
+      .from(vertices)
+      .map((vertex) => new Set([vertex]))
+  }
+  return kernighanLin(vertices, getConnections, options)
+    .flatMap((partition) => {
+      if (partition.size <= options.maxPartitionSize) {
+      // The partition is small enough, return it as is
+        return [partition]
+      }
+      // The partition is too large, split it recursively
+      return recursiveKernighanLin(partition, getConnections, options)
+    })
 }

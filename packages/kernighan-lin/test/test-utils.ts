@@ -21,7 +21,7 @@ export function createTestGraph(values: string[], edges: [string, string][] | (r
   return new Set(vertexMap.values())
 }
 
-export function mapToValues(partitions: readonly [Set<GraphVertex>, Set<GraphVertex>]) {
+export function mapToValues(partitions: readonly [Set<GraphVertex>, Set<GraphVertex>] | Set<GraphVertex>[]) {
   return partitions
     .map((vertices) =>
       [...vertices].map((vertex) => vertex.value).sort(),
