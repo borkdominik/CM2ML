@@ -1,9 +1,8 @@
 import type { GraphEdge, GraphNode } from '@cm2ml/ir'
 
 export function normalizePartition(partition: Set<GraphNode>) {
-  const labeledNodes = createLabeledNodes(partition)
-  normalizeIndicesWithinLabelGroups(labeledNodes)
-  return labeledNodes
+  const labelGroups = groupNodesByType(partition)
+  return createLabeledNodes(labelGroups, partition)
 }
 
 export class LabeledNode {
@@ -12,15 +11,14 @@ export class LabeledNode {
   public readonly incomingEdges: Set<LabeledEdge> = new Set()
   public readonly outgoingEdges: Set<LabeledEdge> = new Set()
 
+  public readonly id: string
+
   public constructor(
     public readonly data: GraphNode,
-    public index: number,
+    public readonly index: number,
   ) {
     this.label = data.type
-  }
-
-  public get id() {
-    return `${this.label}_${this.index}`
+    this.id = `${this.label ?? 'unknown'}_${this.index}`
   }
 }
 
@@ -33,10 +31,10 @@ export class LabeledEdge {
 }
 
 /**
- * Create labeled nodes from a partition of graph nodes.
+ * Create labeled nodes from grouped nodes.
  */
-function createLabeledNodes(partition: Set<GraphNode>) {
-  const labeledNodes = [...partition].map((node, index) => new LabeledNode(node, index))
+function createLabeledNodes(labelGroups: GraphNode[][], partition: Set<GraphNode>) {
+  const labeledNodes = labelGroups.flatMap((labelGroup) => labelGroup.map((node, index) => new LabeledNode(node, index)))
   const nodeMap = new Map(labeledNodes.map((labeledNode) => [labeledNode.data, labeledNode]))
   labeledNodes.forEach((labeledNode) => {
     labeledNode.data.outgoingEdges.forEach((edge) => {
@@ -56,27 +54,14 @@ function createLabeledNodes(partition: Set<GraphNode>) {
   return labeledNodes
 }
 
+const NO_TYPE_SYMBOL = Symbol('NO_TYPE')
+
 /**
- * Update the indices of labeled nodes to be consecutive within each label group.
+ * Group nodes by their type.
  */
-function normalizeIndicesWithinLabelGroups(labeledNodes: LabeledNode[]) {
-  const missingLabelSymbol = Symbol('NO_LABEL')
-  const labelGroups = new Map<string | symbol, LabeledNode[]>()
-  labeledNodes.forEach((labeledNode) => {
-    const key = labeledNode.label ?? missingLabelSymbol
-    if (!labelGroups.has(key)) {
-      labelGroups.set(key, [])
-    }
-    labelGroups.get(key)!.push(labeledNode)
-  })
-  labelGroups.forEach((nodes) => {
-    nodes.sort((a, b) => a.index - b.index)
-  })
-  labelGroups.forEach((nodes) => {
-    let currentIndex = 0
-    nodes.forEach((node) => {
-      node.index = currentIndex
-      currentIndex++
-    })
-  })
+function groupNodesByType(nodes: Set<GraphNode>): GraphNode[][] {
+  const groupRecord = Object.groupBy(nodes, (node) => node.type ?? NO_TYPE_SYMBOL)
+  return Object
+    .values(groupRecord)
+    .filter((group) => group !== undefined)
 }
