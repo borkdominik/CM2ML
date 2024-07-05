@@ -1,6 +1,9 @@
 import type { GraphNode } from '@cm2ml/ir'
 import { GraphModel, Metamodel } from '@cm2ml/ir'
 
+import type { Embedding } from '../src/embedding'
+import type { LabeledNode } from '../src/normalization'
+
 export function createTestModel(nodes: string[], edges: [string, string][] | (readonly [string, string])[]) {
   const metamodel = new Metamodel({
     attributes: ['id', 'type'],
@@ -64,4 +67,22 @@ export function mapNodesToIds(partitions: readonly Set<GraphNode>[]) {
     .sort((a, b) =>
       a[0]?.localeCompare(b[0] ?? '') ?? 0,
     )
+}
+
+export function formatEmbedding(embedding: Embedding) {
+  function formatColumn(column: number) {
+    return embedding.map((row) => row[column]).join(' ')
+  }
+  const table = embedding[0]
+    .map((_, i) => formatColumn(i))
+    .join('\n')
+  return `\n${table}\n`
+}
+
+export function formatLabeledNode(labeledNode: LabeledNode) {
+  return [
+    labeledNode.id,
+    Array.from(labeledNode.incomingEdges).map(({ source }) => source.id),
+    Array.from(labeledNode.outgoingEdges).map(({ target }) => target.id),
+  ]
 }

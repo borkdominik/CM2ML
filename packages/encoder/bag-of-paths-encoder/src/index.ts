@@ -7,8 +7,10 @@ import { normalizePartition } from './normalization'
 import { partitionNodes } from './partitioning'
 import { restorePartitionEdges } from './restoration'
 
+const name = 'bag-of-paths'
+
 export const BagOfPathsEncoder = batchTryCatch(definePlugin({
-  name: 'bag-of-paths',
+  name,
   parameters: {
     maxIterations: {
       type: 'number',
@@ -32,9 +34,10 @@ export const BagOfPathsEncoder = batchTryCatch(definePlugin({
       .map(restorePartitionEdges)
       .map(normalizePartition)
       .toArray()
+
     return {
       data: embedPartitions(partitions),
       metadata: {},
     }
   },
-}))
+}), name)

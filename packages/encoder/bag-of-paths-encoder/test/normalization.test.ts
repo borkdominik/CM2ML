@@ -1,18 +1,17 @@
 import { describe, expect, it } from 'vitest'
 
-import type { LabeledNode } from '../src/normalization'
 import { normalizePartition } from '../src/normalization'
 import { partitionNodes } from '../src/partitioning'
 import { restorePartitionEdges } from '../src/restoration'
 
-import { testModel } from './test-utils'
+import { formatLabeledNode, testModel } from './test-utils'
 
 describe('normalization', () => {
   it('creates labeled and indexed nodes', () => {
     const result = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 4, maxIterations: 2 })
       .map(restorePartitionEdges)
       .map(normalizePartition)
-      .map((partition) => partition.map(prettyFormatLabeledNode))
+      .map((partition) => partition.map(formatLabeledNode))
     expect(result).toMatchInlineSnapshot(`
       [
         [
@@ -131,11 +130,3 @@ describe('normalization', () => {
     `)
   })
 })
-
-function prettyFormatLabeledNode(labeledNode: LabeledNode) {
-  return [
-    labeledNode.id,
-    Array.from(labeledNode.incomingEdges).map(({ source }) => source.id),
-    Array.from(labeledNode.outgoingEdges).map(({ target }) => target.id),
-  ]
-}
