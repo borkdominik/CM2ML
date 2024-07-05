@@ -7,6 +7,8 @@ import { normalizePartition } from './normalization'
 import { partitionNodes } from './partitioning'
 import { restorePartitionEdges } from './restoration'
 
+export type { Embedding } from './embedding'
+
 const name = 'bag-of-paths'
 
 export const BagOfPathsEncoder = batchTryCatch(definePlugin({
@@ -15,7 +17,7 @@ export const BagOfPathsEncoder = batchTryCatch(definePlugin({
     maxIterations: {
       type: 'number',
       defaultValue: 10,
-      description: 'The maximum number of iterations to run the algorithm for. Negative values 0 enable infinite iterations.',
+      description: 'The maximum number of iterations to run the algorithm for. Negative values enable unlimited iterations.',
     },
     maxPartitionSize: {
       type: 'number',

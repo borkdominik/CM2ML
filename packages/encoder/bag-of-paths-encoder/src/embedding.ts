@@ -5,6 +5,7 @@ function getEdgeIdentifier(edge: LabeledEdge) {
   return `${source.id}>${target.id}[${edge.data.tag}]`
 }
 
+// TODO/Jan: Rename to itemset
 export type Embedding = [string[], ...((0 | 1)[])[]]
 
 export function embedPartitions(partitions: LabeledNode[][]): Embedding {
