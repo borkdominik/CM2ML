@@ -15,5 +15,5 @@ export function minePatterns(embedding: Embedding, k: number) {
       }
       throw new Error(`Unexpected cell value: ${cell}`)
     }))
-  return topK(db, k, { closed: true, minLength: 1, maxLength: 10 })
+  return topK(db, k, { closed: true, minLength: 1, maxLength: 1000 })
 }

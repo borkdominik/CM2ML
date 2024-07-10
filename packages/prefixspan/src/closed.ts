@@ -1,20 +1,20 @@
 import type { DB, Matches, Pattern } from './types'
 
-export function isClosed(db: DB, patt: Pattern, matches: Matches) {
-  return !reverseScan(db, [null, ...patt, null], matches.map(([i, _]) => [i, db[i]!.length])) && !forwardScan(db, matches)
+export function isClosed(db: DB, pattern: Pattern, matches: Matches) {
+  return !reverseScan(db, [null, ...pattern, null], matches.map(([i, _]) => [i, db[i]!.length])) && !forwardScan(db, matches)
 }
 
-export function canClosedPrune(db: DB, patt: Pattern, matches: Matches) {
-  return reverseScan(db, [null, ...patt], [...matches])
+export function canClosedPrune(db: DB, pattern: Pattern, matches: Matches) {
+  return reverseScan(db, [null, ...pattern], [...matches])
 }
 
 function forwardScan(db: DB, matches: Matches): boolean {
   const closedItems = new Set<number>()
 
-  matches.forEach(([i, endpos], k) => {
+  matches.forEach(([i, endPos], k) => {
     const localItems = new Set<number>()
-    for (let startpos = endpos + 1; startpos < db[i]!.length; startpos++) {
-      const item = db[i]![startpos]!
+    for (let startPos = endPos + 1; startPos < db[i]!.length; startPos++) {
+      const item = db[i]![startPos]!
       localItems.add(item)
     }
 
@@ -28,17 +28,17 @@ function forwardScan(db: DB, matches: Matches): boolean {
   return closedItems.size > 0
 }
 
-function reverseScan(db: DB, patt: (number | null)[], matches: Matches): boolean {
-  function isLocalClosed(previtem: number | null): boolean {
+function reverseScan(db: DB, pattern: (number | null)[], matches: Matches): boolean {
+  function isLocalClosed(prevItem: number | null): boolean {
     const closedItems = new Set<number>()
 
     matches.forEach(([i, endpos], k) => {
       const localItems = new Set<number>()
 
-      for (let startpos = endpos - 1; startpos >= 0; startpos--) {
-        const item = db[i]![startpos]!
-        if (item === previtem) {
-          matches[k] = [i, startpos]
+      for (let startPos = endpos - 1; startPos >= 0; startPos--) {
+        const item = db[i]![startPos]!
+        if (item === prevItem) {
+          matches[k] = [i, startPos]
           break
         }
         localItems.add(item)
@@ -54,10 +54,10 @@ function reverseScan(db: DB, patt: (number | null)[], matches: Matches): boolean
     return closedItems.size > 0
   }
 
-  return patt
-    .slice(0, patt.length - 1) // remove last item
+  return pattern
+    .slice(0, pattern.length - 1) // remove last item
     .reverse()
-    .some((previtem) => isLocalClosed(previtem))
+    .some((prevItem) => isLocalClosed(prevItem))
 }
 
 function update<T>(a: Set<T>, b: Set<T>) {
