@@ -13,7 +13,7 @@ describe('topK', () => {
       [1, 1, 1, 2, 2],
     ]
     const k = 7
-    const result = topK(input, k, { closed: true, generator: false, minLength: 1, maxLength: 1000 })
+    const result = topK(input, k, { closed: true, minLength: 1, maxLength: 1000 })
     expect(result).toEqual([
       [4, [1]],
       [3, [1, 2]],

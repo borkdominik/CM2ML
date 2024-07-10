@@ -1,12 +1,10 @@
 import { Heap } from 'heap-js'
 
 import { canClosedPrune, isClosed } from './closed'
-import { canGeneratorPrune, isGenerator } from './generator'
 import type { DB, Key, Matches, Occurs, Pattern } from './types'
 
 export interface TopKOptions {
   closed: boolean
-  generator: boolean
   minLength: number
   maxLength: number
   key?: Key
@@ -16,12 +14,7 @@ export interface TopKOptions {
 
 const defaultKey: Key = (_, matches) => matches.length
 
-export function topK(db: DB, k: number, { bound = defaultKey, closed, filter, generator, key = defaultKey, maxLength, minLength }: TopKOptions) {
-  let occursStack: Occurs[] | undefined
-  if (generator) {
-    occursStack = []
-  }
-
+export function topK(db: DB, k: number, { bound = defaultKey, closed, filter, key = defaultKey, maxLength, minLength }: TopKOptions) {
   const results = new Heap<[number, Pattern, Matches]>(compareNestedArrays)
 
   function canPass(sup: number): boolean {
@@ -35,8 +28,7 @@ export function topK(db: DB, k: number, { bound = defaultKey, closed, filter, ge
     }
 
     if ((!filter || filter(pattern, matches)) &&
-      (!closed || isClosed(db, pattern, matches)) &&
-      (!occursStack || isGenerator(db, pattern, matches))
+      (!closed || isClosed(db, pattern, matches))
     ) {
       if (results.length < k) {
         results.push([support, pattern, matches])
@@ -54,9 +46,6 @@ export function topK(db: DB, k: number, { bound = defaultKey, closed, filter, ge
       }
     }
     const occurs = nextEntries(db, matches)
-    if (occursStack) {
-      occursStack.push(occurs)
-    }
     const sortedOccurs = sortOccurs(occurs, patt, key)
     for (const [newItem, newMatches] of sortedOccurs) {
       const newPattern = patt.concat(+newItem)
@@ -64,16 +53,11 @@ export function topK(db: DB, k: number, { bound = defaultKey, closed, filter, ge
         break
       }
       if (
-        (closed && canClosedPrune(db, newPattern, newMatches)) ||
-        (occursStack && canGeneratorPrune(db, newPattern, newMatches, occursStack))
+        (closed && canClosedPrune(db, newPattern, newMatches))
       ) {
         continue
       }
       topKRecursive(newPattern, newMatches)
-    }
-
-    if (occursStack) {
-      occursStack.pop()
     }
   }
 
