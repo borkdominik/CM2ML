@@ -36,6 +36,9 @@
     "lint": "yeger-lint",
     "test": "vitest"
   },
+  "dependencies": {
+    "heap-js": "2.5.0"
+  },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
     "typescript": "5.5.3",

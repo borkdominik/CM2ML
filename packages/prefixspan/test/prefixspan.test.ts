@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { prefixspan } from '../src'
+import { prefixspan } from '../src/prefixspan'
 
 describe('prefixspan', () => {
   it('works', () => {

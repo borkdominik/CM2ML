@@ -40,7 +40,8 @@
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@yeger/streams": "1.1.9",
-    "kernighan-lin": "workspace:*"
+    "kernighan-lin": "workspace:*",
+    "prefixspan": "workspace:*"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

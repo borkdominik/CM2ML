@@ -28,6 +28,10 @@ export class LabeledEdge {
     public readonly target: LabeledNode,
     public readonly data: GraphEdge,
   ) {}
+
+  public serialize() {
+    return `${this.source.id}->${this.target.id}[label=${this.data.tag ?? '""'}]`
+  }
 }
 
 /**

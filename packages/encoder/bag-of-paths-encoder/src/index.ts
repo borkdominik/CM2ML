@@ -3,6 +3,7 @@ import { batchTryCatch, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 import { embedPartitions } from './embedding'
+import { minePatterns } from './mining'
 import { normalizePartition } from './normalization'
 import { partitionNodes } from './partitioning'
 import { restorePartitionEdges } from './restoration'
@@ -31,14 +32,17 @@ export const BagOfPathsEncoder = batchTryCatch(definePlugin({
       description: 'The type of cost function to use.',
     },
   },
+  // TODO/Jan: Operate on entirety of batch at once?
   invoke(model: GraphModel, parameters) {
     const partitions = Stream.from(partitionNodes(model, parameters))
       .map(restorePartitionEdges)
       .map(normalizePartition)
       .toArray()
-
+    const embedding = embedPartitions(partitions)
+    const k = 10 // TODO/Jan: Make param
+    const patterns = minePatterns(embedding, k)
     return {
-      data: embedPartitions(partitions),
+      data: patterns,
       metadata: {},
     }
   },
