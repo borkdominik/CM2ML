@@ -38,3 +38,4 @@
 - [@cm2ml/utils](./packages/utils)
 - [@cm2ml/visualizer](./packages/visualizer)
 - [kernighan-lin](./packages/kernighan-lin)
+- [prefixspan](./packages/prefixspan)
