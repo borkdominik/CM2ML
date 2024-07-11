@@ -15,8 +15,8 @@ import { pluginActionHandler } from './plugin-action-handler'
 class CLI extends PluginAdapter<string[], StructuredOutput<unknown[], unknown>> {
   private readonly cli = cac('cm2ml')
     .option(
-      '--out <file/directory>',
-      'Path to output file (or directory for non-merged batch mode)',
+      '--out <file>',
+      'Path to output file',
       { type: [undefinedAwareConstructor(String)] },
     )
     .option('--pretty', 'Pretty print JSON output', { default: false, type: [Boolean] })

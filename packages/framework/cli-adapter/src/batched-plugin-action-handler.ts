@@ -25,9 +25,9 @@ export function batchedPluginActionHandler<Parameters extends ParameterMetadata>
   }
   const { results, errors, metadata } = groupStructuredOutput(output)
 
-  const outDir = normalizedOptions.out
+  const outFile = normalizedOptions.out
 
-  if (!outDir) {
+  if (!outFile) {
     const mergedOutput = Object.fromEntries(results.map(({ index, result }) => [inputFiles[index]!, result]))
     // eslint-disable-next-line no-console
     console.log(getResultAsText({ metadata, data: mergedOutput }, normalizedOptions.pretty))
@@ -37,7 +37,7 @@ export function batchedPluginActionHandler<Parameters extends ParameterMetadata>
 
   const mergedOutput = Object.fromEntries(results.map(({ index, result }) => [inputFiles[index]!, result]))
   const mergedResultText = getResultAsText({ metadata, data: mergedOutput }, normalizedOptions.pretty)
-  writeFileSync(outDir, mergedResultText)
+  writeFileSync(outFile, mergedResultText)
   errors.forEach(({ error, index }) => {
     console.error(`\n${inputFiles[index]}:\n ${error.message}\n`)
   })

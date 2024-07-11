@@ -1,5 +1,5 @@
-import type { GraphModel } from '@cm2ml/ir'
-import { batchTryCatch, definePlugin } from '@cm2ml/plugin'
+import { GraphModel } from '@cm2ml/ir'
+import { ExecutionError, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 import { embedPartitions } from './embedding'
@@ -12,7 +12,7 @@ export type { Embedding } from './embedding'
 
 const name = 'bag-of-paths'
 
-export const BagOfPathsEncoder = batchTryCatch(definePlugin({
+export const BagOfPathsEncoder = definePlugin({
   name,
   parameters: {
     maxPartitioningIterations: {
@@ -52,17 +52,17 @@ export const BagOfPathsEncoder = batchTryCatch(definePlugin({
       description: 'Whether to mine closed patterns.',
     },
   },
-  // TODO/Jan: Operate on entirety of batch at once?
-  invoke(model: GraphModel, parameters) {
-    const partitions = Stream.from(partitionNodes(model, parameters))
+  invoke(batch: (GraphModel | ExecutionError)[], parameters) {
+    const partitions = Stream.from(batch)
+      .flatMap((model) => model instanceof GraphModel ? partitionNodes(model, parameters) : [])
       .map(restorePartitionEdges)
       .map(normalizePartition)
       .toArray()
     const embedding = embedPartitions(partitions)
     const patterns = minePatterns(embedding, parameters)
-    return {
-      data: patterns,
-      metadata: {},
-    }
+    return batch.map((input) => ({
+      data: input instanceof ExecutionError ? input : undefined,
+      metadata: patterns,
+    }))
   },
-}), name)
+})
