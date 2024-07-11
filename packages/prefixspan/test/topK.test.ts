@@ -4,16 +4,17 @@ import { topK } from '../src'
 import { compareNestedArrays, invertedIndex, sortOccurs, sortResults } from '../src/topK'
 import type { Matches, Occurs, Pattern } from '../src/types'
 
+const db = [
+  [0, 1, 2, 3, 4],
+  [1, 1, 1, 3, 4],
+  [2, 1, 2, 2, 0],
+  [1, 1, 1, 2, 2],
+]
+
 describe('topK', () => {
   it('works', () => {
-    const input = [
-      [0, 1, 2, 3, 4],
-      [1, 1, 1, 3, 4],
-      [2, 1, 2, 2, 0],
-      [1, 1, 1, 2, 2],
-    ]
     const k = 7
-    const result = topK(input, k, { closed: true, minLength: 1, maxLength: 1000 })
+    const result = topK(db, k, { closed: true, minLength: 1, maxLength: 1000 })
     expect(result).toEqual([
       [4, [1]],
       [3, [1, 2]],
@@ -23,6 +24,27 @@ describe('topK', () => {
       [2, [1, 3, 4]],
       [1, [1, 1, 1, 3, 4]],
     ])
+  })
+
+  it.each([
+    [true, [
+      [4, [1]],
+      [3, [1, 2]],
+      [2, [1, 1, 1]],
+      [2, [1, 2, 2]],
+      [2, [1, 3, 4]],
+    ]],
+    [false, [
+      [4, [1]],
+      [3, [1, 2]],
+      [3, [2]],
+      [2, [1, 3]],
+      [2, [1, 3, 4]],
+    ]],
+  ])('example closed=%s works', (closed, expectedOutput) => {
+    const k = 5
+    const result = topK(db, k, { closed, minLength: 1, maxLength: 1000 })
+    expect(result).toEqual(expectedOutput)
   })
 
   describe('inverted index', () => {

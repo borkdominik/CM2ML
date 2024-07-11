@@ -28,7 +28,7 @@ export function topK(db: DB, k: number, { bound = defaultKey, closed, filter, ke
     }
 
     if ((!filter || filter(pattern, matches)) &&
-      (!closed || isClosed(db, pattern, matches))
+      (!closed || isClosed(db, pattern, matches, maxLength))
     ) {
       if (results.length < k) {
         results.push([support, pattern, matches])
@@ -53,7 +53,7 @@ export function topK(db: DB, k: number, { bound = defaultKey, closed, filter, ke
         break
       }
       if (
-        (closed && canClosedPrune(db, newPattern, newMatches))
+        (closed && canClosedPrune(db, newPattern, newMatches, maxLength))
       ) {
         continue
       }

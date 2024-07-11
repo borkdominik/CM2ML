@@ -10,12 +10,8 @@ describe('prefixspan', () => {
       [2, 1, 2, 2, 0],
       [1, 1, 1, 2, 2],
     ]
-    const minsup = 2
-    const result = prefixspan(input, minsup)
-    result.forEach(([l, r]) => {
-      // eslint-disable-next-line no-console
-      console.log(`([${l.join(', ')}], [${r.join(', ')}])`)
-    })
+    const minSupport = 2
+    const result = prefixspan(input, minSupport)
     expect(result).toEqual([
       [[0], [0, 2]],
       [[1], [0, 1, 2, 3]],
