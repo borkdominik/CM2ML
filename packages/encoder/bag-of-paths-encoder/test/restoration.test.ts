@@ -7,7 +7,7 @@ import { mapNodesToIds, testModel } from './test-utils'
 
 describe('restoration', () => {
   it('restores edges by adding missing nodes to partitions', () => {
-    const result = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 2, maxIterations: 2 })
+    const result = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 2, maxPartitioningIterations: 2 })
       .map(restorePartitionEdges)
     expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
       [

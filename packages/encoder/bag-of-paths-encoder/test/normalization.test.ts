@@ -8,7 +8,7 @@ import { formatLabeledNode, testModel } from './test-utils'
 
 describe('normalization', () => {
   it('creates labeled and indexed nodes', () => {
-    const result = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 4, maxIterations: 2 })
+    const result = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 4, maxPartitioningIterations: 2 })
       .map(restorePartitionEdges)
       .map(normalizePartition)
       .map((partition) => partition.map(formatLabeledNode))

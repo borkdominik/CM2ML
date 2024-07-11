@@ -1,10 +1,10 @@
 import type { DB } from 'prefixspan'
 import { topK } from 'prefixspan'
 
-import type { BoPParameters } from './bop-types'
+import type { MiningParameters } from './bop-types'
 import type { Embedding } from './embedding'
 
-export function minePatterns(embedding: Embedding, { closedPatterns, minPatternLength, maxPatternLength, maxPatterns }: BoPParameters) {
+export function minePatterns(embedding: Embedding, { closedPatterns, minPatternLength, maxPatternLength, maxPatterns }: MiningParameters) {
   const db: DB = embedding
     .slice(1)
     .map((row) => row.flatMap((cell, col) => {

@@ -9,7 +9,7 @@ import { formatEmbedding, testModel } from './test-utils'
 
 describe('embedding', () => {
   it('creates the embedding', () => {
-    const partitions = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 4, maxIterations: 2 })
+    const partitions = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 4, maxPartitioningIterations: 2 })
       .map(restorePartitionEdges)
       .map(normalizePartition)
     const result = formatEmbedding(embedPartitions(partitions))

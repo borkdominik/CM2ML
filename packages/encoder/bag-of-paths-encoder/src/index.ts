@@ -15,10 +15,10 @@ const name = 'bag-of-paths'
 export const BagOfPathsEncoder = batchTryCatch(definePlugin({
   name,
   parameters: {
-    maxIterations: {
+    maxPartitioningIterations: {
       type: 'number',
       defaultValue: 10,
-      description: 'The maximum number of iterations to run the algorithm for. Negative values enable unlimited iterations.',
+      description: 'The maximum number of iterations to run the partitioning algorithm for. Negative values enable unlimited iterations.',
     },
     maxPartitionSize: {
       type: 'number',

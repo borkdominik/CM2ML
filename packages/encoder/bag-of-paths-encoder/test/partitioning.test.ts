@@ -6,7 +6,7 @@ import { mapNodesToIds, testModel } from './test-utils'
 
 describe('partitioning', () => {
   it('creates balanced partitions', () => {
-    const result = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 2, maxIterations: 2 })
+    const result = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 2, maxPartitioningIterations: 2 })
     expect(mapNodesToIds(result)).toMatchInlineSnapshot(`
       [
         [

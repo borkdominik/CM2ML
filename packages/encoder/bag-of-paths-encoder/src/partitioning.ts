@@ -2,9 +2,9 @@ import type { GraphModel, GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 import { recursiveKernighanLin } from 'kernighan-lin'
 
-import type { BoPParameters } from './bop-types'
+import type { PartitioningParameters } from './bop-types'
 
-export function partitionNodes(model: GraphModel, parameters: BoPParameters): Set<GraphNode>[] {
+export function partitionNodes(model: GraphModel, parameters: PartitioningParameters): Set<GraphNode>[] {
   const cost = parameters.costType === 'edge-count' ? edgeCountCost : undefined
   return recursiveKernighanLin(
     model.nodes,
