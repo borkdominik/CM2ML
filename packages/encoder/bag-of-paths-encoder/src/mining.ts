@@ -16,5 +16,6 @@ export function minePatterns(embedding: Embedding, { closedPatterns, minPatternL
       }
       throw new Error(`Unexpected cell value: ${cell}`)
     }))
-  return topK(db, maxPatterns, { closed: closedPatterns, minLength: minPatternLength, maxLength: maxPatternLength })
+  const patterns = topK(db, maxPatterns, { closed: closedPatterns, minLength: minPatternLength, maxLength: maxPatternLength })
+  return patterns.map(([support, pattern]) => ({ support, pattern: pattern.map((index) => embedding[0][index]!) }))
 }
