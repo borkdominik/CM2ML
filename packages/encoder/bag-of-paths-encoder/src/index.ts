@@ -22,7 +22,7 @@ export const BagOfPathsEncoder = batchTryCatch(definePlugin({
     },
     maxPartitionSize: {
       type: 'number',
-      defaultValue: 100,
+      defaultValue: 10,
       description: 'The maximum number of nodes in each partition.',
     },
     costType: {
@@ -30,6 +30,26 @@ export const BagOfPathsEncoder = batchTryCatch(definePlugin({
       defaultValue: 'edge-count',
       allowedValues: ['edge-count', 'constant'],
       description: 'The type of cost function to use.',
+    },
+    minPatternLength: {
+      type: 'number',
+      defaultValue: 1,
+      description: 'The minimum length of patterns to mine.',
+    },
+    maxPatternLength: {
+      type: 'number',
+      defaultValue: 1000,
+      description: 'The maximum length of patterns to mine.',
+    },
+    maxPatterns: {
+      type: 'number',
+      defaultValue: 10,
+      description: 'The maximum number of patterns to mine.',
+    },
+    closedPatterns: {
+      type: 'boolean',
+      defaultValue: true,
+      description: 'Whether to mine closed patterns.',
     },
   },
   // TODO/Jan: Operate on entirety of batch at once?
@@ -39,8 +59,7 @@ export const BagOfPathsEncoder = batchTryCatch(definePlugin({
       .map(normalizePartition)
       .toArray()
     const embedding = embedPartitions(partitions)
-    const k = 10 // TODO/Jan: Make param
-    const patterns = minePatterns(embedding, k)
+    const patterns = minePatterns(embedding, parameters)
     return {
       data: patterns,
       metadata: {},
