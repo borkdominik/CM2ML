@@ -79,6 +79,17 @@ const PatternFrequencyMiner = definePlugin({
       defaultValue: 1,
       description: 'The minimum frequency of a pattern in the model to be included in the output.',
     },
+    maxPatterns: {
+      type: 'number',
+      defaultValue: 10,
+      description: 'The maximum number of patterns to include in the output.',
+    },
+    patternOrder: {
+      type: 'string',
+      defaultValue: 'absolute-frequency',
+      allowedValues: ['absolute-frequency', 'model-frequency'],
+      description: 'The priority of the frequency to use when sorting patterns.',
+    },
   },
   invoke(batch: InferOut<typeof PatternMiner>, parameters) {
     const patterns = Stream

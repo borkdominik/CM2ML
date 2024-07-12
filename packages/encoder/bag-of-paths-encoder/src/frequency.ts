@@ -1,6 +1,6 @@
 import { Stream } from '@yeger/streams'
 
-import type { FrequencyParameters } from './bop-types'
+import type { FrequencyParameters, PatternOrder } from './bop-types'
 import type { MinedPattern } from './mining'
 
 export interface PatternWithFrequency<T = string> {
@@ -18,7 +18,7 @@ export interface PatternWithFrequency<T = string> {
   modelFrequency: number
 }
 
-export function calculateFrequencies(patternsByModel: Stream<MinedPattern[]>, { minAbsoluteFrequency, minModelFrequency }: FrequencyParameters): PatternWithFrequency[] {
+export function calculateFrequencies(patternsByModel: Stream<MinedPattern[]>, { minAbsoluteFrequency, minModelFrequency, maxPatterns, patternOrder }: FrequencyParameters): PatternWithFrequency[] {
   const patternMap = new Map<string, PatternWithFrequency>()
   patternsByModel.forEach((modelPatterns) => {
     for (const { pattern, support } of modelPatterns) {
@@ -34,22 +34,30 @@ export function calculateFrequencies(patternsByModel: Stream<MinedPattern[]>, { 
   return Stream
     .from(patternMap.values())
     .filter((pattern) => pattern.absoluteFrequency >= minAbsoluteFrequency && pattern.modelFrequency >= minModelFrequency)
+    .limit(maxPatterns)
     .toArray()
-    .sort(comparePatternsWithFrequency)
+    .sort((a, b) => comparePatternsWithFrequency(a, b, patternOrder))
 }
 
-function comparePatternsWithFrequency(a: PatternWithFrequency, b: PatternWithFrequency) {
+function comparePatternsWithFrequency(a: PatternWithFrequency, b: PatternWithFrequency, priority: PatternOrder) {
   const aAbsolute = a.absoluteFrequency
   const bAbsolute = b.absoluteFrequency
-  if (aAbsolute !== bAbsolute) {
-    return bAbsolute - aAbsolute
-  }
+  const absDiff = bAbsolute - aAbsolute
+
   const aModel = a.modelFrequency
   const bModel = b.modelFrequency
-  if (aModel !== bModel) {
-    return bModel - aModel
+  const modelDiff = bModel - aModel
+
+  const patternLengthDiff = b.pattern.length - a.pattern.length
+
+  const order = priority === 'absolute-frequency' ? [absDiff, modelDiff, patternLengthDiff] : [modelDiff, absDiff, patternLengthDiff]
+
+  for (const value of order) {
+    if (value !== 0) {
+      return value
+    }
   }
-  return b.pattern.length - a.pattern.length
+  return 0
 }
 
 function patternId(pattern: string[]) {

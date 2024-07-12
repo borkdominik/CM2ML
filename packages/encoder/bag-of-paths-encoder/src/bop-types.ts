@@ -11,7 +11,11 @@ export interface MiningParameters {
   closedPatterns: boolean
 }
 
+export type PatternOrder = 'absolute-frequency' | 'model-frequency' | (string & Record<never, never>)
+
 export interface FrequencyParameters {
   minAbsoluteFrequency: number
   minModelFrequency: number
+  maxPatterns: number
+  patternOrder: PatternOrder
 }
