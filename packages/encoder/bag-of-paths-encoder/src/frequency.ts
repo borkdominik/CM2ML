@@ -10,6 +10,10 @@ export interface PatternWithFrequency {
    */
   pattern: SerializedLabeledEdge[]
   /**
+   * A DOT-notation graph of the pattern.
+   */
+  graph: string
+  /**
    * The total number of occurrences.
    */
   absoluteFrequency: number
@@ -25,7 +29,14 @@ export function calculateFrequencies(patternsByModel: Stream<MinedPattern[]>, { 
     for (const { pattern, support } of modelPatterns) {
       const id = patternId(pattern)
       if (!patternMap.has(id)) {
-        patternMap.set(id, { pattern: pattern.map((edge) => edge.serialize()), absoluteFrequency: 0, modelFrequency: 0 })
+        patternMap.set(id, {
+          pattern: pattern.map((edge) => edge.serialize()),
+          graph: `digraph G {
+            ${pattern.map((edge) => edge.id).join('\n')}
+          }`,
+          absoluteFrequency: 0,
+          modelFrequency: 0,
+        })
       }
       const entry = patternMap.get(id)!
       entry.absoluteFrequency += support

@@ -1,7 +1,9 @@
 import { BagOfPathsEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { ExecutionError } from '@cm2ml/plugin'
-import { useMemo } from 'react'
+import type { Viz } from '@viz-js/viz'
+import { instance } from '@viz-js/viz'
+import { useEffect, useMemo, useState } from 'react'
 
 import type { Selection } from '../../../../lib/useSelection'
 import { useSelection } from '../../../../lib/useSelection'
@@ -9,6 +11,14 @@ import type { ParameterValues } from '../../../Parameters'
 import { SelectButton } from '../../../SelectButton'
 import { Hint } from '../../../ui/hint'
 import { useEncoder } from '../../useEncoder'
+
+let cachedInstance: Viz | null = null
+async function getInstance() {
+  if (!cachedInstance) {
+    cachedInstance = await instance()
+  }
+  return cachedInstance
+}
 
 export interface Props {
   model: GraphModel
@@ -27,22 +37,53 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
   const mapping = encoding.data
   return (
     <div className="h-full overflow-y-auto px-4 py-2">
-      {patterns.map(({ pattern, absoluteFrequency }, i) => (
+      {patterns.map(({ pattern, absoluteFrequency, graph }, i) => (
         // eslint-disable-next-line react/no-array-index-key
-        <div key={i}>
-          <span className="text-sm">
-            {' '}
-            {`${absoluteFrequency} occurrences`}
-          </span>
-          <div className="flex flex-col pl-4 text-xs">
-            {
-              pattern.map((edge) => (
-                <LabeledEdge key={`${edge.source}->${edge.target}[${edge.tag}]`} edge={edge} mapping={mapping} />
-              ))
-            }
-          </div>
-        </div>
+        <Pattern key={i} pattern={pattern} absoluteFrequency={absoluteFrequency} graph={graph} mapping={mapping} />
       ))}
+    </div>
+  )
+}
+
+interface PatternProps {
+  pattern: {
+    source: string
+    target: string
+    tag: string
+  }[]
+  absoluteFrequency: number
+  graph: string
+  mapping: Record<string, string[]>
+}
+
+function Pattern({ pattern, absoluteFrequency, mapping, graph }: PatternProps) {
+  const [renderedGraph, setRenderedGraph] = useState<string | null>(null)
+  useEffect(() => {
+    async function renderGraph() {
+      const viz = await getInstance()
+      const renderedGraph = encodeURIComponent(viz.renderString(graph, { format: 'svg' }))
+      setRenderedGraph(renderedGraph)
+    }
+    renderGraph()
+  }, [])
+  return (
+    <div className="flex w-full justify-between">
+      <div className="max-h-fit">
+        <span className="text-sm">
+          {' '}
+          {`${absoluteFrequency} occurrences`}
+        </span>
+        <div className="flex flex-col pl-4 text-xs">
+          {
+            pattern.map((edge) => (
+              <LabeledEdge key={`${edge.source}->${edge.target}[${edge.tag}]`} edge={edge} mapping={mapping} />
+            ))
+          }
+        </div>
+      </div>
+      <div className="max-h-full overflow-y-auto">
+        {renderedGraph ? <img className="h-full" src={`data:image/svg+xml;utf8,${renderedGraph}`} /> : null }
+      </div>
     </div>
   )
 }
