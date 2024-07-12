@@ -2,7 +2,7 @@ import type { GraphNode } from '@cm2ml/ir'
 import { GraphModel, Metamodel } from '@cm2ml/ir'
 
 import type { Embedding } from '../src/embedding'
-import type { LabeledNode } from '../src/normalization'
+import { LabeledEdge, type LabeledNode } from '../src/normalization'
 
 export function createTestModel(nodes: string[], edges: [string, string][] | (readonly [string, string])[]) {
   const metamodel = new Metamodel({
@@ -71,7 +71,7 @@ export function mapNodesToIds(partitions: readonly Set<GraphNode>[]) {
 
 export function formatEmbedding(embedding: Embedding) {
   function formatColumn(column: number) {
-    return embedding.map((row) => row[column]).join(' ')
+    return embedding.map((row) => row[column] instanceof LabeledEdge ? row[column].id : row[column]).join(' ')
   }
   const table = embedding[0]
     .map((_, i) => formatColumn(i))

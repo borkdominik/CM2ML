@@ -1,40 +1,38 @@
 import type { LabeledEdge, LabeledNode } from './normalization'
 
-function getEdgeIdentifier(edge: LabeledEdge) {
-  const { source, target } = edge
-  return `${source.id}>${target.id}[${edge.data.tag}]`
-}
-
 // TODO/Jan: Rename to itemset
-export type Embedding = [string[], ...((0 | 1)[])[]]
+export type Embedding = [LabeledEdge[], ...((0 | 1)[])[]]
 
 export function embedPartitions(partitions: LabeledNode[][]): Embedding {
-  const header = createEdgeIdentifiers(partitions)
-  const rows = partitions.map((partition) => {
-    return header.map((identifier) => partitionHasEdge(partition, identifier) ? 1 : 0)
-  })
+  const header = getUniqueEdges(partitions)
+  const rows = partitions.map((partition) =>
+    header.map((edge) => partitionHasEdge(partition, edge) ? 1 : 0),
+  )
   return [header, ...rows]
 }
 
-function createEdgeIdentifiers(partitions: LabeledNode[][]) {
-  const edgeIdentifiers = new Set<string>()
+function getUniqueEdges(partitions: LabeledNode[][]) {
+  const uniqueEdges = new Map<string, LabeledEdge>()
   partitions.forEach((partition) => {
     partition.forEach((node) => {
       node.outgoingEdges.forEach((edge) => {
-        edgeIdentifiers.add(getEdgeIdentifier(edge))
+        if (uniqueEdges.has(edge.id)) {
+          return
+        }
+        uniqueEdges.set(edge.id, edge)
       })
     })
   })
-  return [...edgeIdentifiers]
+  return Array.from(uniqueEdges.values())
 }
 
-function partitionHasEdge(partition: LabeledNode[], edgeIdentifier: string) {
-  return partition.some((node) => nodeHasEdge(node, edgeIdentifier))
+function partitionHasEdge(partition: LabeledNode[], labeledEdge: LabeledEdge) {
+  return partition.some((node) => nodeHasEdge(node, labeledEdge))
 }
 
-function nodeHasEdge(node: LabeledNode, edgeIdentifier: string) {
+function nodeHasEdge(node: LabeledNode, labeledEdge: LabeledEdge) {
   for (const edge of node.outgoingEdges) {
-    if (getEdgeIdentifier(edge) === edgeIdentifier) {
+    if (edge.id === labeledEdge.id) {
       return true
     }
   }

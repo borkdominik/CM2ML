@@ -98,7 +98,7 @@ const PatternFrequencyMiner = definePlugin({
     const frequencies = calculateFrequencies(patterns, parameters)
     return batch.map((input) => ({
       // Only include errors as data, because the patterns are equal for each input, thus considered metadata.
-      data: input instanceof ExecutionError ? input : undefined,
+      data: input instanceof ExecutionError ? input : undefined, // TODO/Jan: Include mapping from IR model element to pattern element
       metadata: frequencies,
     }))
   },

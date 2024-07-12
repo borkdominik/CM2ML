@@ -15,19 +15,19 @@ describe('embedding', () => {
     const result = formatEmbedding(embedPartitions(partitions))
     expect(result).toMatchInlineSnapshot(`
       "
-      node_0>node_3[edge] 1 0
-      node_0>node_1[edge] 1 0
-      node_0>node_4[edge] 1 0
-      node_0>node_2[edge] 1 0
-      node_0>node_5[edge] 1 0
-      node_0>node_6[edge] 1 0
-      node_1>node_2[edge] 1 1
-      node_2>node_1[edge] 1 1
-      node_3>node_0[edge] 1 1
-      node_4>node_5[edge] 1 0
-      node_5>node_4[edge] 1 0
-      node_3>node_1[edge] 0 1
-      node_3>node_2[edge] 0 1
+      node_0->node_3[edge] 1 0
+      node_0->node_1[edge] 1 0
+      node_0->node_4[edge] 1 0
+      node_0->node_2[edge] 1 0
+      node_0->node_5[edge] 1 0
+      node_0->node_6[edge] 1 0
+      node_1->node_2[edge] 1 1
+      node_2->node_1[edge] 1 1
+      node_3->node_0[edge] 1 1
+      node_4->node_5[edge] 1 0
+      node_5->node_4[edge] 1 0
+      node_3->node_1[edge] 0 1
+      node_3->node_2[edge] 0 1
       "
     `)
   })

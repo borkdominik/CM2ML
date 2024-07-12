@@ -3,10 +3,11 @@ import { topK } from 'prefixspan'
 
 import type { MiningParameters } from './bop-types'
 import type { Embedding } from './embedding'
+import type { LabeledEdge } from './normalization'
 
 export interface MinedPattern {
   support: number
-  pattern: string[]
+  pattern: LabeledEdge[]
 }
 
 export function minePatterns(embedding: Embedding, { closedPatterns, minPatternLength, maxPatternLength, maxPatternsPerPartition }: MiningParameters): MinedPattern[] {

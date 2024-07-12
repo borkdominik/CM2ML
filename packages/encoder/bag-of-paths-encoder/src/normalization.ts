@@ -22,15 +22,28 @@ export class LabeledNode {
   }
 }
 
+export interface SerializedLabeledEdge {
+  source: string
+  target: string
+  tag: string
+}
+
 export class LabeledEdge {
+  public readonly id: string
   public constructor(
     public readonly source: LabeledNode,
     public readonly target: LabeledNode,
     public readonly data: GraphEdge,
-  ) {}
+  ) {
+    this.id = `${this.source.id}->${this.target.id}[${this.data.tag ?? '""'}]`
+  }
 
-  public serialize() {
-    return `${this.source.id}->${this.target.id}[label=${this.data.tag ?? '""'}]`
+  public serialize(): SerializedLabeledEdge {
+    return {
+      source: this.source.id,
+      target: this.target.id,
+      tag: this.data.tag,
+    }
   }
 }
 

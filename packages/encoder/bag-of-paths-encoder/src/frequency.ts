@@ -2,12 +2,13 @@ import { Stream } from '@yeger/streams'
 
 import type { FrequencyParameters, PatternOrder } from './bop-types'
 import type { MinedPattern } from './mining'
+import type { LabeledEdge, SerializedLabeledEdge } from './normalization'
 
-export interface PatternWithFrequency<T = string> {
+export interface PatternWithFrequency {
   /**
    * The pattern
    */
-  pattern: T[]
+  pattern: SerializedLabeledEdge[]
   /**
    * The total number of occurrences.
    */
@@ -24,7 +25,7 @@ export function calculateFrequencies(patternsByModel: Stream<MinedPattern[]>, { 
     for (const { pattern, support } of modelPatterns) {
       const id = patternId(pattern)
       if (!patternMap.has(id)) {
-        patternMap.set(id, { pattern, absoluteFrequency: 0, modelFrequency: 0 })
+        patternMap.set(id, { pattern: pattern.map((edge) => edge.serialize()), absoluteFrequency: 0, modelFrequency: 0 })
       }
       const entry = patternMap.get(id)!
       entry.absoluteFrequency += support
@@ -60,6 +61,6 @@ function comparePatternsWithFrequency(a: PatternWithFrequency, b: PatternWithFre
   return 0
 }
 
-function patternId(pattern: string[]) {
-  return pattern.join('$$eu.yeger$$')
+function patternId(pattern: LabeledEdge[]) {
+  return pattern.map((edge) => edge.id).join('$$eu.yeger$$')
 }
