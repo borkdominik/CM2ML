@@ -2,14 +2,19 @@ import { create } from 'zustand'
 
 import { createSelectors } from './utils'
 
-export type NodeSelection = string
-
-export type EdgeSelection = (readonly [string, string])[]
-
-export interface Selection {
-  selection: NodeSelection | EdgeSelection
-  origin: 'ir' | 'graph' | 'tree' | 'details' | 'command'
+export interface NodeSelection {
+  type: 'nodes'
+  nodes: string[]
 }
+
+export interface EdgeSelection {
+  type: 'edges'
+  edges: ([string, string] | readonly [string, string])[]
+}
+
+export type Selection = {
+  origin: 'command' | 'details' | 'graph' | 'ir' | 'pattern' | 'tree'
+} & (NodeSelection | EdgeSelection)
 
 export interface SelectionState {
   selection: Selection | undefined
@@ -36,48 +41,44 @@ export const useSelection = createSelectors(
   })),
 )
 
-export function isNodeSelection(selection: NodeSelection | EdgeSelection): selection is NodeSelection {
-  return typeof selection === 'string'
-}
-
 export function useIsSelectedNode(id: string | undefined) {
-  const { selection } = useSelection.use.selection() ?? {}
+  const selection = useSelection.use.selection()
   if (id === undefined || selection === undefined) {
     return false
   }
-  if (isNodeSelection(selection)) {
-    return selection === id
+  if (selection.type === 'nodes') {
+    return selection.nodes.includes(id)
   }
   return false
 }
 
 export function useIsSelectedSource(id: string | undefined) {
-  const { selection } = useSelection.use.selection() ?? {}
+  const selection = useSelection.use.selection()
   if (id === undefined || selection === undefined) {
     return false
   }
-  if (isNodeSelection(selection)) {
-    return selection === id
+  if (selection.type === 'nodes') {
+    return selection.nodes.includes(id)
   }
-  return selection.some(([sourceId]) => sourceId === id)
+  return selection.edges.some(([sourceId]) => sourceId === id)
 }
 
 export function useIsSelectedTarget(id: string | undefined) {
-  const { selection } = useSelection.use.selection() ?? {}
+  const selection = useSelection.use.selection()
   if (id === undefined || selection === undefined) {
     return false
   }
-  if (isNodeSelection(selection)) {
-    return selection === id
+  if (selection.type === 'nodes') {
+    return selection.nodes.includes(id)
   }
-  return selection.some(([_, targetId]) => targetId === id)
+  return selection.edges.some(([_, targetId]) => targetId === id)
 }
 
 export function useIsSelectedEdge(
   sourceId: string | undefined,
   targetId: string | undefined,
 ) {
-  const { selection } = useSelection.use.selection() ?? {}
+  const selection = useSelection.use.selection()
   if (
     sourceId === undefined ||
     targetId === undefined ||
@@ -85,8 +86,8 @@ export function useIsSelectedEdge(
   ) {
     return false
   }
-  if (isNodeSelection(selection)) {
-    return selection === sourceId || selection === targetId
+  if (selection.type === 'nodes') {
+    return selection.nodes.some((selectedNode) => selectedNode === sourceId || selectedNode === targetId)
   }
-  return selection.some(([sId, tId]) => sId === sourceId && tId === targetId)
+  return selection.edges.some(([sId, tId]) => sId === sourceId && tId === targetId)
 }

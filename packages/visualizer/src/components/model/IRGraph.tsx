@@ -8,7 +8,7 @@ import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
 import { colors } from '../../colors'
 import { useModelState } from '../../lib/useModelState'
-import { isNodeSelection, useSelection } from '../../lib/useSelection'
+import { useSelection } from '../../lib/useSelection'
 import { cn } from '../../lib/utils'
 import { Progress } from '../ui/progress'
 
@@ -65,7 +65,7 @@ function useVisNetwok(
   container: RefObject<HTMLDivElement | null>,
 ) {
   const setFit = useModelState.use.setFit()
-  const { selection, origin: selectionOrigin } = useSelection.use.selection() ?? {}
+  const selection = useSelection.use.selection()
   const setSelection = useSelection.use.setSelection()
   const clearSelection = useSelection.use.clearSelection()
   const [network, setNetwork] = useState<Network | null>(null)
@@ -131,12 +131,12 @@ function useVisNetwok(
     setFit(() => network.fit())
     function selectNodes(selectedNodes: string[]) {
       if (selectedNodes.length === 1) {
-        setSelection({ selection: selectedNodes[0]!, origin: 'ir' })
+        setSelection({ type: 'nodes', nodes: selectedNodes, origin: 'ir' })
         return
       }
       if (selectedNodes.length === 2) {
         const [sourceId, targetId] = selectedNodes
-        setSelection({ selection: [[sourceId!, targetId!]], origin: 'ir' })
+        setSelection({ type: 'edges', edges: [[sourceId!, targetId!]], origin: 'ir' })
       }
     }
     network.on(
@@ -163,7 +163,7 @@ function useVisNetwok(
           return
         }
         const reversed = edge.toReversed() as [string, string]
-        setSelection({ selection: [edge, reversed], origin: 'ir' })
+        setSelection({ type: 'edges', edges: [edge, reversed], origin: 'ir' })
       }
     })
     network.on('deselectNode', clearSelection)
@@ -204,25 +204,29 @@ function useVisNetwok(
       network.unselectAll()
       return
     }
-    if (isNodeSelection(selection)) {
-      if (model.getNodeById(selection) === undefined) {
+    if (selection.type === 'nodes') {
+      if (selection.nodes.some((selectedNode) => model.getNodeById(selectedNode) === undefined)) {
+        // Remove leftover selection of nodes that are no longer in the model
         clearSelection()
         return
       }
-      network.selectNodes([selection])
-      if (selectionOrigin !== 'ir') {
-        network?.fit({ nodes: [selection], animation: true })
+      network.selectNodes(selection.nodes)
+      if (selection.origin !== 'ir') {
+        network?.fit({ nodes: selection.nodes, animation: true })
       }
       return
     }
-    const edgeIds = selection.map(([sourceId, targetId]) =>
+    const edgeIds = selection.edges.map(([sourceId, targetId]) =>
       createEdgeId(sourceId, targetId),
     )
-    network.selectEdges(edgeIds)
-    if (selectionOrigin !== 'ir') {
-      network?.fit({ nodes: selection.flat(), animation: true })
+    // Some encodings, e.g., the patterns, may try to attempt to select edges that are not in the model
+    // We filter them here to prevent errors
+    const filteredEdgeIds = edgeIds.filter((edgeId) => data.edges.getIds().includes(edgeId))
+    network.selectEdges(filteredEdgeIds)
+    if (selection.origin !== 'ir') {
+      network?.fit({ nodes: selection.edges.flat(), animation: true })
     }
-  }, [network, selection, selectionOrigin])
+  }, [network, selection])
 
   return {
     isReady: stabilizationProgress === 1,

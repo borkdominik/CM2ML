@@ -176,7 +176,8 @@ function NodeSearchCommandGroup({ model, closeDialog }: NodeSearchCommandGroupPr
             key={id}
             onSelect={() => {
               setSelection({
-                selection: id,
+                type: 'nodes',
+                nodes: [id],
                 origin: 'command',
               })
               closeDialog()
@@ -228,7 +229,7 @@ function EdgeSearchCommandGroup({ model, closeDialog }: EdgeSearchCommandGroupPr
           <CommandItem
             key={id}
             onSelect={() => {
-              setSelection({ selection: [selection], origin: 'command' })
+              setSelection({ type: 'edges', edges: [selection], origin: 'command' })
               closeDialog()
             }}
             value={id}

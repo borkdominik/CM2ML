@@ -1,7 +1,12 @@
 import { BagOfPathsEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
+import { ExecutionError } from '@cm2ml/plugin'
+import { useMemo } from 'react'
 
+import type { Selection } from '../../../../lib/useSelection'
+import { useSelection } from '../../../../lib/useSelection'
 import type { ParameterValues } from '../../../Parameters'
+import { SelectButton } from '../../../SelectButton'
 import { Hint } from '../../../ui/hint'
 import { useEncoder } from '../../useEncoder'
 
@@ -15,12 +20,102 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
   if (error || !encoding) {
     return <Hint error={error} />
   }
-  const itemSet = encoding.data
+  if (encoding.data instanceof ExecutionError) {
+    return <Hint error={encoding.data} />
+  }
+  const patterns = encoding.metadata
+  const mapping = encoding.data
   return (
     <div className="h-full overflow-y-auto px-4 py-2">
-      {JSON.stringify(itemSet, null, 2)}
-      {/* <ItemSet itemSet={itemSet} /> */}
+      {patterns.map(({ pattern, absoluteFrequency }, i) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <div key={i}>
+          <span className="text-sm">
+            {' '}
+            {`${absoluteFrequency} occurrences`}
+          </span>
+          <div className="flex flex-col pl-4 text-xs">
+            {
+              pattern.map((edge) => (
+                <LabeledEdge key={`${edge.source}->${edge.target}[${edge.tag}]`} edge={edge} mapping={mapping} />
+              ))
+            }
+          </div>
+        </div>
+      ))}
     </div>
+  )
+}
+
+interface LabeledEdgeProps {
+  edge: {
+    source: string
+    target: string
+    tag: string
+  }
+  mapping: Record<string, string[]>
+}
+
+function mapsToGraphNode(patternNodeId: string, mapping: Record<string, string[]>, graphNodeId: string) {
+  return mapping[patternNodeId]?.includes(graphNodeId) ?? false
+}
+
+function LabeledEdge({ edge, mapping }: LabeledEdgeProps) {
+  const selection = useSelection.use.selection()
+  const isSelected = useMemo(() => {
+    if (selection?.type !== 'edges') {
+      return false
+    }
+    return selection.edges
+      .some(([source, target]) => mapsToGraphNode(edge.source, mapping, source) && mapsToGraphNode(edge.target, mapping, target))
+  }, [edge, mapping, selection])
+
+  const selectionToMake: Selection = useMemo(() => {
+    const edges = (mapping[edge.source] ?? []).flatMap((source) => (mapping[edge.target] ?? []).map((target) => [source, target] as const))
+    return {
+      type: 'edges',
+      edges,
+      origin: 'pattern',
+    }
+  }, [edge, mapping])
+  return (
+    <span key={edge.source + edge.target + edge.tag}>
+      <LabeledNode nodeId={edge.source} mapping={mapping} isEdgeSelected={isSelected} />
+      {' '}
+      {'->'}
+      {' '}
+      <LabeledNode nodeId={edge.target} mapping={mapping} isEdgeSelected={isSelected} />
+      {' '}
+      [
+      <SelectButton text={edge.tag} selection={selectionToMake} isSelected={isSelected} />
+      ]
+      {' '}
+    </span>
+  )
+}
+
+interface LabeledNodeProps {
+  nodeId: string
+  mapping: Record<string, string[]>
+  isEdgeSelected: boolean
+}
+
+function LabeledNode({ isEdgeSelected, nodeId, mapping }: LabeledNodeProps) {
+  const selection = useSelection.use.selection()
+  const isSelected = useMemo(() => {
+    if (isEdgeSelected) {
+      return true
+    }
+    if (!selection) {
+      return false
+    }
+    if (selection?.type !== 'nodes') {
+      return false
+    }
+    return selection.nodes.some((selectedNode) => mapsToGraphNode(nodeId, mapping, selectedNode))
+  }, [nodeId, mapping, selection])
+  return (
+    <SelectButton text={nodeId} selection={{ type: 'nodes', nodes: mapping[nodeId] ?? [], origin: 'pattern' }} isSelected={isSelected} />
   )
 }
 

@@ -12,13 +12,13 @@ import { prettifyParserName } from '../../lib/pluginNames'
 import { useModelState } from '../../lib/useModelState'
 import type { EdgeSelection } from '../../lib/useSelection'
 import { useSelection } from '../../lib/useSelection'
-import { Button } from '../ui/button'
+import { SelectButton } from '../SelectButton'
 import { Hint } from '../ui/hint'
 import { Separator } from '../ui/separator'
 
 export function SelectionDetails() {
   const model = useModelState.use.model()
-  const { selection } = useSelection.use.selection() ?? {}
+  const selection = useSelection.use.selection()
   const hint = <Hint text="Select a node or edge by clicking on it" />
   if (!model) {
     return hint
@@ -31,12 +31,25 @@ export function SelectionDetails() {
       </div>
     )
   }
-  if (typeof selection === 'string') {
-    const node = model.getNodeById(selection)
-    if (!node) {
+  if (selection.type === 'nodes') {
+    const nodes = selection.nodes.map((selectedNode) => model.getNodeById(selectedNode)).filter((node) => node !== undefined)
+    if (nodes.length === 0) {
       return null
     }
-    return <NodeDetails node={node} />
+    if (nodes.length === 1) {
+      return <NodeDetails node={nodes[0]!} />
+    }
+    return (
+      <div className="flex flex-col gap-2">
+        {nodes.map((node, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={i}>
+            {i > 0 ? <Separator /> : null}
+            <NodeDetails node={node} />
+          </Fragment>
+        ))}
+      </div>
+    )
   }
   const edges = getEdges(selection, model)
   return <EdgeList edges={edges} />
@@ -100,7 +113,7 @@ function ModelStats({ model }: { model: GraphModel }) {
 
 function getEdges(edgeSelection: EdgeSelection, model: GraphModel) {
   const edges: GraphEdge[] = []
-  edgeSelection.forEach(([sourceId, targetId]) => {
+  edgeSelection.edges.forEach(([sourceId, targetId]) => {
     const sourceNode = model.getNodeById(sourceId)
     if (!sourceNode) {
       return
@@ -181,7 +194,7 @@ function NodeEdges({
 }) {
   const edges = type === 'incoming' ? node.incomingEdges : node.outgoingEdges
   const sortedEdges = useMemo(
-    () => [...edges].sort((a, b) => a.tag.localeCompare(b.tag)),
+    () => Array.from(edges).sort((a, b) => a.tag.localeCompare(b.tag)),
     [edges],
   )
 
@@ -196,7 +209,7 @@ function NodeEdges({
       </div>
       <div className="grid grid-cols-[min-content,_min-content,_auto] items-center gap-2 text-xs">
         {sortedEdges.map((edge) => (
-          <Fragment key={`${edge.source.id}-${edge.tag}-${edge.target.id}`}>
+          <Fragment key={`${edge.source.id}-${edge.show()}-${edge.target.id}`}>
             <EdgeSelectionButton
               sourceId={edge.source.id}
               targetId={edge.target.id}
@@ -223,18 +236,16 @@ function NodeEdges({
 }
 
 function NodeSelectionButton({ id }: { id: string | undefined }) {
-  const setSelection = useSelection.use.setSelection()
   if (id === undefined) {
     return null
   }
   return (
-    <Button
-      variant="link"
-      className="size-fit p-0 font-mono text-xs"
-      onClick={() => setSelection({ selection: id, origin: 'details' })}
-    >
-      {id}
-    </Button>
+    <SelectButton
+      text={id}
+      selection={
+        { type: 'nodes', nodes: [id], origin: 'details' }
+      }
+    />
   )
 }
 
@@ -247,19 +258,10 @@ function EdgeSelectionButton({
   targetId: string | undefined
   label: string
 }) {
-  const setSelection = useSelection.use.setSelection()
   if (sourceId === undefined || targetId === undefined) {
     return null
   }
-  return (
-    <Button
-      variant="link"
-      className="size-fit p-0 font-mono text-xs"
-      onClick={() => setSelection({ selection: [[sourceId, targetId]], origin: 'details' })}
-    >
-      {label}
-    </Button>
-  )
+  return (<SelectButton text={label} selection={{ type: 'edges', edges: [[sourceId, targetId]], origin: 'details' }} />)
 }
 
 function EdgeList({ edges }: { edges: GraphEdge[] }) {

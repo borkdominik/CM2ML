@@ -5,7 +5,7 @@ import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Pa
 
 import 'reactflow/dist/style.css'
 
-import { isNodeSelection, useSelection } from '../../../../lib/useSelection'
+import { useSelection } from '../../../../lib/useSelection'
 import type { ParameterValues } from '../../../Parameters'
 import { Hint } from '../../../ui/hint'
 import { useEncoder } from '../../useEncoder'
@@ -81,15 +81,14 @@ function FlowGraph({ tree, idWordMapping, vocabulary, staticVocabulary }: FlowGr
 }
 
 function useIsFlowNodeSelected(flowNode: FlowNode) {
-  const { selection } = useSelection.use.selection() ?? {}
+  const selection = useSelection.use.selection()
   if (!selection) {
     return false
   }
-  if (!isNodeSelection(selection)) {
+  if (selection.type !== 'nodes') {
     return false
   }
-  const mappedSelection = mapValueToWordId(selection, flowNode.reverseNodeIdMapping, flowNode.word2IdMapping)
-  return flowNode.value === mappedSelection
+  return selection.nodes.some((selectedNode) => mapValueToWordId(selectedNode, flowNode.reverseNodeIdMapping, flowNode.word2IdMapping) === flowNode.value)
 }
 
 function FlowTreeNode({ data }: { data: FlowNode }) {
@@ -99,7 +98,7 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
   const isSelected = useIsFlowNodeSelected(data)
   const select = () => {
     const selection = mapWordIdToValue(data.value, data.nodeIdMapping, data.id2WordMapping)
-    setSelection({ selection, origin: 'tree' })
+    setSelection({ type: 'nodes', nodes: [selection], origin: 'tree' })
   }
   return (
     <div>
@@ -146,17 +145,17 @@ function ViewFitter({ flowGraph, reverseNodeIdMapping, word2IdMapping }: { flowG
     return () => clearTimeout(timeout)
   }, [reactFlow, flowGraph])
 
-  const { origin, selection } = useSelection.use.selection() ?? {}
+  const selection = useSelection.use.selection()
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (origin === 'tree') {
         return
       }
-      if (!selection || !isNodeSelection(selection)) {
+      if (!selection || selection.type !== 'nodes') {
         return
       }
-      const mappedSelection = mapValueToWordId(selection, reverseNodeIdMapping, word2IdMapping)
-      const selectedNodes = reactFlow.getNodes().filter((node) => node.data.value === mappedSelection)
+      const mappedSelection = selection.nodes.map((selectedNode) => mapValueToWordId(selectedNode, reverseNodeIdMapping, word2IdMapping))
+      const selectedNodes = reactFlow.getNodes().filter((node) => mappedSelection.includes(node.data.value))
       const firstSelectedNode = selectedNodes.sort((a, b) => {
         if (a.position.y === b.position.y) {
           return a.position.x > b.position.x ? 1 : -1

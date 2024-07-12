@@ -112,7 +112,7 @@ function ListNode({ node, isLast, featureVector }: ListNodeProps) {
       <Tooltip disableHoverableContent={!featureVector}>
         <TooltipTrigger>
           <ListEntry
-            onClick={() => setSelection({ selection: node, origin: 'graph' })}
+            onClick={() => setSelection({ type: 'nodes', nodes: [node], origin: 'graph' })}
             isSelected={isSelected}
             isLast={isLast}
           >
@@ -164,7 +164,7 @@ function ListEdge({
     <ListEntry
       key={`${source}-${target}`}
       isSelected={isSelected}
-      onClick={() => setSelection({ selection: [[sourceId, targetId]], origin: 'graph' })}
+      onClick={() => setSelection({ type: 'edges', edges: [[sourceId, targetId]], origin: 'graph' })}
       style={{ opacity: getOpacity?.(weight ?? 1) ?? 1 }}
       isLast={isLast}
     >
