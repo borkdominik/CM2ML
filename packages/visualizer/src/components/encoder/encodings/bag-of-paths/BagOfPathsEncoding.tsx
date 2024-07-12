@@ -1,24 +1,17 @@
 import { BagOfPathsEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { ExecutionError } from '@cm2ml/plugin'
-import type { Viz } from '@viz-js/viz'
-import { instance } from '@viz-js/viz'
-import { useEffect, useMemo, useState } from 'react'
+import { Fragment, useMemo } from 'react'
 
 import type { Selection } from '../../../../lib/useSelection'
 import { useSelection } from '../../../../lib/useSelection'
 import type { ParameterValues } from '../../../Parameters'
 import { SelectButton } from '../../../SelectButton'
 import { Hint } from '../../../ui/hint'
+import { Separator } from '../../../ui/separator'
 import { useEncoder } from '../../useEncoder'
 
-let cachedInstance: Viz | null = null
-async function getInstance() {
-  if (!cachedInstance) {
-    cachedInstance = await instance()
-  }
-  return cachedInstance
-}
+import { PatternGraph } from './PatternGraph'
 
 export interface Props {
   model: GraphModel
@@ -36,10 +29,13 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
   const patterns = encoding.metadata
   const mapping = encoding.data
   return (
-    <div className="h-full overflow-y-auto px-4 py-2">
+    <div className="flex h-full flex-col overflow-y-auto">
       {patterns.map(({ pattern, absoluteFrequency, graph }, i) => (
         // eslint-disable-next-line react/no-array-index-key
-        <Pattern key={i} pattern={pattern} absoluteFrequency={absoluteFrequency} graph={graph} mapping={mapping} />
+        <Fragment key={i}>
+          {i > 0 ? <Separator /> : null}
+          <Pattern pattern={pattern} absoluteFrequency={absoluteFrequency} graph={graph} mapping={mapping} />
+        </Fragment>
       ))}
     </div>
   )
@@ -56,24 +52,14 @@ interface PatternProps {
   mapping: Record<string, string[]>
 }
 
-function Pattern({ pattern, absoluteFrequency, mapping, graph }: PatternProps) {
-  const [renderedGraph, setRenderedGraph] = useState<string | null>(null)
-  useEffect(() => {
-    async function renderGraph() {
-      const viz = await getInstance()
-      const renderedGraph = encodeURIComponent(viz.renderString(graph, { format: 'svg' }))
-      setRenderedGraph(renderedGraph)
-    }
-    renderGraph()
-  }, [])
+function Pattern({ pattern, absoluteFrequency, mapping }: PatternProps) {
   return (
-    <div className="flex w-full justify-between">
-      <div className="max-h-fit">
-        <span className="text-sm">
-          {' '}
-          {`${absoluteFrequency} occurrences`}
+    <div className="basis-128 relative flex max-h-full shrink grow flex-col">
+      <div className="bg-muted p-2 text-xs">
+        <span>
+          {`${absoluteFrequency} occurrence${absoluteFrequency === 1 ? '' : 's'}`}
         </span>
-        <div className="flex flex-col pl-4 text-xs">
+        <div className="flex flex-col">
           {
             pattern.map((edge) => (
               <LabeledEdge key={`${edge.source}->${edge.target}[${edge.tag}]`} edge={edge} mapping={mapping} />
@@ -81,9 +67,8 @@ function Pattern({ pattern, absoluteFrequency, mapping, graph }: PatternProps) {
           }
         </div>
       </div>
-      <div className="max-h-full overflow-y-auto">
-        {renderedGraph ? <img className="h-full" src={`data:image/svg+xml;utf8,${renderedGraph}`} /> : null }
-      </div>
+      <Separator />
+      <PatternGraph pattern={pattern} mapping={mapping} />
     </div>
   )
 }
@@ -159,42 +144,3 @@ function LabeledNode({ isEdgeSelected, nodeId, mapping }: LabeledNodeProps) {
     <SelectButton text={nodeId} selection={{ type: 'nodes', nodes: mapping[nodeId] ?? [], origin: 'pattern' }} isSelected={isSelected} />
   )
 }
-
-// interface ColumnProps {
-//   itemSet: Embedding
-//   row: number
-// }
-
-// function Row({ itemSet, row }: ColumnProps) {
-//   return (
-//     <tr className="flex w-full justify-between gap-4">
-//       {itemSet.map((column, i) => (
-//         // eslint-disable-next-line react/no-array-index-key
-//         <td key={i} style={{ 'flexGrow': i === 0 ? 1 : 0 }}>
-//           {column[row]}
-//         </td>
-//       ))}
-//     </tr>
-
-//   )
-// }
-
-// interface ItemSetProps {
-//   itemSet: Embedding
-// }
-
-// // TODO/Jan: Use virtualized list?
-// // TODO/Jan: Enable selections -> Include mapping to original graph via metadata (must be done for each partition!)
-// // Add toggle param to emit this extra data
-// // TODO/Jan: Also emit the labeled partition graphs via metadata and render them here
-// function ItemSet({ itemSet }: ItemSetProps) {
-//   return (
-//     <table className="mx-auto font-mono text-xs">
-//       <tbody className="flex flex-col gap-1">
-//         {itemSet[0].map((_, i) => (
-//           <Row key={itemSet[0][i]} itemSet={itemSet} row={i} />
-//         ))}
-//       </tbody>
-//     </table>
-//   )
-// }

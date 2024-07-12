@@ -1,4 +1,4 @@
-import type { GraphModel } from '@cm2ml/ir'
+import type { PatternWithFrequency } from '@cm2ml/builtin'
 import { debounce } from '@yeger/debounce'
 import { Stream } from '@yeger/streams'
 import type { RefObject } from 'react'
@@ -6,26 +6,28 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Edge, Options } from 'vis-network/standalone/esm/vis-network'
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
-import { colors } from '../../colors'
-import { useModelState } from '../../lib/useModelState'
-import { useSelection } from '../../lib/useSelection'
-import { cn } from '../../lib/utils'
-import { Progress } from '../ui/progress'
+import { colors } from '../../../../colors'
+import { useSelection } from '../../../../lib/useSelection'
+import { cn } from '../../../../lib/utils'
+import { Progress } from '../../../ui/progress'
+
+export type Pattern = PatternWithFrequency['pattern']
 
 export interface Props {
-  model: GraphModel
+  pattern: Pattern
+  mapping: Record<string, string[]>
 }
 
 export interface IRGraphRef {
   fit?: () => void
 }
 
-export function IRGraph({ model }: Props) {
+export function PatternGraph({ pattern, mapping }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { isReady, progress } = useVisNetwok(model, containerRef)
+  const { isReady, progress } = useVisNetwok(pattern, mapping, containerRef)
 
   return (
-    <div className="relative h-full">
+    <div className="size-full grow">
       <div
         ref={containerRef}
         className={cn({ 'h-full': true, 'opacity-0': !isReady })}
@@ -44,9 +46,7 @@ export function IRGraph({ model }: Props) {
 const edgeIdSeparator = '-_$_-'
 
 function createEdgeId(sourceId: string, targetId: string) {
-  return sourceId < targetId
-    ? `${sourceId}${edgeIdSeparator}${targetId}`
-    : `${targetId}${edgeIdSeparator}${sourceId}`
+  return `${sourceId}${edgeIdSeparator}${targetId}`
 }
 
 function splitEdgeId(edgeId: string | undefined) {
@@ -61,10 +61,10 @@ function splitEdgeId(edgeId: string | undefined) {
 }
 
 function useVisNetwok(
-  model: GraphModel,
+  pattern: Pattern,
+  mapping: Record<string, string[]>,
   container: RefObject<HTMLDivElement | null>,
 ) {
-  const setFit = useModelState.use.setFit()
   const selection = useSelection.use.selection()
   const setSelection = useSelection.use.setSelection()
   const clearSelection = useSelection.use.clearSelection()
@@ -72,10 +72,10 @@ function useVisNetwok(
   const [stabilizationProgress, setStabilizationProgress] = useState(0)
 
   const data = useMemo(() => {
-    const nodes = createVisNodes(model)
-    const edges = createVisEdges(model)
+    const nodes = createVisNodes(pattern)
+    const edges = createVisEdges(pattern)
     return { nodes, edges }
-  }, [model])
+  }, [pattern])
 
   const hasManyEdges = data.edges.length > 1000
   const hasManyNodes = data.nodes.length > 100
@@ -83,15 +83,14 @@ function useVisNetwok(
     return {
       autoResize: false,
       edges: {
+        arrows: {
+          to: true,
+        },
         color: {
           color: colors.active,
           highlight: colors.selectedBackground,
         },
         length: hasManyEdges ? 250 : undefined,
-        scaling: {
-          min: 2,
-          max: 5,
-        },
         selectionWidth: 2,
         smooth: {
           enabled: true,
@@ -128,16 +127,12 @@ function useVisNetwok(
       options,
     )
     setNetwork(network)
-    setFit(() => network.fit())
     function selectNodes(selectedNodes: string[]) {
-      if (selectedNodes.length === 1) {
-        setSelection({ type: 'nodes', nodes: selectedNodes, origin: 'ir-graph' })
+      if (selectedNodes.length === 0) {
         return
       }
-      if (selectedNodes.length === 2) {
-        const [sourceId, targetId] = selectedNodes
-        setSelection({ type: 'edges', edges: [[sourceId!, targetId!]], origin: 'ir-graph' })
-      }
+      const mappedNodeIds = selectedNodes.flatMap((selectedNode) => mapping[selectedNode] ?? [])
+      setSelection({ type: 'nodes', nodes: mappedNodeIds, origin: 'pattern-graph' })
     }
     network.on(
       'stabilizationProgress',
@@ -163,7 +158,14 @@ function useVisNetwok(
           return
         }
         const reversed = edge.toReversed() as [string, string]
-        setSelection({ type: 'edges', edges: [edge, reversed], origin: 'ir-graph' })
+        const mappedEdges = [edge, reversed].flatMap(([source, target]) => {
+          const mappedSourceIds = mapping[source] ?? []
+          const mappedTargetIds = mapping[target] ?? []
+          return mappedSourceIds.flatMap((mappedSourceId) =>
+            mappedTargetIds.map((mappedTargetId) => [mappedSourceId, mappedTargetId] as const),
+          )
+        })
+        setSelection({ type: 'edges', edges: mappedEdges, origin: 'pattern-graph' })
       }
     })
     network.on('deselectNode', clearSelection)
@@ -177,7 +179,6 @@ function useVisNetwok(
     resizeObserver.observe(container.current)
     return () => {
       setNetwork(null)
-      setFit(undefined)
       network.destroy()
       resizeObserver.disconnect()
     }
@@ -196,6 +197,16 @@ function useVisNetwok(
     network.setOptions(options)
   }, [network, options])
 
+  const reverseMapping = useMemo(() => {
+    const reverseMapping: Record<string, string[]> = {}
+    Object.entries(mapping).forEach(([labeledNode, nodeIds]) => {
+      nodeIds.forEach((nodeId) => {
+        reverseMapping[nodeId] = [...(reverseMapping[nodeId] ?? []), labeledNode]
+      })
+    })
+    return reverseMapping
+  }, [mapping])
+
   useEffect(() => {
     if (isNetworkDestroyed(network)) {
       return
@@ -205,26 +216,35 @@ function useVisNetwok(
       return
     }
     if (selection.type === 'nodes') {
-      if (selection.nodes.some((selectedNode) => model.getNodeById(selectedNode) === undefined)) {
-        // Remove leftover selection of nodes that are no longer in the model
-        clearSelection()
-        return
-      }
-      network.selectNodes(selection.nodes)
-      if (selection.origin !== 'ir-graph') {
-        network.fit({ nodes: selection.nodes, animation: true })
+      const mappedSelection = selection.nodes
+        .flatMap((selectedNode) => reverseMapping[selectedNode] ?? [])
+        .filter((nodeId) => data.nodes.getIds().includes(nodeId))
+      network.selectNodes(mappedSelection)
+      if (selection.origin !== 'pattern-graph') {
+        network.fit({ nodes: mappedSelection, animation: true })
       }
       return
     }
-    const edgeIds = selection.edges.map(([sourceId, targetId]) =>
-      createEdgeId(sourceId, targetId),
-    )
+    const mappedEdges = selection.edges.flatMap(([sourceId, targetId]) => {
+      const mappedSourceIds = reverseMapping[sourceId] ?? []
+      const mappedTargetIds = reverseMapping[targetId] ?? []
+      return mappedSourceIds.flatMap((mappedSourceId) =>
+        mappedTargetIds.map((mappedTargetId) => [mappedSourceId, mappedTargetId] as const),
+      )
+    }).filter(([sourceId, targetId]) => {
+      const nodeIds = data.nodes.getIds()
+      return nodeIds.includes(sourceId) && nodeIds.includes(targetId)
+    })
     // Some encodings, e.g., the patterns, may try to attempt to select edges that are not in the model
     // We filter them here to prevent errors
-    const filteredEdgeIds = edgeIds.filter((edgeId) => data.edges.getIds().includes(edgeId))
+    const filteredEdgeIds = mappedEdges
+      .map(([sourceId, targetId]) =>
+        createEdgeId(sourceId, targetId),
+      )
+      .filter((edgeId) => data.edges.getIds().includes(edgeId))
     network.selectEdges(filteredEdgeIds)
-    if (selection.origin !== 'ir-graph') {
-      network.fit({ nodes: selection.edges.flat(), animation: true })
+    if (selection.origin !== 'pattern-graph') {
+      network.fit({ nodes: mappedEdges.flat(), animation: true })
     }
   }, [network, selection])
 
@@ -246,36 +266,31 @@ function isNetworkDestroyed(network: Network | null): network is null {
   return !('selectionHandler' in network)
 }
 
-function createVisNodes(model: GraphModel) {
-  const mappedNodes = Stream.from(model.nodes)
-    .map(({ id, tag }) => ({
-      id,
-      label: tag,
+function createVisNodes(pattern: Pattern) {
+  const mappedNodes = Stream
+    .from(pattern)
+    .flatMap(({ source, target }) => [source, target])
+    .distinct()
+    .map((node) => ({
+      id: node,
+      label: node,
     }))
     .toArray()
+
   return new DataSet(mappedNodes)
 }
 
-function createVisEdges(model: GraphModel) {
-  const edgeMap: Record<string, Edge> = {}
-  Stream.from(model.edges).forEach((edge) => {
-    const sourceId = edge.source.id
-    const targetId = edge.target.id
-    if (!sourceId || !targetId) {
-      return
-    }
-    const edgeId = createEdgeId(sourceId, targetId)
-    const networkEdge: Edge = edgeMap[edgeId] ?? {
+function createVisEdges(pattern: Pattern) {
+  const edges = Stream.from(pattern).map((edge) => {
+    const { source, target } = edge
+    const edgeId = createEdgeId(source, target)
+    const networkEdge: Edge = {
       id: edgeId,
-      from: sourceId,
-      to: targetId,
+      from: source,
+      to: target,
     }
-    networkEdge.value = (networkEdge.value ?? 0) + 1
-    edgeMap[edgeId] = networkEdge
+    return networkEdge
   })
-  const edges = Object.values(edgeMap).map((edge) => ({
-    ...edge,
-    value: Math.log10((edge.value ?? 0) + 1),
-  }))
+    .toArray()
   return new DataSet(edges)
 }

@@ -13,7 +13,7 @@ export interface EdgeSelection {
 }
 
 export type Selection = {
-  origin: 'command' | 'details' | 'graph' | 'ir' | 'pattern' | 'tree'
+  origin: 'command' | 'details' | 'graph' | 'ir-graph' | 'pattern' | 'pattern-graph' | 'tree'
 } & (NodeSelection | EdgeSelection)
 
 export interface SelectionState {

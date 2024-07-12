@@ -28,7 +28,7 @@ function addEdge_owner(element: GraphNode) {
   if (!parent) {
     return
   }
-  // element.model.addEdge('owner', element, parent)
+  element.model.addEdge('owner', element, parent)
   parent.model.addEdge('ownedElement', parent, element)
 }
 

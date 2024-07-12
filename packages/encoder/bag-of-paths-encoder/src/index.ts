@@ -10,7 +10,7 @@ import { normalizePartitions } from './normalization'
 import { partitionNodes } from './partitioning'
 import { restorePartitionEdges } from './restoration'
 
-export type { Embedding } from './embedding'
+export type { PatternWithFrequency } from './frequency'
 
 const PatternMiner = batchTryCatch(definePlugin({
   name: 'patterns',
