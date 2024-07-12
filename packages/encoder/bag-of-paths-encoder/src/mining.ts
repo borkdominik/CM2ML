@@ -4,7 +4,12 @@ import { topK } from 'prefixspan'
 import type { MiningParameters } from './bop-types'
 import type { Embedding } from './embedding'
 
-export function minePatterns(embedding: Embedding, { closedPatterns, minPatternLength, maxPatternLength, maxPatterns }: MiningParameters) {
+export interface MinedPattern {
+  support: number
+  pattern: string[]
+}
+
+export function minePatterns(embedding: Embedding, { closedPatterns, minPatternLength, maxPatternLength, maxPatternsPerPartition }: MiningParameters): MinedPattern[] {
   const db: DB = embedding
     .slice(1)
     .map((row) => row.flatMap((cell, col) => {
@@ -16,6 +21,6 @@ export function minePatterns(embedding: Embedding, { closedPatterns, minPatternL
       }
       throw new Error(`Unexpected cell value: ${cell}`)
     }))
-  const patterns = topK(db, maxPatterns, { closed: closedPatterns, minLength: minPatternLength, maxLength: maxPatternLength })
+  const patterns = topK(db, maxPatternsPerPartition, { closed: closedPatterns, minLength: minPatternLength, maxLength: maxPatternLength })
   return patterns.map(([support, pattern]) => ({ support, pattern: pattern.map((index) => embedding[0][index]!) }))
 }

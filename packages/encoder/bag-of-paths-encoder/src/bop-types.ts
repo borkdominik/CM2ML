@@ -7,6 +7,11 @@ export interface PartitioningParameters {
 export interface MiningParameters {
   minPatternLength: number
   maxPatternLength: number
-  maxPatterns: number
+  maxPatternsPerPartition: number
   closedPatterns: boolean
+}
+
+export interface FrequencyParameters {
+  minAbsoluteFrequency: number
+  minModelFrequency: number
 }
