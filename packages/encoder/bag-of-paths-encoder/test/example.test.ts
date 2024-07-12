@@ -2,7 +2,7 @@ import { GraphModel, Metamodel } from '@cm2ml/ir'
 import { describe, expect, it } from 'vitest'
 
 import { embedPartitions } from '../src/embedding'
-import { normalizePartition } from '../src/normalization'
+import { normalizePartitions } from '../src/normalization'
 import { partitionNodes } from '../src/partitioning'
 import { restorePartitionEdges } from '../src/restoration'
 
@@ -66,8 +66,8 @@ describe('paper example', () => {
   it(`matches the paper's result`, () => {
     const partitions = partitionNodes(model, { costType: 'edge-count', maxPartitionSize: 4, maxPartitioningIterations: 50 })
       .map(restorePartitionEdges)
-      .map(normalizePartition)
-    const result = formatEmbedding(embedPartitions(partitions))
+    const { normalizedPartitions, mapping } = normalizePartitions(partitions)
+    const result = formatEmbedding(embedPartitions(normalizedPartitions))
     // `class_4>class_0[partOf] 1 0` differs from the paper's result, which doesn't have the edge.
     // This is incorrect though, as the edge between Vehicle and VehiclePart must result in both nodes being present in both partitions.
     // Because both ends of the edge have different ids in both partitions, the entry is correct.
@@ -78,7 +78,29 @@ describe('paper example', () => {
     class_3->class_0[GEN] 1 0
     class_4->class_0[partOf] 1 0
     class_0->class_3[partOf] 0 1
-    "
-  `)
+    "`)
+    expect(mapping).toMatchInlineSnapshot(`
+      {
+        "class_0": [
+          "Vehicle",
+          "VehiclePart",
+        ],
+        "class_1": [
+          "Car",
+          "Wheel",
+        ],
+        "class_2": [
+          "Boat",
+          "Engine",
+        ],
+        "class_3": [
+          "Airplane",
+          "Vehicle",
+        ],
+        "class_4": [
+          "VehiclePart",
+        ],
+      }
+    `)
   })
 })

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { normalizePartition } from '../src/normalization'
+import { normalizePartitions } from '../src/normalization'
 import { partitionNodes } from '../src/partitioning'
 import { restorePartitionEdges } from '../src/restoration'
 
@@ -8,10 +8,10 @@ import { formatLabeledNode, testModel } from './test-utils'
 
 describe('normalization', () => {
   it('creates labeled and indexed nodes', () => {
-    const result = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 4, maxPartitioningIterations: 2 })
+    const partitions = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 4, maxPartitioningIterations: 2 })
       .map(restorePartitionEdges)
-      .map(normalizePartition)
-      .map((partition) => partition.map(formatLabeledNode))
+    const { normalizedPartitions, mapping } = normalizePartitions(partitions)
+    const result = normalizedPartitions.map((partition) => partition.map(formatLabeledNode))
     expect(result).toMatchInlineSnapshot(`
       [
         [
@@ -127,6 +127,35 @@ describe('normalization', () => {
           ],
         ],
       ]
+    `)
+    expect(mapping).toMatchInlineSnapshot(`
+      {
+        "node_0": [
+          "root",
+          "f",
+        ],
+        "node_1": [
+          "b",
+          "c",
+        ],
+        "node_2": [
+          "d",
+          "e",
+        ],
+        "node_3": [
+          "a",
+          "root",
+        ],
+        "node_4": [
+          "c",
+        ],
+        "node_5": [
+          "e",
+        ],
+        "node_6": [
+          "f",
+        ],
+      }
     `)
   })
 })

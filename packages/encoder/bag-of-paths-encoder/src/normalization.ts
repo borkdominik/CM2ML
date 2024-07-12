@@ -1,8 +1,32 @@
 import type { GraphEdge, GraphNode } from '@cm2ml/ir'
 
-export function normalizePartition(partition: Set<GraphNode>) {
+export function normalizePartitions(partitions: Set<GraphNode>[]) {
+  const normalizedLabeledNodes: LabeledNode[][] = []
+  const crossPartitionMapping: Record<string, Set<string>> = {}
+  partitions.forEach((partition) => {
+    const { labeledNodes, mapping } = normalizePartition(partition)
+    normalizedLabeledNodes.push(labeledNodes)
+    Object.entries(mapping).forEach(([labeledNodeId, graphNodeId]) => {
+      if (!crossPartitionMapping[labeledNodeId]) {
+        crossPartitionMapping[labeledNodeId] = new Set()
+      }
+      if (!graphNodeId) {
+        return
+      }
+      crossPartitionMapping[labeledNodeId].add(graphNodeId)
+    })
+  })
+  return {
+    normalizedPartitions: normalizedLabeledNodes,
+    mapping: Object.fromEntries(Object.entries(crossPartitionMapping).map(([key, value]) => [key, Array.from(value)])),
+  }
+}
+
+function normalizePartition(partition: Set<GraphNode>) {
   const labelGroups = groupNodesByType(partition)
-  return createLabeledNodes(labelGroups, partition)
+  const labeledNodes = createLabeledNodes(labelGroups, partition)
+  const mapping = Object.fromEntries(labeledNodes.map((node) => [node.id, node.data.id]))
+  return { labeledNodes, mapping }
 }
 
 export class LabeledNode {

@@ -6,7 +6,7 @@ import { Stream } from '@yeger/streams'
 import { embedPartitions } from './embedding'
 import { calculateFrequencies } from './frequency'
 import { minePatterns } from './mining'
-import { normalizePartition } from './normalization'
+import { normalizePartitions } from './normalization'
 import { partitionNodes } from './partitioning'
 import { restorePartitionEdges } from './restoration'
 
@@ -53,14 +53,13 @@ const PatternMiner = batchTryCatch(definePlugin({
     },
   },
   invoke(model: GraphModel, parameters) {
-    const partitions = Stream.from(partitionNodes(model, parameters))
+    const partitions = partitionNodes(model, parameters)
       .map(restorePartitionEdges)
-      .map(normalizePartition)
-      .toArray()
-    const embedding = embedPartitions(partitions)
+    const { normalizedPartitions, mapping } = normalizePartitions(partitions)
+    const embedding = embedPartitions(normalizedPartitions)
     const patterns = minePatterns(embedding, parameters)
     return {
-      data: patterns,
+      data: { patterns, mapping },
       metadata: {},
     }
   },
@@ -94,11 +93,11 @@ const PatternFrequencyMiner = definePlugin({
   invoke(batch: InferOut<typeof PatternMiner>, parameters) {
     const patterns = Stream
       .from(batch)
-      .map((result) => result instanceof ExecutionError ? [] : result.data)
+      .map((result) => result instanceof ExecutionError ? [] : result.data.patterns)
     const frequencies = calculateFrequencies(patterns, parameters)
     return batch.map((input) => ({
       // Only include errors as data, because the patterns are equal for each input, thus considered metadata.
-      data: input instanceof ExecutionError ? input : undefined, // TODO/Jan: Include mapping from IR model element to pattern element
+      data: input instanceof ExecutionError ? input : input.data.mapping,
       metadata: frequencies,
     }))
   },
