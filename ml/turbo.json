@@ -17,6 +17,17 @@
         "^build"
       ]
     },
+    "encode:pattern": {
+      "inputs": [
+        "scripts/encode-pattern.sh"
+      ],
+      "outputs": [
+        ".output/patterns.json"
+      ],
+      "dependsOn": [
+        "^build"
+      ]
+    },
     "encode:tree": {
       "inputs": [
         "scripts/encode-tree.sh"

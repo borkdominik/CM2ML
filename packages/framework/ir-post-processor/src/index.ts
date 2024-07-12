@@ -11,12 +11,12 @@ export const IrPostProcessor = definePlugin({
   parameters: {
     nodeTagAsAttribute: {
       type: 'boolean',
-      description: 'Include node tags as a feature.',
+      description: 'Include node tags as an attribute.',
       defaultValue: false,
     },
     edgeTagAsAttribute: {
       type: 'boolean',
-      description: 'Include edge tags as a feature.',
+      description: 'Include edge tags as an attribute.',
       defaultValue: false,
     },
   },
