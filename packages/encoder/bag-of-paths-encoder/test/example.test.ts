@@ -72,13 +72,14 @@ describe('paper example', () => {
     // This is incorrect though, as the edge between Vehicle and VehiclePart must result in both nodes being present in both partitions.
     // Because both ends of the edge have different ids in both partitions, the entry is correct.
     expect(result).toMatchInlineSnapshot(`
-    "
-    class_1->class_0[GEN] 1 1
-    class_2->class_0[GEN] 1 1
-    class_3->class_0[GEN] 1 0
-    class_4->class_0[partOf] 1 0
-    class_0->class_3[partOf] 0 1
-    "`)
+      "
+      class_1->class_0[label="GEN"] 1 1
+      class_2->class_0[label="GEN"] 1 1
+      class_3->class_0[label="GEN"] 1 0
+      class_4->class_0[label="partOf"] 1 0
+      class_0->class_3[label="partOf"] 0 1
+      "
+    `)
     expect(mapping).toMatchInlineSnapshot(`
       {
         "class_0": [
