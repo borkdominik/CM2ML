@@ -11,8 +11,6 @@ import { defineConfig, devices } from '@playwright/test'
 
 const command = process.env.CI ? 'pnpm run preview' : 'pnpm run dev'
 const baseURL = process.env.CI ? 'http://127.0.0.1:4173' : 'http://localhost:5173'
-// eslint-disable-next-line no-console
-console.log(`Targeting ${baseURL} with "${command}"`)
 
 /**
  * See https://playwright.dev/docs/test-configuration.

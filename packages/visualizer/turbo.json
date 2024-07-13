@@ -8,6 +8,14 @@
       "inputs": [
         "public/logo.svg"
       ]
+    },
+    "e2e:prepare": {
+      "cache": false
+    },
+    "e2e": {
+      "dependsOn": ["build", "e2e:prepare"],
+      "outputs": ["playwright-report"],
+      "env": ["CI"]
     }
   }
 }
