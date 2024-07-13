@@ -64,7 +64,7 @@ export class LabeledEdge {
     public readonly target: LabeledNode,
     public readonly data: GraphEdge,
   ) {
-    this.id = `${this.source.id}->${this.target.id}[label="${this.data.tag ?? ''}"]`
+    this.id = `"${this.source.id}"->"${this.target.id}"[label="${this.data.tag ?? ''}"]`
   }
 
   public serialize(): SerializedLabeledEdge {

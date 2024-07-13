@@ -1,17 +1,29 @@
 import { BagOfPathsEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { ExecutionError } from '@cm2ml/plugin'
+import { DownloadIcon } from '@radix-ui/react-icons'
+import type { Viz } from '@viz-js/viz'
+import { instance } from '@viz-js/viz'
 import { Fragment, useMemo } from 'react'
 
 import type { Selection } from '../../../../lib/useSelection'
 import { useSelection } from '../../../../lib/useSelection'
 import type { ParameterValues } from '../../../Parameters'
 import { SelectButton } from '../../../SelectButton'
+import { Button } from '../../../ui/button'
 import { Hint } from '../../../ui/hint'
 import { Separator } from '../../../ui/separator'
 import { useEncoder } from '../../useEncoder'
 
 import { PatternGraph } from './PatternGraph'
+
+let cachedInstance: Viz | null = null
+async function getInstance() {
+  if (!cachedInstance) {
+    cachedInstance = await instance()
+  }
+  return cachedInstance
+}
 
 export interface Props {
   model: GraphModel
@@ -55,16 +67,37 @@ interface PatternProps {
   mapping: Record<string, string[]>
 }
 
-function Pattern({ pattern, absoluteFrequency, mapping }: PatternProps) {
+function Pattern({ pattern, absoluteFrequency, mapping, graph }: PatternProps) {
   // Use a fragment as the root to put both the list and the graph into the same container
   // This way, the graph can be sized independently of the list
+  // TODO/Jan: Make format selectable
+  const download = async (format: 'svg') => {
+    const viz = await getInstance()
+    const svg = viz.renderString(graph, { format })
+    const blob = new Blob([svg], { type: format === 'svg' ? 'image/svg+xml' : undefined })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'pattern.svg'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
   return (
     <>
-      <div className="bg-muted p-2 text-xs">
-        <span>
-          {`${absoluteFrequency} occurrence${absoluteFrequency === 1 ? '' : 's'}`}
-        </span>
-        <div className="flex flex-col">
+      <div className="bg-muted p-2">
+        <div className="mb-2 flex items-center justify-between text-sm">
+          <span>
+            {`${absoluteFrequency} occurrence${absoluteFrequency === 1 ? '' : 's'}`}
+          </span>
+          <div className="flex flex-wrap gap-2">
+            <div>
+              <Button variant="ghost" onClick={() => download('svg')} size="icon">
+                <DownloadIcon />
+              </Button>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col text-xs">
           {
             pattern.map((edge) => (
               <LabeledEdge key={`${edge.source}->${edge.target}[${edge.tag}]`} edge={edge} mapping={mapping} />

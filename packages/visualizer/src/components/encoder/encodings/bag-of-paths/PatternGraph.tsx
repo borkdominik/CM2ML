@@ -36,7 +36,7 @@ export function PatternGraph({ pattern, mapping }: Props) {
       />
       {isReady
         ? (
-            <Button className="absolute right-1 top-1" variant="ghost" size="icon" onClick={fit}>
+            <Button className="absolute right-2 top-2" variant="ghost" size="icon" onClick={fit}>
               <Crosshair2Icon />
             </Button>
           )

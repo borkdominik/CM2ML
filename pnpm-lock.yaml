@@ -862,6 +862,9 @@ importers:
       '@types/d3-hierarchy':
         specifier: 3.1.7
         version: 3.1.7
+      '@viz-js/viz':
+        specifier: 3.7.0
+        version: 3.7.0
       '@yeger/streams':
         specifier: 1.1.9
         version: 1.1.9
@@ -3599,6 +3602,9 @@ packages:
 
   '@vitest/utils@1.6.0':
     resolution: {integrity: sha512-21cPiuGMoMZwiOHa2i4LXkMkMkCGzA+MVFV70jRwHo95dL4x/ts5GZhML1QWuy7yfp3WzK3lRvZi3JnXTYqrBw==}
+
+  '@viz-js/viz@3.7.0':
+    resolution: {integrity: sha512-+nZ5LWe09ypRDk43pDU09wLW80kLAEonM7xES4s6AWiCUfAy5Vb+rxnQ3hKw79ptdaHJsyNIfwnzpEFtfMIyGA==}
 
   '@volar/language-core@1.11.1':
     resolution: {integrity: sha512-dOcNn3i9GgZAcJt43wuaEykSluAuOkQgzni1cuxLxTV0nJKanQztp7FxyswdRILaKH+P2XZMPRp2S4MV/pElCw==}
@@ -11790,6 +11796,8 @@ snapshots:
       estree-walker: 3.0.3
       loupe: 2.3.7
       pretty-format: 29.7.0
+
+  '@viz-js/viz@3.7.0': {}
 
   '@volar/language-core@1.11.1':
     dependencies:
