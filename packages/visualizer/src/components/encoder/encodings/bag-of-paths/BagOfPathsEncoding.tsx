@@ -53,8 +53,10 @@ interface PatternProps {
 }
 
 function Pattern({ pattern, absoluteFrequency, mapping }: PatternProps) {
+  // Use a fragment as the root to put both the list and the graph into the same container
+  // This way, the graph can be sized independently of the list
   return (
-    <div className="basis-128 relative flex max-h-full shrink grow flex-col">
+    <>
       <div className="bg-muted p-2 text-xs">
         <span>
           {`${absoluteFrequency} occurrence${absoluteFrequency === 1 ? '' : 's'}`}
@@ -69,7 +71,7 @@ function Pattern({ pattern, absoluteFrequency, mapping }: PatternProps) {
       </div>
       <Separator />
       <PatternGraph pattern={pattern} mapping={mapping} />
-    </div>
+    </>
   )
 }
 

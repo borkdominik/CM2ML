@@ -27,7 +27,7 @@ export function PatternGraph({ pattern, mapping }: Props) {
   const { isReady, progress } = useVisNetwok(pattern, mapping, containerRef)
 
   return (
-    <div className="size-full grow">
+    <div className="size-full min-h-64 grow">
       <div
         ref={containerRef}
         className={cn({ 'h-full': true, 'opacity-0': !isReady })}
@@ -90,7 +90,11 @@ function useVisNetwok(
           color: colors.active,
           highlight: colors.selectedBackground,
         },
-        length: hasManyEdges ? 250 : undefined,
+        length: hasManyEdges ? 500 : 500,
+        scaling: {
+          min: 2,
+          max: 5,
+        },
         selectionWidth: 2,
         smooth: {
           enabled: true,
@@ -281,16 +285,21 @@ function createVisNodes(pattern: Pattern) {
 }
 
 function createVisEdges(pattern: Pattern) {
-  const edges = Stream.from(pattern).map((edge) => {
-    const { source, target } = edge
+  const edgeMap: Record<string, Edge> = {}
+  Stream.from(pattern).forEach(({ source, target, tag }) => {
     const edgeId = createEdgeId(source, target)
-    const networkEdge: Edge = {
+    const networkEdge: Edge = edgeMap[edgeId] ?? {
       id: edgeId,
       from: source,
       to: target,
     }
-    return networkEdge
+    networkEdge.value = (networkEdge.value ?? 0) + 1
+    networkEdge.label = (networkEdge.label ? `${networkEdge.label},\n` : '') + tag
+    edgeMap[edgeId] = networkEdge
   })
-    .toArray()
+  const edges = Object.values(edgeMap).map((edge) => ({
+    ...edge,
+    value: Math.log10((edge.value ?? 0) + 1),
+  }))
   return new DataSet(edges)
 }
