@@ -31,6 +31,11 @@ const PatternMiner = batchTryCatch(definePlugin({
       allowedValues: ['edge-count', 'constant'],
       description: 'The type of cost function to use.',
     },
+    maskNodeTypes: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Whether to mask the types of the nodes.',
+    },
     minPatternLength: {
       type: 'number',
       defaultValue: 1,
@@ -55,7 +60,7 @@ const PatternMiner = batchTryCatch(definePlugin({
   invoke(model: GraphModel, parameters) {
     const partitions = partitionNodes(model, parameters)
       .map(restorePartitionEdges)
-    const { normalizedPartitions, mapping } = normalizePartitions(partitions)
+    const { normalizedPartitions, mapping } = normalizePartitions(partitions, parameters)
     const embedding = embedPartitions(normalizedPartitions)
     const patterns = minePatterns(embedding, parameters)
     return {

@@ -66,7 +66,7 @@ describe('paper example', () => {
   it(`matches the paper's result`, () => {
     const partitions = partitionNodes(model, { costType: 'edge-count', maxPartitionSize: 4, maxPartitioningIterations: 50 })
       .map(restorePartitionEdges)
-    const { normalizedPartitions, mapping } = normalizePartitions(partitions)
+    const { normalizedPartitions, mapping } = normalizePartitions(partitions, { maskNodeTypes: false })
     const result = formatEmbedding(embedPartitions(normalizedPartitions))
     // `class_4>class_0[partOf] 1 0` differs from the paper's result, which doesn't have the edge.
     // This is incorrect though, as the edge between Vehicle and VehiclePart must result in both nodes being present in both partitions.

@@ -10,7 +10,7 @@ describe('normalization', () => {
   it('creates labeled and indexed nodes', () => {
     const partitions = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 4, maxPartitioningIterations: 2 })
       .map(restorePartitionEdges)
-    const { normalizedPartitions, mapping } = normalizePartitions(partitions)
+    const { normalizedPartitions, mapping } = normalizePartitions(partitions, { maskNodeTypes: false })
     const result = normalizedPartitions.map((partition) => partition.map(formatLabeledNode))
     expect(result).toMatchInlineSnapshot(`
       [
@@ -153,6 +153,158 @@ describe('normalization', () => {
           "e",
         ],
         "node_6": [
+          "f",
+        ],
+      }
+    `)
+  })
+
+  it('can mask node types', () => {
+    const partitions = partitionNodes(testModel, { costType: 'edge-count', maxPartitionSize: 4, maxPartitioningIterations: 2 })
+      .map(restorePartitionEdges)
+    const { normalizedPartitions, mapping } = normalizePartitions(partitions, { maskNodeTypes: true })
+    const result = normalizedPartitions.map((partition) => partition.map(formatLabeledNode))
+    expect(result).toMatchInlineSnapshot(`
+      [
+        [
+          [
+            "<node>_0",
+            [
+              "<node>_3",
+              "<node>_3",
+            ],
+            [
+              "<node>_3",
+              "<node>_1",
+              "<node>_4",
+              "<node>_2",
+              "<node>_5",
+              "<node>_6",
+            ],
+          ],
+          [
+            "<node>_1",
+            [
+              "<node>_0",
+              "<node>_2",
+            ],
+            [
+              "<node>_2",
+            ],
+          ],
+          [
+            "<node>_2",
+            [
+              "<node>_0",
+              "<node>_1",
+            ],
+            [
+              "<node>_1",
+            ],
+          ],
+          [
+            "<node>_3",
+            [
+              "<node>_0",
+            ],
+            [
+              "<node>_0",
+              "<node>_0",
+            ],
+          ],
+          [
+            "<node>_4",
+            [
+              "<node>_0",
+              "<node>_5",
+            ],
+            [
+              "<node>_5",
+            ],
+          ],
+          [
+            "<node>_5",
+            [
+              "<node>_0",
+              "<node>_4",
+            ],
+            [
+              "<node>_4",
+            ],
+          ],
+          [
+            "<node>_6",
+            [
+              "<node>_0",
+            ],
+            [],
+          ],
+        ],
+        [
+          [
+            "<node>_0",
+            [
+              "<node>_3",
+            ],
+            [],
+          ],
+          [
+            "<node>_1",
+            [
+              "<node>_2",
+              "<node>_3",
+            ],
+            [
+              "<node>_2",
+            ],
+          ],
+          [
+            "<node>_2",
+            [
+              "<node>_1",
+              "<node>_3",
+            ],
+            [
+              "<node>_1",
+            ],
+          ],
+          [
+            "<node>_3",
+            [],
+            [
+              "<node>_1",
+              "<node>_2",
+              "<node>_0",
+            ],
+          ],
+        ],
+      ]
+    `)
+    expect(mapping).toMatchInlineSnapshot(`
+      {
+        "<node>_0": [
+          "root",
+          "f",
+        ],
+        "<node>_1": [
+          "b",
+          "c",
+        ],
+        "<node>_2": [
+          "d",
+          "e",
+        ],
+        "<node>_3": [
+          "a",
+          "root",
+        ],
+        "<node>_4": [
+          "c",
+        ],
+        "<node>_5": [
+          "e",
+        ],
+        "<node>_6": [
           "f",
         ],
       }

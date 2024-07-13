@@ -4,6 +4,10 @@ export interface PartitioningParameters {
   costType: 'edge-count' | 'constant' | (string & Record<never, never>)
 }
 
+export interface NormalizationParameters {
+  maskNodeTypes: boolean
+}
+
 export interface MiningParameters {
   minPatternLength: number
   maxPatternLength: number

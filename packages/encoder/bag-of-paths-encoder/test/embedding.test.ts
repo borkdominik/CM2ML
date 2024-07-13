@@ -15,6 +15,7 @@ describe('embedding', () => {
         { costType: 'edge-count', maxPartitionSize: 4, maxPartitioningIterations: 2 },
       )
         .map(restorePartitionEdges),
+      { maskNodeTypes: false },
     )
     const result = formatEmbedding(embedPartitions(normalizedPartitions))
     expect(result).toMatchInlineSnapshot(`

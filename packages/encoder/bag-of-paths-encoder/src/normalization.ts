@@ -1,10 +1,12 @@
 import type { GraphEdge, GraphNode } from '@cm2ml/ir'
 
-export function normalizePartitions(partitions: Set<GraphNode>[]) {
+import type { NormalizationParameters } from './bop-types'
+
+export function normalizePartitions(partitions: Set<GraphNode>[], parameters: NormalizationParameters) {
   const normalizedLabeledNodes: LabeledNode[][] = []
   const crossPartitionMapping: Record<string, Set<string>> = {}
   partitions.forEach((partition) => {
-    const { labeledNodes, mapping } = normalizePartition(partition)
+    const { labeledNodes, mapping } = normalizePartition(partition, parameters)
     normalizedLabeledNodes.push(labeledNodes)
     Object.entries(mapping).forEach(([labeledNodeId, graphNodeId]) => {
       if (!crossPartitionMapping[labeledNodeId]) {
@@ -22,12 +24,14 @@ export function normalizePartitions(partitions: Set<GraphNode>[]) {
   }
 }
 
-function normalizePartition(partition: Set<GraphNode>) {
-  const labelGroups = groupNodesByType(partition)
-  const labeledNodes = createLabeledNodes(labelGroups, partition)
+function normalizePartition(partition: Set<GraphNode>, { maskNodeTypes }: NormalizationParameters) {
+  const labelGroups = groupNodesByType(partition, maskNodeTypes)
+  const labeledNodes = createLabeledNodes(labelGroups, partition, maskNodeTypes)
   const mapping = Object.fromEntries(labeledNodes.map((node) => [node.id, node.data.id]))
   return { labeledNodes, mapping }
 }
+
+const maskedNodeType = '<node>'
 
 export class LabeledNode {
   public readonly label: string | undefined
@@ -40,8 +44,9 @@ export class LabeledNode {
   public constructor(
     public readonly data: GraphNode,
     public readonly index: number,
+    maskNodeType: boolean,
   ) {
-    this.label = data.type
+    this.label = maskNodeType ? maskedNodeType : data.type
     this.id = `${this.label ?? 'unknown'}_${this.index}`
   }
 }
@@ -74,8 +79,8 @@ export class LabeledEdge {
 /**
  * Create labeled nodes from grouped nodes.
  */
-function createLabeledNodes(labelGroups: GraphNode[][], partition: Set<GraphNode>) {
-  const labeledNodes = labelGroups.flatMap((labelGroup) => labelGroup.map((node, index) => new LabeledNode(node, index)))
+function createLabeledNodes(labelGroups: GraphNode[][], partition: Set<GraphNode>, maskNodeTypes: boolean) {
+  const labeledNodes = labelGroups.flatMap((labelGroup) => labelGroup.map((node, index) => new LabeledNode(node, index, maskNodeTypes)))
   const nodeMap = new Map(labeledNodes.map((labeledNode) => [labeledNode.data, labeledNode]))
   labeledNodes.forEach((labeledNode) => {
     labeledNode.data.outgoingEdges.forEach((edge) => {
@@ -100,8 +105,8 @@ const NO_TYPE_SYMBOL = Symbol('NO_TYPE')
 /**
  * Group nodes by their type.
  */
-function groupNodesByType(nodes: Set<GraphNode>): GraphNode[][] {
-  const groupRecord = Object.groupBy(nodes, (node) => node.type ?? NO_TYPE_SYMBOL)
+function groupNodesByType(nodes: Set<GraphNode>, maskNodeTypes: boolean): GraphNode[][] {
+  const groupRecord = Object.groupBy(nodes, (node) => maskNodeTypes ? maskedNodeType : (node.type ?? NO_TYPE_SYMBOL))
   return Object
     .values(groupRecord)
     .filter((group) => group !== undefined)
