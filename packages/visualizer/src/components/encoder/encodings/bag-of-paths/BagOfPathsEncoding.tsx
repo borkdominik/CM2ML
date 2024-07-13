@@ -28,7 +28,7 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
   }
   const patterns = encoding.metadata
   if (patterns.length === 0) {
-    return <Hint text="No patterns found. Considering increasing the maximum pattern length if mining closed patterns. Otherwise, consider configuring the parser and encoder to reduce the model complexity." />
+    return <Hint text="No patterns found. Consider increasing the maximum pattern length if mining closed patterns. Otherwise, try configuring the parser and encoder to reduce the model complexity." />
   }
   const mapping = encoding.data
   return (
@@ -113,7 +113,7 @@ function LabeledEdge({ edge, mapping }: LabeledEdgeProps) {
     <span key={edge.source + edge.target + edge.tag}>
       <LabeledNode nodeId={edge.source} mapping={mapping} isEdgeSelected={isSelected} />
       {' '}
-      {'->'}
+      →
       {' '}
       <LabeledNode nodeId={edge.target} mapping={mapping} isEdgeSelected={isSelected} />
       {' '}
