@@ -19,6 +19,17 @@ jobs:
         run: pnpm run syncpack:lint
       - name: Build, Lint, Test, and Typecheck
         run: pnpm run ci
+      - name: Prepare E2E
+        run: cd packages/visualizer && pnpm run e2e:prepare
+      - name: E2E
+        run: cd packages/visualizer && pnpm run e2e
+      - name: Upload E2E report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: packages/visualizer/playwright-report/
+          retention-days: 30
       - name: Release
         uses: changesets/action@v1
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

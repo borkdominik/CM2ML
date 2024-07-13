@@ -28,6 +28,7 @@ export function IRGraph({ model }: Props) {
     <div className="relative h-full">
       <div
         ref={containerRef}
+        data-testid="ir-graph"
         className={cn({ 'h-full': true, 'opacity-0': !isReady })}
       />
       {!isReady
