@@ -27,6 +27,9 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
     return <Hint error={encoding.data} />
   }
   const patterns = encoding.metadata
+  if (patterns.length === 0) {
+    return <Hint text="No patterns found. Considering increasing the maximum pattern length if mining closed patterns. Otherwise, consider configuring the parser and encoder to reduce the model complexity." />
+  }
   const mapping = encoding.data
   return (
     <div className="flex h-full flex-col overflow-y-auto">
