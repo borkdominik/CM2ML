@@ -1,4 +1,5 @@
 import type { PatternWithFrequency } from '@cm2ml/builtin'
+import { Crosshair2Icon } from '@radix-ui/react-icons'
 import { debounce } from '@yeger/debounce'
 import { Stream } from '@yeger/streams'
 import type { RefObject } from 'react'
@@ -9,6 +10,7 @@ import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 import { colors } from '../../../../colors'
 import { useSelection } from '../../../../lib/useSelection'
 import { cn } from '../../../../lib/utils'
+import { Button } from '../../../ui/button'
 import { Progress } from '../../../ui/progress'
 
 export type Pattern = PatternWithFrequency['pattern']
@@ -24,14 +26,21 @@ export interface IRGraphRef {
 
 export function PatternGraph({ pattern, mapping }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { isReady, progress } = useVisNetwok(pattern, mapping, containerRef)
+  const { isReady, progress, fit } = useVisNetwok(pattern, mapping, containerRef)
 
   return (
-    <div className="size-full min-h-64 grow">
+    <div className="relative size-full min-h-64 grow">
       <div
         ref={containerRef}
         className={cn({ 'h-full': true, 'opacity-0': !isReady })}
       />
+      {isReady
+        ? (
+            <Button className="absolute right-1 top-1" variant="ghost" size="icon" onClick={fit}>
+              <Crosshair2Icon />
+            </Button>
+          )
+        : null}
       {!isReady
         ? (
             <div className="absolute inset-0 flex items-center justify-center p-2">
@@ -255,6 +264,7 @@ function useVisNetwok(
   return {
     isReady: stabilizationProgress === 1,
     progress: stabilizationProgress,
+    fit: () => network?.fit({ animation: true }),
   }
 }
 
