@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test'
+import { type Page, expect } from '@playwright/test'
 
 export async function getIRGraph(page: Page) {
   return page.getByTestId('ir-graph').locator('canvas')
@@ -17,4 +17,12 @@ export async function openExample(page: Page, language: 'UML', example: string) 
   await page.getByText('Examples').click()
   await page.getByText(language).click()
   await page.getByText(example).click()
+}
+
+export async function useEncoder(page: Page, encoder: string) {
+  const noEncoder = page.getByText('No encoder')
+  await noEncoder.waitFor({ state: 'visible' })
+  await page.getByText('Select an encoder').click()
+  await page.getByText(encoder).click()
+  expect(noEncoder).toHaveCount(0)
 }

@@ -23,7 +23,7 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeatureVectors, edge
   const getOpacity = useWeightedOpacityFromList(list)
   const listEdgePaddingAmount = nodes.length.toFixed(0).length
   return (
-    <ResizablePanelGroup direction="vertical" className="h-full select-none">
+    <ResizablePanelGroup direction="vertical" className="h-full select-none" data-testid="raw-graph-list">
       <ResizablePanel>
         <div className="h-full overflow-y-auto p-2">
           <div className="flex justify-between">

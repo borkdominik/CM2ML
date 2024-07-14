@@ -36,6 +36,7 @@ export function Grid({ matrix, nodes }: GridProps) {
       viewBox={`${offset} ${offset} ${viewBoxSize} ${viewBoxSize}`}
       className="size-full"
       onPointerDown={() => clearSelection()}
+      data-testid="raw-graph-grid"
     >
       <Labels nodes={nodes} offset={offset} />
       {nodes.map((node, row) => (
