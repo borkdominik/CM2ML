@@ -9,7 +9,11 @@ export function normalizeOptions(options: Record<string, unknown>, parameters: P
   return Stream.fromObject(options)
     .map(([name, parameter]) => {
       if (Array.isArray(parameter) && !parameters[name]?.type.startsWith('array<')) {
+        // Use first occurrence of duplicate non-array parameters
         return [name, parameter[0]]
+      } else if (!Array.isArray(parameter) && parameters[name]?.type.startsWith('array<')) {
+        // Wrap single-valued array parameters
+        return [name, [parameter]]
       } else {
         return [name, parameter]
       }
