@@ -219,12 +219,13 @@ function StringArrayInput({
   value: values,
 }: ParameterInputProps<'array<string>'>) {
   const [inputValue, setInputValue] = useState('')
-  if (!parameter.allowedValues) {
-    return null
-  }
   const onInputConfirmed = () => {
+    const trimmed = inputValue.trim()
+    if (trimmed === '') {
+      return
+    }
     setInputValue('')
-    onChange([...values, inputValue])
+    onChange([...values, trimmed])
   }
 
   const input = parameter.allowedValues
@@ -239,7 +240,9 @@ function StringArrayInput({
           id={name}
           value={inputValue}
           type="text"
-          onChange={(event) => setInputValue(event.target.value)}
+          onChange={(event) => {
+            setInputValue(event.target.value)
+          }}
           onBlur={onInputConfirmed}
           onKeyDown={(event) => {
             if (event.key === 'Enter') {
