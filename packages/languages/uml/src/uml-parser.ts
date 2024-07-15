@@ -30,17 +30,27 @@ const UmlRefiner = definePlugin({
       defaultValue: false,
       description: 'Treat relationships as edges.',
     },
-    whitelist: {
+    nodeWhitelist: {
       type: 'array<string>',
-      defaultValue: Object.keys(Uml.Types),
-      description: 'Whitelist of UML element types to include in the model. Root nodes will never be removed.',
+      defaultValue: [],
+      description: 'Whitelist of UML element types to include in the model. Root nodes will never be removed. Ignored if empty.',
       allowedValues: Object.keys(Uml.Types),
     },
-    blacklist: {
+    nodeBlacklist: {
       type: 'array<string>',
       defaultValue: [],
       description: 'Blacklist of UML element types to exclude from the model. Has precedence over the whitelist. Root nodes will never be removed.',
       allowedValues: Object.keys(Uml.Types),
+    },
+    edgeWhitelist: {
+      type: 'array<string>',
+      defaultValue: [],
+      description: 'Whitelist of association names to include in the model. Ignored if empty.',
+    },
+    edgeBlacklist: {
+      type: 'array<string>',
+      defaultValue: [],
+      description: 'Blacklist of association names to exclude in the model. Has precedence over the whitelist.',
     },
     randomizedIdPrefix: {
       type: 'boolean',
@@ -57,7 +67,8 @@ const UmlRefiner = definePlugin({
       resolveImportedMembers(model, parameters.relationshipsAsEdges)
       resolveDeployedElements(model, parameters.relationshipsAsEdges)
     }
-    pruneNodes(model, parameters.whitelist, parameters.blacklist)
+    pruneNodes(model, parameters.nodeWhitelist, parameters.nodeBlacklist)
+    pruneEdges(model, parameters.edgeWhitelist, parameters.edgeBlacklist)
     persistMetadata(model)
     removeNonUmlAttributes(model)
     validateUmlModel(model, parameters)
@@ -107,11 +118,30 @@ function pruneNodes(model: GraphModel, whitelist: readonly string[], blacklist: 
       return
     }
     const nodeType = Uml.getType(node)
-    if (!nodeType || (!blacklistSet.has(nodeType) && whitelistSet.has(nodeType))) {
+    if (!nodeType) {
+      return
+    }
+    const passesBlacklist = !blacklistSet.has(nodeType)
+    const passesWhitelist = whitelistSet.size === 0 || whitelistSet.has(nodeType)
+    if (passesBlacklist && passesWhitelist) {
       return
     }
     model.debug('Parser', `Removing non-whitelisted node with type ${node.type ?? node.tag}`)
     model.removeNode(node, true)
+  })
+}
+
+function pruneEdges(model: GraphModel, whitelist: readonly string[], blacklist: readonly string[]) {
+  const whitelistSet = new Set(whitelist)
+  const blacklistSet = new Set(blacklist)
+  model.edges.forEach((edge) => {
+    const passesBlacklist = !blacklistSet.has(edge.tag)
+    const passesWhitelist = whitelistSet.size === 0 || whitelistSet.has(edge.tag)
+    if (passesBlacklist && passesWhitelist) {
+      return
+    }
+    model.debug('Parser', `Removing non-whitelisted edge with tag ${edge.tag}`)
+    model.removeEdge(edge)
   })
 }
 

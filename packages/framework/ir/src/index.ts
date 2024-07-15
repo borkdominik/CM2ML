@@ -209,7 +209,12 @@ export class GraphModel implements Show {
     if (id !== undefined) {
       this.#nodeMap.delete(id)
     }
-    node.children.forEach((child) => this.purgeNode(child, protectedNodes))
+    node.children.forEach((child) => {
+      this.purgeNode(child, protectedNodes)
+      if (protectedNodes.has(child)) {
+        node.removeChild(child)
+      }
+    })
     node.parent?.removeChild(node)
     this.#nodes.delete(node)
     // @ts-expect-error Evil illegal const assignment
