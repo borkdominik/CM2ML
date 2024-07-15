@@ -33,13 +33,13 @@ const UmlRefiner = definePlugin({
     whitelist: {
       type: 'array<string>',
       defaultValue: Object.keys(Uml.Types),
-      description: 'Whitelist of UML element types to include in the model.',
+      description: 'Whitelist of UML element types to include in the model. Root nodes will never be removed.',
       allowedValues: Object.keys(Uml.Types),
     },
     blacklist: {
       type: 'array<string>',
       defaultValue: [],
-      description: 'Blacklist of UML element types to exclude from the model. Has precedence over the whitelist.',
+      description: 'Blacklist of UML element types to exclude from the model. Has precedence over the whitelist. Root nodes will never be removed.',
       allowedValues: Object.keys(Uml.Types),
     },
     randomizedIdPrefix: {
@@ -103,12 +103,15 @@ function pruneNodes(model: GraphModel, whitelist: readonly string[], blacklist: 
   const whitelistSet = new Set(whitelist)
   const blacklistSet = new Set(blacklist)
   model.nodes.forEach((node) => {
+    if (node === model.root) {
+      return
+    }
     const nodeType = Uml.getType(node)
     if (!nodeType || (!blacklistSet.has(nodeType) && whitelistSet.has(nodeType))) {
       return
     }
     model.debug('Parser', `Removing non-whitelisted node with type ${node.type ?? node.tag}`)
-    model.removeNode(node)
+    model.removeNode(node, true)
   })
 }
 

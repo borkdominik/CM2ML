@@ -189,9 +189,13 @@ export class GraphModel implements Show {
    * Warning: All edges connected to the node will be removed as well.
    * Warning: It is no longer safe to access {@link GraphNode.model} after this operation.
    * @param node - The node to remove
+   * @param retainChildren - If enabled, child nodes will not be removed, unless the node has no parent itself.
    */
-  public removeNode(node: GraphNode) {
-    this.purgeNode(node, new Set())
+  public removeNode(node: GraphNode, retainChildren: boolean = false) {
+    const parent = node.parent
+    const protectedNodes = retainChildren && parent !== undefined ? new Set(node.children.values()) : new Set<GraphNode>()
+    this.purgeNode(node, protectedNodes)
+    protectedNodes.forEach((child) => parent?.addChild(child))
   }
 
   private purgeNode(node: GraphNode, protectedNodes: Set<GraphNode>) {
