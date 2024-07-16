@@ -5,9 +5,9 @@ import { describe, expect, it } from 'vitest'
 
 import { UmlParser } from '../src/index'
 
-// Green: 0-46657 -> 100%
+import { umlModelDir } from './uml-test-utils'
 
-const umlModelDir = `${import.meta.dirname}/../../../../models/uml`
+// Green: 0-46657 -> 100%
 
 const { validModels, invalidModels } = getFiles({
   startIndex: 0,
