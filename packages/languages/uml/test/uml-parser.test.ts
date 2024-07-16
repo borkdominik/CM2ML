@@ -60,6 +60,7 @@ const { validModels, invalidModels } = getFiles({
     '8289f587db498fea1ccf9d7e6186c2f687dec97ff95557d025d5b30ba1f3e27e.uml', // invalid "isActive" attribute on Enumeration
     '84cb37f59c916b05d4a36a8b28f9bc1ccd1a59230be0bd1f7caa0c327f58cd31.uml', // duplicate id
     '86069121b9cee5f9a6113da953d7b8937fa49afe2069644114b0504190972fe6.uml', // invalid "isActive" attribute on Enumeration
+    '880f332e6156f203193258ecc8e2e577f910ceaa1500e649483846e76533ba37.uml', // empty id
     '8beee7e0fd2e9f74d26dc7e8c3905f8e7e4e8a48064a52a26e70917f9184deef.uml', // duplicate id
     '91ac0c7e6fc04b3e265879951d5177774b67284781e1d0e0ee43b6dfc31e8938.uml', // duplicate generalization
     '95a971f649c5b184b43b3b00ee8a058b043d8d701c8ee8b0f4c3d45969a3d56d.uml', // invalid "isActive" attribute on Enumeration

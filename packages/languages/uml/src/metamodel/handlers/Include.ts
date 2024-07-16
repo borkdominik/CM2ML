@@ -9,7 +9,7 @@ import { Include, UseCase } from '../uml-metamodel'
 export const IncludeHandler = Include.createHandler(
   (include, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const addition = resolve(include, 'addition', { type: UseCase })
-    const includingCase = getParentOfType(include, UseCase)
+    const includingCase = resolve(include, 'includingCase', { type: UseCase }) ?? getParentOfType(include, UseCase)
     if (relationshipsAsEdges) {
       return transformNodeToEdgeCallback(include, includingCase, addition)
     }

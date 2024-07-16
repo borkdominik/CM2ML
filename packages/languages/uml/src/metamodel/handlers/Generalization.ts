@@ -10,7 +10,7 @@ export const GeneralizationHandler = Generalization.createHandler(
   (generalization, { onlyContainmentAssociations, relationshipsAsEdges }) => {
     const general = resolve(generalization, 'general', { type: Classifier })
     const generalizationSets = resolve(generalization, 'generalizationSet', { many: true, type: GeneralizationSet })
-    const specific = getParentOfType(generalization, Classifier)
+    const specific = resolve(generalization, 'specific', { type: Classifier }) ?? getParentOfType(generalization, Classifier)
     if (!onlyContainmentAssociations) {
       addEdge_superClass(specific, general)
     }

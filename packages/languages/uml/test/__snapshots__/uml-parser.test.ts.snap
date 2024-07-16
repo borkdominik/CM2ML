@@ -253,6 +253,8 @@ exports[`uml-parser > invalid models > should not parse invalid model /Users/jan
 
 exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/test/../../../../models/uml/dataset/625a14f0e74e8813f7d3c5ea8b6a64bd50878f198c4a06c008c5c00020d9a589.uml 1`] = `[Error: Node _0Cqb0K9jEd6KLrDsd6Ph6Q has duplicate outgoing edges with tag superClass and target _1Fa5WK9jEd6KLrDsd6Ph6Q]`;
 
+exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/test/../../../../models/uml/dataset/880f332e6156f203193258ecc8e2e577f910ceaa1500e649483846e76533ba37.uml 1`] = `[Error: Node Property has no id]`;
+
 exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/test/../../../../models/uml/dataset/1231f8d154fad979a3d87596e4dba7408ce1135082b49242f5ffaa4a93439870.uml 1`] = `[Error: Node _UOat4NkiEee58tKsVPJ6VQ has duplicate outgoing edges with tag superClass and target __0pN0NkgEee58tKsVPJ6VQ]`;
 
 exports[`uml-parser > invalid models > should not parse invalid model /Users/jan/workspace/CM2ML/packages/languages/uml/test/../../../../models/uml/dataset/3807e34fc85f8809dc5c50a60191724554649c8de42af4dfcccf39329a84d890.uml 1`] = `[Error: Id _4Qge8PjgEeqA4v_JqiO9QA already registered]`;

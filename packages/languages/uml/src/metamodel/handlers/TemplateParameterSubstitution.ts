@@ -1,20 +1,21 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { ParameterableElement, TemplateParameter, TemplateParameterSubstitution } from '../uml-metamodel'
+import { ParameterableElement, TemplateBinding, TemplateParameter, TemplateParameterSubstitution } from '../uml-metamodel'
 
 export const TemplateParameterSubstitutionHandler =
   TemplateParameterSubstitution.createHandler(
     (templateParameterSubstitution, { onlyContainmentAssociations }) => {
       const actual = resolve(templateParameterSubstitution, 'actual', { type: ParameterableElement })
       const formal = resolve(templateParameterSubstitution, 'formal', { type: TemplateParameter })
+      const templateBinding = resolve(templateParameterSubstitution, 'templateBinding', { type: TemplateBinding })
       if (onlyContainmentAssociations) {
         return
       }
       addEdge_actual(templateParameterSubstitution, actual)
       addEdge_formal(templateParameterSubstitution, formal)
       addEdge_ownedActual(templateParameterSubstitution)
-      addEdge_templateBinding(templateParameterSubstitution)
+      addEdge_templateBinding(templateParameterSubstitution, templateBinding)
     },
   )
 
@@ -42,8 +43,11 @@ function addEdge_ownedActual(_templateParameterSubstitution: GraphNode) {
   // The ParameterableElement that is owned by this TemplateParameterSubstitution as its actual parameter.
 }
 
-function addEdge_templateBinding(_templateParameterSubstitution: GraphNode) {
-  // TODO/Association
+function addEdge_templateBinding(templateParameterSubstitution: GraphNode, templateBinding: GraphNode | undefined) {
   // templateBinding : TemplateBinding [1..1]{subsets Element::owner} (opposite TemplateBinding::parameterSubstitution)
   // The TemplateBinding that owns this TemplateParameterSubstitution.
+  if (!templateBinding) {
+    return
+  }
+  templateParameterSubstitution.model.addEdge('templateBinding', templateParameterSubstitution, templateBinding)
 }

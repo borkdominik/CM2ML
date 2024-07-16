@@ -6,7 +6,7 @@ import { BehavioredClassifier, Interface, InterfaceRealization } from '../uml-me
 export const InterfaceRealizationHandler = InterfaceRealization.createHandler(
   (interfaceRealization, { onlyContainmentAssociations }) => {
     const contract = resolve(interfaceRealization, 'contract', { type: Interface })
-    const implementingClassifier = resolve(interfaceRealization, 'client', { removeAttribute: false, type: BehavioredClassifier })
+    const implementingClassifier = resolve(interfaceRealization, 'implementingClassifier', { type: BehavioredClassifier }) ?? resolve(interfaceRealization, 'client', { removeAttribute: false, type: BehavioredClassifier })
     if (onlyContainmentAssociations) {
       return
     }

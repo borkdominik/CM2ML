@@ -2,10 +2,11 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml, transformNodeToEdgeCallback } from '../uml'
-import { Constraint, Transition, Trigger, Vertex } from '../uml-metamodel'
+import { Constraint, Region, Transition, Trigger, Vertex } from '../uml-metamodel'
 
 export const TransitionHandler = Transition.createHandler(
   (transition, { onlyContainmentAssociations, relationshipsAsEdges }) => {
+    const container = resolve(transition, 'container', { type: Region })
     const guard = resolve(transition, 'guard', { type: Constraint })
     const redefinedTransition = resolve(transition, 'redefinedTransition', { type: Transition })
     const source = resolve(transition, 'source', { type: Vertex })
@@ -17,7 +18,7 @@ export const TransitionHandler = Transition.createHandler(
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_container(transition)
+    addEdge_container(transition, container)
     addEdge_effect(transition)
     addEdge_guard(transition, guard)
     addEdge_redefinedTransition(transition, redefinedTransition)
@@ -31,10 +32,13 @@ export const TransitionHandler = Transition.createHandler(
   },
 )
 
-function addEdge_container(_transition: GraphNode) {
-  // TODO/Association
+function addEdge_container(transition: GraphNode, container: GraphNode | undefined) {
   // container : Region [1..1]{subsets NamedElement::namespace} (opposite Region::transition)
   // Designates the Region that owns this Transition.
+  if (!container) {
+    return
+  }
+  transition.model.addEdge('container', transition, container)
 }
 
 function addEdge_effect(_transition: GraphNode) {

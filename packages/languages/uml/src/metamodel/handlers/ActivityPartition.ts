@@ -10,6 +10,7 @@ export const ActivityPartitionHandler = ActivityPartition.createHandler(
     const nodes = resolve(activityPartition, 'node', { many: true, type: ActivityNode })
     const represents = resolve(activityPartition, 'represents', { type: Element })
     const subpartition = resolve(activityPartition, 'subpartition', { many: true, type: ActivityPartition })
+    const superPartition = resolve(activityPartition, 'superPartition', { type: ActivityPartition })
     if (onlyContainmentAssociations) {
       return
     }
@@ -17,7 +18,7 @@ export const ActivityPartitionHandler = ActivityPartition.createHandler(
     addEdge_node(activityPartition, nodes)
     addEdge_represents(activityPartition, represents)
     addEdge_subpartition(activityPartition, subpartition)
-    addEdge_superPartition(activityPartition)
+    addEdge_superPartition(activityPartition, superPartition)
   },
   {
     [Uml.Attributes.isDimension]: { type: 'boolean', defaultValue: 'false' },
@@ -58,8 +59,11 @@ function addEdge_subpartition(activityPartition: GraphNode, subpartition: GraphN
   })
 }
 
-function addEdge_superPartition(_activityPartition: GraphNode) {
-  // TODO/Association
+function addEdge_superPartition(activityPartition: GraphNode, superPartition: GraphNode | undefined) {
   // superPartition : ActivityPartition [0..1]{subsets ActivityGroup::superGroup} (opposite ActivityPartition::subpartition)
   // Other ActivityPartitions immediately containing this ActivityPartition (as its superGroups).
+  if (!superPartition) {
+    return
+  }
+  activityPartition.model.addEdge('superPartition', activityPartition, superPartition)
 }

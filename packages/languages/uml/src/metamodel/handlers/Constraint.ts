@@ -1,16 +1,17 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { Constraint, Element } from '../uml-metamodel'
+import { Constraint, Element, Namespace } from '../uml-metamodel'
 
 export const ConstraintHandler = Constraint.createHandler(
   (constraint, { onlyContainmentAssociations }) => {
     const constrainedElements = resolve(constraint, 'constrainedElement', { many: true, type: Element })
+    const context = resolve(constraint, 'context', { type: Namespace })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_constrainedElement(constraint, constrainedElements)
-    addEdge_context(constraint)
+    addEdge_context(constraint, context)
     addEdge_specification(constraint)
   },
 )
@@ -23,10 +24,13 @@ function addEdge_constrainedElement(constraint: GraphNode, constrainedElements: 
   })
 }
 
-function addEdge_context(_constraint: GraphNode) {
-  // TODO/Association
+function addEdge_context(constraint: GraphNode, context: GraphNode | undefined) {
   // context : Namespace [0..1]{subsets NamedElement::namespace} (opposite Namespace::ownedRule)
   // Specifies the Namespace that owns the Constraint.
+  if (!context) {
+    return
+  }
+  constraint.model.addEdge('context', constraint, context)
 }
 
 function addEdge_specification(_constraint: GraphNode) {

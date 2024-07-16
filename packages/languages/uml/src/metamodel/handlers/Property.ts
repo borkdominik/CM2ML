@@ -5,6 +5,8 @@ import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import {
   Association,
+  DataType,
+  Interface,
   Property,
   ValueSpecification,
 } from '../uml-metamodel'
@@ -14,7 +16,9 @@ export const PropertyHandler = Property.createHandler(
     removeInvalidIsNavigableAttribute(property)
     setAttribute_isComposite(property)
     const association = resolve(property, 'association', { type: Association })
+    const datatype = resolve(property, 'datatype', { type: DataType })
     const defaultValue = resolve(property, 'defaultValue', { type: ValueSpecification })
+    const interface_ = resolve(property, 'interface', { type: Interface })
     const owningAssociations = resolve(property, 'owningAssociation', { many: true, type: Association })
     const qualifiers = resolve(property, 'qualifier', { many: true, type: Property })
     const redefinedProperties = resolve(property, 'redefinedProperty', { many: true, type: Property })
@@ -25,9 +29,9 @@ export const PropertyHandler = Property.createHandler(
     addEdge_association(property, association)
     addEdge_associationEnd(property)
     addEdge_class(property)
-    addEdge_datatype(property)
+    addEdge_datatype(property, datatype)
     addEdge_defaultValue(property, defaultValue)
-    addEdge_interface(property)
+    addEdge_interface(property, interface_)
     addEdge_opposite(property)
     addEdge_owningAssociation(property, owningAssociations)
     addEdge_qualifier(property, qualifiers)
@@ -83,11 +87,15 @@ function addEdge_class(_property: GraphNode) {
   // Added by Class::addEdge_ownedAttribute
 }
 
-function addEdge_datatype(_property: GraphNode) {
+function addEdge_datatype(property: GraphNode, datatype: GraphNode | undefined) {
   // datatype : DataType [0..1]{subsets NamedElement::namespace, subsets A_attribute_classifier::classifier} (opposite DataType::ownedAttribute)
   // The DataType that owns this Property, if any.
 
   // Added by DataType::addEdge_ownedAttribute
+  if (!datatype) {
+    return
+  }
+  property.model.addEdge('datatype', property, datatype)
 }
 
 function addEdge_defaultValue(property: GraphNode, defaultValue: GraphNode | undefined) {
@@ -99,7 +107,7 @@ function addEdge_defaultValue(property: GraphNode, defaultValue: GraphNode | und
   property.model.addEdge('defaultValue', property, defaultValue)
 }
 
-function addEdge_interface(_property: GraphNode) {
+function addEdge_interface(_property: GraphNode, _interface_: GraphNode | undefined) {
   // interface : Interface [0..1]{subsets NamedElement::namespace, subsets A_attribute_classifier::classifier} (opposite Interface::ownedAttribute)
   // The Interface that owns this Property, if any.
 

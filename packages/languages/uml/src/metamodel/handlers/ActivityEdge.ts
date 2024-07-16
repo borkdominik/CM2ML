@@ -1,10 +1,11 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { ActivityEdge, ActivityNode, ActivityPartition, InterruptibleActivityRegion } from '../uml-metamodel'
+import { Activity, ActivityEdge, ActivityNode, ActivityPartition, InterruptibleActivityRegion } from '../uml-metamodel'
 
 export const ActivityEdgeHandler = ActivityEdge.createHandler(
   (activityEdge, { onlyContainmentAssociations }) => {
+    const activity = resolve(activityEdge, 'activity', { type: Activity })
     const inPartitions = resolve(activityEdge, 'inPartition', { many: true, type: ActivityPartition })
     const interrupts = resolve(activityEdge, 'interrupts', { type: InterruptibleActivityRegion })
     const redefinedEdges = resolve(activityEdge, 'redefinedEdge', { many: true, type: ActivityEdge })
@@ -13,7 +14,7 @@ export const ActivityEdgeHandler = ActivityEdge.createHandler(
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_activity(activityEdge)
+    addEdge_activity(activityEdge, activity)
     addEdge_guard(activityEdge)
     addEdge_inGroup(activityEdge)
     addEdge_inPartition(activityEdge, inPartitions)
@@ -26,10 +27,13 @@ export const ActivityEdgeHandler = ActivityEdge.createHandler(
   },
 )
 
-function addEdge_activity(_activityEdge: GraphNode) {
-  // TODO/Association
+function addEdge_activity(activityEdge: GraphNode, activity: GraphNode | undefined) {
   // activity : Activity [0..1]{subsets Element::owner} (opposite Activity::edge)
   // The Activity containing the ActivityEdge, if it is directly owned by an Activity.
+  if (!activity) {
+    return
+  }
+  activityEdge.model.addEdge('activity', activityEdge, activity)
 }
 
 function addEdge_guard(_activityEdge: GraphNode) {

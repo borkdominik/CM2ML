@@ -1,16 +1,17 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { Transition, Vertex } from '../uml-metamodel'
+import { Region, Transition, Vertex } from '../uml-metamodel'
 
 export const VertexHandler = Vertex.createHandler(
   (vertex, { onlyContainmentAssociations }) => {
+    const container = resolve(vertex, 'container', { type: Region })
     const incoming = resolve(vertex, 'incoming', { many: true, type: Transition })
     const outgoing = resolve(vertex, 'outgoing', { many: true, type: Transition })
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_container(vertex)
+    addEdge_container(vertex, container)
     addEdge_incoming(vertex, incoming)
     addEdge_outgoing(vertex, outgoing)
     addEdge_redefinedVertex(vertex)
@@ -18,10 +19,13 @@ export const VertexHandler = Vertex.createHandler(
   },
 )
 
-function addEdge_container(_vertex: GraphNode) {
-  // TODO/Association
+function addEdge_container(vertex: GraphNode, container: GraphNode | undefined) {
   // container : Region [0..1]{subsets NamedElement::namespace} (opposite Region::subvertex)
   // The Region that contains this Vertex.
+  if (!container) {
+    return
+  }
+  vertex.model.addEdge('container', vertex, container)
 }
 
 function addEdge_incoming(vertex: GraphNode, incoming: GraphNode[]) {

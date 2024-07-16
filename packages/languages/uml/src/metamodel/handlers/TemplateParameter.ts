@@ -1,13 +1,14 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { ParameterableElement, TemplateParameter } from '../uml-metamodel'
+import { ParameterableElement, TemplateParameter, TemplateSignature } from '../uml-metamodel'
 
 export const TemplateParameterHandler = TemplateParameter.createHandler(
   (templateParameter, { onlyContainmentAssociations }) => {
     const default_ = resolve(templateParameter, 'default', { type: ParameterableElement })
     const parameteredElement = resolve(templateParameter, 'parameteredElement', { type: ParameterableElement })
     const ownedParameteredElement = resolve(templateParameter, 'ownedParameteredElement', { type: ParameterableElement })
+    const signature = resolve(templateParameter, 'signature', { type: TemplateSignature })
     if (onlyContainmentAssociations) {
       return
     }
@@ -15,7 +16,7 @@ export const TemplateParameterHandler = TemplateParameter.createHandler(
     addEdge_ownedDefault(templateParameter)
     addEdge_ownedParameteredElement(templateParameter, ownedParameteredElement)
     addEdge_parameteredElement(templateParameter, parameteredElement)
-    addEdge_signature(templateParameter)
+    addEdge_signature(templateParameter, signature)
   },
 )
 
@@ -52,8 +53,11 @@ function addEdge_parameteredElement(templateParameter: GraphNode, parameteredEle
   templateParameter.model.addEdge('parameteredElement', templateParameter, parameteredElement)
 }
 
-function addEdge_signature(_templateParameter: GraphNode) {
-  // TODO/Association
+function addEdge_signature(templateParameter: GraphNode, signature: GraphNode | undefined) {
   // signature : TemplateSignature [1..1]{subsets A_parameter_templateSignature::templateSignature, subsets Element::owner} (opposite TemplateSignature::ownedParameter)
   // The TemplateSignature that owns this TemplateParameter.
+  if (!signature) {
+    return
+  }
+  templateParameter.model.addEdge('signature', templateParameter, signature)
 }

@@ -4,6 +4,8 @@ import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
 import {
   Constraint,
+  DataType,
+  Interface,
   Operation,
   OperationTemplateParameter,
   Parameter,
@@ -14,6 +16,9 @@ export const OperationHandler = Operation.createHandler(
   (operation, { onlyContainmentAssociations }) => {
     removeInvalidInputOutputAttributes(operation)
     const bodyCondition = resolve(operation, 'bodyCondition', { type: Constraint })
+    const class_ = resolve(operation, 'class', { type: Type })
+    const datatype = resolve(operation, 'datatype', { type: DataType })
+    const interface_ = resolve(operation, 'interface', { type: Interface })
     const ownedParameters = resolve(operation, 'ownedParameter', { many: true, type: Parameter })
     const postconditions = resolve(operation, 'postcondition', { many: true, type: Constraint })
     const preconditions = resolve(operation, 'precondition', { many: true, type: Constraint })
@@ -30,9 +35,9 @@ export const OperationHandler = Operation.createHandler(
       return
     }
     addEdge_bodyCondition(operation, bodyCondition)
-    addEdge_class(operation)
-    addEdge_datatype(operation)
-    addEdge_interface(operation)
+    addEdge_class(operation, class_)
+    addEdge_datatype(operation, datatype)
+    addEdge_interface(operation, interface_)
     addEdge_ownedParameter(operation, ownedParameters)
     addEdge_postcondition(operation, postconditions)
     addEdge_precondition(operation, preconditions)
@@ -131,21 +136,25 @@ function addEdge_bodyCondition(operation: GraphNode, bodyCondition: GraphNode | 
   operation.model.addEdge('bodyCondition', operation, bodyCondition)
 }
 
-function addEdge_class(_operation: GraphNode) {
+function addEdge_class(_operation: GraphNode, _class_: GraphNode | undefined) {
   // class : Class [0..1]{subsets Feature::featuringClassifier, subsets NamedElement::namespace, subsets RedefinableElement::redefinitionContext} (opposite Class::ownedOperation)
   // The Class that owns this operation, if any.
 
   // Added by ClassHandler::addEdge_ownedOperations
 }
 
-function addEdge_datatype(_operation: GraphNode) {
+function addEdge_datatype(operation: GraphNode, datatype: GraphNode | undefined) {
   // datatype : DataType [0..1]{subsets Feature::featuringClassifier, subsets NamedElement::namespace, subsets RedefinableElement::redefinitionContext} (opposite DataType::ownedOperation)
   // The DataType that owns this Operation, if any.
 
   // Added by DataTypeHandler::addEdge_ownedOperation
+  if (!datatype) {
+    return
+  }
+  operation.model.addEdge('datatype', operation, datatype)
 }
 
-function addEdge_interface(_operation: GraphNode) {
+function addEdge_interface(_operation: GraphNode, _interface_: GraphNode | undefined) {
   // interface : Interface [0..1]{subsets Feature::featuringClassifier, subsets NamedElement::namespace, subsets RedefinableElement::redefinitionContext} (opposite Interface::ownedOperation)
   // The Interface that owns this Operation, if any.
 

@@ -11,7 +11,7 @@ import { ElementImport, Namespace, PackageableElement } from '../uml-metamodel'
 
 export const ElementImportHandler = ElementImport.createHandler(
   (elementImport, { onlyContainmentAssociations, relationshipsAsEdges }) => {
-    const importingNamespace = getParentOfType(elementImport, Namespace)
+    const importingNamespace = resolve(elementImport, 'importingNamespace', { type: Namespace }) ?? getParentOfType(elementImport, Namespace)
     const importedElement = resolve(elementImport, 'importedElement', { type: PackageableElement })
     if (!onlyContainmentAssociations) {
       addEdge_importedMember_member(importingNamespace, importedElement)

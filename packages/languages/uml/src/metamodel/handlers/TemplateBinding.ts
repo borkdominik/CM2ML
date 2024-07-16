@@ -8,7 +8,7 @@ import { TemplateBinding, TemplateParameterSubstitution, TemplateSignature, Temp
 
 export const TemplateBindingHandler = TemplateBinding.createHandler(
   (templateBinding, { onlyContainmentAssociations, relationshipsAsEdges }) => {
-    const boundElement = getParentOfType(templateBinding, TemplateableElement)
+    const boundElement = resolve(templateBinding, 'boundElement', { type: TemplateableElement }) ?? getParentOfType(templateBinding, TemplateableElement)
     const parameterSubstitutions = resolve(templateBinding, 'parameterSubstitution', { many: true, type: TemplateParameterSubstitution })
     const signature = resolve(templateBinding, 'signature', { type: TemplateSignature })
     if (relationshipsAsEdges) {

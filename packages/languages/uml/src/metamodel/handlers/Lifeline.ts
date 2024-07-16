@@ -1,19 +1,20 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { ConnectableElement, InteractionFragment, Lifeline, PartDecomposition } from '../uml-metamodel'
+import { ConnectableElement, Interaction, InteractionFragment, Lifeline, PartDecomposition } from '../uml-metamodel'
 
 export const LifelineHandler = Lifeline.createHandler(
   (lifeline, { onlyContainmentAssociations }) => {
     const coveredBy = resolve(lifeline, 'coveredBy', { many: true, type: InteractionFragment })
     const decomposedAs = resolve(lifeline, 'decomposedAs', { type: PartDecomposition })
+    const interaction = resolve(lifeline, 'interaction', { type: Interaction })
     const represents = resolve(lifeline, 'represents', { type: ConnectableElement })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_coveredBy(lifeline, coveredBy)
     addEdge_decomposedAs(lifeline, decomposedAs)
-    addEdge_interaction(lifeline)
+    addEdge_interaction(lifeline, interaction)
     addEdge_represents(lifeline, represents)
     addEdge_selector(lifeline)
   },
@@ -36,10 +37,13 @@ function addEdge_decomposedAs(lifeline: GraphNode, decomposedAs: GraphNode | und
   lifeline.model.addEdge('decomposedAs', lifeline, decomposedAs)
 }
 
-function addEdge_interaction(_lifeline: GraphNode) {
-  // TODO/Association
+function addEdge_interaction(lifeline: GraphNode, interaction: GraphNode | undefined) {
   // interaction : Interaction [1..1]{subsets NamedElement::namespace} (opposite Interaction::lifeline)
   // References the Interaction enclosing this Lifeline.
+  if (!interaction) {
+    return
+  }
+  lifeline.model.addEdge('interaction', lifeline, interaction)
 }
 
 function addEdge_represents(lifeline: GraphNode, represents: GraphNode | undefined) {

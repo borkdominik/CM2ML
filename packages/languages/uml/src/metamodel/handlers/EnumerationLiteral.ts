@@ -6,14 +6,18 @@ import { Enumeration, EnumerationLiteral } from '../uml-metamodel'
 
 export const EnumerationLiteralHandler = EnumerationLiteral.createHandler(
   (enumerationLiteral, { onlyContainmentAssociations }) => {
-    const enumeration = resolve(enumerationLiteral, 'classifier', { type: Enumeration }) ?? getParentOfType(
+    const classifier = resolve(enumerationLiteral, 'classifier', { type: Enumeration }) ?? getParentOfType(
+      enumerationLiteral,
+      Enumeration,
+    )
+    const enumeration = resolve(enumerationLiteral, 'enumeration', { type: Enumeration }) ?? getParentOfType(
       enumerationLiteral,
       Enumeration,
     )
     if (onlyContainmentAssociations) {
       return
     }
-    addEdge_classifier(enumerationLiteral, enumeration)
+    addEdge_classifier(enumerationLiteral, classifier)
     addEdge_enumeration(enumerationLiteral, enumeration)
   },
 )

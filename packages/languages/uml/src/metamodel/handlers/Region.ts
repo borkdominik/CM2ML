@@ -1,19 +1,21 @@
 import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
-import { Region, Transition } from '../uml-metamodel'
+import { Region, State, StateMachine, Transition } from '../uml-metamodel'
 
 export const RegionHandler = Region.createHandler(
   (region, { onlyContainmentAssociations }) => {
     const extendedRegion = resolve(region, 'extendedRegion', { type: Region })
+    const state = resolve(region, 'state', { type: State })
+    const stateMachine = resolve(region, 'stateMachine', { type: StateMachine })
     const transitions = resolve(region, 'transition', { many: true, type: Transition })
     if (onlyContainmentAssociations) {
       return
     }
     addEdge_extendedRegion(region, extendedRegion)
     addEdge_redefinitionContext(region)
-    addEdge_state(region)
-    addEdge_stateMachine(region)
+    addEdge_state(region, state)
+    addEdge_stateMachine(region, stateMachine)
     addEdge_subvertex(region)
     addEdge_transition(region, transitions)
   },
@@ -34,16 +36,22 @@ function addEdge_redefinitionContext(_region: GraphNode) {
   // References the Classifier in which context this element may be redefined.
 }
 
-function addEdge_state(_region: GraphNode) {
-  // TODO/Association
+function addEdge_state(region: GraphNode, state: GraphNode | undefined) {
   // state : State [0..1]{subsets NamedElement::namespace} (opposite State::region)
   // The State that owns the Region. If a Region is owned by a State, then it cannot also be owned by a StateMachine.
+  if (!state) {
+    return
+  }
+  region.model.addEdge('state', region, state)
 }
 
-function addEdge_stateMachine(_region: GraphNode) {
-  // TODO/Association
+function addEdge_stateMachine(region: GraphNode, stateMachine: GraphNode | undefined) {
   // stateMachine : StateMachine [0..1]{subsets NamedElement::namespace} (opposite StateMachine::region)
   // The StateMachine that owns the Region. If a Region is owned by a StateMachine, then it cannot also be owned by a State.
+  if (!stateMachine) {
+    return
+  }
+  region.model.addEdge('stateMachine', region, stateMachine)
 }
 
 function addEdge_subvertex(_region: GraphNode) {

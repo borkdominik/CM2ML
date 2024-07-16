@@ -6,8 +6,12 @@ import type { PartitioningParameters } from './bop-types'
 
 export function partitionNodes(model: GraphModel, parameters: PartitioningParameters): Set<GraphNode>[] {
   const cost = parameters.costType === 'edge-count' ? edgeCountCost : undefined
+  const nodesToPartition = Stream
+    .from(model.nodes)
+    .filter((node) => node.outgoingEdges.size > 0 || node.incomingEdges.size > 0)
+    .toSet()
   return recursiveKernighanLin(
-    model.nodes,
+    nodesToPartition,
     getConnectedNodes,
     { ...parameters, cost },
   )

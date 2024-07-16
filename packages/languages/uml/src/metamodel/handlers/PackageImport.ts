@@ -10,7 +10,7 @@ import { Namespace, Package, PackageImport } from '../uml-metamodel'
 
 export const PackageImportHandler = PackageImport.createHandler(
   (packageImport, { onlyContainmentAssociations, relationshipsAsEdges }) => {
-    const importingNamespace = getParentOfType(packageImport, Namespace)
+    const importingNamespace = resolve(packageImport, 'importingNamespace', { type: Namespace }) ?? getParentOfType(packageImport, Namespace)
     const importedPackage = resolve(packageImport, 'importedPackage', { type: Package })
     if (relationshipsAsEdges) {
       return transformNodeToEdgeCallback(packageImport, importingNamespace, importedPackage)

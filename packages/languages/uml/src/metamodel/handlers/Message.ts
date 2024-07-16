@@ -2,11 +2,12 @@ import type { GraphNode } from '@cm2ml/ir'
 
 import { resolve } from '../resolvers/resolve'
 import { Uml } from '../uml'
-import { Connector, Message, MessageEnd, NamedElement } from '../uml-metamodel'
+import { Connector, Interaction, Message, MessageEnd, NamedElement } from '../uml-metamodel'
 
 export const MessageHandler = Message.createHandler(
   (message, { onlyContainmentAssociations }) => {
     const connector = resolve(message, 'connector', { type: Connector })
+    const interaction = resolve(message, 'interaction', { type: Interaction })
     const receiveEvent = resolve(message, 'receiveEvent', { type: MessageEnd })
     const sendEvent = resolve(message, 'sendEvent', { type: MessageEnd })
     const signature = resolve(message, 'signature', { type: NamedElement })
@@ -16,7 +17,7 @@ export const MessageHandler = Message.createHandler(
     }
     addEdge_argument(message)
     addEdge_connector(message, connector)
-    addEdge_interaction(message)
+    addEdge_interaction(message, interaction)
     addEdge_receiveEvent(message, receiveEvent)
     addEdge_sendEvent(message, sendEvent)
     addEdge_signature(message, signature)
@@ -59,10 +60,13 @@ function addEdge_connector(message: GraphNode, connector: GraphNode | undefined)
   message.model.addEdge('connector', message, connector)
 }
 
-function addEdge_interaction(_message: GraphNode) {
-  // TODO/Association
+function addEdge_interaction(message: GraphNode, interaction: GraphNode | undefined) {
   // interaction : Interaction [1..1]{subsets NamedElement::namespace} (opposite Interaction::message)
   // The enclosing Interaction owning the Message.
+  if (!interaction) {
+    return
+  }
+  message.model.addEdge('interaction', message, interaction)
 }
 
 function addEdge_receiveEvent(message: GraphNode, receiveEvent: GraphNode | undefined) {
