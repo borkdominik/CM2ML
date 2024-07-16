@@ -17,6 +17,11 @@ const DEFAULT_ID_PREFIX = 'eu.yeger'
 
 const refine = createRefiner(Uml, inferUmlHandler)
 
+const allowedUmlTypes = Object.keys(Uml.Types)
+
+const permanentUmlAttributes = new Set<string>([...Uml.typeAttributes, Uml.idAttribute])
+const allowedUmlAttributes = Object.keys(Uml.Attributes).filter((attribute) => !permanentUmlAttributes.has(attribute))
+
 const UmlRefiner = definePlugin({
   name: 'uml',
   parameters: {
@@ -34,13 +39,13 @@ const UmlRefiner = definePlugin({
       type: 'array<string>',
       defaultValue: [],
       description: 'Whitelist of UML element types to include in the model. Root nodes will never be removed. Ignored if empty.',
-      allowedValues: Object.keys(Uml.Types),
+      allowedValues: allowedUmlTypes,
     },
     nodeBlacklist: {
       type: 'array<string>',
       defaultValue: [],
       description: 'Blacklist of UML element types to exclude from the model. Has precedence over the whitelist. Root nodes will never be removed.',
-      allowedValues: Object.keys(Uml.Types),
+      allowedValues: allowedUmlTypes,
     },
     edgeWhitelist: {
       type: 'array<string>',
@@ -51,6 +56,18 @@ const UmlRefiner = definePlugin({
       type: 'array<string>',
       defaultValue: [],
       description: 'Blacklist of association names to exclude in the model. Has precedence over the whitelist.',
+    },
+    attributeWhitelist: {
+      type: 'array<string>',
+      defaultValue: [],
+      description: 'Whitelist of attribute names to include in the model. Ignored if empty.',
+      allowedValues: allowedUmlAttributes,
+    },
+    attributeBlacklist: {
+      type: 'array<string>',
+      defaultValue: [],
+      description: 'Blacklist of attribute names to exclude in the model. Has precedence over the whitelist.',
+      allowedValues: allowedUmlAttributes,
     },
     randomizedIdPrefix: {
       type: 'boolean',
@@ -69,6 +86,7 @@ const UmlRefiner = definePlugin({
     }
     pruneNodes(model, parameters.nodeWhitelist, parameters.nodeBlacklist)
     pruneEdges(model, parameters.edgeWhitelist, parameters.edgeBlacklist)
+    pruneAttributes(model, parameters.attributeWhitelist, parameters.attributeBlacklist)
     persistMetadata(model)
     removeNonUmlAttributes(model)
     validateUmlModel(model, parameters)
@@ -142,6 +160,22 @@ function pruneEdges(model: GraphModel, whitelist: readonly string[], blacklist: 
     }
     model.debug('Parser', `Removing non-whitelisted edge with tag ${edge.tag}`)
     model.removeEdge(edge)
+  })
+}
+
+function pruneAttributes(model: GraphModel, whitelist: readonly string[], blacklist: readonly string[]) {
+  const whitelistSet = new Set(whitelist)
+  const blacklistSet = new Set(blacklist)
+  model.nodes.forEach((node) => {
+    node.attributes.forEach(({ name }) => {
+      const passesBlacklist = !blacklistSet.has(name)
+      const passesWhitelist = whitelistSet.size === 0 || whitelistSet.has(name) || permanentUmlAttributes.has(name)
+      if (passesBlacklist && passesWhitelist) {
+        return
+      }
+      model.debug('Parser', `Removing non-whitelisted attribute ${name} from node ${node.id}`)
+      node.removeAttribute(name)
+    })
   })
 }
 
