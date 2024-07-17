@@ -195,7 +195,7 @@ function useVisNetwok(
       network.destroy()
       resizeObserver.disconnect()
     }
-  }, [container])
+  }, [container, mapping])
 
   useEffect(() => {
     if (isNetworkDestroyed(network)) {
