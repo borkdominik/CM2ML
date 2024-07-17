@@ -1,7 +1,7 @@
 import type { Parameter, ParameterMetadata, ParameterType } from '@cm2ml/plugin'
 import { CaretSortIcon, Cross1Icon, SymbolIcon, TrashIcon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
-import { useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 
 import { getNewParameters } from '../lib/utils'
 
@@ -16,6 +16,7 @@ import {
 import { Combobox } from './ui/combobox'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
+import { Separator } from './ui/separator'
 
 export type ParameterValues = Record<string, boolean |
   number |
@@ -37,13 +38,6 @@ export function Parameters({ parameters, setValues, values }: Props) {
     () => {
       const filtered = Object.entries(parameters).filter(([name]) => !excludedParameters.has(name))
       const grouped = Object.groupBy(filtered, ([_name, parameter]) => parameter.group ?? 'Other')
-      // for (const [group, entries] of Object.entries(grouped)) {
-      //   if (entries === undefined) {
-      //     delete grouped[group]
-      //     continue
-      //   }
-      //   grouped[group] = entries.sort(([a], [b]) => a.localeCompare(b))
-      // }
       return Stream
         .fromObject(grouped)
         .map(([group, entries]) => {
@@ -85,9 +79,10 @@ export function Parameters({ parameters, setValues, values }: Props) {
             </CollapsibleTrigger>
           </div>
           <CollapsibleContent>
-            <Container>
-              <div className="flex flex-col gap-8 py-4">
-                {groupedParameters.map(([group, parameters]) => (
+            <div className="flex flex-col gap-4 pb-4 pt-3">
+              {groupedParameters.map(([group, parameters]) => (
+                <Fragment key={group}>
+                  <Separator />
                   <ParameterGroup
                     key={group}
                     group={group}
@@ -95,13 +90,14 @@ export function Parameters({ parameters, setValues, values }: Props) {
                     setValues={setValues}
                     values={values}
                   />
-                ))}
-              </div>
-              <Button variant="ghost" onClick={resetParameters} className="text-primary mx-auto flex gap-2">
+                </Fragment>
+              ))}
+              <Separator />
+              <Button variant="ghost" onClick={resetParameters} className="text-primary mx-auto -mb-2 flex gap-2">
                 Reset
                 <SymbolIcon className="size-4" />
               </Button>
-            </Container>
+            </div>
           </CollapsibleContent>
         </Collapsible>
       </CardContent>
