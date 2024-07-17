@@ -7,7 +7,7 @@ export type ArrayParameterType = `array<string>` // `array<${PrimitiveParameterT
 
 export type ParameterType = PrimitiveParameterType | ArrayParameterType
 
-export type ParameterBase = Readonly<{ readonly type: ParameterType, readonly description: string }>
+export type ParameterBase = Readonly<{ readonly type: ParameterType, readonly description: string, readonly group?: string, readonly displayName?: string }>
 
 export type PrimitiveParameter = ParameterBase & Readonly<
   {

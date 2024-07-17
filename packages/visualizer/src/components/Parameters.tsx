@@ -30,9 +30,32 @@ export interface Props {
   values: ParameterValues
 }
 
+const excludedParameters = new Set(['continueOnError'])
+
 export function Parameters({ parameters, setValues, values }: Props) {
-  const sortedParameters = useMemo(
-    () => Object.entries(parameters).filter(([name]) => name !== 'continueOnError').sort(([a], [b]) => a.localeCompare(b)),
+  const groupedParameters = useMemo(
+    () => {
+      const filtered = Object.entries(parameters).filter(([name]) => !excludedParameters.has(name))
+      const grouped = Object.groupBy(filtered, ([_name, parameter]) => parameter.group ?? 'Other')
+      // for (const [group, entries] of Object.entries(grouped)) {
+      //   if (entries === undefined) {
+      //     delete grouped[group]
+      //     continue
+      //   }
+      //   grouped[group] = entries.sort(([a], [b]) => a.localeCompare(b))
+      // }
+      return Stream
+        .fromObject(grouped)
+        .map(([group, entries]) => {
+          if (entries === undefined) {
+            return null
+          }
+          return [group, entries.sort(([a], [b]) => a.localeCompare(b))] as const
+        })
+        .filterNonNull()
+        .toArray()
+        .sort(([a], [b]) => a.localeCompare(b))
+    },
     [parameters],
   )
   const [open, setOpen] = useState(() => {
@@ -41,7 +64,7 @@ export function Parameters({ parameters, setValues, values }: Props) {
     )
   })
 
-  if (sortedParameters.length === 0) {
+  if (Object.keys(groupedParameters).length === 0) {
     return null
   }
 
@@ -63,18 +86,18 @@ export function Parameters({ parameters, setValues, values }: Props) {
           </div>
           <CollapsibleContent>
             <Container>
-              <div className="flex flex-col gap-4 pt-4">
-                {sortedParameters.map(([name, parameter]) => (
-                  <ParameterInput
-                    key={name}
-                    name={name}
-                    onChange={(value) => setValues({ [name]: value })}
-                    parameter={parameter}
-                    value={values[name] ?? parameter.defaultValue}
+              <div className="flex flex-col gap-8 py-4">
+                {groupedParameters.map(([group, parameters]) => (
+                  <ParameterGroup
+                    key={group}
+                    group={group}
+                    parameters={parameters}
+                    setValues={setValues}
+                    values={values}
                   />
                 ))}
               </div>
-              <Button variant="ghost" onClick={resetParameters} className="mx-auto flex gap-2 text-primary">
+              <Button variant="ghost" onClick={resetParameters} className="text-primary mx-auto flex gap-2">
                 Reset
                 <SymbolIcon className="size-4" />
               </Button>
@@ -86,8 +109,35 @@ export function Parameters({ parameters, setValues, values }: Props) {
   )
 }
 
-export interface ParameterInputProps<T extends ParameterType> {
+interface ParameterGroupProps {
+  group: string
+  parameters: [string, Parameter][]
+  values: ParameterValues
+  setValues: (parameters: ParameterValues) => void
+}
+
+function ParameterGroup({ group, parameters, values, setValues }: ParameterGroupProps) {
+  const groupName = useDisplayName(group)
+  return (
+    <div className="flex flex-col gap-4">
+      <span className="select-none text-sm font-medium">{groupName}</span>
+      { parameters.map(([name, parameter]) => (
+        <ParameterInput
+          key={name}
+          name={name}
+          label={parameter.displayName}
+          onChange={(value) => setValues({ [name]: value })}
+          parameter={parameter}
+          value={values[name] ?? parameter.defaultValue}
+        />
+      )) }
+    </div>
+  )
+}
+
+interface ParameterInputProps<T extends ParameterType> {
   name: string
+  label: string
   onChange: (value: boolean | number | string | string[]) => void
   parameter: Parameter & { type: T }
   value: T extends 'boolean' ? boolean
@@ -99,17 +149,21 @@ export interface ParameterInputProps<T extends ParameterType> {
           : never
 }
 
-export function ParameterInput({
+function ParameterInput({
   name,
+  label,
   onChange,
   parameter,
   value,
-}: ParameterInputProps<ParameterType>) {
+}: Omit<ParameterInputProps<ParameterType>, 'label'> & { label: string | undefined }) {
+  const labelFromName = useDisplayName(name)
+  const actualLabel = label ?? labelFromName
   switch (parameter.type) {
     case 'boolean':
       return (
         <BooleanParameter
           name={name}
+          label={actualLabel}
           onChange={onChange}
           parameter={parameter}
           value={value as boolean}
@@ -119,6 +173,7 @@ export function ParameterInput({
       return (
         <NumberParameter
           name={name}
+          label={actualLabel}
           onChange={onChange}
           parameter={parameter}
           value={value as number}
@@ -128,6 +183,7 @@ export function ParameterInput({
       return (
         <StringParameter
           name={name}
+          label={actualLabel}
           onChange={onChange}
           parameter={parameter}
           value={value as string}
@@ -137,6 +193,7 @@ export function ParameterInput({
       return (
         <StringArrayInput
           name={name}
+          label={actualLabel}
           onChange={onChange}
           parameter={parameter}
           value={value as readonly string[]}
@@ -147,6 +204,7 @@ export function ParameterInput({
 
 function BooleanParameter({
   name,
+  label,
   onChange,
   parameter,
   value,
@@ -159,7 +217,7 @@ function BooleanParameter({
           checked={value}
           onCheckedChange={(checked) => onChange(checked === true)}
         />
-        <ParameterLabel name={name} />
+        <ParameterLabel name={name} label={label} />
       </div>
       <Description description={parameter.description} />
     </Container>
@@ -168,13 +226,14 @@ function BooleanParameter({
 
 function NumberParameter({
   name,
+  label,
   onChange,
   parameter,
   value,
 }: ParameterInputProps<'number'>) {
   return (
     <Container>
-      <ParameterLabel name={name} />
+      <ParameterLabel name={name} label={label} />
       <Input
         id={name}
         value={value}
@@ -189,6 +248,7 @@ function NumberParameter({
 
 function StringParameter({
   name,
+  label,
   onChange,
   parameter,
   value,
@@ -205,7 +265,7 @@ function StringParameter({
       )
   return (
     <Container>
-      <ParameterLabel name={name} />
+      <ParameterLabel name={name} label={label} />
       {input}
       <Description description={parameter.description} />
     </Container>
@@ -214,6 +274,7 @@ function StringParameter({
 
 function StringArrayInput({
   name,
+  label,
   onChange,
   parameter,
   value: values,
@@ -262,14 +323,14 @@ function StringArrayInput({
                 <span className="sr-only">Toggle</span>
               </Button>
             </CollapsibleTrigger>
-            <ParameterLabel name={name} />
+            <ParameterLabel name={name} label={label} />
           </div>
           <Description description={parameter.description} />
         </Container>
         <CollapsibleContent>
           <Container>
             {input}
-            <Button variant="ghost" onClick={() => onChange([])} className="mx-auto flex gap-2 text-primary" disabled={values.length === 0}>
+            <Button variant="ghost" onClick={() => onChange([])} className="text-primary mx-auto flex gap-2" disabled={values.length === 0}>
               Clear
               <TrashIcon className="size-4" />
             </Button>
@@ -320,8 +381,7 @@ function Container({ children }: { children: React.ReactNode }) {
   return <div className="flex max-w-xs flex-col gap-2">{children}</div>
 }
 
-function ParameterLabel({ name }: { name: string }) {
-  const label = useDisplayName(name)
+function ParameterLabel({ name, label }: { name: string, label: string }) {
   return (
     <Label htmlFor={name} className="select-none text-balance">
       {label}
@@ -331,7 +391,7 @@ function ParameterLabel({ name }: { name: string }) {
 
 function Description({ description }: { description: string }) {
   return (
-    <span className="select-none text-balance text-xs text-muted-foreground">
+    <span className="text-muted-foreground select-none text-balance text-xs">
       {description}
     </span>
   )
