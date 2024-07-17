@@ -11,17 +11,20 @@ export const EdgeEncoder = defineStructuredPlugin({
       description:
         'Output weighted values, depending on the number of incoming edges on an edge target.',
       defaultValue: false,
+      group: 'graph',
     },
     sparse: {
       type: 'boolean',
       description: 'Encode the graph as a sparse list.',
       defaultValue: true,
+      group: 'graph',
     },
     includeEqualPaths: {
       type: 'boolean',
       description:
         'Include equal paths, i.e., edges that have the same source and target, more than once.',
       defaultValue: false,
+      group: 'graph',
     },
   },
   invoke({ data, metadata: features }: { data: GraphModel, metadata: FeatureContext }, { includeEqualPaths, sparse, weighted }) {

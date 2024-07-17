@@ -13,11 +13,13 @@ export const IrPostProcessor = definePlugin({
       type: 'boolean',
       description: 'Include node tags as an attribute.',
       defaultValue: false,
+      group: 'attributes',
     },
     edgeTagAsAttribute: {
       type: 'boolean',
       description: 'Include edge tags as an attribute.',
       defaultValue: false,
+      group: 'attributes',
     },
   },
   invoke: (model: GraphModel, parameters) => {

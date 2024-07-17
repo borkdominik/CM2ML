@@ -116,7 +116,7 @@ function ParameterGroup({ group, parameters, values, setValues }: ParameterGroup
   const groupName = useDisplayName(group)
   return (
     <div className="flex flex-col gap-4">
-      <span className="select-none text-sm font-medium">{groupName}</span>
+      <span className="text-muted-foreground select-none text-sm font-medium">{groupName}</span>
       { parameters.map(([name, parameter]) => (
         <ParameterInput
           key={name}

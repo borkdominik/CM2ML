@@ -27,16 +27,19 @@ const TreeTransformer = defineStructuredPlugin({
       defaultValue: 'local',
       allowedValues: treeFormats,
       description: 'The tree format to use.',
+      group: 'tree',
     },
     replaceNodeIds: {
       type: 'boolean',
       defaultValue: false,
       description: 'Replace node ids with generated ids. This keeps vocabulary size small.',
+      group: 'vocabulary',
     },
     verboseFeatureValues: {
       type: 'boolean',
       defaultValue: false,
       description: 'Add name and type prefixes to feature values. This makes values unique across features.',
+      group: 'vocabulary',
     },
   },
   invoke({ data: model, metadata: featureContext }: { data: GraphModel, metadata: FeatureContext }, parameters) {
@@ -94,11 +97,13 @@ const WordsToIds = definePlugin({
       type: 'boolean',
       defaultValue: false,
       description: 'Whether to convert words to ids.',
+      group: 'vocabulary',
     },
     idStartIndex: {
       type: 'number',
       defaultValue: 0,
       description: 'The start index for the ids. Has no effect if wordsToIds is false.',
+      group: 'vocabulary',
     },
   },
   invoke(input: BuildVocabularyOutput, parameters) {

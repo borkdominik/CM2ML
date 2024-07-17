@@ -29,7 +29,7 @@ export function PatternGraph({ pattern, mapping }: Props) {
   const { isReady, progress, fit } = useVisNetwok(pattern, mapping, containerRef)
 
   return (
-    <div className="relative size-full min-h-64 grow">
+    <div className="relative size-full min-h-80 grow">
       <div
         ref={containerRef}
         className={cn({ 'h-full': true, 'opacity-0': !isReady })}

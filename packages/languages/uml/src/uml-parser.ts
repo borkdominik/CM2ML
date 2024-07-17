@@ -48,7 +48,7 @@ const UmlRefiner = definePlugin({
     nodeBlacklist: {
       type: 'array<string>',
       defaultValue: [],
-      description: 'Blacklist of UML element types to exclude from the model. Has precedence over the whitelist. Root nodes will never be removed.',
+      description: 'Blacklist of UML element types to exclude from the model. Root nodes will never be removed.',
       allowedValues: allowedUmlTypes,
       group: 'elements',
       displayName: 'Blacklist',
@@ -63,7 +63,7 @@ const UmlRefiner = definePlugin({
     edgeBlacklist: {
       type: 'array<string>',
       defaultValue: [],
-      description: 'Blacklist of association names to exclude in the model. Has precedence over the whitelist.',
+      description: 'Blacklist of association names to exclude in the model.',
       group: 'associations',
       displayName: 'Blacklist',
     },
@@ -78,7 +78,7 @@ const UmlRefiner = definePlugin({
     attributeBlacklist: {
       type: 'array<string>',
       defaultValue: [],
-      description: 'Blacklist of attribute names to exclude in the model. Has precedence over the whitelist.',
+      description: 'Blacklist of attribute names to exclude in the model.',
       allowedValues: allowedUmlAttributes,
       group: 'attributes',
       displayName: 'Blacklist',
