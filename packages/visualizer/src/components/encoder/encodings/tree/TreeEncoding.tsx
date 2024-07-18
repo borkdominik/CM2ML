@@ -39,6 +39,7 @@ interface FlowGraphProps {
 function FlowGraph({ tree, idWordMapping, vocabulary, staticVocabulary }: FlowGraphProps) {
   const { flowGraph, reverseNodeIdMapping, word2IdMapping } = useFlowGraph(tree, idWordMapping, staticVocabulary)
   const { nodes, edges, type } = flowGraph
+  const clearSelection = useSelection.use.clearSelection()
   return (
     <div className="size-full">
       <ReactFlow
@@ -51,6 +52,7 @@ function FlowGraph({ tree, idWordMapping, vocabulary, staticVocabulary }: FlowGr
         nodesDraggable={false}
         nodesFocusable={false}
         zoomOnDoubleClick={false}
+        onPaneClick={clearSelection}
         minZoom={0.05}
         maxZoom={1}
         onlyRenderVisibleElements
@@ -83,33 +85,19 @@ function FlowGraph({ tree, idWordMapping, vocabulary, staticVocabulary }: FlowGr
 function useIsFlowNodeSelected(flowNode: FlowNode) {
   const selection = useSelection.use.selection()
   return useMemo(() => {
-    if (!selection) {
+    const flowNodeSelection = flowNode.selection
+    if (!selection || flowNodeSelection === undefined) {
       return false
     }
-    if (selection.type === 'nodes') {
-      if (!(flowNode.isNodeId || flowNode.isEdgeSource !== false || flowNode.isEdgeTarget !== false)) {
-        return false
-      }
+    if (selection.type === 'nodes' && typeof flowNodeSelection === 'string') {
       return selection.nodes.some((selectedNode) =>
-        mapValueToWordId(selectedNode, flowNode.reverseNodeIdMapping, flowNode.word2IdMapping) === flowNode.value,
+        mapValueToWordId(selectedNode, flowNode.reverseNodeIdMapping, flowNode.word2IdMapping) === flowNode.selection,
       )
-    } else if (selection.type === 'edges') {
-      if (!(flowNode.isNodeId || flowNode.isEdgeSource !== false || flowNode.isEdgeTarget !== false)) {
-        return false
-      }
+    } else if (selection.type === 'edges' && Array.isArray(flowNodeSelection)) {
       return selection.edges.some(([source, target]) => {
         const mappedSource = mapValueToWordId(source, flowNode.reverseNodeIdMapping, flowNode.word2IdMapping)
         const mappedTarget = mapValueToWordId(target, flowNode.reverseNodeIdMapping, flowNode.word2IdMapping)
-        if (flowNode.isEdgeSource !== false) {
-          return mappedSource === flowNode.value
-        }
-        if (flowNode.isEdgeTarget !== false) {
-          return mappedTarget === flowNode.value
-        }
-        if (flowNode.isNodeId) {
-          return mappedSource === flowNode.value || mappedTarget === flowNode.value
-        }
-        throw new Error('Invalid state. This is an internal error.')
+        return (mappedSource === flowNodeSelection[0] && mappedTarget === flowNodeSelection[1])
       })
     }
     return false
@@ -122,15 +110,17 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
   const setSelection = useSelection.use.setSelection()
   const isSelected = useIsFlowNodeSelected(data)
   const select = () => {
+    const flowNodeSelection = data.selection
+    if (flowNodeSelection === undefined) {
+      return
+    }
     const selection = mapWordIdToValue(data.value, data.nodeIdMapping, data.id2WordMapping)
-    if (data.isNodeId) {
+    if (typeof flowNodeSelection === 'string') {
       setSelection({ type: 'nodes', nodes: [selection], origin: 'tree' })
-    } else if (data.isEdgeSource !== false) {
-      const mappedTarget = mapWordIdToValue(data.isEdgeSource, data.nodeIdMapping, data.id2WordMapping)
-      setSelection({ type: 'edges', edges: [[selection, mappedTarget]], origin: 'tree' })
-    } else if (data.isEdgeTarget !== false) {
-      const mappedSource = mapWordIdToValue(data.isEdgeTarget, data.nodeIdMapping, data.id2WordMapping)
-      setSelection({ type: 'edges', edges: [[mappedSource, selection]], origin: 'tree' })
+    } else if (Array.isArray(flowNodeSelection)) {
+      const mappedSource = mapWordIdToValue(flowNodeSelection[0], data.nodeIdMapping, data.id2WordMapping)
+      const mappedTarget = mapWordIdToValue(flowNodeSelection[1], data.nodeIdMapping, data.id2WordMapping)
+      setSelection({ type: 'edges', edges: [[mappedSource, mappedTarget]], origin: 'tree' })
     }
   }
   return (
@@ -181,17 +171,17 @@ function ViewFitter({ flowGraph, reverseNodeIdMapping, word2IdMapping }: { flowG
   const selection = useSelection.use.selection()
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (origin === 'tree') {
+      if (!selection) {
         return
       }
-      if (!selection) {
+      if (selection?.origin === 'tree') {
         return
       }
       if (selection.type === 'nodes') {
         const mappedSelection = selection.nodes
           .map((selectedNode) => mapValueToWordId(selectedNode, reverseNodeIdMapping, word2IdMapping))
         const selectedNodes = reactFlow.getNodes()
-          .filter((node) => node.data.isNodeId && mappedSelection.includes(node.data.value))
+          .filter((node) => typeof node.data.selection === 'string' && mappedSelection.includes(node.data.value))
         const firstSelectedNode = selectedNodes.sort((a, b) => {
           if (a.position.y === b.position.y) {
             return a.position.x > b.position.x ? 1 : -1
@@ -212,17 +202,11 @@ function ViewFitter({ flowGraph, reverseNodeIdMapping, word2IdMapping }: { flowG
           ] as const)
         const selectedNodes = reactFlow.getNodes()
           .filter((node) => {
-            if (node.data.isEdgeSource !== false) {
-              return mappedSelection.some(([source]) => source === node.data.value)
-            }
-            if (node.data.isEdgeTarget !== false) {
-              return mappedSelection.some(([, target]) => target === node.data.value)
-            }
-            if (node.data.isNodeId) {
-              // Don't focus on nodeIds for edges, as those are less relevant than the source and target nodes
+            const flowNodeSelection = node.data.selection
+            if (!Array.isArray(flowNodeSelection)) {
               return false
             }
-            return false
+            return mappedSelection.some(([source, target]) => source === flowNodeSelection[0] && target === flowNodeSelection[1])
           })
         const firstSelectedNode = selectedNodes.sort((a, b) => {
           if (a.position.y === b.position.y) {
