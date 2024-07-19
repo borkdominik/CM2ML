@@ -63,6 +63,11 @@
     "turbo": "2.0.6",
     "vitest": "1.6.0"
   },
+  "pnpm": {
+    "patchedDependencies": {
+      "vis-network@9.1.9": "patches/vis-network@9.1.9.patch"
+    }
+  },
   "lint-staged": {
     "*.{astro,cjs,html,js,jsx,json,md,mjs,mts,svelte,ts,tsx,vue,yaml,yml}": "eslint --fix --rule \"tailwindcss/classnames-order: 0\""
   }

@@ -1,0 +1,22 @@
+diff --git a/standalone/esm/vis-network.js b/standalone/esm/vis-network.js
+index 7a2531afa2f5706da1414d9d91b4e8fe713c0a4d..03dd2730bf2cbd5d9f310916351f994c3bf5e9d0 100644
+--- a/standalone/esm/vis-network.js
++++ b/standalone/esm/vis-network.js
+@@ -32247,7 +32247,7 @@ var Canvas = /*#__PURE__*/function () {
+       // TODO: neatly cleanup these handlers when re-creating the Canvas, IF these are done with hammer, event.stopPropagation will not work?
+       this.frame.canvas.addEventListener("wheel", function (event) {
+         _this3.body.eventListeners.onMouseWheel(event);
+-      });
++      }, { passive: true });
+       this.frame.canvas.addEventListener("mousemove", function (event) {
+         _this3.body.eventListeners.onMouseMove(event);
+       });
+@@ -34042,7 +34042,7 @@ var InteractionHandler = /*#__PURE__*/function () {
+         }
+ 
+         // Prevent default actions caused by mouse wheel.
+-        event.preventDefault();
++        // event.preventDefault();
+       }
+     }
+ 
