@@ -86,3 +86,9 @@
     fill: hsl(var(--card-foreground));
   }
 }
+
+@supports (scrollbar-width: auto) {
+  .dark * {
+    scrollbar-color: hsl(var(--muted-foreground)) hsl(var(--muted));
+  }
+}
