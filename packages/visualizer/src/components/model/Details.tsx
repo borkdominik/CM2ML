@@ -40,7 +40,7 @@ export function SelectionDetails() {
       return <NodeDetails node={nodes[0]!} />
     }
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2" data-testid="node-details-list">
         {nodes.map((node, i) => (
           // eslint-disable-next-line react/no-array-index-key
           <Fragment key={i}>
@@ -128,7 +128,7 @@ function getEdges(edgeSelection: EdgeSelection, model: GraphModel) {
 function NodeDetails({ node }: { node: GraphNode }) {
   const name = node.getAttribute('name')?.value.literal
   return (
-    <div className="space-y-2 p-2">
+    <div className="space-y-2 p-2" data-testid="node-details">
       <div className="text-sm font-bold">
         {node.tag}
         {name ? ` — ${name}` : null}
@@ -280,7 +280,7 @@ function EdgeGroup({ edges }: { edges: GraphEdge[] }) {
     return null
   }
   return (
-    <div className="space-y-4 p-2">
+    <div className="space-y-4 p-2" data-testid="edge-details-group">
       <div className="space-y-2">
         <div className="text-sm font-bold">Source</div>
         <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">
@@ -309,7 +309,7 @@ function EdgeGroup({ edges }: { edges: GraphEdge[] }) {
 
 function EdgeDetails({ edge }: { edge: GraphEdge }) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-2" data-testid="edge-details-group-tags">
       <div className="text-sm font-bold">{edge.tag}</div>
       <AttributableDetails attributable={edge} />
     </div>

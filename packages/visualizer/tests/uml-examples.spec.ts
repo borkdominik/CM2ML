@@ -1,6 +1,6 @@
 import { test } from '@playwright/test'
 
-import { getIRGraph, openExample, useLayout } from './e2e-utils'
+import { getIRGraph, openExample, selectLayout } from './e2e-utils'
 
 interface Example {
   name: string
@@ -39,17 +39,17 @@ const umlExamples: Example[] = [
 umlExamples.forEach(({ name, nodes, edges, attributes }) => {
   test(`UML example ${name}`, async ({ page }) => {
     await page.goto('/')
-    await useLayout(page, 'Extended')
+    await selectLayout(page, 'Extended')
 
     await openExample(page, 'UML', name)
 
     const graph = await getIRGraph(page)
-    await graph.waitFor({ state: 'visible' })
+    await graph.waitFor()
 
     const modelStats = page.getByTestId('model-stats')
-    await modelStats.getByText('UML model').waitFor({ state: 'visible' })
-    await modelStats.getByText(`${nodes} nodes`).waitFor({ state: 'visible' })
-    await modelStats.getByText(`${edges} edges`).waitFor({ state: 'visible' })
-    await modelStats.getByText(`${attributes} attributes`).waitFor({ state: 'visible' })
+    await modelStats.getByText('UML model').waitFor()
+    await modelStats.getByText(`${nodes} nodes`).waitFor()
+    await modelStats.getByText(`${edges} edges`).waitFor()
+    await modelStats.getByText(`${attributes} attributes`).waitFor()
   })
 })

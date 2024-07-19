@@ -74,7 +74,7 @@ export function ModelForm() {
   }
 
   return (
-    <div className="max-h-full overflow-y-auto">
+    <div className="max-h-full overflow-y-auto" data-testid="model-form">
       <div className="space-y-4 p-2">
         <div className="space-y-2">
           <Label htmlFor="parser" className="select-none">

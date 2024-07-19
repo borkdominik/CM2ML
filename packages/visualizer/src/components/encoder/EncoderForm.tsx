@@ -29,7 +29,7 @@ export function EncoderForm() {
   const hasParameters = encoder?.parameters !== undefined && Object.keys(encoder.parameters).length > 0
 
   return (
-    <div className="max-h-full overflow-y-auto">
+    <div className="max-h-full overflow-y-auto" data-testid="encoder-form">
       <div className="space-y-4 p-2">
         <div className="space-y-2">
           <Label htmlFor="encoder" className="select-none">

@@ -1,22 +1,21 @@
 import { test } from '@playwright/test'
 
-import { openExample, useEncoder, useLayout } from './e2e-utils'
+import { openEncoder, openExample, selectLayout } from './e2e-utils'
 
 test(`raw graph encoding`, async ({ page }) => {
   await page.goto('/')
-  await useLayout(page, 'Extended')
+  await selectLayout(page, 'Extended')
 
   await openExample(page, 'UML', 'deployment.uml')
-  await useEncoder(page, 'Raw graph')
-
-  // Nodes
+  await openEncoder(page, 'Raw graph')
 
   const rawGraphList = page.getByTestId('raw-graph-list')
 
+  // Node selection
   const nodeLabel = rawGraphList.getByText('_0V2YcPidEe6PhJwEQ2R2dA')
   await nodeLabel.click()
 
-  // Edges
+  // Edge selection
   const edgeLabel = rawGraphList.getByText('[ 0, 2]')
   await edgeLabel.click()
 })

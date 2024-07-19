@@ -4,7 +4,7 @@ export async function getIRGraph(page: Page) {
   return page.getByTestId('ir-graph').locator('canvas')
 }
 
-export async function useLayout(page: Page, layout: 'Compact' | 'Extended') {
+export async function selectLayout(page: Page, layout: 'Compact' | 'Extended') {
   const menu = page.getByRole('menubar')
   await menu.getByText('View').click()
   await page.getByText('Layout').click()
@@ -19,9 +19,9 @@ export async function openExample(page: Page, language: 'UML', example: string) 
   await page.getByText(example).click()
 }
 
-export async function useEncoder(page: Page, encoder: string) {
+export async function openEncoder(page: Page, encoder: string) {
   const noEncoder = page.getByText('No encoder')
-  await noEncoder.waitFor({ state: 'visible' })
+  await noEncoder.waitFor()
   await page.getByText('Select an encoder').click()
   await page.getByText(encoder).click()
   expect(noEncoder).toHaveCount(0)

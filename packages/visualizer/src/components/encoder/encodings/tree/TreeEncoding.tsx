@@ -45,7 +45,7 @@ function FlowGraph({ tree, idWordMapping, vocabulary, staticVocabulary }: FlowGr
   const { flowGraph, reverseNodeIdMapping, word2IdMapping } = useTreeGraph(tree, idWordMapping, staticVocabulary) ?? fallbackTreeGraph
   const { nodes, edges, type } = flowGraph
   return (
-    <div className="size-full">
+    <div className="size-full" data-testid="tree-graph">
       <ReactFlow
         nodes={nodes}
         nodeTypes={nodeTypes}
@@ -127,8 +127,9 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
       setSelection({ type: 'edges', edges: [[mappedSource, mappedTarget]], origin: 'tree' })
     }
   }
+  const testid = data.selection ?? data.id
   return (
-    <div>
+    <div data-testid={`tree-node-${testid.toString()}`} className={isSelected ? 'tree-node__selected' : ''}>
       {isOrigin
         ? null
         : (

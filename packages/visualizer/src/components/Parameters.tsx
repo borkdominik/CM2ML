@@ -72,7 +72,7 @@ export function Parameters({ parameters, setValues, values }: Props) {
           <div className="flex items-center justify-between">
             <Label>Parameters</Label>
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" data-testid="expand-parameters">
                 <CaretSortIcon className="size-4" />
                 <span className="sr-only">Toggle</span>
               </Button>
