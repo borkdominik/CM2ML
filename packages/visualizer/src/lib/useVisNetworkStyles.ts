@@ -42,10 +42,15 @@ export function useVisNetworkStyles(styleSource: HTMLElement = document.body) {
         face: fontFace,
       },
     }
-
+    const interactionStyles = {
+      hover: true,
+      hoverConnectedEdges: false,
+      selectConnectedEdges: false,
+    }
     return {
       colors,
       edgeStyles,
+      interactionStyles,
       nodeStyles,
     }
   }, [styleSource, theme])
@@ -81,11 +86,11 @@ function hslFromCss(hsl: string): [number, number, number] {
   if (h === undefined || s === undefined || l === undefined) {
     throw new Error(`Invalid HSL color: ${hsl}`)
   }
-  return [h, s, l / 100]
+  return [h, s / 100, l / 100]
 }
 
 function hexFromHsl([h, s, l]: [number, number, number]) {
-  const a = s * Math.min(l, 1 - l) / 100
+  const a = s * Math.min(l, 1 - l)
   const f = (n: number) => {
     const k = (n + h / 30) % 12
     const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)

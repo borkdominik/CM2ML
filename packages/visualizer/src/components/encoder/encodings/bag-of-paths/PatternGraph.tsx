@@ -26,7 +26,7 @@ export interface IRGraphRef {
 
 export function PatternGraph({ pattern, mapping }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { isReady, progress, fit } = useVisNetwok(pattern, mapping, containerRef)
+  const { isReady, progress, fit } = usePatternVisNetwork(pattern, mapping, containerRef)
 
   return (
     <div className="relative size-full min-h-80 grow">
@@ -69,7 +69,7 @@ function splitEdgeId(edgeId: string | undefined) {
   return [sourceId, targetId] as const
 }
 
-function useVisNetwok(
+function usePatternVisNetwork(
   pattern: Pattern,
   mapping: Record<string, string[]>,
   container: RefObject<HTMLDivElement | null>,
@@ -106,10 +106,11 @@ function useVisNetwok(
         },
       },
       interaction: {
-        hover: true,
+        ...styles.interactionStyles,
       },
       layout: {
         improvedLayout: !hasManyNodes,
+        randomSeed: 42,
       },
       nodes: {
         ...styles.nodeStyles,

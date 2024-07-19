@@ -22,7 +22,7 @@ export interface IRGraphRef {
 
 export function IRGraph({ model }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { isReady, progress } = useVisNetwok(model, containerRef)
+  const { isReady, progress } = useIRVisNetwork(model, containerRef)
 
   return (
     <div className="relative h-full">
@@ -61,7 +61,7 @@ function splitEdgeId(edgeId: string | undefined) {
   return [sourceId, targetId] as const
 }
 
-function useVisNetwok(
+function useIRVisNetwork(
   model: GraphModel,
   container: RefObject<HTMLDivElement | null>,
 ) {
@@ -95,10 +95,11 @@ function useVisNetwok(
         },
       },
       interaction: {
-        hover: true,
+        ...styles.interactionStyles,
       },
       layout: {
         improvedLayout: !hasManyNodes,
+        randomSeed: 42,
       },
       nodes: {
         ...styles.nodeStyles,
@@ -237,10 +238,16 @@ function isNetworkDestroyed(network: Network | null): network is null {
 
 function createVisNodes(model: GraphModel) {
   const mappedNodes = Stream.from(model.nodes)
-    .map(({ id, tag }) => ({
-      id,
-      label: tag,
-    }))
+    .map(({ id, tag, outgoingEdges, incomingEdges }) => {
+      const outgoing = Stream.from(outgoingEdges).map(({ target }) => target.id)
+      const incoming = Stream.from(incomingEdges).map(({ source }) => source.id)
+      const uniqueNeighbors = outgoing.concat(incoming).filterNonNull().toSet().size
+      return {
+        id,
+        label: tag,
+        shape: uniqueNeighbors >= 4 ? 'circle' : 'box',
+      }
+    })
     .toArray()
   return new DataSet(mappedNodes)
 }

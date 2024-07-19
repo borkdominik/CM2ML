@@ -30,7 +30,7 @@ export function Menu() {
       <ViewMenu />
       <HelpMenu />
       <div className="flex-1" />
-      <img src="/logo.svg" alt="logo" className="hidden size-8 sm:block" />
+      <img src="/logo.svg" alt="logo" className="hidden size-8 dark:invert sm:block" />
     </Menubar>
   )
 }
