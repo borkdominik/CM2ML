@@ -1,22 +1,20 @@
-import type { Parser } from '@cm2ml/builtin'
-import { parserMap } from '@cm2ml/builtin'
+import { type Parser, parserMap } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 
 import type { ParameterValues } from '../components/Parameters'
 
 import { createSelectors, getNewParameters } from './utils'
 
-export interface SerializedModelState {
+interface SerializedModelState {
   isEditing: boolean
   parserName: string | undefined
-  serializedModel: string | undefined
+  serializedModel: string
   parameters: ParameterValues
-  version: number | undefined
 }
 
-const currentVersion = 0
+const currentVersion = 1
 
 export interface ModelState {
   isEditing: boolean
@@ -46,7 +44,7 @@ const defaults = {
 
 export const useModelState = createSelectors(
   create(
-    persist<ModelState>(
+    persist<ModelState, [], [], SerializedModelState>(
       (set, get) => ({
         isEditing: defaults.isEditing,
         setIsEditing: (isEditing: boolean) => set({ isEditing }),
@@ -100,41 +98,38 @@ export const useModelState = createSelectors(
       {
         name: 'model',
         version: currentVersion,
-        serialize({ state, version }) {
-          const serializableState: SerializedModelState = {
-            isEditing: state.isEditing,
-            serializedModel: state.serializedModel,
-            parameters: state.parameters,
-            parserName: state.parser?.name,
-            version,
+        storage: createJSONStorage(() => localStorage),
+        partialize: (state) => ({
+          isEditing: state.isEditing,
+          serializedModel: state.serializedModel,
+          parserName: state.parser?.name,
+          parameters: state.parameters,
+        }),
+        merge: (persisted, current) => {
+          if (!isSerializedModelState(persisted)) {
+            return current
           }
-          return JSON.stringify(serializableState)
-        },
-        deserialize(serializedState) {
-          const {
-            isEditing,
-            serializedModel,
-            parserName,
-            parameters,
-            version,
-          } = JSON.parse(serializedState) as SerializedModelState
+          const { isEditing, parserName, serializedModel, parameters } = persisted
           const parser = parserName ? parserMap[parserName] : undefined
           const { model, error } = tryParse(parser, serializedModel, parameters)
-          const state: Partial<ModelState> = {
+          const state: ModelState = {
+            ...current,
+            isEditing,
             serializedModel,
-            parameters,
             parser,
+            parameters,
             model,
             error,
-            isEditing,
           }
-          return { state: state as ModelState, version }
+          return state
         },
-        migrate(persistedState, version) {
-          if (version !== currentVersion) {
-            return defaults as ModelState
+        migrate: () => {
+          return {
+            isEditing: defaults.isEditing,
+            serializedModel: defaults.serializedModel,
+            parserName: undefined,
+            parameters: defaults.parameters,
           }
-          return persistedState as ModelState
         },
       },
     ),
@@ -155,4 +150,17 @@ function tryParse(
   } catch (error) {
     return { error }
   }
+}
+
+function isSerializedModelState(
+  state: unknown,
+): state is SerializedModelState {
+  return (
+    typeof state === 'object' &&
+    state !== null &&
+    typeof (state as SerializedModelState).isEditing === 'boolean' &&
+    (typeof (state as SerializedModelState).parserName === 'string' || (state as SerializedModelState).parserName === undefined) &&
+    typeof (state as SerializedModelState).serializedModel === 'string' &&
+    typeof (state as SerializedModelState).parameters === 'object'
+  )
 }

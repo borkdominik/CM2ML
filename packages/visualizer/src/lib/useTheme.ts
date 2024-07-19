@@ -14,7 +14,7 @@ export interface ThemeState {
   setTheme: (theme: Theme) => void
 }
 
-const defaultTheme = document.body.classList.contains('dark') ? 'dark' : 'light'
+const defaultTheme: Theme = document.body.classList.contains('dark') ? 'dark' : 'light'
 
 function applyTheme(theme: Theme) {
   if (theme === 'light') {

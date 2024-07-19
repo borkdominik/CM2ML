@@ -1,18 +1,18 @@
 import { type Encoder, encoderMap } from '@cm2ml/builtin'
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 
 import type { ParameterValues } from '../components/Parameters'
 
 import { createSelectors, getNewParameters } from './utils'
 
-export interface SerializedEncoderState {
+interface SerializedEncoderState {
   isEditing: boolean
   encoderName: string | undefined
   parameters: ParameterValues
 }
 
-const currentVersion = 0
+const currentVersion = 1
 
 export interface EncoderState {
   isEditing: boolean
@@ -32,7 +32,7 @@ const defaults = {
 
 export const useEncoderState = createSelectors(
   create(
-    persist<EncoderState>(
+    persist<EncoderState, [], [], SerializedEncoderState>(
       (set, get) => ({
         isEditing: defaults.isEditing,
         setIsEditing: (isEditing: boolean) => set({ isEditing }),
@@ -59,33 +59,40 @@ export const useEncoderState = createSelectors(
       {
         name: 'encoder',
         version: currentVersion,
-        serialize({ state }) {
-          const serializableState: SerializedEncoderState = {
-            isEditing: state.isEditing,
-            parameters: state.parameters,
-            encoderName: state.encoder?.name,
+        storage: createJSONStorage(() => localStorage),
+        partialize: (state) => ({
+          isEditing: state.isEditing,
+          encoderName: state.encoder?.name,
+          parameters: state.parameters,
+        }),
+        merge: (persisted, current) => {
+          if (!isSerializedEncoderState(persisted)) {
+            return current
           }
-          return JSON.stringify(serializableState)
-        },
-        deserialize(serializedState) {
-          const { encoderName, isEditing, parameters } = JSON.parse(
-            serializedState,
-          ) as SerializedEncoderState
+          const { encoderName, isEditing, parameters } = persisted
           const encoder = encoderName ? encoderMap[encoderName] : undefined
-          const state: Partial<EncoderState> = {
-            parameters,
-            encoder,
-            isEditing,
-          }
-          return { state: state as EncoderState, version: 0 }
+          return { ...current, encoder, isEditing, parameters }
         },
-        migrate(persistedState, version) {
-          if (version !== currentVersion) {
-            return defaults as EncoderState
+        migrate: () => {
+          return {
+            isEditing: defaults.isEditing,
+            encoderName: undefined,
+            parameters: defaults.parameters,
           }
-          return persistedState as EncoderState
         },
       },
     ),
   ),
 )
+
+function isSerializedEncoderState(
+  state: unknown,
+): state is SerializedEncoderState {
+  return (
+    typeof state === 'object' &&
+    state !== null &&
+    typeof (state as SerializedEncoderState).isEditing === 'boolean' &&
+    (typeof (state as SerializedEncoderState).encoderName === 'string' || (state as SerializedEncoderState).encoderName === undefined) &&
+    typeof (state as SerializedEncoderState).parameters === 'object'
+  )
+}
