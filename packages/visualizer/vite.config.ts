@@ -5,12 +5,14 @@ import react from '@vitejs/plugin-react'
 import { vite as million } from 'million/compiler'
 import type { Plugin } from 'vite'
 import { defineConfig } from 'vite'
+import { comlink } from 'vite-plugin-comlink'
 import { VitePWA } from 'vite-plugin-pwa'
 
 import packageJson from './package.json'
 
 export default defineConfig({
   plugins: [
+    comlink(),
     million({
       auto: {
         threshold: 0.01,
@@ -50,6 +52,9 @@ export default defineConfig({
       },
     }),
   ],
+  worker: {
+    plugins: () => [comlink()],
+  },
   define: {
     __SOURCE_URL: JSON.stringify(
       packageJson.repository.url.replace('git+', '').replace('.git', ''),

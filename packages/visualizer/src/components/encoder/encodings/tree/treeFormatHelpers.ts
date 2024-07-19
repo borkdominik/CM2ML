@@ -1,6 +1,6 @@
 import type { RecursiveTreeNode, TreeFormat, TreeNodeValue } from '@cm2ml/builtin'
 
-import type { FlowNode } from './useFlowGraph'
+import type { FlowNode } from './treeTypes'
 
 export function getNodeIdSelection(
   value: TreeNodeValue,

@@ -1,20 +1,15 @@
+/// <reference lib="webworker" />
+
 import type { Id2WordMapping, NodeIdMapping, RecursiveTreeNode, TreeModel, TreeNodeValue, Word2IdMapping } from '@cm2ml/builtin'
 import { Stream } from '@yeger/streams'
 import { sugiyama, graphStratify as sugiyamaStratify } from 'd3-dag'
 import { tree, stratify as treeStratify } from 'd3-hierarchy'
 import { scaleOrdinal } from 'd3-scale'
 import { schemeCategory10 as colorScheme } from 'd3-scale-chromatic'
-import { useMemo } from 'react'
 import type { Edge, Node } from 'reactflow'
 
 import { getEdgeSourceSelection, getEdgeTargetSelection, getNodeIdSelection } from './treeFormatHelpers'
-
-export interface SizeConfig {
-  width: number
-  height: number
-  horizontalSpacing: number
-  verticalSpacing: number
-}
+import type { FlowNode, SizeConfig } from './treeTypes'
 
 const sugiyamaSizeConfig: SizeConfig = {
   width: 120,
@@ -30,28 +25,13 @@ const treeSizeConfig: SizeConfig = {
   verticalSpacing: 50,
 }
 
-export function useFlowGraph(tree: TreeModel<RecursiveTreeNode>, idWordMapping: Id2WordMapping, staticVocabulary: TreeNodeValue[]) {
-  return useMemo(() => {
-    const { nodes, reverseNodeIdMapping, word2IdMapping } = createNodes(tree, idWordMapping, staticVocabulary)
-    const hierarchy = createHierarchy(nodes)
-    const flowGraph = createFlowGraph(hierarchy)
-    return { flowGraph, reverseNodeIdMapping, word2IdMapping }
-  }, [tree])
+export function createFlowGraphFromTree(tree: TreeModel<RecursiveTreeNode>, idWordMapping: Id2WordMapping, staticVocabulary: TreeNodeValue[]) {
+  const { nodes, reverseNodeIdMapping, word2IdMapping } = createNodes(tree, idWordMapping, staticVocabulary)
+  const hierarchy = createHierarchy(nodes)
+  const flowGraph = createFlowGraph(hierarchy)
+  // Make sure not to return any (nested-)functions, as the data must be serializable
+  return { flowGraph, reverseNodeIdMapping, word2IdMapping }
 }
-
-export type FlowNode = Omit<RecursiveTreeNode, 'children'> & {
-  id: string
-  children: FlowNode[]
-  color?: string
-  parent?: FlowNode
-  nodeIdMapping: NodeIdMapping
-  reverseNodeIdMapping: NodeIdMapping
-  id2WordMapping: Id2WordMapping
-  word2IdMapping: Word2IdMapping
-  selection: TreeNodeValue | [TreeNodeValue, TreeNodeValue] | undefined
-}
-
-export type FlowGraphModel = ReturnType<typeof useFlowGraph>['flowGraph']
 
 function createNodes(tree: TreeModel<RecursiveTreeNode>, id2WordMapping: Id2WordMapping, staticVocabulary: TreeNodeValue[]) {
   const nodes: FlowNode[] = []
@@ -120,7 +100,7 @@ function createNodes(tree: TreeModel<RecursiveTreeNode>, id2WordMapping: Id2Word
   return { nodes, reverseNodeIdMapping, word2IdMapping }
 }
 
-export interface Hierarchy {
+interface Hierarchy {
   nodes: Node<FlowNode>[]
   sizeConfig: SizeConfig
   type: 'tree' | 'sugiyama'

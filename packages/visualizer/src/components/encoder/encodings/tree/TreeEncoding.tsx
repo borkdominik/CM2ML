@@ -10,7 +10,8 @@ import type { ParameterValues } from '../../../Parameters'
 import { Hint } from '../../../ui/hint'
 import { useEncoder } from '../../useEncoder'
 
-import { type FlowGraphModel, type FlowNode, useFlowGraph } from './useFlowGraph'
+import type { FlowGraphModel, FlowNode } from './treeTypes'
+import { useTreeGraph } from './useTreeGraph'
 
 export interface Props {
   model: GraphModel
@@ -36,10 +37,13 @@ interface FlowGraphProps {
   vocabulary: TreeNodeValue[]
 }
 
+const fallbackFlowGraph: FlowGraphModel = { nodes: [], edges: [], type: 'tree', sizeConfig: { width: 0, height: 0, horizontalSpacing: 0, verticalSpacing: 0 } }
+const fallbackTreeGraph = { flowGraph: fallbackFlowGraph, reverseNodeIdMapping: {}, word2IdMapping: {} }
+
 function FlowGraph({ tree, idWordMapping, vocabulary, staticVocabulary }: FlowGraphProps) {
-  const { flowGraph, reverseNodeIdMapping, word2IdMapping } = useFlowGraph(tree, idWordMapping, staticVocabulary)
-  const { nodes, edges, type } = flowGraph
   const clearSelection = useSelection.use.clearSelection()
+  const { flowGraph, reverseNodeIdMapping, word2IdMapping } = useTreeGraph(tree, idWordMapping, staticVocabulary) ?? fallbackTreeGraph
+  const { nodes, edges, type } = flowGraph
   return (
     <div className="size-full">
       <ReactFlow
