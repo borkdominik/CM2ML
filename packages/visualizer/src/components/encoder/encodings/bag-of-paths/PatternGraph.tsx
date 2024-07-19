@@ -7,8 +7,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Edge, Options } from 'vis-network/standalone/esm/vis-network'
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
-import { colors } from '../../../../colors'
 import { useSelection } from '../../../../lib/useSelection'
+import { useVisNetworkStyles } from '../../../../lib/useVisNetworkStyles'
 import { cn } from '../../../../lib/utils'
 import { Button } from '../../../ui/button'
 import { Progress } from '../../../ui/progress'
@@ -88,46 +88,34 @@ function useVisNetwok(
 
   const hasManyEdges = data.edges.length > 1000
   const hasManyNodes = data.nodes.length > 100
+  const styles = useVisNetworkStyles()
   const options = useMemo<Options>(() => {
     return {
       autoResize: false,
       edges: {
+        ...styles.edgeStyles,
         arrows: {
           to: true,
         },
-        color: {
-          color: colors.active,
-          highlight: colors.selectedBackground,
-        },
-        length: hasManyEdges ? 500 : 500,
-        scaling: {
-          min: 2,
-          max: 5,
-        },
-        selectionWidth: 2,
+        length: 500,
         smooth: {
           enabled: true,
           forceDirection: false,
           roundness: 0.6,
-          type: hasManyEdges ? 'discrete' : 'dynamic',
+          type: 'dynamic',
         },
       },
-      nodes: {
-        borderWidth: 2,
-        color: {
-          border: colors.activeBorder,
-          background: colors.activeBackground,
-          highlight: {
-            background: colors.selectedBackground,
-            border: colors.selected,
-          },
-        },
+      interaction: {
+        hover: true,
       },
       layout: {
         improvedLayout: !hasManyNodes,
       },
+      nodes: {
+        ...styles.nodeStyles,
+      },
     }
-  }, [hasManyNodes, hasManyEdges])
+  }, [hasManyNodes, hasManyEdges, styles])
 
   useEffect(() => {
     if (!container.current) {
