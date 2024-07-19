@@ -65,3 +65,24 @@
   color: hsl(var(--card-foreground));
   padding: 0;
 }
+
+.react-flow__panel {
+  background-color: hsl(var(--background));
+}
+
+.react-flow__controls-button {
+  background-color: hsl(var(--card));
+  border-bottom: 1px solid hsl(var(--border));
+  color: hsl(var(--card-foreground));
+
+  &:hover {
+    background-color: hsl(var(--primary));
+    & > svg {
+      fill: hsl(var(--primary-foreground));
+    }
+  }
+
+  & > svg {
+    fill: hsl(var(--card-foreground));
+  }
+}
