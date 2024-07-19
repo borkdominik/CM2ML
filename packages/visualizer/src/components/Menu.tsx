@@ -188,7 +188,8 @@ function FitGraphMenuItem() {
 }
 
 function ThemeSubMenu() {
-  const { theme, setTheme } = useTheme()
+  const theme = useTheme.use.theme()
+  const setTheme = useTheme.use.setTheme()
   return (
     <MenubarSub>
       <MenubarSubTrigger>Theme</MenubarSubTrigger>

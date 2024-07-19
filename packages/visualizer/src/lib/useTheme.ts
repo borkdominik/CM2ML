@@ -1,25 +1,47 @@
-import { useEffect, useState } from 'react'
+import { create } from 'zustand'
+import { createJSONStorage, persist } from 'zustand/middleware'
+
+import { createSelectors } from './utils'
 
 export const themes = ['light', 'dark'] as const
 
 export type Theme = (typeof themes)[number]
 
-export function useTheme() {
-  const body = document.getElementsByTagName('body')[0]
-  const [theme, setTheme] = useState<Theme>(() =>
-    body?.classList.contains('dark') ? 'dark' : 'light',
-  )
-  useEffect(() => {
-    if (theme === 'light') {
-      body?.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    } else {
-      body?.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    }
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'light' ? '#ffffff' : '#000000')
-  }, [theme])
-  return { theme, setTheme }
+const currentVersion = 0
+
+export interface ThemeState {
+  theme: Theme
+  setTheme: (theme: Theme) => void
 }
+
+const defaultTheme = document.body.classList.contains('dark') ? 'dark' : 'light'
+
+function applyTheme(theme: Theme) {
+  if (theme === 'light') {
+    document.body.classList.remove('dark')
+  } else {
+    document.body.classList.add('dark')
+  }
+}
+
+export const useTheme = createSelectors(
+  create(persist<ThemeState>((set, _get) => ({
+    theme: defaultTheme,
+    setTheme: (theme: Theme) => {
+      applyTheme(theme)
+      set({ theme })
+    },
+  }), {
+    name: 'theme',
+    version: currentVersion,
+    storage: createJSONStorage(() => localStorage),
+    onRehydrateStorage: () => {
+      return (state) => {
+        if (!state) {
+          return
+        }
+        applyTheme(state.theme)
+      }
+    },
+  })),
+)
