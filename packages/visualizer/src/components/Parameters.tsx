@@ -93,7 +93,7 @@ export function Parameters({ parameters, setValues, values }: Props) {
                 </Fragment>
               ))}
               <Separator />
-              <Button variant="ghost" onClick={resetParameters} className="text-primary mx-auto -mb-2 flex gap-2">
+              <Button variant="ghost" onClick={resetParameters} className="mx-auto -mb-2 flex gap-2 text-primary">
                 Reset
                 <SymbolIcon className="size-4" />
               </Button>
@@ -116,7 +116,7 @@ function ParameterGroup({ group, parameters, values, setValues }: ParameterGroup
   const groupName = useDisplayName(group)
   return (
     <div className="flex flex-col gap-4">
-      <span className="text-muted-foreground select-none text-sm font-medium">{groupName}</span>
+      <span className="select-none text-sm font-medium text-muted-foreground">{groupName}</span>
       { parameters.map(([name, parameter]) => (
         <ParameterInput
           key={name}
@@ -326,7 +326,7 @@ function StringArrayInput({
         <CollapsibleContent>
           <Container>
             {input}
-            <Button variant="ghost" onClick={() => onChange([])} className="text-primary mx-auto flex gap-2" disabled={values.length === 0}>
+            <Button variant="ghost" onClick={() => onChange([])} className="mx-auto flex gap-2 text-primary" disabled={values.length === 0}>
               Clear
               <TrashIcon className="size-4" />
             </Button>
@@ -387,7 +387,7 @@ function ParameterLabel({ name, label }: { name: string, label: string }) {
 
 function Description({ description }: { description: string }) {
   return (
-    <span className="text-muted-foreground select-none text-balance text-xs">
+    <span className="select-none text-balance text-xs text-muted-foreground">
       {description}
     </span>
   )
