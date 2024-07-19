@@ -11,7 +11,7 @@ export interface SelectButtonProps {
 
 export function SelectButton({ isSelected = false, selection, text }: SelectButtonProps) {
   const setSelection = useSelection.use.setSelection()
-  const color = isSelected ? 'text-primary' : 'text-accent'
+  const color = isSelected ? 'text-primary' : 'text-secondary'
   return (
     <Button
       variant="link"

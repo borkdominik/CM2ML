@@ -18,16 +18,16 @@ export function FeatureVector({ data }: FeatureVectorProps) {
     return index.toString().padStart((features.length - 1).toString().length, ' ')
   }
   return (
-    <div className="flex flex-col flex-wrap font-mono text-xs">
+    <div className="text-primary-foreground flex flex-col flex-wrap font-mono text-xs">
       {features.map((feature, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <div key={index} className="flex flex-wrap gap-1">
-          <span className="text-primary-foreground">
+          <span>
             [
             {formatIndex(index)}
             ]
           </span>
-          <span className="text-secondary-foreground">{feature ?? 'null'}</span>
+          <span>{feature ?? 'null'}</span>
         </div>
       ))}
     </div>

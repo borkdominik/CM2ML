@@ -2,7 +2,6 @@ import type { AdjacencyMatrix } from '@cm2ml/builtin'
 import type { PointerEvent } from 'react'
 import { useMemo } from 'react'
 
-import { colors } from '../../../../colors'
 import { useIsSelectedEdge, useIsSelectedSource, useIsSelectedTarget, useSelection } from '../../../../lib/useSelection'
 import { cn, createOpacityRangeMapper } from '../../../../lib/utils'
 
@@ -68,7 +67,7 @@ function Labels({ nodes, offset }: LabelsProps) {
         height={cellSize}
         y={-fontSize / 2}
         x={offset}
-        className="cursor-default select-none fill-foreground font-mono"
+        className="fill-foreground cursor-default select-none font-mono"
         fontSize={fontSize}
       >
         Source
@@ -77,7 +76,7 @@ function Labels({ nodes, offset }: LabelsProps) {
         height={cellSize}
         y={-fontSize / 2}
         x={-offset}
-        className="-rotate-90 cursor-default select-none fill-foreground font-mono "
+        className="fill-foreground -rotate-90 cursor-default select-none font-mono "
         fontSize={fontSize}
         textAnchor="end"
       >
@@ -113,7 +112,7 @@ function Label({ index, node, offset }: LabelProps) {
         y={cellSize * (index + 1) - fontSize / 2}
         x={offset}
         className={cn({
-          'cursor-default fill-foreground font-mono hover:fill-secondary-foreground hover:font-bold select-none':
+          'cursor-default fill-foreground font-mono hover:fill-primary hover:font-bold select-none':
             true,
           'fill-foreground': !isRowSelected,
           'fill-primary': isRowSelected,
@@ -128,7 +127,7 @@ function Label({ index, node, offset }: LabelProps) {
         y={cellSize * (index + 1) - fontSize / 2}
         x={fontSize}
         className={cn({
-          '-rotate-90 cursor-default font-mono hover:fill-secondary-foreground hover:font-bold select-none':
+          '-rotate-90 cursor-default font-mono hover:fill-primary hover:font-bold select-none':
             true,
           'fill-foreground': !isColumnSelected,
           'fill-primary': isColumnSelected,
@@ -182,12 +181,12 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
     return null
   }
 
-  const color = getCellColor(isCellSelected)
-
   const onPointerDown = (event: PointerEvent<SVGRectElement>) => {
     event.stopPropagation()
     setSelection({ type: 'edges', edges: [[sourceId, targetId]], origin: 'graph' })
   }
+
+  const fill = isCellSelected ? 'fill-primary' : 'fill-secondary'
 
   return (
     <rect
@@ -196,8 +195,7 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
       key={`${column}-${row}`}
       x={cellSize * column}
       y={cellSize * row}
-      fill={color}
-      className="stroke-border hover:fill-secondary-foreground"
+      className={`stroke-border hover:fill-primary ${fill}`}
       style={{
         opacity: getOpacity(value),
         willChange: 'opacity',
@@ -205,11 +203,4 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
       onPointerDown={onPointerDown}
     />
   )
-}
-
-function getCellColor(isSelected: boolean) {
-  if (isSelected) {
-    return colors.selected
-  }
-  return colors.active
 }
