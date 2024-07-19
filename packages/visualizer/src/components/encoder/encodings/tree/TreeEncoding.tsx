@@ -131,7 +131,7 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
             <Handle type="target" position={Position.Top} isConnectable={false} />
           )}
       <div
-        className="break-words rounded-sm px-2 py-1 font-mono"
+        className="break-words rounded-sm px-4 py-2 font-mono"
         style={{
           outlineStyle: 'solid',
           outlineColor: data.color,

@@ -57,3 +57,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.react-flow__node-default {
+  background-color: hsl(var(--background));
+  border: none;
+  color: hsl(var(--card-foreground));
+  padding: 0;
+}
