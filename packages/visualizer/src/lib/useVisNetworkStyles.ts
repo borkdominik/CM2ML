@@ -41,6 +41,7 @@ export function useVisNetworkStyles(styleSource: HTMLElement = document.body) {
         color: colors.secondaryForeground.base,
         face: fontFace,
       },
+      labelHighlightBold: false,
     }
     const interactionStyles = {
       hover: true,
