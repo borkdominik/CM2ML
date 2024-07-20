@@ -76,16 +76,21 @@ async function openRawGraphGridEncoding(page: Page, browserName: string) {
   const rawGraphGrid = page.getByTestId('raw-graph-grid')
   await rawGraphGrid.waitFor()
 
-  const selectTarget = (nodeId: string) => rawGraphGrid.getByTestId(`grid-target-${nodeId}`).click()
   // Webkit requires special treatment, because the bounding boxes of the labels are offset to be behind the cells for some reason
   // However, the labels are still clickable as expected, but playwright cannot detect that
+  const selectTarget = (nodeId: string) => rawGraphGrid
+    .getByTestId(`grid-target-${nodeId}`)
+    .click(browserName === 'webkit' ? { force: true, position: { x: 8, y: -5 } } : undefined)
   const selectSource = (nodeId: string) => rawGraphGrid
     .getByTestId(`grid-source-${nodeId}`)
     .click(browserName === 'webkit' ? { force: true, position: { x: -100, y: 8 } } : undefined)
+
   const selectedTarget = rawGraphGrid.locator('.column-selected')
   const selectedSource = rawGraphGrid.locator('.row-selected')
+
   const selectEdge = (sourceId: string, targetId: string) => rawGraphGrid.getByTestId(`grid-cell-${sourceId}-${targetId}`).click()
   const cell = (sourceId: string, targetId: string) => rawGraphGrid.getByTestId(`grid-cell-${sourceId}-${targetId}`)
+
   return {
     rawGraphGrid,
     selectTarget,
@@ -153,9 +158,9 @@ test.describe('grid', () => {
     })
 
     test('shows external edge selections', async ({ browserName, page }) => {
-      const { cell, selectTarget, selectedTarget, selectedSource } = await openRawGraphGridEncoding(page, browserName)
+      const { cell, selectSource, selectedTarget, selectedSource } = await openRawGraphGridEncoding(page, browserName)
 
-      await selectTarget('_0V2YcPidEe6PhJwEQ2R2dA')
+      await selectSource('_0V2YcPidEe6PhJwEQ2R2dA')
 
       const sourceId = '_0V2YcPidEe6PhJwEQ2R2dA'
       const targetId = '_9-mJcPifEe6PhJwEQ2R2dA'
@@ -166,10 +171,10 @@ test.describe('grid', () => {
     })
 
     test('can clear selection', async ({ browserName, page }) => {
-      const { selectTarget, selectedSource, rawGraphGrid } = await openRawGraphGridEncoding(page, browserName)
+      const { selectSource, selectedSource, rawGraphGrid } = await openRawGraphGridEncoding(page, browserName)
 
       const nodeId = '_0V2YcPidEe6PhJwEQ2R2dA'
-      await selectTarget(nodeId)
+      await selectSource(nodeId)
       await expect(selectedSource).toHaveText(nodeId)
 
       await rawGraphGrid.click()
