@@ -87,7 +87,10 @@ test.describe(`selections`, () => {
   })
 
   test('can clear a selection', async ({ page }) => {
-    const { fitView, selectedNode, treeGraph } = await openTreeEncoding(page)
+    const { fitView, selectNode, selectedNode, treeGraph } = await openTreeEncoding(page)
+
+    await selectNode('_0V2YcPidEe6PhJwEQ2R2dA')
+    await expect(selectedNode).toHaveCount(1)
 
     await fitView()
     await treeGraph.click() // This click on the background clears the selection

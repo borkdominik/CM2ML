@@ -116,8 +116,10 @@ function Label({ index, node, offset }: LabelProps) {
             true,
           'fill-foreground': !isRowSelected,
           'fill-primary': isRowSelected,
+          'row-selected': isRowSelected,
         })}
         fontSize={fontSize}
+        data-testid={`grid-source-${node}`}
         onPointerDown={onPointerDown}
       >
         {node}
@@ -131,8 +133,10 @@ function Label({ index, node, offset }: LabelProps) {
             true,
           'fill-foreground': !isColumnSelected,
           'fill-primary': isColumnSelected,
+          'column-selected': isColumnSelected,
         })}
         fontSize={fontSize}
+        data-testid={`grid-target-${node}`}
         onPointerDown={onPointerDown}
       >
         {node}
@@ -158,19 +162,21 @@ function GridRow({ getOpacity, matrix, nodes, row }: GridRowProps) {
       nodes={nodes}
       row={row}
       value={matrix[row]?.[column] ?? 0}
+      data-testid={`grid-cell-${nodes[row]}-${nodes[column]}`}
     />
   ))
 }
 
 interface GridCellProps {
   column: number
+  'data-testid': string
   getOpacity: (weight: number) => number
   nodes: string[]
   row: number
   value: number
 }
 
-function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
+function GridCell({ column, 'data-testid': dataTestId, getOpacity, nodes, row, value }: GridCellProps) {
   const sourceId = nodes[row]
   const targetId = nodes[column]
 
@@ -186,8 +192,6 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
     setSelection({ type: 'edges', edges: [[sourceId, targetId]], origin: 'graph' })
   }
 
-  const fill = isCellSelected ? 'fill-primary' : 'fill-secondary'
-
   return (
     <rect
       height={cellSize}
@@ -195,12 +199,18 @@ function GridCell({ column, getOpacity, nodes, row, value }: GridCellProps) {
       key={`${column}-${row}`}
       x={cellSize * column}
       y={cellSize * row}
-      className={`stroke-border hover:fill-primary ${fill}`}
+      className={cn({
+        'stroke-border hover:fill-primary': true,
+        'fill-primary': isCellSelected,
+        'fill-secondary': !isCellSelected,
+        'cell-selected': isCellSelected,
+      })}
       style={{
         opacity: getOpacity(value),
         willChange: 'opacity',
       }}
       onPointerDown={onPointerDown}
+      data-testid={dataTestId}
     />
   )
 }

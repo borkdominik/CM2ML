@@ -115,6 +115,7 @@ function ListNode({ node, isLast, featureVector }: ListNodeProps) {
             onClick={() => setSelection({ type: 'nodes', nodes: [node], origin: 'graph' })}
             isSelected={isSelected}
             isLast={isLast}
+            data-testid={isSelected ? 'selected-node' : undefined}
           >
             {node}
           </ListEntry>
@@ -167,6 +168,7 @@ function ListEdge({
       onClick={() => setSelection({ type: 'edges', edges: [[sourceId, targetId]], origin: 'graph' })}
       style={{ opacity: getOpacity?.(weight ?? 1) ?? 1 }}
       isLast={isLast}
+      data-testid={isSelected ? 'selected-edge' : undefined}
     >
       <span className="whitespace-pre">{text}</span>
     </ListEntry>
@@ -206,17 +208,19 @@ interface ListEntryProps {
   isSelected: boolean
   onClick?: () => void
   style?: HTMLAttributes<HTMLSpanElement>['style']
+  'data-testid'?: string
 }
 
 function ListEntry({
   children,
+  'data-testid': dataTestId,
   isLast,
   isSelected,
   onClick,
   style,
 }: ListEntryProps) {
   return (
-    <div className="size-fit">
+    <div className="size-fit" data-testid={dataTestId}>
       <span
         className={cn({
           'mx-1 my-0.5 py-0.5 px-1 rounded-sm hover:outline hover:outline-accent-foreground hover:bg-accent hover:text-accent-foreground':
