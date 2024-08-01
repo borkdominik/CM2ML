@@ -22,6 +22,9 @@ function applyTheme(theme: Theme) {
   } else {
     document.body.classList.add('dark')
   }
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute('content', theme === 'light' ? '#ffffff' : '#0c0a09')
 }
 
 export const useTheme = createSelectors(
