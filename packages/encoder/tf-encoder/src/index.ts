@@ -49,7 +49,7 @@ const TermFrequencyExtractor = definePlugin({
     },
     computeTfIdf: {
       type: 'boolean',
-      description: 'Compute Inverse Document Frequency (IDF)',
+      description: 'Compute Term Frequency-Inverse Document Frequency (TF-IDF)',
       defaultValue: false,
       group: 'term-frequency',
     },
@@ -57,16 +57,16 @@ const TermFrequencyExtractor = definePlugin({
   invoke(batch: InferOut<typeof TermExtractor>, parameters) {
     const validItems = filterValidItems(batch)
     const { termList, termIndex } = collectUniqueTerms(validItems)
-    const documentFrequency: number[] = Array.from({ length: termList.length }).fill(0)
+    const documentFrequency = Array.from<number>({ length: termList.length }).fill(0)
     const termDocumentMatrix: TermDocumentMatrix = {}
 
     validItems.forEach((item) => {
-      const docVector = Array.from({ length: termList.length }).fill(0)
+      const docVector = Array.from<number>({ length: termList.length }).fill(0)
       const termSet = new Set<number>()
 
       item.data.forEach((term) => {
         const index = termIndex.get(term.name)
-        if (index !== undefined) {
+        if (index !== undefined && docVector[index] !== undefined) {
           docVector[index]++
           termSet.add(index)
         }
