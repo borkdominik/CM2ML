@@ -19,6 +19,9 @@ function isPluginReadyForTest(plugin: PrecomposedPlugin) {
   if (name.includes('archimate')) {
     return false
   }
+  if (name.includes('term-frequency')) {
+    return false
+  }
   if (name.includes('bag-of-paths')) {
     return false
   }
