@@ -34,6 +34,7 @@
 
 - [@cm2ml/ml](./ml)
 - [@cm2ml/scripts](./packages/scripts)
+- [@cm2ml/tf-encoder](./packages/tf-encoder)
 - [@cm2ml/tsconfig](./packages/tsconfig)
 - [@cm2ml/utils](./packages/utils)
 - [@cm2ml/visualizer](./packages/visualizer)

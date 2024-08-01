@@ -180,6 +180,37 @@ importers:
 
   packages/encoder/one-hot-encoder:
     dependencies:
+      '@cm2ml/feature-encoder':
+        specifier: workspace:*
+        version: link:../feature-encoder
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../../framework/ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../../framework/plugin
+      '@yeger/streams':
+        specifier: 1.1.9
+        version: 1.1.9
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.5.3
+        version: 5.5.3
+      vite:
+        specifier: 5.3.4
+        version: 5.3.4(@types/node@20.14.11)(terser@5.26.0)
+      vite-plugin-lib:
+        specifier: 2.0.11
+        version: 2.0.11(@types/node@20.14.11)(rollup@4.13.0)(typescript@5.5.3)(vite@5.3.4(@types/node@20.14.11)(terser@5.26.0))
+
+  packages/encoder/tf-encoder:
+    dependencies:
+      '@cm2ml/feature-encoder':
+        specifier: workspace:*
+        version: link:../feature-encoder
       '@cm2ml/ir':
         specifier: workspace:*
         version: link:../../framework/ir
@@ -257,6 +288,9 @@ importers:
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
+      '@cm2ml/tf-encoder':
+        specifier: workspace:*
+        version: link:../../encoder/tf-encoder
       '@cm2ml/tree-encoder':
         specifier: workspace:*
         version: link:../../encoder/tree-encoder
@@ -8799,7 +8833,6 @@ packages:
 
   workbox-google-analytics@7.0.0:
     resolution: {integrity: sha512-MEYM1JTn/qiC3DbpvP2BVhyIH+dV/5BjHk756u9VbwuAhu0QHyKscTnisQuz21lfRpOwiS9z4XdqeVAKol0bzg==}
-    deprecated: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
 
   workbox-navigation-preload@7.0.0:
     resolution: {integrity: sha512-juWCSrxo/fiMz3RsvDspeSLGmbgC0U9tKqcUPZBCf35s64wlaLXyn2KdHHXVQrb2cqF7I0Hc9siQalainmnXJA==}

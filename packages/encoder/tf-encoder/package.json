@@ -1,0 +1,53 @@
+{
+  "name": "@cm2ml/tf-encoder",
+  "type": "module",
+  "version": "0.0.0",
+  "author": {
+    "name": "Jan Müller",
+    "url": "https://github.com/DerYeger"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borkdominik/CM2ML.git",
+    "directory": "packages/tf-encoder"
+  },
+  "bugs": {
+    "url": "https://github.com/borkdominik/CM2ML/issues"
+  },
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    }
+  },
+  "types": "dist/types/index.d.mts",
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "check:publish": "publint run --strict",
+    "check:tsc": "tsc",
+    "dev": "vite build --watch",
+    "lint": "yeger-lint"
+  },
+  "dependencies": {
+    "@cm2ml/feature-encoder": "workspace:*",
+    "@cm2ml/ir": "workspace:*",
+    "@yeger/streams": "1.1.9",
+    "@cm2ml/plugin": "workspace:*"
+  },
+  "devDependencies": {
+    "@cm2ml/tsconfig": "workspace:*",
+    "typescript": "5.5.3",
+    "vite": "5.3.4",
+    "vite-plugin-lib": "2.0.11"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
