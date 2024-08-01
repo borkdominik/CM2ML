@@ -21,8 +21,6 @@ export interface ModelState {
   setIsEditing: (isEditing: boolean) => void
   model: GraphModel | undefined
   error: unknown | undefined
-  fit: (() => void) | undefined
-  setFit: (fit: (() => void) | undefined) => void
   serializedModel: string
   setSerializedModel: (serializedModel: string) => void
   parser: Parser | undefined
@@ -36,7 +34,6 @@ const defaults = {
   isEditing: true,
   model: undefined,
   error: undefined,
-  fit: undefined,
   serializedModel: '',
   parser: undefined,
   parameters: {},
@@ -50,8 +47,6 @@ export const useModelState = createSelectors(
         setIsEditing: (isEditing: boolean) => set({ isEditing }),
         model: defaults.model,
         error: defaults.error,
-        fit: defaults.fit,
-        setFit: (fit: (() => void) | undefined) => set({ fit }),
         serializedModel: defaults.serializedModel,
         setSerializedModel: (serializedModel: string) => {
           set({ serializedModel })

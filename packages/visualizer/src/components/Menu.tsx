@@ -165,25 +165,10 @@ function ViewMenu() {
     <MenubarMenu>
       <MenubarTrigger>View</MenubarTrigger>
       <MenubarContent>
-        <MenubarSub>
-          <MenubarSubTrigger>Model</MenubarSubTrigger>
-          <MenubarSubContent>
-            <FitGraphMenuItem />
-          </MenubarSubContent>
-        </MenubarSub>
         <ThemeSubMenu />
         <LayoutSubMenu />
       </MenubarContent>
     </MenubarMenu>
-  )
-}
-
-function FitGraphMenuItem() {
-  const fitGraph = useModelState.use.fit()
-  return (
-    <MenubarItem disabled={fitGraph === undefined} onClick={fitGraph}>
-      Fit
-    </MenubarItem>
   )
 }
 

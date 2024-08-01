@@ -1,5 +1,5 @@
 import type { Attributable, GraphModel } from '@cm2ml/ir'
-import { Crosshair2Icon, ResetIcon, Share2Icon } from '@radix-ui/react-icons'
+import { ResetIcon, Share2Icon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
@@ -68,7 +68,6 @@ function SystemCommandGroup({ closeDialog }: CommandProps) {
   return (
     <CommandGroup heading="System">
       <ClearCommand closeDialog={closeDialog} />
-      <FitCommand closeDialog={closeDialog} />
       <ShareCommand closeDialog={closeDialog} />
     </CommandGroup>
   )
@@ -92,23 +91,6 @@ function ClearCommand({ closeDialog }: CommandProps) {
     >
       <ResetIcon className="mr-2 size-4" />
       Clear
-    </CommandItem>
-  )
-}
-
-function FitCommand({ closeDialog }: CommandProps) {
-  const fit = useModelState.use.fit()
-  if (!fit) {
-    return null
-  }
-  return (
-    <CommandItem onSelect={() => {
-      fit()
-      closeDialog()
-    }}
-    >
-      <Crosshair2Icon className="mr-2 size-4" />
-      Fit
     </CommandItem>
   )
 }

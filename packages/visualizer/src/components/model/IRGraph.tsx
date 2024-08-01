@@ -6,10 +6,10 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Edge, Options } from 'vis-network/standalone/esm/vis-network'
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
-import { useModelState } from '../../lib/useModelState'
 import { useSelection } from '../../lib/useSelection'
 import { useVisNetworkStyles } from '../../lib/useVisNetworkStyles'
 import { cn } from '../../lib/utils'
+import { FitButton } from '../FitButton'
 import { Progress } from '../ui/progress'
 
 export interface Props {
@@ -22,7 +22,7 @@ export interface IRGraphRef {
 
 export function IRGraph({ model }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { isReady, progress } = useIRVisNetwork(model, containerRef)
+  const { isReady, progress, fit } = useIRVisNetwork(model, containerRef)
 
   return (
     <div className="relative h-full">
@@ -31,6 +31,7 @@ export function IRGraph({ model }: Props) {
         data-testid="ir-graph"
         className={cn({ 'h-full': true, 'opacity-0': !isReady })}
       />
+      {isReady ? <FitButton fit={fit} /> : null}
       {!isReady
         ? (
             <div className="absolute inset-0 flex items-center justify-center p-2">
@@ -65,7 +66,6 @@ function useIRVisNetwork(
   model: GraphModel,
   container: RefObject<HTMLDivElement | null>,
 ) {
-  const setFit = useModelState.use.setFit()
   const selection = useSelection.use.selection()
   const setSelection = useSelection.use.setSelection()
   const clearSelection = useSelection.use.clearSelection()
@@ -118,7 +118,6 @@ function useIRVisNetwork(
       options,
     )
     setNetwork(network)
-    setFit(() => network.fit())
     function selectNodes(selectedNodes: string[]) {
       if (selectedNodes.length === 1) {
         setSelection({ type: 'nodes', nodes: selectedNodes, origin: 'ir-graph' })
@@ -167,7 +166,6 @@ function useIRVisNetwork(
     resizeObserver.observe(container.current)
     return () => {
       setNetwork(null)
-      setFit(undefined)
       network.destroy()
       resizeObserver.disconnect()
     }
@@ -221,6 +219,7 @@ function useIRVisNetwork(
   return {
     isReady: stabilizationProgress === 1,
     progress: stabilizationProgress,
+    fit: () => network?.fit({ animation: true }),
   }
 }
 
