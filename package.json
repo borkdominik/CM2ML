@@ -13,7 +13,8 @@
   "scripts": {
     "build": "nr turbo run build",
     "changeset": "changeset",
-    "ci": "cross-env COVERAGE=true nr turbo run bench build generate lint lint:root test check:publish check:tsc",
+    "ci": "cross-env COVERAGE=true nr turbo run bench build generate lint lint:root test check:publish check:tsc syncpack:lint",
+    "ci:full": "cross-env COVERAGE=true nr turbo run bench build generate lint lint:root test check:publish check:tsc syncpack:lint e2e",
     "clean": "rimraf -g **/tsconfig.tsbuildinfo **/vite.config.ts.timestamp-*",
     "cm2ml": "nr turbo build --filter=@cm2ml/cli... && NODE_OPTIONS=--max_old_space_size=8192 cm2ml",
     "create-package": "nr turbo generate lib && nr syncpack:fix && ni && nr generate-readme",

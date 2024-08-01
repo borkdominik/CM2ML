@@ -15,12 +15,8 @@ jobs:
         uses: DerYeger/pnpm-setup-action@master
         with:
           node-version-file: .node-version
-      - name: Lint package versions
-        run: pnpm run syncpack:lint
       - name: Build, Lint, Test, and Typecheck
-        run: pnpm run ci
-      - name: E2E
-        run: pnpm run turbo e2e
+        run: pnpm run ci:full
       - name: Upload E2E report
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
