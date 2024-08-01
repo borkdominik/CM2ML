@@ -178,34 +178,6 @@ importers:
         specifier: 2.0.11
         version: 2.0.11(@types/node@20.14.11)(rollup@4.13.0)(typescript@5.5.3)(vite@5.3.4(@types/node@20.14.11)(terser@5.26.0))
 
-  packages/encoder/one-hot-encoder:
-    dependencies:
-      '@cm2ml/feature-encoder':
-        specifier: workspace:*
-        version: link:../feature-encoder
-      '@cm2ml/ir':
-        specifier: workspace:*
-        version: link:../../framework/ir
-      '@cm2ml/plugin':
-        specifier: workspace:*
-        version: link:../../framework/plugin
-      '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
-    devDependencies:
-      '@cm2ml/tsconfig':
-        specifier: workspace:*
-        version: link:../../tsconfig
-      typescript:
-        specifier: 5.5.3
-        version: 5.5.3
-      vite:
-        specifier: 5.3.4
-        version: 5.3.4(@types/node@20.14.11)(terser@5.26.0)
-      vite-plugin-lib:
-        specifier: 2.0.11
-        version: 2.0.11(@types/node@20.14.11)(rollup@4.13.0)(typescript@5.5.3)(vite@5.3.4(@types/node@20.14.11)(terser@5.26.0))
-
   packages/encoder/tf-encoder:
     dependencies:
       '@cm2ml/feature-encoder':
@@ -282,9 +254,6 @@ importers:
       '@cm2ml/ir':
         specifier: workspace:*
         version: link:../ir
-      '@cm2ml/one-hot-encoder':
-        specifier: workspace:*
-        version: link:../../encoder/one-hot-encoder
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
