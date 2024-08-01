@@ -4,6 +4,7 @@ const Attributes = [
   'id',
   'name',
   'type',
+  'version',
   'xsi:type',
   'documentation',
   'purpose',
@@ -111,23 +112,22 @@ const OtherTypes = [
 ] as const
 
 const layerTypes = {
-  Business: { ...BusinessTypes },
-  Application: { ...ApplicationTypes },
-  Technology: { ...TechnologyTypes },
-  Physical: { ...PhysicalTypes },
-  Motivation: { ...MotivationTypes },
-  Strategy: { ...StrategyTypes },
-  Implementation_Migration: { ...ImplementationMigrationTypes },
-  Other: { ...OtherTypes },
+  Business: BusinessTypes,
+  Application: ApplicationTypes,
+  Technology: TechnologyTypes,
+  Physical: PhysicalTypes,
+  Motivation: MotivationTypes,
+  Strategy: StrategyTypes,
+  Implementation_Migration: ImplementationMigrationTypes,
+  Other: OtherTypes,
 }
 
 export const typeToLayerMap: Record<string, string> = {}
-
-Object.entries(layerTypes).forEach(([layer, types]) => {
-  Object.keys(types).forEach((type) => {
+for (const [layer, types] of Object.entries(layerTypes)) {
+  types.forEach((type) => {
     typeToLayerMap[type] = layer
   })
-})
+}
 
 const RelationshipTypes = [
   'AssociationRelationship',
@@ -141,7 +141,6 @@ const RelationshipTypes = [
   'AssignmentRelationship',
   'SpecializationRelationship',
   'AccessRelationship',
-  // TODO: handle Specialisation / Realisation (i.e., UK vs American English)
 ] as const
 
 const Types = [

@@ -7,6 +7,11 @@ export const ElementHandler = Element.createHandler(
   (element) => {
     setLayer(element)
   },
+  {
+    [Archimate.Attributes.id]: { type: 'string' },
+    [Archimate.Attributes.name]: { type: 'string' },
+    [Archimate.Attributes.layer]: { type: 'category' },
+  },
 )
 
 function setLayer(element: GraphNode) {
