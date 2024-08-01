@@ -38,8 +38,8 @@
   "dependencies": {
     "@cm2ml/feature-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
-    "@yeger/streams": "1.1.9",
-    "@cm2ml/plugin": "workspace:*"
+    "@cm2ml/plugin": "workspace:*",
+    "@yeger/streams": "1.1.9"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

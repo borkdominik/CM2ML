@@ -11,7 +11,6 @@ export function prettifyParserName(name: string) {
 }
 
 const encoderPairs = [
-  ['one-hot', 'One-hot'],
   ['raw-graph', 'Raw graph'],
   ['tree', 'Tree-based'],
 ]
