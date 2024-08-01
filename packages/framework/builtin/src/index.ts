@@ -3,8 +3,8 @@ import { BagOfPathsEncoder } from '@cm2ml/bag-of-paths-encoder'
 import { EcoreParser } from '@cm2ml/ecore'
 import { GraphEncoder } from '@cm2ml/graph-encoder'
 import type { GraphModel } from '@cm2ml/ir'
-import { OneHotEncoder } from '@cm2ml/one-hot-encoder'
 import { type ExecutionError, type Plugin, type StructuredOutput, batchTryCatch, compose, liftMetadata } from '@cm2ml/plugin'
+import { TermFrequencyEncoder } from '@cm2ml/tf-encoder'
 import { TreeEncoder } from '@cm2ml/tree-encoder'
 import { UmlParser } from '@cm2ml/uml'
 import { Stream } from '@yeger/streams'
@@ -14,7 +14,7 @@ export * from '@cm2ml/bag-of-paths-encoder'
 export * from '@cm2ml/ecore'
 export * from '@cm2ml/feature-encoder'
 export * from '@cm2ml/graph-encoder'
-export * from '@cm2ml/one-hot-encoder'
+export * from '@cm2ml/tf-encoder'
 export * from '@cm2ml/tree-encoder'
 export * from '@cm2ml/uml'
 export * from '@cm2ml/xmi-parser'
@@ -30,12 +30,12 @@ export const parserMap = {
 
 export type Encoder<Data = unknown, Metadata = unknown> = Plugin<(GraphModel | ExecutionError)[], (StructuredOutput<Data, Metadata> | ExecutionError)[], any>
 
-export const encoders: Encoder[] = [BagOfPathsEncoder, GraphEncoder, TreeEncoder, OneHotEncoder]
+export const encoders: Encoder[] = [BagOfPathsEncoder, GraphEncoder, TreeEncoder, TermFrequencyEncoder]
 export const encoderMap = {
   [BagOfPathsEncoder.name]: BagOfPathsEncoder,
   [GraphEncoder.name]: GraphEncoder,
   [TreeEncoder.name]: TreeEncoder,
-  [OneHotEncoder.name]: OneHotEncoder,
+  [TermFrequencyEncoder.name]: TermFrequencyEncoder,
 }
 
 type LiftedEncoder<Data = unknown, Metadata = unknown> = Plugin<(GraphModel | ExecutionError)[], StructuredOutput<(Data | ExecutionError)[], Metadata>, any>
