@@ -1,3 +1,8 @@
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+
 import { CommandBar } from './components/CommandBar'
 import { Encoder } from './components/encoder/Encoder'
 import { EncoderForm } from './components/encoder/EncoderForm'
@@ -16,6 +21,8 @@ import { useModelState } from './lib/useModelState'
 import { useSettings } from './lib/useSettings'
 import { useUpdatePrompt } from './lib/useUpdatePrompt'
 
+const queryClient = new QueryClient()
+
 export function App() {
   useSharedHashLoader()
   useUpdatePrompt()
@@ -23,12 +30,14 @@ export function App() {
   const layout = useSettings.use.layout()
 
   return (
-    <div className="flex h-full flex-col">
-      <Menu />
-      <CommandBar />
-      {layout === 'extended' ? <ExtendedLayout /> : <CompactLayout />}
-      <Toaster duration={5000} />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="flex h-full flex-col">
+        <Menu />
+        <CommandBar />
+        {layout === 'extended' ? <ExtendedLayout /> : <CompactLayout />}
+        <Toaster duration={5000} />
+      </div>
+    </QueryClientProvider>
   )
 }
 

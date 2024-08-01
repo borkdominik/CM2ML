@@ -42,7 +42,8 @@ const fallbackTreeGraph = { flowGraph: fallbackFlowGraph, reverseNodeIdMapping: 
 
 function FlowGraph({ tree, idWordMapping, vocabulary, staticVocabulary }: FlowGraphProps) {
   const clearSelection = useSelection.use.clearSelection()
-  const { flowGraph, reverseNodeIdMapping, word2IdMapping } = useTreeGraph(tree, idWordMapping, staticVocabulary) ?? fallbackTreeGraph
+  const { data } = useTreeGraph(tree, idWordMapping, staticVocabulary)
+  const { flowGraph, reverseNodeIdMapping, word2IdMapping } = data ?? fallbackTreeGraph
   const { nodes, edges, type } = flowGraph
   return (
     <div className="size-full" data-testid="tree-graph">
