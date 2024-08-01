@@ -91,6 +91,7 @@ const TermFrequencyExtractor = definePlugin({
 
     const modelIds = validItems.map((item) => item.metadata.modelId)
     return validItems.map(() => ({
+      data: {},
       metadata: {
         modelIds,
         termDocumentMatrix,
