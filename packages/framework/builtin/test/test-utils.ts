@@ -22,9 +22,6 @@ function isPluginReadyForTest(plugin: PrecomposedPlugin) {
   if (name.includes('one-hot')) {
     return false
   }
-  if (name.includes('bag-of-paths')) {
-    return false
-  }
   return true
 }
 

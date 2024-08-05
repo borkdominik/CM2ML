@@ -1,0 +1,2885 @@
+{
+  "data": [
+    {
+      "Class_0": [
+        "_7gC6YNu2Ee65YvY_tzBAgQ",
+        "_Lr_kQN0aEe6kj4CCWHMNuw",
+        "_f9gVoN0aEe6kj4CCWHMNuw",
+      ],
+      "Class_1": [
+        "_Lr_kQN0aEe6kj4CCWHMNuw",
+        "_7gC6YNu2Ee65YvY_tzBAgQ",
+        "_f9gVoN0aEe6kj4CCWHMNuw",
+      ],
+      "Class_2": [
+        "_Lr_kQN0aEe6kj4CCWHMNuw",
+      ],
+      "Generalization_0": [
+        "_OgQboN0aEe6kj4CCWHMNuw",
+        "_myJ5QN0aEe6kj4CCWHMNuw",
+      ],
+      "Generalization_1": [
+        "_myJ5QN0aEe6kj4CCWHMNuw",
+      ],
+      "Interface_0": [
+        "_COyacN_BEe6kj4CCWHMNuw",
+      ],
+      "Interface_1": [
+        "_E1syUN_BEe6kj4CCWHMNuw",
+      ],
+      "LiteralInteger_0": [
+        "_jaGRQNu6Ee65YvY_tzBAgQ",
+      ],
+      "LiteralUnlimitedNatural_0": [
+        "_jZl68Nu6Ee65YvY_tzBAgQ",
+      ],
+      "Model_0": [
+        "eu.yeger#generated-id-0",
+        "_yoiHINu2Ee65YvY_tzBAgQ",
+      ],
+      "Model_1": [
+        "_yoiHINu2Ee65YvY_tzBAgQ",
+      ],
+      "OperationTemplateParameter_0": [
+        "_cJ36ANu8Ee65YvY_tzBAgQ",
+      ],
+      "Operation_0": [
+        "_ZNSfANu6Ee65YvY_tzBAgQ",
+      ],
+      "PackageImport_0": [
+        "_yxEYENu2Ee65YvY_tzBAgQ",
+      ],
+      "PackageImport_1": [
+        "_0Fpd0OB2Ee6kj4CCWHMNuw",
+      ],
+      "Package_0": [
+        "_xBwPAOB2Ee6kj4CCWHMNuw",
+        "_7qZgYN_AEe6kj4CCWHMNuw",
+      ],
+      "Package_1": [
+        "_7qZgYN_AEe6kj4CCWHMNuw",
+        "_xBwPAOB2Ee6kj4CCWHMNuw",
+      ],
+      "Package_2": [
+        "_-Dv9YN_AEe6kj4CCWHMNuw",
+      ],
+      "Parameter_0": [
+        "_fmHpUNu6Ee65YvY_tzBAgQ",
+      ],
+      "Port_0": [
+        "_-IKzMNu2Ee65YvY_tzBAgQ",
+      ],
+      "Property_0": [
+        "_RBlv8N0aEe6kj4CCWHMNuw",
+        "_iR3k8N0aEe6kj4CCWHMNuw",
+        "_Q2FY8Nu5Ee65YvY_tzBAgQ",
+      ],
+      "Property_1": [
+        "_RBlv8N0aEe6kj4CCWHMNuw",
+      ],
+      "Property_2": [
+        "_iR3k8N0aEe6kj4CCWHMNuw",
+      ],
+      "TemplateSignature_0": [
+        "_adJScNu8Ee65YvY_tzBAgQ",
+      ],
+      "TimeInterval_0": [
+        "_zNKW0Nu5Ee65YvY_tzBAgQ",
+      ],
+    },
+  ],
+  "metadata": [
+    {
+      "absoluteFrequency": 3,
+      "graph": "digraph G {
+            "Class_0"->"Property_0"[label="ownedAttribute"]
+"Class_0"->"Property_0"[label="attribute"]
+"Class_0"->"Property_0"[label="ownedMember"]
+"Class_0"->"Property_0"[label="member"]
+"Class_0"->"Property_0"[label="ownedElement"]
+"Class_0"->"Property_0"[label="feature"]
+"Property_0"->"Class_0"[label="class"]
+"Property_0"->"Class_0"[label="namespace"]
+"Property_0"->"Class_0"[label="owner"]
+"Property_0"->"Class_0"[label="featuringClassifier"]
+"Generalization_0"->"Class_0"[label="relatedElement"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "ownedAttribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "attribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "feature",
+          "target": "Property_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "class",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "featuringClassifier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "relatedElement",
+          "target": "Class_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 2,
+      "graph": "digraph G {
+            "Class_0"->"Property_0"[label="ownedAttribute"]
+"Class_0"->"Property_0"[label="attribute"]
+"Class_0"->"Property_0"[label="ownedMember"]
+"Class_0"->"Property_0"[label="member"]
+"Class_0"->"Property_0"[label="ownedElement"]
+"Class_0"->"Property_0"[label="feature"]
+"Class_1"->"Operation_0"[label="ownedOperation"]
+"Class_1"->"Class_0"[label="general"]
+"Class_1"->"Generalization_0"[label="generalization"]
+"Class_1"->"Class_0"[label="superClass"]
+"Class_1"->"Generalization_0"[label="ownedElement"]
+"Class_1"->"Operation_0"[label="ownedElement"]
+"Class_1"->"Operation_0"[label="feature"]
+"Class_1"->"Operation_0"[label="ownedMember"]
+"Class_1"->"Operation_0"[label="member"]
+"Class_1"->"Property_0"[label="inheritedMember"]
+"Class_1"->"Property_0"[label="member"]
+"TemplateSignature_0"->"Operation_0"[label="template"]
+"TemplateSignature_0"->"OperationTemplateParameter_0"[label="ownedParameter"]
+"TemplateSignature_0"->"OperationTemplateParameter_0"[label="parameter"]
+"TemplateSignature_0"->"Operation_0"[label="owner"]
+"TemplateSignature_0"->"OperationTemplateParameter_0"[label="ownedElement"]
+"OperationTemplateParameter_0"->"Operation_0"[label="parameteredElement"]
+"OperationTemplateParameter_0"->"TemplateSignature_0"[label="owner"]
+"Property_0"->"Class_0"[label="class"]
+"Property_0"->"Class_0"[label="namespace"]
+"Property_0"->"Class_0"[label="owner"]
+"Property_0"->"Class_0"[label="featuringClassifier"]
+"Generalization_0"->"Class_0"[label="general"]
+"Generalization_0"->"Class_0"[label="target"]
+"Generalization_0"->"Class_1"[label="specific"]
+"Generalization_0"->"Class_1"[label="source"]
+"Generalization_0"->"Class_1"[label="relatedElement"]
+"Generalization_0"->"Class_0"[label="relatedElement"]
+"Generalization_0"->"Class_1"[label="owner"]
+"Operation_0"->"Class_1"[label="class"]
+"Operation_0"->"OperationTemplateParameter_0"[label="templateParameter"]
+"Operation_0"->"Class_1"[label="type"]
+"Operation_0"->"TemplateSignature_0"[label="ownedTemplateSignature"]
+"Operation_0"->"Class_1"[label="owner"]
+"Operation_0"->"Class_1"[label="featuringClassifier"]
+"Operation_0"->"Class_1"[label="namespace"]
+"Operation_0"->"TemplateSignature_0"[label="ownedElement"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "ownedAttribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "attribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "feature",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedOperation",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "general",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "generalization",
+          "target": "Generalization_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "superClass",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedElement",
+          "target": "Generalization_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedElement",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "feature",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedMember",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "member",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "inheritedMember",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "member",
+          "target": "Property_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "template",
+          "target": "Operation_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "ownedParameter",
+          "target": "OperationTemplateParameter_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "parameter",
+          "target": "OperationTemplateParameter_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "owner",
+          "target": "Operation_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "ownedElement",
+          "target": "OperationTemplateParameter_0",
+        },
+        {
+          "source": "OperationTemplateParameter_0",
+          "tag": "parameteredElement",
+          "target": "Operation_0",
+        },
+        {
+          "source": "OperationTemplateParameter_0",
+          "tag": "owner",
+          "target": "TemplateSignature_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "class",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "featuringClassifier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "general",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "target",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "specific",
+          "target": "Class_1",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "source",
+          "target": "Class_1",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "relatedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "relatedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "owner",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "class",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "templateParameter",
+          "target": "OperationTemplateParameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "type",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedTemplateSignature",
+          "target": "TemplateSignature_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "owner",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "featuringClassifier",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "namespace",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedElement",
+          "target": "TemplateSignature_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 2,
+      "graph": "digraph G {
+            "Class_0"->"Model_0"[label="package"]
+"Class_0"->"Property_0"[label="ownedAttribute"]
+"Class_0"->"Property_0"[label="attribute"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_0"->"Property_0"[label="ownedMember"]
+"Class_0"->"Property_0"[label="member"]
+"Class_0"->"Property_0"[label="ownedElement"]
+"Class_0"->"Property_0"[label="feature"]
+"Property_0"->"Class_0"[label="class"]
+"Property_0"->"Class_0"[label="namespace"]
+"Property_0"->"Class_0"[label="owner"]
+"Property_0"->"Class_0"[label="featuringClassifier"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Generalization_0"->"Class_0"[label="relatedElement"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedAttribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "attribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "feature",
+          "target": "Property_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "class",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "featuringClassifier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "relatedElement",
+          "target": "Class_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 2,
+      "graph": "digraph G {
+            "Class_0"->"Property_0"[label="ownedAttribute"]
+"Class_0"->"Property_0"[label="attribute"]
+"Class_0"->"Property_0"[label="ownedMember"]
+"Class_0"->"Property_0"[label="member"]
+"Class_0"->"Property_0"[label="ownedElement"]
+"Class_0"->"Property_0"[label="feature"]
+"Property_0"->"Class_0"[label="class"]
+"Property_0"->"Class_0"[label="namespace"]
+"Property_0"->"Class_0"[label="owner"]
+"Property_0"->"Class_0"[label="featuringClassifier"]
+"Generalization_0"->"Class_0"[label="relatedElement"]
+"Parameter_0"->"Operation_0"[label="operation"]
+"Parameter_0"->"Operation_0"[label="owner"]
+"Parameter_0"->"Operation_0"[label="namespace"]
+"Operation_0"->"Parameter_0"[label="ownedParameter"]
+"Operation_0"->"Class_2"[label="raisedException"]
+"Operation_0"->"Parameter_0"[label="ownedElement"]
+"Operation_0"->"Parameter_0"[label="ownedMember"]
+"Operation_0"->"Parameter_0"[label="member"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "ownedAttribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "attribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "feature",
+          "target": "Property_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "class",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "featuringClassifier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "relatedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "operation",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "owner",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "namespace",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedParameter",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "raisedException",
+          "target": "Class_2",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedElement",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedMember",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "member",
+          "target": "Parameter_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 2,
+      "graph": "digraph G {
+            "Package_0"->"Interface_0"[label="member"]
+"Package_1"->"Interface_0"[label="member"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Package_0",
+          "tag": "member",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_1",
+          "tag": "member",
+          "target": "Interface_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 2,
+      "graph": "digraph G {
+            "Class_0"->"Class_1"[label="general"]
+"Class_0"->"Class_1"[label="superClass"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "general",
+          "target": "Class_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "superClass",
+          "target": "Class_1",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 1,
+      "graph": "digraph G {
+            "Class_0"->"Class_1"[label="general"]
+"Class_0"->"Class_1"[label="superClass"]
+"Class_0"->"Model_0"[label="package"]
+"Class_0"->"Property_0"[label="ownedAttribute"]
+"Class_0"->"Property_0"[label="attribute"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_0"->"Property_0"[label="ownedMember"]
+"Class_0"->"Property_0"[label="member"]
+"Class_0"->"Property_0"[label="ownedElement"]
+"Class_0"->"Property_0"[label="feature"]
+"Property_0"->"Class_0"[label="class"]
+"Property_0"->"Class_0"[label="namespace"]
+"Property_0"->"Class_0"[label="owner"]
+"Property_0"->"Class_0"[label="featuringClassifier"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Generalization_0"->"Class_0"[label="relatedElement"]
+"Parameter_0"->"Operation_0"[label="operation"]
+"Parameter_0"->"Operation_0"[label="owner"]
+"Parameter_0"->"Operation_0"[label="namespace"]
+"Operation_0"->"Parameter_0"[label="ownedParameter"]
+"Operation_0"->"Class_2"[label="raisedException"]
+"Operation_0"->"Parameter_0"[label="ownedElement"]
+"Operation_0"->"Parameter_0"[label="ownedMember"]
+"Operation_0"->"Parameter_0"[label="member"]
+"Class_0"->"Class_1"[label="nestedClassifier"]
+"Class_0"->"Port_0"[label="ownedAttribute"]
+"Class_0"->"Port_0"[label="attribute"]
+"Class_0"->"Operation_0"[label="ownedOperation"]
+"Class_0"->"Class_2"[label="general"]
+"Class_0"->"Generalization_0"[label="generalization"]
+"Class_0"->"Generalization_1"[label="generalization"]
+"Class_0"->"Port_0"[label="ownedPort"]
+"Class_0"->"Port_0"[label="part"]
+"Class_0"->"Class_2"[label="superClass"]
+"Class_0"->"Generalization_0"[label="ownedElement"]
+"Class_0"->"Generalization_1"[label="ownedElement"]
+"Class_0"->"Port_0"[label="ownedMember"]
+"Class_0"->"Port_0"[label="member"]
+"Class_0"->"Port_0"[label="ownedElement"]
+"Class_0"->"Port_0"[label="feature"]
+"Class_0"->"TimeInterval_0"[label="ownedMember"]
+"Class_0"->"TimeInterval_0"[label="member"]
+"Class_0"->"Operation_0"[label="ownedElement"]
+"Class_0"->"Operation_0"[label="feature"]
+"Class_0"->"Operation_0"[label="ownedMember"]
+"Class_0"->"Operation_0"[label="member"]
+"Class_0"->"Class_1"[label="ownedMember"]
+"Class_0"->"Class_1"[label="member"]
+"Class_0"->"Class_1"[label="ownedElement"]
+"Class_0"->"Property_1"[label="inheritedMember"]
+"Class_0"->"Property_1"[label="member"]
+"Class_0"->"Property_2"[label="inheritedMember"]
+"Class_0"->"Property_2"[label="member"]
+"Class_1"->"Property_2"[label="ownedAttribute"]
+"Class_1"->"Property_2"[label="attribute"]
+"Class_1"->"Class_0"[label="namespace"]
+"Class_1"->"Class_0"[label="owner"]
+"Class_1"->"Property_2"[label="ownedMember"]
+"Class_1"->"Property_2"[label="member"]
+"Class_1"->"Property_2"[label="ownedElement"]
+"Class_1"->"Property_2"[label="feature"]
+"Class_2"->"Model_0"[label="package"]
+"Class_2"->"Property_1"[label="ownedAttribute"]
+"Class_2"->"Property_1"[label="attribute"]
+"Class_2"->"Model_0"[label="namespace"]
+"Class_2"->"Model_0"[label="owner"]
+"Class_2"->"Property_1"[label="ownedMember"]
+"Class_2"->"Property_1"[label="member"]
+"Class_2"->"Property_1"[label="ownedElement"]
+"Class_2"->"Property_1"[label="feature"]
+"Property_0"->"TimeInterval_0"[label="defaultValue"]
+"Property_0"->"TimeInterval_0"[label="ownedElement"]
+"Property_1"->"Class_2"[label="class"]
+"Property_1"->"Class_2"[label="namespace"]
+"Property_1"->"Class_2"[label="owner"]
+"Property_1"->"Class_2"[label="featuringClassifier"]
+"Property_2"->"Class_1"[label="class"]
+"Property_2"->"Class_1"[label="namespace"]
+"Property_2"->"Class_1"[label="owner"]
+"Property_2"->"Class_1"[label="featuringClassifier"]
+"TimeInterval_0"->"Class_0"[label="namespace"]
+"TimeInterval_0"->"Property_0"[label="owner"]
+"Generalization_0"->"Class_2"[label="general"]
+"Generalization_0"->"Class_2"[label="target"]
+"Generalization_0"->"Class_0"[label="specific"]
+"Generalization_0"->"Class_0"[label="source"]
+"Generalization_0"->"Class_2"[label="relatedElement"]
+"Generalization_0"->"Class_0"[label="owner"]
+"Generalization_1"->"Class_1"[label="general"]
+"Generalization_1"->"Class_1"[label="target"]
+"Generalization_1"->"Class_0"[label="specific"]
+"Generalization_1"->"Class_0"[label="source"]
+"Generalization_1"->"Class_0"[label="relatedElement"]
+"Generalization_1"->"Class_1"[label="relatedElement"]
+"Generalization_1"->"Class_0"[label="owner"]
+"Port_0"->"Class_0"[label="class"]
+"Port_0"->"Class_0"[label="namespace"]
+"Port_0"->"Class_0"[label="owner"]
+"Port_0"->"Class_0"[label="featuringClassifier"]
+"Model_0"->"Class_2"[label="ownedType"]
+"Model_0"->"Class_2"[label="packagedElement"]
+"Model_0"->"Class_2"[label="ownedMember"]
+"Model_0"->"Class_2"[label="member"]
+"Model_0"->"Class_2"[label="ownedElement"]
+"Operation_0"->"Class_0"[label="class"]
+"Operation_0"->"Class_0"[label="type"]
+"Operation_0"->"Class_0"[label="owner"]
+"Operation_0"->"Class_0"[label="featuringClassifier"]
+"Operation_0"->"Class_0"[label="namespace"]
+"Parameter_0"->"Class_0"[label="type"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "general",
+          "target": "Class_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "superClass",
+          "target": "Class_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedAttribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "attribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "feature",
+          "target": "Property_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "class",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "featuringClassifier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "relatedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "operation",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "owner",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "namespace",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedParameter",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "raisedException",
+          "target": "Class_2",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedElement",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedMember",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "member",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "nestedClassifier",
+          "target": "Class_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedAttribute",
+          "target": "Port_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "attribute",
+          "target": "Port_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedOperation",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "general",
+          "target": "Class_2",
+        },
+        {
+          "source": "Class_0",
+          "tag": "generalization",
+          "target": "Generalization_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "generalization",
+          "target": "Generalization_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedPort",
+          "target": "Port_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "part",
+          "target": "Port_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "superClass",
+          "target": "Class_2",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Generalization_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Generalization_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "Port_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Port_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Port_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "feature",
+          "target": "Port_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "TimeInterval_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "TimeInterval_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "feature",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "inheritedMember",
+          "target": "Property_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Property_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "inheritedMember",
+          "target": "Property_2",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Property_2",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedAttribute",
+          "target": "Property_2",
+        },
+        {
+          "source": "Class_1",
+          "tag": "attribute",
+          "target": "Property_2",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedMember",
+          "target": "Property_2",
+        },
+        {
+          "source": "Class_1",
+          "tag": "member",
+          "target": "Property_2",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedElement",
+          "target": "Property_2",
+        },
+        {
+          "source": "Class_1",
+          "tag": "feature",
+          "target": "Property_2",
+        },
+        {
+          "source": "Class_2",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "ownedAttribute",
+          "target": "Property_1",
+        },
+        {
+          "source": "Class_2",
+          "tag": "attribute",
+          "target": "Property_1",
+        },
+        {
+          "source": "Class_2",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "ownedMember",
+          "target": "Property_1",
+        },
+        {
+          "source": "Class_2",
+          "tag": "member",
+          "target": "Property_1",
+        },
+        {
+          "source": "Class_2",
+          "tag": "ownedElement",
+          "target": "Property_1",
+        },
+        {
+          "source": "Class_2",
+          "tag": "feature",
+          "target": "Property_1",
+        },
+        {
+          "source": "Property_0",
+          "tag": "defaultValue",
+          "target": "TimeInterval_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "ownedElement",
+          "target": "TimeInterval_0",
+        },
+        {
+          "source": "Property_1",
+          "tag": "class",
+          "target": "Class_2",
+        },
+        {
+          "source": "Property_1",
+          "tag": "namespace",
+          "target": "Class_2",
+        },
+        {
+          "source": "Property_1",
+          "tag": "owner",
+          "target": "Class_2",
+        },
+        {
+          "source": "Property_1",
+          "tag": "featuringClassifier",
+          "target": "Class_2",
+        },
+        {
+          "source": "Property_2",
+          "tag": "class",
+          "target": "Class_1",
+        },
+        {
+          "source": "Property_2",
+          "tag": "namespace",
+          "target": "Class_1",
+        },
+        {
+          "source": "Property_2",
+          "tag": "owner",
+          "target": "Class_1",
+        },
+        {
+          "source": "Property_2",
+          "tag": "featuringClassifier",
+          "target": "Class_1",
+        },
+        {
+          "source": "TimeInterval_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+        {
+          "source": "TimeInterval_0",
+          "tag": "owner",
+          "target": "Property_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "general",
+          "target": "Class_2",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "target",
+          "target": "Class_2",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "specific",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "source",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "relatedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_1",
+          "tag": "general",
+          "target": "Class_1",
+        },
+        {
+          "source": "Generalization_1",
+          "tag": "target",
+          "target": "Class_1",
+        },
+        {
+          "source": "Generalization_1",
+          "tag": "specific",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_1",
+          "tag": "source",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_1",
+          "tag": "relatedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_1",
+          "tag": "relatedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Generalization_1",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Port_0",
+          "tag": "class",
+          "target": "Class_0",
+        },
+        {
+          "source": "Port_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+        {
+          "source": "Port_0",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Port_0",
+          "tag": "featuringClassifier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "class",
+          "target": "Class_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "type",
+          "target": "Class_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "featuringClassifier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "type",
+          "target": "Class_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 1,
+      "graph": "digraph G {
+            "Package_0"->"Interface_0"[label="member"]
+"Package_1"->"Interface_0"[label="member"]
+"Class_0"->"Model_0"[label="package"]
+"Class_0"->"Property_0"[label="ownedAttribute"]
+"Class_0"->"Property_0"[label="attribute"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_0"->"Property_0"[label="ownedMember"]
+"Class_0"->"Property_0"[label="member"]
+"Class_0"->"Property_0"[label="ownedElement"]
+"Class_0"->"Property_0"[label="feature"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Operation_0"[label="ownedOperation"]
+"Class_1"->"Class_0"[label="general"]
+"Class_1"->"Generalization_0"[label="generalization"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Class_1"->"Class_0"[label="superClass"]
+"Class_1"->"Generalization_0"[label="ownedElement"]
+"Class_1"->"Operation_0"[label="ownedElement"]
+"Class_1"->"Operation_0"[label="feature"]
+"Class_1"->"Operation_0"[label="ownedMember"]
+"Class_1"->"Operation_0"[label="member"]
+"Class_1"->"Property_0"[label="inheritedMember"]
+"Class_1"->"Property_0"[label="member"]
+"Interface_0"->"Package_0"[label="package"]
+"Interface_0"->"Interface_1"[label="nestedClassifier"]
+"Interface_0"->"Package_0"[label="namespace"]
+"Interface_0"->"Package_0"[label="owner"]
+"Interface_0"->"Interface_1"[label="ownedMember"]
+"Interface_0"->"Interface_1"[label="member"]
+"Interface_0"->"Interface_1"[label="ownedElement"]
+"Interface_1"->"Interface_0"[label="namespace"]
+"Interface_1"->"Interface_0"[label="owner"]
+"TemplateSignature_0"->"Operation_0"[label="template"]
+"TemplateSignature_0"->"OperationTemplateParameter_0"[label="ownedParameter"]
+"TemplateSignature_0"->"OperationTemplateParameter_0"[label="parameter"]
+"TemplateSignature_0"->"Operation_0"[label="owner"]
+"TemplateSignature_0"->"OperationTemplateParameter_0"[label="ownedElement"]
+"OperationTemplateParameter_0"->"Operation_0"[label="parameteredElement"]
+"OperationTemplateParameter_0"->"TemplateSignature_0"[label="owner"]
+"Property_0"->"Class_0"[label="class"]
+"Property_0"->"Class_0"[label="namespace"]
+"Property_0"->"Class_0"[label="owner"]
+"Property_0"->"Class_0"[label="featuringClassifier"]
+"Model_0"->"Package_0"[label="nestedPackage"]
+"Model_0"->"Package_1"[label="nestedPackage"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Package_0"[label="packagedElement"]
+"Model_0"->"Package_1"[label="packagedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Model_0"->"Package_0"[label="ownedElement"]
+"Model_0"->"Package_0"[label="ownedMember"]
+"Model_0"->"Package_0"[label="member"]
+"Model_0"->"Package_1"[label="ownedElement"]
+"Model_0"->"Package_1"[label="ownedMember"]
+"Model_0"->"Package_1"[label="member"]
+"Generalization_0"->"Class_0"[label="general"]
+"Generalization_0"->"Class_0"[label="target"]
+"Generalization_0"->"Class_1"[label="specific"]
+"Generalization_0"->"Class_1"[label="source"]
+"Generalization_0"->"Class_1"[label="relatedElement"]
+"Generalization_0"->"Class_0"[label="relatedElement"]
+"Generalization_0"->"Class_1"[label="owner"]
+"Operation_0"->"Class_1"[label="class"]
+"Operation_0"->"Class_0"[label="raisedException"]
+"Operation_0"->"OperationTemplateParameter_0"[label="templateParameter"]
+"Operation_0"->"Class_1"[label="type"]
+"Operation_0"->"TemplateSignature_0"[label="ownedTemplateSignature"]
+"Operation_0"->"Class_1"[label="owner"]
+"Operation_0"->"Class_1"[label="featuringClassifier"]
+"Operation_0"->"Class_1"[label="namespace"]
+"Operation_0"->"TemplateSignature_0"[label="ownedElement"]
+"Package_0"->"Model_0"[label="nestingPackage"]
+"Package_0"->"Interface_0"[label="ownedType"]
+"Package_0"->"Interface_0"[label="packagedElement"]
+"Package_0"->"Model_0"[label="owner"]
+"Package_0"->"Model_0"[label="namespace"]
+"Package_0"->"Interface_0"[label="ownedMember"]
+"Package_0"->"Interface_0"[label="ownedElement"]
+"Package_1"->"Model_0"[label="nestingPackage"]
+"Package_1"->"Model_0"[label="owner"]
+"Package_1"->"Model_0"[label="namespace"]
+"Package_1"->"Interface_0"[label="importedMember"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Package_0",
+          "tag": "member",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_1",
+          "tag": "member",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedAttribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "attribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "feature",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedOperation",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "general",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "generalization",
+          "target": "Generalization_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "superClass",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedElement",
+          "target": "Generalization_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedElement",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "feature",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedMember",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "member",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "inheritedMember",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "member",
+          "target": "Property_0",
+        },
+        {
+          "source": "Interface_0",
+          "tag": "package",
+          "target": "Package_0",
+        },
+        {
+          "source": "Interface_0",
+          "tag": "nestedClassifier",
+          "target": "Interface_1",
+        },
+        {
+          "source": "Interface_0",
+          "tag": "namespace",
+          "target": "Package_0",
+        },
+        {
+          "source": "Interface_0",
+          "tag": "owner",
+          "target": "Package_0",
+        },
+        {
+          "source": "Interface_0",
+          "tag": "ownedMember",
+          "target": "Interface_1",
+        },
+        {
+          "source": "Interface_0",
+          "tag": "member",
+          "target": "Interface_1",
+        },
+        {
+          "source": "Interface_0",
+          "tag": "ownedElement",
+          "target": "Interface_1",
+        },
+        {
+          "source": "Interface_1",
+          "tag": "namespace",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Interface_1",
+          "tag": "owner",
+          "target": "Interface_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "template",
+          "target": "Operation_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "ownedParameter",
+          "target": "OperationTemplateParameter_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "parameter",
+          "target": "OperationTemplateParameter_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "owner",
+          "target": "Operation_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "ownedElement",
+          "target": "OperationTemplateParameter_0",
+        },
+        {
+          "source": "OperationTemplateParameter_0",
+          "tag": "parameteredElement",
+          "target": "Operation_0",
+        },
+        {
+          "source": "OperationTemplateParameter_0",
+          "tag": "owner",
+          "target": "TemplateSignature_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "class",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "featuringClassifier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "nestedPackage",
+          "target": "Package_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "nestedPackage",
+          "target": "Package_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Package_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Package_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Package_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Package_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Package_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Package_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Package_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Package_1",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "general",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "target",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "specific",
+          "target": "Class_1",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "source",
+          "target": "Class_1",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "relatedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "relatedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "owner",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "class",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "raisedException",
+          "target": "Class_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "templateParameter",
+          "target": "OperationTemplateParameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "type",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedTemplateSignature",
+          "target": "TemplateSignature_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "owner",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "featuringClassifier",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "namespace",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedElement",
+          "target": "TemplateSignature_0",
+        },
+        {
+          "source": "Package_0",
+          "tag": "nestingPackage",
+          "target": "Model_0",
+        },
+        {
+          "source": "Package_0",
+          "tag": "ownedType",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_0",
+          "tag": "packagedElement",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Package_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Package_0",
+          "tag": "ownedMember",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_0",
+          "tag": "ownedElement",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_1",
+          "tag": "nestingPackage",
+          "target": "Model_0",
+        },
+        {
+          "source": "Package_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Package_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Package_1",
+          "tag": "importedMember",
+          "target": "Interface_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 1,
+      "graph": "digraph G {
+            "Model_0"->"PackageImport_0"[label="owner"]
+"Model_0"->"Model_1"[label="namespace"]
+"Model_1"->"Package_1"[label="nestedPackage"]
+"Model_1"->"Package_0"[label="nestedPackage"]
+"Model_1"->"Class_0"[label="ownedType"]
+"Model_1"->"Class_1"[label="ownedType"]
+"Model_1"->"Class_0"[label="packagedElement"]
+"Model_1"->"Class_1"[label="packagedElement"]
+"Model_1"->"Package_1"[label="packagedElement"]
+"Model_1"->"Package_0"[label="packagedElement"]
+"Model_1"->"PackageImport_0"[label="packageImport"]
+"Model_1"->"PackageImport_0"[label="ownedElement"]
+"Model_1"->"Model_0"[label="ownedMember"]
+"Model_1"->"Model_0"[label="member"]
+"Model_1"->"Class_0"[label="ownedMember"]
+"Model_1"->"Class_0"[label="member"]
+"Model_1"->"Class_0"[label="ownedElement"]
+"Model_1"->"Class_1"[label="ownedMember"]
+"Model_1"->"Class_1"[label="member"]
+"Model_1"->"Class_1"[label="ownedElement"]
+"Model_1"->"Package_1"[label="ownedElement"]
+"Model_1"->"Package_1"[label="ownedMember"]
+"Model_1"->"Package_1"[label="member"]
+"Model_1"->"Package_0"[label="ownedElement"]
+"Model_1"->"Package_0"[label="ownedMember"]
+"Model_1"->"Package_0"[label="member"]
+"Package_0"->"Model_1"[label="nestingPackage"]
+"Package_0"->"Model_1"[label="owner"]
+"Package_0"->"Model_1"[label="namespace"]
+"Package_0"->"PackageImport_1"[label="packageImport"]
+"Package_0"->"PackageImport_1"[label="ownedElement"]
+"Package_0"->"Package_2"[label="importedMember"]
+"Package_0"->"Package_2"[label="member"]
+"Package_0"->"Interface_0"[label="importedMember"]
+"Package_0"->"Interface_0"[label="member"]
+"Package_1"->"Model_1"[label="nestingPackage"]
+"Package_1"->"Package_2"[label="nestedPackage"]
+"Package_1"->"Interface_0"[label="ownedType"]
+"Package_1"->"Package_2"[label="packagedElement"]
+"Package_1"->"Interface_0"[label="packagedElement"]
+"Package_1"->"Model_1"[label="owner"]
+"Package_1"->"Model_1"[label="namespace"]
+"Package_1"->"Package_2"[label="ownedElement"]
+"Package_1"->"Package_2"[label="ownedMember"]
+"Package_1"->"Package_2"[label="member"]
+"Package_1"->"Interface_0"[label="ownedMember"]
+"Package_1"->"Interface_0"[label="member"]
+"Package_1"->"Interface_0"[label="ownedElement"]
+"Package_2"->"Package_1"[label="nestingPackage"]
+"Package_2"->"Package_1"[label="owner"]
+"Package_2"->"Package_1"[label="namespace"]
+"PackageImport_0"->"Model_0"[label="importedPackage"]
+"PackageImport_0"->"Model_0"[label="target"]
+"PackageImport_0"->"Model_1"[label="importingNamespace"]
+"PackageImport_0"->"Model_1"[label="source"]
+"PackageImport_0"->"Model_1"[label="relatedElement"]
+"PackageImport_0"->"Model_0"[label="relatedElement"]
+"PackageImport_0"->"Model_1"[label="owner"]
+"PackageImport_0"->"Model_0"[label="ownedElement"]
+"PackageImport_1"->"Package_1"[label="importedPackage"]
+"PackageImport_1"->"Package_1"[label="target"]
+"PackageImport_1"->"Package_0"[label="importingNamespace"]
+"PackageImport_1"->"Package_0"[label="source"]
+"PackageImport_1"->"Package_0"[label="relatedElement"]
+"PackageImport_1"->"Package_1"[label="relatedElement"]
+"PackageImport_1"->"Package_0"[label="owner"]
+"Interface_0"->"Package_1"[label="package"]
+"Interface_0"->"Package_1"[label="namespace"]
+"Interface_0"->"Package_1"[label="owner"]
+"Class_0"->"Model_1"[label="package"]
+"Class_0"->"Class_1"[label="general"]
+"Class_0"->"Model_1"[label="namespace"]
+"Class_0"->"Model_1"[label="owner"]
+"Class_0"->"Class_1"[label="superClass"]
+"Class_1"->"Model_1"[label="package"]
+"Class_1"->"Model_1"[label="namespace"]
+"Class_1"->"Model_1"[label="owner"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Model_0",
+          "tag": "owner",
+          "target": "PackageImport_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "namespace",
+          "target": "Model_1",
+        },
+        {
+          "source": "Model_1",
+          "tag": "nestedPackage",
+          "target": "Package_1",
+        },
+        {
+          "source": "Model_1",
+          "tag": "nestedPackage",
+          "target": "Package_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_1",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_1",
+          "tag": "packagedElement",
+          "target": "Package_1",
+        },
+        {
+          "source": "Model_1",
+          "tag": "packagedElement",
+          "target": "Package_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "packageImport",
+          "target": "PackageImport_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "ownedElement",
+          "target": "PackageImport_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "ownedMember",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "member",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_1",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_1",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_1",
+          "tag": "ownedElement",
+          "target": "Package_1",
+        },
+        {
+          "source": "Model_1",
+          "tag": "ownedMember",
+          "target": "Package_1",
+        },
+        {
+          "source": "Model_1",
+          "tag": "member",
+          "target": "Package_1",
+        },
+        {
+          "source": "Model_1",
+          "tag": "ownedElement",
+          "target": "Package_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "ownedMember",
+          "target": "Package_0",
+        },
+        {
+          "source": "Model_1",
+          "tag": "member",
+          "target": "Package_0",
+        },
+        {
+          "source": "Package_0",
+          "tag": "nestingPackage",
+          "target": "Model_1",
+        },
+        {
+          "source": "Package_0",
+          "tag": "owner",
+          "target": "Model_1",
+        },
+        {
+          "source": "Package_0",
+          "tag": "namespace",
+          "target": "Model_1",
+        },
+        {
+          "source": "Package_0",
+          "tag": "packageImport",
+          "target": "PackageImport_1",
+        },
+        {
+          "source": "Package_0",
+          "tag": "ownedElement",
+          "target": "PackageImport_1",
+        },
+        {
+          "source": "Package_0",
+          "tag": "importedMember",
+          "target": "Package_2",
+        },
+        {
+          "source": "Package_0",
+          "tag": "member",
+          "target": "Package_2",
+        },
+        {
+          "source": "Package_0",
+          "tag": "importedMember",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_0",
+          "tag": "member",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_1",
+          "tag": "nestingPackage",
+          "target": "Model_1",
+        },
+        {
+          "source": "Package_1",
+          "tag": "nestedPackage",
+          "target": "Package_2",
+        },
+        {
+          "source": "Package_1",
+          "tag": "ownedType",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_1",
+          "tag": "packagedElement",
+          "target": "Package_2",
+        },
+        {
+          "source": "Package_1",
+          "tag": "packagedElement",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_1",
+          "tag": "owner",
+          "target": "Model_1",
+        },
+        {
+          "source": "Package_1",
+          "tag": "namespace",
+          "target": "Model_1",
+        },
+        {
+          "source": "Package_1",
+          "tag": "ownedElement",
+          "target": "Package_2",
+        },
+        {
+          "source": "Package_1",
+          "tag": "ownedMember",
+          "target": "Package_2",
+        },
+        {
+          "source": "Package_1",
+          "tag": "member",
+          "target": "Package_2",
+        },
+        {
+          "source": "Package_1",
+          "tag": "ownedMember",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_1",
+          "tag": "member",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_1",
+          "tag": "ownedElement",
+          "target": "Interface_0",
+        },
+        {
+          "source": "Package_2",
+          "tag": "nestingPackage",
+          "target": "Package_1",
+        },
+        {
+          "source": "Package_2",
+          "tag": "owner",
+          "target": "Package_1",
+        },
+        {
+          "source": "Package_2",
+          "tag": "namespace",
+          "target": "Package_1",
+        },
+        {
+          "source": "PackageImport_0",
+          "tag": "importedPackage",
+          "target": "Model_0",
+        },
+        {
+          "source": "PackageImport_0",
+          "tag": "target",
+          "target": "Model_0",
+        },
+        {
+          "source": "PackageImport_0",
+          "tag": "importingNamespace",
+          "target": "Model_1",
+        },
+        {
+          "source": "PackageImport_0",
+          "tag": "source",
+          "target": "Model_1",
+        },
+        {
+          "source": "PackageImport_0",
+          "tag": "relatedElement",
+          "target": "Model_1",
+        },
+        {
+          "source": "PackageImport_0",
+          "tag": "relatedElement",
+          "target": "Model_0",
+        },
+        {
+          "source": "PackageImport_0",
+          "tag": "owner",
+          "target": "Model_1",
+        },
+        {
+          "source": "PackageImport_0",
+          "tag": "ownedElement",
+          "target": "Model_0",
+        },
+        {
+          "source": "PackageImport_1",
+          "tag": "importedPackage",
+          "target": "Package_1",
+        },
+        {
+          "source": "PackageImport_1",
+          "tag": "target",
+          "target": "Package_1",
+        },
+        {
+          "source": "PackageImport_1",
+          "tag": "importingNamespace",
+          "target": "Package_0",
+        },
+        {
+          "source": "PackageImport_1",
+          "tag": "source",
+          "target": "Package_0",
+        },
+        {
+          "source": "PackageImport_1",
+          "tag": "relatedElement",
+          "target": "Package_0",
+        },
+        {
+          "source": "PackageImport_1",
+          "tag": "relatedElement",
+          "target": "Package_1",
+        },
+        {
+          "source": "PackageImport_1",
+          "tag": "owner",
+          "target": "Package_0",
+        },
+        {
+          "source": "Interface_0",
+          "tag": "package",
+          "target": "Package_1",
+        },
+        {
+          "source": "Interface_0",
+          "tag": "namespace",
+          "target": "Package_1",
+        },
+        {
+          "source": "Interface_0",
+          "tag": "owner",
+          "target": "Package_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "general",
+          "target": "Class_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "superClass",
+          "target": "Class_1",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_1",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_1",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_1",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 1,
+      "graph": "digraph G {
+            "Class_0"->"Property_0"[label="ownedAttribute"]
+"Class_0"->"Property_0"[label="attribute"]
+"Class_0"->"Property_0"[label="ownedMember"]
+"Class_0"->"Property_0"[label="member"]
+"Class_0"->"Property_0"[label="ownedElement"]
+"Class_0"->"Property_0"[label="feature"]
+"Class_1"->"Operation_0"[label="ownedOperation"]
+"Class_1"->"Class_0"[label="general"]
+"Class_1"->"Generalization_0"[label="generalization"]
+"Class_1"->"Class_0"[label="superClass"]
+"Class_1"->"Generalization_0"[label="ownedElement"]
+"Class_1"->"Operation_0"[label="ownedElement"]
+"Class_1"->"Operation_0"[label="feature"]
+"Class_1"->"Operation_0"[label="ownedMember"]
+"Class_1"->"Operation_0"[label="member"]
+"Class_1"->"Property_0"[label="inheritedMember"]
+"Class_1"->"Property_0"[label="member"]
+"TemplateSignature_0"->"Operation_0"[label="template"]
+"TemplateSignature_0"->"OperationTemplateParameter_0"[label="ownedParameter"]
+"TemplateSignature_0"->"OperationTemplateParameter_0"[label="parameter"]
+"TemplateSignature_0"->"Operation_0"[label="owner"]
+"TemplateSignature_0"->"OperationTemplateParameter_0"[label="ownedElement"]
+"OperationTemplateParameter_0"->"Operation_0"[label="parameteredElement"]
+"OperationTemplateParameter_0"->"TemplateSignature_0"[label="owner"]
+"Property_0"->"Class_0"[label="class"]
+"Property_0"->"Class_0"[label="namespace"]
+"Property_0"->"Class_0"[label="owner"]
+"Property_0"->"Class_0"[label="featuringClassifier"]
+"Generalization_0"->"Class_0"[label="general"]
+"Generalization_0"->"Class_0"[label="target"]
+"Generalization_0"->"Class_1"[label="specific"]
+"Generalization_0"->"Class_1"[label="source"]
+"Generalization_0"->"Class_1"[label="relatedElement"]
+"Generalization_0"->"Class_0"[label="relatedElement"]
+"Generalization_0"->"Class_1"[label="owner"]
+"Operation_0"->"Class_1"[label="class"]
+"Operation_0"->"OperationTemplateParameter_0"[label="templateParameter"]
+"Operation_0"->"Class_1"[label="type"]
+"Operation_0"->"TemplateSignature_0"[label="ownedTemplateSignature"]
+"Operation_0"->"Class_1"[label="owner"]
+"Operation_0"->"Class_1"[label="featuringClassifier"]
+"Operation_0"->"Class_1"[label="namespace"]
+"Operation_0"->"TemplateSignature_0"[label="ownedElement"]
+"Parameter_0"->"Operation_0"[label="operation"]
+"Parameter_0"->"LiteralInteger_0"[label="lowerValue"]
+"Parameter_0"->"LiteralUnlimitedNatural_0"[label="upperValue"]
+"Parameter_0"->"Operation_0"[label="owner"]
+"Parameter_0"->"Class_1"[label="type"]
+"Parameter_0"->"Operation_0"[label="namespace"]
+"Parameter_0"->"LiteralInteger_0"[label="ownedElement"]
+"Parameter_0"->"LiteralUnlimitedNatural_0"[label="ownedElement"]
+"Class_0"->"Class_1"[label="namespace"]
+"Class_0"->"Class_1"[label="owner"]
+"Class_1"->"Class_0"[label="nestedClassifier"]
+"Class_1"->"Class_2"[label="general"]
+"Class_1"->"Class_2"[label="superClass"]
+"Class_1"->"Class_0"[label="ownedMember"]
+"Class_1"->"Class_0"[label="member"]
+"Class_1"->"Class_0"[label="ownedElement"]
+"LiteralInteger_0"->"Operation_0"[label="namespace"]
+"LiteralInteger_0"->"Parameter_0"[label="owner"]
+"LiteralUnlimitedNatural_0"->"Operation_0"[label="namespace"]
+"LiteralUnlimitedNatural_0"->"Parameter_0"[label="owner"]
+"Operation_0"->"Parameter_0"[label="ownedParameter"]
+"Operation_0"->"Class_2"[label="raisedException"]
+"Operation_0"->"Parameter_0"[label="ownedElement"]
+"Operation_0"->"Parameter_0"[label="ownedMember"]
+"Operation_0"->"Parameter_0"[label="member"]
+"Operation_0"->"LiteralInteger_0"[label="ownedMember"]
+"Operation_0"->"LiteralInteger_0"[label="member"]
+"Operation_0"->"LiteralUnlimitedNatural_0"[label="ownedMember"]
+"Operation_0"->"LiteralUnlimitedNatural_0"[label="member"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "ownedAttribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "attribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "feature",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedOperation",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "general",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "generalization",
+          "target": "Generalization_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "superClass",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedElement",
+          "target": "Generalization_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedElement",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "feature",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedMember",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "member",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "inheritedMember",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "member",
+          "target": "Property_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "template",
+          "target": "Operation_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "ownedParameter",
+          "target": "OperationTemplateParameter_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "parameter",
+          "target": "OperationTemplateParameter_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "owner",
+          "target": "Operation_0",
+        },
+        {
+          "source": "TemplateSignature_0",
+          "tag": "ownedElement",
+          "target": "OperationTemplateParameter_0",
+        },
+        {
+          "source": "OperationTemplateParameter_0",
+          "tag": "parameteredElement",
+          "target": "Operation_0",
+        },
+        {
+          "source": "OperationTemplateParameter_0",
+          "tag": "owner",
+          "target": "TemplateSignature_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "class",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "featuringClassifier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "general",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "target",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "specific",
+          "target": "Class_1",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "source",
+          "target": "Class_1",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "relatedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "relatedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Generalization_0",
+          "tag": "owner",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "class",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "templateParameter",
+          "target": "OperationTemplateParameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "type",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedTemplateSignature",
+          "target": "TemplateSignature_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "owner",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "featuringClassifier",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "namespace",
+          "target": "Class_1",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedElement",
+          "target": "TemplateSignature_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "operation",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "lowerValue",
+          "target": "LiteralInteger_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "upperValue",
+          "target": "LiteralUnlimitedNatural_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "owner",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "type",
+          "target": "Class_1",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "namespace",
+          "target": "Operation_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "ownedElement",
+          "target": "LiteralInteger_0",
+        },
+        {
+          "source": "Parameter_0",
+          "tag": "ownedElement",
+          "target": "LiteralUnlimitedNatural_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Class_1",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Class_1",
+        },
+        {
+          "source": "Class_1",
+          "tag": "nestedClassifier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "general",
+          "target": "Class_2",
+        },
+        {
+          "source": "Class_1",
+          "tag": "superClass",
+          "target": "Class_2",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "LiteralInteger_0",
+          "tag": "namespace",
+          "target": "Operation_0",
+        },
+        {
+          "source": "LiteralInteger_0",
+          "tag": "owner",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "LiteralUnlimitedNatural_0",
+          "tag": "namespace",
+          "target": "Operation_0",
+        },
+        {
+          "source": "LiteralUnlimitedNatural_0",
+          "tag": "owner",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedParameter",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "raisedException",
+          "target": "Class_2",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedElement",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedMember",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "member",
+          "target": "Parameter_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedMember",
+          "target": "LiteralInteger_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "member",
+          "target": "LiteralInteger_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "ownedMember",
+          "target": "LiteralUnlimitedNatural_0",
+        },
+        {
+          "source": "Operation_0",
+          "tag": "member",
+          "target": "LiteralUnlimitedNatural_0",
+        },
+      ],
+    },
+  ],
+}

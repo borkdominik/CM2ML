@@ -1,4 +1,4 @@
-import { BagOfPathsEncoder } from '@cm2ml/builtin'
+import { PatternMiner } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { ExecutionError } from '@cm2ml/plugin'
 import { DownloadIcon } from '@radix-ui/react-icons'
@@ -30,8 +30,8 @@ export interface Props {
   parameters: ParameterValues
 }
 
-export function BagOfPathsEncoding({ model, parameters }: Props) {
-  const { encoding, error } = useEncoder(BagOfPathsEncoder, model, parameters)
+export function PatternEncoding({ model, parameters }: Props) {
+  const { encoding, error } = useEncoder(PatternMiner, model, parameters)
   if (error || !encoding) {
     return <Hint error={error} />
   }

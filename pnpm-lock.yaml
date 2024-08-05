@@ -88,7 +88,7 @@ importers:
         specifier: 6.0.1
         version: 6.0.1
 
-  packages/encoder/bag-of-paths-encoder:
+  packages/encoder/pattern-miner:
     dependencies:
       '@cm2ml/ir':
         specifier: workspace:*
@@ -236,9 +236,9 @@ importers:
       '@cm2ml/archimate':
         specifier: workspace:*
         version: link:../../languages/archimate
-      '@cm2ml/bag-of-paths-encoder':
+      '@cm2ml/pattern-miner':
         specifier: workspace:*
-        version: link:../../encoder/bag-of-paths-encoder
+        version: link:../../encoder/pattern-miner
       '@cm2ml/ecore':
         specifier: workspace:*
         version: link:../../languages/ecore

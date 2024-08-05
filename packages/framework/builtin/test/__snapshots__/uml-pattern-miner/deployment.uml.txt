@@ -1,0 +1,1833 @@
+{
+  "data": [
+    {
+      "Artifact_0": [
+        "_FIW24PifEe6PhJwEQ2R2dA",
+        "_9-mJcPifEe6PhJwEQ2R2dA",
+      ],
+      "Artifact_1": [
+        "_9-mJcPifEe6PhJwEQ2R2dA",
+        "_FIW24PifEe6PhJwEQ2R2dA",
+      ],
+      "Class_0": [
+        "_onBH4PifEe6PhJwEQ2R2dA",
+        "_qiUW8PifEe6PhJwEQ2R2dA",
+      ],
+      "Class_1": [
+        "_qiUW8PifEe6PhJwEQ2R2dA",
+        "_onBH4PifEe6PhJwEQ2R2dA",
+      ],
+      "Class_2": [
+        "_7flJUPifEe6PhJwEQ2R2dA",
+      ],
+      "Deployment_0": [
+        "_J7D7cPigEe6PhJwEQ2R2dA",
+        "_MNBXAPigEe6PhJwEQ2R2dA",
+      ],
+      "Deployment_1": [
+        "_MNBXAPigEe6PhJwEQ2R2dA",
+      ],
+      "Manifestation_0": [
+        "_uXlYUPifEe6PhJwEQ2R2dA",
+        "_CMuWwPigEe6PhJwEQ2R2dA",
+      ],
+      "Manifestation_1": [
+        "_3aJlAPifEe6PhJwEQ2R2dA",
+        "_uXlYUPifEe6PhJwEQ2R2dA",
+      ],
+      "Manifestation_2": [
+        "_3aJlAPifEe6PhJwEQ2R2dA",
+      ],
+      "Model_0": [
+        "_0V2YcPidEe6PhJwEQ2R2dA",
+      ],
+      "Node_0": [
+        "_RGi8oPieEe6PhJwEQ2R2dA",
+      ],
+    },
+  ],
+  "metadata": [
+    {
+      "absoluteFrequency": 2,
+      "graph": "digraph G {
+            "Manifestation_0"->"Artifact_0"[label="client"]
+"Manifestation_0"->"Artifact_0"[label="source"]
+"Manifestation_0"->"Artifact_0"[label="relatedElement"]
+"Manifestation_0"->"Artifact_0"[label="owner"]
+"Manifestation_0"->"Artifact_0"[label="namespace"]
+"Manifestation_1"->"Class_1"[label="utilizedElement"]
+"Manifestation_1"->"Class_1"[label="supplier"]
+"Manifestation_1"->"Class_1"[label="target"]
+"Manifestation_1"->"Class_1"[label="relatedElement"]
+"Deployment_0"->"Node_0"[label="location"]
+"Deployment_0"->"Artifact_0"[label="deployedArtifact"]
+"Deployment_0"->"Node_0"[label="client"]
+"Deployment_0"->"Node_0"[label="source"]
+"Deployment_0"->"Artifact_0"[label="supplier"]
+"Deployment_0"->"Artifact_0"[label="target"]
+"Deployment_0"->"Node_0"[label="relatedElement"]
+"Deployment_0"->"Artifact_0"[label="relatedElement"]
+"Deployment_0"->"Node_0"[label="owner"]
+"Deployment_0"->"Node_0"[label="namespace"]
+"Artifact_0"->"Model_0"[label="package"]
+"Artifact_0"->"Manifestation_0"[label="manifestation"]
+"Artifact_0"->"Model_0"[label="namespace"]
+"Artifact_0"->"Model_0"[label="owner"]
+"Artifact_0"->"Manifestation_0"[label="ownedElement"]
+"Artifact_0"->"Manifestation_0"[label="ownedMember"]
+"Artifact_0"->"Manifestation_0"[label="member"]
+"Artifact_1"->"Model_0"[label="package"]
+"Artifact_1"->"Model_0"[label="namespace"]
+"Artifact_1"->"Model_0"[label="owner"]
+"Node_0"->"Model_0"[label="package"]
+"Node_0"->"Model_0"[label="namespace"]
+"Node_0"->"Model_0"[label="owner"]
+"Node_0"->"Deployment_0"[label="deployment"]
+"Node_0"->"Deployment_0"[label="ownedElement"]
+"Node_0"->"Deployment_0"[label="ownedMember"]
+"Node_0"->"Deployment_0"[label="member"]
+"Node_0"->"Class_0"[label="deployedElement"]
+"Node_0"->"Class_1"[label="deployedElement"]
+"Node_0"->"Class_2"[label="deployedElement"]
+"Class_0"->"Model_0"[label="package"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Class_2"->"Model_0"[label="package"]
+"Class_2"->"Model_0"[label="namespace"]
+"Class_2"->"Model_0"[label="owner"]
+"Model_0"->"Node_0"[label="ownedType"]
+"Model_0"->"Artifact_0"[label="ownedType"]
+"Model_0"->"Artifact_1"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_2"[label="ownedType"]
+"Model_0"->"Node_0"[label="packagedElement"]
+"Model_0"->"Artifact_0"[label="packagedElement"]
+"Model_0"->"Artifact_1"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_2"[label="packagedElement"]
+"Model_0"->"Node_0"[label="ownedMember"]
+"Model_0"->"Node_0"[label="member"]
+"Model_0"->"Node_0"[label="ownedElement"]
+"Model_0"->"Artifact_0"[label="ownedMember"]
+"Model_0"->"Artifact_0"[label="member"]
+"Model_0"->"Artifact_0"[label="ownedElement"]
+"Model_0"->"Artifact_1"[label="ownedMember"]
+"Model_0"->"Artifact_1"[label="member"]
+"Model_0"->"Artifact_1"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_2"[label="ownedMember"]
+"Model_0"->"Class_2"[label="member"]
+"Model_0"->"Class_2"[label="ownedElement"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Manifestation_0",
+          "tag": "client",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "source",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "relatedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "owner",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "namespace",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "utilizedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "supplier",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "target",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "relatedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "location",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "deployedArtifact",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "client",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "source",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "supplier",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "target",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "relatedElement",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "relatedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "owner",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "namespace",
+          "target": "Node_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "manifestation",
+          "target": "Manifestation_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "ownedElement",
+          "target": "Manifestation_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "ownedMember",
+          "target": "Manifestation_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "member",
+          "target": "Manifestation_0",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployment",
+          "target": "Deployment_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "ownedElement",
+          "target": "Deployment_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "ownedMember",
+          "target": "Deployment_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "member",
+          "target": "Deployment_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_2",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 1,
+      "graph": "digraph G {
+            "Manifestation_0"->"Class_0"[label="utilizedElement"]
+"Manifestation_0"->"Artifact_0"[label="client"]
+"Manifestation_0"->"Artifact_0"[label="source"]
+"Manifestation_0"->"Class_0"[label="supplier"]
+"Manifestation_0"->"Class_0"[label="target"]
+"Manifestation_0"->"Class_1"[label="supplier"]
+"Manifestation_0"->"Class_1"[label="target"]
+"Manifestation_0"->"Artifact_0"[label="relatedElement"]
+"Manifestation_0"->"Class_0"[label="relatedElement"]
+"Manifestation_0"->"Class_1"[label="relatedElement"]
+"Manifestation_0"->"Artifact_0"[label="owner"]
+"Manifestation_0"->"Artifact_0"[label="namespace"]
+"Manifestation_1"->"Class_1"[label="utilizedElement"]
+"Manifestation_1"->"Artifact_0"[label="client"]
+"Manifestation_1"->"Artifact_0"[label="source"]
+"Manifestation_1"->"Class_1"[label="supplier"]
+"Manifestation_1"->"Class_1"[label="target"]
+"Manifestation_1"->"Artifact_0"[label="relatedElement"]
+"Manifestation_1"->"Class_1"[label="relatedElement"]
+"Manifestation_1"->"Artifact_0"[label="owner"]
+"Manifestation_1"->"Artifact_0"[label="namespace"]
+"Deployment_0"->"Node_0"[label="location"]
+"Deployment_0"->"Artifact_0"[label="deployedArtifact"]
+"Deployment_0"->"Node_0"[label="client"]
+"Deployment_0"->"Node_0"[label="source"]
+"Deployment_0"->"Artifact_0"[label="supplier"]
+"Deployment_0"->"Artifact_0"[label="target"]
+"Deployment_0"->"Node_0"[label="relatedElement"]
+"Deployment_0"->"Artifact_0"[label="relatedElement"]
+"Deployment_0"->"Node_0"[label="owner"]
+"Deployment_0"->"Node_0"[label="namespace"]
+"Deployment_1"->"Node_0"[label="location"]
+"Deployment_1"->"Artifact_1"[label="deployedArtifact"]
+"Deployment_1"->"Node_0"[label="client"]
+"Deployment_1"->"Node_0"[label="source"]
+"Deployment_1"->"Artifact_1"[label="supplier"]
+"Deployment_1"->"Artifact_1"[label="target"]
+"Deployment_1"->"Node_0"[label="relatedElement"]
+"Deployment_1"->"Artifact_1"[label="relatedElement"]
+"Deployment_1"->"Node_0"[label="owner"]
+"Deployment_1"->"Node_0"[label="namespace"]
+"Artifact_0"->"Model_0"[label="package"]
+"Artifact_0"->"Manifestation_0"[label="manifestation"]
+"Artifact_0"->"Manifestation_1"[label="manifestation"]
+"Artifact_0"->"Model_0"[label="namespace"]
+"Artifact_0"->"Model_0"[label="owner"]
+"Artifact_0"->"Manifestation_0"[label="ownedElement"]
+"Artifact_0"->"Manifestation_0"[label="ownedMember"]
+"Artifact_0"->"Manifestation_0"[label="member"]
+"Artifact_0"->"Manifestation_1"[label="ownedElement"]
+"Artifact_0"->"Manifestation_1"[label="ownedMember"]
+"Artifact_0"->"Manifestation_1"[label="member"]
+"Artifact_1"->"Model_0"[label="package"]
+"Artifact_1"->"Model_0"[label="namespace"]
+"Artifact_1"->"Model_0"[label="owner"]
+"Node_0"->"Model_0"[label="package"]
+"Node_0"->"Model_0"[label="namespace"]
+"Node_0"->"Model_0"[label="owner"]
+"Node_0"->"Deployment_0"[label="deployment"]
+"Node_0"->"Deployment_1"[label="deployment"]
+"Node_0"->"Deployment_0"[label="ownedElement"]
+"Node_0"->"Deployment_0"[label="ownedMember"]
+"Node_0"->"Deployment_0"[label="member"]
+"Node_0"->"Deployment_1"[label="ownedElement"]
+"Node_0"->"Deployment_1"[label="ownedMember"]
+"Node_0"->"Deployment_1"[label="member"]
+"Node_0"->"Class_0"[label="deployedElement"]
+"Node_0"->"Class_1"[label="deployedElement"]
+"Node_0"->"Class_2"[label="deployedElement"]
+"Class_0"->"Model_0"[label="package"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Class_2"->"Model_0"[label="package"]
+"Class_2"->"Model_0"[label="namespace"]
+"Class_2"->"Model_0"[label="owner"]
+"Model_0"->"Node_0"[label="ownedType"]
+"Model_0"->"Artifact_0"[label="ownedType"]
+"Model_0"->"Artifact_1"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_2"[label="ownedType"]
+"Model_0"->"Node_0"[label="packagedElement"]
+"Model_0"->"Artifact_0"[label="packagedElement"]
+"Model_0"->"Artifact_1"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_2"[label="packagedElement"]
+"Model_0"->"Node_0"[label="ownedMember"]
+"Model_0"->"Node_0"[label="member"]
+"Model_0"->"Node_0"[label="ownedElement"]
+"Model_0"->"Artifact_0"[label="ownedMember"]
+"Model_0"->"Artifact_0"[label="member"]
+"Model_0"->"Artifact_0"[label="ownedElement"]
+"Model_0"->"Artifact_1"[label="ownedMember"]
+"Model_0"->"Artifact_1"[label="member"]
+"Model_0"->"Artifact_1"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_2"[label="ownedMember"]
+"Model_0"->"Class_2"[label="member"]
+"Model_0"->"Class_2"[label="ownedElement"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Manifestation_0",
+          "tag": "utilizedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "client",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "source",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "supplier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "target",
+          "target": "Class_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "supplier",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "target",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "relatedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "relatedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "relatedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "owner",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "namespace",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "utilizedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "client",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "source",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "supplier",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "target",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "relatedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "relatedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "owner",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "namespace",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "location",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "deployedArtifact",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "client",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "source",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "supplier",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "target",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "relatedElement",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "relatedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "owner",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "namespace",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_1",
+          "tag": "location",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_1",
+          "tag": "deployedArtifact",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Deployment_1",
+          "tag": "client",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_1",
+          "tag": "source",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_1",
+          "tag": "supplier",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Deployment_1",
+          "tag": "target",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Deployment_1",
+          "tag": "relatedElement",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_1",
+          "tag": "relatedElement",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Deployment_1",
+          "tag": "owner",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_1",
+          "tag": "namespace",
+          "target": "Node_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "manifestation",
+          "target": "Manifestation_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "manifestation",
+          "target": "Manifestation_1",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "ownedElement",
+          "target": "Manifestation_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "ownedMember",
+          "target": "Manifestation_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "member",
+          "target": "Manifestation_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "ownedElement",
+          "target": "Manifestation_1",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "ownedMember",
+          "target": "Manifestation_1",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "member",
+          "target": "Manifestation_1",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployment",
+          "target": "Deployment_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployment",
+          "target": "Deployment_1",
+        },
+        {
+          "source": "Node_0",
+          "tag": "ownedElement",
+          "target": "Deployment_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "ownedMember",
+          "target": "Deployment_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "member",
+          "target": "Deployment_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "ownedElement",
+          "target": "Deployment_1",
+        },
+        {
+          "source": "Node_0",
+          "tag": "ownedMember",
+          "target": "Deployment_1",
+        },
+        {
+          "source": "Node_0",
+          "tag": "member",
+          "target": "Deployment_1",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_2",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 1,
+      "graph": "digraph G {
+            "Manifestation_0"->"Artifact_0"[label="client"]
+"Manifestation_0"->"Artifact_0"[label="source"]
+"Manifestation_0"->"Artifact_0"[label="relatedElement"]
+"Manifestation_0"->"Artifact_0"[label="owner"]
+"Manifestation_0"->"Artifact_0"[label="namespace"]
+"Manifestation_1"->"Class_1"[label="utilizedElement"]
+"Manifestation_1"->"Class_1"[label="supplier"]
+"Manifestation_1"->"Class_1"[label="target"]
+"Manifestation_1"->"Class_1"[label="relatedElement"]
+"Deployment_0"->"Node_0"[label="location"]
+"Deployment_0"->"Artifact_0"[label="deployedArtifact"]
+"Deployment_0"->"Node_0"[label="client"]
+"Deployment_0"->"Node_0"[label="source"]
+"Deployment_0"->"Artifact_0"[label="supplier"]
+"Deployment_0"->"Artifact_0"[label="target"]
+"Deployment_0"->"Node_0"[label="relatedElement"]
+"Deployment_0"->"Artifact_0"[label="relatedElement"]
+"Deployment_0"->"Node_0"[label="owner"]
+"Deployment_0"->"Node_0"[label="namespace"]
+"Artifact_0"->"Model_0"[label="package"]
+"Artifact_0"->"Manifestation_0"[label="manifestation"]
+"Artifact_0"->"Model_0"[label="namespace"]
+"Artifact_0"->"Model_0"[label="owner"]
+"Artifact_0"->"Manifestation_0"[label="ownedElement"]
+"Artifact_0"->"Manifestation_0"[label="ownedMember"]
+"Artifact_0"->"Manifestation_0"[label="member"]
+"Artifact_1"->"Model_0"[label="package"]
+"Artifact_1"->"Model_0"[label="namespace"]
+"Artifact_1"->"Model_0"[label="owner"]
+"Node_0"->"Model_0"[label="package"]
+"Node_0"->"Model_0"[label="namespace"]
+"Node_0"->"Model_0"[label="owner"]
+"Node_0"->"Deployment_0"[label="deployment"]
+"Node_0"->"Deployment_0"[label="ownedElement"]
+"Node_0"->"Deployment_0"[label="ownedMember"]
+"Node_0"->"Deployment_0"[label="member"]
+"Node_0"->"Class_0"[label="deployedElement"]
+"Node_0"->"Class_1"[label="deployedElement"]
+"Node_0"->"Class_2"[label="deployedElement"]
+"Class_0"->"Model_0"[label="package"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Class_2"->"Model_0"[label="package"]
+"Class_2"->"Model_0"[label="namespace"]
+"Class_2"->"Model_0"[label="owner"]
+"Model_0"->"Node_0"[label="ownedType"]
+"Model_0"->"Artifact_0"[label="ownedType"]
+"Model_0"->"Artifact_1"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_2"[label="ownedType"]
+"Model_0"->"Node_0"[label="packagedElement"]
+"Model_0"->"Artifact_0"[label="packagedElement"]
+"Model_0"->"Artifact_1"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_2"[label="packagedElement"]
+"Model_0"->"Node_0"[label="ownedMember"]
+"Model_0"->"Node_0"[label="member"]
+"Model_0"->"Node_0"[label="ownedElement"]
+"Model_0"->"Artifact_0"[label="ownedMember"]
+"Model_0"->"Artifact_0"[label="member"]
+"Model_0"->"Artifact_0"[label="ownedElement"]
+"Model_0"->"Artifact_1"[label="ownedMember"]
+"Model_0"->"Artifact_1"[label="member"]
+"Model_0"->"Artifact_1"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_2"[label="ownedMember"]
+"Model_0"->"Class_2"[label="member"]
+"Model_0"->"Class_2"[label="ownedElement"]
+"Manifestation_0"->"Class_2"[label="utilizedElement"]
+"Manifestation_0"->"Class_2"[label="supplier"]
+"Manifestation_0"->"Class_2"[label="target"]
+"Manifestation_0"->"Class_2"[label="relatedElement"]
+"Manifestation_1"->"Artifact_1"[label="client"]
+"Manifestation_1"->"Artifact_1"[label="source"]
+"Manifestation_1"->"Class_0"[label="supplier"]
+"Manifestation_1"->"Class_0"[label="target"]
+"Manifestation_1"->"Artifact_1"[label="relatedElement"]
+"Manifestation_1"->"Class_0"[label="relatedElement"]
+"Manifestation_1"->"Artifact_1"[label="owner"]
+"Manifestation_1"->"Artifact_1"[label="namespace"]
+"Manifestation_2"->"Class_0"[label="utilizedElement"]
+"Manifestation_2"->"Artifact_1"[label="client"]
+"Manifestation_2"->"Artifact_1"[label="source"]
+"Manifestation_2"->"Class_0"[label="supplier"]
+"Manifestation_2"->"Class_0"[label="target"]
+"Manifestation_2"->"Artifact_1"[label="relatedElement"]
+"Manifestation_2"->"Class_0"[label="relatedElement"]
+"Manifestation_2"->"Artifact_1"[label="owner"]
+"Manifestation_2"->"Artifact_1"[label="namespace"]
+"Artifact_1"->"Manifestation_1"[label="manifestation"]
+"Artifact_1"->"Manifestation_2"[label="manifestation"]
+"Artifact_1"->"Manifestation_1"[label="ownedElement"]
+"Artifact_1"->"Manifestation_1"[label="ownedMember"]
+"Artifact_1"->"Manifestation_1"[label="member"]
+"Artifact_1"->"Manifestation_2"[label="ownedElement"]
+"Artifact_1"->"Manifestation_2"[label="ownedMember"]
+"Artifact_1"->"Manifestation_2"[label="member"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Manifestation_0",
+          "tag": "client",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "source",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "relatedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "owner",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "namespace",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "utilizedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "supplier",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "target",
+          "target": "Class_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "relatedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "location",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "deployedArtifact",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "client",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "source",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "supplier",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "target",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "relatedElement",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "relatedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "owner",
+          "target": "Node_0",
+        },
+        {
+          "source": "Deployment_0",
+          "tag": "namespace",
+          "target": "Node_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "manifestation",
+          "target": "Manifestation_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "ownedElement",
+          "target": "Manifestation_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "ownedMember",
+          "target": "Manifestation_0",
+        },
+        {
+          "source": "Artifact_0",
+          "tag": "member",
+          "target": "Manifestation_0",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployment",
+          "target": "Deployment_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "ownedElement",
+          "target": "Deployment_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "ownedMember",
+          "target": "Deployment_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "member",
+          "target": "Deployment_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Node_0",
+          "tag": "deployedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Node_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Artifact_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "utilizedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "supplier",
+          "target": "Class_2",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "target",
+          "target": "Class_2",
+        },
+        {
+          "source": "Manifestation_0",
+          "tag": "relatedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "client",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "source",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "supplier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "target",
+          "target": "Class_0",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "relatedElement",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "relatedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "owner",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Manifestation_1",
+          "tag": "namespace",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Manifestation_2",
+          "tag": "utilizedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Manifestation_2",
+          "tag": "client",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Manifestation_2",
+          "tag": "source",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Manifestation_2",
+          "tag": "supplier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Manifestation_2",
+          "tag": "target",
+          "target": "Class_0",
+        },
+        {
+          "source": "Manifestation_2",
+          "tag": "relatedElement",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Manifestation_2",
+          "tag": "relatedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Manifestation_2",
+          "tag": "owner",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Manifestation_2",
+          "tag": "namespace",
+          "target": "Artifact_1",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "manifestation",
+          "target": "Manifestation_1",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "manifestation",
+          "target": "Manifestation_2",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "ownedElement",
+          "target": "Manifestation_1",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "ownedMember",
+          "target": "Manifestation_1",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "member",
+          "target": "Manifestation_1",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "ownedElement",
+          "target": "Manifestation_2",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "ownedMember",
+          "target": "Manifestation_2",
+        },
+        {
+          "source": "Artifact_1",
+          "tag": "member",
+          "target": "Manifestation_2",
+        },
+      ],
+    },
+  ],
+}

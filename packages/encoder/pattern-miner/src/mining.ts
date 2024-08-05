@@ -1,9 +1,9 @@
 import type { DB } from 'prefixspan'
 import { topK } from 'prefixspan'
 
-import type { MiningParameters } from './bop-types'
 import type { Embedding } from './embedding'
 import type { LabeledEdge } from './normalization'
+import type { MiningParameters } from './pattern-types'
 
 export interface MinedPattern {
   support: number

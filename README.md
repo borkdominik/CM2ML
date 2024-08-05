@@ -2,10 +2,10 @@
 
 ## Encoder
 
-- [@cm2ml/bag-of-paths-encoder](./packages/encoder/bag-of-paths-encoder)
 - [@cm2ml/feature-encoder](./packages/encoder/feature-encoder)
 - [@cm2ml/graph-encoder](./packages/encoder/graph-encoder)
 - [@cm2ml/one-hot-encoder](./packages/encoder/one-hot-encoder)
+- [@cm2ml/pattern-miner](./packages/encoder/pattern-miner)
 - [@cm2ml/tree-encoder](./packages/encoder/tree-encoder)
 
 ## Framework

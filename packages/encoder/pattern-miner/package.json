@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/bag-of-paths-encoder",
+  "name": "@cm2ml/pattern-miner",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/borkdominik/CM2ML.git",
-    "directory": "packages/encoder/bag-of-paths-encoder"
+    "directory": "packages/encoder/pattern-miner"
   },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"

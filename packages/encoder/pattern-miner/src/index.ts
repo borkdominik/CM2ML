@@ -12,7 +12,7 @@ import { restorePartitionEdges } from './restoration'
 
 export type { PatternWithFrequency } from './frequency'
 
-const PatternMiner = batchTryCatch(definePlugin({
+const ModelPatternMiner = batchTryCatch(definePlugin({
   name: 'patterns',
   parameters: {
     maxPartitioningIterations: {
@@ -107,7 +107,7 @@ const PatternFrequencyMiner = definePlugin({
       group: 'filter',
     },
   },
-  invoke(batch: InferOut<typeof PatternMiner>, parameters) {
+  invoke(batch: InferOut<typeof ModelPatternMiner>, parameters) {
     const patterns = Stream
       .from(batch)
       .map((result) => result instanceof ExecutionError ? [] : result.data.patterns)
@@ -120,4 +120,4 @@ const PatternFrequencyMiner = definePlugin({
   },
 })
 
-export const BagOfPathsEncoder = compose(PatternMiner, PatternFrequencyMiner, 'bag-of-paths')
+export const PatternMiner = compose(ModelPatternMiner, PatternFrequencyMiner, 'pattern-miner')
