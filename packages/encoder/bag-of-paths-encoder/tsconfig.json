@@ -1,0 +1,4 @@
+{
+  "extends": "@cm2ml/tsconfig/vite",
+  "exclude": ["node_modules", "coverage", "dist"]
+}

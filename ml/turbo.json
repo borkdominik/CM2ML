@@ -4,6 +4,17 @@
     "//"
   ],
   "tasks": {
+    "encode:bop": {
+      "inputs": [
+        "scripts/encode-bop.sh"
+      ],
+      "outputs": [
+        ".output/bag-of-paths.json"
+      ],
+      "dependsOn": [
+        "^build"
+      ]
+    },
     "encode:graph": {
       "inputs": [
         "scripts/encode-graph.sh"

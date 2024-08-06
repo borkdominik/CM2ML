@@ -2,6 +2,7 @@ import type { Encoder } from '@cm2ml/builtin'
 import { GraphEncoder, PatternMiner, TreeEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 
+import { prettifyEncoderName } from '../../lib/pluginNames'
 import type { ParameterValues } from '../Parameters'
 import { Hint } from '../ui/hint'
 
@@ -26,6 +27,6 @@ export function Encoding({ encoder, model, parameters }: Props) {
     return <TreeEncoding model={model} parameters={parameters} />
   }
   return (
-    <Hint error={`No visualization for ${encoder.name} encoding available`} />
+    <Hint error={`No visualization for ${prettifyEncoderName(encoder.name)} encoding available`} />
   )
 }

@@ -88,8 +88,11 @@ importers:
         specifier: 6.0.1
         version: 6.0.1
 
-  packages/encoder/pattern-miner:
+  packages/encoder/bag-of-paths-encoder:
     dependencies:
+      '@cm2ml/feature-encoder':
+        specifier: workspace:*
+        version: link:../feature-encoder
       '@cm2ml/ir':
         specifier: workspace:*
         version: link:../../framework/ir
@@ -99,12 +102,6 @@ importers:
       '@yeger/streams':
         specifier: 1.1.9
         version: 1.1.9
-      kernighan-lin:
-        specifier: workspace:*
-        version: link:../../kernighan-lin
-      prefixspan:
-        specifier: workspace:*
-        version: link:../../prefixspan
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -203,6 +200,37 @@ importers:
         specifier: 2.0.11
         version: 2.0.11(@types/node@20.14.11)(rollup@4.13.0)(typescript@5.5.3)(vite@5.3.4(@types/node@20.14.11)(terser@5.26.0))
 
+  packages/encoder/pattern-miner:
+    dependencies:
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../../framework/ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../../framework/plugin
+      '@yeger/streams':
+        specifier: 1.1.9
+        version: 1.1.9
+      kernighan-lin:
+        specifier: workspace:*
+        version: link:../../kernighan-lin
+      prefixspan:
+        specifier: workspace:*
+        version: link:../../prefixspan
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.5.3
+        version: 5.5.3
+      vite:
+        specifier: 5.3.4
+        version: 5.3.4(@types/node@20.14.11)(terser@5.26.0)
+      vite-plugin-lib:
+        specifier: 2.0.11
+        version: 2.0.11(@types/node@20.14.11)(rollup@4.13.0)(typescript@5.5.3)(vite@5.3.4(@types/node@20.14.11)(terser@5.26.0))
+
   packages/encoder/tree-encoder:
     dependencies:
       '@cm2ml/feature-encoder':
@@ -236,9 +264,9 @@ importers:
       '@cm2ml/archimate':
         specifier: workspace:*
         version: link:../../languages/archimate
-      '@cm2ml/pattern-miner':
+      '@cm2ml/bag-of-paths-encoder':
         specifier: workspace:*
-        version: link:../../encoder/pattern-miner
+        version: link:../../encoder/bag-of-paths-encoder
       '@cm2ml/ecore':
         specifier: workspace:*
         version: link:../../languages/ecore
@@ -254,6 +282,9 @@ importers:
       '@cm2ml/one-hot-encoder':
         specifier: workspace:*
         version: link:../../encoder/one-hot-encoder
+      '@cm2ml/pattern-miner':
+        specifier: workspace:*
+        version: link:../../encoder/pattern-miner
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin

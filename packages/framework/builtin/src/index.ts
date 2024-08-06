@@ -1,4 +1,5 @@
 import { ArchimateParser } from '@cm2ml/archimate'
+import { BagOfPathsEncoder } from '@cm2ml/bag-of-paths-encoder'
 import { EcoreParser } from '@cm2ml/ecore'
 import { GraphEncoder } from '@cm2ml/graph-encoder'
 import type { GraphModel } from '@cm2ml/ir'
@@ -10,11 +11,12 @@ import { UmlParser } from '@cm2ml/uml'
 import { Stream } from '@yeger/streams'
 
 export * from '@cm2ml/archimate'
-export * from '@cm2ml/pattern-miner'
+export * from '@cm2ml/bag-of-paths-encoder'
 export * from '@cm2ml/ecore'
 export * from '@cm2ml/feature-encoder'
 export * from '@cm2ml/graph-encoder'
 export * from '@cm2ml/one-hot-encoder'
+export * from '@cm2ml/pattern-miner'
 export * from '@cm2ml/tree-encoder'
 export * from '@cm2ml/uml'
 export * from '@cm2ml/xmi-parser'
@@ -30,10 +32,11 @@ export const parserMap = {
 
 export type Encoder<Data = unknown, Metadata = unknown> = Plugin<(GraphModel | ExecutionError)[], (StructuredOutput<Data, Metadata> | ExecutionError)[], any>
 
-export const encoders: Encoder[] = [PatternMiner, GraphEncoder, TreeEncoder, OneHotEncoder]
+export const encoders: Encoder[] = [BagOfPathsEncoder, GraphEncoder, OneHotEncoder, PatternMiner, TreeEncoder]
 export const encoderMap = {
-  [PatternMiner.name]: PatternMiner,
+  [BagOfPathsEncoder.name]: BagOfPathsEncoder,
   [GraphEncoder.name]: GraphEncoder,
+  [PatternMiner.name]: PatternMiner,
   [TreeEncoder.name]: TreeEncoder,
   [OneHotEncoder.name]: OneHotEncoder,
 }
