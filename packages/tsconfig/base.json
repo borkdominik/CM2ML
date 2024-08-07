@@ -6,6 +6,7 @@
     "baseUrl": "${configDir}",
     "declaration": false,
     "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,

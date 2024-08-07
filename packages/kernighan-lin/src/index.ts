@@ -8,12 +8,12 @@ export interface Options<Vertex> {
    * Maximum number of iterations. If set to a negative value, the algorithm will run until no further improvement can be made.
    * Defaults to `10`.
    */
-  maxIterations?: number
+  maxIterations?: number | undefined
   /**
    * See {@link CostFunction}.
    * Defaults to `() => 1`.
    */
-  cost?: CostFunction<Vertex>
+  cost?: CostFunction<Vertex> | undefined
 }
 
 export type AnySet<T> = Set<T> | ReadonlySet<T>

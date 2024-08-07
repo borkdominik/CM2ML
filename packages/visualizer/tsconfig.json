@@ -5,7 +5,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["node"]
+    "types": ["node"],
+    "exactOptionalPropertyTypes": false
   },
   "exclude": ["node_modules", "coverage", "dist"]
 }
