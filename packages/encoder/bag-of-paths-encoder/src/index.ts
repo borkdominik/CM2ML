@@ -2,24 +2,35 @@ import type { FeatureContext } from '@cm2ml/feature-encoder'
 import { FeatureEncoder } from '@cm2ml/feature-encoder'
 import type { GraphModel } from '@cm2ml/ir'
 import { batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
+import { Stream } from '@yeger/streams'
 
 import { collectPaths } from './paths'
 
 const PathBuilder = definePlugin({
   name: 'path-builder',
   parameters: {
+    minPathLength: {
+      type: 'number',
+      defaultValue: 2,
+      description: 'Minimum path length',
+      group: 'Paths',
+    },
     maxPathLength: {
       type: 'number',
-      defaultValue: 5,
+      defaultValue: 3,
       description: 'Maximum path length',
       group: 'Paths',
     },
   },
   invoke: ({ data, metadata: features }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
-    const { nodeFeatures, edgeFeatures } = features
+    const { getNodeFeatureVector, nodeFeatures, edgeFeatures } = features
     const paths = collectPaths(data, parameters)
+    const nodes = Stream.from(data.nodes).map((node) => getNodeFeatureVector(node)).toArray()
     return {
-      data: paths,
+      data: {
+        paths,
+        nodes,
+      },
       metadata: { nodeFeatures, edgeFeatures },
     }
   },

@@ -4,17 +4,18 @@ import { Stream } from '@yeger/streams'
 import type { PathParameters } from './bop-types'
 
 export function collectPaths(model: GraphModel, parameters: PathParameters) {
-  return Stream
-    .from(model.nodes)
-    .flatMap((node) => Path.from(node, parameters))
-    .map((path) => path.nodes)
-    .map((nodes) => nodes.map((node) => node.id))
+  const nodes = Stream.from(model.nodes)
+  const indexMap = new Map(nodes.map((node, i) => [node, i]))
+  return nodes
+    .flatMap((node, i) => Path.from(node, i, parameters))
+    .filter((path) => path.nodes.length >= parameters.minPathLength)
+    .map((path) => path.nodes.map((node) => indexMap.get(node)!))
     .toArray()
 }
 
 class Path {
   private readonly nodeSet = new Set<GraphNode>()
-  public constructor(public readonly nodes: [GraphNode, ...GraphNode[]], private readonly parameters: PathParameters) {
+  public constructor(public readonly nodes: [GraphNode, ...GraphNode[]], public readonly startNodeIndex: number, private readonly parameters: PathParameters) {
     for (const node of nodes) {
       this.nodeSet.add(node)
     }
@@ -24,7 +25,7 @@ class Path {
     return this.nodes[0]
   }
 
-  public last(): GraphNode {
+  public last() {
     return this.nodes[this.nodes.length - 1]!
   }
 
@@ -37,16 +38,22 @@ class Path {
       return Stream.fromSingle(this)
     }
     const lastNode = this.last()
-    const nextNodes = Stream
+    if (lastNode.outgoingEdges.size === 0) {
+      return Stream.fromSingle(this)
+    }
+    return Stream
       .from(lastNode.outgoingEdges)
       .map((edge) => edge.target)
-      .toSet()
-      .difference(this.nodeSet)
-    return Stream.from(nextNodes)
-      .flatMap((node) => new Path([...this.nodes, node], this.parameters).step())
+      .filter((node) => !this.hasNode(node))
+      .distinct()
+      .flatMap((node) => this.extendPath(node))
   }
 
-  public static from(node: GraphNode, parameters: PathParameters) {
-    return new Path([node], parameters).step()
+  private extendPath(graphNode: GraphNode) {
+    return new Path([...this.nodes, graphNode], this.startNodeIndex, this.parameters).step()
+  }
+
+  public static from(start: GraphNode, startNodeIndex: number, parameters: PathParameters) {
+    return new Path([start], startNodeIndex, parameters).step()
   }
 }
