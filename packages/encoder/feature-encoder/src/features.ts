@@ -82,21 +82,6 @@ export function deriveFeatures(models: GraphModel[], settings: FeatureDeriverSet
   }
 }
 
-export type FeatureEncoderRegistry = ReturnType<typeof createEncoderRegistry>
-
-function registryKey(source: Attribute | InternalFeatureMetadata[number]) {
-  if (Array.isArray(source)) {
-    const [name, type] = source
-    return `${name}-${toRawFeatureType(type)}`
-  }
-  const attribute = source as Attribute
-  return `${attribute.name}-${attribute.type}`
-}
-
-function createEncoderRegistry(template: InternalFeatureMetadata) {
-  return Object.fromEntries(template.map((entry) => ([registryKey(entry), entry[2]])))
-}
-
 function createAttributeMapper(encoderProvider: FeatureEncoderProvider) {
   return (attribute: Attribute) => {
     const encoder = encoderProvider.getEncoder(attribute.name, attribute.type)
