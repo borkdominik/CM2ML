@@ -6,6 +6,7 @@ import { vite as million } from 'million/compiler'
 import type { Plugin } from 'vite'
 import { defineConfig } from 'vite'
 import { comlink } from 'vite-plugin-comlink'
+import { cleanup } from 'vite-plugin-lib'
 import { VitePWA } from 'vite-plugin-pwa'
 
 import packageJson from './package.json'
@@ -54,6 +55,7 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10MB
       },
     }),
+    cleanup(),
   ],
   worker: {
     plugins: () => [comlink()],

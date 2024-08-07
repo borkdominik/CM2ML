@@ -24,8 +24,8 @@ importers:
         specifier: workspace:*
         version: link:packages/scripts
       '@commitlint/cli':
-        specifier: 19.3.0
-        version: 19.3.0(@types/node@22.1.0)(typescript@5.5.4)
+        specifier: 19.4.0
+        version: 19.4.0(@types/node@22.1.0)(typescript@5.5.4)
       '@commitlint/config-conventional':
         specifier: 19.2.2
         version: 19.2.2
@@ -45,8 +45,8 @@ importers:
         specifier: 2.3.0
         version: 2.3.0(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.5.4))(@vue/compiler-sfc@3.4.20)(eslint@9.8.0)(tailwindcss@3.4.7(ts-node@10.9.1(@types/node@22.1.0)(typescript@5.5.4)))(ts-node@10.9.1(@types/node@22.1.0)(typescript@5.5.4))(typescript@5.5.4)(vitest@2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(terser@5.26.0))
       '@yeger/turbo-graph':
-        specifier: 2.0.5
-        version: 2.0.5(@playwright/test@1.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.7(ts-node@10.9.1(@types/node@22.1.0)(typescript@5.5.4)))(turbo@2.0.12)
+        specifier: 2.0.6
+        version: 2.0.6(@playwright/test@1.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.7(ts-node@10.9.1(@types/node@22.1.0)(typescript@5.5.4)))(turbo@2.0.12)
       cross-env:
         specifier: 7.0.3
         version: 7.0.3
@@ -100,8 +100,8 @@ importers:
         specifier: workspace:*
         version: link:../../framework/plugin
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -113,8 +113,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/encoder/feature-encoder:
     dependencies:
@@ -128,8 +128,8 @@ importers:
         specifier: workspace:*
         version: link:../../utils
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -144,8 +144,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/encoder/graph-encoder:
     dependencies:
@@ -159,8 +159,8 @@ importers:
         specifier: workspace:*
         version: link:../../framework/plugin
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -172,8 +172,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/encoder/one-hot-encoder:
     dependencies:
@@ -184,8 +184,8 @@ importers:
         specifier: workspace:*
         version: link:../../framework/plugin
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -197,8 +197,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/encoder/pattern-miner:
     dependencies:
@@ -209,8 +209,8 @@ importers:
         specifier: workspace:*
         version: link:../../framework/plugin
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
       kernighan-lin:
         specifier: workspace:*
         version: link:../../kernighan-lin
@@ -228,8 +228,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/encoder/tree-encoder:
     dependencies:
@@ -243,8 +243,8 @@ importers:
         specifier: workspace:*
         version: link:../../framework/plugin
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -256,8 +256,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/builtin:
     dependencies:
@@ -298,8 +298,8 @@ importers:
         specifier: workspace:*
         version: link:../xmi-parser
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -311,8 +311,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/cli:
     dependencies:
@@ -333,8 +333,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/cli-adapter:
     dependencies:
@@ -348,8 +348,8 @@ importers:
         specifier: workspace:*
         version: link:../../utils
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
       cac:
         specifier: 6.7.14
         version: 6.7.14
@@ -364,8 +364,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/cm2ml:
     dependencies:
@@ -410,8 +410,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/ir:
     dependencies:
@@ -432,8 +432,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/ir-post-processor:
     dependencies:
@@ -447,8 +447,8 @@ importers:
         specifier: workspace:*
         version: link:../../utils
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -460,8 +460,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/metamodel:
     dependencies:
@@ -479,8 +479,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/metamodel-refiner:
     dependencies:
@@ -494,8 +494,8 @@ importers:
         specifier: workspace:*
         version: link:../../utils
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -507,8 +507,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/plugin:
     dependencies:
@@ -516,8 +516,8 @@ importers:
         specifier: workspace:*
         version: link:../../utils
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -532,8 +532,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/plugin-adapter:
     dependencies:
@@ -541,8 +541,8 @@ importers:
         specifier: workspace:*
         version: link:../plugin
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -554,8 +554,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/rest:
     dependencies:
@@ -576,8 +576,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/rest-adapter:
     dependencies:
@@ -591,8 +591,8 @@ importers:
         specifier: workspace:*
         version: link:../../utils
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
       fastify:
         specifier: 4.28.1
         version: 4.28.1
@@ -607,8 +607,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/framework/xmi-parser:
     dependencies:
@@ -622,8 +622,8 @@ importers:
         specifier: workspace:*
         version: link:../../utils
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
       domhandler:
         specifier: 5.0.3
         version: 5.0.3
@@ -644,8 +644,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/kernighan-lin:
     devDependencies:
@@ -659,8 +659,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/languages/archimate:
     dependencies:
@@ -696,8 +696,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/languages/ecore:
     dependencies:
@@ -723,8 +723,8 @@ importers:
         specifier: workspace:*
         version: link:../../framework/xmi-parser
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -736,8 +736,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/languages/uml:
     dependencies:
@@ -763,8 +763,8 @@ importers:
         specifier: workspace:*
         version: link:../../framework/xmi-parser
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
       nanoid:
         specifier: 5.0.7
         version: 5.0.7
@@ -779,8 +779,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/prefixspan:
     dependencies:
@@ -798,8 +798,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/scripts:
     dependencies:
@@ -817,8 +817,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/tsconfig: {}
 
@@ -834,8 +834,8 @@ importers:
         specifier: 5.3.5
         version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
       vite-plugin-lib:
-        specifier: 2.0.13
-        version: 2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
   packages/visualizer:
     dependencies:
@@ -900,8 +900,8 @@ importers:
         specifier: 3.7.0
         version: 3.7.0
       '@yeger/streams':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 1.2.0
+        version: 1.2.0
       base64-compressor:
         specifier: 1.0.3
         version: 1.0.3
@@ -1017,6 +1017,9 @@ importers:
       vite-plugin-comlink:
         specifier: 5.0.1
         version: 5.0.1(comlink@4.4.1)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+      vite-plugin-lib:
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@2.79.1)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
       vite-plugin-pwa:
         specifier: 0.20.1
         version: 0.20.1(@vite-pwa/assets-generator@0.2.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.1.0)
@@ -1890,8 +1893,8 @@ packages:
     bundledDependencies:
       - is-unicode-supported
 
-  '@commitlint/cli@19.3.0':
-    resolution: {integrity: sha512-LgYWOwuDR7BSTQ9OLZ12m7F/qhNY+NpAyPBgo4YNMkACE7lGuUnuQq1yi9hz1KA4+3VqpOYl8H1rY/LYK43v7g==}
+  '@commitlint/cli@19.4.0':
+    resolution: {integrity: sha512-sJX4J9UioVwZHq7JWM9tjT5bgWYaIN3rC4FP7YwfEwBYiIO+wMyRttRvQLNkow0vCdM0D67r9NEWU0Ui03I4Eg==}
     engines: {node: '>=v18'}
     hasBin: true
 
@@ -1923,8 +1926,8 @@ packages:
     resolution: {integrity: sha512-xrzMmz4JqwGyKQKTpFzlN0dx0TAiT7Ran1fqEBgEmEj+PU98crOFtysJgY+QdeSagx6EDRigQIXJVnfrI0ratA==}
     engines: {node: '>=v18'}
 
-  '@commitlint/load@19.2.0':
-    resolution: {integrity: sha512-XvxxLJTKqZojCxaBQ7u92qQLFMMZc4+p9qrIq/9kJDy8DOrEa7P1yx7Tjdc2u2JxIalqT4KOGraVgCE7eCYJyQ==}
+  '@commitlint/load@19.4.0':
+    resolution: {integrity: sha512-I4lCWaEZYQJ1y+Y+gdvbGAx9pYPavqZAZ3/7/8BpWh+QjscAn8AjsUpLV2PycBsEx7gupq5gM4BViV9xwTIJuw==}
     engines: {node: '>=v18'}
 
   '@commitlint/message@19.0.0':
@@ -1935,8 +1938,8 @@ packages:
     resolution: {integrity: sha512-Il+tNyOb8VDxN3P6XoBBwWJtKKGzHlitEuXA5BP6ir/3loWlsSqDr5aecl6hZcC/spjq4pHqNh0qPlfeWu38QA==}
     engines: {node: '>=v18'}
 
-  '@commitlint/read@19.2.1':
-    resolution: {integrity: sha512-qETc4+PL0EUv7Q36lJbPG+NJiBOGg7SSC7B5BsPWOmei+Dyif80ErfWQ0qXoW9oCh7GTpTNRoaVhiI8RbhuaNw==}
+  '@commitlint/read@19.4.0':
+    resolution: {integrity: sha512-r95jLOEZzKDakXtnQub+zR3xjdnrl2XzerPwm7ch1/cc5JGq04tyaNpa6ty0CRCWdVrk4CZHhqHozb8yZwy2+g==}
     engines: {node: '>=v18'}
 
   '@commitlint/resolve-extends@19.1.0':
@@ -2300,59 +2303,59 @@ packages:
   '@microsoft/tsdoc@0.15.0':
     resolution: {integrity: sha512-HZpPoABogPvjeJOdzCOSJsXeL/SMCBgBZMVC3X3d7YYp2gf31MfxhUoYUNwf1ERPJOnQc0wkFn9trqI6ZEdZuA==}
 
-  '@next/env@14.2.4':
-    resolution: {integrity: sha512-3EtkY5VDkuV2+lNmKlbkibIJxcO4oIHEhBWne6PaAp+76J9KoSsGvNikp6ivzAT8dhhBMYrm6op2pS1ApG0Hzg==}
+  '@next/env@14.2.5':
+    resolution: {integrity: sha512-/zZGkrTOsraVfYjGP8uM0p6r0BDT6xWpkjdVbcz66PJVSpwXX3yNiRycxAuDfBKGWBrZBXRuK/YVlkNgxHGwmA==}
 
-  '@next/swc-darwin-arm64@14.2.4':
-    resolution: {integrity: sha512-AH3mO4JlFUqsYcwFUHb1wAKlebHU/Hv2u2kb1pAuRanDZ7pD/A/KPD98RHZmwsJpdHQwfEc/06mgpSzwrJYnNg==}
+  '@next/swc-darwin-arm64@14.2.5':
+    resolution: {integrity: sha512-/9zVxJ+K9lrzSGli1///ujyRfon/ZneeZ+v4ptpiPoOU+GKZnm8Wj8ELWU1Pm7GHltYRBklmXMTUqM/DqQ99FQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@next/swc-darwin-x64@14.2.4':
-    resolution: {integrity: sha512-QVadW73sWIO6E2VroyUjuAxhWLZWEpiFqHdZdoQ/AMpN9YWGuHV8t2rChr0ahy+irKX5mlDU7OY68k3n4tAZTg==}
+  '@next/swc-darwin-x64@14.2.5':
+    resolution: {integrity: sha512-vXHOPCwfDe9qLDuq7U1OYM2wUY+KQ4Ex6ozwsKxp26BlJ6XXbHleOUldenM67JRyBfVjv371oneEvYd3H2gNSA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@next/swc-linux-arm64-gnu@14.2.4':
-    resolution: {integrity: sha512-KT6GUrb3oyCfcfJ+WliXuJnD6pCpZiosx2X3k66HLR+DMoilRb76LpWPGb4tZprawTtcnyrv75ElD6VncVamUQ==}
+  '@next/swc-linux-arm64-gnu@14.2.5':
+    resolution: {integrity: sha512-vlhB8wI+lj8q1ExFW8lbWutA4M2ZazQNvMWuEDqZcuJJc78iUnLdPPunBPX8rC4IgT6lIx/adB+Cwrl99MzNaA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-musl@14.2.4':
-    resolution: {integrity: sha512-Alv8/XGSs/ytwQcbCHwze1HmiIkIVhDHYLjczSVrf0Wi2MvKn/blt7+S6FJitj3yTlMwMxII1gIJ9WepI4aZ/A==}
+  '@next/swc-linux-arm64-musl@14.2.5':
+    resolution: {integrity: sha512-NpDB9NUR2t0hXzJJwQSGu1IAOYybsfeB+LxpGsXrRIb7QOrYmidJz3shzY8cM6+rO4Aojuef0N/PEaX18pi9OA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-x64-gnu@14.2.4':
-    resolution: {integrity: sha512-ze0ShQDBPCqxLImzw4sCdfnB3lRmN3qGMB2GWDRlq5Wqy4G36pxtNOo2usu/Nm9+V2Rh/QQnrRc2l94kYFXO6Q==}
+  '@next/swc-linux-x64-gnu@14.2.5':
+    resolution: {integrity: sha512-8XFikMSxWleYNryWIjiCX+gU201YS+erTUidKdyOVYi5qUQo/gRxv/3N1oZFCgqpesN6FPeqGM72Zve+nReVXQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-musl@14.2.4':
-    resolution: {integrity: sha512-8dwC0UJoc6fC7PX70csdaznVMNr16hQrTDAMPvLPloazlcaWfdPogq+UpZX6Drqb1OBlwowz8iG7WR0Tzk/diQ==}
+  '@next/swc-linux-x64-musl@14.2.5':
+    resolution: {integrity: sha512-6QLwi7RaYiQDcRDSU/os40r5o06b5ue7Jsk5JgdRBGGp8l37RZEh9JsLSM8QF0YDsgcosSeHjglgqi25+m04IQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-win32-arm64-msvc@14.2.4':
-    resolution: {integrity: sha512-jxyg67NbEWkDyvM+O8UDbPAyYRZqGLQDTPwvrBBeOSyVWW/jFQkQKQ70JDqDSYg1ZDdl+E3nkbFbq8xM8E9x8A==}
+  '@next/swc-win32-arm64-msvc@14.2.5':
+    resolution: {integrity: sha512-1GpG2VhbspO+aYoMOQPQiqc/tG3LzmsdBH0LhnDS3JrtDx2QmzXe0B6mSZZiN3Bq7IOMXxv1nlsjzoS1+9mzZw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@next/swc-win32-ia32-msvc@14.2.4':
-    resolution: {integrity: sha512-twrmN753hjXRdcrZmZttb/m5xaCBFa48Dt3FbeEItpJArxriYDunWxJn+QFXdJ3hPkm4u7CKxncVvnmgQMY1ag==}
+  '@next/swc-win32-ia32-msvc@14.2.5':
+    resolution: {integrity: sha512-Igh9ZlxwvCDsu6438FXlQTHlRno4gFpJzqPjSIBZooD22tKeI4fE/YMRoHVJHmrQ2P5YL1DoZ0qaOKkbeFWeMg==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
 
-  '@next/swc-win32-x64-msvc@14.2.4':
-    resolution: {integrity: sha512-tkLrjBzqFTP8DVrAAQmZelEahfR9OxWpFR++vAI9FBhCiIxtwHwBHC23SBHCTURBtwB4kc/x44imVOnkKGNVGg==}
+  '@next/swc-win32-x64-msvc@14.2.5':
+    resolution: {integrity: sha512-tEQ7oinq1/CjSG9uSTerca3v4AZ+dFa+4Yu6ihaG8Ud8ddqLQgFGcnwYls13H5X5CPDPZJdYxyeMui6muOLd4g==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -3590,16 +3593,16 @@ packages:
     peerDependencies:
       eslint: '>=9.0.0'
 
-  '@yeger/streams@1.1.9':
-    resolution: {integrity: sha512-YpyK9TaMD1izeW1DnM3Pldb45XvwFd55NC60+9/WE3Pgd7hzI0G1l3rsbiSA822KCtkiW1tZsFvxOpJZirGDug==}
+  '@yeger/streams@1.2.0':
+    resolution: {integrity: sha512-OjzqzAt91EgDCc5N0yiq2jMjUSemZb3CkspxYfxk5RLl6qLr1ul+8Lx9cwxQ4saLr2qxAeHiEctEXyktfMHz0g==}
 
-  '@yeger/turbo-graph-ui@2.0.5':
-    resolution: {integrity: sha512-O8c2I/q7aKDWAHr2nqryrSmmJf/l0VbZzteFfEG5UljRKEUkWeCFE1QKrodPRzVijGTLsFdRubuJbaSt8tRJDg==}
+  '@yeger/turbo-graph-ui@2.0.6':
+    resolution: {integrity: sha512-o+gRSN+1UIkMTtf5NvaY6nby8g7uouFkeOxczJWy5AuxNgTReBZ8G27oQPgkBMR/3kfTSjxXWq/C7Ovjm9nPpg==}
     peerDependencies:
       turbo: ^1.0.0 || ^2.0.0
 
-  '@yeger/turbo-graph@2.0.5':
-    resolution: {integrity: sha512-5Es2lq21NVXlaDezOuzJKYe+q6m0cDHumjx5Th04ES/ENpyiPU9gElgY7Ss0LbZv1QwA4QKVsAcXSel+OccCAA==}
+  '@yeger/turbo-graph@2.0.6':
+    resolution: {integrity: sha512-DkcZIKpQE2DuHym2c9FLsR8TFUYE9TPf6JvVM+9+RZi+y86WmcGQ+T5g6yJ+8Dz+X0jhAmYknQNT9VsFBu4WmA==}
     hasBin: true
 
   JSONStream@1.3.5:
@@ -5134,8 +5137,8 @@ packages:
     resolution: {integrity: sha512-VyhnebXciFV2DESc+p6B+y0LjSm0krU4OgJN44qFAhBY0TJ+1V61tYD2+wHusZ6F9n5K+vl8k0sTy7PEfV4qpg==}
     engines: {node: '>=16.17'}
 
-  execa@9.2.0:
-    resolution: {integrity: sha512-vpOyYg7UAVKLAWWtRS2gAdgkT7oJbCn0me3gmUmxZih4kd3MF/oo8kNTBTIbkO3yuuF5uB4ZCZfn8BOolITYhg==}
+  execa@9.3.0:
+    resolution: {integrity: sha512-l6JFbqnHEadBoVAVpN5dl2yCyfX28WoBAGaoQcNmLLSedOxTxcn2Qa83s8I/PA5i56vWru2OHOtrwF7Om2vqlg==}
     engines: {node: ^18.19.0 || >=20.5.0}
 
   expand-template@2.0.3:
@@ -6046,10 +6049,6 @@ packages:
     resolution: {integrity: sha512-3TV69ZbrvV6U5DfQimop50jE9Dl6J8O1ja1dvBbMba/sZ3YBEQqJ2VZRoQPVnhlzjNtU1vaXRZVrVjU4qtm8yA==}
     hasBin: true
 
-  jiti@1.21.0:
-    resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
-    hasBin: true
-
   jiti@1.21.6:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
     hasBin: true
@@ -6336,11 +6335,6 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
 
-  lucide-react@0.395.0:
-    resolution: {integrity: sha512-6hzdNH5723A4FLaYZWpK50iyZH8iS2Jq5zuPRRotOFkhu6kxxJiebVdJ72tCR5XkiIeYFOU5NUawFZOac+VeYw==}
-    peerDependencies:
-      react: ^16.5.1 || ^17.0.0 || ^18.0.0
-
   lucide-react@0.424.0:
     resolution: {integrity: sha512-x2Nj2aytk1iOyHqt4hKenfVlySq0rYxNeEf8hE0o+Yh0iE36Rqz0rkngVdv2uQtjZ70LAE73eeplhhptYt9x4Q==}
     peerDependencies:
@@ -6584,8 +6578,8 @@ packages:
     resolution: {integrity: sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==}
     engines: {node: '>= 0.4.0'}
 
-  next@14.2.4:
-    resolution: {integrity: sha512-R8/V7vugY+822rsQGQCjoLhMuC9oFj9SOi4Cl4b2wjDrseD0LRZ10W7R6Czo4w9ZznVSshKjuIomsRjvm9EKJQ==}
+  next@14.2.5:
+    resolution: {integrity: sha512-0f8aRfBVL+mpzfBjYfQuLWh2WyAwtJXCRfkPF4UJ5qd2YwrHczsrSzXU4tRMV0OAxR8ZJZWPFn6uhSC56UTsLA==}
     engines: {node: '>=18.17.0'}
     hasBin: true
     peerDependencies:
@@ -8057,9 +8051,6 @@ packages:
     resolution: {integrity: sha512-wmEc8m4fjnob4gt5riFRtTu/6+4rSe12TpAELNSqHMfF3IqnA+CH37USM6/YR3qRZv7e56kAEAtd6nKZaxe0Ug==}
     engines: {node: '>=6.0.0'}
 
-  tailwind-merge@2.3.0:
-    resolution: {integrity: sha512-vkYrLpIP+lgR0tQCG6AP7zZXCTLc1Lnv/CCRT3BqJ9CZ3ui2++GPaGb1x/ILsINIMSYqqvrpqjUFsMNLlW99EA==}
-
   tailwind-merge@2.4.0:
     resolution: {integrity: sha512-49AwoOQNKdqKPd9CViyH5wJoSKsCDjUlzL8DxuGp3P1FsGY36NJDAa18jLZcaHAUUuTj+JB8IAo8zWgBNvBF7A==}
 
@@ -8599,8 +8590,8 @@ packages:
       vite:
         optional: true
 
-  vite-plugin-lib@2.0.13:
-    resolution: {integrity: sha512-8SRouVJr8nJYJLoGSUkDH0Yp9J7v+TRAhLUBz2faR26/YAbg6jlIWYkZPNUFOCOaQcMY8iYz1MQ2m84msObLWQ==}
+  vite-plugin-lib@2.1.1:
+    resolution: {integrity: sha512-Mb0g2t26KeGnLI2sUJVOwe5p5rmA7HnGbuZVC5QF1tKB2K28cx7vtKTmJQPq2TBb/2ytiEW15WhNWYBQwhmuUA==}
     peerDependencies:
       typescript: '*'
       vite: ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
@@ -8992,9 +8983,9 @@ snapshots:
 
   '@antfu/utils@0.7.7': {}
 
-  '@apideck/better-ajv-errors@0.3.6(ajv@8.12.0)':
+  '@apideck/better-ajv-errors@0.3.6(ajv@8.13.0)':
     dependencies:
-      ajv: 8.12.0
+      ajv: 8.13.0
       json-schema: 0.4.0
       jsonpointer: 5.0.1
       leven: 3.1.0
@@ -9136,7 +9127,7 @@ snapshots:
       '@babel/core': 7.24.6
       '@babel/helper-compilation-targets': 7.24.6
       '@babel/helper-plugin-utils': 7.24.6
-      debug: 4.3.5
+      debug: 4.3.6
       lodash.debounce: 4.0.8
       resolve: 1.22.6
     transitivePeerDependencies:
@@ -9865,7 +9856,7 @@ snapshots:
       '@babel/helper-split-export-declaration': 7.22.6
       '@babel/parser': 7.23.6
       '@babel/types': 7.23.6
-      debug: 4.3.5
+      debug: 4.3.6
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -9880,7 +9871,7 @@ snapshots:
       '@babel/helper-split-export-declaration': 7.24.6
       '@babel/parser': 7.24.6
       '@babel/types': 7.24.6
-      debug: 4.3.5
+      debug: 4.3.6
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -10068,12 +10059,12 @@ snapshots:
       picocolors: 1.0.1
       sisteransi: 1.0.5
 
-  '@commitlint/cli@19.3.0(@types/node@22.1.0)(typescript@5.5.4)':
+  '@commitlint/cli@19.4.0(@types/node@22.1.0)(typescript@5.5.4)':
     dependencies:
       '@commitlint/format': 19.3.0
       '@commitlint/lint': 19.2.2
-      '@commitlint/load': 19.2.0(@types/node@22.1.0)(typescript@5.5.4)
-      '@commitlint/read': 19.2.1
+      '@commitlint/load': 19.4.0(@types/node@22.1.0)(typescript@5.5.4)
+      '@commitlint/read': 19.4.0
       '@commitlint/types': 19.0.3
       execa: 8.0.1
       yargs: 17.7.2
@@ -10089,7 +10080,7 @@ snapshots:
   '@commitlint/config-validator@19.0.3':
     dependencies:
       '@commitlint/types': 19.0.3
-      ajv: 8.12.0
+      ajv: 8.13.0
 
   '@commitlint/ensure@19.0.3':
     dependencies:
@@ -10110,7 +10101,7 @@ snapshots:
   '@commitlint/is-ignored@19.2.2':
     dependencies:
       '@commitlint/types': 19.0.3
-      semver: 7.6.2
+      semver: 7.6.3
 
   '@commitlint/lint@19.2.2':
     dependencies:
@@ -10119,7 +10110,7 @@ snapshots:
       '@commitlint/rules': 19.0.3
       '@commitlint/types': 19.0.3
 
-  '@commitlint/load@19.2.0(@types/node@22.1.0)(typescript@5.5.4)':
+  '@commitlint/load@19.4.0(@types/node@22.1.0)(typescript@5.5.4)':
     dependencies:
       '@commitlint/config-validator': 19.0.3
       '@commitlint/execute-rule': 19.0.0
@@ -10143,7 +10134,7 @@ snapshots:
       conventional-changelog-angular: 7.0.0
       conventional-commits-parser: 5.0.0
 
-  '@commitlint/read@19.2.1':
+  '@commitlint/read@19.4.0':
     dependencies:
       '@commitlint/top-level': 19.0.0
       '@commitlint/types': 19.0.3
@@ -10507,12 +10498,12 @@ snapshots:
   '@jridgewell/trace-mapping@0.3.25':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
 
   '@jridgewell/trace-mapping@0.3.9':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
 
   '@jsdevtools/ez-spawn@3.0.4':
     dependencies:
@@ -10590,33 +10581,33 @@ snapshots:
 
   '@microsoft/tsdoc@0.15.0': {}
 
-  '@next/env@14.2.4': {}
+  '@next/env@14.2.5': {}
 
-  '@next/swc-darwin-arm64@14.2.4':
+  '@next/swc-darwin-arm64@14.2.5':
     optional: true
 
-  '@next/swc-darwin-x64@14.2.4':
+  '@next/swc-darwin-x64@14.2.5':
     optional: true
 
-  '@next/swc-linux-arm64-gnu@14.2.4':
+  '@next/swc-linux-arm64-gnu@14.2.5':
     optional: true
 
-  '@next/swc-linux-arm64-musl@14.2.4':
+  '@next/swc-linux-arm64-musl@14.2.5':
     optional: true
 
-  '@next/swc-linux-x64-gnu@14.2.4':
+  '@next/swc-linux-x64-gnu@14.2.5':
     optional: true
 
-  '@next/swc-linux-x64-musl@14.2.4':
+  '@next/swc-linux-x64-musl@14.2.5':
     optional: true
 
-  '@next/swc-win32-arm64-msvc@14.2.4':
+  '@next/swc-win32-arm64-msvc@14.2.5':
     optional: true
 
-  '@next/swc-win32-ia32-msvc@14.2.4':
+  '@next/swc-win32-ia32-msvc@14.2.5':
     optional: true
 
-  '@next/swc-win32-x64-msvc@14.2.4':
+  '@next/swc-win32-x64-msvc@14.2.5':
     optional: true
 
   '@nodelib/fs.scandir@2.1.5':
@@ -10643,7 +10634,7 @@ snapshots:
 
   '@npmcli/fs@3.1.1':
     dependencies:
-      semver: 7.6.2
+      semver: 7.6.3
 
   '@npmcli/redact@2.0.1': {}
 
@@ -11346,6 +11337,14 @@ snapshots:
       picomatch: 2.3.1
       rollup: 2.79.1
 
+  '@rollup/pluginutils@5.1.0(rollup@2.79.1)':
+    dependencies:
+      '@types/estree': 1.0.5
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+    optionalDependencies:
+      rollup: 2.79.1
+
   '@rollup/pluginutils@5.1.0(rollup@4.13.0)':
     dependencies:
       '@types/estree': 1.0.5
@@ -11806,7 +11805,7 @@ snapshots:
       '@typescript-eslint/types': 8.0.1
       '@typescript-eslint/typescript-estree': 8.0.1(typescript@5.5.4)
       '@typescript-eslint/visitor-keys': 8.0.1
-      debug: 4.3.5
+      debug: 4.3.6
       eslint: 9.8.0
     optionalDependencies:
       typescript: 5.5.4
@@ -11827,7 +11826,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/typescript-estree': 8.0.1(typescript@5.5.4)
       '@typescript-eslint/utils': 8.0.1(eslint@9.8.0)(typescript@5.5.4)
-      debug: 4.3.5
+      debug: 4.3.6
       ts-api-utils: 1.3.0(typescript@5.5.4)
     optionalDependencies:
       typescript: 5.5.4
@@ -11843,11 +11842,11 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 7.15.0
       '@typescript-eslint/visitor-keys': 7.15.0
-      debug: 4.3.5
+      debug: 4.3.6
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.4
-      semver: 7.6.2
+      semver: 7.6.3
       ts-api-utils: 1.3.0(typescript@5.5.4)
     optionalDependencies:
       typescript: 5.5.4
@@ -11858,11 +11857,11 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.0.1
       '@typescript-eslint/visitor-keys': 8.0.1
-      debug: 4.3.5
+      debug: 4.3.6
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.4
-      semver: 7.6.2
+      semver: 7.6.3
       ts-api-utils: 1.3.0(typescript@5.5.4)
     optionalDependencies:
       typescript: 5.5.4
@@ -11958,7 +11957,7 @@ snapshots:
   '@vitest/snapshot@2.0.5':
     dependencies:
       '@vitest/pretty-format': 2.0.5
-      magic-string: 0.30.10
+      magic-string: 0.30.11
       pathe: 1.1.2
 
   '@vitest/spy@2.0.5':
@@ -12030,7 +12029,7 @@ snapshots:
       '@vue/compiler-ssr': 3.4.20
       '@vue/shared': 3.4.20
       estree-walker: 2.0.2
-      magic-string: 0.30.10
+      magic-string: 0.30.11
       postcss: 8.4.41
       source-map-js: 1.2.0
 
@@ -12051,7 +12050,7 @@ snapshots:
       '@vue/compiler-vue2': 2.7.16
       '@vue/shared': 3.4.20
       computeds: 0.0.1
-      minimatch: 9.0.4
+      minimatch: 9.0.5
       muggle-string: 0.4.1
       path-browserify: 1.0.1
     optionalDependencies:
@@ -12103,25 +12102,25 @@ snapshots:
       - typescript
       - vitest
 
-  '@yeger/streams@1.1.9': {}
+  '@yeger/streams@1.2.0': {}
 
-  '@yeger/turbo-graph-ui@2.0.5(tailwindcss@3.4.7(ts-node@10.9.1(@types/node@22.1.0)(typescript@5.5.4)))(turbo@2.0.12)':
+  '@yeger/turbo-graph-ui@2.0.6(tailwindcss@3.4.7(ts-node@10.9.1(@types/node@22.1.0)(typescript@5.5.4)))(turbo@2.0.12)':
     dependencies:
       '@yeger/debounce': 2.0.9
-      '@yeger/streams': 1.1.9
+      '@yeger/streams': 1.2.0
       class-variance-authority: 0.7.0
       clsx: 2.1.1
       d3-dag: 1.1.0
       d3-graph-controller: 3.0.10
       d3-scale: 4.0.2
       d3-scale-chromatic: 3.1.0
-      execa: 9.2.0
-      lucide-react: 0.395.0(react@18.3.1)
+      execa: 9.3.0
+      lucide-react: 0.424.0(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       reactflow: 11.11.4(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       resumon: 2.0.10
-      tailwind-merge: 2.3.0
+      tailwind-merge: 2.4.0
       tailwindcss-animate: 1.0.7(tailwindcss@3.4.7(ts-node@10.9.1(@types/node@22.1.0)(typescript@5.5.4)))
       turbo: 2.0.12
     transitivePeerDependencies:
@@ -12129,11 +12128,11 @@ snapshots:
       - immer
       - tailwindcss
 
-  '@yeger/turbo-graph@2.0.5(@playwright/test@1.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.7(ts-node@10.9.1(@types/node@22.1.0)(typescript@5.5.4)))(turbo@2.0.12)':
+  '@yeger/turbo-graph@2.0.6(@playwright/test@1.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.7(ts-node@10.9.1(@types/node@22.1.0)(typescript@5.5.4)))(turbo@2.0.12)':
     dependencies:
-      '@yeger/turbo-graph-ui': 2.0.5(tailwindcss@3.4.7(ts-node@10.9.1(@types/node@22.1.0)(typescript@5.5.4)))(turbo@2.0.12)
+      '@yeger/turbo-graph-ui': 2.0.6(tailwindcss@3.4.7(ts-node@10.9.1(@types/node@22.1.0)(typescript@5.5.4)))(turbo@2.0.12)
       cac: 6.7.14
-      next: 14.2.4(@playwright/test@1.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next: 14.2.5(@playwright/test@1.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       open: 8.4.2
       picocolors: 1.0.1
     transitivePeerDependencies:
@@ -12178,13 +12177,13 @@ snapshots:
 
   agent-base@7.1.0:
     dependencies:
-      debug: 4.3.5
+      debug: 4.3.6
     transitivePeerDependencies:
       - supports-color
 
   agent-base@7.1.1:
     dependencies:
-      debug: 4.3.5
+      debug: 4.3.6
     transitivePeerDependencies:
       - supports-color
 
@@ -12527,7 +12526,7 @@ snapshots:
 
   builtins@5.0.1:
     dependencies:
-      semver: 7.6.2
+      semver: 7.6.3
 
   bundle-require@5.0.0(esbuild@0.21.5):
     dependencies:
@@ -12826,7 +12825,7 @@ snapshots:
     dependencies:
       '@types/node': 22.1.0
       cosmiconfig: 9.0.0(typescript@5.5.4)
-      jiti: 1.21.0
+      jiti: 1.21.6
       typescript: 5.5.4
 
   cosmiconfig@8.3.6(typescript@5.5.4):
@@ -13365,7 +13364,7 @@ snapshots:
   eslint-compat-utils@0.5.1(eslint@9.8.0):
     dependencies:
       eslint: 9.8.0
-      semver: 7.6.2
+      semver: 7.6.3
 
   eslint-config-flat-gitignore@0.1.8:
     dependencies:
@@ -13481,14 +13480,14 @@ snapshots:
   eslint-plugin-import-x@3.1.0(eslint@9.8.0)(typescript@5.5.4):
     dependencies:
       '@typescript-eslint/utils': 7.15.0(eslint@9.8.0)(typescript@5.5.4)
-      debug: 4.3.5
+      debug: 4.3.6
       doctrine: 3.0.0
       eslint: 9.8.0
       eslint-import-resolver-node: 0.3.9
       get-tsconfig: 4.7.5
       is-glob: 4.0.3
       minimatch: 9.0.4
-      semver: 7.6.2
+      semver: 7.6.3
       stable-hash: 0.0.4
       tslib: 2.6.2
     transitivePeerDependencies:
@@ -13527,7 +13526,7 @@ snapshots:
       '@es-joy/jsdoccomment': 0.46.0
       are-docs-informative: 0.0.2
       comment-parser: 1.4.1
-      debug: 4.3.5
+      debug: 4.3.6
       escape-string-regexp: 4.0.0
       eslint: 9.8.0
       espree: 10.1.0
@@ -13599,7 +13598,7 @@ snapshots:
       globals: 15.9.0
       ignore: 5.3.1
       minimatch: 9.0.5
-      semver: 7.6.2
+      semver: 7.6.3
 
   eslint-plugin-no-only-tests@3.1.0: {}
 
@@ -13760,7 +13759,7 @@ snapshots:
 
   eslint-plugin-toml@0.11.1(eslint@9.8.0):
     dependencies:
-      debug: 4.3.5
+      debug: 4.3.6
       eslint: 9.8.0
       eslint-compat-utils: 0.5.1(eslint@9.8.0)
       lodash: 4.17.21
@@ -13795,7 +13794,7 @@ snapshots:
       read-pkg-up: 7.0.1
       regexp-tree: 0.1.27
       regjsparser: 0.10.0
-      semver: 7.6.2
+      semver: 7.6.3
       strip-indent: 3.0.0
 
   eslint-plugin-unused-imports@4.0.1(@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0):
@@ -13824,7 +13823,7 @@ snapshots:
       natural-compare: 1.4.0
       nth-check: 2.1.1
       postcss-selector-parser: 6.1.0
-      semver: 7.6.2
+      semver: 7.6.3
       vue-eslint-parser: 9.4.3(eslint@9.8.0)
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
@@ -13879,7 +13878,7 @@ snapshots:
       ajv: 6.12.6
       chalk: 2.4.2
       cross-spawn: 6.0.5
-      debug: 4.3.5
+      debug: 4.3.6
       doctrine: 3.0.0
       eslint-scope: 5.1.1
       eslint-utils: 1.4.3
@@ -14042,7 +14041,7 @@ snapshots:
       signal-exit: 4.1.0
       strip-final-newline: 3.0.0
 
-  execa@9.2.0:
+  execa@9.3.0:
     dependencies:
       '@sindresorhus/merge-streams': 4.0.0
       cross-spawn: 7.0.3
@@ -14359,7 +14358,7 @@ snapshots:
     dependencies:
       basic-ftp: 5.0.3
       data-uri-to-buffer: 5.0.1
-      debug: 4.3.5
+      debug: 4.3.6
       fs-extra: 8.1.0
     transitivePeerDependencies:
       - supports-color
@@ -14564,7 +14563,7 @@ snapshots:
   http-proxy-agent@7.0.0:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.5
+      debug: 4.3.6
     transitivePeerDependencies:
       - supports-color
 
@@ -14578,7 +14577,7 @@ snapshots:
   https-proxy-agent@7.0.2:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.5
+      debug: 4.3.6
     transitivePeerDependencies:
       - supports-color
 
@@ -14992,8 +14991,6 @@ snapshots:
 
   jiti@1.20.0: {}
 
-  jiti@1.21.0: {}
-
   jiti@1.21.6: {}
 
   jiti@2.0.0-beta.2: {}
@@ -15044,7 +15041,7 @@ snapshots:
       acorn: 8.12.1
       eslint-visitor-keys: 3.4.3
       espree: 9.6.1
-      semver: 7.6.2
+      semver: 7.6.3
 
   jsonc-parser@3.2.0: {}
 
@@ -15262,10 +15259,6 @@ snapshots:
 
   lru-cache@7.18.3: {}
 
-  lucide-react@0.395.0(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-
   lucide-react@0.424.0(react@18.3.1):
     dependencies:
       react: 18.3.1
@@ -15290,7 +15283,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.6.2
+      semver: 7.6.3
 
   make-error@1.3.6: {}
 
@@ -15351,7 +15344,7 @@ snapshots:
 
   micromark@2.11.4:
     dependencies:
-      debug: 4.3.5
+      debug: 4.3.6
       parse-entities: 2.0.0
     transitivePeerDependencies:
       - supports-color
@@ -15514,27 +15507,27 @@ snapshots:
 
   netmask@2.0.2: {}
 
-  next@14.2.4(@playwright/test@1.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next@14.2.5(@playwright/test@1.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@next/env': 14.2.4
+      '@next/env': 14.2.5
       '@swc/helpers': 0.5.5
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001600
+      caniuse-lite: 1.0.30001650
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       styled-jsx: 5.1.1(react@18.3.1)
     optionalDependencies:
-      '@next/swc-darwin-arm64': 14.2.4
-      '@next/swc-darwin-x64': 14.2.4
-      '@next/swc-linux-arm64-gnu': 14.2.4
-      '@next/swc-linux-arm64-musl': 14.2.4
-      '@next/swc-linux-x64-gnu': 14.2.4
-      '@next/swc-linux-x64-musl': 14.2.4
-      '@next/swc-win32-arm64-msvc': 14.2.4
-      '@next/swc-win32-ia32-msvc': 14.2.4
-      '@next/swc-win32-x64-msvc': 14.2.4
+      '@next/swc-darwin-arm64': 14.2.5
+      '@next/swc-darwin-x64': 14.2.5
+      '@next/swc-linux-arm64-gnu': 14.2.5
+      '@next/swc-linux-arm64-musl': 14.2.5
+      '@next/swc-linux-x64-gnu': 14.2.5
+      '@next/swc-linux-x64-musl': 14.2.5
+      '@next/swc-win32-arm64-msvc': 14.2.5
+      '@next/swc-win32-ia32-msvc': 14.2.5
+      '@next/swc-win32-x64-msvc': 14.2.5
       '@playwright/test': 1.46.0
     transitivePeerDependencies:
       - '@babel/core'
@@ -15548,7 +15541,7 @@ snapshots:
 
   node-abi@3.54.0:
     dependencies:
-      semver: 7.6.2
+      semver: 7.6.3
 
   node-addon-api@6.1.0: {}
 
@@ -15601,7 +15594,7 @@ snapshots:
     dependencies:
       hosted-git-info: 7.0.1
       proc-log: 4.2.0
-      semver: 7.6.2
+      semver: 7.6.3
       validate-npm-package-name: 5.0.0
 
   npm-package-arg@11.0.3:
@@ -15837,7 +15830,7 @@ snapshots:
     dependencies:
       '@tootallnate/quickjs-emscripten': 0.23.0
       agent-base: 7.1.1
-      debug: 4.3.5
+      debug: 4.3.6
       get-uri: 6.0.1
       http-proxy-agent: 7.0.0
       https-proxy-agent: 7.0.2
@@ -15987,7 +15980,7 @@ snapshots:
   pkg-types@1.0.3:
     dependencies:
       jsonc-parser: 3.2.0
-      mlly: 1.4.2
+      mlly: 1.7.1
       pathe: 1.1.2
 
   pkg-types@1.1.3:
@@ -17097,7 +17090,7 @@ snapshots:
   socks-proxy-agent@8.0.4:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.5
+      debug: 4.3.6
       socks: 2.8.3
     transitivePeerDependencies:
       - supports-color
@@ -17396,10 +17389,6 @@ snapshots:
       lodash: 4.17.21
       slice-ansi: 2.1.0
       string-width: 3.1.0
-
-  tailwind-merge@2.3.0:
-    dependencies:
-      '@babel/runtime': 7.24.5
 
   tailwind-merge@2.4.0: {}
 
@@ -17966,7 +17955,7 @@ snapshots:
   vite-node@2.0.5(@types/node@22.1.0)(terser@5.26.0):
     dependencies:
       cac: 6.7.14
-      debug: 4.3.5
+      debug: 4.3.6
       pathe: 1.1.2
       tinyrainbow: 1.2.0
       vite: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
@@ -17988,6 +17977,26 @@ snapshots:
       source-map: 0.7.4
       vite: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
 
+  vite-plugin-dts@4.0.1(@types/node@22.1.0)(rollup@2.79.1)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0)):
+    dependencies:
+      '@microsoft/api-extractor': 7.47.4(@types/node@22.1.0)
+      '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
+      '@volar/typescript': 2.3.4
+      '@vue/language-core': 2.0.29(typescript@5.5.4)
+      compare-versions: 6.1.1
+      debug: 4.3.6
+      kolorist: 1.8.0
+      local-pkg: 0.5.0
+      magic-string: 0.30.11
+      typescript: 5.5.4
+      vue-tsc: 2.0.29(typescript@5.5.4)
+    optionalDependencies:
+      vite: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
+    transitivePeerDependencies:
+      - '@types/node'
+      - rollup
+      - supports-color
+
   vite-plugin-dts@4.0.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0)):
     dependencies:
       '@microsoft/api-extractor': 7.47.4(@types/node@22.1.0)
@@ -18008,7 +18017,18 @@ snapshots:
       - rollup
       - supports-color
 
-  vite-plugin-lib@2.0.13(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0)):
+  vite-plugin-lib@2.1.1(@types/node@22.1.0)(rollup@2.79.1)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0)):
+    dependencies:
+      picocolors: 1.0.1
+      typescript: 5.5.4
+      vite: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
+      vite-plugin-dts: 4.0.1(@types/node@22.1.0)(rollup@2.79.1)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+    transitivePeerDependencies:
+      - '@types/node'
+      - rollup
+      - supports-color
+
+  vite-plugin-lib@2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0)):
     dependencies:
       picocolors: 1.0.1
       typescript: 5.5.4
@@ -18079,14 +18099,14 @@ snapshots:
 
   vue-eslint-parser@9.4.3(eslint@9.8.0):
     dependencies:
-      debug: 4.3.5
+      debug: 4.3.6
       eslint: 9.8.0
       eslint-scope: 7.2.2
       eslint-visitor-keys: 3.4.3
       espree: 9.6.1
       esquery: 1.5.0
       lodash: 4.17.21
-      semver: 7.6.2
+      semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
 
@@ -18094,7 +18114,7 @@ snapshots:
     dependencies:
       '@volar/typescript': 2.4.0-alpha.18
       '@vue/language-core': 2.0.29(typescript@5.5.4)
-      semver: 7.6.2
+      semver: 7.6.3
       typescript: 5.5.4
 
   wcwidth@1.0.1:
@@ -18194,7 +18214,7 @@ snapshots:
 
   workbox-build@7.0.0(@types/babel__core@7.20.5):
     dependencies:
-      '@apideck/better-ajv-errors': 0.3.6(ajv@8.12.0)
+      '@apideck/better-ajv-errors': 0.3.6(ajv@8.13.0)
       '@babel/core': 7.24.6
       '@babel/preset-env': 7.23.7(@babel/core@7.24.6)
       '@babel/runtime': 7.24.5
@@ -18202,7 +18222,7 @@ snapshots:
       '@rollup/plugin-node-resolve': 11.2.1(rollup@2.79.1)
       '@rollup/plugin-replace': 2.4.2(rollup@2.79.1)
       '@surma/rollup-plugin-off-main-thread': 2.2.3
-      ajv: 8.12.0
+      ajv: 8.13.0
       common-tags: 1.8.2
       fast-json-stable-stringify: 2.1.0
       fs-extra: 9.1.0

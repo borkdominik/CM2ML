@@ -40,7 +40,7 @@
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/utils": "workspace:*",
-    "@yeger/streams": "1.1.9",
+    "@yeger/streams": "1.2.0",
     "domhandler": "5.0.3",
     "htmlparser2": "9.1.0"
   },
@@ -49,7 +49,7 @@
     "@types/jsdom": "21.1.7",
     "typescript": "5.5.4",
     "vite": "5.3.5",
-    "vite-plugin-lib": "2.0.13"
+    "vite-plugin-lib": "2.1.1"
   },
   "publishConfig": {
     "access": "public"

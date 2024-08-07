@@ -42,7 +42,7 @@
     "@cm2ml/tsconfig": "workspace:*",
     "typescript": "5.5.4",
     "vite": "5.3.5",
-    "vite-plugin-lib": "2.0.13"
+    "vite-plugin-lib": "2.1.1"
   },
   "publishConfig": {
     "access": "public"
