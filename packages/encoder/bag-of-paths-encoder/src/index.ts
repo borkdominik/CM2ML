@@ -42,7 +42,7 @@ const PathBuilder = definePlugin({
     },
     maxPaths: {
       type: 'number',
-      defaultValue: -1,
+      defaultValue: 10,
       description: 'Maximum number of paths to collect',
       group: 'Paths',
     },
@@ -51,12 +51,20 @@ const PathBuilder = definePlugin({
     const { getNodeFeatureVector, nodeFeatures, edgeFeatures } = features
     const paths = collectPaths(data, parameters)
     const nodes = Stream.from(data.nodes).map((node) => getNodeFeatureVector(node)).toArray()
+    const mapping = Stream.from(data.nodes).map((node) => {
+      const id = node.id
+      if (id === undefined) {
+        throw new Error('Node ID is undefined')
+      }
+      return id
+    }).toArray()
     return {
       data: {
         paths,
         nodes,
+        mapping,
       },
-      metadata: { nodeFeatures, edgeFeatures },
+      metadata: { nodeFeatures, edgeFeatures, idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },
     }
   },
 })

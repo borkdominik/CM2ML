@@ -51,6 +51,8 @@ export const EdgeEncoder = defineStructuredPlugin({
       metadata: {
         edgeFeatures,
         nodeFeatures,
+        idAttribute: data.metamodel.idAttribute,
+        typeAttributes: data.metamodel.typeAttributes,
       },
     }
   },

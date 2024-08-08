@@ -70,7 +70,6 @@ interface PatternProps {
 function Pattern({ pattern, absoluteFrequency, mapping, graph }: PatternProps) {
   // Use a fragment as the root to put both the list and the graph into the same container
   // This way, the graph can be sized independently of the list
-  // TODO/Jan: Make format selectable
   const download = async (format: 'svg') => {
     const viz = await getInstance()
     const svg = viz.renderString(graph, { format })
