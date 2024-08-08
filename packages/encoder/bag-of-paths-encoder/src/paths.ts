@@ -3,21 +3,37 @@ import { Stream } from '@yeger/streams'
 
 import type { PathParameters, PathWeight } from './bop-types'
 
-export function collectPaths(model: GraphModel, parameters: PathParameters): { path: number[], weight: number[] | number }[] {
+export interface PathData {
+  steps: number[]
+  weight: number
+}
+
+export function collectPaths(model: GraphModel, parameters: PathParameters) {
   const nodes = Stream.from(model.nodes)
   const indexMap = new Map(nodes.map((node, i) => [node, i]))
-  return nodes
+  const sortedPaths = nodes
     .flatMap((node) => Path.from(node, parameters))
     .filter((path) => path.steps.length >= parameters.minPathLength)
-    .map((path) => {
+    .map<PathData>((path) => {
       const getNodeIndex = (node: GraphNode) => indexMap.get(node)!
       return {
-        path: [getNodeIndex(path.startNode), ...path.steps.map((step) => getNodeIndex(step.target))],
+        steps: [getNodeIndex(path.startNode), ...path.steps.map((step) => getNodeIndex(step.target))],
         weight: reduceWeights(path.steps.map((step) => step.weight), parameters.pathWeight),
       }
     },
     )
     .toArray()
+    .sort((a, b) => {
+      const weightDiff = b.weight - a.weight
+      if (weightDiff !== 0) {
+        return weightDiff
+      }
+      return a.steps.length - b.steps.length
+    })
+  if (parameters.maxPaths >= 0) {
+    return sortedPaths.slice(0, parameters.maxPaths)
+  }
+  return sortedPaths
 }
 
 class Path {
@@ -89,17 +105,14 @@ class Step {
 }
 
 function reduceWeights(weights: number[], type: PathWeight) {
+  if (type === 'length') {
+    return weights.length
+  }
   if (type === 'step-product') {
     return weights.reduce((a, b) => a * b, 1)
   }
   if (type === 'step-sum') {
     return weights.reduce((a, b) => a + b, 0)
-  }
-  if (type === 'length') {
-    return weights.length
-  }
-  if (type === 'none') {
-    return weights
   }
   throw new Error(`Unsupported weight reduction: ${type}`)
 }

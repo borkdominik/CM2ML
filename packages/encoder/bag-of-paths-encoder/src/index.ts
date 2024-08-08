@@ -7,6 +7,10 @@ import { Stream } from '@yeger/streams'
 import { pathWeightTypes, stepWeightTypes } from './bop-types'
 import { collectPaths } from './paths'
 
+export type { PathData } from './paths'
+export { stepWeightTypes, pathWeightTypes }
+export type { PathWeight, StepWeight } from './bop-types'
+
 const PathBuilder = definePlugin({
   name: 'path-builder',
   parameters: {
@@ -34,6 +38,12 @@ const PathBuilder = definePlugin({
       allowedValues: pathWeightTypes,
       defaultValue: pathWeightTypes[0],
       description: 'Weighting strategy for paths',
+      group: 'Paths',
+    },
+    maxPaths: {
+      type: 'number',
+      defaultValue: -1,
+      description: 'Maximum number of paths to collect',
       group: 'Paths',
     },
   },
