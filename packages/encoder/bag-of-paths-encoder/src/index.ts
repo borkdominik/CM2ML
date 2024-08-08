@@ -4,7 +4,7 @@ import type { GraphModel } from '@cm2ml/ir'
 import { batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
-import { weightReductions, weights } from './bop-types'
+import { pathWeightTypes, stepWeightTypes } from './bop-types'
 import { collectPaths } from './paths'
 
 const PathBuilder = definePlugin({
@@ -22,18 +22,18 @@ const PathBuilder = definePlugin({
       description: 'Maximum path length',
       group: 'Paths',
     },
-    weight: {
+    stepWeight: {
       type: 'string',
-      allowedValues: weights,
-      defaultValue: weights[0],
+      allowedValues: stepWeightTypes,
+      defaultValue: stepWeightTypes[0],
       description: 'Weighting strategy for steps',
       group: 'Paths',
     },
-    weightReduction: {
+    pathWeight: {
       type: 'string',
-      allowedValues: weightReductions,
-      defaultValue: weightReductions[0],
-      description: 'Reduction strategy for step weights',
+      allowedValues: pathWeightTypes,
+      defaultValue: pathWeightTypes[0],
+      description: 'Weighting strategy for paths',
       group: 'Paths',
     },
   },

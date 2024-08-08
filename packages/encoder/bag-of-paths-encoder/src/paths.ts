@@ -1,7 +1,7 @@
 import type { GraphEdge, GraphModel, GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
-import type { PathParameters, WeightReduction } from './bop-types'
+import type { PathParameters, PathWeight } from './bop-types'
 
 export function collectPaths(model: GraphModel, parameters: PathParameters): { path: number[], weight: number[] | number }[] {
   const nodes = Stream.from(model.nodes)
@@ -13,7 +13,7 @@ export function collectPaths(model: GraphModel, parameters: PathParameters): { p
       const getNodeIndex = (node: GraphNode) => indexMap.get(node)!
       return {
         path: [getNodeIndex(path.startNode), ...path.steps.map((step) => getNodeIndex(step.target))],
-        weight: reduceWeights(path.steps.map((step) => step.weight), parameters.weightReduction),
+        weight: reduceWeights(path.steps.map((step) => step.weight), parameters.pathWeight),
       }
     },
     )
@@ -81,18 +81,18 @@ class Step {
   }
 
   public get weight() {
-    if (this.parameters.weight === 'edge-count') {
+    if (this.parameters.stepWeight === 'edge-count') {
       return this.edges.length
     }
-    throw new Error(`Unsupported weight: ${this.parameters.weight}`)
+    throw new Error(`Unsupported weight: ${this.parameters.stepWeight}`)
   }
 }
 
-function reduceWeights(weights: number[], type: WeightReduction) {
-  if (type === 'product') {
+function reduceWeights(weights: number[], type: PathWeight) {
+  if (type === 'step-product') {
     return weights.reduce((a, b) => a * b, 1)
   }
-  if (type === 'sum') {
+  if (type === 'step-sum') {
     return weights.reduce((a, b) => a + b, 0)
   }
   if (type === 'length') {

@@ -1,14 +1,14 @@
-export const weights = ['edge-count'] as const
+export const stepWeightTypes = ['edge-count'] as const
 
-export type StepWeight = typeof weights[number] | string & Record<never, never>
+export type StepWeight = typeof stepWeightTypes[number] | string & Record<never, never>
 
-export const weightReductions = ['none', 'length', 'product', 'sum'] as const
+export const pathWeightTypes = ['none', 'length', 'step-product', 'step-sum'] as const
 
-export type WeightReduction = typeof weightReductions[number] | string & Record<never, never>
+export type PathWeight = typeof pathWeightTypes[number] | string & Record<never, never>
 
 export interface PathParameters {
   minPathLength: number
   maxPathLength: number
-  weight: StepWeight
-  weightReduction: WeightReduction
+  stepWeight: StepWeight
+  pathWeight: PathWeight
 }

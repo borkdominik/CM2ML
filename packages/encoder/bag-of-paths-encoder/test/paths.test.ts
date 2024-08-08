@@ -8,7 +8,7 @@ describe('paths', () => {
   it('does not include duplicates', () => {
     expect(1).toBe(1)
     const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b']])
-    const paths = collectPaths(model, { minPathLength: 1, maxPathLength: 3, weight: 'edge-count', weightReduction: 'none' })
+    const paths = collectPaths(model, { minPathLength: 1, maxPathLength: 3, stepWeight: 'edge-count', pathWeight: 'none' })
     expect(paths).toMatchInlineSnapshot(`
       [
         {
@@ -28,7 +28,7 @@ describe('paths', () => {
     it('can use no reduction', () => {
       expect(1).toBe(1)
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
-      const paths = collectPaths(model, { minPathLength: 2, maxPathLength: 3, weight: 'edge-count', weightReduction: 'none' })
+      const paths = collectPaths(model, { minPathLength: 2, maxPathLength: 3, stepWeight: 'edge-count', pathWeight: 'none' })
       expect(paths).toMatchInlineSnapshot(`
         [
           {
@@ -49,7 +49,7 @@ describe('paths', () => {
     it('can use length reduction', () => {
       expect(1).toBe(1)
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
-      const paths = collectPaths(model, { minPathLength: 2, maxPathLength: 3, weight: 'edge-count', weightReduction: 'length' })
+      const paths = collectPaths(model, { minPathLength: 2, maxPathLength: 3, stepWeight: 'edge-count', pathWeight: 'length' })
       expect(paths).toMatchInlineSnapshot(`
         [
           {
@@ -67,7 +67,7 @@ describe('paths', () => {
     it('can use product reduction', () => {
       expect(1).toBe(1)
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c'], ['b', 'c']])
-      const paths = collectPaths(model, { minPathLength: 2, maxPathLength: 3, weight: 'edge-count', weightReduction: 'product' })
+      const paths = collectPaths(model, { minPathLength: 2, maxPathLength: 3, stepWeight: 'edge-count', pathWeight: 'step-product' })
       expect(paths).toMatchInlineSnapshot(`
         [
           {
@@ -85,7 +85,7 @@ describe('paths', () => {
     it('can use sum reduction', () => {
       expect(1).toBe(1)
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
-      const paths = collectPaths(model, { minPathLength: 2, maxPathLength: 3, weight: 'edge-count', weightReduction: 'sum' })
+      const paths = collectPaths(model, { minPathLength: 2, maxPathLength: 3, stepWeight: 'edge-count', pathWeight: 'step-sum' })
       expect(paths).toMatchInlineSnapshot(`
         [
           {
