@@ -8,22 +8,10 @@ import { scaleOrdinal } from 'd3-scale'
 import { schemeCategory10 as colorScheme } from 'd3-scale-chromatic'
 import type { Edge, Node } from 'reactflow'
 
-import { getEdgeSourceSelection, getEdgeTargetSelection, getNodeIdSelection } from './treeFormatHelpers'
-import type { FlowNode, SizeConfig } from './treeTypes'
+import { type TreeFlowGraphModel, type TreeHierarchy, type TreeSizeConfig, treeSizeConfigs } from '../../../../lib/treeUtils'
 
-const sugiyamaSizeConfig: SizeConfig = {
-  width: 120,
-  height: 60,
-  horizontalSpacing: 80,
-  verticalSpacing: 80,
-}
-
-const treeSizeConfig: SizeConfig = {
-  width: 80,
-  height: 50,
-  horizontalSpacing: 20,
-  verticalSpacing: 50,
-}
+import { getEdgeSourceSelection, getEdgeTargetSelection, getNodeIdSelection } from './treeEncodingFormatHelpers'
+import type { TreeEncodingFlowNode } from './treeEncodingTreeTypes'
 
 export function createFlowGraphFromTree(tree: TreeModel<RecursiveTreeNode>, idWordMapping: Id2WordMapping, staticVocabulary: TreeNodeValue[]) {
   const { nodes, reverseNodeIdMapping, word2IdMapping } = createNodes(tree, idWordMapping, staticVocabulary)
@@ -34,7 +22,7 @@ export function createFlowGraphFromTree(tree: TreeModel<RecursiveTreeNode>, idWo
 }
 
 function createNodes(tree: TreeModel<RecursiveTreeNode>, id2WordMapping: Id2WordMapping, staticVocabulary: TreeNodeValue[]) {
-  const nodes: FlowNode[] = []
+  const nodes: TreeEncodingFlowNode[] = []
   const getColor = scaleOrdinal(colorScheme).domain([...staticVocabulary.map((v) => `${v}`), ...staticVocabulary.map((v) => `${v}__child`)])
 
   const reverseNodeIdMapping = (function () {
@@ -53,7 +41,7 @@ function createNodes(tree: TreeModel<RecursiveTreeNode>, id2WordMapping: Id2Word
     return reversedMapping
   }())
 
-  function makeColor(node: RecursiveTreeNode, parent?: FlowNode) {
+  function makeColor(node: RecursiveTreeNode, parent?: TreeEncodingFlowNode) {
     if (node.isStaticNode) {
       return getColor(`${node.value}`)
     }
@@ -66,12 +54,12 @@ function createNodes(tree: TreeModel<RecursiveTreeNode>, id2WordMapping: Id2Word
     return parent.color
   }
 
-  function convertNode(node: RecursiveTreeNode, index: number, parent?: FlowNode, rawParent?: RecursiveTreeNode, rawGrandParent?: RecursiveTreeNode): FlowNode {
+  function convertNode(node: RecursiveTreeNode, index: number, parent?: TreeEncodingFlowNode, rawParent?: RecursiveTreeNode, rawGrandParent?: RecursiveTreeNode): TreeEncodingFlowNode {
     const id = `${parent ? `${parent.id}.` : ''}${index}`
     const selection = getNodeIdSelection(node.value, parent, tree.format)
       ?? getEdgeSourceSelection(node.value, index, parent, tree.format, rawParent)
       ?? getEdgeTargetSelection(node.value, index, parent, tree.format, rawParent, rawGrandParent)
-    const flowNode: FlowNode = {
+    const flowNode: TreeEncodingFlowNode = {
       id,
       children: [],
       color: makeColor(node, parent),
@@ -100,32 +88,26 @@ function createNodes(tree: TreeModel<RecursiveTreeNode>, id2WordMapping: Id2Word
   return { nodes, reverseNodeIdMapping, word2IdMapping }
 }
 
-interface Hierarchy {
-  nodes: Node<FlowNode>[]
-  sizeConfig: SizeConfig
-  type: 'tree' | 'sugiyama'
-}
-
-function createHierarchy(nodes: FlowNode[]): Hierarchy {
+function createHierarchy(nodes: TreeEncodingFlowNode[]): TreeHierarchy<TreeEncodingFlowNode> {
   if (isLargeModel(nodes)) {
-    return createTreeHierarchy(nodes, treeSizeConfig)
+    return createTreeHierarchy(nodes, treeSizeConfigs.tree)
   }
-  return createSugiyamaHierarchy(nodes, sugiyamaSizeConfig)
+  return createSugiyamaHierarchy(nodes, treeSizeConfigs.sugiyama)
 }
 
-function isLargeModel(nodes: FlowNode[]) {
+function isLargeModel(nodes: TreeEncodingFlowNode[]) {
   return nodes.length > 750
 }
 
 /**
  * Create a (tree) hierarchy layout from the given nodes.
  */
-function createTreeHierarchy(nodes: FlowNode[], sizeConfig: SizeConfig) {
+function createTreeHierarchy(nodes: TreeEncodingFlowNode[], sizeConfig: TreeSizeConfig) {
   const { width, height, horizontalSpacing, verticalSpacing } = sizeConfig
-  const createHierarchy = treeStratify<FlowNode>()
+  const createHierarchy = treeStratify<TreeEncodingFlowNode>()
     .parentId((node) => node.parent?.id)
   const hierarchy = createHierarchy(nodes)
-  const layout = tree<FlowNode>().nodeSize(
+  const layout = tree<TreeEncodingFlowNode>().nodeSize(
     [
       width + horizontalSpacing,
       height + verticalSpacing,
@@ -145,10 +127,10 @@ function createTreeHierarchy(nodes: FlowNode[], sizeConfig: SizeConfig) {
 /**
  * Create a (sugiyama) hierarchy layout from the given nodes.
  */
-function createSugiyamaHierarchy(nodes: FlowNode[], sizeConfig: SizeConfig) {
+function createSugiyamaHierarchy(nodes: TreeEncodingFlowNode[], sizeConfig: TreeSizeConfig) {
   const { width, height, horizontalSpacing, verticalSpacing } = sizeConfig
   const createHierarchy = sugiyamaStratify()
-    .parentIds((node: FlowNode) => node.parent ? [node.parent.id] : [])
+    .parentIds((node: TreeEncodingFlowNode) => node.parent ? [node.parent.id] : [])
   const hierarchy = createHierarchy(nodes)
   const layout = sugiyama().nodeSize([
     width + horizontalSpacing,
@@ -156,7 +138,7 @@ function createSugiyamaHierarchy(nodes: FlowNode[], sizeConfig: SizeConfig) {
   ])
   layout(hierarchy)
   const mappedNodes = Stream.from(hierarchy.nodes())
-    .map<Node<FlowNode>>(
+    .map<Node<TreeEncodingFlowNode>>(
       (node) =>
         ({
           id: node.data.id,
@@ -171,8 +153,8 @@ function createSugiyamaHierarchy(nodes: FlowNode[], sizeConfig: SizeConfig) {
 }
 
 function createFlowGraph(
-  hierarchy: Hierarchy,
-) {
+  hierarchy: TreeHierarchy<TreeEncodingFlowNode>,
+): TreeFlowGraphModel<TreeEncodingFlowNode> {
   const edges = Stream
     .from(hierarchy.nodes)
     .flatMap<Edge<unknown>>((node) =>

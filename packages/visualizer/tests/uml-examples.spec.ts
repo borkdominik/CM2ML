@@ -1,6 +1,6 @@
 import { test } from '@playwright/test'
 
-import { getIRGraph, openExample, selectLayout } from './e2e-utils'
+import { getIRGraph, openExample } from './e2e-utils'
 
 interface Example {
   name: string
@@ -39,7 +39,6 @@ const umlExamples: Example[] = [
 umlExamples.forEach(({ name, nodes, edges, attributes }) => {
   test(`UML example ${name}`, async ({ page }) => {
     await page.goto('/')
-    await selectLayout(page, 'Extended')
 
     await openExample(page, 'UML', name)
 

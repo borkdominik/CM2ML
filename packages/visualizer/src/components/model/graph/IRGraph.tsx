@@ -6,18 +6,14 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Edge, Options } from 'vis-network/standalone/esm/vis-network'
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
-import { useSelection } from '../../lib/useSelection'
-import { useVisNetworkStyles } from '../../lib/useVisNetworkStyles'
-import { cn } from '../../lib/utils'
-import { FitButton } from '../FitButton'
-import { Progress } from '../ui/progress'
+import { useSelection } from '../../../lib/useSelection'
+import { useVisNetworkStyles } from '../../../lib/useVisNetworkStyles'
+import { cn } from '../../../lib/utils'
+import { FitButton } from '../../FitButton'
+import { Progress } from '../../ui/progress'
 
 export interface Props {
   model: GraphModel
-}
-
-export interface IRGraphRef {
-  fit?: () => void
 }
 
 export function IRGraph({ model }: Props) {

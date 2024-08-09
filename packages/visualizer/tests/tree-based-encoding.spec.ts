@@ -5,7 +5,6 @@ import { openEncoder, openExample, selectLayout } from './e2e-utils'
 
 async function openTreeEncoding(page: Page) {
   await page.goto('/')
-  await selectLayout(page, 'Extended')
 
   await openExample(page, 'UML', 'deployment.uml')
   const modelForm = page.getByTestId('model-form')

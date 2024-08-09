@@ -1,4 +1,7 @@
+import { useMemo } from 'react'
+
 import { useModelState } from '../../lib/useModelState'
+import { useSettings } from '../../lib/useSettings'
 import { Hint } from '../ui/hint'
 import {
   ResizableHandle,
@@ -7,10 +10,13 @@ import {
 } from '../ui/resizable'
 
 import { SelectionDetails } from './Details'
-import { IRGraph } from './IRGraph'
+import { IRGraph } from './graph/IRGraph'
+import { IRTree } from './tree/IRTree'
 
 export function Model() {
   const model = useModelState.use.model()
+
+  const IRView = useIRView()
 
   if (!model) {
     return <Hint text="No model" />
@@ -19,7 +25,7 @@ export function Model() {
   return (
     <ResizablePanelGroup direction="vertical" className="h-full">
       <ResizablePanel defaultSize={70}>
-        <IRGraph model={model} />
+        <IRView model={model} />
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel>
@@ -29,4 +35,17 @@ export function Model() {
       </ResizablePanel>
     </ResizablePanelGroup>
   )
+}
+
+function useIRView() {
+  const irView = useSettings.use.irView()
+  return useMemo(() => {
+    if (irView === 'graph') {
+      return IRGraph
+    }
+    if (irView === 'tree') {
+      return IRTree
+    }
+    throw new Error(`Unknown IR view: ${irView}`)
+  }, [irView])
 }
