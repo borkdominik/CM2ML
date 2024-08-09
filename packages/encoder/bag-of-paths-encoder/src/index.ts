@@ -5,6 +5,7 @@ import { batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 import { pathWeightTypes, stepWeightTypes } from './bop-types'
+import { validatePathParameters } from './bop-validationts'
 import { collectPaths } from './paths'
 
 export type { PathData } from './paths'
@@ -48,6 +49,7 @@ const PathBuilder = definePlugin({
     },
   },
   invoke: ({ data, metadata: features }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
+    validatePathParameters(parameters)
     const { getNodeFeatureVector, nodeFeatures, edgeFeatures } = features
     const paths = collectPaths(data, parameters)
     const nodes = Stream
