@@ -68,7 +68,7 @@ function ModelStats({ model }: { model: GraphModel }) {
   const hasMetadata = Object.keys(model.metadata).length > 0
 
   return (
-    <div className="flex size-full items-center justify-center gap-1 font-mono text-xs text-muted-foreground" data-testid="model-stats">
+    <div className="flex size-full select-text items-center justify-center gap-1 font-mono text-xs text-muted-foreground" data-testid="model-stats">
       <div className="flex size-full flex-col items-center justify-center">
         <div>
           {languageName}
@@ -128,7 +128,7 @@ function getEdges(edgeSelection: EdgeSelection, model: GraphModel) {
 function NodeDetails({ node }: { node: GraphNode }) {
   const name = node.getAttribute('name')?.value.literal
   return (
-    <div className="space-y-2 p-2" data-testid="node-details">
+    <div className="select-text space-y-2 p-2" data-testid="node-details">
       <div className="text-sm font-bold">
         {node.tag}
         {name ? ` — ${name}` : null}
@@ -280,7 +280,7 @@ function EdgeGroup({ edges }: { edges: GraphEdge[] }) {
     return null
   }
   return (
-    <div className="space-y-4 p-2" data-testid="edge-details-group">
+    <div className="select-text space-y-4 p-2" data-testid="edge-details-group">
       <div className="space-y-2">
         <div className="text-sm font-bold">Source</div>
         <div className="grid grid-cols-[min-content,_auto] items-center gap-2 text-xs">

@@ -1,12 +1,10 @@
 import type { Page } from '@playwright/test'
 import { expect, test } from '@playwright/test'
 
-import { openEncoder, openExample, selectLayout } from './e2e-utils'
+import { openEncoder, openExample } from './e2e-utils'
 
 async function openRawGraphEncoding(page: Page) {
   await page.goto('/')
-  await selectLayout(page, 'Extended')
-
   await openExample(page, 'UML', 'deployment.uml')
   await openEncoder(page, 'Raw graph')
 }
@@ -70,7 +68,7 @@ async function openRawGraphGridEncoding(page: Page, browserName: string) {
   await openRawGraphEncoding(page)
 
   const encoderForm = page.getByTestId('encoder-form')
-  await encoderForm.getByTestId('expand-parameters').click()
+  await encoderForm.getByTestId('Graph-accordion-toggle').click()
   await encoderForm.getByLabel('Sparse').click()
 
   const rawGraphGrid = page.getByTestId('raw-graph-grid')

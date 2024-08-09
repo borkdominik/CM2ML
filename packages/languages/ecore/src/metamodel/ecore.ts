@@ -14,9 +14,9 @@ const types = [] as const
 
 export type EcoreType = (typeof types)[number]
 
-const AbstractTypes = {} as const
+const _AbstractTypes = {} as const
 
-export type EcoreAbstractType = (typeof AbstractTypes)[keyof typeof AbstractTypes]
+export type EcoreAbstractType = (typeof _AbstractTypes)[keyof typeof _AbstractTypes]
 
 export const Ecore = new class extends Metamodel<EcoreAttribute, EcoreType, EcoreTag> {
   public constructor() {
@@ -26,7 +26,6 @@ export const Ecore = new class extends Metamodel<EcoreAttribute, EcoreType, Ecor
       types,
       typeAttributes: ['xsi:type'],
       tags: [],
-
     })
   }
 }()

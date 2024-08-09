@@ -1,18 +1,10 @@
 import type { DB, Matches, Pattern } from './types'
 
 export function isClosed(db: DB, pattern: Pattern, matches: Matches, _maxLength: number) {
-  // TODO/Jan: Enable this check again?
-  // if (pattern.length === maxLength) {
-  //   return true
-  // }
   return !reverseScan(db, [null, ...pattern, null], matches.map(([i, _]) => [i, db[i]!.length])) && !forwardScan(db, matches)
 }
 
 export function canClosedPrune(db: DB, pattern: Pattern, matches: Matches, _maxLength: number) {
-  // TODO/Jan: Enable this check again?
-  // if (pattern.length === maxLength) {
-  //   return false
-  // }
   return reverseScan(db, [null, ...pattern], [...matches])
 }
 

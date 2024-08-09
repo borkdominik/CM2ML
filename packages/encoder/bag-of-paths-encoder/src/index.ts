@@ -1,123 +1,80 @@
+import type { FeatureContext } from '@cm2ml/feature-encoder'
+import { FeatureEncoder } from '@cm2ml/feature-encoder'
 import type { GraphModel } from '@cm2ml/ir'
-import type { InferOut } from '@cm2ml/plugin'
-import { ExecutionError, batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
+import { batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
-import { embedPartitions } from './embedding'
-import { calculateFrequencies } from './frequency'
-import { minePatterns } from './mining'
-import { normalizePartitions } from './normalization'
-import { partitionNodes } from './partitioning'
-import { restorePartitionEdges } from './restoration'
+import { pathWeightTypes, stepWeightTypes } from './bop-types'
+import { validatePathParameters } from './bop-validationts'
+import { collectPaths } from './paths'
 
-export type { PatternWithFrequency } from './frequency'
+export type { PathData } from './paths'
+export { stepWeightTypes, pathWeightTypes }
+export type { PathWeight, StepWeight } from './bop-types'
 
-const PatternMiner = batchTryCatch(definePlugin({
-  name: 'patterns',
+const PathBuilder = definePlugin({
+  name: 'path-builder',
   parameters: {
-    maxPartitioningIterations: {
+    minPathLength: {
       type: 'number',
-      defaultValue: 10,
-      description: 'The maximum number of iterations to run the partitioning algorithm for. Negative values enable unlimited iterations.',
-      group: 'partitioning',
+      defaultValue: 2,
+      description: 'Minimum path length',
+      group: 'Paths',
     },
-    maxPartitionSize: {
+    maxPathLength: {
       type: 'number',
-      defaultValue: 10,
-      description: 'The maximum number of nodes in each partition.',
-      group: 'partitioning',
+      defaultValue: 3,
+      description: 'Maximum path length',
+      group: 'Paths',
     },
-    costType: {
+    stepWeight: {
       type: 'string',
-      defaultValue: 'edge-count',
-      allowedValues: ['edge-count', 'constant'],
-      description: 'The type of cost function to use.',
-      group: 'partitioning',
+      allowedValues: stepWeightTypes,
+      defaultValue: stepWeightTypes[0],
+      description: 'Weighting strategy for steps',
+      group: 'Paths',
     },
-    maskNodeTypes: {
-      type: 'boolean',
-      defaultValue: false,
-      description: 'Whether to mask the types of the nodes.',
-      group: 'normalization',
+    pathWeight: {
+      type: 'string',
+      allowedValues: pathWeightTypes,
+      defaultValue: pathWeightTypes[0],
+      description: 'Weighting strategy for paths',
+      group: 'Paths',
     },
-    minPatternLength: {
-      type: 'number',
-      defaultValue: 1,
-      description: 'The minimum length of patterns to mine.',
-      group: 'mining',
-    },
-    maxPatternLength: {
-      type: 'number',
-      defaultValue: 1000,
-      description: 'The maximum length of patterns to mine.',
-      group: 'mining',
-    },
-    maxPatternsPerPartition: {
+    maxPaths: {
       type: 'number',
       defaultValue: 10,
-      description: 'The maximum number of patterns to mine.',
-      group: 'mining',
-    },
-    closedPatterns: {
-      type: 'boolean',
-      defaultValue: true,
-      description: 'Whether to mine closed patterns.',
-      group: 'mining',
+      description: 'Maximum number of paths to collect',
+      group: 'Paths',
     },
   },
-  invoke(model: GraphModel, parameters) {
-    const partitions = partitionNodes(model, parameters)
-      .map(restorePartitionEdges)
-    const { normalizedPartitions, mapping } = normalizePartitions(partitions, parameters)
-    const embedding = embedPartitions(normalizedPartitions)
-    const patterns = minePatterns(embedding, parameters)
+  invoke: ({ data, metadata: features }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
+    validatePathParameters(parameters)
+    const { getNodeFeatureVector, nodeFeatures, edgeFeatures } = features
+    const paths = collectPaths(data, parameters)
+    const nodes = Stream
+      .from(data.nodes)
+      .map((node) => getNodeFeatureVector(node))
+      .toArray()
+    const mapping = Stream
+      .from(data.nodes)
+      .map((node) => {
+        const id = node.id
+        if (id === undefined) {
+          throw new Error('Node ID is undefined')
+        }
+        return [id, node.tag] as const
+      })
+      .toArray()
     return {
-      data: { patterns, mapping },
-      metadata: {},
+      data: {
+        paths,
+        nodes,
+        mapping,
+      },
+      metadata: { nodeFeatures, edgeFeatures, idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },
     }
-  },
-}))
-
-const PatternFrequencyMiner = definePlugin({
-  name: 'pattern-frequency',
-  parameters: {
-    minAbsoluteFrequency: {
-      type: 'number',
-      defaultValue: 1,
-      description: 'The minimum absolute frequency of a pattern to be included in the output.',
-      group: 'filter',
-    },
-    minModelFrequency: {
-      type: 'number',
-      defaultValue: 1,
-      description: 'The minimum frequency of a pattern in the model to be included in the output.',
-      group: 'filter',
-    },
-    maxPatterns: {
-      type: 'number',
-      defaultValue: 10,
-      description: 'The maximum number of patterns to include in the output.',
-      group: 'filter',
-    },
-    patternOrder: {
-      type: 'string',
-      defaultValue: 'absolute-frequency',
-      allowedValues: ['absolute-frequency', 'model-frequency'],
-      description: 'The priority of the frequency to use when sorting patterns.',
-      group: 'filter',
-    },
-  },
-  invoke(batch: InferOut<typeof PatternMiner>, parameters) {
-    const patterns = Stream
-      .from(batch)
-      .map((result) => result instanceof ExecutionError ? [] : result.data.patterns)
-    const frequencies = calculateFrequencies(patterns, parameters)
-    return batch.map((input) => ({
-      // Only include errors as data, because the patterns are equal for each input, thus considered metadata.
-      data: input instanceof ExecutionError ? input : input.data.mapping,
-      metadata: frequencies,
-    }))
   },
 })
 
-export const BagOfPathsEncoder = compose(PatternMiner, PatternFrequencyMiner, 'bag-of-paths')
+export const BagOfPathsEncoder = compose(FeatureEncoder, batchTryCatch(PathBuilder), 'bag-of-paths')

@@ -18,6 +18,7 @@
     "clean": "rimraf .input/*.json .output/*.log **/.cache/**.dataset **/.checkpoint/*.pt",
     "conda:load": "source scripts/conda-load.sh",
     "conda:save": "source scripts/conda-save.sh",
+    "encode:bop": "source scripts/encode-bop.sh",
     "encode:graph": "source scripts/encode-graph.sh",
     "encode:pattern": "source scripts/encode-pattern.sh",
     "encode:tree": "source scripts/encode-tree.sh",

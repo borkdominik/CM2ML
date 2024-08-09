@@ -11,6 +11,8 @@ export function prettifyParserName(name: string) {
 }
 
 const encoderPairs = [
+  ['bag-of-paths', 'Bag-of-Paths'],
+  ['pattern-miner', 'Pattern miner'],
   ['raw-graph', 'Raw graph'],
   ['tree', 'Tree-based'],
 ]

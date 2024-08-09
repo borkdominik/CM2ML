@@ -7139,6 +7139,7 @@
   ],
   "metadata": {
     "edgeFeatures": [],
+    "idAttribute": "xmi:id",
     "nodeFeatures": [
       [
         "aggregation",
@@ -7658,6 +7659,10 @@
           "Usage": 22,
         },
       ],
+    ],
+    "typeAttributes": [
+      "xmi:type",
+      "xsi:type",
     ],
   },
 }

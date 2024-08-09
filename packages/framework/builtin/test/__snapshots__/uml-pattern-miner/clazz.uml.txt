@@ -1,0 +1,1896 @@
+{
+  "data": [
+    {
+      "Abstraction_0": [
+        "_J2H38LK1Ee24ffphK9Na6g",
+      ],
+      "Association_0": [
+        "_ItM-INIcEe2rY5KN6ehSig",
+        "_VYMM8LK1Ee24ffphK9Na6g",
+        "_UahDwLK1Ee24ffphK9Na6g",
+        "_O3oC8LK1Ee24ffphK9Na6g",
+      ],
+      "Association_1": [
+        "_O3oC8LK1Ee24ffphK9Na6g",
+        "_UahDwLK1Ee24ffphK9Na6g",
+      ],
+      "Association_2": [
+        "_UahDwLK1Ee24ffphK9Na6g",
+        "_VYMM8LK1Ee24ffphK9Na6g",
+      ],
+      "Association_3": [
+        "_ItM-INIcEe2rY5KN6ehSig",
+      ],
+      "Class_0": [
+        "_j12MQL0cEe2besM683MlUA",
+        "_7Y-R4LK0Ee24ffphK9Na6g",
+        "_M-U_ALK1Ee24ffphK9Na6g",
+        "_MHjIALK1Ee24ffphK9Na6g",
+        "_QE0EkK7gEe2EZoZ5sgiBCg",
+        "_Uk2g0cymEe2SqIqlz0mqiA",
+        "_Nbk7sLK1Ee24ffphK9Na6g",
+      ],
+      "Class_1": [
+        "_EWMPELK2Ee24ffphK9Na6g",
+        "_D0YigLK2Ee24ffphK9Na6g",
+        "_Mg74YLK1Ee24ffphK9Na6g",
+        "_M-U_ALK1Ee24ffphK9Na6g",
+        "_MHjIALK1Ee24ffphK9Na6g",
+        "_j12MQL0cEe2besM683MlUA",
+      ],
+      "Class_10": [
+        "_Uk2g0cymEe2SqIqlz0mqiA",
+      ],
+      "Class_2": [
+        "_LjfcIbSLEe2pkZx4lGC8Ew",
+        "_QE0EkK7gEe2EZoZ5sgiBCg",
+        "_M-U_ALK1Ee24ffphK9Na6g",
+        "_MHjIALK1Ee24ffphK9Na6g",
+      ],
+      "Class_3": [
+        "_MHjIALK1Ee24ffphK9Na6g",
+        "_EWMPELK2Ee24ffphK9Na6g",
+        "_Mg74YLK1Ee24ffphK9Na6g",
+      ],
+      "Class_4": [
+        "_Mg74YLK1Ee24ffphK9Na6g",
+      ],
+      "Class_5": [
+        "_M-U_ALK1Ee24ffphK9Na6g",
+      ],
+      "Class_6": [
+        "_Nbk7sLK1Ee24ffphK9Na6g",
+      ],
+      "Class_7": [
+        "_EWMPELK2Ee24ffphK9Na6g",
+      ],
+      "Class_8": [
+        "_LjfcIbSLEe2pkZx4lGC8Ew",
+      ],
+      "Class_9": [
+        "_j12MQL0cEe2besM683MlUA",
+      ],
+      "DataType_0": [
+        "_W7vZ8K79Ee2EZoZ5sgiBCg",
+      ],
+      "Dependency_0": [
+        "_XCaTELK1Ee24ffphK9Na6g",
+      ],
+      "EnumerationLiteral_0": [
+        "__G-0sLK0Ee24ffphK9Na6g",
+      ],
+      "Enumeration_0": [
+        "_8Q6mgLK0Ee24ffphK9Na6g",
+      ],
+      "InterfaceRealization_0": [
+        "_ay8lcLK1Ee24ffphK9Na6g",
+      ],
+      "Interface_0": [
+        "_9pVK8LK0Ee24ffphK9Na6g",
+      ],
+      "LiteralInteger_0": [
+        "_Itf5ENIcEe2rY5KN6ehSig",
+        "_UaiR4bK1Ee24ffphK9Na6g",
+        "_O3oqA7K1Ee24ffphK9Na6g",
+        "_O3oqALK1Ee24ffphK9Na6g",
+        "_VYM0ALK1Ee24ffphK9Na6g",
+        "_uK1VEM1tEe2aWMTUBOnCiQ",
+        "_ItggItIcEe2rY5KN6ehSig",
+      ],
+      "LiteralInteger_1": [
+        "_ItggItIcEe2rY5KN6ehSig",
+        "_VYNbELK1Ee24ffphK9Na6g",
+        "_bM_58K7gEe2EZoZ5sgiBCg",
+        "_g69Boa7oEe2EZoZ5sgiBCg",
+        "_ipenYLK2Ee24ffphK9Na6g",
+      ],
+      "LiteralInteger_2": [
+        "_Uahq0LK1Ee24ffphK9Na6g",
+      ],
+      "LiteralInteger_3": [
+        "_bM_58K7gEe2EZoZ5sgiBCg",
+      ],
+      "LiteralInteger_4": [
+        "_O3oqALK1Ee24ffphK9Na6g",
+      ],
+      "LiteralUnlimitedNatural_0": [
+        "_ItggINIcEe2rY5KN6ehSig",
+        "_VYNbEbK1Ee24ffphK9Na6g",
+        "_O3oqBLK1Ee24ffphK9Na6g",
+        "_bNAhAK7gEe2EZoZ5sgiBCg",
+        "_VYM0AbK1Ee24ffphK9Na6g",
+        "_uK1VEc1tEe2aWMTUBOnCiQ",
+        "_ipenYbK2Ee24ffphK9Na6g",
+      ],
+      "LiteralUnlimitedNatural_1": [
+        "_IthHMNIcEe2rY5KN6ehSig",
+        "_UaiR4rK1Ee24ffphK9Na6g",
+        "_O3oqAbK1Ee24ffphK9Na6g",
+        "_g69Boq7oEe2EZoZ5sgiBCg",
+        "_ipenYbK2Ee24ffphK9Na6g",
+      ],
+      "LiteralUnlimitedNatural_2": [
+        "_Uahq0bK1Ee24ffphK9Na6g",
+      ],
+      "LiteralUnlimitedNatural_3": [
+        "_bNAhAK7gEe2EZoZ5sgiBCg",
+      ],
+      "LiteralUnlimitedNatural_4": [
+        "_O3oqAbK1Ee24ffphK9Na6g",
+      ],
+      "Model_0": [
+        "_Cfp0UGmxEe2kLe5KTNzRtw",
+      ],
+      "Operation_0": [
+        "_45WxkM5PEe2J1pPdCxXkdw",
+        "_Cr6ZsK70Ee2EZoZ5sgiBCg",
+        "_r0YL0K70Ee2EZoZ5sgiBCg",
+      ],
+      "Operation_1": [
+        "_r0YL0K70Ee2EZoZ5sgiBCg",
+      ],
+      "PackageImport_0": [
+        "_wZ60QLK9Ee2fn9jN03lZYw",
+        "_dxJb8LK1Ee24ffphK9Na6g",
+      ],
+      "PackageImport_1": [
+        "_dxJb8LK1Ee24ffphK9Na6g",
+      ],
+      "PackageMerge_0": [
+        "_e5mRwLK1Ee24ffphK9Na6g",
+      ],
+      "Package_0": [
+        "_ed5NMLK1Ee24ffphK9Na6g",
+        "_AmwlYLK1Ee24ffphK9Na6g",
+      ],
+      "Package_1": [
+        "_dDtuMLK1Ee24ffphK9Na6g",
+        "_99xw8LK0Ee24ffphK9Na6g",
+      ],
+      "Package_2": [
+        "_99xw8LK0Ee24ffphK9Na6g",
+        "_dDtuMLK1Ee24ffphK9Na6g",
+      ],
+      "Package_3": [
+        "_ed5NMLK1Ee24ffphK9Na6g",
+      ],
+      "Parameter_0": [
+        "_e-0x0dI3Ee2XPc95mjsJSg",
+        "_8YNeEM5PEe2J1pPdCxXkdw",
+        "_YG02YLFVEe2z_s-Al402-w",
+        "_Pf5kMbFSEe2z_s-Al402-w",
+      ],
+      "Parameter_1": [
+        "_TnD78LFUEe2z_s-Al402-w",
+        "_8YNeEM5PEe2J1pPdCxXkdw",
+        "_huGJQbFuEe21bf9NlKs9Kg",
+      ],
+      "Parameter_2": [
+        "_TnD78LFUEe2z_s-Al402-w",
+      ],
+      "Parameter_3": [
+        "_Pf5kMbFSEe2z_s-Al402-w",
+      ],
+      "PrimitiveType_0": [
+        "_-da6ULK0Ee24ffphK9Na6g",
+      ],
+      "Property_0": [
+        "_ItggIdIcEe2rY5KN6ehSig",
+        "_VYMM8bK1Ee24ffphK9Na6g",
+        "_UaiR4LK1Ee24ffphK9Na6g",
+        "_O3oqArK1Ee24ffphK9Na6g",
+        "_bM_S4K7gEe2EZoZ5sgiBCg",
+        "_g69BoK7oEe2EZoZ5sgiBCg",
+        "_uKNqAc1tEe2aWMTUBOnCiQ",
+      ],
+      "Property_1": [
+        "_ItfSANIcEe2rY5KN6ehSig",
+        "_VYM0ArK1Ee24ffphK9Na6g",
+        "_O3oC8bK1Ee24ffphK9Na6g",
+        "_UahDwbK1Ee24ffphK9Na6g",
+        "_ipeAULK2Ee24ffphK9Na6g",
+      ],
+      "Property_2": [
+        "_uKNqAc1tEe2aWMTUBOnCiQ",
+        "_O3oC8bK1Ee24ffphK9Na6g",
+        "_VYMM8bK1Ee24ffphK9Na6g",
+        "_UahDwbK1Ee24ffphK9Na6g",
+      ],
+      "Property_3": [
+        "_O3oqArK1Ee24ffphK9Na6g",
+        "_UahDwbK1Ee24ffphK9Na6g",
+        "_UaiR4LK1Ee24ffphK9Na6g",
+      ],
+      "Property_4": [
+        "_UaiR4LK1Ee24ffphK9Na6g",
+        "_bM_S4K7gEe2EZoZ5sgiBCg",
+      ],
+      "Property_5": [
+        "_O3oC8bK1Ee24ffphK9Na6g",
+      ],
+      "Property_6": [
+        "_O3oqArK1Ee24ffphK9Na6g",
+      ],
+      "Property_7": [
+        "_VYM0ArK1Ee24ffphK9Na6g",
+      ],
+      "Realization_0": [
+        "_ghLTkLK1Ee24ffphK9Na6g",
+      ],
+      "Substitution_0": [
+        "_Gt7igLK2Ee24ffphK9Na6g",
+      ],
+      "Usage_0": [
+        "_FGLhkLK2Ee24ffphK9Na6g",
+      ],
+    },
+  ],
+  "metadata": [
+    {
+      "absoluteFrequency": 8,
+      "graph": "digraph G {
+            "Class_0"->"Model_0"[label="package"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 7,
+      "graph": "digraph G {
+            "Class_0"->"Model_0"[label="package"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Class_2"->"Model_0"[label="package"]
+"Class_2"->"Model_0"[label="namespace"]
+"Class_2"->"Model_0"[label="owner"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_2"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_2"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_2"[label="ownedMember"]
+"Model_0"->"Class_2"[label="member"]
+"Model_0"->"Class_2"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 6,
+      "graph": "digraph G {
+            "Class_0"->"Model_0"[label="package"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Association_0"->"Model_0"[label="package"]
+"Association_0"->"Model_0"[label="owner"]
+"Association_0"->"Model_0"[label="namespace"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Association_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Association_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Model_0"->"Association_0"[label="ownedElement"]
+"Model_0"->"Association_0"[label="ownedMember"]
+"Model_0"->"Association_0"[label="member"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Association_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 5,
+      "graph": "digraph G {
+            "Class_0"->"Model_0"[label="package"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Class_2"->"Model_0"[label="package"]
+"Class_2"->"Model_0"[label="namespace"]
+"Class_2"->"Model_0"[label="owner"]
+"Association_0"->"Model_0"[label="package"]
+"Association_0"->"Model_0"[label="owner"]
+"Association_0"->"Model_0"[label="namespace"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_2"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Association_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_2"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Association_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_2"[label="ownedMember"]
+"Model_0"->"Class_2"[label="member"]
+"Model_0"->"Class_2"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Model_0"->"Association_0"[label="ownedElement"]
+"Model_0"->"Association_0"[label="ownedMember"]
+"Model_0"->"Association_0"[label="member"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Association_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 5,
+      "graph": "digraph G {
+            "Class_0"->"Model_0"[label="package"]
+"Class_0"->"Property_0"[label="ownedAttribute"]
+"Class_0"->"Property_0"[label="attribute"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_0"->"Property_0"[label="ownedMember"]
+"Class_0"->"Property_0"[label="member"]
+"Class_0"->"Property_0"[label="ownedElement"]
+"Class_0"->"Property_0"[label="feature"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Property_0"->"Class_0"[label="class"]
+"Property_0"->"Class_0"[label="namespace"]
+"Property_0"->"Class_0"[label="owner"]
+"Property_0"->"Class_0"[label="featuringClassifier"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedAttribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "attribute",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedElement",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "feature",
+          "target": "Property_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "class",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "owner",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "featuringClassifier",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 5,
+      "graph": "digraph G {
+            "Class_0"->"Model_0"[label="package"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Association_0"->"Model_0"[label="package"]
+"Association_0"->"Property_1"[label="memberEnd"]
+"Association_0"->"Model_0"[label="owner"]
+"Association_0"->"Model_0"[label="namespace"]
+"Property_1"->"Association_0"[label="association"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Association_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Association_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Model_0"->"Association_0"[label="ownedElement"]
+"Model_0"->"Association_0"[label="ownedMember"]
+"Model_0"->"Association_0"[label="member"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_0",
+          "tag": "memberEnd",
+          "target": "Property_1",
+        },
+        {
+          "source": "Association_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Property_1",
+          "tag": "association",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Association_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 5,
+      "graph": "digraph G {
+            "Class_0"->"Model_0"[label="package"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Class_0"->"LiteralUnlimitedNatural_0"[label="ownedMember"]
+"Class_0"->"LiteralUnlimitedNatural_0"[label="member"]
+"LiteralUnlimitedNatural_0"->"Class_0"[label="namespace"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "LiteralUnlimitedNatural_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "LiteralUnlimitedNatural_0",
+        },
+        {
+          "source": "LiteralUnlimitedNatural_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 4,
+      "graph": "digraph G {
+            "Class_0"->"Model_0"[label="package"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Class_2"->"Model_0"[label="package"]
+"Class_2"->"Model_0"[label="namespace"]
+"Class_2"->"Model_0"[label="owner"]
+"Association_0"->"Model_0"[label="package"]
+"Association_0"->"Model_0"[label="owner"]
+"Association_0"->"Model_0"[label="namespace"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_2"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Association_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_2"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Association_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_2"[label="ownedMember"]
+"Model_0"->"Class_2"[label="member"]
+"Model_0"->"Class_2"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Model_0"->"Association_0"[label="ownedElement"]
+"Model_0"->"Association_0"[label="ownedMember"]
+"Model_0"->"Association_0"[label="member"]
+"Model_0"->"Association_1"[label="ownedType"]
+"Model_0"->"Association_1"[label="packagedElement"]
+"Model_0"->"Association_1"[label="ownedElement"]
+"Model_0"->"Association_1"[label="ownedMember"]
+"Model_0"->"Association_1"[label="member"]
+"Association_1"->"Model_0"[label="package"]
+"Association_1"->"Model_0"[label="owner"]
+"Association_1"->"Model_0"[label="namespace"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Association_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Association_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Association_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Association_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Association_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Association_1",
+        },
+        {
+          "source": "Association_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Association_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 4,
+      "graph": "digraph G {
+            "Class_0"->"Model_0"[label="package"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Class_2"->"Model_0"[label="package"]
+"Class_2"->"Model_0"[label="namespace"]
+"Class_2"->"Model_0"[label="owner"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_2"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_2"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_2"[label="ownedMember"]
+"Model_0"->"Class_2"[label="member"]
+"Model_0"->"Class_2"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Class_0"->"LiteralUnlimitedNatural_0"[label="ownedMember"]
+"Class_0"->"LiteralUnlimitedNatural_0"[label="member"]
+"LiteralUnlimitedNatural_0"->"Class_0"[label="namespace"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "ownedMember",
+          "target": "LiteralUnlimitedNatural_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "member",
+          "target": "LiteralUnlimitedNatural_0",
+        },
+        {
+          "source": "LiteralUnlimitedNatural_0",
+          "tag": "namespace",
+          "target": "Class_0",
+        },
+      ],
+    },
+    {
+      "absoluteFrequency": 4,
+      "graph": "digraph G {
+            "Class_0"->"Model_0"[label="package"]
+"Class_0"->"Model_0"[label="namespace"]
+"Class_0"->"Model_0"[label="owner"]
+"Class_1"->"Model_0"[label="package"]
+"Class_1"->"Model_0"[label="namespace"]
+"Class_1"->"Model_0"[label="owner"]
+"Class_2"->"Model_0"[label="package"]
+"Class_2"->"Model_0"[label="namespace"]
+"Class_2"->"Model_0"[label="owner"]
+"Model_0"->"Class_1"[label="ownedType"]
+"Model_0"->"Class_2"[label="ownedType"]
+"Model_0"->"Class_0"[label="ownedType"]
+"Model_0"->"Class_1"[label="packagedElement"]
+"Model_0"->"Class_2"[label="packagedElement"]
+"Model_0"->"Class_0"[label="packagedElement"]
+"Model_0"->"Class_1"[label="ownedMember"]
+"Model_0"->"Class_1"[label="member"]
+"Model_0"->"Class_1"[label="ownedElement"]
+"Model_0"->"Class_2"[label="ownedMember"]
+"Model_0"->"Class_2"[label="member"]
+"Model_0"->"Class_2"[label="ownedElement"]
+"Model_0"->"Class_0"[label="ownedMember"]
+"Model_0"->"Class_0"[label="member"]
+"Model_0"->"Class_0"[label="ownedElement"]
+"Property_0"->"LiteralInteger_0"[label="lowerValue"]
+"Property_0"->"LiteralInteger_0"[label="ownedElement"]
+"LiteralInteger_0"->"Property_0"[label="owner"]
+          }",
+      "modelFrequency": 1,
+      "pattern": [
+        {
+          "source": "Class_0",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_0",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_1",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "package",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "namespace",
+          "target": "Model_0",
+        },
+        {
+          "source": "Class_2",
+          "tag": "owner",
+          "target": "Model_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedType",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "packagedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_1",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_2",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedMember",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "member",
+          "target": "Class_0",
+        },
+        {
+          "source": "Model_0",
+          "tag": "ownedElement",
+          "target": "Class_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "lowerValue",
+          "target": "LiteralInteger_0",
+        },
+        {
+          "source": "Property_0",
+          "tag": "ownedElement",
+          "target": "LiteralInteger_0",
+        },
+        {
+          "source": "LiteralInteger_0",
+          "tag": "owner",
+          "target": "Property_0",
+        },
+      ],
+    },
+  ],
+}

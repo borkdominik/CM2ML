@@ -31,7 +31,7 @@ export function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex h-full flex-col">
+      <div className="flex h-full select-none flex-col">
         <Menu />
         <CommandBar />
         {layout === 'extended' ? <ExtendedLayout /> : <CompactLayout />}

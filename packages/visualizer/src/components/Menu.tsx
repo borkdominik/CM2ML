@@ -165,10 +165,36 @@ function ViewMenu() {
     <MenubarMenu>
       <MenubarTrigger>View</MenubarTrigger>
       <MenubarContent>
+        <ModelViewSubMenu />
         <ThemeSubMenu />
         <LayoutSubMenu />
       </MenubarContent>
     </MenubarMenu>
+  )
+}
+
+function ModelViewSubMenu() {
+  const irView = useSettings.use.irView()
+  const setIRView = useSettings.use.setIRView()
+
+  return (
+    <MenubarSub>
+      <MenubarSubTrigger>Model</MenubarSubTrigger>
+      <MenubarSubContent>
+        <MenubarItem
+          disabled={irView === 'graph'}
+          onClick={() => setIRView('graph')}
+        >
+          <span>Graph</span>
+        </MenubarItem>
+        <MenubarItem
+          disabled={irView === 'tree'}
+          onClick={() => setIRView('tree')}
+        >
+          <span>Tree</span>
+        </MenubarItem>
+      </MenubarSubContent>
+    </MenubarSub>
   )
 }
 
@@ -250,7 +276,7 @@ function HelpMenu() {
         <MenubarItem disabled>
           Press
           {' '}
-          <kbd className="pointer-events-none mx-1.5 inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+          <kbd className="pointer-events-none mx-1.5 inline-flex h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
             <span className="text-xs">⌘</span>
             J
           </kbd>

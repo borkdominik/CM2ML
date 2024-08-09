@@ -72,6 +72,7 @@ export function useSharedHashLoader() {
       setIsEditingEncoder(false)
 
       toast.success('Data loaded from URL')
+    // eslint-disable-next-line unused-imports/no-unused-vars
     } catch (error) {
       toast.error('Failed to load data from URL')
     }

@@ -23,11 +23,11 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeatureVectors, edge
   const getOpacity = useWeightedOpacityFromList(list)
   const listEdgePaddingAmount = nodes.length.toFixed(0).length
   return (
-    <ResizablePanelGroup direction="vertical" className="h-full select-none" data-testid="raw-graph-list">
+    <ResizablePanelGroup direction="vertical" className="h-full" data-testid="raw-graph-list">
       <ResizablePanel>
         <div className="h-full overflow-y-auto p-2">
           <div className="flex justify-between">
-            <span className="text-sm font-bold">
+            <span className="cursor-default text-sm font-bold">
               Nodes
             </span>
             <TooltipProvider>
@@ -59,7 +59,7 @@ export function SparseList({ list, nodes, nodeFeatures, nodeFeatureVectors, edge
       <ResizablePanel>
         <div className="h-full overflow-y-auto p-2">
           <div className="flex justify-between">
-            <span className="text-sm font-bold">
+            <span className="cursor-default text-sm font-bold">
               Edges
             </span>
             <TooltipProvider>
@@ -243,5 +243,5 @@ function ListSeparator() {
 }
 
 function ListBorder({ children }: { children: ReactNode }) {
-  return <span className="my-0.5 w-full py-0.5 font-bold">{children}</span>
+  return <span className="my-0.5 w-full cursor-default py-0.5 font-bold">{children}</span>
 }

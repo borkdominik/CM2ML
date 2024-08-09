@@ -1,25 +1,15 @@
-export interface PartitioningParameters {
-  maxPartitioningIterations: number
-  maxPartitionSize: number
-  costType: 'edge-count' | 'constant' | (string & Record<never, never>)
-}
+export const stepWeightTypes = ['edge-count'] as const
 
-export interface NormalizationParameters {
-  maskNodeTypes: boolean
-}
+export type StepWeight = typeof stepWeightTypes[number] | string & Record<never, never>
 
-export interface MiningParameters {
-  minPatternLength: number
-  maxPatternLength: number
-  maxPatternsPerPartition: number
-  closedPatterns: boolean
-}
+export const pathWeightTypes = ['length', 'step-product', 'step-sum'] as const
 
-export type PatternOrder = 'absolute-frequency' | 'model-frequency' | (string & Record<never, never>)
+export type PathWeight = typeof pathWeightTypes[number] | string & Record<never, never>
 
-export interface FrequencyParameters {
-  minAbsoluteFrequency: number
-  minModelFrequency: number
-  maxPatterns: number
-  patternOrder: PatternOrder
+export interface PathParameters {
+  minPathLength: number
+  maxPathLength: number
+  stepWeight: StepWeight
+  pathWeight: PathWeight
+  maxPaths: number
 }

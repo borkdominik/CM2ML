@@ -3,6 +3,7 @@ import { BagOfPathsEncoder } from '@cm2ml/bag-of-paths-encoder'
 import { EcoreParser } from '@cm2ml/ecore'
 import { GraphEncoder } from '@cm2ml/graph-encoder'
 import type { GraphModel } from '@cm2ml/ir'
+import { PatternMiner } from '@cm2ml/pattern-miner'
 import { type ExecutionError, type Plugin, type StructuredOutput, batchTryCatch, compose, liftMetadata } from '@cm2ml/plugin'
 import { TermFrequencyEncoder } from '@cm2ml/tf-encoder'
 import { TreeEncoder } from '@cm2ml/tree-encoder'
@@ -15,6 +16,7 @@ export * from '@cm2ml/ecore'
 export * from '@cm2ml/feature-encoder'
 export * from '@cm2ml/graph-encoder'
 export * from '@cm2ml/tf-encoder'
+export * from '@cm2ml/pattern-miner'
 export * from '@cm2ml/tree-encoder'
 export * from '@cm2ml/uml'
 export * from '@cm2ml/xmi-parser'
@@ -30,10 +32,11 @@ export const parserMap = {
 
 export type Encoder<Data = unknown, Metadata = unknown> = Plugin<(GraphModel | ExecutionError)[], (StructuredOutput<Data, Metadata> | ExecutionError)[], any>
 
-export const encoders: Encoder[] = [BagOfPathsEncoder, GraphEncoder, TreeEncoder, TermFrequencyEncoder]
+export const encoders: Encoder[] = [BagOfPathsEncoder, GraphEncoder, TermFrequencyEncoder, PatternMiner, TreeEncoder]
 export const encoderMap = {
   [BagOfPathsEncoder.name]: BagOfPathsEncoder,
   [GraphEncoder.name]: GraphEncoder,
+  [PatternMiner.name]: PatternMiner,
   [TreeEncoder.name]: TreeEncoder,
   [TermFrequencyEncoder.name]: TermFrequencyEncoder,
 }

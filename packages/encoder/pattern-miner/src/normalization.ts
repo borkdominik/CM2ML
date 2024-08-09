@@ -1,6 +1,6 @@
 import type { GraphEdge, GraphNode } from '@cm2ml/ir'
 
-import type { NormalizationParameters } from './bop-types'
+import type { NormalizationParameters } from './pattern-types'
 
 export function normalizePartitions(partitions: Set<GraphNode>[], parameters: NormalizationParameters) {
   const normalizedLabeledNodes: LabeledNode[][] = []

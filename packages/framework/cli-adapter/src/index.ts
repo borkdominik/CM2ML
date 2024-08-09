@@ -100,7 +100,8 @@ function registerCommandOptions<Parameters extends ParameterMetadata>(
               if (!existsSync(inputFile)) {
                 return inputFile
               }
-            } catch (error) {
+            // eslint-disable-next-line unused-imports/no-unused-vars
+            } catch (_error) {
               return inputFile
             }
             const fileContent = readFileSync(inputFile, 'utf8')

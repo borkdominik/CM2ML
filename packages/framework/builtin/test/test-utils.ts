@@ -13,16 +13,16 @@ export function getPluginsToTest(plugins: PrecomposedPlugin[]) {
 
 function isPluginReadyForTest(plugin: PrecomposedPlugin) {
   const name = plugin.name.toLowerCase()
-  if (name.includes('ecore')) {
-    return false
-  }
   if (name.includes('archimate')) {
     return false
   }
-  if (name.includes('term-frequency')) {
+  if (name.includes('bag-of-paths')) {
     return false
   }
-  if (name.includes('bag-of-paths')) {
+  if (name.includes('ecore')) {
+    return false
+  }
+  if (name.includes('term-frequency')) {
     return false
   }
   return true

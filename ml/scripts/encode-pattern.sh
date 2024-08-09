@@ -1,4 +1,4 @@
-time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-bag-of-paths ../models/uml/dataset \
+time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-pattern-miner ../models/uml/dataset \
   --out .output/patterns.json \
   --strict --pretty \
   --continue-on-error --start 1 --limit 10000 \

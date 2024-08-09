@@ -1,8 +1,8 @@
 import { Stream } from '@yeger/streams'
 
-import type { FrequencyParameters, PatternOrder } from './bop-types'
 import type { MinedPattern } from './mining'
 import type { LabeledEdge, SerializedLabeledEdge } from './normalization'
+import type { FrequencyParameters, PatternOrder } from './pattern-types'
 
 export interface PatternWithFrequency {
   /**

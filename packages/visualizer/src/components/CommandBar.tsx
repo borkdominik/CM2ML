@@ -3,9 +3,12 @@ import { ResetIcon, Share2Icon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { displayName } from '../lib/displayName'
 import { useShare } from '../lib/sharing'
 import { useModelState } from '../lib/useModelState'
 import { useSelection } from '../lib/useSelection'
+import { irViews, layouts, useSettings } from '../lib/useSettings'
+import { themes, useTheme } from '../lib/useTheme'
 
 import {
   CommandDialog,
@@ -53,6 +56,7 @@ export function CommandBar() {
       />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
+        <ViewCommandGroups closeDialog={closeDialog} />
         <SystemCommandGroup closeDialog={closeDialog} />
         <ModelCommandGroups closeDialog={closeDialog} />
       </CommandList>
@@ -62,6 +66,79 @@ export function CommandBar() {
 
 interface CommandProps {
   closeDialog: () => void
+}
+
+function ViewCommandGroups({ closeDialog }: CommandProps) {
+  return (
+    <>
+      <IRViewCommandGroup closeDialog={closeDialog} />
+      <ThemeCommandGroup closeDialog={closeDialog} />
+      <LayoutCommandGroup closeDialog={closeDialog} />
+    </>
+  )
+}
+
+function IRViewCommandGroup({ closeDialog }: CommandProps) {
+  const irView = useSettings.use.irView()
+  const setIRView = useSettings.use.setIRView()
+  const availableViews = useMemo(() => irViews.filter((view) => view !== irView), [irView])
+  return (
+    <CommandGroup heading="Model View">
+      {availableViews.map((view) => (
+        <CommandItem
+          onSelect={() => {
+            setIRView(view)
+            closeDialog()
+          }}
+          key={view}
+        >
+          {displayName(view)}
+        </CommandItem>
+      ))}
+    </CommandGroup>
+  )
+}
+
+function ThemeCommandGroup({ closeDialog }: CommandProps) {
+  const currentTheme = useTheme.use.theme()
+  const setTheme = useTheme.use.setTheme()
+  const availableThemes = useMemo(() => themes.filter((theme) => theme !== currentTheme), [currentTheme])
+  return (
+    <CommandGroup heading="Theme">
+      {availableThemes.map((theme) => (
+        <CommandItem
+          onSelect={() => {
+            setTheme(theme)
+            closeDialog()
+          }}
+          key={theme}
+        >
+          {displayName(theme)}
+        </CommandItem>
+      ))}
+    </CommandGroup>
+  )
+}
+
+function LayoutCommandGroup({ closeDialog }: CommandProps) {
+  const currentLayout = useSettings.use.layout()
+  const setLayout = useSettings.use.setLayout()
+  const availableViews = useMemo(() => layouts.filter((layout) => layout !== currentLayout), [currentLayout])
+  return (
+    <CommandGroup heading="Layout">
+      {availableViews.map((layout) => (
+        <CommandItem
+          onSelect={() => {
+            setLayout(layout)
+            closeDialog()
+          }}
+          key={layout}
+        >
+          {displayName(layout)}
+        </CommandItem>
+      ))}
+    </CommandGroup>
+  )
 }
 
 function SystemCommandGroup({ closeDialog }: CommandProps) {

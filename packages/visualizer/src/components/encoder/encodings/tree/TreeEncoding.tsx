@@ -5,13 +5,14 @@ import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Pa
 
 import 'reactflow/dist/style.css'
 
+import type { TreeFlowGraphModel } from '../../../../lib/treeUtils'
 import { useSelection } from '../../../../lib/useSelection'
 import type { ParameterValues } from '../../../Parameters'
 import { Hint } from '../../../ui/hint'
 import { useEncoder } from '../../useEncoder'
 
-import type { FlowGraphModel, FlowNode } from './treeTypes'
-import { useTreeGraph } from './useTreeGraph'
+import type { TreeEncodingFlowNode } from './treeEncodingTreeTypes'
+import { useTreeEncodingTree } from './useTreeEncodingTree'
 
 export interface Props {
   model: GraphModel
@@ -23,11 +24,11 @@ export function TreeEncoding({ model, parameters }: Props) {
   if (error || !encoding) {
     return <Hint error={error} />
   }
-  return <FlowGraph tree={encoding.data} idWordMapping={encoding.metadata.id2WordMapping} staticVocabulary={encoding.metadata.vocabularies.staticVocabulary} vocabulary={encoding.metadata.vocabularies.vocabulary} />
+  return <TreeEncodingFlowGraph tree={encoding.data} idWordMapping={encoding.metadata.id2WordMapping} staticVocabulary={encoding.metadata.vocabularies.staticVocabulary} vocabulary={encoding.metadata.vocabularies.vocabulary} />
 }
 
 const nodeTypes = {
-  default: FlowTreeNode,
+  default: TreeEncodingFlowTreeNode,
 }
 
 interface FlowGraphProps {
@@ -37,12 +38,12 @@ interface FlowGraphProps {
   vocabulary: TreeNodeValue[]
 }
 
-const fallbackFlowGraph: FlowGraphModel = { nodes: [], edges: [], type: 'tree', sizeConfig: { width: 0, height: 0, horizontalSpacing: 0, verticalSpacing: 0 } }
+const fallbackFlowGraph: TreeFlowGraphModel<TreeEncodingFlowNode> = { nodes: [], edges: [], type: 'tree', sizeConfig: { width: 0, height: 0, horizontalSpacing: 0, verticalSpacing: 0 } }
 const fallbackTreeGraph = { flowGraph: fallbackFlowGraph, reverseNodeIdMapping: {}, word2IdMapping: {} }
 
-function FlowGraph({ tree, idWordMapping, vocabulary, staticVocabulary }: FlowGraphProps) {
+function TreeEncodingFlowGraph({ tree, idWordMapping, vocabulary, staticVocabulary }: FlowGraphProps) {
   const clearSelection = useSelection.use.clearSelection()
-  const { data } = useTreeGraph(tree, idWordMapping, staticVocabulary)
+  const { data } = useTreeEncodingTree(tree, idWordMapping, staticVocabulary)
   const { flowGraph, reverseNodeIdMapping, word2IdMapping } = data ?? fallbackTreeGraph
   const { nodes, edges, type } = flowGraph
   return (
@@ -66,10 +67,10 @@ function FlowGraph({ tree, idWordMapping, vocabulary, staticVocabulary }: FlowGr
         <Controls showInteractive={false} />
         <MiniMap zoomable />
         <ViewFitter flowGraph={flowGraph} reverseNodeIdMapping={reverseNodeIdMapping} word2IdMapping={word2IdMapping} />
-        <Panel position="top-left" className="font-mono text-xs opacity-50">
+        <Panel position="top-left" className="cursor-default font-mono text-xs opacity-50">
           {tree.format}
         </Panel>
-        <Panel position="top-right" className="flex flex-col items-end gap-1 font-mono text-xs opacity-50">
+        <Panel position="top-right" className="flex cursor-default flex-col items-end gap-1 font-mono text-xs opacity-50">
           <span>
             {type === 'sugiyama' ? '✨ ' : '🌲 '}
             {nodes.length}
@@ -87,7 +88,7 @@ function FlowGraph({ tree, idWordMapping, vocabulary, staticVocabulary }: FlowGr
   )
 }
 
-function useIsFlowNodeSelected(flowNode: FlowNode) {
+function useIsTreeEncodingFlowNodeSelected(flowNode: TreeEncodingFlowNode) {
   const selection = useSelection.use.selection()
   return useMemo(() => {
     const flowNodeSelection = flowNode.selection
@@ -109,11 +110,11 @@ function useIsFlowNodeSelected(flowNode: FlowNode) {
   }, [flowNode, selection])
 }
 
-function FlowTreeNode({ data }: { data: FlowNode }) {
+function TreeEncodingFlowTreeNode({ data }: { data: TreeEncodingFlowNode }) {
   const isOrigin = data.parent === undefined
   const isTerminal = data.children.length === 0
   const setSelection = useSelection.use.setSelection()
-  const isSelected = useIsFlowNodeSelected(data)
+  const isSelected = useIsTreeEncodingFlowNodeSelected(data)
   const select = () => {
     const flowNodeSelection = data.selection
     if (flowNodeSelection === undefined) {
@@ -121,11 +122,11 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
     }
     const selection = mapWordIdToValue(data.value, data.nodeIdMapping, data.id2WordMapping)
     if (typeof flowNodeSelection === 'string') {
-      setSelection({ type: 'nodes', nodes: [selection], origin: 'tree' })
+      setSelection({ type: 'nodes', nodes: [selection], origin: 'tree-encoding' })
     } else if (Array.isArray(flowNodeSelection)) {
       const mappedSource = mapWordIdToValue(flowNodeSelection[0], data.nodeIdMapping, data.id2WordMapping)
       const mappedTarget = mapWordIdToValue(flowNodeSelection[1], data.nodeIdMapping, data.id2WordMapping)
-      setSelection({ type: 'edges', edges: [[mappedSource, mappedTarget]], origin: 'tree' })
+      setSelection({ type: 'edges', edges: [[mappedSource, mappedTarget]], origin: 'tree-encoding' })
     }
   }
   const testid = data.selection ?? data.id
@@ -164,8 +165,8 @@ function FlowTreeNode({ data }: { data: FlowNode }) {
  * Utility component that (re-)fits the view of the ReactFlow component should the input model change.
  * It needs to be a child of the {@link ReactFlow} component and not a hook, because it needs access to the react flow instance via {@link useReactFlow}.
  */
-function ViewFitter({ flowGraph, reverseNodeIdMapping, word2IdMapping }: { flowGraph: FlowGraphModel, reverseNodeIdMapping: NodeIdMapping, word2IdMapping: Word2IdMapping }) {
-  const reactFlow = useReactFlow<FlowNode>()
+function ViewFitter({ flowGraph, reverseNodeIdMapping, word2IdMapping }: { flowGraph: TreeFlowGraphModel<TreeEncodingFlowNode>, reverseNodeIdMapping: NodeIdMapping, word2IdMapping: Word2IdMapping }) {
+  const reactFlow = useReactFlow<TreeEncodingFlowNode>()
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -180,7 +181,7 @@ function ViewFitter({ flowGraph, reverseNodeIdMapping, word2IdMapping }: { flowG
       if (!selection) {
         return
       }
-      if (selection?.origin === 'tree') {
+      if (selection?.origin === 'tree-encoding') {
         return
       }
       if (selection.type === 'nodes') {
@@ -200,7 +201,6 @@ function ViewFitter({ flowGraph, reverseNodeIdMapping, word2IdMapping }: { flowG
         reactFlow.setCenter(firstSelectedNode.position.x, firstSelectedNode.position.y, { duration: 200, zoom: 1 })
       }
       if (selection.type === 'edges') {
-        // TODO/Jan: Focus on the best match, not the left-most
         const mappedSelection = selection.edges
           .map(([source, target]) => [
             mapValueToWordId(source, reverseNodeIdMapping, word2IdMapping),
@@ -227,7 +227,7 @@ function ViewFitter({ flowGraph, reverseNodeIdMapping, word2IdMapping }: { flowG
       }
     }, 200)
     return () => clearTimeout(timeout)
-  }, [reactFlow, selection, reverseNodeIdMapping, word2IdMapping, origin])
+  }, [reactFlow, selection, reverseNodeIdMapping, word2IdMapping])
 
   return null
 }

@@ -1,10 +1,10 @@
 import type { RecursiveTreeNode, TreeFormat, TreeNodeValue } from '@cm2ml/builtin'
 
-import type { FlowNode } from './treeTypes'
+import type { TreeEncodingFlowNode } from './treeEncodingTreeTypes'
 
 export function getNodeIdSelection(
   value: TreeNodeValue,
-  parent: FlowNode | undefined,
+  parent: TreeEncodingFlowNode | undefined,
   format: TreeFormat,
 ): TreeNodeValue | undefined {
   if (!parent) {
@@ -40,7 +40,7 @@ export function getNodeIdSelection(
 export function getEdgeSourceSelection(
   value: TreeNodeValue,
   index: number,
-  parent: FlowNode | undefined,
+  parent: TreeEncodingFlowNode | undefined,
   format: TreeFormat,
   rawParent: RecursiveTreeNode | undefined,
 ): [TreeNodeValue, TreeNodeValue] | undefined {
@@ -74,7 +74,7 @@ export function getEdgeSourceSelection(
 export function getEdgeTargetSelection(
   value: TreeNodeValue,
   index: number,
-  parent: FlowNode | undefined,
+  parent: TreeEncodingFlowNode | undefined,
   format: TreeFormat,
   rawParent: RecursiveTreeNode | undefined,
   rawGrandParent: RecursiveTreeNode | undefined,

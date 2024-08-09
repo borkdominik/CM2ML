@@ -1,12 +1,14 @@
 import type { Parameter, ParameterMetadata, ParameterType } from '@cm2ml/plugin'
 import { CaretSortIcon, Cross1Icon, SymbolIcon, TrashIcon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
-import { Fragment, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 
+import { displayName } from '../lib/displayName'
 import { getNewParameters } from '../lib/utils'
 
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion'
 import { Button } from './ui/button'
-import { Card, CardContent } from './ui/card'
+import { Card, CardContent, CardHeader } from './ui/card'
 import { Checkbox } from './ui/checkbox'
 import {
   Collapsible,
@@ -16,7 +18,6 @@ import {
 import { Combobox } from './ui/combobox'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
-import { Separator } from './ui/separator'
 
 export type ParameterValues = Record<string, boolean |
   number |
@@ -52,11 +53,6 @@ export function Parameters({ parameters, setValues, values }: Props) {
     },
     [parameters],
   )
-  const [open, setOpen] = useState(() => {
-    return !Object.entries(values).every(
-      ([name, value]) => parameters[name]?.defaultValue === value,
-    )
-  })
 
   if (Object.keys(groupedParameters).length === 0) {
     return null
@@ -65,41 +61,30 @@ export function Parameters({ parameters, setValues, values }: Props) {
   const resetParameters = () => {
     setValues(getNewParameters(parameters, {}, undefined))
   }
+
   return (
     <Card>
       <CardContent className="px-4 py-2">
-        <Collapsible open={open} onOpenChange={setOpen}>
+        <CardHeader className="p-0 pb-2">
           <div className="flex items-center justify-between">
             <Label>Parameters</Label>
-            <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="sm" data-testid="expand-parameters">
-                <CaretSortIcon className="size-4" />
-                <span className="sr-only">Toggle</span>
-              </Button>
-            </CollapsibleTrigger>
+            <Button variant="ghost" onClick={resetParameters} className="-mr-2 gap-2 text-primary first-line:flex">
+              Reset
+              <SymbolIcon className="size-4" />
+            </Button>
           </div>
-          <CollapsibleContent>
-            <div className="flex flex-col gap-4 pb-4 pt-3">
-              {groupedParameters.map(([group, parameters]) => (
-                <Fragment key={group}>
-                  <Separator />
-                  <ParameterGroup
-                    key={group}
-                    group={group}
-                    parameters={parameters}
-                    setValues={setValues}
-                    values={values}
-                  />
-                </Fragment>
-              ))}
-              <Separator />
-              <Button variant="ghost" onClick={resetParameters} className="mx-auto -mb-2 flex gap-2 text-primary">
-                Reset
-                <SymbolIcon className="size-4" />
-              </Button>
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
+        </CardHeader>
+        <Accordion type="multiple" className="w-full">
+          {groupedParameters.map(([group, parameters]) => (
+            <ParameterGroup
+              key={group}
+              group={group}
+              parameters={parameters}
+              setValues={setValues}
+              values={values}
+            />
+          ))}
+        </Accordion>
       </CardContent>
     </Card>
   )
@@ -115,19 +100,21 @@ interface ParameterGroupProps {
 function ParameterGroup({ group, parameters, values, setValues }: ParameterGroupProps) {
   const groupName = useDisplayName(group)
   return (
-    <div className="flex flex-col gap-4">
-      <span className="select-none text-sm font-medium text-muted-foreground">{groupName}</span>
-      { parameters.map(([name, parameter]) => (
-        <ParameterInput
-          key={name}
-          name={name}
-          label={parameter.displayName}
-          onChange={(value) => setValues({ [name]: value })}
-          parameter={parameter}
-          value={values[name] ?? parameter.defaultValue}
-        />
-      )) }
-    </div>
+    <AccordionItem value={group}>
+      <AccordionTrigger>{groupName}</AccordionTrigger>
+      <AccordionContent className="flex flex-col gap-4">
+        {parameters.map(([name, parameter]) => (
+          <ParameterInput
+            key={name}
+            name={name}
+            label={parameter.displayName}
+            onChange={(value) => setValues({ [name]: value })}
+            parameter={parameter}
+            value={values[name] ?? parameter.defaultValue}
+          />
+        ))}
+      </AccordionContent>
+    </AccordionItem>
   )
 }
 
@@ -337,7 +324,7 @@ function StringArrayInput({
                   <Button variant="ghost" className="-my-1" size="sm" onClick={() => onChange(values.filter((entry) => entry !== value))}>
                     <Cross1Icon className="s-4 text-primary" />
                   </Button>
-                  <span className="select-none text-balance font-mono">{value}</span>
+                  <span className="text-balance font-mono">{value}</span>
                 </div>
               ))
             }
@@ -379,7 +366,7 @@ function Container({ children }: { children: React.ReactNode }) {
 
 function ParameterLabel({ name, label }: { name: string, label: string }) {
   return (
-    <Label htmlFor={name} className="select-none text-balance">
+    <Label htmlFor={name} className="text-balance">
       {label}
     </Label>
   )
@@ -387,23 +374,12 @@ function ParameterLabel({ name, label }: { name: string, label: string }) {
 
 function Description({ description }: { description: string }) {
   return (
-    <span className="select-none text-balance text-xs text-muted-foreground">
+    <span className="cursor-default text-balance text-xs text-muted-foreground">
       {description}
     </span>
   )
 }
 
 function useDisplayName(name: string) {
-  return useMemo(() => {
-    let displayName = ''
-    Stream.from(name.replaceAll('-', ' ')).forEach((character) => {
-      if (character === character.toUpperCase()) {
-        displayName += ` ${character}`
-        return
-      }
-      displayName += character
-    })
-    displayName = displayName[0]?.toUpperCase() + displayName.slice(1)
-    return displayName.trim()
-  }, [name])
+  return useMemo(() => displayName(name), [name])
 }
