@@ -1,6 +1,5 @@
 import type { LabeledEdge, LabeledNode } from './normalization'
 
-// TODO/Jan: Rename to itemset
 export type Embedding = [LabeledEdge[], ...((0 | 1)[])[]]
 
 export function embedPartitions(partitions: LabeledNode[][]): Embedding {

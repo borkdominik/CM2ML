@@ -183,26 +183,6 @@ function sum(values: number[]) {
   return values.reduce((acc, v) => acc + v, 0)
 }
 
-// Iterative implementation is somehow slower, TODO/Jan: Bench with real encoding run
-// function findGMax(gv: number[]) {
-//   const bestGMaxResult: GMaxResult = { k: -1, gMax: -Infinity }
-//   const runningSums: number[] = []
-//   for (let k = 0; k < gv.length; k++) {
-//     const previous = runningSums[k - 1] ?? 0
-//     const gMax = gv[k]! + previous
-//     runningSums.push(gMax)
-//     if (gMax > bestGMaxResult.gMax) {
-//       bestGMaxResult.k = k
-//       bestGMaxResult.gMax = gMax
-//     }
-//   }
-//   if (bestGMaxResult.k === -1) {
-//     throw new Error('No gMax result found')
-//   }
-//   bestGMaxResult.k += 1
-//   return bestGMaxResult
-// }
-
 interface Swap<Vertex> {
   a: Vertex
   b: Vertex
