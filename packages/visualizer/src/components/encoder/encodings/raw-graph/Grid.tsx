@@ -67,7 +67,7 @@ function Labels({ nodes, offset }: LabelsProps) {
         height={cellSize}
         y={-fontSize / 2}
         x={offset}
-        className="cursor-default select-none fill-foreground font-mono"
+        className="fill-foreground cursor-default font-mono"
         fontSize={fontSize}
       >
         Source
@@ -76,7 +76,7 @@ function Labels({ nodes, offset }: LabelsProps) {
         height={cellSize}
         y={-fontSize / 2}
         x={-offset}
-        className="-rotate-90 cursor-default select-none fill-foreground font-mono "
+        className="fill-foreground -rotate-90 cursor-default font-mono "
         fontSize={fontSize}
         textAnchor="end"
       >
@@ -112,7 +112,7 @@ function Label({ index, node, offset }: LabelProps) {
         y={cellSize * (index + 1) - fontSize / 2}
         x={offset}
         className={cn({
-          'cursor-default fill-foreground font-mono hover:fill-primary hover:font-bold select-none':
+          'cursor-default fill-foreground font-mono hover:fill-primary hover:font-bold':
             true,
           'fill-foreground': !isRowSelected,
           'fill-primary': isRowSelected,
@@ -129,7 +129,7 @@ function Label({ index, node, offset }: LabelProps) {
         y={cellSize * (index + 1) - fontSize / 2}
         x={fontSize}
         className={cn({
-          '-rotate-90 cursor-default font-mono hover:fill-primary hover:font-bold select-none':
+          '-rotate-90 cursor-default font-mono hover:fill-primary hover:font-bold':
             true,
           'fill-foreground': !isColumnSelected,
           'fill-primary': isColumnSelected,

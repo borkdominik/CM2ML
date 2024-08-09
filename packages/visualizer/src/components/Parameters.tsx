@@ -117,7 +117,7 @@ function ParameterGroup({ group, parameters, values, setValues }: ParameterGroup
   const groupName = useDisplayName(group)
   return (
     <div className="flex flex-col gap-4">
-      <span className="text-muted-foreground select-none text-sm font-medium">{groupName}</span>
+      <span className="text-muted-foreground cursor-default text-sm font-medium">{groupName}</span>
       { parameters.map(([name, parameter]) => (
         <ParameterInput
           key={name}
@@ -338,7 +338,7 @@ function StringArrayInput({
                   <Button variant="ghost" className="-my-1" size="sm" onClick={() => onChange(values.filter((entry) => entry !== value))}>
                     <Cross1Icon className="s-4 text-primary" />
                   </Button>
-                  <span className="select-none text-balance font-mono">{value}</span>
+                  <span className="text-balance font-mono">{value}</span>
                 </div>
               ))
             }
@@ -380,7 +380,7 @@ function Container({ children }: { children: React.ReactNode }) {
 
 function ParameterLabel({ name, label }: { name: string, label: string }) {
   return (
-    <Label htmlFor={name} className="select-none text-balance">
+    <Label htmlFor={name} className="text-balance">
       {label}
     </Label>
   )
@@ -388,7 +388,7 @@ function ParameterLabel({ name, label }: { name: string, label: string }) {
 
 function Description({ description }: { description: string }) {
   return (
-    <span className="text-muted-foreground select-none text-balance text-xs">
+    <span className="text-muted-foreground cursor-default text-balance text-xs">
       {description}
     </span>
   )

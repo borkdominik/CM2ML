@@ -77,7 +77,7 @@ export function ModelForm() {
     <div className="max-h-full overflow-y-auto" data-testid="model-form">
       <div className="space-y-4 p-2">
         <div className="space-y-2">
-          <Label htmlFor="parser" className="select-none">
+          <Label htmlFor="parser">
             Parser
           </Label>
           <Select
@@ -110,7 +110,7 @@ export function ModelForm() {
               )
             : null}
           <div className="flex flex-col gap-2">
-            <Label htmlFor="model" className="select-none">
+            <Label htmlFor="model">
               Model
             </Label>
             <Textarea
@@ -120,7 +120,7 @@ export function ModelForm() {
               placeholder="Paste your model here"
             />
             <Or />
-            <Input type="file" onInput={onFileLoaded} className="select-none" />
+            <Input type="file" onInput={onFileLoaded} />
             <Or />
             <div className="flex gap-2">
               <Input
@@ -132,7 +132,6 @@ export function ModelForm() {
               <Button
                 onClick={loadModelFromUrl}
                 disabled={!isValidModelUrl}
-                className="select-none"
               >
                 Load
               </Button>
@@ -146,7 +145,6 @@ export function ModelForm() {
                 <Button
                   disabled={!model}
                   onClick={() => setIsEditing(false)}
-                  className="select-none"
                 >
                   Submit
                 </Button>
@@ -160,7 +158,7 @@ export function ModelForm() {
 
 function Or() {
   return (
-    <span className="mx-auto flex w-full select-none items-center gap-2 text-xs text-muted-foreground">
+    <span className="text-muted-foreground mx-auto flex w-full items-center gap-2 text-xs">
       <Separator className="shrink" />
       or
       <Separator className="shrink" />

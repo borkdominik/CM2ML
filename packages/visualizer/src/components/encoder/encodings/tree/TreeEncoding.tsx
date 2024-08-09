@@ -67,10 +67,10 @@ function TreeEncodingFlowGraph({ tree, idWordMapping, vocabulary, staticVocabula
         <Controls showInteractive={false} />
         <MiniMap zoomable />
         <ViewFitter flowGraph={flowGraph} reverseNodeIdMapping={reverseNodeIdMapping} word2IdMapping={word2IdMapping} />
-        <Panel position="top-left" className="font-mono text-xs opacity-50">
+        <Panel position="top-left" className="cursor-default font-mono text-xs opacity-50">
           {tree.format}
         </Panel>
-        <Panel position="top-right" className="flex flex-col items-end gap-1 font-mono text-xs opacity-50">
+        <Panel position="top-right" className="flex cursor-default flex-col items-end gap-1 font-mono text-xs opacity-50">
           <span>
             {type === 'sugiyama' ? '✨ ' : '🌲 '}
             {nodes.length}

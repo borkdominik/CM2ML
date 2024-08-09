@@ -85,7 +85,7 @@ function Pattern({ pattern, absoluteFrequency, mapping, graph }: PatternProps) {
     <>
       <div className="bg-muted p-2">
         <div className="mb-2 flex items-center justify-between text-sm">
-          <span>
+          <span className="cursor-default">
             {`${absoluteFrequency} occurrence${absoluteFrequency === 1 ? '' : 's'}`}
           </span>
           <div className="flex flex-wrap gap-2">
@@ -142,7 +142,7 @@ function LabeledEdge({ edge, mapping }: LabeledEdgeProps) {
     }
   }, [edge, mapping])
   return (
-    <span key={edge.source + edge.target + edge.tag}>
+    <span key={edge.source + edge.target + edge.tag} className="cursor-default">
       <LabeledNode nodeId={edge.source} mapping={mapping} isEdgeSelected={isSelected} />
       {' '}
       →

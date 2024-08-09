@@ -41,7 +41,7 @@ export function IRTree({ model }: Props) {
         <Controls showInteractive={false} />
         <MiniMap zoomable />
         <ViewFitter flowGraph={flowGraph} />
-        <Panel position="top-right" className="flex flex-col items-end gap-1 font-mono text-xs opacity-50">
+        <Panel position="top-right" className="flex cursor-default flex-col items-end gap-1 font-mono text-xs opacity-50">
           <span>
             {type === 'sugiyama' ? '✨ ' : '🌲 '}
             {nodes.length}

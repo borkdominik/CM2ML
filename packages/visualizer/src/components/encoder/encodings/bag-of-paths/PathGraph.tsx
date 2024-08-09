@@ -38,7 +38,7 @@ export function PathGraph({ path, mapping }: Props) {
     <div className="flex size-full min-h-80 grow">
       <div className="bg-muted dark:bg-card flex flex-col items-center gap-4 p-2 pt-3 font-mono text-xs">
         <div className="flex items-center justify-center text-center">
-          <span className="w-fit" style={{ lineHeight: 1 }}>{path.weight}</span>
+          <span className="w-fit cursor-default" style={{ lineHeight: 1 }}>{path.weight}</span>
         </div>
         <FitButton fit={fit} disabled={!isReady} />
         <Button className="size-4" variant="ghost" size="icon" onClick={selectAll} disabled={!isReady}>

@@ -32,7 +32,7 @@ export function EncoderForm() {
     <div className="max-h-full overflow-y-auto" data-testid="encoder-form">
       <div className="space-y-4 p-2">
         <div className="space-y-2">
-          <Label htmlFor="encoder" className="select-none">
+          <Label htmlFor="encoder">
             Encoder
           </Label>
           <Select
@@ -72,7 +72,6 @@ export function EncoderForm() {
                       <Button
                         disabled={encoder === undefined}
                         onClick={() => setIsEditing(false)}
-                        className="select-none"
                       >
                         Submit
                       </Button>
