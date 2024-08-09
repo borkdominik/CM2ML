@@ -35,6 +35,7 @@ export interface TermFrequencyEncoding {
 }
 
 interface EncoderParameters {
+  readonly namesAsTerms: boolean
   readonly typesAsTerms: boolean
   readonly attributesAsTerms: readonly string[]
   readonly tokenize: boolean
@@ -46,10 +47,16 @@ interface EncoderParameters {
 export const TermFrequencyEncoder = defineStructuredBatchPlugin({
   name: 'term-frequency',
   parameters: {
+    namesAsTerms: {
+      type: 'boolean',
+      defaultValue: true,
+      description: 'Include names as terms',
+      group: 'terms',
+    },
     typesAsTerms: {
       type: 'boolean',
-      description: 'Include types as terms',
       defaultValue: false,
+      description: 'Include types as terms',
       group: 'terms',
     },
     attributesAsTerms: {
@@ -61,8 +68,8 @@ export const TermFrequencyEncoder = defineStructuredBatchPlugin({
     },
     tokenize: {
       type: 'boolean',
-      description: 'Split and clean terms of unneeded characters',
       defaultValue: false,
+      description: 'Split and clean terms of unneeded characters',
       group: 'term-normalization',
     },
     stem: {
@@ -115,7 +122,7 @@ function extractTerms(model: GraphModel, parameters: EncoderParameters): Extract
   for (const node of model.nodes) {
     // process names
     const name = node.getAttribute('name')?.value.literal
-    if (name) {
+    if (parameters.namesAsTerms && name) {
       processTerms(termMap, node.id!, name, parameters)
     }
 
