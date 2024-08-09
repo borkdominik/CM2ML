@@ -325,6 +325,7 @@
   ],
   "metadata": {
     "edgeFeatures": [],
+    "idAttribute": "xmi:id",
     "nodeFeatures": [
       [
         "fileName",
@@ -426,6 +427,10 @@
           "Node": 2,
         },
       ],
+    ],
+    "typeAttributes": [
+      "xmi:type",
+      "xsi:type",
     ],
   },
 }

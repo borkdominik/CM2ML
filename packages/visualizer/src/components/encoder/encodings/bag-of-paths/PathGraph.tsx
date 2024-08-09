@@ -1,4 +1,5 @@
-import type { PathData, PatternWithFrequency } from '@cm2ml/builtin'
+import type { PathData } from '@cm2ml/builtin'
+import { GlobeIcon } from '@radix-ui/react-icons'
 import { debounce } from '@yeger/debounce'
 import { Stream } from '@yeger/streams'
 import type { RefObject } from 'react'
@@ -10,13 +11,14 @@ import { useSelection } from '../../../../lib/useSelection'
 import { useVisNetworkStyles } from '../../../../lib/useVisNetworkStyles'
 import { cn } from '../../../../lib/utils'
 import { FitButton } from '../../../FitButton'
+import { Button } from '../../../ui/button'
 import { Progress } from '../../../ui/progress'
 
-export type Pattern = PatternWithFrequency['pattern']
+export type Mapping = (readonly [string, string | undefined])[]
 
 export interface Props {
   path: PathData
-  mapping: string[]
+  mapping: Mapping
 }
 
 export interface IRGraphRef {
@@ -26,17 +28,30 @@ export interface IRGraphRef {
 export function PathGraph({ path, mapping }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const { isReady, progress, fit } = useBagOfPathsVisNetwork(path, mapping, containerRef)
-
+  const setSelection = useSelection.use.setSelection()
+  const selectAll = () => {
+    const mappedNodes = path.steps.map((step) => mapping[step]!)
+    const edges = mappedNodes.slice(0, -1).map((node, i) => [node[0], mappedNodes[i + 1]![0]] as const)
+    setSelection({ type: 'edges', edges, origin: 'path' })
+  }
   return (
-    <div className="relative size-full min-h-80 grow">
+    <div className="flex size-full min-h-80 grow">
+      <div className="bg-muted dark:bg-card flex flex-col items-center gap-4 p-2 pt-3 font-mono text-xs">
+        <div className="flex items-center justify-center text-center">
+          <span className="w-fit" style={{ lineHeight: 1 }}>{path.weight}</span>
+        </div>
+        <FitButton fit={fit} disabled={!isReady} />
+        <Button className="size-4" variant="ghost" size="icon" onClick={selectAll} disabled={!isReady}>
+          <GlobeIcon />
+        </Button>
+      </div>
       <div
         ref={containerRef}
-        className={cn({ 'h-full': true, 'opacity-0': !isReady })}
+        className={cn({ 'grow': true, 'opacity-0': !isReady })}
       />
-      {isReady ? <FitButton fit={fit} /> : null}
       {!isReady
         ? (
-            <div className="absolute inset-0 flex items-center justify-center p-2">
+            <div className="flex grow items-center justify-center p-2">
               <Progress value={progress} className="max-w-56" />
             </div>
           )
@@ -64,7 +79,7 @@ function splitEdgeId(edgeId: string | undefined) {
 
 function useBagOfPathsVisNetwork(
   path: PathData,
-  mapping: string[],
+  mapping: Mapping,
   container: RefObject<HTMLDivElement | null>,
 ) {
   const selection = useSelection.use.selection()
@@ -74,7 +89,7 @@ function useBagOfPathsVisNetwork(
   const [stabilizationProgress, setStabilizationProgress] = useState(0)
 
   const data = useMemo(() => {
-    const nodes = createVisNodes(path)
+    const nodes = createVisNodes(path, mapping)
     const edges = createVisEdges(path)
     return { nodes, edges }
   }, [path])
@@ -90,7 +105,7 @@ function useBagOfPathsVisNetwork(
         arrows: {
           to: true,
         },
-        length: 50,
+        length: 150,
         smooth: {
           enabled: true,
           forceDirection: false,
@@ -126,7 +141,7 @@ function useBagOfPathsVisNetwork(
       if (selectedNodes.length === 0) {
         return
       }
-      const mappedNodeIds = Stream.from(selectedNodes).map((selectedNode) => mapping[selectedNode]).filterNonNull().toArray()
+      const mappedNodeIds = Stream.from(selectedNodes).map((selectedNode) => mapping[selectedNode]?.[0]).filterNonNull().toArray()
       setSelection({ type: 'nodes', nodes: mappedNodeIds, origin: 'path-graph' })
     }
     network.on(
@@ -153,8 +168,8 @@ function useBagOfPathsVisNetwork(
           return
         }
         const [source, target] = edge
-        const mappedSourceId = mapping[source]!
-        const mappedTargetId = mapping[target]!
+        const mappedSourceId = mapping[source]![0]
+        const mappedTargetId = mapping[target]![0]
         setSelection({ type: 'edges', edges: [[mappedSourceId, mappedTargetId]], origin: 'path-graph' })
       }
     })
@@ -188,7 +203,7 @@ function useBagOfPathsVisNetwork(
   }, [network, options])
 
   const reverseMapping = useMemo(() => {
-    const reverseMapping: Record<string, number> = Object.fromEntries(mapping.map((nodeId, nodeIndex) => [nodeId, nodeIndex]))
+    const reverseMapping: Record<string, number> = Object.fromEntries(mapping.map(([nodeId], nodeIndex) => [nodeId, nodeIndex]))
     return reverseMapping
   }, [mapping])
 
@@ -259,14 +274,14 @@ function isNetworkDestroyed(network: Network | null): network is null {
   return !('selectionHandler' in network)
 }
 
-function createVisNodes(path: PathData) {
+function createVisNodes(path: PathData, mapping: Mapping) {
   const mappedNodes = Stream
     .from(path.steps)
     .distinct()
     .map((node) => ({
       id: node,
-      label: ` ${node} `,
-      shape: 'circle',
+      label: mapping[node]![1] ?? ` ${node} `,
+      shape: 'box',
     }))
     .toArray()
 
@@ -284,7 +299,7 @@ function createVisEdges(path: PathData) {
         id: edgeId,
         from: source,
         to: target,
-        value: 1,
+        value: path.stepWeights[i],
       }
     })
     .toArray()

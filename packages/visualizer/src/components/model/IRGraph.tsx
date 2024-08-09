@@ -31,7 +31,7 @@ export function IRGraph({ model }: Props) {
         data-testid="ir-graph"
         className={cn({ 'h-full': true, 'opacity-0': !isReady })}
       />
-      {isReady ? <FitButton fit={fit} /> : null}
+      {isReady ? <FitButton fit={fit} overlay /> : null}
       {!isReady
         ? (
             <div className="absolute inset-0 flex items-center justify-center p-2">

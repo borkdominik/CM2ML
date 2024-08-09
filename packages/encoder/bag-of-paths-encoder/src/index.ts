@@ -50,14 +50,20 @@ const PathBuilder = definePlugin({
   invoke: ({ data, metadata: features }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
     const { getNodeFeatureVector, nodeFeatures, edgeFeatures } = features
     const paths = collectPaths(data, parameters)
-    const nodes = Stream.from(data.nodes).map((node) => getNodeFeatureVector(node)).toArray()
-    const mapping = Stream.from(data.nodes).map((node) => {
-      const id = node.id
-      if (id === undefined) {
-        throw new Error('Node ID is undefined')
-      }
-      return id
-    }).toArray()
+    const nodes = Stream
+      .from(data.nodes)
+      .map((node) => getNodeFeatureVector(node))
+      .toArray()
+    const mapping = Stream
+      .from(data.nodes)
+      .map((node) => {
+        const id = node.id
+        if (id === undefined) {
+          throw new Error('Node ID is undefined')
+        }
+        return [id, node.type] as const
+      })
+      .toArray()
     return {
       data: {
         paths,

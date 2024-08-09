@@ -33,7 +33,7 @@ export function PatternGraph({ pattern, mapping }: Props) {
         ref={containerRef}
         className={cn({ 'h-full': true, 'opacity-0': !isReady })}
       />
-      {isReady ? <FitButton fit={fit} /> : null}
+      {isReady ? <FitButton fit={fit} overlay /> : null}
       {!isReady
         ? (
             <div className="absolute inset-0 flex items-center justify-center p-2">
@@ -215,7 +215,7 @@ function usePatternVisNetwork(
         .flatMap((selectedNode) => reverseMapping[selectedNode] ?? [])
         .filter((nodeId) => data.nodes.getIds().includes(nodeId))
       network.selectNodes(mappedSelection)
-      if (selection.origin !== 'pattern-graph') {
+      if (selection.origin !== 'pattern-graph' && mappedSelection.length > 0) {
         network.fit({ nodes: mappedSelection, animation: true })
       }
       return
@@ -238,7 +238,7 @@ function usePatternVisNetwork(
       )
       .filter((edgeId) => data.edges.getIds().includes(edgeId))
     network.selectEdges(filteredEdgeIds)
-    if (selection.origin !== 'pattern-graph') {
+    if (selection.origin !== 'pattern-graph' && mappedEdges.length > 0) {
       network.fit({ nodes: mappedEdges.flat(), animation: true })
     }
   }, [network, selection])

@@ -13,7 +13,7 @@ export interface SettingsState {
 }
 
 const defaults = {
-  layout: 'compact',
+  layout: 'extended',
 } as const satisfies Partial<SettingsState>
 
 export const useSettings = createSelectors(

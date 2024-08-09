@@ -534,6 +534,7 @@
   ],
   "metadata": {
     "edgeFeatures": [],
+    "idAttribute": "xmi:id",
     "nodeFeatures": [
       [
         "alias",
@@ -655,6 +656,10 @@
           "PackageMerge": 6,
         },
       ],
+    ],
+    "typeAttributes": [
+      "xmi:type",
+      "xsi:type",
     ],
   },
 }

@@ -1,4 +1,4 @@
-import type { FeatureContext, FeatureVector, PathData } from '@cm2ml/builtin'
+import type { FeatureContext } from '@cm2ml/builtin'
 import { BagOfPathsEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { ExecutionError } from '@cm2ml/plugin'
@@ -24,7 +24,7 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
   if (encoding.data instanceof ExecutionError) {
     return <Hint error={encoding.data} />
   }
-  const { paths, nodes, mapping } = encoding.data
+  const { paths, mapping } = encoding.data
   if (paths.length === 0) {
     return <Hint text="No paths found. Consider decreasing the minimum path length." />
   }
@@ -34,35 +34,10 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={i}>
           {i > 0 ? <Separator /> : null}
-          <Path path={path} nodes={nodes} mapping={mapping} metadata={encoding.metadata} />
+          <PathGraph path={path} mapping={mapping} />
         </Fragment>
       ))}
     </div>
-  )
-}
-
-interface PathProps {
-  path: PathData
-  nodes: FeatureVector[]
-  mapping: string[]
-  metadata: PathMetadata
-}
-
-function Path({ path, mapping }: PathProps) {
-  // Use a fragment as the root to put both the list and the graph into the same container
-  // This way, the graph can be sized independently of the list
-  return (
-    <>
-      <div className="bg-muted p-2">
-        <div className="mb-2 flex items-center justify-between text-sm">
-          <span>
-            {`Weight: ${path.weight}`}
-          </span>
-        </div>
-      </div>
-      <Separator />
-      <PathGraph path={path} mapping={mapping} />
-    </>
   )
 }
 

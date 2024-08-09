@@ -12,6 +12,10 @@ describe('paths', () => {
     expect(paths).toMatchInlineSnapshot(`
       [
         {
+          "stepWeights": [
+            2,
+            1,
+          ],
           "steps": [
             1,
             2,
@@ -20,6 +24,9 @@ describe('paths', () => {
           "weight": 2,
         },
         {
+          "stepWeights": [
+            1,
+          ],
           "steps": [
             2,
             3,
@@ -37,6 +44,10 @@ describe('paths', () => {
     expect(paths).toMatchInlineSnapshot(`
       [
         {
+          "stepWeights": [
+            2,
+            1,
+          ],
           "steps": [
             1,
             2,
@@ -56,6 +67,10 @@ describe('paths', () => {
       expect(paths).toMatchInlineSnapshot(`
         [
           {
+            "stepWeights": [
+              2,
+              1,
+            ],
             "steps": [
               1,
               2,
@@ -74,6 +89,10 @@ describe('paths', () => {
       expect(paths).toMatchInlineSnapshot(`
         [
           {
+            "stepWeights": [
+              2,
+              2,
+            ],
             "steps": [
               1,
               2,
@@ -92,6 +111,10 @@ describe('paths', () => {
       expect(paths).toMatchInlineSnapshot(`
         [
           {
+            "stepWeights": [
+              2,
+              1,
+            ],
             "steps": [
               1,
               2,

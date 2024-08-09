@@ -5,6 +5,7 @@ import type { PathParameters, PathWeight } from './bop-types'
 
 export interface PathData {
   steps: number[]
+  stepWeights: number[]
   weight: number
 }
 
@@ -16,9 +17,11 @@ export function collectPaths(model: GraphModel, parameters: PathParameters) {
     .filter((path) => path.steps.length >= parameters.minPathLength)
     .map<PathData>((path) => {
       const getNodeIndex = (node: GraphNode) => indexMap.get(node)!
+      const stepWeights = path.steps.map((step) => step.weight)
       return {
         steps: [getNodeIndex(path.startNode), ...path.steps.map((step) => getNodeIndex(step.target))],
-        weight: reduceWeights(path.steps.map((step) => step.weight), parameters.pathWeight),
+        stepWeights,
+        weight: reduceWeights(stepWeights, parameters.pathWeight),
       }
     },
     )
