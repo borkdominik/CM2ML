@@ -8,14 +8,14 @@ async function openTreeEncoding(page: Page) {
 
   await openExample(page, 'UML', 'deployment.uml')
   const modelForm = page.getByTestId('model-form')
+  await modelForm.getByTestId('Associations-accordion-toggle').click()
   await modelForm.getByLabel('Only Containment Associations').click()
   await modelForm.getByLabel('Relationships as Edges').click()
 
   await openEncoder(page, 'Tree-based')
 
   const encoderForm = page.getByTestId('encoder-form')
-  await encoderForm.getByTestId('expand-parameters').click()
-
+  await encoderForm.getByTestId('Features-accordion-toggle').click()
   await encoderForm.getByLabel('Raw Features').click()
 
   // Make room for more of the tree to be visible

@@ -18,7 +18,7 @@ export function FeatureVector({ data }: FeatureVectorProps) {
     return index.toString().padStart((features.length - 1).toString().length, ' ')
   }
   return (
-    <div className="text-primary-foreground flex cursor-default flex-col flex-wrap font-mono text-xs">
+    <div className="flex cursor-default flex-col flex-wrap font-mono text-xs text-primary-foreground">
       {features.map((feature, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <div key={index} className="flex flex-wrap gap-1">

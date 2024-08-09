@@ -68,7 +68,7 @@ async function openRawGraphGridEncoding(page: Page, browserName: string) {
   await openRawGraphEncoding(page)
 
   const encoderForm = page.getByTestId('encoder-form')
-  await encoderForm.getByTestId('expand-parameters').click()
+  await encoderForm.getByTestId('Graph-accordion-toggle').click()
   await encoderForm.getByLabel('Sparse').click()
 
   const rawGraphGrid = page.getByTestId('raw-graph-grid')

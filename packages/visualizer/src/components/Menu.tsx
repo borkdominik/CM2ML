@@ -30,7 +30,7 @@ export function Menu() {
       <ViewMenu />
       <HelpMenu />
       <div className="flex-1" />
-      <img src="/logo.svg" alt="logo" className="hidden size-8 sm:block dark:invert" />
+      <img src="/logo.svg" alt="logo" className="hidden size-8 dark:invert sm:block" />
     </Menubar>
   )
 }
@@ -276,7 +276,7 @@ function HelpMenu() {
         <MenubarItem disabled>
           Press
           {' '}
-          <kbd className="bg-muted text-muted-foreground pointer-events-none mx-1.5 inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100">
+          <kbd className="pointer-events-none mx-1.5 inline-flex h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
             <span className="text-xs">⌘</span>
             J
           </kbd>

@@ -21,7 +21,7 @@ export function Hint({ error, text }: Props) {
   }
   return (
     <Center>
-      <span className="text-muted-foreground text-balance px-3 py-1 text-center text-xs">
+      <span className="text-balance px-3 py-1 text-center text-xs text-muted-foreground">
         {text}
       </span>
     </Center>

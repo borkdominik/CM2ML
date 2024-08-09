@@ -67,7 +67,7 @@ function Labels({ nodes, offset }: LabelsProps) {
         height={cellSize}
         y={-fontSize / 2}
         x={offset}
-        className="fill-foreground cursor-default font-mono"
+        className="cursor-default fill-foreground font-mono"
         fontSize={fontSize}
       >
         Source
@@ -76,7 +76,7 @@ function Labels({ nodes, offset }: LabelsProps) {
         height={cellSize}
         y={-fontSize / 2}
         x={-offset}
-        className="fill-foreground -rotate-90 cursor-default font-mono "
+        className="-rotate-90 cursor-default fill-foreground font-mono "
         fontSize={fontSize}
         textAnchor="end"
       >
