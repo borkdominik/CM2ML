@@ -70,7 +70,7 @@ export function TermFrequencyEncoding({ model, parameters }: Props) {
                 </TableCell>
                 {modelIds.map((modelId: string) => (
                   <TableCell key={modelId} className="border px-4 py-2 text-center">
-                    {termDocumentMatrix[modelId][index]}
+                    {termDocumentMatrix[modelId]![index]}
                   </TableCell>
                 ))}
               </TableRow>
