@@ -54,11 +54,15 @@ class Path {
   }
 
   private step(): Stream<Path> {
-    if (this.steps.length >= this.parameters.maxPathLength) {
+    if (this.steps.length > this.parameters.maxPathLength) {
+      throw new Error('Path is too long. This is an internal error.')
+    }
+    if (this.steps.length === this.parameters.maxPathLength) {
       return Stream.fromSingle(this)
     }
     const lastNode = this.endNode
     if (lastNode.outgoingEdges.size === 0) {
+      // No more edges to extend path
       return Stream.fromSingle(this)
     }
     const edgeGroups = new Map<GraphNode, [GraphEdge, ...GraphEdge[]]>()
@@ -72,6 +76,10 @@ class Path {
       } else {
         edgeGroups.set(target, [edge])
       }
+    }
+    if (edgeGroups.size === 0) {
+      // Outgoing edges exist, but target nodes are already in path
+      return Stream.fromSingle(this)
     }
     return Stream
       .from(edgeGroups.values())
