@@ -1,13 +1,31 @@
-import type { GraphModel } from '@cm2ml/ir'
-import type { InferOut } from '@cm2ml/plugin'
-import { ExecutionError, batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
+import { GraphModel } from '@cm2ml/ir'
+import { ExecutionError, defineStructuredBatchPlugin } from '@cm2ml/plugin'
+import { stemmer } from 'stemmer'
 
 export interface ExtractedTerm {
-  id: number
-  type: string
+  nodeId: string
   name: string
-};
+  occurences: number
+}
 
+export interface ModelTerms {
+  modelId: string
+  terms: ExtractedTerm[]
+}
+
+/**
+ * Represents a term-document matrix where model IDs are rows and term occurrences are columns
+ *
+ * The matrix structure is as follows:
+ * |---------|-------|-------|-------|-----|
+ * | modelId1|   1   |   0   |   0   | ... |
+ * | modelId2|   0   |   1   |   0   | ... |
+ * | modelId3|   0   |   0   |   1   | ... |
+ * |   ...   |  ...  |  ...  |  ...  | ... |
+ * |---------|-------|-------|-------|-----|
+ *
+ * The concrete terms can be retrieved from the termList in the encoding @see {@link TermFrequencyEncoding}
+ */
 export type TermDocumentMatrix = Record<string, number[]>
 
 export interface TermFrequencyEncoding {
@@ -16,135 +34,202 @@ export interface TermFrequencyEncoding {
   modelIds: string[]
 }
 
-// TODO:
-// - handle relationships + views
-// - uni-gram: names
-// - bi-gram: names + containment?
-// - n-gram: names + containment + types?
-const TermExtractor = batchTryCatch(definePlugin({
-  name: 'term-extractor',
-  parameters: {},
-  invoke(model: GraphModel, _parameters) {
-    return {
-      data: Array.from(model.nodes).map((node, index) => ({
-        id: index + 1,
-        type: node.type ?? '',
-        name: node.getAttribute('name')?.value.literal ?? '',
-      })),
-      metadata: {
-        modelId: model.root.id,
-      },
-    }
-  },
-}))
+interface EncoderParameters {
+  readonly typesAsTerms: boolean
+  readonly attributesAsTerms: readonly string[]
+  readonly tokenize: boolean
+  readonly stem: boolean
+  readonly normalizeTf: boolean
+  readonly tfIdf: boolean
+}
 
-const TermFrequencyExtractor = definePlugin({
-  name: 'term-frequency-extractor',
+export const TermFrequencyEncoder = defineStructuredBatchPlugin({
+  name: 'term-frequency',
   parameters: {
+    typesAsTerms: {
+      type: 'boolean',
+      description: 'Include types as terms',
+      defaultValue: false,
+      group: 'terms',
+    },
+    attributesAsTerms: {
+      type: 'array<string>',
+      defaultValue: [],
+      description: 'Additional attributes to include as terms',
+      group: 'terms',
+      displayName: 'Attributes as Terms',
+    },
+    tokenize: {
+      type: 'boolean',
+      description: 'Split and clean terms of unneeded characters',
+      defaultValue: false,
+      group: 'term-normalization',
+    },
+    stem: {
+      type: 'boolean',
+      description: 'Apply stemming to terms',
+      defaultValue: false,
+      group: 'term-normalization',
+    },
     normalizeTf: {
       type: 'boolean',
-      description: 'Normalize Term Frequency (TF) by total number of terms in the document',
+      description: 'Normalize term frequency by total number of terms in the document',
       defaultValue: false,
       group: 'term-frequency',
     },
-    computeTfIdf: {
+    tfIdf: {
       type: 'boolean',
-      description: 'Compute Term Frequency-Inverse Document Frequency (TF-IDF)',
+      description: 'Compute the Term Frequency-Inverse Document Frequency (TF-IDF) score',
       defaultValue: false,
       group: 'term-frequency',
     },
   },
-  invoke(batch: InferOut<typeof TermExtractor>, parameters) {
-    const validItems = filterValidItems(batch)
-    const { termList, termIndex } = collectUniqueTerms(validItems)
-    const documentFrequency = Array.from<number>({ length: termList.length }).fill(0)
-    const termDocumentMatrix: TermDocumentMatrix = {}
-
-    validItems.forEach((item) => {
-      const docVector = Array.from<number>({ length: termList.length }).fill(0)
-      const termSet = new Set<number>()
-
-      item.data.forEach((term) => {
-        const index = termIndex.get(term.name)
-        if (index !== undefined && docVector[index] !== undefined) {
-          docVector[index]++
-          termSet.add(index)
-        }
-      })
-      termSet.forEach((term) => {
-        if (documentFrequency[term]) {
-          documentFrequency[term]++
-        }
-      })
-
-      if (parameters.normalizeTf) {
-        normalizeTf(docVector, item.data.length)
-      }
-      if (item.metadata.modelId) {
-        termDocumentMatrix[item.metadata.modelId] = docVector
-      }
-    })
-
-    if (parameters.computeTfIdf) {
-      applyTfIdf(termDocumentMatrix, documentFrequency, validItems.length)
-    }
-
-    const modelIds = validItems.map((item) => item.metadata.modelId)
-    return validItems.map(() => ({
-      data: {},
-      metadata: {
-        modelIds,
-        termDocumentMatrix,
-        termList,
-      },
-    }))
+  invoke(input: (GraphModel | ExecutionError)[], parameters) {
+    const models = filterValidModels(input)
+    const modelTerms = extractModelTerms(models, parameters)
+    const termList = createTermList(modelTerms)
+    const termDocumentMatrix = createTermDocumentMatrix(modelTerms, termList, parameters)
+    return createOutput(input, termDocumentMatrix, termList, modelTerms)
   },
 })
 
-function filterValidItems(batch: InferOut<typeof TermExtractor>) {
-  return batch.filter((item): item is Exclude<typeof item, ExecutionError> =>
-    !(item instanceof ExecutionError) && 'data' in item && Array.isArray(item.data),
-  )
+function filterValidModels(input: (GraphModel | ExecutionError)[]): GraphModel[] {
+  return input.filter((item) => item instanceof GraphModel)
 }
 
-function collectUniqueTerms(validItems: ReturnType<typeof filterValidItems>): { termList: string[], termIndex: Map<string, number> } {
-  const allTerms = new Set<string>()
-  validItems.forEach((item) => {
-    item.data.forEach((term) => {
-      allTerms.add(term.name)
-    })
-  })
-  const termList = Array.from(allTerms)
-  const termIndex = new Map(termList.map((term, index) => [term, index]))
-  return { termList, termIndex }
-}
-
-// normalize term frequencies by total number of terms in the document
-function normalizeTf(docVector: number[], totalTermsInDoc: number) {
-  if (totalTermsInDoc <= 0) {
-    throw new Error('Cannot normalize term frequency: total terms in document is zero or negative.')
-  }
-  docVector.forEach((tf, index) => {
-    docVector[index] = tf / totalTermsInDoc
-  })
-}
-
-function applyTfIdf(termDocumentMatrix: TermDocumentMatrix, documentFrequency: number[], totalDocuments: number) {
-  const idf = computeIdf(documentFrequency, totalDocuments)
-  Object.keys(termDocumentMatrix).forEach((modelId) => {
-    if (termDocumentMatrix[modelId]) {
-      termDocumentMatrix[modelId] = termDocumentMatrix[modelId].map((tf, index) => {
-        // compute TF-IDF = TF * IDF
-        const tfidf = tf * (idf[index] ?? 0)
-        return Number(tfidf.toFixed(4))
-      })
+function extractModelTerms(models: GraphModel[], parameters: EncoderParameters): ModelTerms[] {
+  return models.map((model) => {
+    if (model.root.id === undefined) {
+      throw new Error('Model ID is undefined')
+    }
+    return {
+      modelId: model.root.id,
+      terms: extractTerms(model, parameters),
     }
   })
 }
 
-function computeIdf(docFrequency: number[], totalDocs: number) {
-  // compute IDF = log(totalDocs / (docFrequency + 1))
-  return docFrequency.map((freq) => Number((Math.log(totalDocs / (freq + 1)))))
+function extractTerms(model: GraphModel, parameters: EncoderParameters): ExtractedTerm[] {
+  const termMap = new Map<string, ExtractedTerm>()
+
+  for (const node of model.nodes) {
+    // process names
+    const name = node.getAttribute('name')?.value.literal
+    if (name) {
+      processTerms(termMap, node.id!, name, parameters)
+    }
+
+    // process types (do not tokenize)
+    if (parameters.typesAsTerms && node.type) {
+      updateOrAddTerm(termMap, node.id!, node.type)
+    }
+
+    // process additional attributes
+    for (const attr of parameters.attributesAsTerms) {
+      const attrValue = node.getAttribute(attr)?.value.literal
+      if (attrValue) {
+        processTerms(termMap, node.id!, attrValue, parameters)
+      }
+    }
+  }
+
+  return Array.from(termMap.values())
 }
 
-export const TermFrequencyEncoder = compose(TermExtractor, TermFrequencyExtractor, 'term-frequency')
+function processTerms(termMap: Map<string, ExtractedTerm>, nodeId: string, value: string, parameters: EncoderParameters) {
+  const terms = parameters.tokenize ? tokenize(value) : [value]
+  terms.forEach((term: string) => {
+    const processedTerm = parameters.stem ? stemmer(term) : term
+    updateOrAddTerm(termMap, nodeId, processedTerm)
+  })
+}
+
+function updateOrAddTerm(termMap: Map<string, ExtractedTerm>, nodeId: string, termName: string) {
+  if (termMap.has(termName)) {
+    const term = termMap.get(termName)!
+    term.occurences++
+  } else {
+    termMap.set(termName, { nodeId, name: termName, occurences: 1 })
+  }
+}
+
+function tokenize(text: string): string[] {
+  // split text into words, considering spaces and punctuation as separators
+  const rawTokens = text.split(/[\s\p{P}]+/u)
+  // convert to lowercase and remove empty characters
+  return rawTokens
+    .map((token) => token.toLowerCase().replace(/\W+/g, ''))
+    .filter((token) => token.length > 0)
+}
+
+function createTermList(modelTerms: ModelTerms[]): string[] {
+  const allTerms = new Set(modelTerms.flatMap(({ terms }) => terms.map((term) => term.name)))
+  return Array.from(allTerms)
+}
+
+function createTermDocumentMatrix(modelTerms: ModelTerms[], termList: string[], parameters: EncoderParameters): TermDocumentMatrix {
+  const matrix: TermDocumentMatrix = {}
+
+  modelTerms.forEach(({ modelId, terms }) => {
+    const termCounts = countTerms(terms)
+    const totalTerms = terms.reduce((sum, term) => sum + term.occurences, 0)
+
+    matrix[modelId] = termList.map((term) => {
+      const termCount = termCounts[term] || 0
+      const tf = computeTf(termCount, totalTerms, parameters)
+
+      if (parameters.tfIdf) {
+        const idf = computeIdf(term, modelTerms)
+        return computeTfIdf(tf, idf)
+      }
+      return tf
+    })
+  })
+  return matrix
+}
+
+function countTerms(terms: ExtractedTerm[]): Record<string, number> {
+  return terms.reduce((counts, term) => {
+    counts[term.name] = term.occurences
+    return counts
+  }, {} as Record<string, number>)
+}
+
+// TF = term count / total number of terms in the document (if normalized)
+// Note: some approaches use log(1 + TF), maybe support this too?
+function computeTf(termCount: number, totalTerms: number, parameters: EncoderParameters): number {
+  return parameters.normalizeTf ? termCount / totalTerms : termCount
+}
+
+// IDF = log(number of documents / number of documents containing the term)
+function computeIdf(term: string, modelTerms: ModelTerms[]): number {
+  const documentCount = modelTerms.length
+  const documentFrequency = modelTerms.filter((model) =>
+    model.terms.some((t) => t.name === term),
+  ).length
+  return Math.log(documentCount / (documentFrequency || 1))
+}
+
+// TF-IDF = TF * IDF
+function computeTfIdf(tf: number, idf: number): number {
+  return tf * idf
+}
+
+function createOutput(
+  input: (GraphModel | ExecutionError)[],
+  termDocumentMatrix: TermDocumentMatrix,
+  termList: string[],
+  modelTerms: ModelTerms[],
+) {
+  const modelIds = modelTerms.map(({ modelId }) => modelId)
+  const result: TermFrequencyEncoding = { termDocumentMatrix, termList, modelIds }
+  return input.map((item) => {
+    if (item instanceof ExecutionError) {
+      return item
+    }
+    return {
+      data: input.length === 1 ? { modelTerms } : { modelId: item.root.id },
+      metadata: result,
+    }
+  })
+}

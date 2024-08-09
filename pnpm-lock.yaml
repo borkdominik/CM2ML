@@ -175,34 +175,6 @@ importers:
         specifier: 2.1.1
         version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
 
-  packages/encoder/tf-encoder:
-    dependencies:
-      '@cm2ml/feature-encoder':
-        specifier: workspace:*
-        version: link:../feature-encoder
-      '@cm2ml/ir':
-        specifier: workspace:*
-        version: link:../../framework/ir
-      '@cm2ml/plugin':
-        specifier: workspace:*
-        version: link:../../framework/plugin
-      '@yeger/streams':
-        specifier: 1.2.0
-        version: 1.2.0
-    devDependencies:
-      '@cm2ml/tsconfig':
-        specifier: workspace:*
-        version: link:../../tsconfig
-      typescript:
-        specifier: 5.5.4
-        version: 5.5.4
-      vite:
-        specifier: 5.3.5
-        version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
-      vite-plugin-lib:
-        specifier: 2.1.1
-        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
-
   packages/encoder/pattern-miner:
     dependencies:
       '@cm2ml/ir':
@@ -220,6 +192,37 @@ importers:
       prefixspan:
         specifier: workspace:*
         version: link:../../prefixspan
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.5.4
+        version: 5.5.4
+      vite:
+        specifier: 5.3.5
+        version: 5.3.5(@types/node@22.1.0)(terser@5.26.0)
+      vite-plugin-lib:
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.1.0)(rollup@4.13.0)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.26.0))
+
+  packages/encoder/tf-encoder:
+    dependencies:
+      '@cm2ml/feature-encoder':
+        specifier: workspace:*
+        version: link:../feature-encoder
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../../framework/ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../../framework/plugin
+      '@yeger/streams':
+        specifier: 1.2.0
+        version: 1.2.0
+      stemmer:
+        specifier: ^2.0.1
+        version: 2.0.1
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
@@ -282,6 +285,9 @@ importers:
       '@cm2ml/ir':
         specifier: workspace:*
         version: link:../ir
+      '@cm2ml/pattern-miner':
+        specifier: workspace:*
+        version: link:../../encoder/pattern-miner
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
@@ -7902,6 +7908,10 @@ packages:
   stdin-discarder@0.2.2:
     resolution: {integrity: sha512-UhDfHmA92YAlNnCfhmq0VeNL5bDbiZGg7sZ2IvPsXubGkiNa9EC+tUTsjBRsYUAz87btI6/1wf4XoVvQ3uRnmQ==}
     engines: {node: '>=18'}
+
+  stemmer@2.0.1:
+    resolution: {integrity: sha512-bkWvSX2JR4nSZFfs113kd4C6X13bBBrg4fBKv2pVdzpdQI2LA5pZcWzTFNdkYsiUNl13E4EzymSRjZ0D55jBYg==}
+    hasBin: true
 
   stop-iteration-iterator@1.0.0:
     resolution: {integrity: sha512-iCGQj+0l0HOdZ2AEeBADlsRC+vsnDsZsbdSiH1yNSjcfKM7fdpCMfqAL/dwF5BLiw/XhRft/Wax6zQbhq2BcjQ==}
@@ -17237,6 +17247,8 @@ snapshots:
       bl: 5.1.0
 
   stdin-discarder@0.2.2: {}
+
+  stemmer@2.0.1: {}
 
   stop-iteration-iterator@1.0.0:
     dependencies:

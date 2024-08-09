@@ -39,7 +39,8 @@
     "@cm2ml/feature-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
-    "@yeger/streams": "1.2.0"
+    "@yeger/streams": "1.2.0",
+    "stemmer": "^2.0.1"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

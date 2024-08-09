@@ -1,5 +1,5 @@
 import type { Encoder } from '@cm2ml/builtin'
-import { BagOfPathsEncoder, GraphEncoder, TermFrequencyEncoder, PatternMiner, TreeEncoder } from '@cm2ml/builtin'
+import { BagOfPathsEncoder, GraphEncoder, PatternMiner, TermFrequencyEncoder, TreeEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 
 import { prettifyEncoderName } from '../../lib/pluginNames'
