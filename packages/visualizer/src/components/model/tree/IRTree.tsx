@@ -1,4 +1,5 @@
 import type { GraphModel } from '@cm2ml/ir'
+import { Stream } from '@yeger/streams'
 import { useEffect, useMemo } from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Panel, Position, useReactFlow } from 'reactflow'
 
@@ -60,10 +61,10 @@ function useIsFlowNodeSelected(flowNode: IRFlowNode) {
     if (!selection) {
       return false
     }
-    if (selection.type === 'edges') {
-      return false
+    if (selection.type === 'nodes') {
+      return selection.nodes.includes(flowNode.id)
     }
-    return selection.nodes.includes(flowNode.id)
+    return selection.edges.some(([source, target]) => source === flowNode.id || target === flowNode.id)
   }, [flowNode, selection])
 }
 
@@ -128,22 +129,10 @@ function ViewFitter({ flowGraph }: { flowGraph: IRFlowGraphModel }) {
         return
       }
       if (selection.type === 'nodes') {
-        const selectedNodes = reactFlow.getNodes()
-          .filter((node) => selection.nodes.includes(node.id))
-        const firstSelectedNode = selectedNodes.sort((a, b) => {
-          if (a.position.y === b.position.y) {
-            return a.position.x > b.position.x ? 1 : -1
-          }
-          return a.position.y > b.position.y ? 1 : -1
-        })[0]
-        if (!firstSelectedNode) {
-          return
-        }
-        // TODO/Jan: Focus on all at once?
-        reactFlow.setCenter(firstSelectedNode.position.x, firstSelectedNode.position.y, { duration: 200, zoom: 1 })
+        reactFlow.fitView({ nodes: selection.nodes.map((id) => ({ id })), duration: 200 })
       }
       if (selection.type === 'edges') {
-        // TODO/Jan: Do nothing?
+        reactFlow.fitView({ nodes: Stream.from(selection.edges).flatMap(([source, target]) => [source, target]).distinct().map((id) => ({ id })).toArray(), duration: 200 })
       }
     }, 200)
     return () => clearTimeout(timeout)
