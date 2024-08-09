@@ -63,7 +63,7 @@ const PathBuilder = definePlugin({
         if (id === undefined) {
           throw new Error('Node ID is undefined')
         }
-        return [id, node.type] as const
+        return [id, node.tag] as const
       })
       .toArray()
     return {

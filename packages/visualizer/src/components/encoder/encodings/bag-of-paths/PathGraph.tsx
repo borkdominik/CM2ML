@@ -14,7 +14,8 @@ import { FitButton } from '../../../FitButton'
 import { Button } from '../../../ui/button'
 import { Progress } from '../../../ui/progress'
 
-export type Mapping = (readonly [string, string | undefined])[]
+/** Mapping from node index to `['id', 'tag']` */
+export type Mapping = (readonly [string, string])[]
 
 export interface Props {
   path: PathData
@@ -280,7 +281,7 @@ function createVisNodes(path: PathData, mapping: Mapping) {
     .distinct()
     .map((node) => ({
       id: node,
-      label: mapping[node]![1] ?? ` ${node} `,
+      label: mapping[node]![1],
       shape: 'box',
     }))
     .toArray()
