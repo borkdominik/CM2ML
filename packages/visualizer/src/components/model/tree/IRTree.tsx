@@ -90,7 +90,7 @@ function IRFlowTreeNode({ data }: { data: IRFlowNode }) {
         }}
         onClick={select}
       >
-        {data.graphNode.type ?? data.id}
+        {data.graphNode.tag}
       </div>
       {isTerminal
         ? null
