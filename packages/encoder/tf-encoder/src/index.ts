@@ -40,6 +40,7 @@ interface EncoderParameters {
   readonly attributesAsTerms: readonly string[]
   readonly tokenize: boolean
   readonly stem: boolean
+  readonly stopWords: readonly string[]
   readonly normalizeTf: boolean
   readonly tfIdf: boolean
 }
@@ -81,6 +82,39 @@ export const TermFrequencyEncoder = defineStructuredBatchPlugin({
       description: 'Apply stemming to terms',
       group: 'term-normalization',
       displayName: 'Stem terms',
+    },
+    stopWords: {
+      type: 'array<string>',
+      defaultValue: [
+        'a',
+        'an',
+        'and',
+        'are',
+        'as',
+        'at',
+        'be',
+        'by',
+        'for',
+        'from',
+        'has',
+        'he',
+        'in',
+        'is',
+        'it',
+        'its',
+        'of',
+        'on',
+        'that',
+        'the',
+        'to',
+        'was',
+        'were',
+        'will',
+        'with',
+      ],
+      description: 'List of stop words to remove from the term list',
+      group: 'term-normalization',
+      displayName: 'Stop words',
     },
     normalizeTf: {
       type: 'boolean',
@@ -151,9 +185,13 @@ function extractTerms(model: GraphModel, parameters: EncoderParameters): Extract
 
 function processTerms(termMap: Map<string, ExtractedTerm>, nodeId: string, value: string, parameters: EncoderParameters) {
   const terms = parameters.tokenize ? tokenize(value) : [value]
+  const stopWords = new Set(parameters.stopWords)
+
   terms.forEach((term: string) => {
     const processedTerm = parameters.stem ? stemmer(term) : term
-    updateOrAddTerm(termMap, nodeId, processedTerm)
+    if (!stopWords.has(processedTerm)) {
+      updateOrAddTerm(termMap, nodeId, processedTerm)
+    }
   })
 }
 
