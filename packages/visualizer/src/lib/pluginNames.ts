@@ -15,6 +15,7 @@ const encoderPairs = [
   ['pattern-miner', 'Pattern miner'],
   ['raw-graph', 'Raw graph'],
   ['tree', 'Tree-based'],
+  ['term-frequency', 'Term Frequency'],
 ]
 
 const encoderNameToPrettyName: Record<string, string> = Object.fromEntries(encoderPairs)
