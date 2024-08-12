@@ -58,13 +58,7 @@ const PathBuilder = definePlugin({
       .toArray()
     const mapping = Stream
       .from(data.nodes)
-      .map((node) => {
-        const id = node.id
-        if (id === undefined) {
-          throw new Error('Node ID is undefined')
-        }
-        return [id, node.tag] as const
-      })
+      .map((node) => node.requireId())
       .toArray()
     return {
       data: {

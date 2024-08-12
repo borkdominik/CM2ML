@@ -79,14 +79,8 @@ function encodeAsSparseList(
   >()
   const indexRecord = createIndexRecord(sortedIds)
   edges.forEach((edge) => {
-    const sourceId = edge.source.id
-    const targetId = edge.target.id
-    if (sourceId === undefined) {
-      throw new Error('Missing id attribute in source element.')
-    }
-    if (targetId === undefined) {
-      throw new Error('Missing id attribute in target element.')
-    }
+    const sourceId = edge.source.requireId()
+    const targetId = edge.target.requireId()
     const sourceIndex = indexRecord[sourceId]
     if (sourceIndex === undefined) {
       throw new Error(`Source node ${sourceId} not in model.`)
@@ -162,14 +156,8 @@ function fillAdjacencyMatrix(
 ) {
   const indexRecord = createIndexRecord(sortedIds)
   edges.forEach((edge) => {
-    const sourceId = edge.source.id
-    const targetId = edge.target.id
-    if (sourceId === undefined) {
-      throw new Error('Missing id attribute in source element.')
-    }
-    if (targetId === undefined) {
-      throw new Error('Missing id attribute in target element.')
-    }
+    const sourceId = edge.source.requireId()
+    const targetId = edge.target.requireId()
     const sourceIndex = indexRecord[sourceId]
     if (sourceIndex === undefined) {
       throw new Error(`Source node ${sourceId} not in model.`)
@@ -203,11 +191,8 @@ function getRelevantEdges(model: GraphModel, includeEqualPaths: boolean) {
   const edges = new Set<GraphEdge>()
   const consideredEdgePaths = new Map<string, Set<string>>()
   model.edges.forEach((edge) => {
-    const sourceId = edge.source.id
-    const targetId = edge.target.id
-    if (sourceId === undefined || targetId === undefined) {
-      return
-    }
+    const sourceId = edge.source.requireId()
+    const targetId = edge.target.requireId()
     const pathsFromSource = consideredEdgePaths.get(sourceId)
     if (pathsFromSource !== undefined && pathsFromSource.has(targetId)) {
       return

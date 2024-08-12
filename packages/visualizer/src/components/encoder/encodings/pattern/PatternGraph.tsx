@@ -19,10 +19,6 @@ export interface Props {
   mapping: Record<string, string[]>
 }
 
-export interface IRGraphRef {
-  fit?: () => void
-}
-
 export function PatternGraph({ pattern, mapping }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const { isReady, progress, fit } = usePatternVisNetwork(pattern, mapping, containerRef)

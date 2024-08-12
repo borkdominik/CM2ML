@@ -1,4 +1,3 @@
-import type { FeatureContext } from '@cm2ml/builtin'
 import { BagOfPathsEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { ExecutionError } from '@cm2ml/plugin'
@@ -34,16 +33,9 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={i}>
           {i > 0 ? <Separator /> : null}
-          <PathGraph path={path} mapping={mapping} />
+          <PathGraph path={path} mapping={mapping} model={model} />
         </Fragment>
       ))}
     </div>
   )
-}
-
-export interface PathMetadata {
-  nodeFeatures: FeatureContext['nodeFeatures']
-  edgeFeatures: FeatureContext['edgeFeatures']
-  idAttribute: string
-  typeAttributes: string[]
 }

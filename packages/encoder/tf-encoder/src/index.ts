@@ -146,11 +146,8 @@ function filterValidModels(input: (GraphModel | ExecutionError)[]): GraphModel[]
 
 function extractModelTerms(models: GraphModel[], parameters: EncoderParameters): ModelTerms[] {
   return models.map((model) => {
-    if (model.root.id === undefined) {
-      throw new Error('Model ID is undefined')
-    }
     return {
-      modelId: model.root.id,
+      modelId: model.root.requireId(),
       terms: extractTerms(model, parameters),
     }
   })

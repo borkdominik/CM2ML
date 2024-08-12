@@ -356,6 +356,7 @@ export const Uml = new class extends Metamodel<UmlAttribute, UmlType, UmlTag> {
       idAttribute: 'xmi:id',
       types,
       typeAttributes: ['xmi:type', 'xsi:type'],
+      nameAttribute: 'name',
       tags: [],
     })
   }

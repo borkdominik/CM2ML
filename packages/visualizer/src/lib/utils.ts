@@ -1,3 +1,4 @@
+import type { GraphNode } from '@cm2ml/ir'
 import type { ParameterMetadata } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 import { type ClassValue, clsx } from 'clsx'
@@ -56,4 +57,13 @@ export function createOpacityRangeMapper(min: number, max: number) {
   }
   return (weight: number) =>
     minOpacity + (maxOpacity - minOpacity) * ((weight - min) / (max - min))
+}
+
+export function getIRNodeLabel(node: GraphNode) {
+  const name = node.name
+  const tag = `<${node.tag}>`
+  if (!name) {
+    return tag
+  }
+  return `${node.name}\n${tag}`
 }

@@ -1,4 +1,5 @@
 import type { PathData } from '@cm2ml/builtin'
+import type { GraphModel } from '@cm2ml/ir'
 import { GlobeIcon } from '@radix-ui/react-icons'
 import { debounce } from '@yeger/debounce'
 import { Stream } from '@yeger/streams'
@@ -9,30 +10,25 @@ import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
 import { useSelection } from '../../../../lib/useSelection'
 import { useVisNetworkStyles } from '../../../../lib/useVisNetworkStyles'
-import { cn } from '../../../../lib/utils'
+import { cn, getIRNodeLabel } from '../../../../lib/utils'
 import { FitButton } from '../../../FitButton'
 import { Button } from '../../../ui/button'
 import { Progress } from '../../../ui/progress'
 
-/** Mapping from node index to `['id', 'tag']` */
-export type Mapping = (readonly [string, string])[]
-
 export interface Props {
   path: PathData
-  mapping: Mapping
+  /** Mapping from node index to node id */
+  mapping: string[]
+  model: GraphModel
 }
 
-export interface IRGraphRef {
-  fit?: () => void
-}
-
-export function PathGraph({ path, mapping }: Props) {
+export function PathGraph({ path, mapping, model }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { isReady, progress, fit } = useBagOfPathsVisNetwork(path, mapping, containerRef)
+  const { isReady, progress, fit } = useBagOfPathsVisNetwork(path, mapping, model, containerRef)
   const setSelection = useSelection.use.setSelection()
   const selectAll = () => {
     const mappedNodes = path.steps.map((step) => mapping[step]!)
-    const edges = mappedNodes.slice(0, -1).map((node, i) => [node[0], mappedNodes[i + 1]![0]] as const)
+    const edges = mappedNodes.slice(0, -1).map((node, i) => [node, mappedNodes[i + 1]!] as const)
     setSelection({ type: 'edges', edges, origin: 'path' })
   }
   return (
@@ -80,7 +76,8 @@ function splitEdgeId(edgeId: string | undefined) {
 
 function useBagOfPathsVisNetwork(
   path: PathData,
-  mapping: Mapping,
+  mapping: string[],
+  model: GraphModel,
   container: RefObject<HTMLDivElement | null>,
 ) {
   const selection = useSelection.use.selection()
@@ -90,7 +87,7 @@ function useBagOfPathsVisNetwork(
   const [stabilizationProgress, setStabilizationProgress] = useState(0)
 
   const data = useMemo(() => {
-    const nodes = createVisNodes(path, mapping)
+    const nodes = createVisNodes(path, mapping, model)
     const edges = createVisEdges(path)
     return { nodes, edges }
   }, [path])
@@ -142,7 +139,7 @@ function useBagOfPathsVisNetwork(
       if (selectedNodes.length === 0) {
         return
       }
-      const mappedNodeIds = Stream.from(selectedNodes).map((selectedNode) => mapping[selectedNode]?.[0]).filterNonNull().toArray()
+      const mappedNodeIds = Stream.from(selectedNodes).map((selectedNode) => mapping[selectedNode]).filterNonNull().toArray()
       setSelection({ type: 'nodes', nodes: mappedNodeIds, origin: 'path-graph' })
     }
     network.on(
@@ -169,8 +166,8 @@ function useBagOfPathsVisNetwork(
           return
         }
         const [source, target] = edge
-        const mappedSourceId = mapping[source]![0]
-        const mappedTargetId = mapping[target]![0]
+        const mappedSourceId = mapping[source]!
+        const mappedTargetId = mapping[target]!
         setSelection({ type: 'edges', edges: [[mappedSourceId, mappedTargetId]], origin: 'path-graph' })
       }
     })
@@ -204,7 +201,7 @@ function useBagOfPathsVisNetwork(
   }, [network, options])
 
   const reverseMapping = useMemo(() => {
-    const reverseMapping: Record<string, number> = Object.fromEntries(mapping.map(([nodeId], nodeIndex) => [nodeId, nodeIndex]))
+    const reverseMapping: Record<string, number> = Object.fromEntries(mapping.map((nodeId, nodeIndex) => [nodeId, nodeIndex]))
     return reverseMapping
   }, [mapping])
 
@@ -275,15 +272,18 @@ function isNetworkDestroyed(network: Network | null): network is null {
   return !('selectionHandler' in network)
 }
 
-function createVisNodes(path: PathData, mapping: Mapping) {
+function createVisNodes(path: PathData, mapping: string[], model: GraphModel) {
   const mappedNodes = Stream
     .from(path.steps)
     .distinct()
-    .map((node) => ({
-      id: node,
-      label: mapping[node]![1],
-      shape: 'box',
-    }))
+    .map((node) => {
+      const mappedNode = model.getNodeById(mapping[node]!)!
+      return {
+        id: node,
+        label: getIRNodeLabel(mappedNode),
+        shape: 'box',
+      }
+    })
     .toArray()
 
   return new DataSet(mappedNodes)

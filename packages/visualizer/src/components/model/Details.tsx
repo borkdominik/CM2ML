@@ -126,7 +126,7 @@ function getEdges(edgeSelection: EdgeSelection, model: GraphModel) {
 }
 
 function NodeDetails({ node }: { node: GraphNode }) {
-  const name = node.getAttribute('name')?.value.literal
+  const name = node.name
   return (
     <div className="select-text space-y-2 p-2" data-testid="node-details">
       <div className="text-sm font-bold">

@@ -202,7 +202,7 @@ function persistMetadata(model: GraphModel) {
 
 function persistModelName(model: GraphModel) {
   const root = model.root
-  const name = root.getAttribute('name')?.value.literal
+  const name = root.name
   if (!name) {
     return
   }

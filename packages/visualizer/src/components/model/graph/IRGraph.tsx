@@ -8,7 +8,7 @@ import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
 import { useSelection } from '../../../lib/useSelection'
 import { useVisNetworkStyles } from '../../../lib/useVisNetworkStyles'
-import { cn } from '../../../lib/utils'
+import { cn, getIRNodeLabel } from '../../../lib/utils'
 import { FitButton } from '../../FitButton'
 import { Progress } from '../../ui/progress'
 
@@ -233,13 +233,13 @@ function isNetworkDestroyed(network: Network | null): network is null {
 
 function createVisNodes(model: GraphModel) {
   const mappedNodes = Stream.from(model.nodes)
-    .map(({ id, tag, outgoingEdges, incomingEdges }) => {
-      const outgoing = Stream.from(outgoingEdges).map(({ target }) => target.id)
-      const incoming = Stream.from(incomingEdges).map(({ source }) => source.id)
+    .map((node) => {
+      const outgoing = Stream.from(node.outgoingEdges).map(({ target }) => target.id)
+      const incoming = Stream.from(node.incomingEdges).map(({ source }) => source.id)
       const uniqueNeighbors = outgoing.concat(incoming).filterNonNull().toSet().size
       return {
-        id,
-        label: tag,
+        id: node.id,
+        label: getIRNodeLabel(node),
         shape: uniqueNeighbors >= 4 ? 'circle' : 'box',
       }
     })

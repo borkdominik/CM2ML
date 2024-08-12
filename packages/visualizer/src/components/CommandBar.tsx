@@ -215,7 +215,7 @@ function NodeSearchCommandGroup({ model, closeDialog }: NodeSearchCommandGroupPr
         if (!id) {
           return undefined
         }
-        const label = node.getAttribute('name')?.value.literal
+        const label = node.name
         const keywords = getKeywords(node)
         return { label, id, keywords }
       })
@@ -269,7 +269,7 @@ function EdgeSearchCommandGroup({ model, closeDialog }: EdgeSearchCommandGroupPr
         const selection = [sourceId, targetId] as const
         const id = edge.show()
         const tag = edge.tag
-        const label = edge.getAttribute('name')?.value.literal
+        const label = edge.name
         const keywords = getKeywords(edge)
         return { selection, label, id, tag, keywords }
       })

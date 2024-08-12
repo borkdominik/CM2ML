@@ -4,7 +4,7 @@ import { useEffect, useMemo } from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, Handle, MiniMap, Panel, Position, useReactFlow } from 'reactflow'
 
 import { useSelection } from '../../../lib/useSelection'
-import { cn } from '../../../lib/utils'
+import { cn, getIRNodeLabel } from '../../../lib/utils'
 
 import type { IRFlowGraphModel, IRFlowNode } from './useIRTree'
 import { useIRTree } from './useIRTree'
@@ -90,7 +90,7 @@ function IRFlowTreeNode({ data }: { data: IRFlowNode }) {
         }}
         onClick={select}
       >
-        {data.graphNode.tag}
+        {getIRNodeLabel(data.graphNode)}
       </div>
       {isTerminal
         ? null

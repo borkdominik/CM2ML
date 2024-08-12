@@ -10,6 +10,7 @@ export interface Show {
 }
 
 export interface ModelMember {
+  readonly name: string | undefined
   readonly model: GraphModel
   readonly isRemoved: boolean
 }
@@ -19,6 +20,7 @@ export interface MetamodelConfiguration<AttributeName extends string, Type exten
   idAttribute: AttributeName
   types: Type[] | readonly Type[]
   typeAttributes: [AttributeName, ...AttributeName[]]
+  nameAttribute?: AttributeName
   tags: Tag[] | readonly Tag[]
 }
 
@@ -30,10 +32,11 @@ export class Metamodel<const AttributeName extends string, const Type extends st
   public readonly Attributes: IdRecord<AttributeName>
   public readonly idAttribute: AttributeName
   public readonly typeAttributes: [AttributeName, ...AttributeName[]]
+  public readonly nameAttribute: AttributeName | undefined
   public readonly Types: IdRecord<Type>
   public readonly Tags: IdRecord<Tag>
 
-  public constructor({ attributes, idAttribute, types, typeAttributes, tags }: MetamodelConfiguration<AttributeName, Type, Tag>) {
+  public constructor({ attributes, idAttribute, types, typeAttributes, nameAttribute, tags }: MetamodelConfiguration<AttributeName, Type, Tag>) {
     this.Attributes = Object.fromEntries(attributes.map((attribute) => [attribute, attribute])) as IdRecord<AttributeName>
     if (this.Attributes[idAttribute] === undefined) {
       throw new Error(`Id attribute ${idAttribute} must be in attributes`)
@@ -46,6 +49,10 @@ export class Metamodel<const AttributeName extends string, const Type extends st
       }
     }
     this.typeAttributes = typeAttributes
+    if (nameAttribute !== undefined && this.Attributes[nameAttribute] === undefined) {
+      throw new Error(`Name attribute ${nameAttribute} must be in attributes`)
+    }
+    this.nameAttribute = nameAttribute
     this.Tags = Object.fromEntries(tags.map((tag) => [tag, tag])) as IdRecord<Tag>
   }
 
@@ -88,6 +95,13 @@ export class Metamodel<const AttributeName extends string, const Type extends st
       return actualName
     }
     return undefined
+  }
+
+  public getNameAttribute(element: GraphNode | GraphEdge): Attribute | undefined {
+    if (this.nameAttribute === undefined) {
+      return undefined
+    }
+    return element.getAttribute(this.nameAttribute)
   }
 }
 
@@ -317,6 +331,14 @@ export class GraphNode implements Attributable, ModelMember, Show {
     return this.model.metamodel.getTypeAttribute(this)
   }
 
+  public get name(): string | undefined {
+    return this.nameAttribute?.value.literal
+  }
+
+  public get nameAttribute(): Attribute | undefined {
+    return this.model.metamodel.getNameAttribute(this)
+  }
+
   public get parent(): GraphNode | undefined {
     return this.#parent
   }
@@ -345,6 +367,14 @@ export class GraphNode implements Attributable, ModelMember, Show {
 
   public get incomingEdges(): ReadonlySet<GraphEdge> {
     return this.#incomingEdges
+  }
+
+  public requireId(): string {
+    if (this.id === undefined) {
+      const messageSuffix = this.model.settings.debug ? ` (${this.show()})` : ''
+      throw new Error(`Missing ID on node${messageSuffix}`)
+    }
+    return this.id
   }
 
   public getNearestIdentifiableNode(): GraphNode | undefined {
@@ -495,6 +525,14 @@ export class GraphEdge implements Attributable, ModelMember, Show {
    */
   public set type(type: string) {
     this.model.metamodel.setType(this, type)
+  }
+
+  public get name(): string | undefined {
+    return this.nameAttribute?.value.literal
+  }
+
+  public get nameAttribute(): Attribute | undefined {
+    return this.model.metamodel.getNameAttribute(this)
   }
 
   public get isRemoved(): boolean {
