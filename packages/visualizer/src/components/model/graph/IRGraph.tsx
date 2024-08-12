@@ -8,7 +8,7 @@ import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
 import { useSelection } from '../../../lib/useSelection'
 import { useVisNetworkStyles } from '../../../lib/useVisNetworkStyles'
-import { cn, getIRNodeLabel } from '../../../lib/utils'
+import { cn, getModelMemberLabel } from '../../../lib/utils'
 import { FitButton } from '../../FitButton'
 import { Progress } from '../../ui/progress'
 
@@ -239,7 +239,7 @@ function createVisNodes(model: GraphModel) {
       const uniqueNeighbors = outgoing.concat(incoming).filterNonNull().toSet().size
       return {
         id: node.id,
-        label: getIRNodeLabel(node),
+        label: getModelMemberLabel(node),
         shape: uniqueNeighbors >= 4 ? 'circle' : 'box',
       }
     })

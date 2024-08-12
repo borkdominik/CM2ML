@@ -36,6 +36,12 @@ export interface Attributable {
   removeAttribute: (name: AttributeName) => Attribute | undefined
 }
 
+export type AttributeChangeListener = (
+  attributeName: AttributeName,
+  previousValue: Value | undefined,
+  newValue: Value | undefined,
+) => void
+
 export class AttributeDelegate implements Attributable {
   readonly #attributes = new Map<AttributeName, Attribute>()
   public readonly attributes: ReadonlyMap<AttributeName, Attribute> =
@@ -43,11 +49,7 @@ export class AttributeDelegate implements Attributable {
 
   public constructor(
     private readonly attributeChangeListener:
-      | ((
-        attributeName: AttributeName,
-        previousValue: Value | undefined,
-        newValue: Value | undefined,
-      ) => void)
+      | AttributeChangeListener
       | undefined,
   ) {}
 

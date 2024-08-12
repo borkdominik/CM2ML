@@ -1,8 +1,7 @@
 import { parseNamespace } from '@cm2ml/utils'
 
 import type { Attribute } from './attributes'
-import type { GraphEdge } from './graph-edge'
-import type { GraphNode } from './graph-node'
+import type { ModelMember } from './model-member'
 
 export interface MetamodelConfiguration<AttributeName extends string, Type extends string, Tag extends string> {
   attributes: AttributeName[] | readonly AttributeName[]
@@ -45,8 +44,8 @@ export class Metamodel<const AttributeName extends string, const Type extends st
     this.Tags = Object.fromEntries(tags.map((tag) => [tag, tag])) as IdRecord<Tag>
   }
 
-  public getIdAttribute(node: GraphNode): Attribute | undefined {
-    return node.getAttribute(this.idAttribute)
+  public getIdAttribute(member: ModelMember): Attribute | undefined {
+    return member.getAttribute(this.idAttribute)
   }
 
   public isValidType(type: string | undefined): type is Type {
@@ -57,13 +56,13 @@ export class Metamodel<const AttributeName extends string, const Type extends st
     return tag !== undefined && tag in this.Tags
   }
 
-  public getType(element: GraphNode | GraphEdge): Type | undefined {
-    return this.getTypeAttribute(element)?.value.literal as Type | undefined
+  public getType(member: ModelMember): Type | undefined {
+    return this.getTypeAttribute(member)?.value.literal as Type | undefined
   }
 
-  public getTypeAttribute(element: GraphNode | GraphEdge): Attribute | undefined {
+  public getTypeAttribute(member: ModelMember): Attribute | undefined {
     for (const attribute of this.typeAttributes) {
-      const type = element.getAttribute(attribute)
+      const type = member.getAttribute(attribute)
       if (this.isValidType(type?.value.literal)) {
         return type
       }
@@ -71,13 +70,13 @@ export class Metamodel<const AttributeName extends string, const Type extends st
     return undefined
   }
 
-  public setType(element: GraphNode | GraphEdge, type: string) {
+  public setType(member: ModelMember, type: string) {
     const typeAttribute = this.typeAttributes[0]
-    element.addAttribute({ name: typeAttribute, type: 'category', value: { literal: type } }, false)
+    member.addAttribute({ name: typeAttribute, type: 'category', value: { literal: type } }, false)
   }
 
-  public getTagType(element: GraphNode | GraphEdge): Type | undefined {
-    const parsedName = parseNamespace(element.tag)
+  public getTagType(member: ModelMember): Type | undefined {
+    const parsedName = parseNamespace(member.tag)
     const actualName =
       typeof parsedName === 'object' ? parsedName.name : parsedName
     if (this.isValidType(actualName)) {
@@ -86,10 +85,10 @@ export class Metamodel<const AttributeName extends string, const Type extends st
     return undefined
   }
 
-  public getNameAttribute(element: GraphNode | GraphEdge): Attribute | undefined {
+  public getNameAttribute(member: ModelMember): Attribute | undefined {
     if (this.nameAttribute === undefined) {
       return undefined
     }
-    return element.getAttribute(this.nameAttribute)
+    return member.getAttribute(this.nameAttribute)
   }
 }

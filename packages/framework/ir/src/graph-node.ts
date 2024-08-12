@@ -1,25 +1,12 @@
-import type { Attributable, Attribute, AttributeName } from './attributes'
-import { AttributeDelegate } from './attributes'
 import type { GraphEdge } from './graph-edge'
-import type { Show } from './ir-utils'
 import { createIndent, requireSameModel, showAttribute } from './ir-utils'
 import type { GraphModel } from './model'
-import type { ModelMember } from './model-member'
+import { ModelMember } from './model-member'
 
-export class GraphNode implements Attributable, ModelMember, Show {
+export class GraphNode extends ModelMember {
   #parent: GraphNode | undefined = undefined
 
   readonly #children = new Set<GraphNode>()
-
-  readonly #attributeDelegate = new AttributeDelegate(
-    (attributeName, previousValue) => {
-      if (attributeName === this.model.metamodel.idAttribute) {
-        this.model.updateNodeMap(this, previousValue?.literal)
-      }
-    },
-  )
-
-  public readonly attributes = this.#attributeDelegate.attributes
 
   readonly #outgoingEdges = new Set<GraphEdge>()
   readonly #incomingEdges = new Set<GraphEdge>()
@@ -27,49 +14,12 @@ export class GraphNode implements Attributable, ModelMember, Show {
   public constructor(
     public readonly model: GraphModel,
     public tag: string,
-  ) { }
-
-  public get isRemoved(): boolean {
-    return this.model === undefined
-  }
-
-  public get id(): string | undefined {
-    return this.model.metamodel.getIdAttribute(this)?.value.literal
-  }
-
-  /**
-   * Set the id of this node, but never overwrite an existing id (that is not empty).
-   */
-  public set id(id: string) {
-    const idAttribute = this.model.metamodel.idAttribute
-    this.addAttribute({ name: idAttribute, type: 'string', value: { literal: id } }, !!this.id)
-  }
-
-  public get idAttribute(): Attribute | undefined {
-    return this.model.metamodel.getIdAttribute(this)
-  }
-
-  public get type(): string | undefined {
-    return this.model.metamodel.getType(this)
-  }
-
-  /**
-   * Set the type of this node.
-   */
-  public set type(type: string) {
-    this.model.metamodel.setType(this, type)
-  }
-
-  public get typeAttribute(): Attribute | undefined {
-    return this.model.metamodel.getTypeAttribute(this)
-  }
-
-  public get name(): string | undefined {
-    return this.nameAttribute?.value.literal
-  }
-
-  public get nameAttribute(): Attribute | undefined {
-    return this.model.metamodel.getNameAttribute(this)
+  ) {
+    super((attributeName, previousValue) => {
+      if (attributeName === this.model.metamodel.idAttribute) {
+        this.model.updateNodeMap(this, previousValue?.literal)
+      }
+    })
   }
 
   public get parent(): GraphNode | undefined {
@@ -100,14 +50,6 @@ export class GraphNode implements Attributable, ModelMember, Show {
 
   public get incomingEdges(): ReadonlySet<GraphEdge> {
     return this.#incomingEdges
-  }
-
-  public requireId(): string {
-    if (this.id === undefined) {
-      const messageSuffix = this.model.settings.debug ? ` (${this.show()})` : ''
-      throw new Error(`Missing ID on node${messageSuffix}`)
-    }
-    return this.id
   }
 
   public getNearestIdentifiableNode(): GraphNode | undefined {
@@ -201,21 +143,6 @@ export class GraphNode implements Attributable, ModelMember, Show {
   public removeOutgoingEdge(edge: GraphEdge) {
     requireSameModel(this, edge)
     this.#outgoingEdges.delete(edge)
-  }
-
-  public getAttribute(name: AttributeName): Attribute | undefined {
-    return this.#attributeDelegate.getAttribute(name)
-  }
-
-  public addAttribute(
-    attribute: Attribute,
-    preventOverwrite?: boolean | undefined,
-  ): void {
-    this.#attributeDelegate.addAttribute(attribute, preventOverwrite)
-  }
-
-  public removeAttribute(name: AttributeName) {
-    return this.#attributeDelegate.removeAttribute(name)
   }
 
   public show(indent: number = 0): string {
