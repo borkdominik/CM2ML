@@ -6,6 +6,7 @@ import { Stream } from '@yeger/streams'
 
 import { pathWeightTypes, stepWeightTypes } from './bop-types'
 import { validatePathParameters } from './bop-validationts'
+import { encodePaths, pathEncodings } from './encodings/bop-encodings'
 import { collectPaths } from './paths'
 
 export type { PathData } from './paths'
@@ -47,6 +48,13 @@ const PathBuilder = definePlugin({
       description: 'Maximum number of paths to collect',
       group: 'Paths',
     },
+    pathEncoding: {
+      type: 'array<string>',
+      allowedValues: pathEncodings,
+      defaultValue: [pathEncodings[0]],
+      description: 'Encodings to apply to paths',
+      group: 'Paths',
+    },
   },
   invoke: ({ data, metadata: features }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
     validatePathParameters(parameters)
@@ -60,11 +68,23 @@ const PathBuilder = definePlugin({
       .from(data.nodes)
       .map((node) => node.requireId())
       .toArray()
+    const nodeToPathsMapping = nodes.map((_, nodeIndex) => Stream.from(paths).filter((path) => path.steps[0] === nodeIndex || path.steps.at(-1) === nodeIndex).toSet())
+    const longestPathLength = paths.reduce((max, path) => Math.max(max, path.steps.length), 0)
+    const highestPathCount = nodeToPathsMapping.reduce((max, paths) => Math.max(max, paths.size), 0)
     return {
       data: {
         paths,
         nodes,
         mapping,
+        encodedPaths: nodes.map((_, nodeIndex) =>
+          encodePaths(
+            nodeIndex,
+            nodeToPathsMapping[nodeIndex]!,
+            parameters,
+            longestPathLength,
+            highestPathCount,
+          ),
+        ),
       },
       metadata: { nodeFeatures, edgeFeatures, idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },
     }

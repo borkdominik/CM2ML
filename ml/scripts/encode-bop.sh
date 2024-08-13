@@ -5,5 +5,6 @@ time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-bag-of-paths ../models/
   --only-containment-associations --relationships-as-edges \
   --min-path-length 2 --max-path-length 4 \
   --step-weight edge-count --path-weight step-product \
-  --max-paths 4
+  --max-paths 4 \
+  --path-encoding path-count --path-encoding path-weight
 
