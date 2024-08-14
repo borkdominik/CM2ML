@@ -74,9 +74,9 @@ function NodeEncodings({ nodes, mapping }: NodeEncodingsProps) {
       {encodingTypes.length > 1
         ? (
             <div className="w-full shrink-0 overflow-x-auto">
-              <TabsList className="w-full min-w-fit rounded-none">
+              <TabsList className="h-8 w-full min-w-fit rounded-none p-0">
                 {encodingTypes.map((encodingType) =>
-                  <TabsTrigger key={encodingType} value={encodingType}>{displayName(encodingType)}</TabsTrigger>,
+                  <TabsTrigger key={encodingType} value={encodingType} className="text-xs">{displayName(encodingType)}</TabsTrigger>,
                 )}
               </TabsList>
             </div>
