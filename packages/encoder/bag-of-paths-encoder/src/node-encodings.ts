@@ -4,17 +4,17 @@ import { Stream } from '@yeger/streams'
 
 import type { PathData } from './paths'
 
-export const nodeEncodings = [
+export const nodeEncodingTypes = [
   'attributes',
   'path-count',
   'path-weight',
   // 'discounted-path-sum',
 ] as const
 
-export type NodeEncoding = typeof nodeEncodings[number]
+export type NodeEncodingType = typeof nodeEncodingTypes[number]
 
 export interface NodeEncodingParameters {
-  nodeEncoding: readonly (NodeEncoding | string & Record<never, never>) []
+  nodeEncoding: readonly (NodeEncodingType | string & Record<never, never>) []
 }
 
 interface NodeEncoderContext {
@@ -29,16 +29,18 @@ interface NodeEncoderContext {
   highestPathCount: number
 }
 
+export type NodeEncoding = ReturnType<typeof encodeNode>
+
 export function encodeNode(context: NodeEncoderContext) {
   const pathEncodingTypes = new Set(context.parameters.nodeEncoding)
-  function withSelected<T extends (boolean | number | string | null)[]>(name: NodeEncoding, encoder: (context: NodeEncoderContext) => T) {
+  function withSelected<T extends (boolean | number | string | null)[]>(name: NodeEncodingType, encoder: (context: NodeEncoderContext) => T) {
     return pathEncodingTypes.has(name) ? encoder(context) : undefined
   }
   return {
     'attributes': withSelected('attributes', encodeNodeAttributes),
     'path-count': withSelected('path-count', encodePathCount),
     'path-weight': withSelected('path-weight', encodePathWeight),
-  } satisfies Record<NodeEncoding, unknown>
+  } satisfies Record<NodeEncodingType, unknown>
 }
 
 /**

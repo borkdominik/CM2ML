@@ -6,15 +6,15 @@ import { Stream } from '@yeger/streams'
 
 import { pathWeightTypes, stepWeightTypes } from './bop-types'
 import { validatePathParameters } from './bop-validationts'
-import { encodeNode, nodeEncodings } from './node-encodings'
+import { encodeNode, nodeEncodingTypes } from './node-encodings'
 import type { PathData } from './paths'
 import { collectPaths } from './paths'
 
 export type { PathData } from './paths'
 export { stepWeightTypes, pathWeightTypes }
 export type { PathWeight, StepWeight } from './bop-types'
-export { nodeEncodings }
-export type { NodeEncoding, PathCounts } from './node-encodings'
+export { nodeEncodingTypes }
+export type { NodeEncodingType, NodeEncoding, PathCounts } from './node-encodings'
 
 const PathBuilder = definePlugin({
   name: 'path-builder',
@@ -53,8 +53,8 @@ const PathBuilder = definePlugin({
     },
     nodeEncoding: {
       type: 'array<string>',
-      allowedValues: nodeEncodings,
-      defaultValue: [nodeEncodings[0]],
+      allowedValues: nodeEncodingTypes,
+      defaultValue: [nodeEncodingTypes[0]],
       description: 'Encodings to apply to nodes',
       group: 'Paths',
     },
