@@ -106,10 +106,10 @@ function NodeEncodingList({ encodingType, nodes, mapping }: NodeEncodingListProp
     }
     const vectorLength = firstRow.length
     const maxDigits = Array.from({ length: vectorLength }, (_, i) =>
-      Math.max(...nodes.map((node) => `${node[encodingType]![i]!}`.length)))
+      Math.max(...nodes.map((node) => formatValue(node[encodingType]![i]!).length)))
     return nodes.map((vectors, nodeIndex) => {
       const nodeId = mapping[nodeIndex]!
-      const paddedVector = vectors[encodingType]!.map((value, i) => `${value}`.padStart(maxDigits[i]!, ' '))
+      const paddedVector = vectors[encodingType]!.map((value, i) => formatValue(value).padStart(maxDigits[i]!, ' '))
       return {
         nodeId,
         vector: `[${paddedVector.join(', ')}]`,
@@ -122,6 +122,26 @@ function NodeEncodingList({ encodingType, nodes, mapping }: NodeEncodingListProp
       {formattedVectors.map(({ nodeId, vector }) => <NodeEncodingRow key={nodeId} nodeId={nodeId} vector={vector} />)}
     </div>
   )
+}
+
+function formatValue(value: boolean | number | string | null) {
+  if (value === null) {
+    return ''
+  }
+  if (typeof value === 'boolean') {
+    return value ? 'true' : 'false'
+  }
+  if (typeof value === 'number') {
+    const moduloOne = value % 1
+    if (moduloOne === 0) {
+      return value.toFixed(0)
+    }
+    if (Number.isNaN(moduloOne)) {
+      return 'NaN'
+    }
+    return value.toFixed(2)
+  }
+  return `${value}`
 }
 
 interface NodeEncodingRowProps {
