@@ -5,7 +5,7 @@ import { Stream } from '@yeger/streams'
 import type { PathData } from './paths'
 
 export const nodeEncodingTypes = [
-  'attributes',
+  'features',
   'path-count',
   'path-weight',
   // 'discounted-path-sum',
@@ -37,7 +37,7 @@ export function encodeNode(context: NodeEncoderContext) {
     return pathEncodingTypes.has(name) ? encoder(context) : undefined
   }
   return {
-    'attributes': withSelected('attributes', encodeNodeAttributes),
+    'features': withSelected('features', encodeNodeAttributes),
     'path-count': withSelected('path-count', encodePathCount),
     'path-weight': withSelected('path-weight', encodePathWeight),
   } satisfies Record<NodeEncodingType, unknown>
