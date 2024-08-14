@@ -6,12 +6,15 @@ import { Stream } from '@yeger/streams'
 
 import { pathWeightTypes, stepWeightTypes } from './bop-types'
 import { validatePathParameters } from './bop-validationts'
-import { encodePaths, pathEncodings } from './encodings/bop-encodings'
+import { encodeNode, nodeEncodings } from './node-encodings'
+import type { PathData } from './paths'
 import { collectPaths } from './paths'
 
 export type { PathData } from './paths'
 export { stepWeightTypes, pathWeightTypes }
 export type { PathWeight, StepWeight } from './bop-types'
+export { nodeEncodings }
+export type { NodeEncoding, PathCounts } from './node-encodings'
 
 const PathBuilder = definePlugin({
   name: 'path-builder',
@@ -48,41 +51,39 @@ const PathBuilder = definePlugin({
       description: 'Maximum number of paths to collect',
       group: 'Paths',
     },
-    pathEncoding: {
+    nodeEncoding: {
       type: 'array<string>',
-      allowedValues: pathEncodings,
-      defaultValue: [pathEncodings[0]],
-      description: 'Encodings to apply to paths',
+      allowedValues: nodeEncodings,
+      defaultValue: [nodeEncodings[0]],
+      description: 'Encodings to apply to nodes',
       group: 'Paths',
     },
   },
-  invoke: ({ data, metadata: features }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
+  invoke: ({ data, metadata: featureContext }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
     validatePathParameters(parameters)
-    const { getNodeFeatureVector, nodeFeatures, edgeFeatures } = features
+    const { nodeFeatures, edgeFeatures } = featureContext
     const paths = collectPaths(data, parameters)
-    const nodes = Stream
-      .from(data.nodes)
-      .map((node) => getNodeFeatureVector(node))
-      .toArray()
     const mapping = Stream
       .from(data.nodes)
       .map((node) => node.requireId())
       .toArray()
-    const nodeToPathsMapping = nodes.map((_, nodeIndex) => Stream.from(paths).filter((path) => path.steps[0] === nodeIndex || path.steps.at(-1) === nodeIndex).toSet())
+    const nodeData = Array.from(data.nodes).map((node, nodeIndex) => [node, getRelevantPaths(nodeIndex, paths)] as const)
     const longestPathLength = paths.reduce((max, path) => Math.max(max, path.steps.length), 0)
-    const highestPathCount = nodeToPathsMapping.reduce((max, paths) => Math.max(max, paths.size), 0)
+    const highestPathCount = nodeData.reduce((max, [_, paths]) => Math.max(max, paths.size), 0)
     return {
       data: {
         paths,
-        nodes,
         mapping,
-        encodedPaths: nodes.map((_, nodeIndex) =>
-          encodePaths(
+        nodes: nodeData.map(([node, paths], nodeIndex) =>
+          encodeNode({
             nodeIndex,
-            nodeToPathsMapping[nodeIndex]!,
+            node,
+            featureContext,
+            paths,
             parameters,
             longestPathLength,
             highestPathCount,
+          },
           ),
         ),
       },
@@ -90,5 +91,9 @@ const PathBuilder = definePlugin({
     }
   },
 })
+
+function getRelevantPaths(nodeIndex: number, paths: PathData[]) {
+  return Stream.from(paths).filter((path) => path.steps[0] === nodeIndex || path.steps.at(-1) === nodeIndex).toSet()
+}
 
 export const BagOfPathsEncoder = compose(FeatureEncoder, batchTryCatch(PathBuilder), 'bag-of-paths')
