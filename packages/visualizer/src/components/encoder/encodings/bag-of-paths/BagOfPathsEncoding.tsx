@@ -51,7 +51,7 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
   }
   return (
     <ResizablePanelGroup direction="vertical" className="h-full">
-      <ResizablePanel>
+      <ResizablePanel defaultSize={70}>
         {pathGraphList}
       </ResizablePanel>
       <ResizableHandle withHandle />

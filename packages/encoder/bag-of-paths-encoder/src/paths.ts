@@ -2,6 +2,7 @@ import type { GraphEdge, GraphModel, GraphNode } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
 import type { PathParameters, PathWeight } from './bop-types'
+import { validatePathParameters } from './bop-validationts'
 
 export interface PathData {
   steps: number[]
@@ -9,10 +10,24 @@ export interface PathData {
   weight: number
 }
 
+function pathOrder(order: 'asc' | 'desc' | string) {
+  return (a: PathData, b: PathData) => {
+    const multiplier = order === 'asc' ? -1 : 1
+    return multiplier * (() => {
+      const weightDiff = b.weight - a.weight
+      if (weightDiff !== 0) {
+        return weightDiff
+      }
+      return a.steps.length - b.steps.length
+    })()
+  }
+}
+
 export function collectPaths(model: GraphModel, parameters: PathParameters) {
+  validatePathParameters(parameters)
   const nodes = Stream.from(model.nodes)
   const indexMap = new Map(nodes.map((node, i) => [node, i]))
-  const sortedPaths = nodes
+  const paths = nodes
     .flatMap((node) => Path.from(node, parameters))
     .filter((path) => path.steps.length >= parameters.minPathLength)
     .map<PathData>((path) => {
@@ -26,17 +41,11 @@ export function collectPaths(model: GraphModel, parameters: PathParameters) {
     },
     )
     .toArray()
-    .sort((a, b) => {
-      const weightDiff = b.weight - a.weight
-      if (weightDiff !== 0) {
-        return weightDiff
-      }
-      return a.steps.length - b.steps.length
-    })
+    .sort(pathOrder(parameters.order))
   if (parameters.maxPaths >= 0) {
-    return sortedPaths.slice(0, parameters.maxPaths)
+    return paths.slice(0, parameters.maxPaths)
   }
-  return sortedPaths
+  return paths
 }
 
 class Path {
@@ -53,7 +62,7 @@ class Path {
     return this.nodeSet.has(node)
   }
 
-  private step(): Stream<Path> {
+  private follow(isInitial = false): Stream<Path> {
     if (this.steps.length > this.parameters.maxPathLength) {
       throw new Error('Path is too long. This is an internal error.')
     }
@@ -68,7 +77,7 @@ class Path {
     const edgeGroups = new Map<GraphNode, [GraphEdge, ...GraphEdge[]]>()
     for (const edge of lastNode.outgoingEdges) {
       const target = edge.target
-      if (this.hasNode(target)) {
+      if (!this.parameters.allowCycles && this.hasNode(target)) {
         continue
       }
       if (edgeGroups.has(target)) {
@@ -81,18 +90,22 @@ class Path {
       // Outgoing edges exist, but target nodes are already in path
       return Stream.fromSingle(this)
     }
-    return Stream
+    const nextStream = Stream
       .from(edgeGroups.values())
       .map((edges) => new Step(edges, this.parameters))
       .flatMap((step) => this.extendPath(step))
+    if (this.parameters.includeSubpaths || isInitial) {
+      return nextStream.append(this)
+    }
+    return nextStream
   }
 
   private extendPath(step: Step) {
-    return new Path(this.startNode, step.target, [...this.steps, step], this.parameters).step()
+    return new Path(this.startNode, step.target, [...this.steps, step], this.parameters).follow()
   }
 
   public static from(start: GraphNode, parameters: PathParameters) {
-    return new Path(start, start, [], parameters).step()
+    return new Path(start, start, [], parameters).follow(true)
   }
 }
 

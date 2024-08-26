@@ -4,8 +4,7 @@ import type { GraphModel } from '@cm2ml/ir'
 import { batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
-import { pathWeightTypes, stepWeightTypes } from './bop-types'
-import { validatePathParameters } from './bop-validationts'
+import { pathWeightTypes, sortOrders, stepWeightTypes } from './bop-types'
 import { encodeNode, nodeEncodingTypes } from './node-encodings'
 import type { PathData } from './paths'
 import { collectPaths } from './paths'
@@ -19,48 +18,66 @@ export type { NodeEncodingType, NodeEncoding, PathCounts } from './node-encoding
 const PathBuilder = definePlugin({
   name: 'path-builder',
   parameters: {
+    allowCycles: {
+      type: 'boolean',
+      defaultValue: true,
+      description: 'Allow cycles in paths',
+      group: 'Paths',
+    },
+    includeSubpaths: {
+      type: 'boolean',
+      defaultValue: true,
+      description: 'Include subpaths, i.e., enable early termination',
+      group: 'Paths',
+    },
     minPathLength: {
       type: 'number',
       defaultValue: 2,
       description: 'Minimum path length',
-      group: 'Paths',
+      group: 'Filtering',
     },
     maxPathLength: {
       type: 'number',
       defaultValue: 3,
       description: 'Maximum path length',
-      group: 'Paths',
+      group: 'Filtering',
     },
     stepWeight: {
       type: 'string',
       allowedValues: stepWeightTypes,
       defaultValue: stepWeightTypes[0],
       description: 'Weighting strategy for steps',
-      group: 'Paths',
+      group: 'Weighting',
     },
     pathWeight: {
       type: 'string',
       allowedValues: pathWeightTypes,
       defaultValue: pathWeightTypes[0],
       description: 'Weighting strategy for paths',
-      group: 'Paths',
+      group: 'Weighting',
     },
     maxPaths: {
       type: 'number',
       defaultValue: 10,
       description: 'Maximum number of paths to collect',
-      group: 'Paths',
+      group: 'Filtering',
+    },
+    order: {
+      type: 'string',
+      allowedValues: sortOrders,
+      defaultValue: sortOrders[1],
+      description: 'Ordering of paths according to their weight',
+      group: 'Filtering',
     },
     nodeEncoding: {
       type: 'array<string>',
       allowedValues: nodeEncodingTypes,
       defaultValue: [nodeEncodingTypes[0]],
       description: 'Encodings to apply to nodes',
-      group: 'Paths',
+      group: 'Encoding',
     },
   },
   invoke: ({ data, metadata: featureContext }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
-    validatePathParameters(parameters)
     const { nodeFeatures, edgeFeatures } = featureContext
     const paths = collectPaths(data, parameters)
     const mapping = Stream

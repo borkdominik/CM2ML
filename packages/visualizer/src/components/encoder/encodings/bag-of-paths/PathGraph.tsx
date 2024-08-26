@@ -33,7 +33,7 @@ export function PathGraph({ path, mapping, model }: Props) {
   }
   return (
     <div className="flex size-full min-h-80 grow">
-      <div className="flex flex-col items-center gap-4 bg-muted p-2 pt-3 font-mono text-xs dark:bg-card">
+      <div className="bg-muted dark:bg-card flex flex-col items-center gap-4 p-2 pt-3 font-mono text-xs">
         <div className="flex items-center justify-center text-center">
           <span className="w-fit cursor-default" style={{ lineHeight: 1 }}>{path.weight}</span>
         </div>
@@ -290,12 +290,17 @@ function createVisNodes(path: PathData, mapping: string[], model: GraphModel) {
 }
 
 function createVisEdges(path: PathData) {
+  const includedIds = new Set<string>()
   const edges = Stream
     .from(path.steps)
     .limit(path.steps.length - 1)
     .map((source, i) => {
       const target = path.steps[i + 1]!
       const edgeId = createEdgeId(source, target)
+      if (includedIds.has(edgeId)) {
+        return undefined
+      }
+      includedIds.add(edgeId)
       return {
         id: edgeId,
         from: source,
@@ -303,6 +308,7 @@ function createVisEdges(path: PathData) {
         value: path.stepWeights[i],
       }
     })
+    .filterNonNull()
     .toArray()
   return new DataSet(edges)
 }

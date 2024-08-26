@@ -6,9 +6,17 @@ import { createTestModel } from './test-utils'
 
 describe('paths', () => {
   it('does not include duplicates', () => {
-    expect(1).toBe(1)
     const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
-    const paths = collectPaths(model, { minPathLength: 1, maxPathLength: 3, stepWeight: 'edge-count', pathWeight: 'length', maxPaths: -1 })
+    const paths = collectPaths(model, {
+      allowCycles: false,
+      includeSubpaths: false,
+      minPathLength: 1,
+      maxPathLength: 3,
+      stepWeight: 'edge-count',
+      pathWeight: 'length',
+      maxPaths: -1,
+      order: 'desc',
+    })
     expect(paths).toMatchInlineSnapshot(`
       [
         {
@@ -37,11 +45,174 @@ describe('paths', () => {
     `)
   })
 
-  it('can limit the number of paths', () => {
-    expect(1).toBe(1)
-    const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
-    const paths = collectPaths(model, { minPathLength: 1, maxPathLength: 3, stepWeight: 'edge-count', pathWeight: 'length', maxPaths: 1 })
-    expect(paths).toMatchInlineSnapshot(`
+  it('can include cycles', () => {
+    const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['b', 'a'], ['b', 'c']])
+    const paths = collectPaths(model, {
+      allowCycles: true,
+      includeSubpaths: false,
+      minPathLength: 1,
+      maxPathLength: 3,
+      stepWeight: 'edge-count',
+      pathWeight: 'length',
+      maxPaths: -1,
+      order: 'desc',
+    })
+    expect(paths.map(({ steps }) => steps)).toMatchInlineSnapshot(`
+      [
+        [
+          1,
+          2,
+          1,
+          2,
+        ],
+        [
+          2,
+          1,
+          2,
+          1,
+        ],
+        [
+          2,
+          1,
+          2,
+          3,
+        ],
+        [
+          1,
+          2,
+          3,
+        ],
+        [
+          2,
+          3,
+        ],
+      ]
+    `)
+  })
+
+  it('can include subpaths', () => {
+    const model = createTestModel(['a', 'b', 'c', 'd'], [['a', 'b'], ['b', 'c'], ['c', 'd']])
+    const paths = collectPaths(model, {
+      allowCycles: false,
+      includeSubpaths: true,
+      minPathLength: 1,
+      maxPathLength: 3,
+      stepWeight: 'edge-count',
+      pathWeight: 'length',
+      maxPaths: -1,
+      order: 'desc',
+    })
+    expect(paths.map(({ steps }) => steps)).toMatchInlineSnapshot(`
+      [
+        [
+          1,
+          2,
+          3,
+          4,
+        ],
+        [
+          1,
+          2,
+          3,
+        ],
+        [
+          2,
+          3,
+          4,
+        ],
+        [
+          1,
+          2,
+        ],
+        [
+          2,
+          3,
+        ],
+        [
+          3,
+          4,
+        ],
+      ]
+    `)
+  })
+
+  it('can include subpaths with cycles', () => {
+    const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['b', 'a'], ['b', 'c']])
+    const paths = collectPaths(model, {
+      allowCycles: true,
+      includeSubpaths: true,
+      minPathLength: 1,
+      maxPathLength: 3,
+      stepWeight: 'edge-count',
+      pathWeight: 'length',
+      maxPaths: -1,
+      order: 'desc',
+    })
+    expect(paths.map(({ steps }) => steps)).toMatchInlineSnapshot(`
+      [
+        [
+          1,
+          2,
+          1,
+          2,
+        ],
+        [
+          2,
+          1,
+          2,
+          1,
+        ],
+        [
+          2,
+          1,
+          2,
+          3,
+        ],
+        [
+          1,
+          2,
+          1,
+        ],
+        [
+          1,
+          2,
+          3,
+        ],
+        [
+          2,
+          1,
+          2,
+        ],
+        [
+          1,
+          2,
+        ],
+        [
+          2,
+          1,
+        ],
+        [
+          2,
+          3,
+        ],
+      ]
+    `)
+  })
+
+  describe('filtering', () => {
+    it('can limit the number of paths', () => {
+      const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
+      const paths = collectPaths(model, {
+        allowCycles: false,
+        includeSubpaths: false,
+        minPathLength: 1,
+        maxPathLength: 3,
+        stepWeight: 'edge-count',
+        pathWeight: 'length',
+        maxPaths: 1,
+        order: 'desc',
+      })
+      expect(paths).toMatchInlineSnapshot(`
       [
         {
           "stepWeights": [
@@ -57,13 +228,21 @@ describe('paths', () => {
         },
       ]
     `)
-  })
+    })
 
-  it('can require a minimum path length', () => {
-    expect(1).toBe(1)
-    const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
-    const paths = collectPaths(model, { minPathLength: 2, maxPathLength: 3, stepWeight: 'edge-count', pathWeight: 'length', maxPaths: -1 })
-    expect(paths).toMatchInlineSnapshot(`
+    it('can require a minimum path length', () => {
+      const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
+      const paths = collectPaths(model, {
+        allowCycles: false,
+        includeSubpaths: false,
+        minPathLength: 2,
+        maxPathLength: 3,
+        stepWeight: 'edge-count',
+        pathWeight: 'length',
+        maxPaths: -1,
+        order: 'desc',
+      })
+      expect(paths).toMatchInlineSnapshot(`
       [
         {
           "stepWeights": [
@@ -79,13 +258,21 @@ describe('paths', () => {
         },
       ]
     `)
-  })
+    })
 
-  it('can require a maximum path length', () => {
-    expect(1).toBe(1)
-    const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
-    const paths = collectPaths(model, { minPathLength: 1, maxPathLength: 1, stepWeight: 'edge-count', pathWeight: 'length', maxPaths: -1 })
-    expect(paths).toMatchInlineSnapshot(`
+    it('can require a maximum path length', () => {
+      const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
+      const paths = collectPaths(model, {
+        allowCycles: false,
+        includeSubpaths: false,
+        minPathLength: 1,
+        maxPathLength: 1,
+        stepWeight: 'edge-count',
+        pathWeight: 'length',
+        maxPaths: -1,
+        order: 'desc',
+      })
+      expect(paths).toMatchInlineSnapshot(`
       [
         {
           "stepWeights": [
@@ -109,13 +296,68 @@ describe('paths', () => {
         },
       ]
     `)
+    })
+
+    it('support zero-length paths', () => {
+      const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['b', 'c']])
+      const paths = collectPaths(model, {
+        allowCycles: false,
+        includeSubpaths: false,
+        minPathLength: 0,
+        maxPathLength: 0,
+        stepWeight: 'edge-count',
+        pathWeight: 'length',
+        maxPaths: -1,
+        order: 'desc',
+      })
+      expect(paths).toMatchInlineSnapshot(`
+      [
+        {
+          "stepWeights": [],
+          "steps": [
+            0,
+          ],
+          "weight": 0,
+        },
+        {
+          "stepWeights": [],
+          "steps": [
+            1,
+          ],
+          "weight": 0,
+        },
+        {
+          "stepWeights": [],
+          "steps": [
+            2,
+          ],
+          "weight": 0,
+        },
+        {
+          "stepWeights": [],
+          "steps": [
+            3,
+          ],
+          "weight": 0,
+        },
+      ]
+    `)
+    })
   })
 
   describe('weighting', () => {
     it('can use length weighting', () => {
-      expect(1).toBe(1)
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
-      const paths = collectPaths(model, { minPathLength: 2, maxPathLength: 3, stepWeight: 'edge-count', pathWeight: 'length', maxPaths: -1 })
+      const paths = collectPaths(model, {
+        allowCycles: false,
+        includeSubpaths: false,
+        minPathLength: 2,
+        maxPathLength: 3,
+        stepWeight: 'edge-count',
+        pathWeight: 'length',
+        maxPaths: -1,
+        order: 'desc',
+      })
       expect(paths).toMatchInlineSnapshot(`
         [
           {
@@ -135,9 +377,17 @@ describe('paths', () => {
     })
 
     it('can use step-product weighting', () => {
-      expect(1).toBe(1)
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c'], ['b', 'c']])
-      const paths = collectPaths(model, { minPathLength: 2, maxPathLength: 3, stepWeight: 'edge-count', pathWeight: 'step-product', maxPaths: -1 })
+      const paths = collectPaths(model, {
+        allowCycles: false,
+        includeSubpaths: false,
+        minPathLength: 2,
+        maxPathLength: 3,
+        stepWeight: 'edge-count',
+        pathWeight: 'step-product',
+        maxPaths: -1,
+        order: 'desc',
+      })
       expect(paths).toMatchInlineSnapshot(`
         [
           {
@@ -157,9 +407,17 @@ describe('paths', () => {
     })
 
     it('can use step-sum weighting', () => {
-      expect(1).toBe(1)
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
-      const paths = collectPaths(model, { minPathLength: 2, maxPathLength: 3, stepWeight: 'edge-count', pathWeight: 'step-sum', maxPaths: -1 })
+      const paths = collectPaths(model, {
+        allowCycles: false,
+        includeSubpaths: false,
+        minPathLength: 2,
+        maxPathLength: 3,
+        stepWeight: 'edge-count',
+        pathWeight: 'step-sum',
+        maxPaths: -1,
+        order: 'desc',
+      })
       expect(paths).toMatchInlineSnapshot(`
         [
           {
