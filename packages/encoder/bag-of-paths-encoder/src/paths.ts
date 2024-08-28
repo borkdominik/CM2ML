@@ -42,7 +42,7 @@ export function collectPaths(model: GraphModel, parameters: PathParameters) {
     )
     .toArray()
     .sort(pathOrder(parameters.order))
-  if (parameters.maxPaths >= 0) {
+  if (parameters.maxPaths > 0) {
     return paths.slice(0, parameters.maxPaths)
   }
   return paths

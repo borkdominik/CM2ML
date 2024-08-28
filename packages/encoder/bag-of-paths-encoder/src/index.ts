@@ -20,13 +20,13 @@ const PathBuilder = definePlugin({
   parameters: {
     allowCycles: {
       type: 'boolean',
-      defaultValue: true,
+      defaultValue: false,
       description: 'Allow cycles in paths',
       group: 'Paths',
     },
     includeSubpaths: {
       type: 'boolean',
-      defaultValue: true,
+      defaultValue: false,
       description: 'Include subpaths, i.e., enable early termination',
       group: 'Paths',
     },
@@ -87,6 +87,7 @@ const PathBuilder = definePlugin({
     const nodeData = Array.from(data.nodes).map((node, nodeIndex) => [node, getRelevantPaths(nodeIndex, paths)] as const)
     const longestPathLength = paths.reduce((max, path) => Math.max(max, path.steps.length), 0)
     const highestPathCount = nodeData.reduce((max, [_, paths]) => Math.max(max, paths.size), 0)
+    const additionalMetadata = parameters.nodeEncoding.includes('feature') ? { nodeFeatures, edgeFeatures } : {}
     return {
       data: {
         paths,
@@ -104,7 +105,7 @@ const PathBuilder = definePlugin({
           ),
         ),
       },
-      metadata: { nodeFeatures, edgeFeatures, idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },
+      metadata: { ...additionalMetadata, idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },
     }
   },
 })
