@@ -94,9 +94,6 @@ function createAttributeMapper(encoderProvider: FeatureEncoderProvider) {
 }
 
 function getFeatureMetadata(attributables: Stream<Attributable>, settings: FeatureDeriverSettings, override: FeatureMetadata | null): { template: InternalFeatureMetadata, encoderProvider: FeatureEncoderProvider } {
-  function toKey(name: FeatureName, type: FeatureType) {
-    return `${name}:${type}`
-  }
   const encoderProvider = new FeatureEncoderProvider(settings)
 
   const uniqueFeaturesKeys = new Set<string>()
@@ -152,6 +149,10 @@ function getFeatureMetadata(attributables: Stream<Attributable>, settings: Featu
   }
 
   return { template: featureMetadata.sort(([a], [b]) => a.localeCompare(b)), encoderProvider }
+}
+
+function toKey(name: FeatureName, type: FeatureType) {
+  return `${name}:${type}`
 }
 
 function createFeatureVectorFromMetadata(template: InternalFeatureMetadata, attributable: Attributable): FeatureVector {

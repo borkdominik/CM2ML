@@ -52,8 +52,8 @@ export function createRefiner<
       return
     }
     model.debug('Parser', `Re-rooted model with new root ${newRoot.type} (${
-        newRoot.id
-      })`)
+      newRoot.id
+    })`)
     model.root = newRoot
   }
 

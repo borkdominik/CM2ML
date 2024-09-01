@@ -125,9 +125,6 @@ function removeUnsupportedNodes(model: GraphModel) {
   // The following elements have been removed from the latest UML specification and are not supported by the UML metamodel
   const unsupportedTags = new Set(['eAnnotations', 'ownedTrigger', 'xmi:Documentation', 'xmi:Extension', 'XMI_20110701:Extension'])
   const unsupportedTypes = new Set(['CreationEvent', 'DestructionEvent', 'ExecutionEvent', 'ReceiveOperationEvent', 'ReceiveSignalEvent', 'SendOperationEvent', 'SendSignalEvent', 'Signature', 'VariablesDeclaration'])
-  function isNil(node: GraphNode) {
-    return node.getAttribute('xsi:nil')?.value.literal === 'true' || node.getAttribute('xmi:nil')?.value.literal === 'true'
-  }
   model.nodes.forEach((node) => {
     const nodeType = node.getAttribute(Uml.typeAttributes[0])?.value.literal
     if (unsupportedTags.has(node.tag)) {
@@ -141,6 +138,10 @@ function removeUnsupportedNodes(model: GraphModel) {
       model.removeNode(node)
     }
   })
+}
+
+function isNil(node: GraphNode) {
+  return node.getAttribute('xsi:nil')?.value.literal === 'true' || node.getAttribute('xmi:nil')?.value.literal === 'true'
 }
 
 function pruneNodes(model: GraphModel, whitelist: readonly string[], blacklist: readonly string[]) {

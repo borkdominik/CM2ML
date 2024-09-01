@@ -37,7 +37,7 @@ function validateEdgeUniqueness(model: GraphModel) {
       })
       if (!allEdgesAreUnique) {
         throw new Error(
-            `Node ${node.id} has duplicate outgoing edges with tag ${edge.tag} and target ${edge.target.id}`,
+          `Node ${node.id} has duplicate outgoing edges with tag ${edge.tag} and target ${edge.target.id}`,
         )
       }
     })

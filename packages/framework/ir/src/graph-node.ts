@@ -160,6 +160,6 @@ export class GraphNode extends ModelMember {
       .join('\n')
 
     return `${createIndent(indent)}<${this.tag
-      }${attributes}>\n${children}\n${createIndent(indent)}</${this.tag}>`
+    }${attributes}>\n${children}\n${createIndent(indent)}</${this.tag}>`
   }
 }

@@ -27,11 +27,11 @@ export function collectPaths(model: GraphModel, parameters: PathParameters) {
   validatePathParameters(parameters)
   const nodes = Stream.from(model.nodes)
   const indexMap = new Map(nodes.map((node, i) => [node, i]))
+  const getNodeIndex = (node: GraphNode) => indexMap.get(node)!
   const paths = nodes
     .flatMap((node) => Path.from(node, parameters))
     .filter((path) => path.steps.length >= parameters.minPathLength)
     .map<PathData>((path) => {
-      const getNodeIndex = (node: GraphNode) => indexMap.get(node)!
       const stepWeights = path.steps.map((step) => step.weight)
       return {
         steps: [getNodeIndex(path.startNode), ...path.steps.map((step) => getNodeIndex(step.target))],
