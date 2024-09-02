@@ -72,7 +72,7 @@ const PathBuilder = definePlugin({
     nodeEncoding: {
       type: 'array<string>',
       allowedValues: nodeEncodingTypes,
-      defaultValue: [nodeEncodingTypes[0]],
+      defaultValue: [],
       description: 'Encodings to apply to nodes',
       group: 'Encoding',
     },
@@ -91,18 +91,20 @@ const PathBuilder = definePlugin({
       data: {
         paths,
         mapping,
-        nodes: nodeData.map(([node, paths], nodeIndex) =>
-          encodeNode({
-            nodeIndex,
-            node,
-            featureContext,
-            paths,
-            parameters,
-            longestPathLength,
-            highestPathCount,
-          },
-          ),
-        ),
+        nodes: parameters.nodeEncoding.length > 0
+          ? nodeData.map(([node, paths], nodeIndex) =>
+            encodeNode({
+              nodeIndex,
+              node,
+              featureContext,
+              paths,
+              parameters,
+              longestPathLength,
+              highestPathCount,
+            },
+            ),
+          )
+          : undefined,
       },
       metadata: { ...additionalMetadata, idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },
     }
