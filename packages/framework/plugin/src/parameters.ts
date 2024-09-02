@@ -3,9 +3,11 @@ import { z } from 'zod'
 
 export type PrimitiveParameterType = 'number' | 'string' | 'boolean'
 
-export type ArrayParameterType = `array<string>` // `array<${PrimitiveParameterType}>`
+export type ArrayParameterType = `array<string>`
 
-export type ParameterType = PrimitiveParameterType | ArrayParameterType
+export type SetParameterType = `set<string>`
+
+export type ParameterType = PrimitiveParameterType | ArrayParameterType | SetParameterType
 
 export type ParameterBase = Readonly<{ readonly type: ParameterType, readonly description: string, readonly group?: string, readonly displayName?: string }>
 
@@ -27,23 +29,22 @@ export type PrimitiveParameter = ParameterBase & Readonly<
 >
 
 export type ArrayParameter = ParameterBase & Readonly<
-  // {
-  //   readonly type: 'array<number>'
-  //   readonly defaultValue: readonly number[]
-  // } |
   {
     readonly type: 'array<string>'
     readonly defaultValue: readonly string[]
     readonly allowedValues?: readonly string[]
   }
-  // |
-  // {
-  //   readonly type: 'array<boolean>'
-  //   readonly defaultValue: readonly boolean[]
-  // }
 >
 
-export type Parameter = PrimitiveParameter | ArrayParameter
+export type SetParameter = ParameterBase & Readonly<
+  {
+    readonly type: 'set<string>'
+    readonly defaultValue: readonly string[]
+    readonly allowedValues?: readonly string[]
+  }
+>
+
+export type Parameter = PrimitiveParameter | ArrayParameter | SetParameter
 
 function getZodValidator(parameter: Parameter) {
   switch (parameter.type) {
@@ -56,15 +57,14 @@ function getZodValidator(parameter: Parameter) {
       return z.string().default(parameter.defaultValue)
     case 'boolean':
       return z.boolean().default(parameter.defaultValue)
-    // case 'array<number>':
-    //   return z.array(z.number()).default([...parameter.defaultValue])
-    case 'array<string>':
-      if (parameter.allowedValues && parameter.allowedValues.length > 0) {
-        return z.array(z.enum(parameter.allowedValues as [string, ...string[]])).default([...parameter.defaultValue])
-      }
-      return z.array(z.string()).default([...parameter.defaultValue])
-    // case 'array<boolean>':
-    //   return z.array(z.boolean()).default([...parameter.defaultValue])
+    case 'array<string>': {
+      const baseArray = parameter.allowedValues && parameter.allowedValues.length > 0 ? z.array(z.enum(parameter.allowedValues as [string, ...string[]])) : z.array(z.string())
+      return baseArray.default([...parameter.defaultValue])
+    }
+    case 'set<string>': {
+      const baseArray = parameter.allowedValues && parameter.allowedValues.length > 0 ? z.array(z.enum(parameter.allowedValues as [string, ...string[]])) : z.array(z.string())
+      return baseArray.default([...parameter.defaultValue]).transform((value) => [...new Set(value)])
+    }
   }
 }
 
@@ -87,13 +87,11 @@ export type ResolveZodParameterType<Type extends ParameterType> =
       ? z.ZodDefault<z.ZodString>
       : Type extends 'boolean'
         ? z.ZodDefault<z.ZodBoolean>
-        : Type extends 'array<number>'
-          ? z.ZodDefault<z.ZodArray<z.ZodNumber>>
-          : Type extends 'array<string>'
+        : Type extends 'array<string>'
+          ? z.ZodDefault<z.ZodArray<z.ZodString>>
+          : Type extends 'set<string>'
             ? z.ZodDefault<z.ZodArray<z.ZodString>>
-            : Type extends 'array<boolean>'
-              ? z.ZodDefault<z.ZodArray<z.ZodBoolean>>
-              : never
+            : never
 
 // From: https://stackoverflow.com/a/57683652
 export type Expand<T> = T extends object
@@ -164,17 +162,22 @@ function getArrayConstructor(primitiveParameterType: PrimitiveParameterType) {
   }
 }
 
+function getSetConstructor(primitiveParameterType: PrimitiveParameterType) {
+  const arrayConstructor = getArrayConstructor(primitiveParameterType)
+  return (input: unknown) => {
+    return [...arrayConstructor(input)]
+  }
+}
+
 export function getTypeConstructor(parameterType: ParameterType) {
   switch (parameterType) {
     case 'number':
     case 'string':
     case 'boolean':
       return getPrimitiveConstructor(parameterType)
-    // case 'array<number>':
-    //   return getArrayConstructor('number')
     case 'array<string>':
       return getArrayConstructor('string')
-    // case 'array<boolean>':
-    //   return getArrayConstructor('boolean')
+    case 'set<string>':
+      return getSetConstructor('string')
   }
 }

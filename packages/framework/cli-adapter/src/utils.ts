@@ -8,10 +8,12 @@ export function getResultAsText(result: unknown, pretty: boolean | undefined): s
 export function normalizeOptions(options: Record<string, unknown>, parameters: ParameterMetadata): Record<string, unknown> & { out?: string, pretty?: boolean } {
   return Stream.fromObject(options)
     .map(([name, parameter]) => {
-      if (Array.isArray(parameter) && !parameters[name]?.type.startsWith('array<')) {
+      const parameterType = parameters[name]?.type
+      const isMultiValuedParameter = parameterType?.startsWith('array<') || parameterType?.startsWith('set<')
+      if (Array.isArray(parameter) && !isMultiValuedParameter) {
         // Use first occurrence of duplicate non-array parameters
         return [name, parameter[0]]
-      } else if (!Array.isArray(parameter) && parameters[name]?.type.startsWith('array<')) {
+      } else if (!Array.isArray(parameter) && isMultiValuedParameter) {
         // Wrap single-valued array parameters
         return [name, [parameter]]
       } else {

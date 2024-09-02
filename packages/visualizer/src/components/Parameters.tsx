@@ -126,10 +126,9 @@ interface ParameterInputProps<T extends ParameterType> {
   value: T extends 'boolean' ? boolean
     : T extends 'number' ? number
       : T extends 'string' ? string
-        // : T extends 'array<boolean>' ? readonly boolean[]
-        //   : T extends 'array<number>' ? readonly number[]
         : T extends 'array<string>' ? readonly string[]
-          : never
+          : T extends 'set<string>' ? readonly string[]
+            : never
 }
 
 function ParameterInput({
@@ -174,10 +173,26 @@ function ParameterInput({
       )
     case 'array<string>':
       return (
-        <StringArrayInput
+        <StringListInput
           name={name}
           label={actualLabel}
           onChange={onChange}
+          parameter={parameter}
+          value={value as readonly string[]}
+        />
+      )
+    case 'set<string>':
+      return (
+        <StringListInput
+          name={name}
+          label={actualLabel}
+          onChange={(value) => {
+            if (Array.isArray(value)) {
+              onChange([...new Set(value)])
+              return
+            }
+            onChange(value)
+          }}
           parameter={parameter}
           value={value as readonly string[]}
         />
@@ -255,13 +270,13 @@ function StringParameter({
   )
 }
 
-function StringArrayInput({
+function StringListInput({
   name,
   label,
   onChange,
   parameter,
   value: values,
-}: ParameterInputProps<'array<string>'>) {
+}: ParameterInputProps<'array<string>' | 'set<string>'>) {
   const [inputValue, setInputValue] = useState('')
   const onInputConfirmed = () => {
     const trimmed = inputValue.trim()
@@ -272,10 +287,12 @@ function StringArrayInput({
     onChange([...values, trimmed])
   }
 
+  const allowDuplicates = parameter.type === 'array<string>'
+
   const input = parameter.allowedValues
     ? (
         <AllowedValueSelect
-          allowedValues={parameter.allowedValues}
+          allowedValues={allowDuplicates ? parameter.allowedValues : parameter.allowedValues.filter((allowedValue) => !values.includes(allowedValue))}
           onValueChange={(selectedValue) => onChange([...values, selectedValue])}
         />
       )
@@ -318,7 +335,7 @@ function StringArrayInput({
               <TrashIcon className="size-4" />
             </Button>
             {
-              values.map((value, index) => (
+              (allowDuplicates ? values : values.toSorted()).map((value, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <div key={index} className="flex items-center gap-2  text-xs">
                   <Button variant="ghost" className="-my-1" size="sm" onClick={() => onChange(values.filter((entry) => entry !== value))}>

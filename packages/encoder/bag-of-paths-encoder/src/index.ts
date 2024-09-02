@@ -70,7 +70,7 @@ const PathBuilder = definePlugin({
       group: 'Filtering',
     },
     nodeEncoding: {
-      type: 'array<string>',
+      type: 'set<string>',
       allowedValues: nodeEncodingTypes,
       defaultValue: [],
       description: 'Encodings to apply to nodes',

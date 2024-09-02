@@ -38,7 +38,7 @@ const UmlRefiner = definePlugin({
       group: 'associations',
     },
     nodeWhitelist: {
-      type: 'array<string>',
+      type: 'set<string>',
       defaultValue: [],
       description: 'Whitelist of UML element types to include in the model. Root nodes will never be removed. Ignored if empty.',
       allowedValues: allowedUmlTypes,
@@ -46,7 +46,7 @@ const UmlRefiner = definePlugin({
       displayName: 'Whitelist',
     },
     nodeBlacklist: {
-      type: 'array<string>',
+      type: 'set<string>',
       defaultValue: [],
       description: 'Blacklist of UML element types to exclude from the model. Root nodes will never be removed.',
       allowedValues: allowedUmlTypes,
@@ -54,21 +54,21 @@ const UmlRefiner = definePlugin({
       displayName: 'Blacklist',
     },
     edgeWhitelist: {
-      type: 'array<string>',
+      type: 'set<string>',
       defaultValue: [],
       description: 'Whitelist of association names to include in the model. Ignored if empty.',
       group: 'associations',
       displayName: 'Whitelist',
     },
     edgeBlacklist: {
-      type: 'array<string>',
+      type: 'set<string>',
       defaultValue: [],
       description: 'Blacklist of association names to exclude in the model.',
       group: 'associations',
       displayName: 'Blacklist',
     },
     attributeWhitelist: {
-      type: 'array<string>',
+      type: 'set<string>',
       defaultValue: [],
       description: 'Whitelist of attribute names to include in the model. Ignored if empty.',
       allowedValues: allowedUmlAttributes,
@@ -76,7 +76,7 @@ const UmlRefiner = definePlugin({
       displayName: 'Whitelist',
     },
     attributeBlacklist: {
-      type: 'array<string>',
+      type: 'set<string>',
       defaultValue: [],
       description: 'Blacklist of attribute names to exclude in the model.',
       allowedValues: allowedUmlAttributes,
