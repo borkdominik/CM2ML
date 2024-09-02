@@ -3,7 +3,7 @@ import { BagOfPathsEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { ExecutionError } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
-import { Fragment, useMemo } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 
 import { displayName } from '../../../../lib/displayName'
 import type { Selection } from '../../../../lib/useSelection'
@@ -46,7 +46,7 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
       ))}
     </div>
   )
-  if (nodes.length === 0 || Object.values(nodes[0]!).every((encoding) => encoding === undefined)) {
+  if (!nodes || nodes.length === 0 || Object.values(nodes[0]!).every((encoding) => encoding === undefined)) {
     return pathGraphList
   }
   return (
@@ -68,9 +68,15 @@ interface NodeEncodingsProps {
 }
 
 function NodeEncodings({ nodes, mapping }: NodeEncodingsProps) {
-  const encodingTypes = useMemo(() => Stream.fromObject(nodes[0] ?? {}).filter((encoding) => encoding[1] !== undefined).map(([name]) => name).toArray() as NodeEncodingType[], [nodes])
+  const encodingTypes = useMemo(() => Stream.fromObject(nodes[0] ?? {}).filter((encoding) => encoding[1] !== undefined).map(([name]) => name).distinct().toArray() as NodeEncodingType[], [nodes])
+  const [tabValue, setTabValue] = useState<string | undefined>(encodingTypes[0])
+  useEffect(() => {
+    if (!encodingTypes.includes(tabValue as NodeEncodingType)) {
+      setTabValue(encodingTypes[0])
+    }
+  }, [encodingTypes])
   return (
-    <Tabs defaultValue={encodingTypes[0]} className="flex size-full flex-col">
+    <Tabs value={tabValue} className="flex size-full flex-col" onValueChange={setTabValue}>
       {encodingTypes.length > 1
         ? (
             <div className="w-full shrink-0 overflow-x-auto">
