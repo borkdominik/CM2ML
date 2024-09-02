@@ -78,7 +78,6 @@ const PathBuilder = definePlugin({
     },
   },
   invoke: ({ data, metadata: featureContext }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
-    const { nodeFeatures, edgeFeatures } = featureContext
     const paths = collectPaths(data, parameters)
     const mapping = Stream
       .from(data.nodes)
@@ -87,7 +86,7 @@ const PathBuilder = definePlugin({
     const nodeData = Array.from(data.nodes).map((node, nodeIndex) => [node, getRelevantPaths(nodeIndex, paths)] as const)
     const longestPathLength = paths.reduce((max, path) => Math.max(max, path.steps.length), 0)
     const highestPathCount = nodeData.reduce((max, [_, paths]) => Math.max(max, paths.size), 0)
-    const additionalMetadata = parameters.nodeEncoding.includes('feature') ? { nodeFeatures, edgeFeatures } : {}
+    const additionalMetadata = parameters.nodeEncoding.includes('features') ? { nodeFeatures: featureContext.nodeFeatures, edgeFeatures: featureContext.edgeFeatures } : {}
     return {
       data: {
         paths,

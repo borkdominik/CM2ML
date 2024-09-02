@@ -22,3 +22,18 @@ export function parseNamespace(string: string) {
   const [namespace, ...value] = string.split(':')
   return { name: value.join(':'), namespace: namespace! }
 }
+
+/**
+ * Create a lazy proxy for the given provider.
+ */
+export function lazy<T extends object>(initializer: () => T) {
+  let value: T | undefined
+  return new Proxy<T>({} as Readonly<T>, {
+    get: (_target, prop) => {
+      return Reflect.get(value ??= initializer(), prop)
+    },
+    has: (_target, prop) => {
+      return Reflect.has(value ??= initializer(), prop)
+    },
+  })
+}

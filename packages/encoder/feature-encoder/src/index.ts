@@ -1,5 +1,6 @@
 import { GraphModel } from '@cm2ml/ir'
 import { ExecutionError, ValidationError, defineStructuredBatchPlugin } from '@cm2ml/plugin'
+import { lazy } from '@cm2ml/utils'
 import { ZodError } from 'zod'
 
 import { getFeatureMetadataFromFile } from './feature-metadata-extractor'
@@ -66,7 +67,7 @@ export const FeatureEncoder = defineStructuredBatchPlugin({
       const models = input.filter((item) => item instanceof GraphModel)
       const nodeFeatureOverride = parameters.nodeFeatures !== '' ? FeatureMetadataSchema.parse(JSON.parse(parameters.nodeFeatures)) : null
       const edgeFeatureOverride = parameters.edgeFeatures !== '' ? FeatureMetadataSchema.parse(JSON.parse(parameters.edgeFeatures)) : null
-      const features = deriveFeatures(models, { ...parameters, nodeFeatureOverride, edgeFeatureOverride })
+      const features = lazy(() => deriveFeatures(models, { ...parameters, nodeFeatureOverride, edgeFeatureOverride }))
       return input.map((item) => {
         if (item instanceof ExecutionError) {
           return item
