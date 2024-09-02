@@ -70,7 +70,7 @@ function registerCommandOptions<Parameters extends ParameterMetadata>(
   parameters: Parameters,
 ) {
   Stream.fromObject(parameters).forEach(([name, parameter]) => {
-    if (parameter.type === 'array<string>' || parameter.type === 'set<string>') {
+    if (parameter.type === 'list<string>') {
       command.option(
         `--${createOptionName(name)} <${name}>`,
         createOptionDescription(parameter),

@@ -41,7 +41,7 @@ export class Plugin<In, Out, Parameters extends ParameterMetadata> {
     parameters: unknown,
   ): Readonly<ResolveParameters<Parameters>> {
     try {
-      return this.validator.parse(parameters) as Readonly<ResolveParameters<Parameters>>
+      return this.validator.parse(parameters)
     } catch (error) {
       if (error instanceof ZodError) {
         throw ValidationError.fromZodError(error)

@@ -68,7 +68,7 @@ export function Parameters({ parameters, setValues, values }: Props) {
         <CardHeader className="p-0 pb-2">
           <div className="flex items-center justify-between">
             <Label>Parameters</Label>
-            <Button variant="ghost" onClick={resetParameters} className="-mr-2 gap-2 text-primary first-line:flex">
+            <Button variant="ghost" onClick={resetParameters} className="text-primary -mr-2 gap-2 first-line:flex">
               Reset
               <SymbolIcon className="size-4" />
             </Button>
@@ -126,9 +126,8 @@ interface ParameterInputProps<T extends ParameterType> {
   value: T extends 'boolean' ? boolean
     : T extends 'number' ? number
       : T extends 'string' ? string
-        : T extends 'array<string>' ? readonly string[]
-          : T extends 'set<string>' ? readonly string[]
-            : never
+        : T extends 'list<string>' ? readonly string[]
+          : never
 }
 
 function ParameterInput({
@@ -171,28 +170,12 @@ function ParameterInput({
           value={value as string}
         />
       )
-    case 'array<string>':
+    case 'list<string>':
       return (
         <StringListInput
           name={name}
           label={actualLabel}
           onChange={onChange}
-          parameter={parameter}
-          value={value as readonly string[]}
-        />
-      )
-    case 'set<string>':
-      return (
-        <StringListInput
-          name={name}
-          label={actualLabel}
-          onChange={(value) => {
-            if (Array.isArray(value)) {
-              onChange([...new Set(value)])
-              return
-            }
-            onChange(value)
-          }}
           parameter={parameter}
           value={value as readonly string[]}
         />
@@ -276,7 +259,7 @@ function StringListInput({
   onChange,
   parameter,
   value: values,
-}: ParameterInputProps<'array<string>' | 'set<string>'>) {
+}: ParameterInputProps<'list<string>'>) {
   const [inputValue, setInputValue] = useState('')
   const onInputConfirmed = () => {
     const trimmed = inputValue.trim()
@@ -284,15 +267,17 @@ function StringListInput({
       return
     }
     setInputValue('')
+    if (parameter.unique) {
+      onChange([...new Set([...values, trimmed])])
+      return
+    }
     onChange([...values, trimmed])
   }
-
-  const allowDuplicates = parameter.type === 'array<string>'
 
   const input = parameter.allowedValues
     ? (
         <AllowedValueSelect
-          allowedValues={allowDuplicates ? parameter.allowedValues : parameter.allowedValues.filter((allowedValue) => !values.includes(allowedValue))}
+          allowedValues={parameter.unique ? parameter.allowedValues.filter((allowedValue) => !values.includes(allowedValue)) : parameter.allowedValues}
           onValueChange={(selectedValue) => onChange([...values, selectedValue])}
         />
       )
@@ -330,12 +315,12 @@ function StringListInput({
         <CollapsibleContent>
           <Container>
             {input}
-            <Button variant="ghost" onClick={() => onChange([])} className="mx-auto flex gap-2 text-primary" disabled={values.length === 0}>
+            <Button variant="ghost" onClick={() => onChange([])} className="text-primary mx-auto flex gap-2" disabled={values.length === 0}>
               Clear
               <TrashIcon className="size-4" />
             </Button>
             {
-              (allowDuplicates ? values : values.toSorted()).map((value, index) => (
+              (parameter.ordered ? values : values.toSorted()).map((value, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <div key={index} className="flex items-center gap-2  text-xs">
                   <Button variant="ghost" className="-my-1" size="sm" onClick={() => onChange(values.filter((entry) => entry !== value))}>
@@ -391,7 +376,7 @@ function ParameterLabel({ name, label }: { name: string, label: string }) {
 
 function Description({ description }: { description: string }) {
   return (
-    <span className="cursor-default text-balance text-xs text-muted-foreground">
+    <span className="text-muted-foreground cursor-default text-balance text-xs">
       {description}
     </span>
   )

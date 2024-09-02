@@ -3,11 +3,9 @@ import { z } from 'zod'
 
 export type PrimitiveParameterType = 'number' | 'string' | 'boolean'
 
-export type ArrayParameterType = `array<string>`
+export type ListParameterType = `list<string>`
 
-export type SetParameterType = `set<string>`
-
-export type ParameterType = PrimitiveParameterType | ArrayParameterType | SetParameterType
+export type ParameterType = PrimitiveParameterType | ListParameterType
 
 export type ParameterBase = Readonly<{ readonly type: ParameterType, readonly description: string, readonly group?: string, readonly displayName?: string }>
 
@@ -28,23 +26,16 @@ export type PrimitiveParameter = ParameterBase & Readonly<
   }
 >
 
-export type ArrayParameter = ParameterBase & Readonly<
+export type ListParameter = ParameterBase & Readonly<
   {
-    readonly type: 'array<string>'
+    readonly type: 'list<string>'
     readonly defaultValue: readonly string[]
     readonly allowedValues?: readonly string[]
-  }
+
+  } & ({ readonly unique?: false, readonly ordered?: boolean } | { readonly unique: true, readonly ordered?: false })
 >
 
-export type SetParameter = ParameterBase & Readonly<
-  {
-    readonly type: 'set<string>'
-    readonly defaultValue: readonly string[]
-    readonly allowedValues?: readonly string[]
-  }
->
-
-export type Parameter = PrimitiveParameter | ArrayParameter | SetParameter
+export type Parameter = PrimitiveParameter | ListParameter
 
 function getZodValidator(parameter: Parameter) {
   switch (parameter.type) {
@@ -57,13 +48,17 @@ function getZodValidator(parameter: Parameter) {
       return z.string().default(parameter.defaultValue)
     case 'boolean':
       return z.boolean().default(parameter.defaultValue)
-    case 'array<string>': {
+    case 'list<string>': {
       const baseArray = parameter.allowedValues && parameter.allowedValues.length > 0 ? z.array(z.enum(parameter.allowedValues as [string, ...string[]])) : z.array(z.string())
-      return baseArray.default([...parameter.defaultValue])
-    }
-    case 'set<string>': {
-      const baseArray = parameter.allowedValues && parameter.allowedValues.length > 0 ? z.array(z.enum(parameter.allowedValues as [string, ...string[]])) : z.array(z.string())
-      return baseArray.default([...parameter.defaultValue]).transform((value) => [...new Set(value)])
+      return baseArray.default([...parameter.defaultValue]).transform((value) => {
+        if (parameter.unique) {
+          return [...new Set(value)]
+        }
+        if (!parameter.ordered) {
+          return value.sort()
+        }
+        return value
+      })
     }
   }
 }
@@ -87,10 +82,10 @@ export type ResolveZodParameterType<Type extends ParameterType> =
       ? z.ZodDefault<z.ZodString>
       : Type extends 'boolean'
         ? z.ZodDefault<z.ZodBoolean>
-        : Type extends 'array<string>'
+        : Type extends 'list<string>'
           ? z.ZodDefault<z.ZodArray<z.ZodString>>
-          : Type extends 'set<string>'
-            ? z.ZodDefault<z.ZodArray<z.ZodString>>
+          : Type extends 'list<number>' // this does not exist and will never be true, but it somehow fixes ts complaints
+            ? z.ZodDefault<z.ZodArray<z.ZodNumber>>
             : never
 
 // From: https://stackoverflow.com/a/57683652
@@ -162,22 +157,13 @@ function getArrayConstructor(primitiveParameterType: PrimitiveParameterType) {
   }
 }
 
-function getSetConstructor(primitiveParameterType: PrimitiveParameterType) {
-  const arrayConstructor = getArrayConstructor(primitiveParameterType)
-  return (input: unknown) => {
-    return [...arrayConstructor(input)]
-  }
-}
-
 export function getTypeConstructor(parameterType: ParameterType) {
   switch (parameterType) {
     case 'number':
     case 'string':
     case 'boolean':
       return getPrimitiveConstructor(parameterType)
-    case 'array<string>':
+    case 'list<string>':
       return getArrayConstructor('string')
-    case 'set<string>':
-      return getSetConstructor('string')
   }
 }
