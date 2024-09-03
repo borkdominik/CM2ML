@@ -32,6 +32,17 @@ export type ListParameter = ParameterBase & Readonly<
     readonly defaultValue: readonly string[]
     readonly allowedValues?: readonly string[]
 
+  } & {
+    /**
+     * If true, the list will not contain duplicate values.
+     * Duplicate values are allowed, but will be removed.
+     */
+    readonly unique?: boolean
+    /**
+     * If true, the order of the items in the list will be preserved.
+     * If false, the items will be sorted.
+     */
+    readonly ordered?: boolean
   } & ({ readonly unique?: false, readonly ordered?: boolean } | { readonly unique: true, readonly ordered?: false })
 >
 
