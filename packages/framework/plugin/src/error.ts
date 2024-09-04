@@ -1,6 +1,6 @@
 import { getMessage } from '@cm2ml/utils'
 
-import type { ParameterMetadata } from './parameters'
+import type { Parameter, ParameterMetadata } from './parameters'
 import type { Plugin } from './plugin'
 import { definePlugin } from './plugin'
 
@@ -24,6 +24,12 @@ export function trying<In, Out, Parameters extends ParameterMetadata>(plugin: Pl
   })
 }
 
+const continueOnError = {
+  type: 'boolean',
+  defaultValue: false,
+  description: 'If true, the execution will continue when encountering an error.',
+} as const satisfies Parameter
+
 /**
  * @returns A plugin that catches {@link ExecutionError}s and throws them as errors unless `continueOnError` is enabled.
  */
@@ -31,11 +37,7 @@ export function catching<In>() {
   return definePlugin({
     name: 'catching',
     parameters: {
-      continueOnError: {
-        type: 'boolean',
-        defaultValue: false,
-        description: 'If true, the execution will continue when encountering an error.',
-      },
+      continueOnError,
     },
     invoke: (input: In | ExecutionError, parameters) => {
       if (!parameters.continueOnError && input instanceof ExecutionError) {

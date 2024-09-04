@@ -104,9 +104,9 @@ function joinParameters(plugins: PluginMetadata<ParameterMetadata>[]) {
     .forEach((pluginParameters) => {
       Stream.fromObject(pluginParameters).forEach(([name, parameter]) => {
         const existingParameter = parameters[name]
-        if (existingParameter && existingParameter.type !== parameter.type) {
+        if (existingParameter !== undefined && existingParameter !== parameter) {
           throw new Error(
-            `Parameter ${name} is defined multiple times with different types in the plugin composition.`,
+            `Parameter ${name} is defined multiple times. Parameters must have unique names.`,
           )
         }
         parameters[name] = parameter
