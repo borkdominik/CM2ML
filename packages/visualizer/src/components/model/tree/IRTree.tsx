@@ -84,7 +84,7 @@ function IRFlowTreeNode({ data }: { data: IRFlowNode }) {
             <Handle type="target" position={Position.Top} isConnectable={false} />
           )}
       <div
-        className={cn({ 'break-words rounded-sm px-4 py-2 font-mono outline': true, 'outline-primary': isSelected, 'outline-secondary': !isSelected })}
+        className={cn({ 'break-normal rounded-sm px-4 py-2 font-mono outline': true, 'outline-primary': isSelected, 'outline-secondary': !isSelected })}
         style={{
           outlineWidth: isSelected ? 6 : 2,
         }}
