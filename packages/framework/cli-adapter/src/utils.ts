@@ -9,7 +9,7 @@ export function normalizeOptions(options: Record<string, unknown>, parameters: P
   return Stream.fromObject(options)
     .map(([name, parameter]) => {
       const parameterType = parameters[name]?.type
-      const isMultiValuedParameter = parameterType?.startsWith('array<') || parameterType?.startsWith('set<')
+      const isMultiValuedParameter = parameterType?.startsWith('list<') || parameterType?.startsWith('set<')
       if (Array.isArray(parameter) && !isMultiValuedParameter) {
         // Use first occurrence of duplicate non-array parameters
         return [name, parameter[0]]
