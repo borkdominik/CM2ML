@@ -43,7 +43,7 @@ export type ListParameter = ParameterBase & Readonly<
      * If false, the items will be sorted.
      */
     readonly ordered?: boolean
-  } & ({ readonly unique?: false, readonly ordered?: boolean } | { readonly unique: true, readonly ordered?: false })
+  } & ({ readonly unique?: boolean, readonly ordered?: false } | { readonly unique: true, readonly ordered: true })
 >
 
 export type Parameter = PrimitiveParameter | ListParameter
@@ -62,13 +62,26 @@ function getZodValidator(parameter: Parameter) {
     case 'list<string>': {
       const baseArray = parameter.allowedValues && parameter.allowedValues.length > 0 ? z.array(z.enum(parameter.allowedValues as [string, ...string[]])) : z.array(z.string())
       return baseArray.default([...parameter.defaultValue]).transform((value) => {
-        if (parameter.unique) {
-          return [...new Set(value)]
+        if (!parameter.ordered && !parameter.unique) {
+          return value.toSorted()
         }
-        if (!parameter.ordered) {
-          return value.sort()
+        if (parameter.ordered && !parameter.unique) {
+          throw new Error('Ordered lists must be unique')
         }
-        return value
+        if (parameter.ordered && parameter.unique) {
+          const visited = new Set<string>()
+          return value.filter((item) => {
+            if (visited.has(item)) {
+              return false
+            }
+            visited.add(item)
+            return true
+          })
+        }
+        if (!parameter.ordered && parameter.unique) {
+          return [...new Set(value)].toSorted()
+        }
+        throw new Error('Invalid list configuration. This is an internal error.')
       })
     }
   }

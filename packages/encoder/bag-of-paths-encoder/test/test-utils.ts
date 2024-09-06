@@ -17,7 +17,7 @@ export function createTestModel(nodes: string[], edges: [string, string][] | (re
     const graphNode = model.addNode('node')
     graphNode.id = id
     graphNode.type = 'node'
-    graphNode.parent = root
+    root.addChild(graphNode)
   })
   edges.forEach(([sourceId, targetId]) => {
     const source = model.getNodeById(sourceId)

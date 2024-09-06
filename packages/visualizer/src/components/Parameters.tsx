@@ -1,10 +1,12 @@
 import type { Parameter, ParameterMetadata, ParameterType } from '@cm2ml/plugin'
-import { CaretSortIcon, Cross1Icon, SymbolIcon, TrashIcon } from '@radix-ui/react-icons'
+import type { OnDragEndResponder } from '@hello-pangea/dnd'
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd'
+import { CaretSortIcon, Cross1Icon, DragHandleHorizontalIcon, SymbolIcon, TrashIcon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
 import { useMemo, useState } from 'react'
 
 import { displayName } from '../lib/displayName'
-import { getNewParameters } from '../lib/utils'
+import { cn, getNewParameters } from '../lib/utils'
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion'
 import { Button } from './ui/button'
@@ -297,6 +299,19 @@ function StringListInput({
           }}
         />
       )
+  const processedItems = parameter.ordered ? values : values.toSorted()
+  const onDragEnd: OnDragEndResponder = (result) => {
+    if (!result.destination) {
+      return
+    }
+    const reordered = Array.from(processedItems)
+    const [removed] = reordered.splice(result.source.index, 1)
+    if (!removed) {
+      return
+    }
+    reordered.splice(result.destination.index, 0, removed)
+    onChange(reordered)
+  }
   return (
     <Collapsible>
       <Container>
@@ -319,17 +334,45 @@ function StringListInput({
               Clear
               <TrashIcon className="size-4" />
             </Button>
-            {
-              (parameter.ordered ? values : values.toSorted()).map((value, index) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <div key={index} className="flex items-center gap-2  text-xs">
-                  <Button variant="ghost" className="-my-1" size="sm" onClick={() => onChange(values.filter((entry) => entry !== value))}>
-                    <Cross1Icon className="s-4 text-primary" />
-                  </Button>
-                  <span className="text-balance font-mono">{value}</span>
-                </div>
-              ))
-            }
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable droppableId={name}>
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    className={cn('rounded flex flex-col gap-2', { 'outline outline-primary': snapshot.isDraggingOver })}
+                    {...provided.droppableProps}
+                  >
+                    {
+                      processedItems.map((value, index) => (
+                        (
+                          <Draggable draggableId={parameter.ordered ? value : `${index}`} key={parameter.ordered ? value : index} index={index}>
+                            {(provided) => (
+                              <div
+                                className="flex items-center gap-2 text-xs"
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                              >
+                                <Button variant="ghost" className="-my-1" size="sm" onClick={() => onChange(values.filter((entry) => entry !== value))}>
+                                  <Cross1Icon className="s-4 text-primary" />
+                                </Button>
+                                <span className="select-text text-balance font-mono">{value}</span>
+                                <div className="grow" />
+
+                                <div {...provided.dragHandleProps} style={{ display: parameter.ordered ? 'default' : 'none' }}>
+                                  <DragHandleHorizontalIcon />
+                                </div>
+
+                              </div>
+                            )}
+                          </Draggable>
+                        )
+                      ))
+                    }
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
           </Container>
         </CollapsibleContent>
       </Container>

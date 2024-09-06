@@ -1,19 +1,11 @@
-import type { NodeEncoding, NodeEncodingType } from '@cm2ml/builtin'
 import { BagOfPathsEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { ExecutionError } from '@cm2ml/plugin'
-import { Stream } from '@yeger/streams'
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment } from 'react'
 
-import { displayName } from '../../../../lib/displayName'
-import type { Selection } from '../../../../lib/useSelection'
-import { useSelection } from '../../../../lib/useSelection'
 import type { ParameterValues } from '../../../Parameters'
-import { SelectButton } from '../../../SelectButton'
 import { Hint } from '../../../ui/hint'
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '../../../ui/resizable'
 import { Separator } from '../../../ui/separator'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../ui/tabs'
 import { useEncoder } from '../../useEncoder'
 
 import { PathGraph } from './PathGraph'
@@ -31,11 +23,11 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
   if (encoding.data instanceof ExecutionError) {
     return <Hint error={encoding.data} />
   }
-  const { paths, mapping, nodes } = encoding.data
+  const { paths, mapping } = encoding.data
   if (paths.length === 0) {
     return <Hint text="No paths found. Consider decreasing the minimum path length." />
   }
-  const pathGraphList = (
+  return (
     <div className="flex h-full flex-col overflow-y-auto">
       {paths.map((path, i) => (
         // eslint-disable-next-line react/no-array-index-key
@@ -45,136 +37,5 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
         </Fragment>
       ))}
     </div>
-  )
-  if (!nodes || nodes.length === 0 || Object.values(nodes[0]!).every((encoding) => encoding === undefined)) {
-    return pathGraphList
-  }
-  return (
-    <ResizablePanelGroup direction="vertical" className="h-full">
-      <ResizablePanel defaultSize={70}>
-        {pathGraphList}
-      </ResizablePanel>
-      <ResizableHandle withHandle />
-      <ResizablePanel>
-        <NodeEncodings nodes={nodes} mapping={mapping} />
-      </ResizablePanel>
-    </ResizablePanelGroup>
-  )
-}
-
-interface NodeEncodingsProps {
-  nodes: NodeEncoding[]
-  mapping: string[]
-}
-
-function NodeEncodings({ nodes, mapping }: NodeEncodingsProps) {
-  const encodingTypes = useMemo(() => Stream.fromObject(nodes[0] ?? {}).filter((encoding) => encoding[1] !== undefined).map(([name]) => name).distinct().toArray() as NodeEncodingType[], [nodes])
-  const [tabValue, setTabValue] = useState<string | undefined>(encodingTypes[0])
-  useEffect(() => {
-    if (!encodingTypes.includes(tabValue as NodeEncodingType)) {
-      setTabValue(encodingTypes[0])
-    }
-  }, [encodingTypes])
-  return (
-    <Tabs value={tabValue} className="flex size-full flex-col" onValueChange={setTabValue}>
-      {encodingTypes.length > 1
-        ? (
-            <div className="w-full shrink-0 overflow-x-auto">
-              <TabsList className="h-8 w-full min-w-fit rounded-none p-0">
-                {encodingTypes.map((encodingType) =>
-                  <TabsTrigger key={encodingType} value={encodingType} className="text-xs">{displayName(encodingType)}</TabsTrigger>,
-                )}
-              </TabsList>
-            </div>
-          )
-        : null}
-      {encodingTypes.map((encodingType) => (
-        <TabsContent key={encodingType} value={encodingType} className="mt-0 grow overflow-auto">
-          <NodeEncodingList encodingType={encodingType} nodes={nodes} mapping={mapping} />
-        </TabsContent>
-      ),
-      )}
-    </Tabs>
-  )
-}
-
-interface NodeEncodingListProps {
-  encodingType: NodeEncodingType
-  nodes: NodeEncoding[]
-  mapping: string[]
-}
-
-function NodeEncodingList({ encodingType, nodes, mapping }: NodeEncodingListProps) {
-  const formattedVectors = useMemo(() => {
-    const firstRow = nodes[0]?.[encodingType]
-    if (!firstRow) {
-      return []
-    }
-    const vectorLength = firstRow.length
-    const maxDigits = Array.from({ length: vectorLength }, (_, i) =>
-      Math.max(...nodes.map((node) => formatValue(node[encodingType]![i]!).length)))
-    return nodes.map((vectors, nodeIndex) => {
-      const nodeId = mapping[nodeIndex]!
-      const paddedVector = vectors[encodingType]!.map((value, i) => formatValue(value).padStart(maxDigits[i]!, ' '))
-      return {
-        nodeId,
-        vector: `[${paddedVector.join(', ')}]`,
-      }
-    })
-  }, [encodingType, nodes])
-
-  return (
-    <div className="grid grid-cols-[min-content_1fr] gap-x-6 gap-y-2 p-2 text-xs">
-      {formattedVectors.map(({ nodeId, vector }) => <NodeEncodingRow key={nodeId} nodeId={nodeId} vector={vector} />)}
-    </div>
-  )
-}
-
-function formatValue(value: boolean | number | string | null) {
-  if (value === null) {
-    return ''
-  }
-  if (typeof value === 'boolean') {
-    return value ? 'true' : 'false'
-  }
-  if (typeof value === 'number') {
-    const moduloOne = value % 1
-    if (moduloOne === 0) {
-      return value.toFixed(0)
-    }
-    if (Number.isNaN(moduloOne)) {
-      return 'NaN'
-    }
-    return value.toFixed(2)
-  }
-  return `${value}`
-}
-
-interface NodeEncodingRowProps {
-  nodeId: string
-  vector: string
-}
-
-function NodeEncodingRow({ nodeId, vector }: NodeEncodingRowProps) {
-  const selection = useSelection.use.selection()
-  const isNodeSelected = useMemo(() => {
-    if (!selection) {
-      return false
-    }
-    if (selection.type === 'nodes') {
-      return selection.nodes.includes(nodeId)
-    }
-    return selection.edges.some(([source, target]) => source === nodeId || target === nodeId)
-  }, [nodeId, selection])
-  const newSelection = useMemo<Selection>(() => ({
-    type: 'nodes',
-    nodes: [nodeId],
-    origin: 'path',
-  }), [nodeId])
-  return (
-    <Fragment key={nodeId}>
-      <SelectButton isSelected={isNodeSelected} text={nodeId} selection={newSelection} />
-      <div className="select-text whitespace-pre font-mono">{vector}</div>
-    </Fragment>
   )
 }

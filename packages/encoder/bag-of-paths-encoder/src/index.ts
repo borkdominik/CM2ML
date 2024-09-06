@@ -5,15 +5,12 @@ import { batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 import { pathWeightTypes, sortOrders, stepWeightTypes } from './bop-types'
-import { encodeNode, nodeEncodingTypes } from './node-encodings'
-import type { PathData } from './paths'
+import { encodePaths } from './encode-paths'
 import { collectPaths } from './paths'
 
 export type { PathData } from './paths'
 export { stepWeightTypes, pathWeightTypes }
 export type { PathWeight, StepWeight } from './bop-types'
-export { nodeEncodingTypes }
-export type { NodeEncodingType, NodeEncoding, PathCounts } from './node-encodings'
 
 const PathBuilder = definePlugin({
   name: 'path-builder',
@@ -69,51 +66,34 @@ const PathBuilder = definePlugin({
       description: 'Ordering of paths according to their weight',
       group: 'Filtering',
     },
-    nodeEncoding: {
+    nodeTemplates: {
       type: 'list<string>',
       unique: true,
-      allowedValues: nodeEncodingTypes,
-      defaultValue: [],
-      description: 'Encodings to apply to nodes',
+      ordered: true,
+      defaultValue: [
+        'type="Model"->{<<}{{name}}{>>}',
+        '{{name}}{ : }{{type}}',
+      ],
+      description: 'Template for encoding nodes of paths',
       group: 'Encoding',
     },
   },
-  invoke: ({ data, metadata: featureContext }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
+  invoke: ({ data, metadata }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
     const paths = collectPaths(data, parameters)
     const mapping = Stream
       .from(data.nodes)
       .map((node) => node.requireId())
       .toArray()
-    const nodeData = Array.from(data.nodes).map((node, nodeIndex) => [node, getRelevantPaths(nodeIndex, paths)] as const)
-    const longestPathLength = paths.reduce((max, path) => Math.max(max, path.steps.length), 0)
-    const highestPathCount = nodeData.reduce((max, [_, paths]) => Math.max(max, paths.size), 0)
-    const additionalMetadata = parameters.nodeEncoding.includes('features') ? { nodeFeatures: featureContext.nodeFeatures, edgeFeatures: featureContext.edgeFeatures } : {}
     return {
       data: {
         paths,
+        encodedPaths: encodePaths(paths, data, parameters.nodeTemplates),
         mapping,
-        nodes: parameters.nodeEncoding.length > 0
-          ? nodeData.map(([node, paths], nodeIndex) =>
-            encodeNode({
-              nodeIndex,
-              node,
-              featureContext,
-              paths,
-              parameters,
-              longestPathLength,
-              highestPathCount,
-            },
-            ),
-          )
-          : undefined,
       },
-      metadata: { ...additionalMetadata, idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },
+      metadata: { ...metadata, idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },
     }
   },
 })
 
-function getRelevantPaths(nodeIndex: number, paths: PathData[]) {
-  return Stream.from(paths).filter((path) => path.steps[0] === nodeIndex || path.steps.at(-1) === nodeIndex).toSet()
-}
-
+// TODO/Jan: Remove feature encoder
 export const BagOfPathsEncoder = compose(FeatureEncoder, batchTryCatch(PathBuilder), 'bag-of-paths')
