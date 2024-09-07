@@ -6,7 +6,7 @@ import { ZodError } from 'zod'
 import { getFeatureMetadataFromFile } from './feature-metadata-extractor'
 import { FeatureMetadataSchema, deriveFeatures } from './features'
 
-export type { FeatureName, FeatureMetadata, FeatureType, FeatureVector, FeatureContext } from './features'
+export type { FeatureContext, FeatureMetadata, FeatureName, FeatureType, FeatureVector } from './features'
 
 export const FeatureEncoder = defineStructuredBatchPlugin({
   name: 'feature-encoder',

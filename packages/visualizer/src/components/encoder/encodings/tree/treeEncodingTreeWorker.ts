@@ -165,6 +165,7 @@ function createFlowGraph(
           source: node.id,
           target: child.id,
         })),
-    ).toArray()
+    )
+    .toArray()
   return { ...hierarchy, edges }
 }

@@ -45,7 +45,7 @@
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
     "typescript": "5.5.4",
-    "vite": "5.4.2",
+    "vite": "5.4.3",
     "vite-plugin-lib": "2.1.1"
   },
   "publishConfig": {

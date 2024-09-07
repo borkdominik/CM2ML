@@ -8,9 +8,9 @@ import { pathWeightTypes, sortOrders, stepWeightTypes } from './bop-types'
 import { encodePaths } from './encode-paths'
 import { collectPaths } from './paths'
 
-export type { PathData } from './paths'
-export { stepWeightTypes, pathWeightTypes }
 export type { PathWeight, StepWeight } from './bop-types'
+export { pathWeightTypes, stepWeightTypes }
+export type { PathData } from './paths'
 
 const PathBuilder = definePlugin({
   name: 'path-builder',
