@@ -19,4 +19,5 @@ export interface PathParameters {
   allowCycles: boolean
   includeSubpaths: boolean
   order: SortOrder
+  nodeTemplates: readonly string[]
 }

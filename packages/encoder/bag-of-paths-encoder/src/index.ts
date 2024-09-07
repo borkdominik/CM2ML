@@ -5,7 +5,6 @@ import { batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 import { pathWeightTypes, sortOrders, stepWeightTypes } from './bop-types'
-import { encodePaths } from './encode-paths'
 import { collectPaths } from './paths'
 
 export type { PathWeight, StepWeight } from './bop-types'
@@ -87,7 +86,6 @@ const PathBuilder = definePlugin({
     return {
       data: {
         paths,
-        encodedPaths: encodePaths(paths, data, parameters.nodeTemplates),
         mapping,
       },
       metadata: { ...metadata, idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },

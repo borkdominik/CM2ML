@@ -33,7 +33,7 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={i}>
           {i > 0 ? <Separator /> : null}
-          <PathGraph path={path} mapping={mapping} model={model} />
+          <PathGraph path={path} mapping={mapping} />
         </Fragment>
       ))}
     </div>

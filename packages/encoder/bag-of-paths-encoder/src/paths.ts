@@ -3,9 +3,12 @@ import { Stream } from '@yeger/streams'
 
 import type { PathParameters, PathWeight } from './bop-types'
 import { validatePathParameters } from './bop-validationts'
+import type { Template } from './template'
+import { compileTemplate } from './template'
 
 export interface PathData {
   steps: number[]
+  encodedSteps: string[]
   stepWeights: number[]
   weight: number
 }
@@ -25,6 +28,7 @@ function pathOrder(order: 'asc' | 'desc' | string) {
 
 export function collectPaths(model: GraphModel, parameters: PathParameters) {
   validatePathParameters(parameters)
+  const compiledTemplates = parameters.nodeTemplates.map((template) => compileTemplate(template))
   const nodes = Stream.from(model.nodes)
   const indexMap = new Map(nodes.map((node, i) => [node, i]))
   const getNodeIndex = (node: GraphNode) => indexMap.get(node)!
@@ -33,8 +37,10 @@ export function collectPaths(model: GraphModel, parameters: PathParameters) {
     .filter((path) => path.steps.length >= parameters.minPathLength)
     .map<PathData>((path) => {
       const stepWeights = path.steps.map((step) => step.weight)
+      const steps = [getNodeIndex(path.startNode), ...path.steps.map((step) => getNodeIndex(step.target))]
       return {
-        steps: [getNodeIndex(path.startNode), ...path.steps.map((step) => getNodeIndex(step.target))],
+        steps,
+        encodedSteps: encodePath(steps, nodes.toArray(), compiledTemplates),
         stepWeights,
         weight: reduceWeights(stepWeights, parameters.pathWeight),
       }
@@ -139,4 +145,21 @@ function reduceWeights(weights: number[], type: PathWeight) {
     return weights.reduce((a, b) => a + b, 0)
   }
   throw new Error(`Unsupported weight reduction: ${type}`)
+}
+
+function encodePath(steps: number[], nodes: GraphNode[], templates: Template[]) {
+  const parts: string[] = []
+  for (const step of steps) {
+    const node = nodes[step]
+    if (!node) {
+      throw new Error(`Node index out-of-bounds. This is an internal error.`)
+    }
+    const mapper = templates.find((template) => template.isApplicable(node))
+    const mapped = mapper?.apply(node)
+    if (mapped !== undefined) {
+      parts.push(mapped)
+    }
+  }
+  // TODO/Jan: Also encode the edges
+  return parts
 }

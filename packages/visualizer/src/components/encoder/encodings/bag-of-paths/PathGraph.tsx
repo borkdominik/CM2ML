@@ -1,5 +1,4 @@
 import type { PathData } from '@cm2ml/builtin'
-import type { GraphModel } from '@cm2ml/ir'
 import { GlobeIcon } from '@radix-ui/react-icons'
 import { debounce } from '@yeger/debounce'
 import { Stream } from '@yeger/streams'
@@ -10,7 +9,7 @@ import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 
 import { useSelection } from '../../../../lib/useSelection'
 import { useVisNetworkStyles } from '../../../../lib/useVisNetworkStyles'
-import { cn, getModelMemberLabel } from '../../../../lib/utils'
+import { cn } from '../../../../lib/utils'
 import { FitButton } from '../../../FitButton'
 import { Button } from '../../../ui/button'
 import { Progress } from '../../../ui/progress'
@@ -19,12 +18,11 @@ export interface Props {
   path: PathData
   /** Mapping from node index to node id */
   mapping: string[]
-  model: GraphModel
 }
 
-export function PathGraph({ path, mapping, model }: Props) {
+export function PathGraph({ path, mapping }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { isReady, progress, fit } = useBagOfPathsVisNetwork(path, mapping, model, containerRef)
+  const { isReady, progress, fit } = useBagOfPathsVisNetwork(path, mapping, containerRef)
   const setSelection = useSelection.use.setSelection()
   const selectAll = () => {
     const mappedNodes = path.steps.map((step) => mapping[step]!)
@@ -33,7 +31,7 @@ export function PathGraph({ path, mapping, model }: Props) {
   }
   return (
     <div className="flex size-full min-h-80 grow">
-      <div className="flex flex-col items-center gap-4 bg-muted p-2 pt-3 font-mono text-xs dark:bg-card">
+      <div className="bg-muted dark:bg-card flex flex-col items-center gap-4 p-2 pt-3 font-mono text-xs">
         <div className="flex items-center justify-center text-center">
           <span className="w-fit cursor-default" style={{ lineHeight: 1 }}>{path.weight}</span>
         </div>
@@ -77,7 +75,6 @@ function splitEdgeId(edgeId: string | undefined) {
 function useBagOfPathsVisNetwork(
   path: PathData,
   mapping: string[],
-  model: GraphModel,
   container: RefObject<HTMLDivElement | null>,
 ) {
   const selection = useSelection.use.selection()
@@ -87,7 +84,7 @@ function useBagOfPathsVisNetwork(
   const [stabilizationProgress, setStabilizationProgress] = useState(0)
 
   const data = useMemo(() => {
-    const nodes = createVisNodes(path, mapping, model)
+    const nodes = createVisNodes(path)
     const edges = createVisEdges(path)
     return { nodes, edges }
   }, [path])
@@ -272,15 +269,16 @@ function isNetworkDestroyed(network: Network | null): network is null {
   return !('selectionHandler' in network)
 }
 
-function createVisNodes(path: PathData, mapping: string[], model: GraphModel) {
+function createVisNodes(path: PathData) {
   const mappedNodes = Stream
     .from(path.steps)
     .distinct()
     .map((node) => {
-      const mappedNode = model.getNodeById(mapping[node]!)!
+      const index = path.steps.findIndex((step) => step === node)!
+      const encoded = path.encodedSteps[index]!
       return {
         id: node,
-        label: getModelMemberLabel(mappedNode),
+        label: encoded,
         shape: 'box',
       }
     })

@@ -13,6 +13,9 @@ export function compileTemplate(rawInput: string): Template {
   if (!rawTemplate) {
     throw new Error(`Invalid template: ${rawInput}`)
   }
+  if (!rawTemplate.startsWith('{') || !rawTemplate.endsWith('}')) {
+    throw new Error(`Invalid template: ${rawInput}`)
+  }
   const segments = getSegments(rawTemplate)
   if (!segments) {
     throw new Error(`Invalid template: ${rawInput}`)
