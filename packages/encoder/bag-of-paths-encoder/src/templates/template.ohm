@@ -13,7 +13,7 @@ Template {
     = "{{" NodeSelector "}}" -- selector
     | LiteralValue -- literal
 
-  ConditionalNodeReplacement = "[[" NodeCondition "->" NodeReplacement "]]"
+  ConditionalNodeReplacement = "[[" NodeCondition "->" NonemptyListOf<NodeReplacement, letter*> "]]"
 
   NodeCondition = NodeSelector ComparisonOperator LiteralValue
 
@@ -31,5 +31,5 @@ Template {
 
   AttributeName = (letter | ":")+
 
-  LiteralValue = (letter | digit | ":" | "." | "," | "<" | ">")+
+  LiteralValue = (letter | digit | ":" | "." | "," | "=" | "<" | ">" | "(" | ")")+
 }

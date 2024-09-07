@@ -20,8 +20,8 @@ describe('parser', () => {
 
   describe('conditions', () => {
     it('parses conditional replacements', () => {
-      const template = compileNodeTemplate('{{attr.id}} with type [[attr.id=root->{{attr.type}}]][[id=a->other]]')
-      expect(template(testModel.root, 0)).toBe('root with type node')
+      const template = compileNodeTemplate('{{attr.id}} with type [[attr.id=root-><<{{attr.type}}>>]][[id=a->other]]')
+      expect(template(testModel.root, 0)).toBe('root with type <<node>>')
       expect(template(testModel.getNodeById('a')!, 0)).toBe('a with type other')
     })
 

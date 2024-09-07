@@ -68,7 +68,7 @@ export function Parameters({ parameters, setValues, values }: Props) {
         <CardHeader className="p-0 pb-2">
           <div className="flex items-center justify-between">
             <Label>Parameters</Label>
-            <Button variant="ghost" onClick={resetParameters} className="-mr-2 gap-2 text-primary first-line:flex">
+            <Button variant="ghost" onClick={resetParameters} className="text-primary -mr-2 gap-2 first-line:flex">
               Reset
               <SymbolIcon className="size-4" />
             </Button>
@@ -328,7 +328,7 @@ function StringListInput({
         <CollapsibleContent>
           <Container>
             {input}
-            <Button variant="ghost" onClick={() => onChange([])} className="mx-auto flex gap-2 text-primary" disabled={values.length === 0}>
+            <Button variant="ghost" onClick={() => onChange([])} className="text-primary mx-auto flex gap-2" disabled={values.length === 0}>
               Clear
               <TrashIcon className="size-4" />
             </Button>
@@ -441,7 +441,7 @@ function AllowedValueSelect({ value, allowedValues, onValueChange }: AllowedStri
 }
 
 function Container({ children }: { children: React.ReactNode }) {
-  return <div className="flex max-w-xs flex-col gap-2">{children}</div>
+  return <div className="flex max-w-md flex-col gap-2">{children}</div>
 }
 
 function ParameterLabel({ name, label }: { name: string, label: string }) {
@@ -454,7 +454,7 @@ function ParameterLabel({ name, label }: { name: string, label: string }) {
 
 function Description({ description }: { description: string }) {
   return (
-    <span className="cursor-default text-balance text-xs text-muted-foreground">
+    <span className="text-muted-foreground cursor-default text-balance text-xs">
       {description}
     </span>
   )
