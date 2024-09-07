@@ -31,7 +31,7 @@ export function PathGraph({ path, mapping }: Props) {
   }
   return (
     <div className="flex size-full min-h-80 grow">
-      <div className="bg-muted dark:bg-card flex flex-col items-center gap-4 p-2 pt-3 font-mono text-xs">
+      <div className="flex flex-col items-center gap-4 bg-muted p-2 pt-3 font-mono text-xs dark:bg-card">
         <div className="flex items-center justify-center text-center">
           <span className="w-fit cursor-default" style={{ lineHeight: 1 }}>{path.weight}</span>
         </div>
@@ -275,10 +275,10 @@ function createVisNodes(path: PathData) {
     .distinct()
     .map((node) => {
       const index = path.steps.findIndex((step) => step === node)!
-      const encoded = path.encodedSteps[index]!
+      const encoded = path.encodedSteps[index]
       return {
         id: node,
-        label: encoded,
+        label: encoded ?? 'null',
         shape: 'box',
       }
     })

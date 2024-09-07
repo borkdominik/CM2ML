@@ -3,12 +3,12 @@ import { Stream } from '@yeger/streams'
 
 import type { PathParameters, PathWeight } from './bop-types'
 import { validatePathParameters } from './bop-validationts'
-import type { Template } from './template'
-import { compileTemplate } from './template'
+import type { Template } from './templates/model'
+import { compileNodeTemplate } from './templates/parser'
 
 export interface PathData {
   steps: number[]
-  encodedSteps: string[]
+  encodedSteps: (string | null)[]
   stepWeights: number[]
   weight: number
 }
@@ -28,7 +28,7 @@ function pathOrder(order: 'asc' | 'desc' | string) {
 
 export function collectPaths(model: GraphModel, parameters: PathParameters) {
   validatePathParameters(parameters)
-  const compiledTemplates = parameters.nodeTemplates.map((template) => compileTemplate(template))
+  const compiledTemplates = parameters.nodeTemplates.map((template) => compileNodeTemplate(template))
   const nodes = Stream.from(model.nodes)
   const indexMap = new Map(nodes.map((node, i) => [node, i]))
   const getNodeIndex = (node: GraphNode) => indexMap.get(node)!
@@ -147,19 +147,16 @@ function reduceWeights(weights: number[], type: PathWeight) {
   throw new Error(`Unsupported weight reduction: ${type}`)
 }
 
-function encodePath(steps: number[], nodes: GraphNode[], templates: Template[]) {
-  const parts: string[] = []
-  for (const step of steps) {
+function encodePath(steps: number[], nodes: GraphNode[], templates: Template<GraphNode>[]) {
+  const parts: (string | null)[] = []
+  steps.forEach((step, stepIndex) => {
     const node = nodes[step]
     if (!node) {
       throw new Error(`Node index out-of-bounds. This is an internal error.`)
     }
-    const mapper = templates.find((template) => template.isApplicable(node))
-    const mapped = mapper?.apply(node)
-    if (mapped !== undefined) {
-      parts.push(mapped)
-    }
-  }
+    const mapped = Stream.from(templates).map((template) => template(node, stepIndex)).find((part) => part !== undefined)
+    parts.push(mapped ?? null)
+  })
   // TODO/Jan: Also encode the edges
   return parts
 }
