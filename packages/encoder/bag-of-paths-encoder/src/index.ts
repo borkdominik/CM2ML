@@ -69,10 +69,7 @@ const PathBuilder = definePlugin({
       type: 'list<string>',
       unique: true,
       ordered: true,
-      defaultValue: [
-        'type = Model -><<{{name}}>>',
-        '{{name}} : {{type}}',
-      ],
+      defaultValue: ['{{name}}.{{type}}'],
       description: 'Template for encoding nodes of paths',
       group: 'Encoding',
     },
