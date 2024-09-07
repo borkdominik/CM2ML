@@ -32,6 +32,7 @@
     "build": "vite build",
     "check:publish": "publint run --strict",
     "check:tsc": "tsc",
+    "codegen": "ohm generateBundles --withTypes 'src/*/*.ohm' --esm",
     "dev": "vite build --watch",
     "lint": "yeger-lint",
     "test": "vitest"
@@ -40,10 +41,12 @@
     "@cm2ml/feature-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
-    "@yeger/streams": "1.2.0"
+    "@yeger/streams": "1.2.0",
+    "ohm-js": "17.1.0"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
+    "@ohm-js/cli": "2.0.0",
     "typescript": "5.5.4",
     "vite": "5.4.3",
     "vite-plugin-lib": "2.1.1"

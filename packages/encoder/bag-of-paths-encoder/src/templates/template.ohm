@@ -1,0 +1,35 @@
+Template {
+  NodeTemplate
+    = NodeTemplateBase -- template
+    | "@" NodeCondition "->" NodeTemplateBase -- conditionalTemplate
+
+  NodeTemplateBase = NonemptyListOf<NodeSegment, letter*>
+
+  NodeSegment
+    = NodeReplacement -- replacement
+    | ConditionalNodeReplacement -- conditionalReplacement
+
+  NodeReplacement
+    = "{{" NodeSelector "}}" -- selector
+    | LiteralValue -- literal
+
+  ConditionalNodeReplacement = "[[" NodeCondition "->" NodeReplacement "]]"
+
+  NodeCondition = NodeSelector ConditionOperator LiteralValue
+
+  ConditionOperator = "=" | "!="
+
+  Literal = letter+
+
+  NodeSelector
+    = Keyword -- keyword
+    | AttributeSelector -- attribute
+
+  Keyword = "tag" | "name" | "id" | "type"
+
+  AttributeSelector = "attr." AttributeName
+
+  AttributeName = (letter | ":")+
+
+  LiteralValue = (letter | ":" | "." | "," | "<" | ">")+
+}

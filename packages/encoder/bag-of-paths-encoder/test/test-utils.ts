@@ -7,7 +7,7 @@ export function createTestModel(nodes: string[], edges: [string, string][] | (re
     idAttribute: 'id',
     types: ['node', 'edge'],
     typeAttributes: ['type'],
-    tags: ['tag'],
+    tags: ['root', 'node'],
   })
   const model = new GraphModel(metamodel, { debug: false, strict: true })
   const root = model.createRootNode('root')
