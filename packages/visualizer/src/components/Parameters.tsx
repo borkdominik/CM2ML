@@ -24,8 +24,6 @@ import { Label } from './ui/label'
 export type ParameterValues = Record<string, boolean |
   number |
   string |
-  // readonly boolean[] |
-  // readonly number[] |
   readonly string[]>
 
 export interface Props {
@@ -355,9 +353,10 @@ function StringListInput({
                                 <Button variant="ghost" className="-my-1" size="sm" onClick={() => onChange(values.filter((entry) => entry !== value))}>
                                   <Cross1Icon className="s-4 text-primary" />
                                 </Button>
-                                <span className="select-text text-balance font-mono">{value}</span>
-                                <div className="grow" />
-
+                                {parameter.allowedValues
+                                  ? <span className="text-balance font-mono">{value}</span>
+                                  : <InlineInput value={value} values={values} index={index} onChange={onChange} />}
+                                <div className="ml-1 grow" />
                                 <div {...provided.dragHandleProps} style={{ display: parameter.ordered ? 'default' : 'none' }}>
                                   <DragHandleHorizontalIcon />
                                 </div>
@@ -377,6 +376,42 @@ function StringListInput({
         </CollapsibleContent>
       </Container>
     </Collapsible>
+  )
+}
+
+interface InlineInputProps {
+  value: string
+  values: readonly string[]
+  index: number
+  onChange: (updated: string[]) => void
+}
+
+function InlineInput({ value, values, index, onChange }: InlineInputProps) {
+  const [inputValue, setInputValue] = useState(value)
+  const onInputConfirmed = () => {
+    const trimmed = inputValue.trim()
+    if (trimmed === '') {
+      setInputValue(value)
+      return
+    }
+    const updated = [...values]
+    updated[index] = trimmed
+    onChange(updated)
+  }
+  return (
+    <Input
+      value={inputValue}
+      type="text"
+      onChange={(event) => {
+        setInputValue(event.target.value)
+      }}
+      onBlur={onInputConfirmed}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') {
+          onInputConfirmed()
+        }
+      }}
+    />
   )
 }
 
