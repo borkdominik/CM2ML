@@ -15,9 +15,9 @@ Template {
 
   ConditionalNodeReplacement = "[[" NodeCondition "->" NodeReplacement "]]"
 
-  NodeCondition = NodeSelector ConditionOperator LiteralValue
+  NodeCondition = NodeSelector ComparisonOperator LiteralValue
 
-  ConditionOperator = "=" | "!="
+  ComparisonOperator = "=" | "!=" | "<=" | ">=" | "<" | ">"
 
   Literal = letter+
 
@@ -25,11 +25,11 @@ Template {
     = Keyword -- keyword
     | AttributeSelector -- attribute
 
-  Keyword = "tag" | "name" | "id" | "type"
+  Keyword =  "id" | "name" | "step" | "tag" | "type"
 
   AttributeSelector = "attr." AttributeName
 
   AttributeName = (letter | ":")+
 
-  LiteralValue = (letter | ":" | "." | "," | "<" | ">")+
+  LiteralValue = (letter | digit | ":" | "." | "," | "<" | ">")+
 }

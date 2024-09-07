@@ -1,15 +1,17 @@
 import type { ModelMember } from '@cm2ml/ir'
 
-export type ConditionOperator = '=' | '!='
+export type ComparisonOperator = '=' | '!=' | '<' | '<=' | '>' | '>='
 
-export type Keyword = 'id' | 'name' | 'tag' | 'type'
+export type Keyword = 'id' | 'name' | 'tag' | 'type' | 'step'
 
-export type Condition<T extends ModelMember> = (element: T) => boolean
+export type Processor<T extends ModelMember, U> = (element: T, step: number) => U
 
-export type Template<T extends ModelMember> = (element: T) => string
+export type Condition<T extends ModelMember> = Processor<T, boolean>
 
-export type ConditionalTemplate<T extends ModelMember> = (element: T) => string | undefined
+export type Template<T extends ModelMember> = Processor<T, string>
 
-export type Selector<T extends ModelMember> = (element: T) => string | undefined
+export type ConditionalTemplate<T extends ModelMember> = Processor<T, string | undefined>
 
-export type Replacement<T extends ModelMember> = (element: T, partialReplacement: string) => string
+export type Selector<T extends ModelMember> = Processor<T, string | undefined>
+
+export type Replacement<T extends ModelMember> = Processor<T, string>

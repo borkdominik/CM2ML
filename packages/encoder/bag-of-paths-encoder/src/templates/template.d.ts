@@ -1,14 +1,14 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import type { Condition, ConditionOperator, ConditionalTemplate, Keyword, Replacement, Selector, Template } from './model'
+import type { Condition, ComparisonOperator, ConditionalTemplate, Keyword, Replacement, Selector, Template } from './model'
 
 declare module 'ohm-js' {
   interface Node {
     parseAttribute: () => string
     parseAttributeName: () => string
     parseAttributeSelector: () => string
+    parseComparisonOperator: () => ComparisonOperator
     parseConditionalNodeReplacement: () => Replacement<GraphNode>
-    parseConditionOperator: () => ConditionOperator
     parseKeyword: () => Keyword
     parseLiteralValue: () => string
     parseNodeCondition: () => Condition<GraphNode>

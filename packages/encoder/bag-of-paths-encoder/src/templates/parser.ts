@@ -1,6 +1,6 @@
 import type { GraphNode } from '@cm2ml/ir'
 
-import type { Condition, ConditionalTemplate, ConditionOperator, Keyword, Replacement, Selector, Template } from './model'
+import type { ComparisonOperator, Condition, ConditionalTemplate, Keyword, Replacement, Selector, Template } from './model'
 import grammar from './template.ohm-bundle'
 import type { TemplateSemantics } from './template.ohm-bundle'
 
@@ -21,9 +21,9 @@ const semantics: TemplateSemantics = grammar
       return value.sourceString as Keyword
     },
   })
-  .addOperation<ConditionOperator>('parseConditionOperator()', {
-    ConditionOperator(value) {
-      return value.sourceString as ConditionOperator
+  .addOperation<ComparisonOperator>('parseComparisonOperator()', {
+    ComparisonOperator(value) {
+      return value.sourceString as ComparisonOperator
     },
   })
   .addOperation<Selector<GraphNode>>('parseNodeSelector()', {
@@ -33,14 +33,19 @@ const semantics: TemplateSemantics = grammar
     },
     NodeSelector_keyword(keyword) {
       const parsedKeyword = keyword.parseKeyword()
-      return (node) => node[parsedKeyword]
+      return (node, step) => {
+        if (parsedKeyword === 'step') {
+          return `${step}`
+        }
+        return node[parsedKeyword]
+      }
     },
   })
   .addOperation<Replacement<GraphNode>>('parseNodeReplacement()', {
     NodeReplacement_selector(_, replacement, __) {
-      const parsedReplacement = replacement.parseNodeSelector()
-      return (node) => {
-        const replacementValue = parsedReplacement(node)
+      const parsedSelector = replacement.parseNodeSelector()
+      return (node, step) => {
+        const replacementValue = parsedSelector(node, step)
         return replacementValue ?? ''
       }
     },
@@ -57,28 +62,19 @@ const semantics: TemplateSemantics = grammar
     },
   })
   .addOperation<Condition<GraphNode>>('parseNodeCondition()', {
-    NodeCondition(selector, operator, target) {
+    NodeCondition(selector, operator, literal) {
       const parsedSelector = selector.parseNodeSelector()
-      const parsedOperator = operator.parseConditionOperator()
-      const parsedTarget = target.parseLiteralValue()
-      return (node) => {
-        const value = parsedSelector(node)
-        if (parsedOperator === '=') {
-          return value === parsedTarget
-        }
-        if (parsedOperator === '!=') {
-          return value !== parsedTarget
-        }
-        throw new Error(`Unknown operator: ${parsedOperator}. This is an internal error.`)
-      }
+      const parsedOperator = operator.parseComparisonOperator()
+      const parsedLiteral = literal.parseLiteralValue()
+      return (node, step) => compareValues(parsedOperator, parsedSelector(node, step), parsedLiteral)
     },
   })
   .addOperation<Replacement<GraphNode>>('parseConditionalNodeReplacement()', {
     ConditionalNodeReplacement(_, condition, __, replacement, ___) {
       const parsedCondition = condition.parseNodeCondition()
       const parsedReplacement = replacement.parseNodeReplacement()
-      return (node, partialReplacement) => {
-        return parsedCondition(node) ? parsedReplacement(node, partialReplacement) : ''
+      return (node, step) => {
+        return parsedCondition(node, step) ? parsedReplacement(node, step) : ''
       }
     },
   })
@@ -94,11 +90,11 @@ const semantics: TemplateSemantics = grammar
     NodeTemplateBase(segments) {
       // Reverse direction to not change the indices when applying the replacements
       const parsedSegments = segments.asIteration().children.map((segment) => ({ source: segment.source, parsed: segment.parseNodeSegment() })).reverse()
-      return (node) => {
+      return (node, step) => {
         let result = segments.source.sourceString
         for (const { source, parsed } of parsedSegments) {
           const { startIdx, endIdx } = source
-          const replacementValue = parsed(node, result)
+          const replacementValue = parsed(node, step)
           result = `${result.slice(0, startIdx)}${replacementValue}${result.slice(endIdx)}`
         }
         return result.slice(segments.source.startIdx)
@@ -112,19 +108,70 @@ const semantics: TemplateSemantics = grammar
     NodeTemplate_conditionalTemplate(_, condition, __, template) {
       const parsedCondition = condition.parseNodeCondition()
       const parsedTemplate = template.parseNodeTemplateBase()
-      return (node) => {
-        if (!parsedCondition(node)) {
+      return (node, step) => {
+        if (!parsedCondition(node, step)) {
           return undefined
         }
-        const applied = parsedTemplate(node)
-        return applied
+        return parsedTemplate(node, step)
       }
     },
   })
-export function compileTemplate(formula: string): Template<GraphNode> {
-  const matchResult = grammar.match(formula, 'NodeTemplate')
+
+export function compileNodeTemplate(template: string): Template<GraphNode> {
+  const matchResult = grammar.match(template, 'NodeTemplate')
   if (matchResult.succeeded()) {
     return semantics(matchResult).parseNodeTemplate()
   }
   throw new Error(matchResult.message ?? 'An unknown error occurred')
+}
+
+function compareValues(operator: ComparisonOperator, a: string | undefined, b: string): boolean {
+  if (a === undefined) {
+    return false
+  }
+  const aNumeric = Number(a)
+  const bNumeric = Number(b)
+  if (isNaN(aNumeric) || isNaN(bNumeric)) {
+    return compareStringValues(operator, a, b)
+  }
+  return compareNumericValues(operator, aNumeric, bNumeric)
+}
+
+function compareNumericValues(operator: ComparisonOperator, a: number, b: number): boolean {
+  switch (operator) {
+    case '=':
+      return a === b
+    case '!=':
+      return a !== b
+    case '<':
+      return a < b
+    case '<=':
+      return a <= b
+    case '>':
+      return a > b
+    case '>=':
+      return a >= b
+    default:
+      throw new Error(`Unknown operator: ${operator}. This is an internal error.`)
+  }
+}
+
+function compareStringValues(operator: ComparisonOperator, a: string, b: string): boolean {
+  const result = a.localeCompare(b)
+  switch (operator) {
+    case '=':
+      return result === 0
+    case '!=':
+      return result !== 0
+    case '<':
+      return result < 0
+    case '<=':
+      return result <= 0
+    case '>':
+      return result > 0
+    case '>=':
+      return result >= 0
+    default:
+      throw new Error(`Unknown operator: ${operator}. This is an internal error.`)
+  }
 }
