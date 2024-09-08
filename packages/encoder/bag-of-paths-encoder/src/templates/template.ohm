@@ -24,12 +24,17 @@ Template {
   NodeSelector
     = Keyword -- keyword
     | AttributeSelector -- attribute
+    | PathSelector -- path
 
-  Keyword =  "id" | "name" | "step" | "tag" | "type"
+  Keyword =  "id" | "name" | "tag" | "type"
 
   AttributeSelector = "attr." AttributeName
 
   AttributeName = (letter | ":")+
+
+  PathSelector = "path." PathKey
+
+  PathKey = "length" | "step"
 
   LiteralValue = (letter | digit | ":" | "." | "," | "=" | "<" | ">" | "(" | ")")+
 }

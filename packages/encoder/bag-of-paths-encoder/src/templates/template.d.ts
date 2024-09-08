@@ -1,6 +1,6 @@
-import type { GraphNode } from '@cm2ml/ir'
+import type { GraphNode, ModelMember } from '@cm2ml/ir'
 
-import type { Condition, ComparisonOperator, ConditionalTemplate, Keyword, Replacement, Selector, Template } from './model'
+import type { Condition, ComparisonOperator, ConditionalTemplate, Keyword, Replacement, Selector, Template, PathContextKey } from './model'
 
 declare module 'ohm-js' {
   interface Node {
@@ -17,6 +17,8 @@ declare module 'ohm-js' {
     parseNodeSelector: () => Selector<GraphNode>
     parseNodeTemplate: () => Template<GraphNode> | ConditionalTemplate<GraphNode>
     parseNodeTemplateBase: () => Template<GraphNode>
+    parsePathSelector: () => Selector<ModelMember>
+    parsePathKey: () => PathContextKey
   }
 
   interface Dict {

@@ -1,6 +1,6 @@
-import type { GraphNode } from '@cm2ml/ir'
+import type { GraphNode, ModelMember } from '@cm2ml/ir'
 
-import type { ComparisonOperator, Condition, ConditionalTemplate, Keyword, Replacement, Selector, Template } from './model'
+import type { PathContextKey, ComparisonOperator, Condition, ConditionalTemplate, Keyword, Replacement, Selector, Template } from './model'
 import grammar from './template.ohm-bundle'
 import type { TemplateSemantics } from './template.ohm-bundle'
 
@@ -26,6 +26,17 @@ const semantics: TemplateSemantics = grammar
       return value.sourceString as ComparisonOperator
     },
   })
+  .addOperation<PathContextKey>('parsePathKey()', {
+    PathKey(value) {
+      return value.sourceString as PathContextKey
+    },
+  })
+  .addOperation<Selector<ModelMember>>('parsePathSelector()', {
+    PathSelector(_, path) {
+      const pathValue = path.parsePathKey()
+      return (_node, context) => `${context[pathValue]}`
+    },
+  })
   .addOperation<Selector<GraphNode>>('parseNodeSelector()', {
     NodeSelector_attribute(attribute) {
       const parsedAttribute = attribute.parseAttributeSelector()
@@ -33,12 +44,10 @@ const semantics: TemplateSemantics = grammar
     },
     NodeSelector_keyword(keyword) {
       const parsedKeyword = keyword.parseKeyword()
-      return (node, step) => {
-        if (parsedKeyword === 'step') {
-          return `${step}`
-        }
-        return node[parsedKeyword]
-      }
+      return (node) => node[parsedKeyword]
+    },
+    NodeSelector_path(path) {
+      return path.parsePathSelector()
     },
   })
   .addOperation<Replacement<GraphNode>>('parseNodeReplacement()', {

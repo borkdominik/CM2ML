@@ -165,7 +165,7 @@ function encodePath(steps: number[], nodes: GraphNode[], templates: Template<Gra
       parts.push(cachedValue)
       return
     }
-    const mappedNode = Stream.from(templates).map((template) => template(node, stepIndex)).find((part) => part !== undefined) ?? null
+    const mappedNode = Stream.from(templates).map((template) => template(node, { length: steps.length - 1, step: stepIndex })).find((part) => part !== undefined) ?? null
     nodeCache.set(node, mappedNode)
     parts.push(mappedNode)
   })
