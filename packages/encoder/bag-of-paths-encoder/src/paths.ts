@@ -3,7 +3,7 @@ import { Stream } from '@yeger/streams'
 
 import type { PathParameters, PathWeight } from './bop-types'
 import { validatePathParameters } from './bop-validationts'
-import type { Template } from './templates/model'
+import type { PathContext, Template } from './templates/model'
 import { compileNodeTemplate } from './templates/parser'
 
 export interface PathData {
@@ -48,7 +48,7 @@ export function collectPaths(model: GraphModel, parameters: PathParameters) {
     .toArray()
     .sort(pathOrder(parameters.order))
   const compiledTemplates = parameters.nodeTemplates.map((template) => compileNodeTemplate(template))
-  const cache: Cache = []
+  const cache: Cache = {}
   const includedPaths = parameters.maxPaths > 0 ? paths.slice(0, parameters.maxPaths) : paths
   const nodeArray = nodes.toArray()
   return includedPaths.map((path) => ({
@@ -147,7 +147,7 @@ function reduceWeights(weights: number[], type: PathWeight) {
   throw new Error(`Unsupported weight reduction: ${type}`)
 }
 
-type Cache = Map<GraphNode, string | null>[]
+type Cache = Record<string, Map<GraphNode, string | null>>
 
 function encodePath(steps: number[], nodes: GraphNode[], templates: Template<GraphNode>[], cache: Cache) {
   const parts: (string | null)[] = []
@@ -156,16 +156,16 @@ function encodePath(steps: number[], nodes: GraphNode[], templates: Template<Gra
     if (!node) {
       throw new Error(`Node index out-of-bounds. This is an internal error.`)
     }
-    if (cache.length <= stepIndex) {
-      cache[stepIndex] = new Map<GraphNode, string | null>()
-    }
-    const nodeCache = cache[stepIndex]!
+    const context: PathContext = { step: stepIndex, length: steps.length - 1 }
+    const contextKey = JSON.stringify(context)
+    cache[contextKey] ??= new Map<GraphNode, string | null>()
+    const nodeCache = cache[contextKey]!
     const cachedValue = nodeCache.get(node)
     if (cachedValue !== undefined) {
       parts.push(cachedValue)
       return
     }
-    const mappedNode = Stream.from(templates).map((template) => template(node, { length: steps.length - 1, step: stepIndex })).find((part) => part !== undefined) ?? null
+    const mappedNode = Stream.from(templates).map((template) => template(node, context)).find((part) => part !== undefined) ?? null
     nodeCache.set(node, mappedNode)
     parts.push(mappedNode)
   })

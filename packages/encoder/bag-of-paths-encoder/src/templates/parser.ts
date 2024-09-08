@@ -53,8 +53,8 @@ const semantics: TemplateSemantics = grammar
   .addOperation<Replacement<GraphNode>>('parseNodeReplacement()', {
     NodeReplacement_selector(_, replacement, __) {
       const parsedSelector = replacement.parseNodeSelector()
-      return (node, step) => {
-        const replacementValue = parsedSelector(node, step)
+      return (node, context) => {
+        const replacementValue = parsedSelector(node, context)
         return replacementValue ?? ''
       }
     },
@@ -71,19 +71,23 @@ const semantics: TemplateSemantics = grammar
     },
   })
   .addOperation<Condition<GraphNode>>('parseNodeCondition()', {
-    NodeCondition(selector, operator, literal) {
+    NodeCondition_comparison(selector, operator, literal) {
       const parsedSelector = selector.parseNodeSelector()
       const parsedOperator = operator.parseComparisonOperator()
       const parsedLiteral = literal.parseLiteralValue()
-      return (node, step) => compareValues(parsedOperator, parsedSelector(node, step), parsedLiteral)
+      return (node, context) => compareValues(parsedOperator, parsedSelector(node, context), parsedLiteral)
+    },
+    NodeCondition_exists(selector, _) {
+      const parsedSelector = selector.parseNodeSelector()
+      return (node, context) => parsedSelector(node, context) !== undefined
     },
   })
   .addOperation<Replacement<GraphNode>>('parseConditionalNodeReplacement()', {
     ConditionalNodeReplacement(_, condition, __, replacement, ___) {
       const parsedCondition = condition.parseNodeCondition()
       const parsedReplacement = replacement.asIteration().children.map((segment) => segment.parseNodeReplacement())
-      return (node, step) => {
-        return parsedCondition(node, step) ? parsedReplacement.map((replacement) => replacement(node, step)).join('') : ''
+      return (node, context) => {
+        return parsedCondition(node, context) ? parsedReplacement.map((replacement) => replacement(node, context)).join('') : ''
       }
     },
   })
@@ -99,11 +103,11 @@ const semantics: TemplateSemantics = grammar
     NodeTemplateBase(segments) {
       // Reverse direction to not change the indices when applying the replacements
       const parsedSegments = segments.asIteration().children.map((segment) => ({ source: segment.source, segment: segment.parseNodeSegment() })).reverse()
-      return (node, step) => {
+      return (node, context) => {
         let result = segments.source.sourceString
         for (const { source, segment } of parsedSegments) {
           const { startIdx, endIdx } = source
-          const replacementValue = segment(node, step)
+          const replacementValue = segment(node, context)
           result = `${result.slice(0, startIdx)}${replacementValue}${result.slice(endIdx)}`
         }
         return result.slice(segments.source.startIdx)
@@ -117,11 +121,11 @@ const semantics: TemplateSemantics = grammar
     NodeTemplate_conditionalTemplate(_, condition, __, template) {
       const parsedCondition = condition.parseNodeCondition()
       const parsedTemplate = template.parseNodeTemplateBase()
-      return (node, step) => {
-        if (!parsedCondition(node, step)) {
+      return (node, context) => {
+        if (!parsedCondition(node, context)) {
           return undefined
         }
-        return parsedTemplate(node, step)
+        return parsedTemplate(node, context)
       }
     },
   })

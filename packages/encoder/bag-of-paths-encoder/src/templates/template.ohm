@@ -15,7 +15,9 @@ Template {
 
   ConditionalNodeReplacement = "[[" NodeCondition "->" NonemptyListOf<NodeReplacement, letter*> "]]"
 
-  NodeCondition = NodeSelector ComparisonOperator LiteralValue
+  NodeCondition
+    = NodeSelector ComparisonOperator LiteralValue -- comparison
+    | NodeSelector ".exists" -- exists
 
   ComparisonOperator = "=" | "!=" | "<=" | ">=" | "<" | ">"
 

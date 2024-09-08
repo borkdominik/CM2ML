@@ -53,6 +53,15 @@ describe('parser', () => {
       })
     })
 
+    describe('exists', () => {
+      it('parses attribute existence', () => {
+        const negativeTemplate = compileNodeTemplate('@attr.unknown.exists -> should not appear')
+        const positiveTemplate = compileNodeTemplate('@attr.id.exists -> should appear')
+        expect(negativeTemplate(testModel.root, { length: 0, step: 0 })).toBe(undefined)
+        expect(positiveTemplate(testModel.root, { length: 0, step: 0 })).toBe('should appear')
+      })
+    })
+
     describe('comparison operators', () => {
       describe('for numbers', () => {
         it('parses equality', () => {
