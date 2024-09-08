@@ -18,6 +18,7 @@ Template {
   NodeCondition
     = NodeSelector ComparisonOperator LiteralValue -- comparison
     | NodeSelector ".exists" -- exists
+    | NodeSelector ".not.exists" -- notExists
 
   ComparisonOperator = "=" | "!=" | "<=" | ">=" | "<" | ">"
 

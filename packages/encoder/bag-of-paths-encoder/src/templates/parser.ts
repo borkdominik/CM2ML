@@ -81,6 +81,10 @@ const semantics: TemplateSemantics = grammar
       const parsedSelector = selector.parseNodeSelector()
       return (node, context) => parsedSelector(node, context) !== undefined
     },
+    NodeCondition_notExists(selector, _) {
+      const parsedSelector = selector.parseNodeSelector()
+      return (node, context) => parsedSelector(node, context) === undefined
+    },
   })
   .addOperation<Replacement<GraphNode>>('parseConditionalNodeReplacement()', {
     ConditionalNodeReplacement(_, condition, __, replacement, ___) {

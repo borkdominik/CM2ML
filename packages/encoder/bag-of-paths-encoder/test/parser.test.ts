@@ -20,13 +20,13 @@ describe('parser', () => {
 
   describe('conditions', () => {
     it('parses conditional replacements', () => {
-      const template = compileNodeTemplate('{{attr.id}} with type [[attr.id=root-><<{{attr.type}}>>]][[id=a->other]]')
+      const template = compileNodeTemplate('{{attr.id}} with type [[attr.id=root -> <<{{attr.type}}>>]][[id=a -> other]]')
       expect(template(testModel.root, { length: 0, step: 0 })).toBe('root with type <<node>>')
       expect(template(testModel.getNodeById('a')!, { length: 0, step: 0 })).toBe('a with type other')
     })
 
     it('parses negated conditional replacements', () => {
-      const template = compileNodeTemplate('{{attr.id}} with type [[attr.id=root-><<root>>]][[id!=root->other]]')
+      const template = compileNodeTemplate('{{attr.id}} with type [[attr.id=root -> <<root>>]][[id!=root -> other]]')
       expect(template(testModel.root, { length: 0, step: 0 })).toBe('root with type <<root>>')
       expect(template(testModel.getNodeById('a')!, { length: 0, step: 0 })).toBe('a with type other')
     })
@@ -57,6 +57,13 @@ describe('parser', () => {
       it('parses attribute existence', () => {
         const negativeTemplate = compileNodeTemplate('@attr.unknown.exists -> should not appear')
         const positiveTemplate = compileNodeTemplate('@attr.id.exists -> should appear')
+        expect(negativeTemplate(testModel.root, { length: 0, step: 0 })).toBe(undefined)
+        expect(positiveTemplate(testModel.root, { length: 0, step: 0 })).toBe('should appear')
+      })
+
+      it('parses attribute non-existence', () => {
+        const positiveTemplate = compileNodeTemplate('@attr.unknown.not.exists -> should appear')
+        const negativeTemplate = compileNodeTemplate('@attr.id.not.exists -> should not appear')
         expect(negativeTemplate(testModel.root, { length: 0, step: 0 })).toBe(undefined)
         expect(positiveTemplate(testModel.root, { length: 0, step: 0 })).toBe('should appear')
       })
