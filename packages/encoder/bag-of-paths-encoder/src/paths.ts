@@ -32,6 +32,7 @@ export function collectPaths(model: GraphModel, parameters: PathParameters) {
   const nodes = Stream.from(model.nodes)
   const indexMap = new Map(nodes.map((node, i) => [node, i]))
   const getNodeIndex = (node: GraphNode) => indexMap.get(node)!
+  const cache: Map<GraphNode, Record<number, string | null>> = new Map()
   const paths = nodes
     .flatMap((node) => Path.from(node, parameters))
     .filter((path) => path.steps.length >= parameters.minPathLength)
@@ -40,7 +41,7 @@ export function collectPaths(model: GraphModel, parameters: PathParameters) {
       const steps = [getNodeIndex(path.startNode), ...path.steps.map((step) => getNodeIndex(step.target))]
       return {
         steps,
-        encodedSteps: encodePath(steps, nodes.toArray(), compiledTemplates),
+        encodedSteps: encodePath(steps, nodes.toArray(), compiledTemplates, cache),
         stepWeights,
         weight: reduceWeights(stepWeights, parameters.pathWeight),
       }
@@ -147,15 +148,24 @@ function reduceWeights(weights: number[], type: PathWeight) {
   throw new Error(`Unsupported weight reduction: ${type}`)
 }
 
-function encodePath(steps: number[], nodes: GraphNode[], templates: Template<GraphNode>[]) {
+function encodePath(steps: number[], nodes: GraphNode[], templates: Template<GraphNode>[], cache: Map<GraphNode, Record<number, string | null>>) {
   const parts: (string | null)[] = []
   steps.forEach((step, stepIndex) => {
     const node = nodes[step]
     if (!node) {
       throw new Error(`Node index out-of-bounds. This is an internal error.`)
     }
-    const mapped = Stream.from(templates).map((template) => template(node, stepIndex)).find((part) => part !== undefined)
-    parts.push(mapped ?? null)
+    if (!cache.has(node)) {
+      cache.set(node, {})
+    }
+    const nodeCache = cache.get(node)!
+    if (nodeCache[stepIndex] !== undefined) {
+      parts.push(nodeCache[stepIndex])
+      return
+    }
+    const mappedNode = Stream.from(templates).map((template) => template(node, stepIndex)).find((part) => part !== undefined) ?? null
+    nodeCache[stepIndex] = mappedNode
+    parts.push(mappedNode)
   })
   // TODO/Jan: Also encode the edges
   return parts
