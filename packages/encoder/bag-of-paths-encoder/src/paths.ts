@@ -71,7 +71,7 @@ class Path {
     return this.nodeSet.has(node)
   }
 
-  private follow(isInitial = false): Stream<Path> {
+  private follow(): Stream<Path> {
     if (this.steps.length > this.parameters.maxPathLength) {
       throw new Error('Path is too long. This is an internal error.')
     }
@@ -103,10 +103,7 @@ class Path {
       .from(edgeGroups.values())
       .map((edges) => new Step(edges, this.parameters))
       .flatMap((step) => this.extendPath(step))
-    if (this.parameters.includeSubpaths || isInitial) {
-      return nextStream.append(this)
-    }
-    return nextStream
+    return nextStream.append(this)
   }
 
   private extendPath(step: Step) {
@@ -114,7 +111,7 @@ class Path {
   }
 
   public static from(start: GraphNode, parameters: PathParameters) {
-    return new Path(start, start, [], parameters).follow(true)
+    return new Path(start, start, [], parameters).follow()
   }
 }
 

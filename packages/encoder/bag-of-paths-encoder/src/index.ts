@@ -20,12 +20,6 @@ const PathBuilder = definePlugin({
       description: 'Allow cycles in paths',
       group: 'Paths',
     },
-    includeSubpaths: {
-      type: 'boolean',
-      defaultValue: false,
-      description: 'Include subpaths, i.e., enable early termination',
-      group: 'Paths',
-    },
     minPathLength: {
       type: 'number',
       defaultValue: 2,

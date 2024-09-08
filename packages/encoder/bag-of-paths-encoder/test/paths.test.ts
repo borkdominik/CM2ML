@@ -9,7 +9,6 @@ describe('paths', () => {
     const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
     const paths = collectPaths(model, {
       allowCycles: false,
-      includeSubpaths: false,
       minPathLength: 1,
       maxPathLength: 3,
       stepWeight: 'edge-count',
@@ -43,6 +42,20 @@ describe('paths', () => {
             null,
           ],
           "stepWeights": [
+            2,
+          ],
+          "steps": [
+            1,
+            2,
+          ],
+          "weight": 1,
+        },
+        {
+          "encodedSteps": [
+            null,
+            null,
+          ],
+          "stepWeights": [
             1,
           ],
           "steps": [
@@ -59,7 +72,6 @@ describe('paths', () => {
     const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['b', 'a'], ['b', 'c']])
     const paths = collectPaths(model, {
       allowCycles: true,
-      includeSubpaths: false,
       minPathLength: 1,
       maxPathLength: 3,
       stepWeight: 'edge-count',
@@ -91,7 +103,25 @@ describe('paths', () => {
         [
           1,
           2,
+          1,
+        ],
+        [
+          1,
+          2,
           3,
+        ],
+        [
+          2,
+          1,
+          2,
+        ],
+        [
+          1,
+          2,
+        ],
+        [
+          2,
+          1,
         ],
         [
           2,
@@ -105,7 +135,6 @@ describe('paths', () => {
     const model = createTestModel(['a', 'b', 'c', 'd'], [['a', 'b'], ['b', 'c'], ['c', 'd']])
     const paths = collectPaths(model, {
       allowCycles: false,
-      includeSubpaths: true,
       minPathLength: 1,
       maxPathLength: 3,
       stepWeight: 'edge-count',
@@ -152,7 +181,6 @@ describe('paths', () => {
     const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['b', 'a'], ['b', 'c']])
     const paths = collectPaths(model, {
       allowCycles: true,
-      includeSubpaths: true,
       minPathLength: 1,
       maxPathLength: 3,
       stepWeight: 'edge-count',
@@ -217,7 +245,6 @@ describe('paths', () => {
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
       const paths = collectPaths(model, {
         allowCycles: false,
-        includeSubpaths: false,
         minPathLength: 1,
         maxPathLength: 3,
         stepWeight: 'edge-count',
@@ -253,7 +280,6 @@ describe('paths', () => {
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
       const paths = collectPaths(model, {
         allowCycles: false,
-        includeSubpaths: false,
         minPathLength: 2,
         maxPathLength: 3,
         stepWeight: 'edge-count',
@@ -289,7 +315,6 @@ describe('paths', () => {
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
       const paths = collectPaths(model, {
         allowCycles: false,
-        includeSubpaths: false,
         minPathLength: 1,
         maxPathLength: 1,
         stepWeight: 'edge-count',
@@ -336,7 +361,6 @@ describe('paths', () => {
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['b', 'c']])
       const paths = collectPaths(model, {
         allowCycles: false,
-        includeSubpaths: false,
         minPathLength: 0,
         maxPathLength: 0,
         stepWeight: 'edge-count',
@@ -397,7 +421,6 @@ describe('paths', () => {
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
       const paths = collectPaths(model, {
         allowCycles: false,
-        includeSubpaths: false,
         minPathLength: 2,
         maxPathLength: 3,
         stepWeight: 'edge-count',
@@ -433,7 +456,6 @@ describe('paths', () => {
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c'], ['b', 'c']])
       const paths = collectPaths(model, {
         allowCycles: false,
-        includeSubpaths: false,
         minPathLength: 2,
         maxPathLength: 3,
         stepWeight: 'edge-count',
@@ -469,7 +491,6 @@ describe('paths', () => {
       const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['a', 'b'], ['b', 'c']])
       const paths = collectPaths(model, {
         allowCycles: false,
-        includeSubpaths: false,
         minPathLength: 2,
         maxPathLength: 3,
         stepWeight: 'edge-count',

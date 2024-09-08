@@ -17,7 +17,6 @@ export interface PathParameters {
   pathWeight: PathWeight
   maxPaths: number
   allowCycles: boolean
-  includeSubpaths: boolean
   order: SortOrder
   nodeTemplates: readonly string[]
 }
