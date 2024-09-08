@@ -14,7 +14,7 @@ export interface PathData {
 }
 
 function pathOrder(order: 'asc' | 'desc' | string) {
-  return (a: PathData, b: PathData) => {
+  return (a: Omit<PathData, 'encodedSteps'>, b: Omit<PathData, 'encodedSteps'>) => {
     const multiplier = order === 'asc' ? -1 : 1
     return multiplier * (() => {
       const weightDiff = b.weight - a.weight
@@ -28,20 +28,18 @@ function pathOrder(order: 'asc' | 'desc' | string) {
 
 export function collectPaths(model: GraphModel, parameters: PathParameters) {
   validatePathParameters(parameters)
-  const compiledTemplates = parameters.nodeTemplates.map((template) => compileNodeTemplate(template))
   const nodes = Stream.from(model.nodes)
   const indexMap = new Map(nodes.map((node, i) => [node, i]))
   const getNodeIndex = (node: GraphNode) => indexMap.get(node)!
-  const cache: Cache = []
+
   const paths = nodes
     .flatMap((node) => Path.from(node, parameters))
     .filter((path) => path.steps.length >= parameters.minPathLength)
-    .map<PathData>((path) => {
+    .map<Omit<PathData, 'encodedSteps'>>((path) => {
       const stepWeights = path.steps.map((step) => step.weight)
       const steps = [getNodeIndex(path.startNode), ...path.steps.map((step) => getNodeIndex(step.target))]
       return {
         steps,
-        encodedSteps: encodePath(steps, nodes.toArray(), compiledTemplates, cache),
         stepWeights,
         weight: reduceWeights(stepWeights, parameters.pathWeight),
       }
@@ -49,10 +47,14 @@ export function collectPaths(model: GraphModel, parameters: PathParameters) {
     )
     .toArray()
     .sort(pathOrder(parameters.order))
-  if (parameters.maxPaths > 0) {
-    return paths.slice(0, parameters.maxPaths)
-  }
-  return paths
+  const compiledTemplates = parameters.nodeTemplates.map((template) => compileNodeTemplate(template))
+  const cache: Cache = []
+  const includedPaths = parameters.maxPaths > 0 ? paths.slice(0, parameters.maxPaths) : paths
+  const nodeArray = nodes.toArray()
+  return includedPaths.map((path) => ({
+    ...path,
+    encodedSteps: encodePath(path.steps, nodeArray, compiledTemplates, cache),
+  }))
 }
 
 class Path {
