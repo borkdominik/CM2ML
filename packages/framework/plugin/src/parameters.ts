@@ -7,7 +7,17 @@ export type ListParameterType = `list<string>`
 
 export type ParameterType = PrimitiveParameterType | ListParameterType
 
-export type ParameterBase = Readonly<{ readonly type: ParameterType, readonly description: string, readonly group?: string, readonly displayName?: string }>
+export type ParameterBase = Readonly<{
+  readonly type: ParameterType
+  /**
+   * A *short* description of the parameter.
+   */
+  readonly description: string
+  readonly group?: string
+  readonly displayName?: string
+  /** An optional, longer, and more detailed description of the parameter. */
+  readonly helpText?: string
+}>
 
 export type PrimitiveParameter = ParameterBase & Readonly<
   {

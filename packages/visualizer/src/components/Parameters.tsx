@@ -1,7 +1,7 @@
 import type { Parameter, ParameterMetadata, ParameterType } from '@cm2ml/plugin'
 import type { OnDragEndResponder } from '@hello-pangea/dnd'
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd'
-import { CaretSortIcon, Cross1Icon, DragHandleHorizontalIcon, SymbolIcon, TrashIcon } from '@radix-ui/react-icons'
+import { CaretSortIcon, Cross1Icon, DragHandleHorizontalIcon, QuestionMarkCircledIcon, SymbolIcon, TrashIcon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
 import { useMemo, useState } from 'react'
 
@@ -20,6 +20,7 @@ import {
 import { Combobox } from './ui/combobox'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
 
 export type ParameterValues = Record<string, boolean |
   number |
@@ -200,7 +201,7 @@ function BooleanParameter({
         />
         <ParameterLabel name={name} label={label} />
       </div>
-      <Description description={parameter.description} />
+      <Description description={parameter.description} helpText={parameter.helpText} />
     </Container>
   )
 }
@@ -222,7 +223,7 @@ function NumberParameter({
         onChange={(event) => onChange(Number(event.target.value))}
       />
 
-      <Description description={parameter.description} />
+      <Description description={parameter.description} helpText={parameter.helpText} />
     </Container>
   )
 }
@@ -248,7 +249,7 @@ function StringParameter({
     <Container>
       <ParameterLabel name={name} label={label} />
       {input}
-      <Description description={parameter.description} />
+      <Description description={parameter.description} helpText={parameter.helpText} />
     </Container>
   )
 }
@@ -323,7 +324,7 @@ function StringListInput({
             </CollapsibleTrigger>
             <ParameterLabel name={name} label={label} />
           </div>
-          <Description description={parameter.description} />
+          <Description description={parameter.description} helpText={parameter.helpText} />
         </Container>
         <CollapsibleContent>
           <Container>
@@ -452,11 +453,27 @@ function ParameterLabel({ name, label }: { name: string, label: string }) {
   )
 }
 
-function Description({ description }: { description: string }) {
+function Description({ description, helpText }: { description: string, helpText: string | undefined }) {
   return (
-    <span className="text-muted-foreground cursor-default text-balance text-xs">
-      {description}
-    </span>
+    <div className="text-muted-foreground flex cursor-default items-center gap-2 text-balance text-xs">
+      <span>
+        {description}
+      </span>
+      {helpText
+        ? (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <QuestionMarkCircledIcon className="size-4" />
+                </TooltipTrigger>
+                <TooltipContent className="whitespace-pre">
+                  { helpText }
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )
+        : null}
+    </div>
   )
 }
 

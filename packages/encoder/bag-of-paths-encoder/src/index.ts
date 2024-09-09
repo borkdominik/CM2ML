@@ -66,6 +66,7 @@ const PathBuilder = definePlugin({
       defaultValue: ['{{name}}.{{type}}'],
       description: 'Template for encoding nodes of paths',
       group: 'Encoding',
+      helpText: __GRAMMAR,
     },
   },
   invoke: ({ data, metadata }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
