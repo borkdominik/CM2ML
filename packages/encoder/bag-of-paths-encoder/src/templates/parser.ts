@@ -1,6 +1,6 @@
-import type { GraphNode, ModelMember } from '@cm2ml/ir'
+import type { GraphEdge, GraphNode, ModelMember } from '@cm2ml/ir'
 
-import type { PathContextKey, ComparisonOperator, Condition, ConditionalTemplate, Keyword, Replacement, Selector, Template } from './model'
+import type { PathContextKey, ComparisonOperator, Condition, ConditionalTemplate, Replacement, Selector, Template, NodeKeyword, EdgeKeyword } from './model'
 import grammar from './template.ohm-bundle'
 import type { TemplateSemantics } from './template.ohm-bundle'
 
@@ -16,9 +16,14 @@ const semantics: TemplateSemantics = grammar
       return attribute.parseAttributeName()
     },
   })
-  .addOperation<Keyword>('parseKeyword()', {
-    Keyword(value) {
-      return value.sourceString as Keyword
+  .addOperation<NodeKeyword>('parseNodeKeyword()', {
+    NodeKeyword(value) {
+      return value.sourceString as NodeKeyword
+    },
+  })
+  .addOperation<EdgeKeyword>('parseEdgeKeyword()', {
+    EdgeKeyword(value) {
+      return value.sourceString as EdgeKeyword
     },
   })
   .addOperation<ComparisonOperator>('parseComparisonOperator()', {
@@ -43,10 +48,23 @@ const semantics: TemplateSemantics = grammar
       return (node) => node.attributes.get(parsedAttribute)?.value.literal
     },
     NodeSelector_keyword(keyword) {
-      const parsedKeyword = keyword.parseKeyword()
+      const parsedKeyword = keyword.parseNodeKeyword()
       return (node) => node[parsedKeyword]
     },
     NodeSelector_path(path) {
+      return path.parsePathSelector()
+    },
+  })
+  .addOperation<Selector<GraphEdge>>('parseEdgeSelector()', {
+    EdgeSelector_attribute(attribute) {
+      const parsedAttribute = attribute.parseAttributeSelector()
+      return (edge) => edge.attributes.get(parsedAttribute)?.value.literal
+    },
+    EdgeSelector_keyword(keyword) {
+      const parsedKeyword = keyword.parseEdgeKeyword()
+      return (edge) => edge[parsedKeyword]
+    },
+    EdgeSelector_path(path) {
       return path.parsePathSelector()
     },
   })
@@ -60,9 +78,20 @@ const semantics: TemplateSemantics = grammar
     },
     NodeReplacement_literal(replacement) {
       const replacementValue = replacement.parseLiteralValue()
-      return (_node) => {
+      return () => replacementValue
+    },
+  })
+  .addOperation<Replacement<GraphEdge>>('parseEdgeReplacement()', {
+    EdgeReplacement_selector(_, replacement, __) {
+      const parsedSelector = replacement.parseEdgeSelector()
+      return (edge, context) => {
+        const replacementValue = parsedSelector(edge, context)
         return replacementValue ?? ''
       }
+    },
+    EdgeReplacement_literal(replacement) {
+      const replacementValue = replacement.parseLiteralValue()
+      return () => replacementValue
     },
   })
   .addOperation<string>('parseLiteralValue()', {
@@ -86,12 +115,37 @@ const semantics: TemplateSemantics = grammar
       return (node, context) => parsedSelector(node, context) === undefined
     },
   })
+  .addOperation<Condition<GraphEdge>>('parseEdgeCondition()', {
+    EdgeCondition_comparison(selector, operator, literal) {
+      const parsedSelector = selector.parseEdgeSelector()
+      const parsedOperator = operator.parseComparisonOperator()
+      const parsedLiteral = literal.parseLiteralValue()
+      return (edge, context) => compareValues(parsedOperator, parsedSelector(edge, context), parsedLiteral)
+    },
+    EdgeCondition_exists(selector, _) {
+      const parsedSelector = selector.parseEdgeSelector()
+      return (edge, context) => parsedSelector(edge, context) !== undefined
+    },
+    EdgeCondition_notExists(selector, _) {
+      const parsedSelector = selector.parseEdgeSelector()
+      return (edge, context) => parsedSelector(edge, context) === undefined
+    },
+  })
   .addOperation<Replacement<GraphNode>>('parseConditionalNodeReplacement()', {
     ConditionalNodeReplacement(_, condition, __, replacement, ___) {
       const parsedCondition = condition.parseNodeCondition()
       const parsedReplacement = replacement.asIteration().children.map((segment) => segment.parseNodeReplacement())
       return (node, context) => {
         return parsedCondition(node, context) ? parsedReplacement.map((replacement) => replacement(node, context)).join('') : ''
+      }
+    },
+  })
+  .addOperation<Replacement<GraphEdge>>('parseConditionalEdgeReplacement()', {
+    ConditionalEdgeReplacement(_, condition, __, replacement, ___) {
+      const parsedCondition = condition.parseEdgeCondition()
+      const parsedReplacement = replacement.asIteration().children.map((segment) => segment.parseEdgeReplacement())
+      return (edge, context) => {
+        return parsedCondition(edge, context) ? parsedReplacement.map((replacement) => replacement(edge, context)).join('') : ''
       }
     },
   })
@@ -103,6 +157,14 @@ const semantics: TemplateSemantics = grammar
       return conditionalReplacement.parseConditionalNodeReplacement()
     },
   })
+  .addOperation<Replacement<GraphEdge>>('parseEdgeSegment()', {
+    EdgeSegment_replacement(replacement) {
+      return replacement.parseEdgeReplacement()
+    },
+    EdgeSegment_conditionalReplacement(conditionalReplacement) {
+      return conditionalReplacement.parseConditionalEdgeReplacement()
+    },
+  })
   .addOperation<Template<GraphNode>>('parseNodeTemplateBase()', {
     NodeTemplateBase(segments) {
       // Reverse direction to not change the indices when applying the replacements
@@ -112,6 +174,21 @@ const semantics: TemplateSemantics = grammar
         for (const { source, segment } of parsedSegments) {
           const { startIdx, endIdx } = source
           const replacementValue = segment(node, context)
+          result = `${result.slice(0, startIdx)}${replacementValue}${result.slice(endIdx)}`
+        }
+        return result.slice(segments.source.startIdx)
+      }
+    },
+  })
+  .addOperation<Template<GraphEdge>>('parseEdgeTemplateBase()', {
+    EdgeTemplateBase(segments) {
+      // Reverse direction to not change the indices when applying the replacements
+      const parsedSegments = segments.asIteration().children.map((segment) => ({ source: segment.source, segment: segment.parseEdgeSegment() })).reverse()
+      return (edge, context) => {
+        let result = segments.source.sourceString
+        for (const { source, segment } of parsedSegments) {
+          const { startIdx, endIdx } = source
+          const replacementValue = segment(edge, context)
           result = `${result.slice(0, startIdx)}${replacementValue}${result.slice(endIdx)}`
         }
         return result.slice(segments.source.startIdx)
@@ -133,11 +210,43 @@ const semantics: TemplateSemantics = grammar
       }
     },
   })
+  .addOperation<Template<GraphEdge> | ConditionalTemplate<GraphEdge>>('parseEdgeTemplate()', {
+    EdgeTemplate_template(template) {
+      return template.parseEdgeTemplateBase()
+    },
+    EdgeTemplate_conditionalTemplate(_, condition, __, template) {
+      const parsedCondition = condition.parseEdgeCondition()
+      const parsedTemplate = template.parseEdgeTemplateBase()
+      return (edge, context) => {
+        if (!parsedCondition(edge, context)) {
+          return undefined
+        }
+        return parsedTemplate(edge, context)
+      }
+    },
+  })
 
 export function compileNodeTemplate(template: string): Template<GraphNode> {
   const matchResult = grammar.match(template, 'NodeTemplate')
   if (matchResult.succeeded()) {
     return semantics(matchResult).parseNodeTemplate()
+  }
+  throw new Error(matchResult.message ?? 'An unknown error occurred')
+}
+
+export function compileEdgeTemplate(template: string): Template<GraphEdge> {
+  const matchResult = grammar.match(template, 'EdgeTemplate')
+  if (matchResult.succeeded()) {
+    const parsed = semantics(matchResult).parseEdgeTemplate()
+    return (edge, context) => {
+      if (context.length === 0) {
+        throw new Error('Cannot encode edge for zero-length path')
+      }
+      if (context.step === 0) {
+        throw new Error('Cannot encode edge for zero-step. Edge step indices are 1-based.')
+      }
+      return parsed(edge, context)
+    }
   }
   throw new Error(matchResult.message ?? 'An unknown error occurred')
 }

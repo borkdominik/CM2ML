@@ -2,7 +2,9 @@ import type { ModelMember } from '@cm2ml/ir'
 
 export type ComparisonOperator = '=' | '!=' | '<' | '<=' | '>' | '>='
 
-export type Keyword = 'id' | 'name' | 'tag' | 'type'
+export type EdgeKeyword = 'tag'
+
+export type NodeKeyword = 'id' | 'name' | 'tag' | 'type'
 
 export interface PathContext {
   step: number

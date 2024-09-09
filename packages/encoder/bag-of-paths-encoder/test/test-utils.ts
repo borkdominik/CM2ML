@@ -26,6 +26,7 @@ export function createTestModel(nodes: string[], edges: [string, string][] | (re
       throw new Error(`Invalid edge: ${sourceId}-${targetId}`)
     }
     const edge = model.addEdge('edge', source, target)
+    edge.id = `${sourceId}-${targetId}`
     edge.type = 'edge'
   })
   return model

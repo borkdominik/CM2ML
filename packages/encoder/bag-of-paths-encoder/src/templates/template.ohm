@@ -1,35 +1,63 @@
 Template {
   NodeTemplate
     = NodeTemplateBase -- template
-    | "@" NodeCondition "->" NodeTemplateBase -- conditionalTemplate
+    | "@" NodeCondition ">>>" NodeTemplateBase -- conditionalTemplate
+
+  EdgeTemplate
+    = EdgeTemplateBase -- template
+    | "@" EdgeCondition ">>>" EdgeTemplateBase -- conditionalTemplate
 
   NodeTemplateBase = NonemptyListOf<NodeSegment, letter*>
+
+  EdgeTemplateBase = NonemptyListOf<EdgeSegment, letter*>
 
   NodeSegment
     = NodeReplacement -- replacement
     | ConditionalNodeReplacement -- conditionalReplacement
 
+  EdgeSegment
+    = EdgeReplacement -- replacement
+    | ConditionalEdgeReplacement -- conditionalReplacement
+
   NodeReplacement
     = "{{" NodeSelector "}}" -- selector
     | LiteralValue -- literal
 
-  ConditionalNodeReplacement = "[[" NodeCondition "->" NonemptyListOf<NodeReplacement, letter*> "]]"
+  EdgeReplacement
+    = "{{" EdgeSelector "}}" -- selector
+    | LiteralValue -- literal
+
+  ConditionalNodeReplacement = "[[" NodeCondition ">>" NonemptyListOf<NodeReplacement, letter*> "]]"
+
+  ConditionalEdgeReplacement = "[[" EdgeCondition ">>" NonemptyListOf<EdgeReplacement, letter*> "]]"
 
   NodeCondition
     = NodeSelector ComparisonOperator LiteralValue -- comparison
     | NodeSelector ".exists" -- exists
     | NodeSelector ".not.exists" -- notExists
 
+  EdgeCondition
+    = EdgeSelector ComparisonOperator LiteralValue -- comparison
+    | EdgeSelector ".exists" -- exists
+    | EdgeSelector ".not.exists" -- notExists
+
   ComparisonOperator = "=" | "!=" | "<=" | ">=" | "<" | ">"
 
   Literal = letter+
 
   NodeSelector
-    = Keyword -- keyword
+    = NodeKeyword -- keyword
     | AttributeSelector -- attribute
     | PathSelector -- path
 
-  Keyword =  "id" | "name" | "tag" | "type"
+  EdgeSelector
+    = EdgeKeyword -- keyword
+    | AttributeSelector -- attribute
+    | PathSelector -- path
+
+  NodeKeyword =  "id" | "name" | "tag" | "type"
+
+  EdgeKeyword = "tag"
 
   AttributeSelector = "attr." AttributeName
 
@@ -39,5 +67,5 @@ Template {
 
   PathKey = "length" | "step"
 
-  LiteralValue = (letter | digit | ":" | "." | "," | "=" | "<" | ">" | "(" | ")")+
+  LiteralValue = (letter | digit | ":" | "." | "," | "=" | "-" | "(" | ")")+
 }

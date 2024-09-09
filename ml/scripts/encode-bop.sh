@@ -5,6 +5,6 @@ time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-bag-of-paths ../models/
   --min-path-length 0 --max-path-length 1 \
   --step-weight edge-count --path-weight step-sum \
   --max-paths 0 \
-  --node-templates '@type=Model -> <model={{name}}>' \
-  --node-templates '@path.length=0 -> {{attr.qualifiedName}}' \
-  --node-templates '{{path.step}}[[attr.name.exists->.{{name}}]].{{type}}'
+  --node-templates '@type=Model >>> model = {{name}}' \
+  --node-templates '@path.length=0 >>> {{attr.qualifiedName}}' \
+  --node-templates '{{path.step}}[[attr.name.exists >> .{{name}}]].{{type}}'

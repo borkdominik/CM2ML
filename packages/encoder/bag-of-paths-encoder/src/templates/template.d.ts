@@ -1,6 +1,6 @@
-import type { GraphNode, ModelMember } from '@cm2ml/ir'
+import type { GraphEdge, GraphNode, ModelMember } from '@cm2ml/ir'
 
-import type { Condition, ComparisonOperator, ConditionalTemplate, Keyword, Replacement, Selector, Template, PathContextKey } from './model'
+import type { Condition, ComparisonOperator, ConditionalTemplate, Replacement, Selector, Template, PathContextKey, EdgeKeyword, NodeKeyword } from './model'
 
 declare module 'ohm-js' {
   interface Node {
@@ -8,10 +8,18 @@ declare module 'ohm-js' {
     parseAttributeName: () => string
     parseAttributeSelector: () => string
     parseComparisonOperator: () => ComparisonOperator
+    parseConditionalEdgeReplacement: () => Replacement<GraphEdge>
     parseConditionalNodeReplacement: () => Replacement<GraphNode>
-    parseKeyword: () => Keyword
+    parseEdgeCondition: () => Condition<GraphEdge>
+    parseEdgeKeyword: () => EdgeKeyword
+    parseEdgeReplacement: () => Replacement<GraphEdge>
+    parseEdgeSegment: () => Replacement<GraphEdge>
+    parseEdgeSelector: () => Selector<GraphEdge>
+    parseEdgeTemplate: () => Template<GraphEdge> | ConditionalTemplate<GraphEdge>
+    parseEdgeTemplateBase: () => Template<GraphEdge>
     parseLiteralValue: () => string
     parseNodeCondition: () => Condition<GraphNode>
+    parseNodeKeyword: () => NodeKeyword
     parseNodeReplacement: () => Replacement<GraphNode>
     parseNodeSegment: () => Replacement<GraphNode>
     parseNodeSelector: () => Selector<GraphNode>
@@ -22,6 +30,7 @@ declare module 'ohm-js' {
   }
 
   interface Dict {
+    parseEdgeTemplate: () => Template<GraphEdge>
     parseNodeTemplate: () => Template<GraphNode>
   }
 }
