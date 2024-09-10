@@ -67,6 +67,14 @@ const semantics: TemplateSemantics = grammar
     EdgeSelector_path(path) {
       return path.parsePathSelector()
     },
+    EdgeSelector_source(_, sourceSelector) {
+      const parsedSourceSelector = sourceSelector.parseNodeSelector()
+      return (edge, context) => parsedSourceSelector(edge.source, context)
+    },
+    EdgeSelector_target(_, targetSelector) {
+      const parsedTargetSelector = targetSelector.parseNodeSelector()
+      return (edge, context) => parsedTargetSelector(edge.target, context)
+    },
   })
   .addOperation<Replacement<GraphNode>>('parseNodeReplacement()', {
     NodeReplacement_selector(_, replacement, __) {

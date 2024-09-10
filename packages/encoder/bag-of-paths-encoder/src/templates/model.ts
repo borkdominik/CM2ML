@@ -2,7 +2,7 @@ import type { ModelMember } from '@cm2ml/ir'
 
 export type ComparisonOperator = '=' | '!=' | '<' | '<=' | '>' | '>='
 
-export type EdgeKeyword = 'tag'
+export type EdgeKeyword = 'tag' | 'type'
 
 export type NodeKeyword = 'id' | 'name' | 'tag' | 'type'
 

@@ -62,6 +62,20 @@ describe('edge templates', () => {
       })
     })
 
+    describe('node selector', () => {
+      it('parses source selector', () => {
+        const template = compileEdgeTemplate('source = {{source.id}}.{{source.attr.type}}')
+        expect(template(ab, { length: 1, step: 1 })).toBe('source = a.node')
+        expect(template(ba, { length: 1, step: 1 })).toBe('source = b.node')
+      })
+
+      it('parses target selector', () => {
+        const template = compileEdgeTemplate('target = {{target.id}}.{{target.attr.type}}')
+        expect(template(ab, { length: 1, step: 1 })).toBe('target = b.node')
+        expect(template(ba, { length: 1, step: 1 })).toBe('target = a.node')
+      })
+    })
+
     describe('exists', () => {
       it('parses attribute existence', () => {
         const negativeTemplate = compileEdgeTemplate('@attr.unknown.exists >>> should not appear')

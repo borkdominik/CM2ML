@@ -46,18 +46,20 @@ Template {
   Literal = letter+
 
   NodeSelector
-    = NodeKeyword -- keyword
-    | AttributeSelector -- attribute
+    = AttributeSelector -- attribute
+    | NodeKeyword -- keyword
     | PathSelector -- path
 
   EdgeSelector
     = EdgeKeyword -- keyword
     | AttributeSelector -- attribute
     | PathSelector -- path
+    | "source." NodeSelector -- source
+    | "target." NodeSelector -- target
 
   NodeKeyword =  "id" | "name" | "tag" | "type"
 
-  EdgeKeyword = "tag"
+  EdgeKeyword = "tag" | "type"
 
   AttributeSelector = "attr." AttributeName
 
