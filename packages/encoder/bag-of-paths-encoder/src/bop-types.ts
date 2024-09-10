@@ -18,5 +18,9 @@ export interface PathParameters {
   maxPaths: number
   allowCycles: boolean
   order: SortOrder
+}
+
+export interface BoPEncodingParameters {
   nodeTemplates: readonly string[]
+  edgeTemplates: readonly string[]
 }

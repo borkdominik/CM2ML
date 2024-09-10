@@ -1,4 +1,4 @@
-import type { PathData } from '@cm2ml/builtin'
+import type { EncodedPath } from '@cm2ml/builtin'
 import { GlobeIcon } from '@radix-ui/react-icons'
 import { debounce } from '@yeger/debounce'
 import { Stream } from '@yeger/streams'
@@ -15,7 +15,7 @@ import { Button } from '../../../ui/button'
 import { Progress } from '../../../ui/progress'
 
 export interface Props {
-  path: PathData
+  path: EncodedPath
   /** Mapping from node index to node id */
   mapping: string[]
 }
@@ -25,13 +25,13 @@ export function PathGraph({ path, mapping }: Props) {
   const { isReady, progress, fit } = useBagOfPathsVisNetwork(path, mapping, containerRef)
   const setSelection = useSelection.use.setSelection()
   const selectAll = () => {
-    const mappedNodes = path.steps.map((step) => mapping[step]!)
+    const mappedNodes = path.nodes.map(([nodeIndex]) => mapping[nodeIndex]!)
     const edges = mappedNodes.slice(0, -1).map((node, i) => [node, mappedNodes[i + 1]!] as const)
     setSelection({ type: 'edges', edges, origin: 'path' })
   }
   return (
     <div className="flex size-full min-h-80 grow">
-      <div className="flex flex-col items-center gap-4 bg-muted p-2 pt-3 font-mono text-xs dark:bg-card">
+      <div className="bg-muted dark:bg-card flex flex-col items-center gap-4 p-2 pt-3 font-mono text-xs">
         <div className="flex items-center justify-center text-center">
           <span className="w-fit cursor-default" style={{ lineHeight: 1 }}>{path.weight}</span>
         </div>
@@ -55,25 +55,37 @@ export function PathGraph({ path, mapping }: Props) {
   )
 }
 
-const edgeIdSeparator = '-_$_-'
+const ID_SEPARATOR = '-_$_-'
 
-function createEdgeId(sourceId: number, targetId: number) {
-  return `${sourceId}${edgeIdSeparator}${targetId}`
+function createEdgeId(source: number, sourceVersion: number, target: number, targetVersion: number) {
+  return `${source}${ID_SEPARATOR}${sourceVersion}${ID_SEPARATOR}${target}${ID_SEPARATOR}${targetVersion}`
 }
 
 function splitEdgeId(edgeId: string | undefined) {
   if (!edgeId) {
     return undefined
   }
-  const [sourceId, targetId] = edgeId.split(edgeIdSeparator)
-  if (!sourceId || !targetId) {
+  const [source, sourceVersion, target, targetVersion] = edgeId.split(ID_SEPARATOR)
+  if (!source || !sourceVersion || !target || !targetVersion) {
     return undefined
   }
-  return [+sourceId, +targetId] as const
+  return [+source, +sourceVersion, +target, +targetVersion] as const
+}
+
+function createNodeId(nodeIndex: number, version: number) {
+  return `${nodeIndex}${ID_SEPARATOR}${version}`
+}
+
+function splitNodeId(nodeId: string) {
+  const [nodeIndex, version] = nodeId.split(ID_SEPARATOR)
+  if (!nodeIndex || !version) {
+    return undefined
+  }
+  return [+nodeIndex, +version] as const
 }
 
 function useBagOfPathsVisNetwork(
-  path: PathData,
+  path: EncodedPath,
   mapping: string[],
   container: RefObject<HTMLDivElement | null>,
 ) {
@@ -84,9 +96,9 @@ function useBagOfPathsVisNetwork(
   const [stabilizationProgress, setStabilizationProgress] = useState(0)
 
   const data = useMemo(() => {
-    const nodes = createVisNodes(path)
-    const edges = createVisEdges(path)
-    return { nodes, edges }
+    const { dataset: nodes, nodeEncodingVersions } = createVisNodes(path)
+    const edges = createVisEdges(path, nodeEncodingVersions)
+    return { nodes, edges, nodeEncodingVersions }
   }, [path])
 
   const hasManyEdges = data.edges.length > 1000
@@ -132,11 +144,11 @@ function useBagOfPathsVisNetwork(
       options,
     )
     setNetwork(network)
-    function selectNodes(selectedNodes: number[]) {
+    function selectNodes(selectedNodes: string[]) {
       if (selectedNodes.length === 0) {
         return
       }
-      const mappedNodeIds = Stream.from(selectedNodes).map((selectedNode) => mapping[selectedNode]).filterNonNull().toArray()
+      const mappedNodeIds = Stream.from(selectedNodes).map((nodeId) => splitNodeId(nodeId)![0]).map((selectedNode) => mapping[selectedNode]).filterNonNull().toArray()
       setSelection({ type: 'nodes', nodes: mappedNodeIds, origin: 'path-graph' })
     }
     network.on(
@@ -149,10 +161,10 @@ function useBagOfPathsVisNetwork(
       setStabilizationProgress(1)
       network.storePositions()
     })
-    network.on('dragStart', (params: { nodes: number[] }) => {
+    network.on('dragStart', (params: { nodes: string[] }) => {
       selectNodes(params.nodes)
     })
-    network.on('selectNode', (params: { nodes: number[] }) => {
+    network.on('selectNode', (params: { nodes: string[] }) => {
       selectNodes(params.nodes)
     })
     network.on('selectEdge', (params: { edges: string[] }) => {
@@ -162,7 +174,7 @@ function useBagOfPathsVisNetwork(
         if (!edge) {
           return
         }
-        const [source, target] = edge
+        const [source, _, target, __] = edge
         const mappedSourceId = mapping[source]!
         const mappedTargetId = mapping[target]!
         setSelection({ type: 'edges', edges: [[mappedSourceId, mappedTargetId]], origin: 'path-graph' })
@@ -214,7 +226,16 @@ function useBagOfPathsVisNetwork(
       const mappedSelection = Stream.from(selection.nodes)
         .map((selectedNode) => reverseMapping[selectedNode])
         .filterNonNull()
-        .filter((nodeIndex) => data.nodes.getIds().includes(nodeIndex))
+        .flatMap((nodeIndex) => {
+          const versionCount = data.nodeEncodingVersions.get(nodeIndex)?.size
+          if (versionCount === undefined) {
+            return []
+          }
+          return Array.from({ length: versionCount }, (_, version) => createNodeId(nodeIndex, version))
+        })
+        .filter((nodeId) =>
+          data.nodes.getIds().includes(nodeId),
+        )
         .toArray()
       network.selectNodes(mappedSelection)
       if (selection.origin !== 'path-graph' && mappedSelection.length > 0) {
@@ -223,30 +244,35 @@ function useBagOfPathsVisNetwork(
       return
     }
     const mappedEdges = Stream.from(selection.edges)
-      .map(([sourceId, targetId]) => {
+      .flatMap(([sourceId, targetId]) => {
         const mappedSourceIds = reverseMapping[sourceId]
         const mappedTargetIds = reverseMapping[targetId]
         if (mappedSourceIds === undefined || mappedTargetIds === undefined) {
-          return undefined
+          return []
         }
-        return [mappedSourceIds, mappedTargetIds] as const
+        const sourceVersionCount = data.nodeEncodingVersions.get(mappedSourceIds)?.size
+        const targetVersionCount = data.nodeEncodingVersions.get(mappedTargetIds)?.size
+        if (sourceVersionCount === undefined || targetVersionCount === undefined) {
+          return []
+        }
+        const sourceVersions = Array.from({ length: sourceVersionCount })
+        const targetVersions = Array.from({ length: targetVersionCount })
+        return sourceVersions.flatMap((_, sourceVersion) => targetVersions.map((_, targetVersion) => [mappedSourceIds, sourceVersion, mappedTargetIds, targetVersion] as const))
       })
-      .filterNonNull()
-      .filter(([sourceId, targetId]) => {
+      .filter(([source, sourceVersion, target, targetVersion]) => {
         const nodeIds = data.nodes.getIds()
-        return nodeIds.includes(sourceId) && nodeIds.includes(targetId)
+        return nodeIds.includes(createNodeId(source, sourceVersion)) && nodeIds.includes(createNodeId(target, targetVersion))
       })
       .toArray()
     // Some encodings, e.g., the patterns, may try to attempt to select edges that are not in the model
     // We filter them here to prevent errors
     const filteredEdgeIds = mappedEdges
-      .map(([sourceId, targetId]) =>
-        createEdgeId(sourceId, targetId),
-      )
+      .flatMap(([source, sourceVersion, target, targetVersion]) => createEdgeId(source, sourceVersion, target, targetVersion))
       .filter((edgeId) => data.edges.getIds().includes(edgeId))
+
     network.selectEdges(filteredEdgeIds)
     if (selection.origin !== 'path-graph' && filteredEdgeIds.length > 0) {
-      network.fit({ nodes: mappedEdges.flat(), animation: true })
+      network.fit({ nodes: mappedEdges.flatMap(([source, sourceVersion, target, targetVersion]) => [createNodeId(source, sourceVersion), createNodeId(target, targetVersion)]), animation: true })
     }
   }, [network, selection])
 
@@ -269,40 +295,53 @@ function isNetworkDestroyed(network: Network | null): network is null {
   return !('selectionHandler' in network)
 }
 
-function createVisNodes(path: PathData) {
+/** Mapping from the node encoding to its indices  */
+type NodeEncodingVersions = Map<string | null, number>
+
+function createVisNodes(path: EncodedPath) {
+  const nodeEncodingVersions = new Map<number, NodeEncodingVersions>()
   const mappedNodes = Stream
-    .from(path.steps)
-    .distinct()
-    .map((node) => {
-      const index = path.steps.findIndex((step) => step === node)!
-      const encoded = path.encodedSteps[index]
+    .from(path.nodes)
+    .map(([nodeIndex, nodeEncoding]) => {
+      if (!nodeEncodingVersions.has(nodeIndex)) {
+        nodeEncodingVersions.set(nodeIndex, new Map())
+      }
+      const previousEncodings = nodeEncodingVersions.get(nodeIndex)!
+      if (previousEncodings.has(nodeEncoding)) {
+        return undefined
+      }
+      const version = previousEncodings.size
+      previousEncodings.set(nodeEncoding, version)
       return {
-        id: node,
-        label: encoded ?? 'null',
+        id: createNodeId(nodeIndex, version),
+        label: nodeEncoding ?? undefined,
         shape: 'box',
       }
     })
+    .filterNonNull()
     .toArray()
-
-  return new DataSet(mappedNodes)
+  return { dataset: new DataSet(mappedNodes), nodeEncodingVersions }
 }
 
-function createVisEdges(path: PathData) {
+function createVisEdges(path: EncodedPath, nodeEncodingVersions: Map<number, NodeEncodingVersions>) {
   const includedIds = new Set<string>()
   const edges = Stream
-    .from(path.steps)
-    .limit(path.steps.length - 1)
-    .map((source, i) => {
-      const target = path.steps[i + 1]!
-      const edgeId = createEdgeId(source, target)
+    .from(path.edges)
+    .map((edge, i) => {
+      const [source, sourceEncoding] = path.nodes[i]!
+      const [target, targetEncoding] = path.nodes[i + 1]!
+      const sourceVersion = nodeEncodingVersions.get(source)!.get(sourceEncoding)!
+      const targetVersion = nodeEncodingVersions.get(target)!.get(targetEncoding)!
+      const edgeId = createEdgeId(source, sourceVersion, target, targetVersion)
       if (includedIds.has(edgeId)) {
         return undefined
       }
       includedIds.add(edgeId)
       return {
         id: edgeId,
-        from: source,
-        to: target,
+        from: createNodeId(source, sourceVersion),
+        to: createNodeId(target, targetVersion),
+        label: edge ?? undefined,
         value: path.stepWeights[i],
       }
     })

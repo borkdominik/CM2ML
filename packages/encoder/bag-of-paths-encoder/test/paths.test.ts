@@ -1,8 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
+import type { PathData } from '../src/paths'
 import { collectPaths } from '../src/paths'
 
 import { createTestModel } from './test-utils'
+
+function snapshottify(paths: PathData[]) {
+  return paths.map((path) => ({ stepWeights: path.stepWeights, weight: path.weight, steps: path.steps.map((step) => step.node.id) }))
+}
 
 describe('paths', () => {
   it('does not include duplicates', () => {
@@ -15,52 +20,60 @@ describe('paths', () => {
       pathWeight: 'length',
       maxPaths: -1,
       order: 'desc',
-      nodeTemplates: [],
     })
-    expect(paths).toMatchInlineSnapshot(`
+    expect(snapshottify(paths)).toMatchInlineSnapshot(`
       [
         {
-          "encodedSteps": [
-            null,
-            null,
-            null,
-          ],
           "stepWeights": [
-            2,
+            1,
             1,
           ],
           "steps": [
-            1,
-            2,
-            3,
+            "a",
+            "b",
+            "c",
           ],
           "weight": 2,
         },
         {
-          "encodedSteps": [
-            null,
-            null,
-          ],
           "stepWeights": [
-            2,
+            1,
+            1,
           ],
           "steps": [
+            "a",
+            "b",
+            "c",
+          ],
+          "weight": 2,
+        },
+        {
+          "stepWeights": [
             1,
-            2,
+          ],
+          "steps": [
+            "a",
+            "b",
           ],
           "weight": 1,
         },
         {
-          "encodedSteps": [
-            null,
-            null,
-          ],
           "stepWeights": [
             1,
           ],
           "steps": [
-            2,
-            3,
+            "a",
+            "b",
+          ],
+          "weight": 1,
+        },
+        {
+          "stepWeights": [
+            1,
+          ],
+          "steps": [
+            "b",
+            "c",
           ],
           "weight": 1,
         },
@@ -78,54 +91,53 @@ describe('paths', () => {
       pathWeight: 'length',
       maxPaths: -1,
       order: 'desc',
-      nodeTemplates: [],
     })
-    expect(paths.map(({ steps }) => steps)).toMatchInlineSnapshot(`
+    expect(snapshottify(paths).map(({ steps }) => steps)).toMatchInlineSnapshot(`
       [
         [
-          1,
-          2,
-          1,
-          2,
+          "a",
+          "b",
+          "a",
+          "b",
         ],
         [
-          2,
-          1,
-          2,
-          1,
+          "b",
+          "a",
+          "b",
+          "a",
         ],
         [
-          2,
-          1,
-          2,
-          3,
+          "b",
+          "a",
+          "b",
+          "c",
         ],
         [
-          1,
-          2,
-          1,
+          "a",
+          "b",
+          "a",
         ],
         [
-          1,
-          2,
-          3,
+          "a",
+          "b",
+          "c",
         ],
         [
-          2,
-          1,
-          2,
+          "b",
+          "a",
+          "b",
         ],
         [
-          1,
-          2,
+          "a",
+          "b",
         ],
         [
-          2,
-          1,
+          "b",
+          "a",
         ],
         [
-          2,
-          3,
+          "b",
+          "c",
         ],
       ]
     `)
@@ -141,37 +153,36 @@ describe('paths', () => {
       pathWeight: 'length',
       maxPaths: -1,
       order: 'desc',
-      nodeTemplates: [],
     })
-    expect(paths.map(({ steps }) => steps)).toMatchInlineSnapshot(`
+    expect(snapshottify(paths).map(({ steps }) => steps)).toMatchInlineSnapshot(`
       [
         [
-          1,
-          2,
-          3,
-          4,
+          "a",
+          "b",
+          "c",
+          "d",
         ],
         [
-          1,
-          2,
-          3,
+          "a",
+          "b",
+          "c",
         ],
         [
-          2,
-          3,
-          4,
+          "b",
+          "c",
+          "d",
         ],
         [
-          1,
-          2,
+          "a",
+          "b",
         ],
         [
-          2,
-          3,
+          "b",
+          "c",
         ],
         [
-          3,
-          4,
+          "c",
+          "d",
         ],
       ]
     `)
@@ -187,54 +198,53 @@ describe('paths', () => {
       pathWeight: 'length',
       maxPaths: -1,
       order: 'desc',
-      nodeTemplates: [],
     })
-    expect(paths.map(({ steps }) => steps)).toMatchInlineSnapshot(`
+    expect(snapshottify(paths).map(({ steps }) => steps)).toMatchInlineSnapshot(`
       [
         [
-          1,
-          2,
-          1,
-          2,
+          "a",
+          "b",
+          "a",
+          "b",
         ],
         [
-          2,
-          1,
-          2,
-          1,
+          "b",
+          "a",
+          "b",
+          "a",
         ],
         [
-          2,
-          1,
-          2,
-          3,
+          "b",
+          "a",
+          "b",
+          "c",
         ],
         [
-          1,
-          2,
-          1,
+          "a",
+          "b",
+          "a",
         ],
         [
-          1,
-          2,
-          3,
+          "a",
+          "b",
+          "c",
         ],
         [
-          2,
-          1,
-          2,
+          "b",
+          "a",
+          "b",
         ],
         [
-          1,
-          2,
+          "a",
+          "b",
         ],
         [
-          2,
-          1,
+          "b",
+          "a",
         ],
         [
-          2,
-          3,
+          "b",
+          "c",
         ],
       ]
     `)
@@ -251,24 +261,18 @@ describe('paths', () => {
         pathWeight: 'length',
         maxPaths: 1,
         order: 'desc',
-        nodeTemplates: [],
       })
-      expect(paths).toMatchInlineSnapshot(`
+      expect(snapshottify(paths)).toMatchInlineSnapshot(`
         [
           {
-            "encodedSteps": [
-              null,
-              null,
-              null,
-            ],
             "stepWeights": [
-              2,
+              1,
               1,
             ],
             "steps": [
-              1,
-              2,
-              3,
+              "a",
+              "b",
+              "c",
             ],
             "weight": 2,
           },
@@ -286,24 +290,30 @@ describe('paths', () => {
         pathWeight: 'length',
         maxPaths: -1,
         order: 'desc',
-        nodeTemplates: [],
       })
-      expect(paths).toMatchInlineSnapshot(`
+      expect(snapshottify(paths)).toMatchInlineSnapshot(`
         [
           {
-            "encodedSteps": [
-              null,
-              null,
-              null,
-            ],
             "stepWeights": [
-              2,
+              1,
               1,
             ],
             "steps": [
+              "a",
+              "b",
+              "c",
+            ],
+            "weight": 2,
+          },
+          {
+            "stepWeights": [
               1,
-              2,
-              3,
+              1,
+            ],
+            "steps": [
+              "a",
+              "b",
+              "c",
             ],
             "weight": 2,
           },
@@ -321,35 +331,36 @@ describe('paths', () => {
         pathWeight: 'length',
         maxPaths: -1,
         order: 'desc',
-        nodeTemplates: [],
       })
-      expect(paths).toMatchInlineSnapshot(`
+      expect(snapshottify(paths)).toMatchInlineSnapshot(`
         [
           {
-            "encodedSteps": [
-              null,
-              null,
-            ],
             "stepWeights": [
-              2,
+              1,
             ],
             "steps": [
-              1,
-              2,
+              "a",
+              "b",
             ],
             "weight": 1,
           },
           {
-            "encodedSteps": [
-              null,
-              null,
-            ],
             "stepWeights": [
               1,
             ],
             "steps": [
-              2,
-              3,
+              "a",
+              "b",
+            ],
+            "weight": 1,
+          },
+          {
+            "stepWeights": [
+              1,
+            ],
+            "steps": [
+              "b",
+              "c",
             ],
             "weight": 1,
           },
@@ -367,47 +378,34 @@ describe('paths', () => {
         pathWeight: 'length',
         maxPaths: -1,
         order: 'desc',
-        nodeTemplates: [],
       })
-      expect(paths).toMatchInlineSnapshot(`
+      expect(snapshottify(paths)).toMatchInlineSnapshot(`
         [
           {
-            "encodedSteps": [
-              null,
-            ],
             "stepWeights": [],
             "steps": [
-              0,
+              "root",
             ],
             "weight": 0,
           },
           {
-            "encodedSteps": [
-              null,
-            ],
             "stepWeights": [],
             "steps": [
-              1,
+              "a",
             ],
             "weight": 0,
           },
           {
-            "encodedSteps": [
-              null,
-            ],
             "stepWeights": [],
             "steps": [
-              2,
+              "b",
             ],
             "weight": 0,
           },
           {
-            "encodedSteps": [
-              null,
-            ],
             "stepWeights": [],
             "steps": [
-              3,
+              "c",
             ],
             "weight": 0,
           },
@@ -427,24 +425,30 @@ describe('paths', () => {
         pathWeight: 'length',
         maxPaths: -1,
         order: 'desc',
-        nodeTemplates: [],
       })
-      expect(paths).toMatchInlineSnapshot(`
+      expect(snapshottify(paths)).toMatchInlineSnapshot(`
         [
           {
-            "encodedSteps": [
-              null,
-              null,
-              null,
-            ],
             "stepWeights": [
-              2,
+              1,
               1,
             ],
             "steps": [
+              "a",
+              "b",
+              "c",
+            ],
+            "weight": 2,
+          },
+          {
+            "stepWeights": [
               1,
-              2,
-              3,
+              1,
+            ],
+            "steps": [
+              "a",
+              "b",
+              "c",
             ],
             "weight": 2,
           },
@@ -462,26 +466,56 @@ describe('paths', () => {
         pathWeight: 'step-product',
         maxPaths: -1,
         order: 'desc',
-        nodeTemplates: [],
       })
-      expect(paths).toMatchInlineSnapshot(`
+      expect(snapshottify(paths)).toMatchInlineSnapshot(`
         [
           {
-            "encodedSteps": [
-              null,
-              null,
-              null,
-            ],
             "stepWeights": [
-              2,
-              2,
+              1,
+              1,
             ],
             "steps": [
-              1,
-              2,
-              3,
+              "a",
+              "b",
+              "c",
             ],
-            "weight": 4,
+            "weight": 1,
+          },
+          {
+            "stepWeights": [
+              1,
+              1,
+            ],
+            "steps": [
+              "a",
+              "b",
+              "c",
+            ],
+            "weight": 1,
+          },
+          {
+            "stepWeights": [
+              1,
+              1,
+            ],
+            "steps": [
+              "a",
+              "b",
+              "c",
+            ],
+            "weight": 1,
+          },
+          {
+            "stepWeights": [
+              1,
+              1,
+            ],
+            "steps": [
+              "a",
+              "b",
+              "c",
+            ],
+            "weight": 1,
           },
         ]
       `)
@@ -497,26 +531,32 @@ describe('paths', () => {
         pathWeight: 'step-sum',
         maxPaths: -1,
         order: 'desc',
-        nodeTemplates: [],
       })
-      expect(paths).toMatchInlineSnapshot(`
+      expect(snapshottify(paths)).toMatchInlineSnapshot(`
         [
           {
-            "encodedSteps": [
-              null,
-              null,
-              null,
-            ],
             "stepWeights": [
-              2,
+              1,
               1,
             ],
             "steps": [
-              1,
-              2,
-              3,
+              "a",
+              "b",
+              "c",
             ],
-            "weight": 3,
+            "weight": 2,
+          },
+          {
+            "stepWeights": [
+              1,
+              1,
+            ],
+            "steps": [
+              "a",
+              "b",
+              "c",
+            ],
+            "weight": 2,
           },
         ]
       `)

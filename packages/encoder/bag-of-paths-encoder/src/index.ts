@@ -5,11 +5,12 @@ import { batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 import { pathWeightTypes, sortOrders, stepWeightTypes } from './bop-types'
+import { encodePaths } from './encoding'
 import { collectPaths } from './paths'
 
 export type { PathWeight, StepWeight } from './bop-types'
 export { pathWeightTypes, stepWeightTypes }
-export type { PathData } from './paths'
+export type { EncodedModelMember, EncodedPath } from './encoding'
 
 const PathBuilder = definePlugin({
   name: 'path-builder',
@@ -68,16 +69,26 @@ const PathBuilder = definePlugin({
       group: 'Encoding',
       helpText: __GRAMMAR,
     },
+    edgeTemplates: {
+      type: 'list<string>',
+      unique: true,
+      ordered: true,
+      defaultValue: ['{{tag}}'],
+      description: 'Template for encoding edges of paths',
+      group: 'Encoding',
+      helpText: __GRAMMAR,
+    },
   },
   invoke: ({ data, metadata }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
-    const paths = collectPaths(data, parameters)
+    const rawPaths = collectPaths(data, parameters)
+    const encodedPaths = encodePaths(rawPaths, data, parameters)
     const mapping = Stream
       .from(data.nodes)
       .map((node) => node.requireId())
       .toArray()
     return {
       data: {
-        paths,
+        paths: encodedPaths,
         mapping,
       },
       metadata: { ...metadata, idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },
