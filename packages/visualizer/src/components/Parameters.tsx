@@ -466,7 +466,7 @@ function Description({ description, helpText }: { description: string, helpText:
                 <TooltipTrigger>
                   <QuestionMarkCircledIcon className="size-4" />
                 </TooltipTrigger>
-                <TooltipContent className="whitespace-pre">
+                <TooltipContent className="overflow-y-auto whitespace-pre font-mono text-xs" style={{ maxHeight: 'calc(var(--radix-tooltip-content-available-height) - 1rem)' }}>
                   { helpText }
                 </TooltipContent>
               </Tooltip>
