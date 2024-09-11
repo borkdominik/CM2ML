@@ -40,7 +40,7 @@ export function collectPaths(model: GraphModel, parameters: PathParameters) {
     .map<Omit<PathData, 'encodedSteps'>>((path) => {
       const stepWeights = getStepWeights(path.steps, compiledStepWeighting)
       return {
-        steps: [{ node: path.startNode, via: undefined }, ...path.steps.map((step) => ({ node: step.target, via: step.edge }))],
+        steps: [{ node: path.startNode, via: undefined }, ...path.steps.map((step) => ({ node: step.target, via: step }))],
         stepWeights,
         weight: reduceWeights(stepWeights, parameters.pathWeight),
       }
@@ -56,7 +56,7 @@ export function collectPaths(model: GraphModel, parameters: PathParameters) {
 
 class Path {
   private readonly nodeSet = new Set<GraphNode>()
-  public constructor(public readonly startNode: GraphNode, private readonly endNode: GraphNode, public readonly steps: Step[], private readonly parameters: PathParameters) {
+  public constructor(public readonly startNode: GraphNode, private readonly endNode: GraphNode, public readonly steps: GraphEdge[], private readonly parameters: PathParameters) {
     this.nodeSet.add(startNode)
     this.nodeSet.add(endNode)
     for (const step of steps) {
@@ -99,12 +99,11 @@ class Path {
     }
     const nextStream = Stream
       .from(nextEdges)
-      .map((edge) => new Step(edge))
       .flatMap((step) => this.extendPath(step))
     return nextStream.append(this)
   }
 
-  private extendPath(step: Step) {
+  private extendPath(step: GraphEdge) {
     return new Path(this.startNode, step.target, [...this.steps, step], this.parameters).follow()
   }
 
@@ -113,29 +112,17 @@ class Path {
   }
 }
 
-class Step {
-  public constructor(public readonly edge: GraphEdge) { }
-
-  public get source() {
-    return this.edge.source
-  }
-
-  public get target() {
-    return this.edge.target
-  }
-}
-
-function getStepWeights(steps: Step[], weightings: StepWeighting[]) {
+function getStepWeights(steps: GraphEdge[], weightings: StepWeighting[]) {
   return Stream
     .from(steps)
     .map((step, stepIndex) => getStepWeight(step, stepIndex, steps.length, weightings))
     .toArray()
 }
 
-function getStepWeight(step: Step, stepIndex: number, pathLength: number, weightings: StepWeighting[]) {
+function getStepWeight(step: GraphEdge, stepIndex: number, pathLength: number, weightings: StepWeighting[]) {
   return Stream
     .from(weightings)
-    .map((weighting) => weighting(step.edge, { length: pathLength, step: stepIndex + 1 }))
+    .map((weighting) => weighting(step, { length: pathLength, step: stepIndex + 1 }))
     .find((weight) => weight !== undefined) ?? 1
 }
 
