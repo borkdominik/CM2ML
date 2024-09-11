@@ -1,4 +1,4 @@
-import type { ParameterMetadata } from '@cm2ml/plugin'
+import { getTypeConstructor, type ParameterMetadata } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 export function getResultAsText(result: unknown, pretty: boolean | undefined): string {
@@ -19,6 +19,13 @@ export function normalizeOptions(options: Record<string, unknown>, parameters: P
       } else {
         return [name, parameter]
       }
+    })
+    .map(([name, value]) => {
+      if (!Array.isArray(value)) {
+        return [name, value]
+      }
+      const typeConstructor = getTypeConstructor(parameters[name]!.type)
+      return [name, typeConstructor(value)]
     })
     .toRecord(
       ([name]) => name,
