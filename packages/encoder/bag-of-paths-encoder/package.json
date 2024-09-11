@@ -38,7 +38,6 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@cm2ml/feature-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@yeger/streams": "1.2.0",

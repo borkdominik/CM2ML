@@ -1,7 +1,5 @@
-import type { FeatureContext } from '@cm2ml/feature-encoder'
-import { FeatureEncoder } from '@cm2ml/feature-encoder'
 import type { GraphModel } from '@cm2ml/ir'
-import { batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
+import { batchTryCatch, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 import { pathWeightTypes, sortOrders } from './bop-types'
@@ -81,7 +79,7 @@ const PathBuilder = definePlugin({
       helpText: __GRAMMAR,
     },
   },
-  invoke: ({ data, metadata }: { data: GraphModel, metadata: FeatureContext }, parameters) => {
+  invoke: (data: GraphModel, parameters) => {
     const rawPaths = collectPaths(data, parameters)
     const encodedPaths = encodePaths(rawPaths, data, parameters)
     const mapping = Stream
@@ -93,10 +91,9 @@ const PathBuilder = definePlugin({
         paths: encodedPaths,
         mapping,
       },
-      metadata: { ...metadata, idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },
+      metadata: { idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },
     }
   },
 })
 
-// TODO/Jan: Remove feature encoder
-export const BagOfPathsEncoder = compose(FeatureEncoder, batchTryCatch(PathBuilder), 'bag-of-paths')
+export const BagOfPathsEncoder = batchTryCatch(PathBuilder, 'bag-of-paths')

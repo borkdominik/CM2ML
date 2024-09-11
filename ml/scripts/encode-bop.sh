@@ -12,9 +12,9 @@ time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-bag-of-paths ../models/
   --node-templates '@name.exists >>> {{name}} {{type}}' \
   --node-templates 'unnamed {{type}}' \
   --edge-templates '@tag = dependency >>> depends on' \
-  --edge-templates '@tag = elementImport >>> imports element' \
+  --edge-templates '@tag = elementImport >>> imports' \
   --edge-templates '@tag = generalization >>> generalizes' \
-  --edge-templates '@tag = packageImport >>> imports package' \
+  --edge-templates '@tag = packageImport >>> imports' \
   --edge-templates '@tag = transition >>> transitions to' \
   --edge-templates '{{tag}}' \
 

@@ -90,9 +90,6 @@ importers:
 
   packages/encoder/bag-of-paths-encoder:
     dependencies:
-      '@cm2ml/feature-encoder':
-        specifier: workspace:*
-        version: link:../feature-encoder
       '@cm2ml/ir':
         specifier: workspace:*
         version: link:../../framework/ir
