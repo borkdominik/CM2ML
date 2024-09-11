@@ -3,7 +3,8 @@ import { Stream } from '@yeger/streams'
 
 import type { PathParameters, PathWeight } from './bop-types'
 import { validatePathParameters } from './bop-validationts'
-import type { StepWeighting } from './templates/model'
+import { MultiCache } from './multi-cache'
+import type { PathContext, StepWeighting } from './templates/model'
 import { compileStepWeighting } from './templates/parser'
 
 export interface StepData {
@@ -30,15 +31,18 @@ function pathOrder(order: 'asc' | 'desc' | string) {
   }
 }
 
+type WeightCache = MultiCache<string, GraphEdge, number>
+
 export function collectPaths(model: GraphModel, parameters: PathParameters) {
   validatePathParameters(parameters)
   const compiledStepWeighting = parameters.stepWeighting.map((weighting) => compileStepWeighting(weighting))
   const nodes = Stream.from(model.nodes)
+  const weightCache: WeightCache = new MultiCache()
   const paths = nodes
     .flatMap((node) => Path.from(node, parameters))
     .filter((path) => path.steps.length >= parameters.minPathLength)
     .map<Omit<PathData, 'encodedSteps'>>((path) => {
-      const stepWeights = getStepWeights(path.steps, compiledStepWeighting)
+      const stepWeights = getStepWeights(path.steps, compiledStepWeighting, weightCache)
       return {
         steps: [{ node: path.startNode, via: undefined }, ...path.steps.map((step) => ({ node: step.target, via: step }))],
         stepWeights,
@@ -112,18 +116,23 @@ class Path {
   }
 }
 
-function getStepWeights(steps: GraphEdge[], weightings: StepWeighting[]) {
+function getStepWeights(steps: GraphEdge[], weightings: StepWeighting[], weightCache: WeightCache) {
   return Stream
     .from(steps)
-    .map((step, stepIndex) => getStepWeight(step, stepIndex, steps.length, weightings))
+    .map((step, stepIndex) => getStepWeight(step, stepIndex, steps.length, weightings, weightCache))
     .toArray()
 }
 
-function getStepWeight(step: GraphEdge, stepIndex: number, pathLength: number, weightings: StepWeighting[]) {
-  return Stream
-    .from(weightings)
-    .map((weighting) => weighting(step, { length: pathLength, step: stepIndex + 1 }))
-    .find((weight) => weight !== undefined) ?? 1
+function getStepWeight(step: GraphEdge, stepIndex: number, pathLength: number, weightings: StepWeighting[], weightCache: WeightCache) {
+  const context: PathContext = { step: stepIndex + 1, length: pathLength }
+  return weightCache.compute(
+    JSON.stringify(context),
+    step,
+    () => Stream
+      .from(weightings)
+      .map((weighting) => weighting(step, context))
+      .find((weight) => weight !== undefined) ?? 1,
+  )
 }
 
 function reduceWeights(weights: number[], type: PathWeight) {

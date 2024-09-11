@@ -2,6 +2,7 @@ import type { GraphEdge, GraphModel, GraphNode, ModelMember } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
 import type { BoPEncodingParameters } from './bop-types'
+import { MultiCache } from './multi-cache'
 import type { PathData } from './paths'
 import type { PathContext, Template } from './templates/model'
 import { compileNodeTemplate, compileEdgeTemplate } from './templates/parser'
@@ -15,35 +16,17 @@ export interface EncodedPath {
   stepWeights: number[]
 }
 
+type NodeCache = MultiCache<string, GraphNode, readonly [number, EncodedModelMember]>
+type EdgeCache = MultiCache<string, GraphEdge, EncodedModelMember>
+
 export function encodePaths(paths: PathData[], model: GraphModel, parameters: BoPEncodingParameters): EncodedPath[] {
   const compiledNodeTemplates = parameters.nodeTemplates.map((template) => compileNodeTemplate(template))
   const compiledEdgeTemplates = parameters.edgeTemplates.map((template) => compileEdgeTemplate(template))
   const nodeCache: NodeCache = new MultiCache()
   const edgeCache: EdgeCache = new MultiCache()
-
   const indexMap = new Map([...model.nodes].map((node, i) => [node, i]))
   const getNodeIndex = (node: GraphNode) => indexMap.get(node)!
   return paths.map((path) => encodePath(path, getNodeIndex, compiledNodeTemplates, compiledEdgeTemplates, nodeCache, edgeCache))
-}
-
-type NodeCache = MultiCache<string, GraphNode, readonly [number, EncodedModelMember]>
-type EdgeCache = MultiCache<string, GraphEdge, EncodedModelMember>
-
-class MultiCache<OK, IK, V> {
-  private readonly cache: Map<OK, Map<IK, V>> = new Map()
-
-  public compute(outerKey: OK, innerKey: IK, fallback: () => V): V {
-    if (!this.cache.has(outerKey)) {
-      this.cache.set(outerKey, new Map())
-    }
-    const cachedValue = this.cache.get(outerKey)?.get(innerKey)
-    if (cachedValue !== undefined) {
-      return cachedValue
-    }
-    const value = fallback()
-    this.cache.get(outerKey)!.set(innerKey, value)
-    return value
-  }
 }
 
 function encodePath(path: PathData, getNodeIndex: (node: GraphNode) => number, nodeTemplates: Template<GraphNode>[], edgeTemplates: Template<GraphEdge>[], nodeCache: NodeCache, edgeCache: EdgeCache): EncodedPath {
