@@ -1,4 +1,4 @@
-import type { ModelMember } from '@cm2ml/ir'
+import type { GraphEdge, ModelMember } from '@cm2ml/ir'
 
 export type ComparisonOperator = '=' | '!=' | '<' | '<=' | '>' | '>='
 
@@ -24,3 +24,5 @@ export type ConditionalTemplate<T extends ModelMember> = Processor<T, string | u
 export type Selector<T extends ModelMember> = Processor<T, string | undefined>
 
 export type Replacement<T extends ModelMember> = Processor<T, string>
+
+export type StepWeighting = Processor<GraphEdge, number | undefined>

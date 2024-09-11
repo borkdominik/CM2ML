@@ -3,6 +3,8 @@ import { Stream } from '@yeger/streams'
 
 import type { PathParameters, PathWeight } from './bop-types'
 import { validatePathParameters } from './bop-validationts'
+import type { StepWeighting } from './templates/model'
+import { compileStepWeighting } from './templates/parser'
 
 export interface StepData {
   node: GraphNode
@@ -30,12 +32,13 @@ function pathOrder(order: 'asc' | 'desc' | string) {
 
 export function collectPaths(model: GraphModel, parameters: PathParameters) {
   validatePathParameters(parameters)
+  const compiledStepWeighting = parameters.stepWeighting.map((weighting) => compileStepWeighting(weighting))
   const nodes = Stream.from(model.nodes)
   const paths = nodes
     .flatMap((node) => Path.from(node, parameters))
     .filter((path) => path.steps.length >= parameters.minPathLength)
     .map<Omit<PathData, 'encodedSteps'>>((path) => {
-      const stepWeights = path.steps.map((step) => step.weight)
+      const stepWeights = getStepWeights(path.steps, compiledStepWeighting)
       return {
         steps: [{ node: path.startNode, via: undefined }, ...path.steps.map((step) => ({ node: step.target, via: step.edge }))],
         stepWeights,
@@ -120,11 +123,20 @@ class Step {
   public get target() {
     return this.edge.target
   }
+}
 
-  public get weight() {
-    // TODO/Jan: Implement parameterized weighting
-    return 1
-  }
+function getStepWeights(steps: Step[], weightings: StepWeighting[]) {
+  return Stream
+    .from(steps)
+    .map((step, stepIndex) => getStepWeight(step, stepIndex, steps.length, weightings))
+    .toArray()
+}
+
+function getStepWeight(step: Step, stepIndex: number, pathLength: number, weightings: StepWeighting[]) {
+  return Stream
+    .from(weightings)
+    .map((weighting) => weighting(step.edge, { length: pathLength, step: stepIndex + 1 }))
+    .find((weight) => weight !== undefined) ?? 1
 }
 
 function reduceWeights(weights: number[], type: PathWeight) {

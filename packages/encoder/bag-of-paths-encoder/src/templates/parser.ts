@@ -1,6 +1,6 @@
 import type { GraphEdge, GraphNode, ModelMember } from '@cm2ml/ir'
 
-import type { PathContextKey, ComparisonOperator, Condition, ConditionalTemplate, Replacement, Selector, Template, NodeKeyword, EdgeKeyword } from './model'
+import type { PathContextKey, ComparisonOperator, Condition, ConditionalTemplate, Replacement, Selector, Template, NodeKeyword, EdgeKeyword, StepWeighting } from './model'
 import grammar from './template.ohm-bundle'
 import type { TemplateSemantics } from './template.ohm-bundle'
 
@@ -233,6 +233,27 @@ const semantics: TemplateSemantics = grammar
       }
     },
   })
+  .addOperation<number>('parseNumber()', {
+    Number(value) {
+      return Number(value.sourceString.replace(',', '.'))
+    },
+  })
+  .addOperation<StepWeighting>('parseStepWeighting()', {
+    StepWeighting_base(weight) {
+      const parsedWeight = weight.parseNumber()
+      return () => parsedWeight
+    },
+    StepWeighting_conditional(_, condition, __, weight) {
+      const parsedCondition = condition.parseEdgeCondition()
+      const parsedWeight = weight.parseNumber()
+      return (edge, context) => {
+        if (parsedCondition(edge, context)) {
+          return parsedWeight
+        }
+        return undefined
+      }
+    },
+  })
 
 export function compileNodeTemplate(template: string): Template<GraphNode> {
   const matchResult = grammar.match(template, 'NodeTemplate')
@@ -255,6 +276,14 @@ export function compileEdgeTemplate(template: string): Template<GraphEdge> {
       }
       return parsed(edge, context)
     }
+  }
+  throw new Error(matchResult.message ?? 'An unknown error occurred')
+}
+
+export function compileStepWeighting(weight: string) {
+  const matchResult = grammar.match(weight, 'StepWeighting')
+  if (matchResult.succeeded()) {
+    return semantics(matchResult).parseStepWeighting()
   }
   throw new Error(matchResult.message ?? 'An unknown error occurred')
 }

@@ -70,4 +70,17 @@ Template {
   PathKey = "length" | "step"
 
   LiteralValue = (letter | digit | ":" | "." | "," | "=" | "-" | "(" | ")")+
+
+  StepWeighting
+    = "@" EdgeCondition ">>>" Number -- conditional
+    | Number -- base
+
+  Number
+    = PositiveNumber -- positive
+    | "-" PositiveNumber -- negative
+
+  PositiveNumber
+    = digit+ ("." | ",") digit+ -- float
+    | digit+ -- integer
+
 }
