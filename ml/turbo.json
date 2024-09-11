@@ -6,10 +6,12 @@
   "tasks": {
     "encode:bop": {
       "inputs": [
-        "scripts/encode-bop.sh"
+        "scripts/encode-bop.sh",
+        "bop/src/join-segments.py"
       ],
       "outputs": [
-        ".output/bag-of-paths.json"
+        ".input/bag-of-paths.json",
+        ".output/bag-of-paths-merged.json"
       ],
       "dependsOn": [
         "^build"
