@@ -23,13 +23,26 @@ const PathBuilder = definePlugin({
       type: 'number',
       defaultValue: 2,
       description: 'Minimum path length',
-      group: 'Filtering',
+      group: 'Paths',
     },
     maxPathLength: {
       type: 'number',
       defaultValue: 3,
       description: 'Maximum path length',
-      group: 'Filtering',
+      group: 'Paths',
+    },
+    maxPaths: {
+      type: 'number',
+      defaultValue: 10,
+      description: 'Maximum number of paths to collect',
+      group: 'Paths',
+    },
+    order: {
+      type: 'string',
+      allowedValues: sortOrders,
+      defaultValue: sortOrders[1],
+      description: 'Ordering of paths according to their weight',
+      group: 'Weighting',
     },
     stepWeighting: {
       type: 'list<string>',
@@ -46,19 +59,6 @@ const PathBuilder = definePlugin({
       defaultValue: pathWeightTypes[0],
       description: 'Weighting strategy for paths',
       group: 'Weighting',
-    },
-    maxPaths: {
-      type: 'number',
-      defaultValue: 10,
-      description: 'Maximum number of paths to collect',
-      group: 'Filtering',
-    },
-    order: {
-      type: 'string',
-      allowedValues: sortOrders,
-      defaultValue: sortOrders[1],
-      description: 'Ordering of paths according to their weight',
-      group: 'Filtering',
     },
     nodeTemplates: {
       type: 'list<string>',
