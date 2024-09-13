@@ -1,0 +1,406 @@
+{
+  "data": [
+    {
+      "mapping": [
+        "_Cfp0UGmxEe2kLe5KTNzRtw",
+        "_QE0EkK7gEe2EZoZ5sgiBCg",
+        "_bM_S4K7gEe2EZoZ5sgiBCg",
+        "_bM_58K7gEe2EZoZ5sgiBCg",
+        "_bNAhAK7gEe2EZoZ5sgiBCg",
+        "_g69BoK7oEe2EZoZ5sgiBCg",
+        "_g69Boa7oEe2EZoZ5sgiBCg",
+        "_g69Boq7oEe2EZoZ5sgiBCg",
+        "_O3oC8bK1Ee24ffphK9Na6g",
+        "_O3oqALK1Ee24ffphK9Na6g",
+        "_O3oqAbK1Ee24ffphK9Na6g",
+        "_UahDwbK1Ee24ffphK9Na6g",
+        "_Uahq0LK1Ee24ffphK9Na6g",
+        "_Uahq0bK1Ee24ffphK9Na6g",
+        "_VYMM8bK1Ee24ffphK9Na6g",
+        "_VYM0ALK1Ee24ffphK9Na6g",
+        "_VYM0AbK1Ee24ffphK9Na6g",
+        "_ay8lcLK1Ee24ffphK9Na6g",
+        "_Cr6ZsK70Ee2EZoZ5sgiBCg",
+        "_r0YL0K70Ee2EZoZ5sgiBCg",
+        "_Pf5kMbFSEe2z_s-Al402-w",
+        "_TnD78LFUEe2z_s-Al402-w",
+        "_YG02YLFVEe2z_s-Al402-w",
+        "_huGJQbFuEe21bf9NlKs9Kg",
+        "_W7vZ8K79Ee2EZoZ5sgiBCg",
+        "_7Y-R4LK0Ee24ffphK9Na6g",
+        "_8Q6mgLK0Ee24ffphK9Na6g",
+        "__G-0sLK0Ee24ffphK9Na6g",
+        "_9pVK8LK0Ee24ffphK9Na6g",
+        "_99xw8LK0Ee24ffphK9Na6g",
+        "_dxJb8LK1Ee24ffphK9Na6g",
+        "_e5mRwLK1Ee24ffphK9Na6g",
+        "_AmwlYLK1Ee24ffphK9Na6g",
+        "_-da6ULK0Ee24ffphK9Na6g",
+        "_ipeAULK2Ee24ffphK9Na6g",
+        "_ipenYLK2Ee24ffphK9Na6g",
+        "_ipenYbK2Ee24ffphK9Na6g",
+        "_J2H38LK1Ee24ffphK9Na6g",
+        "_MHjIALK1Ee24ffphK9Na6g",
+        "_O3oqArK1Ee24ffphK9Na6g",
+        "_O3oqA7K1Ee24ffphK9Na6g",
+        "_O3oqBLK1Ee24ffphK9Na6g",
+        "_Mg74YLK1Ee24ffphK9Na6g",
+        "_UaiR4LK1Ee24ffphK9Na6g",
+        "_UaiR4bK1Ee24ffphK9Na6g",
+        "_UaiR4rK1Ee24ffphK9Na6g",
+        "_M-U_ALK1Ee24ffphK9Na6g",
+        "_Gt7igLK2Ee24ffphK9Na6g",
+        "_VYM0ArK1Ee24ffphK9Na6g",
+        "_VYNbELK1Ee24ffphK9Na6g",
+        "_VYNbEbK1Ee24ffphK9Na6g",
+        "_Nbk7sLK1Ee24ffphK9Na6g",
+        "_O3oC8LK1Ee24ffphK9Na6g",
+        "_UahDwLK1Ee24ffphK9Na6g",
+        "_VYMM8LK1Ee24ffphK9Na6g",
+        "_XCaTELK1Ee24ffphK9Na6g",
+        "_dDtuMLK1Ee24ffphK9Na6g",
+        "_wZ60QLK9Ee2fn9jN03lZYw",
+        "_ed5NMLK1Ee24ffphK9Na6g",
+        "_ghLTkLK1Ee24ffphK9Na6g",
+        "_D0YigLK2Ee24ffphK9Na6g",
+        "_EWMPELK2Ee24ffphK9Na6g",
+        "_FGLhkLK2Ee24ffphK9Na6g",
+        "_LjfcIbSLEe2pkZx4lGC8Ew",
+        "_ItfSANIcEe2rY5KN6ehSig",
+        "_Itf5ENIcEe2rY5KN6ehSig",
+        "_ItggINIcEe2rY5KN6ehSig",
+        "_j12MQL0cEe2besM683MlUA",
+        "_ItggIdIcEe2rY5KN6ehSig",
+        "_ItggItIcEe2rY5KN6ehSig",
+        "_IthHMNIcEe2rY5KN6ehSig",
+        "_Uk2g0cymEe2SqIqlz0mqiA",
+        "_uKNqAc1tEe2aWMTUBOnCiQ",
+        "_uK1VEM1tEe2aWMTUBOnCiQ",
+        "_uK1VEc1tEe2aWMTUBOnCiQ",
+        "_45WxkM5PEe2J1pPdCxXkdw",
+        "_8YNeEM5PEe2J1pPdCxXkdw",
+        "_e-0x0dI3Ee2XPc95mjsJSg",
+        "_ItM-INIcEe2rY5KN6ehSig",
+      ],
+      "paths": [
+        {
+          "edges": [
+            "nestedPackage",
+            "packageMerge",
+            "mergedPackage",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              31,
+              ".PackageMerge",
+            ],
+            [
+              58,
+              "NewPackage2.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageMerge",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              31,
+              ".PackageMerge",
+            ],
+            [
+              58,
+              "NewPackage2.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageMerge",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              31,
+              ".PackageMerge",
+            ],
+            [
+              58,
+              "NewPackage2.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageImport",
+            "importedPackage",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              30,
+              ".PackageImport",
+            ],
+            [
+              56,
+              "NewPackage1.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageImport",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              30,
+              ".PackageImport",
+            ],
+            [
+              56,
+              "NewPackage1.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageImport",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              30,
+              ".PackageImport",
+            ],
+            [
+              56,
+              "NewPackage1.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedElement",
+            "importedPackage",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              30,
+              ".PackageImport",
+            ],
+            [
+              56,
+              "NewPackage1.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedElement",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              30,
+              ".PackageImport",
+            ],
+            [
+              56,
+              "NewPackage1.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedElement",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              30,
+              ".PackageImport",
+            ],
+            [
+              56,
+              "NewPackage1.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedElement",
+            "mergedPackage",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              31,
+              ".PackageMerge",
+            ],
+            [
+              58,
+              "NewPackage2.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+      ],
+    },
+  ],
+  "metadata": {
+    "idAttribute": "xmi:id",
+    "typeAttributes": [
+      "xmi:type",
+      "xsi:type",
+    ],
+  },
+}

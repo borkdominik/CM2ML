@@ -33,14 +33,21 @@ export const parserMap = {
 
 export type Encoder<Data = unknown, Metadata = unknown> = Plugin<(GraphModel | ExecutionError)[], (StructuredOutput<Data, Metadata> | ExecutionError)[], any>
 
-export const encoders: Encoder[] = [BagOfPathsEncoder, GraphEncoder, TermFrequencyEncoder, PatternMiner, TreeEncoder]
+export const encoders: Encoder[] = [
+  BagOfPathsEncoder,
+  GraphEncoder,
+  PatternMiner,
+  StandaloneFeatureEncoder,
+  TermFrequencyEncoder,
+  TreeEncoder,
+]
 export const encoderMap = {
   [BagOfPathsEncoder.name]: BagOfPathsEncoder,
   [GraphEncoder.name]: GraphEncoder,
   [PatternMiner.name]: PatternMiner,
   [StandaloneFeatureEncoder.name]: StandaloneFeatureEncoder,
-  [TreeEncoder.name]: TreeEncoder,
   [TermFrequencyEncoder.name]: TermFrequencyEncoder,
+  [TreeEncoder.name]: TreeEncoder,
 }
 
 type LiftedEncoder<Data = unknown, Metadata = unknown> = Plugin<(GraphModel | ExecutionError)[], StructuredOutput<(Data | ExecutionError)[], Metadata>, any>

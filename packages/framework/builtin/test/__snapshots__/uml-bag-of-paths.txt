@@ -1,0 +1,1411 @@
+{
+  "data": [
+    {
+      "mapping": [
+        "_Cfp0UGmxEe2kLe5KTNzRtw",
+        "_QE0EkK7gEe2EZoZ5sgiBCg",
+        "_bM_S4K7gEe2EZoZ5sgiBCg",
+        "_bM_58K7gEe2EZoZ5sgiBCg",
+        "_bNAhAK7gEe2EZoZ5sgiBCg",
+        "_g69BoK7oEe2EZoZ5sgiBCg",
+        "_g69Boa7oEe2EZoZ5sgiBCg",
+        "_g69Boq7oEe2EZoZ5sgiBCg",
+        "_O3oC8bK1Ee24ffphK9Na6g",
+        "_O3oqALK1Ee24ffphK9Na6g",
+        "_O3oqAbK1Ee24ffphK9Na6g",
+        "_UahDwbK1Ee24ffphK9Na6g",
+        "_Uahq0LK1Ee24ffphK9Na6g",
+        "_Uahq0bK1Ee24ffphK9Na6g",
+        "_VYMM8bK1Ee24ffphK9Na6g",
+        "_VYM0ALK1Ee24ffphK9Na6g",
+        "_VYM0AbK1Ee24ffphK9Na6g",
+        "_ay8lcLK1Ee24ffphK9Na6g",
+        "_Cr6ZsK70Ee2EZoZ5sgiBCg",
+        "_r0YL0K70Ee2EZoZ5sgiBCg",
+        "_Pf5kMbFSEe2z_s-Al402-w",
+        "_TnD78LFUEe2z_s-Al402-w",
+        "_YG02YLFVEe2z_s-Al402-w",
+        "_huGJQbFuEe21bf9NlKs9Kg",
+        "_W7vZ8K79Ee2EZoZ5sgiBCg",
+        "_7Y-R4LK0Ee24ffphK9Na6g",
+        "_8Q6mgLK0Ee24ffphK9Na6g",
+        "__G-0sLK0Ee24ffphK9Na6g",
+        "_9pVK8LK0Ee24ffphK9Na6g",
+        "_99xw8LK0Ee24ffphK9Na6g",
+        "_dxJb8LK1Ee24ffphK9Na6g",
+        "_e5mRwLK1Ee24ffphK9Na6g",
+        "_AmwlYLK1Ee24ffphK9Na6g",
+        "_-da6ULK0Ee24ffphK9Na6g",
+        "_ipeAULK2Ee24ffphK9Na6g",
+        "_ipenYLK2Ee24ffphK9Na6g",
+        "_ipenYbK2Ee24ffphK9Na6g",
+        "_J2H38LK1Ee24ffphK9Na6g",
+        "_MHjIALK1Ee24ffphK9Na6g",
+        "_O3oqArK1Ee24ffphK9Na6g",
+        "_O3oqA7K1Ee24ffphK9Na6g",
+        "_O3oqBLK1Ee24ffphK9Na6g",
+        "_Mg74YLK1Ee24ffphK9Na6g",
+        "_UaiR4LK1Ee24ffphK9Na6g",
+        "_UaiR4bK1Ee24ffphK9Na6g",
+        "_UaiR4rK1Ee24ffphK9Na6g",
+        "_M-U_ALK1Ee24ffphK9Na6g",
+        "_Gt7igLK2Ee24ffphK9Na6g",
+        "_VYM0ArK1Ee24ffphK9Na6g",
+        "_VYNbELK1Ee24ffphK9Na6g",
+        "_VYNbEbK1Ee24ffphK9Na6g",
+        "_Nbk7sLK1Ee24ffphK9Na6g",
+        "_O3oC8LK1Ee24ffphK9Na6g",
+        "_UahDwLK1Ee24ffphK9Na6g",
+        "_VYMM8LK1Ee24ffphK9Na6g",
+        "_XCaTELK1Ee24ffphK9Na6g",
+        "_dDtuMLK1Ee24ffphK9Na6g",
+        "_wZ60QLK9Ee2fn9jN03lZYw",
+        "_ed5NMLK1Ee24ffphK9Na6g",
+        "_ghLTkLK1Ee24ffphK9Na6g",
+        "_D0YigLK2Ee24ffphK9Na6g",
+        "_EWMPELK2Ee24ffphK9Na6g",
+        "_FGLhkLK2Ee24ffphK9Na6g",
+        "_LjfcIbSLEe2pkZx4lGC8Ew",
+        "_ItfSANIcEe2rY5KN6ehSig",
+        "_Itf5ENIcEe2rY5KN6ehSig",
+        "_ItggINIcEe2rY5KN6ehSig",
+        "_j12MQL0cEe2besM683MlUA",
+        "_ItggIdIcEe2rY5KN6ehSig",
+        "_ItggItIcEe2rY5KN6ehSig",
+        "_IthHMNIcEe2rY5KN6ehSig",
+        "_Uk2g0cymEe2SqIqlz0mqiA",
+        "_uKNqAc1tEe2aWMTUBOnCiQ",
+        "_uK1VEM1tEe2aWMTUBOnCiQ",
+        "_uK1VEc1tEe2aWMTUBOnCiQ",
+        "_45WxkM5PEe2J1pPdCxXkdw",
+        "_8YNeEM5PEe2J1pPdCxXkdw",
+        "_e-0x0dI3Ee2XPc95mjsJSg",
+        "_ItM-INIcEe2rY5KN6ehSig",
+      ],
+      "paths": [
+        {
+          "edges": [
+            "nestedPackage",
+            "packageMerge",
+            "mergedPackage",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              31,
+              ".PackageMerge",
+            ],
+            [
+              58,
+              "NewPackage2.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageMerge",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              31,
+              ".PackageMerge",
+            ],
+            [
+              58,
+              "NewPackage2.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageMerge",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              31,
+              ".PackageMerge",
+            ],
+            [
+              58,
+              "NewPackage2.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageImport",
+            "importedPackage",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              30,
+              ".PackageImport",
+            ],
+            [
+              56,
+              "NewPackage1.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageImport",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              30,
+              ".PackageImport",
+            ],
+            [
+              56,
+              "NewPackage1.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageImport",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              30,
+              ".PackageImport",
+            ],
+            [
+              56,
+              "NewPackage1.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedElement",
+            "importedPackage",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              30,
+              ".PackageImport",
+            ],
+            [
+              56,
+              "NewPackage1.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedElement",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              30,
+              ".PackageImport",
+            ],
+            [
+              56,
+              "NewPackage1.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedElement",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              30,
+              ".PackageImport",
+            ],
+            [
+              56,
+              "NewPackage1.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedElement",
+            "mergedPackage",
+          ],
+          "nodes": [
+            [
+              0,
+              "clazz.Model",
+            ],
+            [
+              29,
+              "NewPackage3.Package",
+            ],
+            [
+              31,
+              ".PackageMerge",
+            ],
+            [
+              58,
+              "NewPackage2.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+      ],
+    },
+    {
+      "mapping": [
+        "_0V2YcPidEe6PhJwEQ2R2dA",
+        "_RGi8oPieEe6PhJwEQ2R2dA",
+        "_J7D7cPigEe6PhJwEQ2R2dA",
+        "_MNBXAPigEe6PhJwEQ2R2dA",
+        "_FIW24PifEe6PhJwEQ2R2dA",
+        "_uXlYUPifEe6PhJwEQ2R2dA",
+        "_3aJlAPifEe6PhJwEQ2R2dA",
+        "_9-mJcPifEe6PhJwEQ2R2dA",
+        "_CMuWwPigEe6PhJwEQ2R2dA",
+        "_onBH4PifEe6PhJwEQ2R2dA",
+        "_qiUW8PifEe6PhJwEQ2R2dA",
+        "_7flJUPifEe6PhJwEQ2R2dA",
+      ],
+      "paths": [
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "deployedArtifact",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              2,
+              "FirstDeployment.Deployment",
+            ],
+            [
+              4,
+              "FirstArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "supplier",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              2,
+              "FirstDeployment.Deployment",
+            ],
+            [
+              4,
+              "FirstArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              2,
+              "FirstDeployment.Deployment",
+            ],
+            [
+              4,
+              "FirstArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              2,
+              "FirstDeployment.Deployment",
+            ],
+            [
+              4,
+              "FirstArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "deployedArtifact",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              3,
+              "SecondDeployment.Deployment",
+            ],
+            [
+              7,
+              "SecondArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "supplier",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              3,
+              "SecondDeployment.Deployment",
+            ],
+            [
+              7,
+              "SecondArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              3,
+              "SecondDeployment.Deployment",
+            ],
+            [
+              7,
+              "SecondArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              3,
+              "SecondDeployment.Deployment",
+            ],
+            [
+              7,
+              "SecondArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "ownedElement",
+            "deployedArtifact",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              2,
+              "FirstDeployment.Deployment",
+            ],
+            [
+              4,
+              "FirstArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "ownedElement",
+            "supplier",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              2,
+              "FirstDeployment.Deployment",
+            ],
+            [
+              4,
+              "FirstArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+      ],
+    },
+    {
+      "mapping": [
+        "_yoiHINu2Ee65YvY_tzBAgQ",
+        "_yxEYENu2Ee65YvY_tzBAgQ",
+        "eu.yeger#generated-id-0",
+        "_7gC6YNu2Ee65YvY_tzBAgQ",
+        "_OgQboN0aEe6kj4CCWHMNuw",
+        "_myJ5QN0aEe6kj4CCWHMNuw",
+        "_-IKzMNu2Ee65YvY_tzBAgQ",
+        "_Q2FY8Nu5Ee65YvY_tzBAgQ",
+        "_zNKW0Nu5Ee65YvY_tzBAgQ",
+        "_ZNSfANu6Ee65YvY_tzBAgQ",
+        "_fmHpUNu6Ee65YvY_tzBAgQ",
+        "_jaGRQNu6Ee65YvY_tzBAgQ",
+        "_jZl68Nu6Ee65YvY_tzBAgQ",
+        "_adJScNu8Ee65YvY_tzBAgQ",
+        "_cJ36ANu8Ee65YvY_tzBAgQ",
+        "_f9gVoN0aEe6kj4CCWHMNuw",
+        "_iR3k8N0aEe6kj4CCWHMNuw",
+        "_Lr_kQN0aEe6kj4CCWHMNuw",
+        "_RBlv8N0aEe6kj4CCWHMNuw",
+        "_7qZgYN_AEe6kj4CCWHMNuw",
+        "_-Dv9YN_AEe6kj4CCWHMNuw",
+        "_COyacN_BEe6kj4CCWHMNuw",
+        "_E1syUN_BEe6kj4CCWHMNuw",
+        "_xBwPAOB2Ee6kj4CCWHMNuw",
+        "_0Fpd0OB2Ee6kj4CCWHMNuw",
+      ],
+      "paths": [
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedType",
+            "nestedClassifier",
+          ],
+          "nodes": [
+            [
+              0,
+              "ownedPort.Model",
+            ],
+            [
+              19,
+              "ParentPackage.Package",
+            ],
+            [
+              21,
+              "ParentInterface.Interface",
+            ],
+            [
+              22,
+              "NestedInterface.Interface",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedType",
+            "ownedMember",
+          ],
+          "nodes": [
+            [
+              0,
+              "ownedPort.Model",
+            ],
+            [
+              19,
+              "ParentPackage.Package",
+            ],
+            [
+              21,
+              "ParentInterface.Interface",
+            ],
+            [
+              22,
+              "NestedInterface.Interface",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedType",
+            "member",
+          ],
+          "nodes": [
+            [
+              0,
+              "ownedPort.Model",
+            ],
+            [
+              19,
+              "ParentPackage.Package",
+            ],
+            [
+              21,
+              "ParentInterface.Interface",
+            ],
+            [
+              22,
+              "NestedInterface.Interface",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedType",
+            "ownedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "ownedPort.Model",
+            ],
+            [
+              19,
+              "ParentPackage.Package",
+            ],
+            [
+              21,
+              "ParentInterface.Interface",
+            ],
+            [
+              22,
+              "NestedInterface.Interface",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packagedElement",
+            "nestedClassifier",
+          ],
+          "nodes": [
+            [
+              0,
+              "ownedPort.Model",
+            ],
+            [
+              19,
+              "ParentPackage.Package",
+            ],
+            [
+              21,
+              "ParentInterface.Interface",
+            ],
+            [
+              22,
+              "NestedInterface.Interface",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packagedElement",
+            "ownedMember",
+          ],
+          "nodes": [
+            [
+              0,
+              "ownedPort.Model",
+            ],
+            [
+              19,
+              "ParentPackage.Package",
+            ],
+            [
+              21,
+              "ParentInterface.Interface",
+            ],
+            [
+              22,
+              "NestedInterface.Interface",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packagedElement",
+            "member",
+          ],
+          "nodes": [
+            [
+              0,
+              "ownedPort.Model",
+            ],
+            [
+              19,
+              "ParentPackage.Package",
+            ],
+            [
+              21,
+              "ParentInterface.Interface",
+            ],
+            [
+              22,
+              "NestedInterface.Interface",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packagedElement",
+            "ownedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "ownedPort.Model",
+            ],
+            [
+              19,
+              "ParentPackage.Package",
+            ],
+            [
+              21,
+              "ParentInterface.Interface",
+            ],
+            [
+              22,
+              "NestedInterface.Interface",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedMember",
+            "nestedClassifier",
+          ],
+          "nodes": [
+            [
+              0,
+              "ownedPort.Model",
+            ],
+            [
+              19,
+              "ParentPackage.Package",
+            ],
+            [
+              21,
+              "ParentInterface.Interface",
+            ],
+            [
+              22,
+              "NestedInterface.Interface",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "ownedMember",
+            "ownedMember",
+          ],
+          "nodes": [
+            [
+              0,
+              "ownedPort.Model",
+            ],
+            [
+              19,
+              "ParentPackage.Package",
+            ],
+            [
+              21,
+              "ParentInterface.Interface",
+            ],
+            [
+              22,
+              "NestedInterface.Interface",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+      ],
+    },
+    {
+      "mapping": [
+        "_PTF5sc4OEe2NwpxoRjsNIQ",
+        "_QGY-4M4OEe2NwpxoRjsNIQ",
+        "_5AugUPn-Ee2smM55zuHUhw",
+        "_uBXk4M4OEe2WfbpzO7t8-A",
+        "_KrFesfn-Ee2smM55zuHUhw",
+        "_RY5voM4OEe2NwpxoRjsNIQ",
+        "_2IFB4PYREe2O9IdeA_KGyQ",
+        "_4Xgt4PYREe2O9IdeA_KGyQ",
+        "_gu8-gPn-Ee2smM55zuHUhw",
+        "_kjCCMM4OEe2WfbpzO7t8-A",
+        "_59v3UM4OEe2WfbpzO7t8-A",
+        "_lJmS8M4OEe2WfbpzO7t8-A",
+        "_qfI0QM4OEe2WfbpzO7t8-A",
+        "_4EHcMM4OEe2WfbpzO7t8-A",
+        "_Mmu2kPn_Ee2smM55zuHUhw",
+        "_gg-iAPoAEe2smM55zuHUhw",
+        "_PwW58Pn_Ee2smM55zuHUhw",
+        "_U4qQgPn_Ee2smM55zuHUhw",
+        "_Oj0OUPn_Ee2smM55zuHUhw",
+        "_dHjvIPoAEe2smM55zuHUhw",
+      ],
+      "paths": [
+        {
+          "edges": [
+            "nestedPackage",
+            "elementImport",
+            "importedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              2,
+              ".ElementImport",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "elementImport",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              2,
+              ".ElementImport",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "elementImport",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              2,
+              ".ElementImport",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageImport",
+            "importedPackage",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              3,
+              ".PackageImport",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageImport",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              3,
+              ".PackageImport",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageImport",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              3,
+              ".PackageImport",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "importedMember",
+            "package",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "importedMember",
+            "namespace",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "importedMember",
+            "owner",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "member",
+            "package",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+      ],
+    },
+  ],
+  "metadata": {
+    "idAttribute": "xmi:id",
+    "typeAttributes": [
+      "xmi:type",
+      "xsi:type",
+    ],
+  },
+}

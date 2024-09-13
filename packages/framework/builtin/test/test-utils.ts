@@ -16,9 +16,6 @@ function isPluginReadyForTest(plugin: PrecomposedPlugin) {
   if (name.includes('archimate')) {
     return false
   }
-  if (name.includes('bag-of-paths')) {
-    return false
-  }
   if (name.includes('ecore')) {
     return false
   }

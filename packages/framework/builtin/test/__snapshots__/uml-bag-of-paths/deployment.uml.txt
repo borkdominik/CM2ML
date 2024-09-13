@@ -1,0 +1,339 @@
+{
+  "data": [
+    {
+      "mapping": [
+        "_0V2YcPidEe6PhJwEQ2R2dA",
+        "_RGi8oPieEe6PhJwEQ2R2dA",
+        "_J7D7cPigEe6PhJwEQ2R2dA",
+        "_MNBXAPigEe6PhJwEQ2R2dA",
+        "_FIW24PifEe6PhJwEQ2R2dA",
+        "_uXlYUPifEe6PhJwEQ2R2dA",
+        "_3aJlAPifEe6PhJwEQ2R2dA",
+        "_9-mJcPifEe6PhJwEQ2R2dA",
+        "_CMuWwPigEe6PhJwEQ2R2dA",
+        "_onBH4PifEe6PhJwEQ2R2dA",
+        "_qiUW8PifEe6PhJwEQ2R2dA",
+        "_7flJUPifEe6PhJwEQ2R2dA",
+      ],
+      "paths": [
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "deployedArtifact",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              2,
+              "FirstDeployment.Deployment",
+            ],
+            [
+              4,
+              "FirstArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "supplier",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              2,
+              "FirstDeployment.Deployment",
+            ],
+            [
+              4,
+              "FirstArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              2,
+              "FirstDeployment.Deployment",
+            ],
+            [
+              4,
+              "FirstArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              2,
+              "FirstDeployment.Deployment",
+            ],
+            [
+              4,
+              "FirstArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "deployedArtifact",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              3,
+              "SecondDeployment.Deployment",
+            ],
+            [
+              7,
+              "SecondArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "supplier",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              3,
+              "SecondDeployment.Deployment",
+            ],
+            [
+              7,
+              "SecondArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              3,
+              "SecondDeployment.Deployment",
+            ],
+            [
+              7,
+              "SecondArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "deployment",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              3,
+              "SecondDeployment.Deployment",
+            ],
+            [
+              7,
+              "SecondArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "ownedElement",
+            "deployedArtifact",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              2,
+              "FirstDeployment.Deployment",
+            ],
+            [
+              4,
+              "FirstArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "ownedType",
+            "ownedElement",
+            "supplier",
+          ],
+          "nodes": [
+            [
+              0,
+              "model.Model",
+            ],
+            [
+              1,
+              "DeploymentTarget.Node",
+            ],
+            [
+              2,
+              "FirstDeployment.Deployment",
+            ],
+            [
+              4,
+              "FirstArtifact.Artifact",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+      ],
+    },
+  ],
+  "metadata": {
+    "idAttribute": "xmi:id",
+    "typeAttributes": [
+      "xmi:type",
+      "xsi:type",
+    ],
+  },
+}

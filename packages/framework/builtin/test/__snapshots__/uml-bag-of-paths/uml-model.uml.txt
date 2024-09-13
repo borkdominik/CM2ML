@@ -1,0 +1,347 @@
+{
+  "data": [
+    {
+      "mapping": [
+        "_PTF5sc4OEe2NwpxoRjsNIQ",
+        "_QGY-4M4OEe2NwpxoRjsNIQ",
+        "_5AugUPn-Ee2smM55zuHUhw",
+        "_uBXk4M4OEe2WfbpzO7t8-A",
+        "_KrFesfn-Ee2smM55zuHUhw",
+        "_RY5voM4OEe2NwpxoRjsNIQ",
+        "_2IFB4PYREe2O9IdeA_KGyQ",
+        "_4Xgt4PYREe2O9IdeA_KGyQ",
+        "_gu8-gPn-Ee2smM55zuHUhw",
+        "_kjCCMM4OEe2WfbpzO7t8-A",
+        "_59v3UM4OEe2WfbpzO7t8-A",
+        "_lJmS8M4OEe2WfbpzO7t8-A",
+        "_qfI0QM4OEe2WfbpzO7t8-A",
+        "_4EHcMM4OEe2WfbpzO7t8-A",
+        "_Mmu2kPn_Ee2smM55zuHUhw",
+        "_gg-iAPoAEe2smM55zuHUhw",
+        "_PwW58Pn_Ee2smM55zuHUhw",
+        "_U4qQgPn_Ee2smM55zuHUhw",
+        "_Oj0OUPn_Ee2smM55zuHUhw",
+        "_dHjvIPoAEe2smM55zuHUhw",
+      ],
+      "paths": [
+        {
+          "edges": [
+            "nestedPackage",
+            "elementImport",
+            "importedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              2,
+              ".ElementImport",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "elementImport",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              2,
+              ".ElementImport",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "elementImport",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              2,
+              ".ElementImport",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageImport",
+            "importedPackage",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              3,
+              ".PackageImport",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageImport",
+            "target",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              3,
+              ".PackageImport",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "packageImport",
+            "relatedElement",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              3,
+              ".PackageImport",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "importedMember",
+            "package",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "importedMember",
+            "namespace",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "importedMember",
+            "owner",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+        {
+          "edges": [
+            "nestedPackage",
+            "member",
+            "package",
+          ],
+          "nodes": [
+            [
+              0,
+              "package.Model",
+            ],
+            [
+              1,
+              "App.Package",
+            ],
+            [
+              8,
+              "Launcher.Class",
+            ],
+            [
+              5,
+              "Lib.Package",
+            ],
+          ],
+          "stepWeights": [
+            1,
+            1,
+            1,
+          ],
+          "weight": 3,
+        },
+      ],
+    },
+  ],
+  "metadata": {
+    "idAttribute": "xmi:id",
+    "typeAttributes": [
+      "xmi:type",
+      "xsi:type",
+    ],
+  },
+}
