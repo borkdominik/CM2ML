@@ -1,11 +1,15 @@
-import { parserMap } from '@cm2ml/builtin'
+import { ArchimateParser, parserMap, UmlParser } from '@cm2ml/builtin'
 import { getMessage } from '@cm2ml/utils'
+import { xml } from '@codemirror/lang-xml'
+import CodeMirror from '@uiw/react-codemirror'
+import { debounce } from '@yeger/debounce'
 import type { ChangeEvent } from 'react'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 import { prettifyParserName } from '../../lib/pluginNames'
 import { useModelState } from '../../lib/useModelState'
 import { useSettings } from '../../lib/useSettings'
+import { useTheme } from '../../lib/useTheme'
 import { Error } from '../Error'
 import { Parameters } from '../Parameters'
 import { Button } from '../ui/button'
@@ -21,7 +25,6 @@ import {
   SelectValue,
 } from '../ui/select'
 import { Separator } from '../ui/separator'
-import { Textarea } from '../ui/textarea'
 
 const parsers = Object.keys(parserMap)
 
@@ -39,6 +42,17 @@ export function ModelForm() {
   const [modelError, setFetchError] = useState<string | undefined>()
   const isValidModelUrl = useMemo(() => isValidUrl(modelUrl), [modelUrl])
   const layout = useSettings.use.layout()
+  const theme = useTheme.use.theme()
+
+  const codeMirrorLanguage = useMemo(() => {
+    if (parser === UmlParser) {
+      return xml()
+    }
+    if (parser === ArchimateParser) {
+      return xml()
+    }
+    return xml()
+  }, [parser])
 
   async function onFileLoaded(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]
@@ -72,6 +86,8 @@ export function ModelForm() {
       setFetchError(getMessage(error))
     }
   }
+
+  const debouncedSetSerializedModel = useCallback(debounce(setSerializedModel, 1000), [setSerializedModel])
 
   return (
     <div className="max-h-full overflow-y-auto" data-testid="model-form">
@@ -110,15 +126,19 @@ export function ModelForm() {
               )
             : null}
           <div className="flex flex-col gap-2">
-            <Label htmlFor="model">
+            <Label>
               Model
             </Label>
-            <Textarea
-              name="model"
-              value={serializedModel}
-              onChange={(event) => setSerializedModel(event.target.value)}
-              placeholder="Paste your model here"
-            />
+            <div className="max-h-96 overflow-y-auto rounded border">
+              <CodeMirror
+                value={serializedModel}
+
+                onChange={debouncedSetSerializedModel}
+                placeholder="Paste your model here"
+                theme={theme}
+                extensions={[codeMirrorLanguage]}
+              />
+            </div>
             <Or />
             <Input type="file" onInput={onFileLoaded} />
             <Or />
@@ -158,7 +178,7 @@ export function ModelForm() {
 
 function Or() {
   return (
-    <span className="mx-auto flex w-full items-center gap-2 text-xs text-muted-foreground">
+    <span className="text-muted-foreground mx-auto flex w-full items-center gap-2 text-xs">
       <Separator className="shrink" />
       or
       <Separator className="shrink" />
