@@ -1,6 +1,7 @@
 import { GraphModel } from '@cm2ml/ir'
-import { ExecutionError, ValidationError, defineStructuredBatchPlugin } from '@cm2ml/plugin'
+import { ExecutionError, ValidationError, compose, definePlugin, defineStructuredBatchPlugin, getFirstNonError } from '@cm2ml/plugin'
 import { lazy } from '@cm2ml/utils'
+import { Stream } from '@yeger/streams'
 import { ZodError } from 'zod'
 
 import { getFeatureMetadataFromFile } from './feature-metadata-extractor'
@@ -85,3 +86,32 @@ export const FeatureEncoder = defineStructuredBatchPlugin({
     }
   },
 })
+
+export const StandaloneFeatureEncoder = compose(FeatureEncoder, definePlugin({
+  name: 'feature-vector-generator',
+  parameters: {},
+  invoke(batch, _parameters) {
+    const firstNonError = getFirstNonError(batch)
+    const metadata = {
+      idAttribute: firstNonError?.data.metamodel.idAttribute,
+      typeAttributes: firstNonError?.data.metamodel.typeAttributes,
+      nameAttribute: firstNonError?.data.metamodel.nameAttribute,
+      nodeFeatures: firstNonError?.metadata.nodeFeatures,
+      edgeFeatures: firstNonError?.metadata.edgeFeatures,
+    }
+    return batch.map((item) => {
+      if (item instanceof ExecutionError) {
+        return item
+      }
+      const nodes = Stream.from(item.data.nodes).map((node) => item.metadata.getNodeFeatureVector(node)).toArray()
+      const edges = Stream.from(item.data.edges).map((edge) => item.metadata.getEdgeFeatureVector(edge)).toArray()
+      return {
+        data: {
+          nodes,
+          edges,
+        },
+        metadata,
+      }
+    })
+  },
+}), FeatureEncoder.name)

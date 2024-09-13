@@ -1,6 +1,7 @@
 import { ArchimateParser } from '@cm2ml/archimate'
 import { BagOfPathsEncoder } from '@cm2ml/bag-of-paths-encoder'
 import { EcoreParser } from '@cm2ml/ecore'
+import { StandaloneFeatureEncoder } from '@cm2ml/feature-encoder'
 import { GraphEncoder } from '@cm2ml/graph-encoder'
 import type { GraphModel } from '@cm2ml/ir'
 import { PatternMiner } from '@cm2ml/pattern-miner'
@@ -37,6 +38,7 @@ export const encoderMap = {
   [BagOfPathsEncoder.name]: BagOfPathsEncoder,
   [GraphEncoder.name]: GraphEncoder,
   [PatternMiner.name]: PatternMiner,
+  [StandaloneFeatureEncoder.name]: StandaloneFeatureEncoder,
   [TreeEncoder.name]: TreeEncoder,
   [TermFrequencyEncoder.name]: TermFrequencyEncoder,
 }

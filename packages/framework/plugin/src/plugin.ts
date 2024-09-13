@@ -1,6 +1,6 @@
 import { ZodError } from 'zod'
 
-import type { ExecutionError } from './error'
+import { ExecutionError } from './error'
 import type { ParameterMetadata, ResolveParameters } from './parameters'
 import { ValidationError, deriveValidator } from './parameters'
 
@@ -82,4 +82,8 @@ export function defineStructuredBatchPlugin<In, Data, Metadata, Parameters exten
   },
 ) {
   return definePlugin(data)
+}
+
+export function getFirstNonError<T>(batch: (T | ExecutionError)[]) {
+  return batch.find((item): item is T => !(item instanceof ExecutionError))
 }
