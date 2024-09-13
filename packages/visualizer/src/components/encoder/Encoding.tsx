@@ -2,10 +2,9 @@ import type { Encoder } from '@cm2ml/builtin'
 import { BagOfPathsEncoder, GraphEncoder, PatternMiner, TermFrequencyEncoder, TreeEncoder } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 
-import { prettifyEncoderName } from '../../lib/pluginNames'
 import type { ParameterValues } from '../Parameters'
-import { Hint } from '../ui/hint'
 
+import { EncodingFallback } from './EncodingFallback'
 import { BagOfPathsEncoding } from './encodings/bag-of-paths/BagOfPathsEncoding'
 import { PatternEncoding } from './encodings/pattern/PatternEncoding'
 import { RawGraphEncoding } from './encodings/raw-graph/RawGraphEncoding'
@@ -34,7 +33,5 @@ export function Encoding({ encoder, model, parameters }: Props) {
   if (encoder === TermFrequencyEncoder) {
     return <TermFrequencyEncoding model={model} parameters={parameters} />
   }
-  return (
-    <Hint error={`No visualization for ${prettifyEncoderName(encoder.name)} encoding available`} />
-  )
+  return <EncodingFallback encoder={encoder} model={model} parameters={parameters} />
 }
