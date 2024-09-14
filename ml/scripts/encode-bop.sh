@@ -9,6 +9,7 @@ time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-bag-of-paths ../models/
   --step-weighting '@type.not.exists >>> 0' \
   --path-weight step-sum \
   --max-paths 0 \
+  --prune-method 'encoding' \
   --node-templates '@name.exists >>> {{name}} {{type}}' \
   --node-templates 'unnamed {{type}}' \
   --edge-templates '@tag = dependency >>> depends on' \

@@ -5,6 +5,8 @@ import { Stream } from '@yeger/streams'
 import { pathWeightTypes, sortOrders } from './bop-types'
 import { encodePaths } from './encoding'
 import { collectPaths } from './paths'
+import type { PruneMethod } from './prune'
+import { pruneMethods, prunePaths } from './prune'
 
 export type { PathWeight } from './bop-types'
 export { pathWeightTypes }
@@ -35,6 +37,14 @@ const PathBuilder = definePlugin({
       type: 'number',
       defaultValue: 10,
       description: 'Maximum number of paths to collect',
+      group: 'Paths',
+    },
+    pruneMethod: {
+      type: 'string',
+      allowedValues: pruneMethods,
+      defaultValue: pruneMethods[0],
+      description: 'Prune method for paths that are subsequences of other paths',
+      helpText: `"none" performs no pruning. "node" checks if both nodes and their encodings are equal. "encoding" checks if the encoding of two nodes is equal.`,
       group: 'Paths',
     },
     order: {
@@ -88,7 +98,7 @@ const PathBuilder = definePlugin({
       .toArray()
     return {
       data: {
-        paths: encodedPaths,
+        paths: prunePaths(encodedPaths, parameters.pruneMethod as PruneMethod),
         mapping,
       },
       metadata: { idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },

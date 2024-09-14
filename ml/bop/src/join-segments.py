@@ -20,10 +20,12 @@ with open(f"{script_dir}/../../.input/bag-of-paths.json", "r") as file:
     # every key in data is for a file, iterate over key-value pairs
     for file, entry in data.items():
         paths = entry['paths']
-        out[file] = []
+        path_strings = []
         # iterate over paths
         for path in paths:
-            out[file].append(join_segments(path))
+            path_strings.append(join_segments(path))
+        if len(path_strings) > 0:
+            out[file] = path_strings
     out_json = json.dumps(out, indent=2)
     # write to file
     with open(f"{script_dir}/../../.output/bag-of-paths-merged.json", "w") as out_file:
