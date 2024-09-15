@@ -11,6 +11,15 @@ def join_segments(path):
         result.append(node[1])
     return " ".join(result)
 
+def contains_duplicate(out, path_strings):
+    for _, other in out.items():
+        if len(other) == len(path_strings):
+            for index, path_string in enumerate(path_strings):
+                if path_string == other[index]:
+                    return True
+    return False
+
+
 script_dir = os.path.dirname(os.path.realpath(__file__))
 
 with open(f"{script_dir}/../../.input/bag-of-paths.json", "r") as file:
@@ -24,7 +33,7 @@ with open(f"{script_dir}/../../.input/bag-of-paths.json", "r") as file:
         # iterate over paths
         for path in paths:
             path_strings.append(join_segments(path))
-        if len(path_strings) > 0:
+        if len(path_strings) > 0 and not contains_duplicate(out, path_strings):
             out[file] = path_strings
     out_json = json.dumps(out, indent=2)
     # write to file
