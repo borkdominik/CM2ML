@@ -1,7 +1,7 @@
 time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-bag-of-paths ../models/uml/dataset \
   --out .input/bag-of-paths.json \
   --strict --pretty \
-  --continue-on-error --start 1 --limit 10000 \
+  --continue-on-error --start 1 --limit 100 \
   --relationships-as-edges --only-containment-associations \
   --edge-blacklist 'owner' --edge-blacklist 'ownedElement' --edge-blacklist 'association' --edge-blacklist 'associationClass' \
   --min-path-length 1 --max-path-length 2 \
@@ -10,8 +10,8 @@ time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-bag-of-paths ../models/
   --path-weight step-sum \
   --max-paths 0 \
   --prune-method 'encoding' \
-  --node-templates '@name.exists >>> {{name}} {{type}}' \
-  --node-templates 'unnamed {{type}}' \
+  --node-templates '@name.exists >>> {{name}} $eu.yeger${{type}}$eu.yeger$' \
+  --node-templates 'unnamed $eu.yeger${{type}}$eu.yeger$' \
   --edge-templates '@tag = abstraction >>> abstracts' \
   --edge-templates '@tag = communicationPath >>> communicates with' \
   --edge-templates '@tag = componentRealization >>> realizes' \
