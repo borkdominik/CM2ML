@@ -5,7 +5,6 @@ import type { PathParameters, PathWeight } from './bop-types'
 import { validatePathParameters } from './bop-validationts'
 import { MultiCache } from './multi-cache'
 import type { PathContext, StepWeighting } from './templates/model'
-import { compileStepWeighting } from './templates/parser'
 
 export interface StepData {
   node: GraphNode
@@ -33,16 +32,15 @@ function pathOrder(order: 'asc' | 'desc' | string) {
 
 type WeightCache = MultiCache<string, GraphEdge, number>
 
-export function collectPaths(model: GraphModel, parameters: PathParameters) {
+export function collectPaths(model: GraphModel, parameters: PathParameters, stepWeightings: StepWeighting[]): Omit<PathData, 'encodedSteps'>[] {
   validatePathParameters(parameters)
-  const compiledStepWeighting = parameters.stepWeighting.map((weighting) => compileStepWeighting(weighting))
   const nodes = Stream.from(model.nodes)
   const weightCache: WeightCache = new MultiCache()
   const paths = nodes
     .flatMap((node) => Path.from(node, parameters))
     .filter((path) => path.steps.length >= parameters.minPathLength)
     .map<Omit<PathData, 'encodedSteps'>>((path) => {
-      const stepWeights = getStepWeights(path.steps, compiledStepWeighting, weightCache)
+      const stepWeights = getStepWeights(path.steps, stepWeightings, weightCache)
       return {
         steps: [{ node: path.startNode, via: undefined }, ...path.steps.map((step) => ({ node: step.target, via: step }))],
         stepWeights,

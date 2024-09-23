@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import type { PathData } from '../src/paths'
 import { collectPaths } from '../src/paths'
+import { compileStepWeighting } from '../src/templates/parser'
 
 import { createTestModel } from './test-utils'
 
@@ -16,11 +17,10 @@ describe('paths', () => {
       allowCycles: false,
       minPathLength: 1,
       maxPathLength: 3,
-      stepWeighting: ['1'],
       pathWeight: 'length',
       maxPaths: -1,
       order: 'desc',
-    })
+    }, [compileStepWeighting('1')])
     expect(snapshottify(paths)).toMatchInlineSnapshot(`
       [
         {
@@ -87,11 +87,10 @@ describe('paths', () => {
       allowCycles: true,
       minPathLength: 1,
       maxPathLength: 3,
-      stepWeighting: ['1'],
       pathWeight: 'length',
       maxPaths: -1,
       order: 'desc',
-    })
+    }, [compileStepWeighting('1')])
     expect(snapshottify(paths).map(({ steps }) => steps)).toMatchInlineSnapshot(`
       [
         [
@@ -149,11 +148,10 @@ describe('paths', () => {
       allowCycles: false,
       minPathLength: 1,
       maxPathLength: 3,
-      stepWeighting: ['1'],
       pathWeight: 'length',
       maxPaths: -1,
       order: 'desc',
-    })
+    }, [compileStepWeighting('1')])
     expect(snapshottify(paths).map(({ steps }) => steps)).toMatchInlineSnapshot(`
       [
         [
@@ -194,11 +192,10 @@ describe('paths', () => {
       allowCycles: true,
       minPathLength: 1,
       maxPathLength: 3,
-      stepWeighting: ['1'],
       pathWeight: 'length',
       maxPaths: -1,
       order: 'desc',
-    })
+    }, [compileStepWeighting('1')])
     expect(snapshottify(paths).map(({ steps }) => steps)).toMatchInlineSnapshot(`
       [
         [
@@ -257,11 +254,10 @@ describe('paths', () => {
         allowCycles: false,
         minPathLength: 1,
         maxPathLength: 3,
-        stepWeighting: ['1'],
         pathWeight: 'length',
         maxPaths: 1,
         order: 'desc',
-      })
+      }, [compileStepWeighting('1')])
       expect(snapshottify(paths)).toMatchInlineSnapshot(`
         [
           {
@@ -286,11 +282,10 @@ describe('paths', () => {
         allowCycles: false,
         minPathLength: 2,
         maxPathLength: 3,
-        stepWeighting: ['1'],
         pathWeight: 'length',
         maxPaths: -1,
         order: 'desc',
-      })
+      }, [compileStepWeighting('1')])
       expect(snapshottify(paths)).toMatchInlineSnapshot(`
         [
           {
@@ -327,11 +322,10 @@ describe('paths', () => {
         allowCycles: false,
         minPathLength: 1,
         maxPathLength: 1,
-        stepWeighting: ['1'],
         pathWeight: 'length',
         maxPaths: -1,
         order: 'desc',
-      })
+      }, [compileStepWeighting('1')])
       expect(snapshottify(paths)).toMatchInlineSnapshot(`
         [
           {
@@ -374,11 +368,10 @@ describe('paths', () => {
         allowCycles: false,
         minPathLength: 0,
         maxPathLength: 0,
-        stepWeighting: ['1'],
         pathWeight: 'length',
         maxPaths: -1,
         order: 'desc',
-      })
+      }, [compileStepWeighting('1')])
       expect(snapshottify(paths)).toMatchInlineSnapshot(`
         [
           {
@@ -422,11 +415,10 @@ describe('paths', () => {
           allowCycles: false,
           minPathLength: 2,
           maxPathLength: 3,
-          stepWeighting: ['2'],
           pathWeight: 'length',
           maxPaths: -1,
           order: 'desc',
-        })
+        }, [compileStepWeighting('2')])
         expect(snapshottify(paths).map(({ stepWeights }) => stepWeights)).toEqual([[2, 2]])
       })
 
@@ -436,11 +428,10 @@ describe('paths', () => {
           allowCycles: false,
           minPathLength: 2,
           maxPathLength: 4,
-          stepWeighting: ['@path.step = 1 >>> 2', '@path.step = 2 >>> 2.5', '@path.step = 3 >>> -42', '@path.step = 4 >>> -7,7'],
           pathWeight: 'length',
           maxPaths: 1,
           order: 'desc',
-        })
+        }, ['@path.step = 1 >>> 2', '@path.step = 2 >>> 2.5', '@path.step = 3 >>> -42', '@path.step = 4 >>> -7,7'].map(compileStepWeighting))
         expect(snapshottify(paths).map(({ stepWeights }) => stepWeights)).toEqual([[2, 2.5, -42, -7.7]])
       })
 
@@ -450,11 +441,10 @@ describe('paths', () => {
           allowCycles: false,
           minPathLength: 2,
           maxPathLength: 3,
-          stepWeighting: [],
           pathWeight: 'length',
           maxPaths: -1,
           order: 'desc',
-        })
+        }, [])
         expect(snapshottify(paths).map(({ stepWeights }) => stepWeights)).toEqual([[1, 1]])
       })
     })
@@ -466,11 +456,10 @@ describe('paths', () => {
           allowCycles: false,
           minPathLength: 1,
           maxPathLength: 3,
-          stepWeighting: ['1'],
           pathWeight: 'length',
           maxPaths: -1,
           order: 'desc',
-        })
+        }, [compileStepWeighting('1')])
         expect(snapshottify(paths).map(({ weight }) => weight)).toEqual([2, 1, 1])
       })
 
@@ -480,11 +469,10 @@ describe('paths', () => {
           allowCycles: false,
           minPathLength: 1,
           maxPathLength: 2,
-          stepWeighting: ['@source.id = a >>> 3', '2'],
           pathWeight: 'step-product',
           maxPaths: -1,
           order: 'desc',
-        })
+        }, ['@source.id = a >>> 3', '2'].map(compileStepWeighting))
         expect(snapshottify(paths).map(({ weight }) => weight)).toEqual([6, 3, 2])
       })
 
@@ -494,11 +482,10 @@ describe('paths', () => {
           allowCycles: false,
           minPathLength: 1,
           maxPathLength: 2,
-          stepWeighting: ['@source.id = a >>> 3', '2'],
           pathWeight: 'step-sum',
           maxPaths: -1,
           order: 'desc',
-        })
+        }, ['@source.id = a >>> 3', '2'].map(compileStepWeighting))
         expect(snapshottify(paths).map(({ weight }) => weight)).toEqual([5, 3, 2])
       })
     })

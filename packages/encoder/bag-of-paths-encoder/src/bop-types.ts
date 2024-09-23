@@ -1,3 +1,7 @@
+import type { GraphEdge, GraphNode } from '@cm2ml/ir'
+
+import type { StepWeighting, Template } from './templates/model'
+
 export const pathWeightTypes = ['step-sum', 'length', 'step-product'] as const
 
 export type PathWeight = typeof pathWeightTypes[number] | string & Record<never, never>
@@ -13,10 +17,10 @@ export interface PathParameters {
   maxPaths: number
   allowCycles: boolean
   order: SortOrder
-  stepWeighting: readonly string[]
 }
 
-export interface BoPEncodingParameters {
-  nodeTemplates: readonly string[]
-  edgeTemplates: readonly string[]
+export interface CompiledTemplates {
+  stepWeighting: StepWeighting[]
+  nodeTemplates: Template<GraphNode>[]
+  edgeTemplates: Template<GraphEdge>[]
 }

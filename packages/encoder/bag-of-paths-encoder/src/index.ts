@@ -1,16 +1,59 @@
 import type { GraphModel } from '@cm2ml/ir'
-import { batchTryCatch, definePlugin } from '@cm2ml/plugin'
+import { ExecutionError, batchTryCatch, compose, definePlugin, defineStructuredBatchPlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
+import type { CompiledTemplates } from './bop-types'
 import { pathWeightTypes, sortOrders } from './bop-types'
 import { encodePaths } from './encoding'
 import { collectPaths } from './paths'
 import type { PruneMethod } from './prune'
 import { pruneMethods, prunePaths } from './prune'
+import { compileEdgeTemplate, compileNodeTemplate, compileStepWeighting } from './templates/parser'
 
 export type { PathWeight } from './bop-types'
 export { pathWeightTypes }
 export type { EncodedModelMember, EncodedPath } from './encoding'
+
+const TemplateCompiler = defineStructuredBatchPlugin({
+  name: 'template-compiler',
+  parameters: {
+    stepWeighting: {
+      type: 'list<string>',
+      unique: true,
+      ordered: true,
+      defaultValue: ['1'],
+      description: 'Custom weighting strategies',
+      group: 'Weighting',
+      helpText: __GRAMMAR,
+    },
+    nodeTemplates: {
+      type: 'list<string>',
+      unique: true,
+      ordered: true,
+      defaultValue: ['{{name}}.{{type}}'],
+      description: 'Template for encoding nodes of paths',
+      group: 'Encoding',
+      helpText: __GRAMMAR,
+    },
+    edgeTemplates: {
+      type: 'list<string>',
+      unique: true,
+      ordered: true,
+      defaultValue: ['{{tag}}'],
+      description: 'Template for encoding edges of paths',
+      group: 'Encoding',
+      helpText: __GRAMMAR,
+    },
+  },
+  invoke: (batch: (GraphModel | ExecutionError)[], parameters) => {
+    const metadata: CompiledTemplates = {
+      stepWeighting: parameters.stepWeighting.map(compileStepWeighting),
+      nodeTemplates: parameters.nodeTemplates.map(compileNodeTemplate),
+      edgeTemplates: parameters.edgeTemplates.map(compileEdgeTemplate),
+    }
+    return batch.map((data) => ({ data, metadata }))
+  },
+})
 
 const PathBuilder = definePlugin({
   name: 'path-builder',
@@ -54,15 +97,6 @@ const PathBuilder = definePlugin({
       description: 'Ordering of paths according to their weight',
       group: 'Weighting',
     },
-    stepWeighting: {
-      type: 'list<string>',
-      unique: true,
-      ordered: true,
-      defaultValue: ['1'],
-      description: 'Custom weighting strategies',
-      group: 'Weighting',
-      helpText: __GRAMMAR,
-    },
     pathWeight: {
       type: 'string',
       allowedValues: pathWeightTypes,
@@ -70,28 +104,13 @@ const PathBuilder = definePlugin({
       description: 'Weighting strategy for paths',
       group: 'Weighting',
     },
-    nodeTemplates: {
-      type: 'list<string>',
-      unique: true,
-      ordered: true,
-      defaultValue: ['{{name}}.{{type}}'],
-      description: 'Template for encoding nodes of paths',
-      group: 'Encoding',
-      helpText: __GRAMMAR,
-    },
-    edgeTemplates: {
-      type: 'list<string>',
-      unique: true,
-      ordered: true,
-      defaultValue: ['{{tag}}'],
-      description: 'Template for encoding edges of paths',
-      group: 'Encoding',
-      helpText: __GRAMMAR,
-    },
   },
-  invoke: (data: GraphModel, parameters) => {
-    const rawPaths = collectPaths(data, parameters)
-    const encodedPaths = encodePaths(rawPaths, data, parameters)
+  invoke: ({ data, metadata }: { data: GraphModel | ExecutionError, metadata: CompiledTemplates }, parameters) => {
+    if (data instanceof ExecutionError) {
+      return data
+    }
+    const rawPaths = collectPaths(data, parameters, metadata.stepWeighting)
+    const encodedPaths = encodePaths(rawPaths, data, metadata)
     const mapping = Stream
       .from(data.nodes)
       .map((node) => node.requireId())
@@ -106,4 +125,4 @@ const PathBuilder = definePlugin({
   },
 })
 
-export const BagOfPathsEncoder = batchTryCatch(PathBuilder, 'bag-of-paths')
+export const BagOfPathsEncoder = compose(TemplateCompiler, batchTryCatch(PathBuilder), 'bag-of-paths')

@@ -1,11 +1,10 @@
 import type { GraphEdge, GraphModel, GraphNode, ModelMember } from '@cm2ml/ir'
 import { Stream } from '@yeger/streams'
 
-import type { BoPEncodingParameters } from './bop-types'
+import type { CompiledTemplates } from './bop-types'
 import { MultiCache } from './multi-cache'
 import type { PathData } from './paths'
 import type { PathContext, Template } from './templates/model'
-import { compileNodeTemplate, compileEdgeTemplate } from './templates/parser'
 
 export type EncodedModelMember = string | null
 
@@ -19,14 +18,19 @@ export interface EncodedPath {
 type NodeCache = MultiCache<string, GraphNode, readonly [number, EncodedModelMember]>
 type EdgeCache = MultiCache<string, GraphEdge, EncodedModelMember>
 
-export function encodePaths(paths: PathData[], model: GraphModel, parameters: BoPEncodingParameters): EncodedPath[] {
-  const compiledNodeTemplates = parameters.nodeTemplates.map((template) => compileNodeTemplate(template))
-  const compiledEdgeTemplates = parameters.edgeTemplates.map((template) => compileEdgeTemplate(template))
+export function encodePaths(paths: PathData[], model: GraphModel, compiledTemplates: Omit<CompiledTemplates, 'stepWeighting'>): EncodedPath[] {
   const nodeCache: NodeCache = new MultiCache()
   const edgeCache: EdgeCache = new MultiCache()
   const indexMap = new Map([...model.nodes].map((node, i) => [node, i]))
   const getNodeIndex = (node: GraphNode) => indexMap.get(node)!
-  return paths.map((path) => encodePath(path, getNodeIndex, compiledNodeTemplates, compiledEdgeTemplates, nodeCache, edgeCache))
+  return paths.map((path) => encodePath(
+    path,
+    getNodeIndex,
+    compiledTemplates.nodeTemplates,
+    compiledTemplates.edgeTemplates,
+    nodeCache,
+    edgeCache,
+  ))
 }
 
 function encodePath(path: PathData, getNodeIndex: (node: GraphNode) => number, nodeTemplates: Template<GraphNode>[], edgeTemplates: Template<GraphEdge>[], nodeCache: NodeCache, edgeCache: EdgeCache): EncodedPath {
