@@ -4,7 +4,7 @@ import { compileNodeTemplate } from '../src/templates/parser'
 
 import { createTestModel } from './test-utils'
 
-const testModel = createTestModel(['a', 'aa', 'b'], [])
+const testModel = createTestModel(['a', 'aa', 'b'], [['a', 'b'], ['b', 'a']])
 
 const root = testModel.root
 const a = testModel.getNodeById('a')!
@@ -157,6 +157,20 @@ describe('node templates', () => {
           expect(template(b, { length: 0, step: 0 })).toBe('after or equal to aa')
         })
       })
+    })
+  })
+
+  describe('edge selections', () => {
+    it('can select incoming edges', () => {
+      const template = compileNodeTemplate('{{edges.in[source.id = a].id}}')
+      expect(template(a, { length: 0, step: 0 })).toBe('')
+      expect(template(b, { length: 0, step: 0 })).toBe('a-b')
+    })
+
+    it('can select outgoing edges', () => {
+      const template = compileNodeTemplate('{{edges.out[source.id = a].id}}')
+      expect(template(a, { length: 0, step: 0 })).toBe('a-b')
+      expect(template(b, { length: 0, step: 0 })).toBe('')
     })
   })
 

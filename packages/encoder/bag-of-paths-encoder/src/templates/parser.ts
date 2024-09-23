@@ -1,4 +1,5 @@
 import type { GraphEdge, GraphNode, ModelMember } from '@cm2ml/ir'
+import { Stream } from '@yeger/streams'
 
 import type { PathContextKey, ComparisonOperator, Condition, ConditionalTemplate, Replacement, Selector, Template, NodeKeyword, EdgeKeyword, StepWeighting } from './model'
 import grammar from './template.ohm-bundle'
@@ -53,6 +54,22 @@ const semantics: TemplateSemantics = grammar
     },
     NodeSelector_path(path) {
       return path.parsePathSelector()
+    },
+    NodeSelector_in(_, condition, __, selector) {
+      const parsedCondition = condition.parseEdgeCondition()
+      const parsedSelector = selector.parseEdgeSelector()
+      return (node, context) => {
+        const edge = Stream.from(node.incomingEdges).find((edge) => parsedCondition(edge, context))
+        return edge ? parsedSelector(edge, context) : undefined
+      }
+    },
+    NodeSelector_out(_, condition, __, selector) {
+      const parsedCondition = condition.parseEdgeCondition()
+      const parsedSelector = selector.parseEdgeSelector()
+      return (node, context) => {
+        const edge = Stream.from(node.outgoingEdges).find((edge) => parsedCondition(edge, context))
+        return edge ? parsedSelector(edge, context) : undefined
+      }
     },
   })
   .addOperation<Selector<GraphEdge>>('parseEdgeSelector()', {
@@ -144,7 +161,9 @@ const semantics: TemplateSemantics = grammar
       const parsedCondition = condition.parseNodeCondition()
       const parsedReplacement = replacement.asIteration().children.map((segment) => segment.parseNodeReplacement())
       return (node, context) => {
-        return parsedCondition(node, context) ? parsedReplacement.map((replacement) => replacement(node, context)).join('') : ''
+        return parsedCondition(node, context)
+          ? parsedReplacement.map((replacement) => replacement(node, context)).join('')
+          : ''
       }
     },
   })

@@ -28,7 +28,7 @@ export function BagOfPathsEncoding({ model, parameters }: Props) {
     return <Hint text="No paths found. Consider decreasing the minimum path length." />
   }
   return (
-    <div className="flex h-full flex-col overflow-y-auto">
+    <div className="flex h-full flex-col overflow-y-auto" data-testid="bag-of-paths-encoding">
       {paths.map((path, i) => (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={i}>

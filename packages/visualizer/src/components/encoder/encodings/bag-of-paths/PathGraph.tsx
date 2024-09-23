@@ -30,13 +30,13 @@ export function PathGraph({ path, mapping }: Props) {
     setSelection({ type: 'edges', edges, origin: 'path' })
   }
   return (
-    <div className="flex size-full min-h-80 grow">
+    <div data-testid="path-graph" className="flex size-full min-h-80 grow">
       <div className="flex flex-col items-center gap-4 bg-muted p-2 pt-3 font-mono text-xs dark:bg-card">
-        <div className="flex items-center justify-center text-center">
+        <div data-testid="path-graph-weight" className="flex items-center justify-center text-center">
           <span className="w-fit cursor-default" style={{ lineHeight: 1 }}>{path.weight.toFixed(2)}</span>
         </div>
-        <FitButton fit={fit} disabled={!isReady} />
-        <Button className="size-4" variant="ghost" size="icon" onClick={selectAll} disabled={!isReady}>
+        <FitButton data-testid="path-graph-fit" fit={fit} disabled={!isReady} />
+        <Button data-testid="path-graph-select-all" className="size-4" variant="ghost" size="icon" onClick={selectAll} disabled={!isReady}>
           <GlobeIcon />
         </Button>
       </div>

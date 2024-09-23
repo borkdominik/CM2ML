@@ -49,6 +49,8 @@ Template {
     = AttributeSelector -- attribute
     | NodeKeyword -- keyword
     | PathSelector -- path
+    | "edges.in[" EdgeCondition  "]." EdgeSelector -- in
+    | "edges.out[" EdgeCondition "]." EdgeSelector -- out
 
   EdgeSelector
     = EdgeKeyword -- keyword
@@ -59,7 +61,7 @@ Template {
 
   NodeKeyword =  "id" | "name" | "tag" | "type"
 
-  EdgeKeyword = "tag" | "type"
+  EdgeKeyword = "id" | "name" | "tag" | "type"
 
   AttributeSelector = "attr." AttributeName
 

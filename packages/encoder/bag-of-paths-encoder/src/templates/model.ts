@@ -2,7 +2,7 @@ import type { GraphEdge, ModelMember } from '@cm2ml/ir'
 
 export type ComparisonOperator = '=' | '!=' | '<' | '<=' | '>' | '>='
 
-export type EdgeKeyword = 'tag' | 'type'
+export type EdgeKeyword = 'id' | 'name' | 'tag' | 'type'
 
 export type NodeKeyword = 'id' | 'name' | 'tag' | 'type'
 
