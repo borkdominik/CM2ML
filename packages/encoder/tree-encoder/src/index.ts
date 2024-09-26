@@ -2,7 +2,7 @@ import type { FeatureContext } from '@cm2ml/feature-encoder'
 import { FeatureEncoder } from '@cm2ml/feature-encoder'
 import type { GraphModel } from '@cm2ml/ir'
 import type { InferOut } from '@cm2ml/plugin'
-import { ExecutionError, batchTryCatch, compose, definePlugin, defineStructuredPlugin } from '@cm2ml/plugin'
+import { ExecutionError, batchTryCatch, compose, definePlugin, defineStructuredPlugin, getFirstNonError } from '@cm2ml/plugin'
 
 import { CompactTreeBuilder } from './tree-builder/compact-tree-builder'
 import { GlobalTreeBuilder } from './tree-builder/global-tree-builder'
@@ -56,6 +56,8 @@ const TreeTransformer = defineStructuredPlugin({
       metadata: {
         nodeFeatures: featureContext.nodeFeatures,
         edgeFeatures: featureContext.edgeFeatures,
+        idAttribute: model.metamodel.idAttribute,
+        typeAttributes: model.metamodel.typeAttributes,
       },
     }
   },
@@ -67,16 +69,17 @@ const BuildVocabulary = definePlugin({
   invoke(input: (InferOut<typeof TreeTransformer> | ExecutionError)[], _parameters) {
     const trees = input.filter((item): item is InferOut<typeof TreeTransformer> => !(item instanceof ExecutionError)).map((item) => item.data)
     const vocabularies = getVocabularies(trees)
+    const newMetadata = {
+      ...(getFirstNonError(input)?.metadata ?? {}),
+      vocabularies,
+    }
     return input.map((item) => {
       if (item instanceof ExecutionError) {
         return item
       }
       return {
         data: item.data,
-        metadata: {
-          ...item.metadata,
-          vocabularies,
-        },
+        metadata: newMetadata,
       }
     })
   },
@@ -126,7 +129,7 @@ const WordsToIds = definePlugin({
     if (!parameters.wordsToIds) {
       return alignOutType()
     }
-    const firstValidInput = input.find((item): item is Exclude<InferOut<typeof BuildVocabulary>[number], ExecutionError> => !(item instanceof ExecutionError))
+    const firstValidInput = getFirstNonError(input)
     if (!firstValidInput) {
       return alignOutType()
     }

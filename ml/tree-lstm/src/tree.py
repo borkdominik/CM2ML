@@ -1,7 +1,13 @@
+import random
 import sys
+import torch
+
 from paper.mdeoperation import run
 from tree_dataset import TreeDataset
 from utils import merge_vocabularies
+
+torch.manual_seed(42)
+random.seed(42)
 
 train_dataset_file = sys.argv[1]
 validation_dataset_file = sys.argv[2]

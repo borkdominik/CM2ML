@@ -18,7 +18,6 @@ import paper.network as network
 from tree_dataset import TreeDataset
 from utils import script_dir
 
-
 def create_model(
     source_vocab: data_utils.Vocab,
     target_vocab: data_utils.Vocab,
@@ -174,10 +173,10 @@ def evaluate(
 
     print(acc_tokens, tot_tokens, acc_trees, tot_trees)
     test_loss /= tot_trees
-    print("  eval: loss %.2f" % test_loss)
+    print("  test: loss %.2f" % test_loss)
     if tot_tokens != 0:
-        print("  eval: accuracy of tokens %.2f" % (acc_tokens * 1.0 / tot_tokens))
-    print("  eval: accuracy of programs %.2f" % (acc_trees * 1.0 / tot_trees))
+        print("  test: accuracy of tokens %.2f" % (acc_tokens * 1.0 / tot_tokens))
+    print("  test: accuracy of programs %.2f" % (acc_trees * 1.0 / tot_trees))
     print(acc_tokens, tot_tokens, acc_trees, tot_trees)
 
 
