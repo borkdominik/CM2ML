@@ -36,6 +36,8 @@ DatasetData: TypeAlias = dict[str, DatasetDataEntry]
 class DatasetMetadata(TypedDict):
     edgeFeatures: FeatureMetadata
     nodeFeatures: FeatureMetadata
+    idAttribute: str
+    typeAttributes: List[str]
 
 
 class Dataset(TypedDict):

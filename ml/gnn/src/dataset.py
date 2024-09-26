@@ -130,7 +130,7 @@ class CM2MLDataset(InMemoryDataset):
             return "None"
         label_feature_index = None
         for i, feature in enumerate(node_features):
-            if feature[0] == "xmi:type" or feature[0] == "xsi:type":
+            if feature[0] in self.metadata["typeAttributes"]:
                 label_feature_index = i
                 break
         if label_feature_index is None:

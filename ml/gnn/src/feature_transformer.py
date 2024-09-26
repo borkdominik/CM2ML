@@ -51,34 +51,31 @@ class FeatureTransformer:
         )
         if not all_edge_features_encoded:
             self.edge_feature_fitter.fit(datasetData, metadata["edgeFeatures"])
-        feature_names = list(
-            map(lambda feature: feature[0], metadata["nodeFeatures"])
-        )
-        xmi_type_index = feature_names.index("xmi:type")
-        xsi_type_index: Optional[int] = None
-        try :
-            xsi_type_index = feature_names.index("xsi:type")
-        except ValueError:
-            pass
+        type_indices = self.get_type_indices(metadata)
         entries: List[Data] = []
         for _, entry in datasetData.items():
             data = self.transform_entry(
                 entry,
                 metadata,
-                xmi_type_index,
-                xsi_type_index,
+                type_indices,
                 all_node_features_encoded=all_node_features_encoded,
                 all_edge_features_encoded=all_edge_features_encoded,
             )
             entries.append(data)
         return entries
 
+    def get_type_indices(self, metadata: DatasetMetadata) -> list[int]:
+        indices = []
+        for i, feature in enumerate(metadata["nodeFeatures"]):
+            if feature[0] in metadata["typeAttributes"]:
+                indices.append(i)
+        return indices
+
     def transform_entry(
         self,
         entry: DatasetDataEntry,
         metadata: DatasetMetadata,
-        xmi_type_index: int,
-        xsi_type_index: Optional[int],
+        type_indices: List[int],
         all_node_features_encoded: bool,
         all_edge_features_encoded: bool,
     ) -> Data:
@@ -96,18 +93,16 @@ class FeatureTransformer:
                 )
         edge_index = entry["list"]
         actual_types = []
+        # TODO/Jan: Iterate reversed?
         for _node_index, features in enumerate(node_features):
-            xmi_type = features[xmi_type_index]
-            xsi_type = features[xsi_type_index] if xsi_type_index is not None else 0
-            if xmi_type != 0:
-                actual_types.append(features[xmi_type_index])
-            elif xsi_type != 0:
-                actual_types.append(features[xsi_type_index])
-            else:
-                actual_types.append(0)
-            features[xmi_type_index] = 0
-            if xsi_type_index is not None:
-                features[xsi_type_index] = 0
+            type = 0
+            for type_index in type_indices:
+                type_value = features[type_index]
+                features[type_index] = 0
+                if type_value != 0:
+                    type = type_value
+                    break
+            actual_types.append(type)
         y = torch.tensor(actual_types, dtype=torch.long)
         # Select a single training node for each community
         # (we just use the first one).
