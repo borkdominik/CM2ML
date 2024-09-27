@@ -4682,6 +4682,7 @@
   "metadata": {
     "edgeFeatures": [],
     "id2WordMapping": [],
+    "idAttribute": "xmi:id",
     "nodeFeatures": [
       [
         "aggregation",
@@ -4921,6 +4922,10 @@
           "TimeInterval": 7,
         },
       ],
+    ],
+    "typeAttributes": [
+      "xmi:type",
+      "xsi:type",
     ],
     "vocabularies": {
       "dynamicVocabulary": [

@@ -2488,6 +2488,7 @@
   "metadata": {
     "edgeFeatures": [],
     "id2WordMapping": [],
+    "idAttribute": "xmi:id",
     "nodeFeatures": [
       [
         "fileName",
@@ -2589,6 +2590,10 @@
           "Node": 2,
         },
       ],
+    ],
+    "typeAttributes": [
+      "xmi:type",
+      "xsi:type",
     ],
     "vocabularies": {
       "dynamicVocabulary": [

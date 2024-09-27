@@ -3421,6 +3421,7 @@
   "metadata": {
     "edgeFeatures": [],
     "id2WordMapping": [],
+    "idAttribute": "xmi:id",
     "nodeFeatures": [
       [
         "alias",
@@ -3542,6 +3543,10 @@
           "PackageMerge": 6,
         },
       ],
+    ],
+    "typeAttributes": [
+      "xmi:type",
+      "xsi:type",
     ],
     "vocabularies": {
       "dynamicVocabulary": [

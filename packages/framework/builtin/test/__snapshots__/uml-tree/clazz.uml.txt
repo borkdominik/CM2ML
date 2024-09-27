@@ -15498,6 +15498,7 @@
   "metadata": {
     "edgeFeatures": [],
     "id2WordMapping": [],
+    "idAttribute": "xmi:id",
     "nodeFeatures": [
       [
         "aggregation",
@@ -15816,6 +15817,10 @@
           "Usage": 22,
         },
       ],
+    ],
+    "typeAttributes": [
+      "xmi:type",
+      "xsi:type",
     ],
     "vocabularies": {
       "dynamicVocabulary": [
