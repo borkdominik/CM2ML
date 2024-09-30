@@ -48,6 +48,7 @@ export function collectPaths(model: GraphModel, parameters: PathParameters, step
       }
     },
     )
+    .filter(({ weight }) => weight >= parameters.minPathWeight && weight <= parameters.maxPathWeight)
     .toArray()
     .sort(pathOrder(parameters.order))
   if (parameters.maxPaths > 0) {

@@ -17,6 +17,8 @@ describe('paths', () => {
       allowCycles: false,
       minPathLength: 1,
       maxPathLength: 3,
+      minPathWeight: 0,
+      maxPathWeight: Number.MAX_SAFE_INTEGER,
       pathWeight: 'length',
       maxPaths: -1,
       order: 'desc',
@@ -87,6 +89,8 @@ describe('paths', () => {
       allowCycles: true,
       minPathLength: 1,
       maxPathLength: 3,
+      minPathWeight: 0,
+      maxPathWeight: Number.MAX_SAFE_INTEGER,
       pathWeight: 'length',
       maxPaths: -1,
       order: 'desc',
@@ -148,6 +152,8 @@ describe('paths', () => {
       allowCycles: false,
       minPathLength: 1,
       maxPathLength: 3,
+      minPathWeight: 0,
+      maxPathWeight: Number.MAX_SAFE_INTEGER,
       pathWeight: 'length',
       maxPaths: -1,
       order: 'desc',
@@ -192,6 +198,8 @@ describe('paths', () => {
       allowCycles: true,
       minPathLength: 1,
       maxPathLength: 3,
+      minPathWeight: 0,
+      maxPathWeight: Number.MAX_SAFE_INTEGER,
       pathWeight: 'length',
       maxPaths: -1,
       order: 'desc',
@@ -254,6 +262,8 @@ describe('paths', () => {
         allowCycles: false,
         minPathLength: 1,
         maxPathLength: 3,
+        minPathWeight: 0,
+        maxPathWeight: Number.MAX_SAFE_INTEGER,
         pathWeight: 'length',
         maxPaths: 1,
         order: 'desc',
@@ -282,6 +292,8 @@ describe('paths', () => {
         allowCycles: false,
         minPathLength: 2,
         maxPathLength: 3,
+        minPathWeight: 0,
+        maxPathWeight: Number.MAX_SAFE_INTEGER,
         pathWeight: 'length',
         maxPaths: -1,
         order: 'desc',
@@ -322,6 +334,8 @@ describe('paths', () => {
         allowCycles: false,
         minPathLength: 1,
         maxPathLength: 1,
+        minPathWeight: 0,
+        maxPathWeight: Number.MAX_SAFE_INTEGER,
         pathWeight: 'length',
         maxPaths: -1,
         order: 'desc',
@@ -368,6 +382,8 @@ describe('paths', () => {
         allowCycles: false,
         minPathLength: 0,
         maxPathLength: 0,
+        minPathWeight: 0,
+        maxPathWeight: Number.MAX_SAFE_INTEGER,
         pathWeight: 'length',
         maxPaths: -1,
         order: 'desc',
@@ -415,6 +431,8 @@ describe('paths', () => {
           allowCycles: false,
           minPathLength: 2,
           maxPathLength: 3,
+          minPathWeight: 0,
+          maxPathWeight: Number.MAX_SAFE_INTEGER,
           pathWeight: 'length',
           maxPaths: -1,
           order: 'desc',
@@ -428,6 +446,8 @@ describe('paths', () => {
           allowCycles: false,
           minPathLength: 2,
           maxPathLength: 4,
+          minPathWeight: 0,
+          maxPathWeight: Number.MAX_SAFE_INTEGER,
           pathWeight: 'length',
           maxPaths: 1,
           order: 'desc',
@@ -441,6 +461,8 @@ describe('paths', () => {
           allowCycles: false,
           minPathLength: 2,
           maxPathLength: 3,
+          minPathWeight: 0,
+          maxPathWeight: Number.MAX_SAFE_INTEGER,
           pathWeight: 'length',
           maxPaths: -1,
           order: 'desc',
@@ -456,6 +478,8 @@ describe('paths', () => {
           allowCycles: false,
           minPathLength: 1,
           maxPathLength: 3,
+          minPathWeight: 0,
+          maxPathWeight: Number.MAX_SAFE_INTEGER,
           pathWeight: 'length',
           maxPaths: -1,
           order: 'desc',
@@ -469,6 +493,8 @@ describe('paths', () => {
           allowCycles: false,
           minPathLength: 1,
           maxPathLength: 2,
+          minPathWeight: 0,
+          maxPathWeight: Number.MAX_SAFE_INTEGER,
           pathWeight: 'step-product',
           maxPaths: -1,
           order: 'desc',
@@ -482,11 +508,43 @@ describe('paths', () => {
           allowCycles: false,
           minPathLength: 1,
           maxPathLength: 2,
+          minPathWeight: 0,
+          maxPathWeight: Number.MAX_SAFE_INTEGER,
           pathWeight: 'step-sum',
           maxPaths: -1,
           order: 'desc',
         }, ['@source.id = a >>> 3', '2'].map(compileStepWeighting))
         expect(snapshottify(paths).map(({ weight }) => weight)).toEqual([5, 3, 2])
+      })
+
+      it('can set a minimum path-weight', () => {
+        const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['b', 'c']])
+        const paths = collectPaths(model, {
+          allowCycles: false,
+          minPathLength: 1,
+          maxPathLength: 1,
+          minPathWeight: 3,
+          maxPathWeight: Number.MAX_SAFE_INTEGER,
+          pathWeight: 'step-sum',
+          maxPaths: -1,
+          order: 'desc',
+        }, ['@source.id = a >>> 3', '2'].map(compileStepWeighting))
+        expect(snapshottify(paths).map(({ weight }) => weight)).toEqual([3])
+      })
+
+      it('can set a maximum path-weight', () => {
+        const model = createTestModel(['a', 'b', 'c'], [['a', 'b'], ['b', 'c']])
+        const paths = collectPaths(model, {
+          allowCycles: false,
+          minPathLength: 1,
+          maxPathLength: 1,
+          minPathWeight: 0,
+          maxPathWeight: 2,
+          pathWeight: 'step-sum',
+          maxPaths: -1,
+          order: 'desc',
+        }, ['@source.id = a >>> 3', '2'].map(compileStepWeighting))
+        expect(snapshottify(paths).map(({ weight }) => weight)).toEqual([2])
       })
     })
   })

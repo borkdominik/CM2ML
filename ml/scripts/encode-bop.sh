@@ -6,8 +6,9 @@ time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-bag-of-paths ../models/
   --edge-blacklist 'owner' --edge-blacklist 'ownedElement' --edge-blacklist 'association' --edge-blacklist 'associationClass' \
   --min-path-length 1 --max-path-length 2 \
   --step-weighting '@type.exists >>> 2000' \
-  --step-weighting '@type.not.exists >>> 0' \
+  --step-weighting '@type.not.exists >>> -9999' \
   --path-weight step-sum \
+  --min-path-weight 0 \
   --max-paths 0 \
   --prune-method 'encoding' \
   --node-templates '@name.exists >>> {{name}} $eu.yeger${{type}}$eu.yeger$' \

@@ -82,13 +82,17 @@ const PathBuilder = definePlugin({
       description: 'Maximum number of paths to collect',
       group: 'Paths',
     },
-    pruneMethod: {
-      type: 'string',
-      allowedValues: pruneMethods,
-      defaultValue: pruneMethods[0],
-      description: 'Prune method for paths that are subsequences of other paths',
-      helpText: `"none" performs no pruning. "node" checks if both nodes and their encodings are equal. "encoding" checks if the encoding of two nodes is equal.`,
-      group: 'Paths',
+    minPathWeight: {
+      type: 'number',
+      defaultValue: 0,
+      description: 'Minimum weight of paths',
+      group: 'Weighting',
+    },
+    maxPathWeight: {
+      type: 'number',
+      defaultValue: Number.MAX_SAFE_INTEGER,
+      description: 'Maximum weight of paths',
+      group: 'Weight',
     },
     order: {
       type: 'string',
@@ -103,6 +107,14 @@ const PathBuilder = definePlugin({
       defaultValue: pathWeightTypes[0],
       description: 'Weighting strategy for paths',
       group: 'Weighting',
+    },
+    pruneMethod: {
+      type: 'string',
+      allowedValues: pruneMethods,
+      defaultValue: pruneMethods[0],
+      description: 'Prune method for paths that are subsequences of other paths',
+      helpText: `"none" performs no pruning. "node" checks if both nodes and their encodings are equal. "encoding" checks if the encoding of two nodes is equal.`,
+      group: 'Paths',
     },
   },
   invoke: ({ data, metadata }: { data: GraphModel | ExecutionError, metadata: CompiledTemplates }, parameters) => {

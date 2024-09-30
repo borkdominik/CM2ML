@@ -16,6 +16,8 @@ export interface PathParameters {
   pathWeight: PathWeight
   maxPaths: number
   allowCycles: boolean
+  minPathWeight: number
+  maxPathWeight: number
   order: SortOrder
 }
 
