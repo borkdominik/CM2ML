@@ -93,7 +93,6 @@ class FeatureTransformer:
                 )
         edge_index = entry["list"]
         actual_types = []
-        # TODO/Jan: Iterate reversed?
         for _node_index, features in enumerate(node_features):
             type = 0
             for type_index in type_indices:

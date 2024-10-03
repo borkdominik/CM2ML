@@ -3,6 +3,9 @@ import type { GraphEdge, GraphModel } from '@cm2ml/ir'
 import { defineStructuredPlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
+export const formats = ['list', 'matrix'] as const
+export type Format = typeof formats[number]
+
 export const EdgeEncoder = defineStructuredPlugin({
   name: 'edge-encoder',
   parameters: {
@@ -13,25 +16,20 @@ export const EdgeEncoder = defineStructuredPlugin({
       defaultValue: false,
       group: 'graph',
     },
-    sparse: {
-      type: 'boolean',
-      description: 'Encode the graph as a sparse list.',
-      defaultValue: true,
-      group: 'graph',
-    },
-    includeEqualPaths: {
-      type: 'boolean',
-      description:
-        'Include equal paths, i.e., edges that have the same source and target, more than once.',
-      defaultValue: false,
+    format: {
+      type: 'string',
+      description: 'The format of adjacency data.',
+      helpText: 'Warning: Using the matrix format can lead to large outputs and information loss if multiple edges exist between two nodes.',
+      allowedValues: formats,
+      defaultValue: formats[0],
       group: 'graph',
     },
   },
-  invoke({ data, metadata: features }: { data: GraphModel, metadata: FeatureContext }, { includeEqualPaths, sparse, weighted }) {
+  invoke({ data, metadata: features }: { data: GraphModel, metadata: FeatureContext }, { format, weighted }) {
     const { nodeFeatures, getNodeFeatureVector, edgeFeatures, getEdgeFeatureVector } = features
     const sortedIds = getSortedIds(data)
-    const sortedEdges = getRelevantEdges(data, includeEqualPaths).toArray().sort(createEdgeSorter(sortedIds))
-    const edgeEncoder = sparse ? encodeAsSparseList : encodeAsAdjacencyMatrix
+    const sortedEdges = Array.from(data.edges).sort(createEdgeSorter(sortedIds))
+    const edgeEncoder = format === 'list' ? encodeAsSparseList : encodeAsAdjacencyMatrix
     const edgeEncoding = edgeEncoder(new Set(sortedEdges), sortedIds, weighted)
 
     const nodeFeatureVectors = Stream
@@ -182,30 +180,6 @@ function getWeightedValue(
     .map((incomingEdge) => (edges.has(incomingEdge) ? 1 : 0))
     .sum()
   return 1 / relevantIncomingEdges
-}
-
-function getRelevantEdges(model: GraphModel, includeEqualPaths: boolean) {
-  if (includeEqualPaths) {
-    return Stream.from(model.edges)
-  }
-  const edges = new Set<GraphEdge>()
-  const consideredEdgePaths = new Map<string, Set<string>>()
-  model.edges.forEach((edge) => {
-    const sourceId = edge.source.requireId()
-    const targetId = edge.target.requireId()
-    const pathsFromSource = consideredEdgePaths.get(sourceId)
-    if (pathsFromSource !== undefined && pathsFromSource.has(targetId)) {
-      return
-    } else if (pathsFromSource === undefined) {
-      const newPathsFromSource = new Set<string>()
-      newPathsFromSource.add(targetId)
-      consideredEdgePaths.set(sourceId, newPathsFromSource)
-    } else {
-      pathsFromSource.add(targetId)
-    }
-    edges.add(edge)
-  })
-  return Stream.from(edges)
 }
 
 function createEdgeSorter(sortedIds: string[]) {

@@ -112,7 +112,7 @@ class CM2MLDataset(InMemoryDataset):
         self.layout_proxy.print(
             f"{text_padding}max: {max_occurrences} ({self.get_label_name_by_index(max_index)})"
         )
-        self.top_n = 5
+        self.top_n = 20
         self.top_n_classes = sorted(
             range(len(occurrences)), key=lambda i: occurrences[i], reverse=True
         )[: self.top_n]

@@ -92,7 +92,7 @@ const PathBuilder = definePlugin({
       type: 'number',
       defaultValue: Number.MAX_SAFE_INTEGER,
       description: 'Maximum weight of paths',
-      group: 'Weight',
+      group: 'Weighting',
     },
     order: {
       type: 'string',

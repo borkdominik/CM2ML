@@ -19,6 +19,10 @@ async function openBoPEncoding(page: Page, maxPathLength: number, maxPaths: numb
   await encoderForm.getByLabel('Max Paths').fill(`${maxPaths}`)
   await encoderForm.getByLabel('Max Path Length').fill(`${maxPathLength}`)
 
+  if (maxPathLength < 2) {
+    await encoderForm.getByLabel('Min Path Length').fill(`${maxPathLength}`)
+  }
+
   const pathGraphs = page.getByTestId('path-graph')
   const nthPathGraph = (index: number) => pathGraphs.nth(index)
   const selectAll = (index: number) => nthPathGraph(index).getByTestId('path-graph-select-all').click()
@@ -41,10 +45,13 @@ test.describe(`selections`, () => {
     await secondEdgeDetails.getByText('SecondDeployment', { exact: true }).waitFor()
     await secondEdgeDetails.getByText('ownedElement').waitFor()
   })
+})
 
+test.describe(`weights`, () => {
   test('shows path weights', async ({ page }) => {
-    const { weight } = await openBoPEncoding(page, 3, 100)
+    const count = 100
+    const { weight } = await openBoPEncoding(page, 3, count)
     expect(weight(0)).toHaveText('3.00')
-    expect(weight(99)).toHaveText('2.00')
+    expect(weight(count - 1)).toHaveText('2.00')
   })
 })
