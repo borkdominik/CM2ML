@@ -136,27 +136,27 @@ def evaluate(
                 _current_target_manager,
             ) = test_dataset[idx + i]
 
-            current_target_print = data_utils.serialize_tree_with_vocabulary(
-                current_target, target_vocab
-            )
+            # current_target_print = data_utils.serialize_tree_with_vocabulary(
+            #     current_target, target_vocab
+            # )
             current_target = data_utils.serialize_tree(current_target)
 
-            _current_source_print = data_utils.serialize_tree_with_vocabulary(
-                current_source, source_vocab
-            )
+            # _current_source_print = data_utils.serialize_tree_with_vocabulary(
+            #     current_source, source_vocab
+            # )
             current_source = data_utils.serialize_tree(current_source)
 
             # print("Evaluation time: %s seconds" % (datetime.datetime.now() - start_evaluation_datetime))
             # print((datetime.datetime.now() - start_evaluation_datetime))
             res.append((current_source, current_target, current_output))
-            current_output_print = data_utils.serialize_seq_with_vocabulary(
-                current_output, target_vocab
-            )
+            # current_output_print = data_utils.serialize_seq_with_vocabulary(
+            #     current_output, target_vocab
+            # )
             # print("--Current source / Current target / Current output--")
             # print(f"source {current_source_print}")
-            print(f"target {current_target_print}")
-            print(f"output {current_output_print}")
-            print("---")
+            # print(f"target {current_target_print}")
+            # print(f"output {current_output_print}")
+            # print("---")
 
             tot_tokens += len(current_target)
             all_correct = len(current_target) == len(current_output)
@@ -374,9 +374,9 @@ args = Args(
         "learning_rate_decay_steps": 2000,
         "max_gradient_norm": 5.0,
         "batch_size": 32,
-        "hidden_size": 256,
-        "embedding_size": 256,
-        "dropout_rate": 0.5,
+        "hidden_size": 320,
+        "embedding_size": 320,
+        "dropout_rate": 0.75,
         "num_layers": 2,
         "train_dir_checkpoints": f"{script_dir}/../.checkpoints/tree-lstm.pt",
         "load_model": None,  # f"{script_dir}/../.cache/neuralnetwork.pth",
