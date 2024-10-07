@@ -1,3 +1,4 @@
+import { DUPLICATE_SYMBOL, type DuplicateSymbol } from '@cm2ml/duplicate-filter'
 import type { ParameterMetadata, Plugin, StructuredOutput } from '@cm2ml/plugin'
 import { ExecutionError } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
@@ -49,9 +50,26 @@ export abstract class PluginAdapter<In, Out> {
   }
 }
 
-export function groupStructuredOutput<Out>(output: StructuredOutput<(Out | ExecutionError)[], unknown>) {
-  const withIndex = output.data.map((value, index) => ({ value, index }))
-  const errors = withIndex.filter(({ value }) => value instanceof ExecutionError).map(({ value, index }) => ({ error: value as ExecutionError, index }))
-  const results = withIndex.filter(({ value }) => !(value instanceof ExecutionError)).map(({ value, index }) => ({ result: value as Out, index }))
-  return { errors, results, metadata: output.metadata }
+export function groupStructuredOutput<Out>(output: StructuredOutput<(Out | ExecutionError | DuplicateSymbol)[], unknown>) {
+  const errors: { error: ExecutionError, index: number }[] = [] // withIndex.filter(isExecutionError).map(({ value, index }) => ({ error: value as ExecutionError, index }))
+  const duplicates: number[] = []// withIndex.filter(isDuplicate).map(({ index }) => index)
+  const results: { result: Out, index: number }[] = []// withIndex.filter(isData).map(({ value, index }) => ({ result: value, index }))
+  output.data.forEach((value, index) => {
+    if (isExecutionError(value)) {
+      errors.push({ error: value, index })
+    } else if (isDuplicate(value)) {
+      duplicates.push(index)
+    } else {
+      results.push({ result: value, index })
+    }
+  })
+  return { errors, duplicates, results, metadata: output.metadata }
+}
+
+function isExecutionError<T>(value: T | ExecutionError | DuplicateSymbol): value is ExecutionError {
+  return value instanceof ExecutionError
+}
+
+function isDuplicate<T>(value: T | ExecutionError | DuplicateSymbol): value is DuplicateSymbol {
+  return value === DUPLICATE_SYMBOL
 }

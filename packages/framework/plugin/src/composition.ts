@@ -4,7 +4,7 @@ import { Stream } from '@yeger/streams'
 import { ExecutionError, catching, trying } from './error'
 import type { Parameter, ParameterMetadata, ResolveParameters } from './parameters'
 import type { Plugin, PluginInvoke, PluginMetadata, StructuredOutput } from './plugin'
-import { definePlugin } from './plugin'
+import { definePlugin, getFirstNonError } from './plugin'
 
 /**
  * Composes two plugins into a new plugin.
@@ -89,9 +89,10 @@ export function transform<In, Out>(transformer: (input: In) => Out, name = 'tran
 
 export function liftMetadata<Data, Metadata>(name = 'lift-metadata') {
   return transform<(StructuredOutput<Data, Metadata> | ExecutionError)[], StructuredOutput<(Data | ExecutionError)[], Metadata | undefined>>((input) => {
+    const metadata = getFirstNonError(input)?.metadata
     return {
       data: input.map((item) => item instanceof ExecutionError ? item : item.data),
-      metadata: input.find((item): item is StructuredOutput<Data, Metadata> => !(item instanceof ExecutionError))?.metadata,
+      metadata,
     }
   }, name)
 }

@@ -1,8 +1,8 @@
 import { readdirSync } from 'node:fs'
 
-import type { PrecomposedPlugin } from '../src'
+import type { PreparedPlugin } from '../src'
 
-export function getPluginsToTest(plugins: PrecomposedPlugin[]) {
+export function getPluginsToTest(plugins: PreparedPlugin[]) {
   return plugins
     .filter(isPluginReadyForTest)
     .map((plugin) => {
@@ -11,7 +11,7 @@ export function getPluginsToTest(plugins: PrecomposedPlugin[]) {
     })
 }
 
-function isPluginReadyForTest(plugin: PrecomposedPlugin) {
+function isPluginReadyForTest(plugin: PreparedPlugin) {
   const name = plugin.name.toLowerCase()
   if (name.includes('archimate')) {
     return false
@@ -25,7 +25,7 @@ function isPluginReadyForTest(plugin: PrecomposedPlugin) {
   return true
 }
 
-function getInputDir(plugin: PrecomposedPlugin) {
+function getInputDir(plugin: PreparedPlugin) {
   const basePath = `${import.meta.dirname}/../../../../models`
   const name = plugin.name.toLowerCase().replace('batch-', '')
   if (name.startsWith('uml')) {

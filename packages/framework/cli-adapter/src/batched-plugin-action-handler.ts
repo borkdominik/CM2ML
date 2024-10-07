@@ -16,14 +16,18 @@ export function batchedPluginActionHandler<Parameters extends ParameterMetadata>
   const limit = typeof normalizedOptions.limit === 'number' ? normalizedOptions.limit : undefined
   const end = limit ? start + limit : undefined
 
-  const inputFiles = readdirSync(inputDir, { encoding: 'utf8', withFileTypes: true }).filter((dirent) => dirent.isFile()).slice(start, end).map((dirent) => dirent.name)
+  const inputFiles = readdirSync(inputDir, { encoding: 'utf8', withFileTypes: true })
+    .filter((dirent) => dirent.isFile())
+    .slice(start, end)
+    .map((dirent) => dirent.name)
+
   const input = inputFiles.map((inputFile) => readFileSync(`${inputDir}/${inputFile}`, 'utf8'))
 
   const output = plugin.validateAndInvoke(input, normalizedOptions)
   if (output.data.length !== input.length) {
     throw new Error(`Expected ${input.length} outputs, but got ${output.data.length}. This is an internal error.`)
   }
-  const { results, errors, metadata } = groupStructuredOutput(output)
+  const { results, errors, duplicates, metadata } = groupStructuredOutput(output)
 
   const outFile = normalizedOptions.out
 
@@ -31,7 +35,7 @@ export function batchedPluginActionHandler<Parameters extends ParameterMetadata>
     const mergedOutput = Object.fromEntries(results.map(({ index, result }) => [inputFiles[index]!, result]))
     // eslint-disable-next-line no-console
     console.log(getResultAsText({ metadata, data: mergedOutput }, normalizedOptions.pretty))
-    logBatchStatistics(errors.length, results.length, output.data.length)
+    logBatchStatistics(errors.length, duplicates.length, results.length, output.data.length)
     return
   }
 
@@ -41,14 +45,18 @@ export function batchedPluginActionHandler<Parameters extends ParameterMetadata>
   errors.forEach(({ error, index }) => {
     console.error(`\n${inputFiles[index]}:\n ${error.message}\n`)
   })
-  logBatchStatistics(errors.length, results.length, output.data.length)
+  logBatchStatistics(errors.length, duplicates.length, results.length, output.data.length)
 }
 
-function logBatchStatistics(errors: number, success: number, total: number) {
+function logBatchStatistics(errors: number, duplicates: number, successes: number, total: number) {
+  // eslint-disable-next-line no-console
+  console.log('\n')
   if (errors > 0) {
-    console.error(`\nFailed to process ${errors}/${total} inputs.`)
-  } else {
-    // eslint-disable-next-line no-console
-    console.log(`\nSuccessfully processed ${success}/${total} inputs.`)
+    console.error(`Failed to process ${errors} inputs.`)
   }
+  if (duplicates > 0) {
+    console.warn(`Removed ${duplicates} duplicates.`)
+  }
+  // eslint-disable-next-line no-console
+  console.log(`Successfully processed ${successes}/${total} inputs.`)
 }

@@ -8,7 +8,7 @@ test_start=$(($validation_start + $validation_size + 1))
 
 input=../models/uml/dataset
 
-parameters=("--strict" "--continue-on-error" "--relationships-as-edges" "--raw-strings" "--only-encoded-features" "--edge-tag-as-attribute")
+parameters=("--strict" "--remove-duplicates" "--continue-on-error" "--relationships-as-edges" "--raw-strings" "--only-encoded-features" "--edge-tag-as-attribute")
 
 time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-raw-graph "$input" --start "$train_start" --limit "$train_size" --out .input/graph_train.json "${parameters[@]}" && \
 time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-raw-graph "$input" --start "$validation_start" --limit "$validation_size" --out .input/graph_validation.json "${parameters[@]}" "--node-features" ".input/graph_train.json" "--edge-features" ".input/graph_train.json" && \

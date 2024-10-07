@@ -276,6 +276,9 @@ importers:
       '@cm2ml/bag-of-paths-encoder':
         specifier: workspace:*
         version: link:../../encoder/bag-of-paths-encoder
+      '@cm2ml/duplicate-filter':
+        specifier: workspace:*
+        version: link:../duplicate-filter
       '@cm2ml/ecore':
         specifier: workspace:*
         version: link:../../languages/ecore
@@ -422,6 +425,28 @@ importers:
         specifier: 2.1.1
         version: 2.1.1(@types/node@22.5.4)(rollup@4.21.2)(typescript@5.5.4)(vite@5.4.3(@types/node@22.5.4)(terser@5.26.0))
 
+  packages/framework/duplicate-filter:
+    dependencies:
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../plugin
+      fast-deep-equal:
+        specifier: 3.1.3
+        version: 3.1.3
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.5.4
+        version: 5.5.4
+      vite:
+        specifier: 5.4.3
+        version: 5.4.3(@types/node@22.5.4)(terser@5.26.0)
+      vite-plugin-lib:
+        specifier: 2.1.1
+        version: 2.1.1(@types/node@22.5.4)(rollup@4.21.2)(typescript@5.5.4)(vite@5.4.3(@types/node@22.5.4)(terser@5.26.0))
+
   packages/framework/ir:
     dependencies:
       '@cm2ml/utils':
@@ -546,6 +571,9 @@ importers:
 
   packages/framework/plugin-adapter:
     dependencies:
+      '@cm2ml/duplicate-filter':
+        specifier: workspace:*
+        version: link:../duplicate-filter
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
@@ -9183,7 +9211,7 @@ snapshots:
   '@babel/code-frame@7.24.6':
     dependencies:
       '@babel/highlight': 7.24.6
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   '@babel/compat-data@7.23.5': {}
 
@@ -9434,7 +9462,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.6
       chalk: 2.4.2
       js-tokens: 4.0.0
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   '@babel/parser@7.23.6':
     dependencies:
@@ -10701,7 +10729,7 @@ snapshots:
   '@jridgewell/gen-mapping@0.3.5':
     dependencies:
       '@jridgewell/set-array': 1.2.1
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
       '@jridgewell/trace-mapping': 0.3.25
 
   '@jridgewell/resolve-uri@3.1.1': {}
@@ -14707,7 +14735,7 @@ snapshots:
     dependencies:
       foreground-child: 3.1.1
       jackspeak: 3.4.3
-      minimatch: 9.0.4
+      minimatch: 9.0.5
       minipass: 7.1.2
       package-json-from-dist: 1.0.0
       path-scurry: 1.11.1
@@ -16349,7 +16377,7 @@ snapshots:
   postcss@8.4.31:
     dependencies:
       nanoid: 3.3.7
-      picocolors: 1.0.1
+      picocolors: 1.1.0
       source-map-js: 1.2.0
 
   postcss@8.4.45:
@@ -18155,19 +18183,19 @@ snapshots:
     dependencies:
       browserslist: 4.22.2
       escalade: 3.1.1
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   update-browserslist-db@1.0.13(browserslist@4.23.0):
     dependencies:
       browserslist: 4.23.0
       escalade: 3.1.1
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   update-browserslist-db@1.1.0(browserslist@4.23.3):
     dependencies:
       browserslist: 4.23.3
       escalade: 3.1.2
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   update-check@1.5.4:
     dependencies:

@@ -36,6 +36,7 @@
     "lint": "yeger-lint"
   },
   "dependencies": {
+    "@cm2ml/duplicate-filter": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@yeger/streams": "1.2.0"
   },

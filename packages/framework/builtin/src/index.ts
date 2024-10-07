@@ -1,5 +1,7 @@
 import { ArchimateParser } from '@cm2ml/archimate'
 import { BagOfPathsEncoder } from '@cm2ml/bag-of-paths-encoder'
+import type { DuplicateSymbol } from '@cm2ml/duplicate-filter'
+import { filterDuplicates } from '@cm2ml/duplicate-filter'
 import { EcoreParser } from '@cm2ml/ecore'
 import { StandaloneFeatureEncoder } from '@cm2ml/feature-encoder'
 import { GraphEncoder } from '@cm2ml/graph-encoder'
@@ -50,15 +52,25 @@ export const encoderMap = {
   [TreeEncoder.name]: TreeEncoder,
 }
 
-type LiftedEncoder<Data = unknown, Metadata = unknown> = Plugin<(GraphModel | ExecutionError)[], StructuredOutput<(Data | ExecutionError)[], Metadata>, any>
-const liftedEncoders: LiftedEncoder[] = Stream.from(encoders).map((encoder) => compose(encoder, liftMetadata(), encoder.name)).toArray()
+export type PreparedEncoder<Data = unknown, Metadata = unknown> = Plugin<(GraphModel | ExecutionError)[], StructuredOutput<(Data | ExecutionError | DuplicateSymbol)[], Metadata>, any>
 
-export type PrecomposedPlugin = Plugin<string[], StructuredOutput<(unknown | ExecutionError)[], unknown>, any>
+/**
+ * Prepare an encoder for use in a plugin adapter.
+ * This process includes lifting metadata from each entry and moving it to the batch level.
+ * In addition, the duplicate filter plugin is added as a final step.
+ */
+export function prepareEncoder(encoder: Encoder): PreparedEncoder {
+  return compose(compose(encoder, liftMetadata()), filterDuplicates(), encoder.name)
+}
 
-export const plugins: PrecomposedPlugin[] = Stream
+const preparedEncoders: PreparedEncoder[] = encoders.map(prepareEncoder)
+
+export type PreparedPlugin = Plugin<string[], StructuredOutput<(unknown | ExecutionError)[], unknown>, any>
+
+export const plugins: PreparedPlugin[] = Stream
   .from(parsers)
   .map((parser) => batchTryCatch(parser, parser.name))
   .flatMap((parser) =>
-    liftedEncoders.map((encoder) => compose(parser, encoder)),
+    preparedEncoders.map((encoder) => compose(parser, encoder)),
   )
   .toArray()
