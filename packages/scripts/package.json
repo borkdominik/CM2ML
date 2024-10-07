@@ -26,6 +26,7 @@
   },
   "types": "dist/types/index.d.mts",
   "bin": {
+    "detect-duplicates": "bin/detect-duplicates.js",
     "generate-readme": "bin/generate-readme.js"
   },
   "files": [

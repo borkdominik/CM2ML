@@ -14,6 +14,7 @@
     "ci:full": "cross-env COVERAGE=true nr turbo run bench build generate lint lint:root test check:publish check:tsc syncpack:lint e2e",
     "cm2ml": "nr turbo build --filter=@cm2ml/cli... && NODE_OPTIONS=--max_old_space_size=8192 cm2ml",
     "create-package": "nr turbo generate lib && nr syncpack:fix && ni && nr generate-readme",
+    "detect-duplicates": "nr turbo build --filter=@cm2ml/scripts && detect-duplicates",
     "dev": "nr turbo run dev --parallel",
     "fix": "nr turbo run lint lint:root --force -- --fix",
     "generate": "nr turbo run generate",
