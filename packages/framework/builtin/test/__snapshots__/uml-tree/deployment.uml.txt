@@ -2489,6 +2489,7 @@
     "edgeFeatures": [],
     "id2WordMapping": [],
     "idAttribute": "xmi:id",
+    "nameAttribute": "name",
     "nodeFeatures": [
       [
         "fileName",
@@ -2591,6 +2592,7 @@
         },
       ],
     ],
+    "onlyEncodedFeatures": false,
     "typeAttributes": [
       "xmi:type",
       "xsi:type",

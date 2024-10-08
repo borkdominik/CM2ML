@@ -26,7 +26,7 @@ export const EdgeEncoder = defineStructuredPlugin({
     },
   },
   invoke({ data, metadata: features }: { data: GraphModel, metadata: FeatureContext }, { format, weighted }) {
-    const { nodeFeatures, getNodeFeatureVector, edgeFeatures, getEdgeFeatureVector } = features
+    const { staticData, getNodeFeatureVector, getEdgeFeatureVector } = features
     const sortedIds = getSortedIds(data)
     const sortedEdges = Array.from(data.edges).sort(createEdgeSorter(sortedIds))
     const edgeEncoder = format === 'list' ? encodeAsSparseList : encodeAsAdjacencyMatrix
@@ -46,12 +46,7 @@ export const EdgeEncoder = defineStructuredPlugin({
         nodeFeatureVectors,
         edgeFeatureVectors,
       },
-      metadata: {
-        edgeFeatures,
-        nodeFeatures,
-        idAttribute: data.metamodel.idAttribute,
-        typeAttributes: data.metamodel.typeAttributes,
-      },
+      metadata: staticData,
     }
   },
 })

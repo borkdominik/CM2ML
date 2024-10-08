@@ -12,6 +12,6 @@ describe('batched plugins', () => {
   it.each(testCases)('%s', async (_, plugin, inputDir, inputFiles) => {
     const input = inputFiles.map((inputFile) => readFileSync(`${inputDir}/${inputFile}`, 'utf-8'))
     const output = plugin.validateAndInvoke(input, {})
-    await expect(output).toMatchFileSnapshot(`./__snapshots__/${plugin.name}.txt`)
+    await expect(output).toMatchFileSnapshot(`./__snapshots__/${plugin.name}/batched-${plugin.name}.txt`)
   })
 })

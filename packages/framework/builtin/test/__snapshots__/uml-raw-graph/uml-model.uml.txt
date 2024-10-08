@@ -1135,6 +1135,7 @@
   "metadata": {
     "edgeFeatures": [],
     "idAttribute": "xmi:id",
+    "nameAttribute": "name",
     "nodeFeatures": [
       [
         "alias",
@@ -1257,6 +1258,7 @@
         },
       ],
     ],
+    "onlyEncodedFeatures": false,
     "typeAttributes": [
       "xmi:type",
       "xsi:type",

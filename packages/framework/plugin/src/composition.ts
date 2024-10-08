@@ -91,7 +91,15 @@ export function liftMetadata<Data, Metadata>(name = 'lift-metadata') {
   return transform<(StructuredOutput<Data, Metadata> | ExecutionError)[], StructuredOutput<(Data | ExecutionError)[], Metadata | undefined>>((input) => {
     const metadata = getFirstNonError(input)?.metadata
     return {
-      data: input.map((item) => item instanceof ExecutionError ? item : item.data),
+      data: input.map((item) => {
+        if (item instanceof ExecutionError) {
+          return item
+        }
+        if (item.metadata !== metadata) {
+          throw new Error('Metadata mismatch within batch. All entries must share the same metadata object for memory optimization. This is an internal error.')
+        }
+        return item.data
+      }),
       metadata,
     }
   }, name)

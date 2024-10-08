@@ -45,7 +45,7 @@ describe('feature encoder', () => {
     expectResultToBeNotBeAnExecutionError(secondResult)
 
     expect(firstResult.metadata).toBe(secondResult.metadata)
-    expect(firstResult.metadata.nodeFeatures).toMatchInlineSnapshot(`
+    expect(firstResult.metadata.staticData.nodeFeatures).toMatchInlineSnapshot(`
       [
         [
           "a",
@@ -107,7 +107,7 @@ describe('feature encoder', () => {
 
     expectResultToBeNotBeAnExecutionError(result)
 
-    expect(result.metadata.nodeFeatures).toMatchInlineSnapshot(`
+    expect(result.metadata.staticData.nodeFeatures).toMatchInlineSnapshot(`
       [
         [
           "a",

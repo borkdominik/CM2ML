@@ -26078,6 +26078,7 @@
     "edgeFeatures": [],
     "id2WordMapping": [],
     "idAttribute": "xmi:id",
+    "nameAttribute": "name",
     "nodeFeatures": [
       [
         "aggregation",
@@ -26598,6 +26599,7 @@
         },
       ],
     ],
+    "onlyEncodedFeatures": false,
     "typeAttributes": [
       "xmi:type",
       "xsi:type",

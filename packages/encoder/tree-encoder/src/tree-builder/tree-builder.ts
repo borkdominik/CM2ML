@@ -78,7 +78,7 @@ export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
   }
 
   private includeAttribute(attribute: Attribute) {
-    return !this.featureContext.onlyEncodedFeatures || this.featureContext.canEncodeNodeAttribute(attribute)
+    return !this.featureContext.staticData.onlyEncodedFeatures || this.featureContext.canEncodeNodeAttribute(attribute)
   }
 
   protected createNode<T extends TreeNode<unknown[]>>(node: T): T {

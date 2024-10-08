@@ -53,12 +53,7 @@ const TreeTransformer = defineStructuredPlugin({
     const treeModel = createTreeModel()
     return {
       data: treeModel,
-      metadata: {
-        nodeFeatures: featureContext.nodeFeatures,
-        edgeFeatures: featureContext.edgeFeatures,
-        idAttribute: model.metamodel.idAttribute,
-        typeAttributes: model.metamodel.typeAttributes,
-      },
+      metadata: featureContext.staticData,
     }
   },
 })

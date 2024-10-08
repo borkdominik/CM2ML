@@ -776,6 +776,7 @@
   "metadata": {
     "edgeFeatures": [],
     "idAttribute": "xmi:id",
+    "nameAttribute": "name",
     "nodeFeatures": [
       [
         "fileName",
@@ -878,6 +879,7 @@
         },
       ],
     ],
+    "onlyEncodedFeatures": false,
     "typeAttributes": [
       "xmi:type",
       "xsi:type",

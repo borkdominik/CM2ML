@@ -3422,6 +3422,7 @@
     "edgeFeatures": [],
     "id2WordMapping": [],
     "idAttribute": "xmi:id",
+    "nameAttribute": "name",
     "nodeFeatures": [
       [
         "alias",
@@ -3544,6 +3545,7 @@
         },
       ],
     ],
+    "onlyEncodedFeatures": false,
     "typeAttributes": [
       "xmi:type",
       "xsi:type",

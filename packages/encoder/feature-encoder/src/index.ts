@@ -92,13 +92,7 @@ export const StandaloneFeatureEncoder = compose(FeatureEncoder, definePlugin({
   parameters: {},
   invoke(batch, _parameters) {
     const firstNonError = getFirstNonError(batch)
-    const metadata = {
-      idAttribute: firstNonError?.data.metamodel.idAttribute,
-      typeAttributes: firstNonError?.data.metamodel.typeAttributes,
-      nameAttribute: firstNonError?.data.metamodel.nameAttribute,
-      nodeFeatures: firstNonError?.metadata.nodeFeatures,
-      edgeFeatures: firstNonError?.metadata.edgeFeatures,
-    }
+    const metadata = firstNonError?.metadata.staticData
     return batch.map((item) => {
       if (item instanceof ExecutionError) {
         return item

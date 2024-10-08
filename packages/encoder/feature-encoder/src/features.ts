@@ -69,10 +69,16 @@ export function deriveFeatures(models: GraphModel[], settings: FeatureDeriverSet
   const nodeFeatures: FeatureMetadata = internalNodeFeatures.map(([name, type, encoder]) => [name, type, encoder?.export?.() ?? null] as const)
   const edgeFeatures: FeatureMetadata = internalEdgeFeatures.map(([name, type, encoder]) => [name, type, encoder?.export?.() ?? null] as const)
 
+  const metamodel = models[0]?.metamodel
   return {
-    edgeFeatures,
-    nodeFeatures,
-    onlyEncodedFeatures: settings.onlyEncodedFeatures,
+    staticData: {
+      edgeFeatures,
+      nodeFeatures,
+      onlyEncodedFeatures: settings.onlyEncodedFeatures,
+      idAttribute: metamodel?.idAttribute,
+      typeAttributes: metamodel?.typeAttributes,
+      nameAttribute: metamodel?.nameAttribute,
+    },
     canEncodeNodeAttribute: (attribute: Attribute) => nodeEncoderProvider.canEncodeAttribute(attribute),
     canEncodeEdgeAttribute: (attribute: Attribute) => edgeEncoderProvider.canEncodeAttribute(attribute),
     mapNodeAttribute: createAttributeMapper(nodeEncoderProvider),

@@ -1,5 +1,5 @@
 import type { GraphModel } from '@cm2ml/ir'
-import { ExecutionError, batchTryCatch, compose, definePlugin, defineStructuredBatchPlugin } from '@cm2ml/plugin'
+import { ExecutionError, batchTryCatch, compose, definePlugin, defineStructuredBatchPlugin, getFirstNonError } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 import type { CompiledTemplates } from './bop-types'
@@ -13,6 +13,14 @@ import { compileEdgeTemplate, compileNodeTemplate, compileStepWeighting } from '
 export type { PathWeight } from './bop-types'
 export { pathWeightTypes }
 export type { EncodedModelMember, EncodedPath } from './encoding'
+
+interface PrecomputedMetadata {
+  metamodelData: {
+    idAttribute: string | undefined
+    typeAttributes: string[] | undefined
+  }
+  compiledTemplates: CompiledTemplates
+}
 
 const TemplateCompiler = defineStructuredBatchPlugin({
   name: 'template-compiler',
@@ -46,10 +54,19 @@ const TemplateCompiler = defineStructuredBatchPlugin({
     },
   },
   invoke: (batch: (GraphModel | ExecutionError)[], parameters) => {
-    const metadata: CompiledTemplates = {
+    const data = getFirstNonError(batch)
+    const compiledTemplates: CompiledTemplates = {
       stepWeighting: parameters.stepWeighting.map(compileStepWeighting),
       nodeTemplates: parameters.nodeTemplates.map(compileNodeTemplate),
       edgeTemplates: parameters.edgeTemplates.map(compileEdgeTemplate),
+    }
+    const metamodelData = {
+      idAttribute: data?.metamodel.idAttribute,
+      typeAttributes: data?.metamodel.typeAttributes,
+    }
+    const metadata: PrecomputedMetadata = {
+      metamodelData,
+      compiledTemplates,
     }
     return batch.map((data) => ({ data, metadata }))
   },
@@ -117,12 +134,12 @@ const PathBuilder = definePlugin({
       group: 'Paths',
     },
   },
-  invoke: ({ data, metadata }: { data: GraphModel | ExecutionError, metadata: CompiledTemplates }, parameters) => {
+  invoke: ({ data, metadata }: { data: GraphModel | ExecutionError, metadata: PrecomputedMetadata }, parameters) => {
     if (data instanceof ExecutionError) {
       return data
     }
-    const rawPaths = collectPaths(data, parameters, metadata.stepWeighting)
-    const encodedPaths = encodePaths(rawPaths, data, metadata)
+    const rawPaths = collectPaths(data, parameters, metadata.compiledTemplates.stepWeighting)
+    const encodedPaths = encodePaths(rawPaths, data, metadata.compiledTemplates)
     const mapping = Stream
       .from(data.nodes)
       .map((node) => node.requireId())
@@ -132,7 +149,7 @@ const PathBuilder = definePlugin({
         paths: prunePaths(encodedPaths, parameters.pruneMethod as PruneMethod),
         mapping,
       },
-      metadata: { idAttribute: data.metamodel.idAttribute, typeAttributes: data.metamodel.typeAttributes },
+      metadata: metadata.metamodelData,
     }
   },
 })
