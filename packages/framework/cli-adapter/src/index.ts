@@ -1,4 +1,3 @@
-import { existsSync, readFileSync } from 'node:fs'
 import process from 'node:process'
 
 import type { Parameter, ParameterMetadata, Plugin, StructuredOutput } from '@cm2ml/plugin'
@@ -10,7 +9,7 @@ import type { Command } from 'cac'
 import { cac } from 'cac'
 
 import { batchedPluginActionHandler } from './batched-plugin-action-handler'
-import { pluginActionHandler } from './plugin-action-handler'
+import { loadFromFile, pluginActionHandler } from './plugin-action-handler'
 
 class CLI extends PluginAdapter<string[], StructuredOutput<unknown[], unknown>> {
   private readonly cli = cac('cm2ml')
@@ -92,17 +91,7 @@ function registerCommandOptions<Parameters extends ParameterMetadata>(
             if (!inputFile) {
               return parameter.defaultValue
             }
-            try {
-              // check if the file exists
-              if (!existsSync(inputFile)) {
-                return inputFile
-              }
-            // eslint-disable-next-line unused-imports/no-unused-vars
-            } catch (_error) {
-              return inputFile
-            }
-            const fileContent = readFileSync(inputFile, 'utf8')
-            return parameter.processFile!(fileContent)
+            return loadFromFile(inputFile, parameter.processFile!)
           }],
         },
       )

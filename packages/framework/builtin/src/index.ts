@@ -1,7 +1,7 @@
 import { ArchimateParser } from '@cm2ml/archimate'
 import { BagOfPathsEncoder } from '@cm2ml/bag-of-paths-encoder'
-import type { DuplicateSymbol } from '@cm2ml/duplicate-filter'
-import { filterDuplicates } from '@cm2ml/duplicate-filter'
+import type { DuplicateSymbol } from '@cm2ml/deduplicate'
+import { deduplicate } from '@cm2ml/deduplicate'
 import { EcoreParser } from '@cm2ml/ecore'
 import { StandaloneFeatureEncoder } from '@cm2ml/feature-encoder'
 import { GraphEncoder } from '@cm2ml/graph-encoder'
@@ -60,7 +60,7 @@ export type PreparedEncoder<Data = unknown, Metadata = unknown> = Plugin<(GraphM
  * In addition, the duplicate filter plugin is added as a final step.
  */
 export function prepareEncoder(encoder: Encoder): PreparedEncoder {
-  return compose(compose(encoder, liftMetadata()), filterDuplicates(), encoder.name)
+  return compose(compose(encoder, liftMetadata()), deduplicate(), encoder.name)
 }
 
 const preparedEncoders: PreparedEncoder[] = encoders.map(prepareEncoder)

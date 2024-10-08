@@ -1,6 +1,8 @@
 import { getTypeConstructor, type ParameterMetadata } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
+import { loadFromFile } from './plugin-action-handler'
+
 export function getResultAsText(result: unknown, pretty: boolean | undefined): string {
   return typeof result === 'string' ? result : `${JSON.stringify(result, null, pretty ? 2 : undefined)}\n`
 }
@@ -25,7 +27,13 @@ export function normalizeOptions(options: Record<string, unknown>, parameters: P
         return [name, value]
       }
       const typeConstructor = getTypeConstructor(parameters[name]!.type)
-      return [name, typeConstructor(value)]
+      const typedValue = typeConstructor(value)
+      const parameter = parameters[name]!
+      const processFile = 'processFile' in parameter ? parameter.processFile : undefined
+      if (!processFile) {
+        return [name, typedValue]
+      }
+      return [name, (typedValue as string[]).map((file) => loadFromFile(file, processFile))]
     })
     .toRecord(
       ([name]) => name,

@@ -16,7 +16,7 @@
 - [@cm2ml/cli](./packages/framework/cli)
 - [@cm2ml/cli-adapter](./packages/framework/cli-adapter)
 - [@cm2ml/cm2ml](./packages/framework/cm2ml)
-- [@cm2ml/duplicate-filter](./packages/framework/duplicate-filter)
+- [@cm2ml/deduplicate](./packages/framework/deduplicate)
 - [@cm2ml/ir](./packages/framework/ir)
 - [@cm2ml/ir-post-processor](./packages/framework/ir-post-processor)
 - [@cm2ml/metamodel](./packages/framework/metamodel)

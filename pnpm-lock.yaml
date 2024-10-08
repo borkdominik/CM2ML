@@ -276,9 +276,9 @@ importers:
       '@cm2ml/bag-of-paths-encoder':
         specifier: workspace:*
         version: link:../../encoder/bag-of-paths-encoder
-      '@cm2ml/duplicate-filter':
+      '@cm2ml/deduplicate':
         specifier: workspace:*
-        version: link:../duplicate-filter
+        version: link:../deduplicate
       '@cm2ml/ecore':
         specifier: workspace:*
         version: link:../../languages/ecore
@@ -425,7 +425,7 @@ importers:
         specifier: 2.1.1
         version: 2.1.1(@types/node@22.5.4)(rollup@4.21.2)(typescript@5.5.4)(vite@5.4.3(@types/node@22.5.4)(terser@5.26.0))
 
-  packages/framework/duplicate-filter:
+  packages/framework/deduplicate:
     dependencies:
       '@cm2ml/plugin':
         specifier: workspace:*
@@ -571,9 +571,9 @@ importers:
 
   packages/framework/plugin-adapter:
     dependencies:
-      '@cm2ml/duplicate-filter':
+      '@cm2ml/deduplicate':
         specifier: workspace:*
-        version: link:../duplicate-filter
+        version: link:../deduplicate
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin

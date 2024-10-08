@@ -1,7 +1,7 @@
 time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-pattern-miner ../models/uml/dataset \
   --out .output/patterns.json \
   --strict --pretty \
-  --remove-duplicates \
+  --deduplicate \
   --continue-on-error --start 1 --limit 10000 \
   --only-containment-associations --relationships-as-edges \
   --edge-blacklist "association" --edge-blacklist "owner" --edge-blacklist "ownedElement" --edge-blacklist "usage" \

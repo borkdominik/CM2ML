@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 
 import type { ParameterMetadata, Plugin, StructuredOutput } from '@cm2ml/plugin'
@@ -24,4 +24,18 @@ export function pluginActionHandler<Parameters extends ParameterMetadata>(
 
   mkdirSync(path.dirname(outFile), { recursive: true })
   writeFileSync(outFile, resultText)
+}
+
+export function loadFromFile(input: string, processFile: (fileContent: string) => string) {
+  try {
+    // check if the file exists
+    if (!existsSync(input)) {
+      return input
+    }
+    // eslint-disable-next-line unused-imports/no-unused-vars
+  } catch (_error) {
+    return input
+  }
+  const fileContent = readFileSync(input, 'utf8')
+  return processFile(fileContent)
 }

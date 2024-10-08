@@ -41,7 +41,7 @@ export type ListParameter = ParameterBase & Readonly<
     readonly type: 'list<string>'
     readonly defaultValue: readonly string[]
     readonly allowedValues?: readonly string[]
-
+    readonly processFile?: (fileContent: string) => string
   } & {
     /**
      * If true, the list will not contain duplicate values.

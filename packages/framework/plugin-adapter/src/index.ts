@@ -1,4 +1,4 @@
-import { DUPLICATE_SYMBOL, type DuplicateSymbol } from '@cm2ml/duplicate-filter'
+import { DUPLICATE_SYMBOL, type DuplicateSymbol } from '@cm2ml/deduplicate'
 import type { ParameterMetadata, Plugin, StructuredOutput } from '@cm2ml/plugin'
 import { ExecutionError } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'

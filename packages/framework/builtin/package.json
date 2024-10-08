@@ -39,7 +39,7 @@
   "dependencies": {
     "@cm2ml/archimate": "workspace:*",
     "@cm2ml/bag-of-paths-encoder": "workspace:*",
-    "@cm2ml/duplicate-filter": "workspace:*",
+    "@cm2ml/deduplicate": "workspace:*",
     "@cm2ml/ecore": "workspace:*",
     "@cm2ml/feature-encoder": "workspace:*",
     "@cm2ml/graph-encoder": "workspace:*",
