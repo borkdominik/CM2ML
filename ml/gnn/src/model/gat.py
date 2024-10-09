@@ -24,7 +24,7 @@ class GATModel(BaseModel):
             heads=heads,
         )
         self.activation = ReLU()
-        self.dropout = Dropout(0.1)
+        self.dropout = Dropout(0.2)
         self.classifier = GATConv(
             in_channels=hidden_channels * heads,
             out_channels=out_channels,

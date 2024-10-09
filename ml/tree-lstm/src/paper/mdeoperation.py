@@ -384,7 +384,7 @@ args = Args(
         "no_attention": False,
         "no_pf": False,
         "no_train": False,
-        "patience": 5,
+        "patience": 10,
     }
 )
 

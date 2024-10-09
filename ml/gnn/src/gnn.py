@@ -27,7 +27,7 @@ if (
 
 num_epochs = 2000
 start_epoch = 0
-patience = 5
+patience = 10
 
 layout = Layout()
 layout.split_column(Layout(name="datasets"), Layout(name="models"))
@@ -60,7 +60,6 @@ with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=4) as 
         test_dataset.num_classes,
     )
 
-    num_uml_types = 193
     num_node_features = train_dataset.num_features
     num_edge_features = train_dataset.num_edge_features
     hidden_channels = max_num_classes * 2
