@@ -50,6 +50,8 @@ def weighted_accuracy(
             if logits[i][j] > max_value:
                 max_value = logits[i][j]
                 pred_index = j
+        if pred_index >= len(weights):
+            continue
         total_weighted_predictions += weights[pred_index]
         if pred_index == labels[i]:
             weighted_correct_predictions += weights[pred_index]

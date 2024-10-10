@@ -1,3 +1,4 @@
+import math
 import torch
 from torch.nn import Dropout, ReLU
 from torch_geometric.data import Data
@@ -14,24 +15,25 @@ class GATModel(BaseModel):
         hidden_channels: int,
         out_channels: int,
         layout,
-        heads: int = 1,
     ):
         super(GATModel, self).__init__("GAT", layout=layout)
+        embedding_heads = 8
+        classification_heads = 8
         self.embed = GATConv(
             in_channels=num_node_features,
-            out_channels=hidden_channels,
+            out_channels=math.ceil(hidden_channels / embedding_heads),
             edge_dim=num_edge_features,
-            heads=heads,
+            heads=embedding_heads,
         )
         self.activation = ReLU()
-        self.dropout = Dropout(0.2)
+        self.dropout = Dropout(0.6)
         self.classifier = GATConv(
-            in_channels=hidden_channels * heads,
-            out_channels=out_channels,
+            in_channels=math.ceil(hidden_channels / embedding_heads) * embedding_heads,
+            out_channels=math.ceil(out_channels / classification_heads),
             edge_dim=num_edge_features,
-            heads=heads,
+            heads=classification_heads,
         )
-        self.optimizer = torch.optim.Adam(self.parameters(), lr=0.01)
+        self.optimizer = torch.optim.Adam(self.parameters(), lr=0.01, weight_decay=0.001)
         self.criterion = torch.nn.CrossEntropyLoss()
 
     def forward(self, data: Data):
