@@ -28,4 +28,4 @@ class GCNModel(BaseModel):
         h = self.activation(x)
         h = self.dropout(h)
         x = self.classifier(h, edge_index)
-        return x, h
+        return x

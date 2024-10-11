@@ -50,8 +50,6 @@ def weighted_accuracy(
             if logits[i][j] > max_value:
                 max_value = logits[i][j]
                 pred_index = j
-        if pred_index >= len(weights):
-            continue
         total_weighted_predictions += weights[pred_index]
         if pred_index == labels[i]:
             weighted_correct_predictions += weights[pred_index]
@@ -73,7 +71,7 @@ class BaseModel(torch.nn.Module):
 
     def __train(self, data: Data) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         self.optimizer.zero_grad()
-        out, h = self.forward(data)
+        out = self.forward(data)
         loss = self.criterion(out, data.y)
         correct_predictions, prediction_count = accuracy(out, data.y)
         loss.backward()
@@ -123,7 +121,7 @@ class BaseModel(torch.nn.Module):
             with torch.no_grad():
                 validation_loss = 0
                 for data in validation_dataset:
-                    out, h = self.forward(data)
+                    out = self.forward(data)
                     validation_loss += self.criterion(out, data.y)
                 if validation_loss < best_loss:
                     best_loss = validation_loss
@@ -166,7 +164,7 @@ class BaseModel(torch.nn.Module):
         total_weighted_correct_predictions = 0
         total_weighted_prediction_count = 0
         for data in dataset:
-            out = self.forward(data)[0]
+            out = self.forward(data)
             (
                 correct_predictions,
                 prediction_count,
