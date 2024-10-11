@@ -40,15 +40,15 @@
   "dependencies": {
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
-    "@yeger/streams": "1.2.0",
+    "@yeger/streams": "1.2.1",
     "ohm-js": "17.1.0"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
     "@ohm-js/cli": "2.0.0",
-    "typescript": "5.5.4",
-    "vite": "5.4.3",
-    "vite-plugin-lib": "2.1.1"
+    "typescript": "5.6.3",
+    "vite": "5.4.8",
+    "vite-plugin-lib": "2.1.2"
   },
   "publishConfig": {
     "access": "public"
