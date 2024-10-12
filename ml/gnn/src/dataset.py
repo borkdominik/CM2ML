@@ -39,7 +39,7 @@ class CM2MLDataset(InMemoryDataset):
     def load(self):
         dataset_load_start_time = time.perf_counter()
         if self.is_cached:
-            self.data, self.slices, self.num_nodes, self.metadata = torch.load(
+            self.data, self.slices, self.num_nodes, self.metadata, self.node_counts, self.num_nodes = torch.load(
                 self.dataset_cache_file
             )
             self.to(device)
@@ -53,7 +53,7 @@ class CM2MLDataset(InMemoryDataset):
                 self.node_counts = [len(data.x) for data in data_entries]
                 self.num_nodes = sum(self.node_counts)
                 torch.save(
-                    (base_data, slices, self.num_nodes, self.metadata),
+                    (base_data, slices, self.num_nodes, self.metadata, self.node_counts, self.num_nodes),
                     self.dataset_cache_file,
                 )
                 self.data, self.slices = base_data, slices

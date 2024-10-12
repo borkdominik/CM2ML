@@ -7,8 +7,8 @@ dependencies:
   - blas=1.0=openblas
   - brotli-python=1.0.9=py310hc377ac9_7
   - bzip2=1.0.8=h80987f9_5
-  - ca-certificates=2024.3.11=hca03da5_0
-  - certifi=2024.2.2=py310hca03da5_0
+  - ca-certificates=2024.9.24=hca03da5_0
+  - certifi=2024.8.30=py310hca03da5_0
   - charset-normalizer=2.0.4=pyhd3eb1b0_0
   - ffmpeg=4.2.2=h04105a8_0
   - freetype=2.12.1=h1192e45_0
@@ -47,13 +47,13 @@ dependencies:
   - numpy-base=1.26.4=py310ha9811e2_0
   - openh264=1.8.0=h98b2900_0
   - openjpeg=2.3.0=h7a6adac_2
-  - openssl=3.0.13=h1a28f6b_1
+  - openssl=3.0.15=h80987f9_0
   - pillow=10.2.0=py310h80987f9_0
   - pip=23.3.1=py310hca03da5_0
+  - pybind11-abi=4=hd3eb1b0_1
   - pygments=2.15.1=py310hca03da5_1
   - pysocks=1.7.1=py310hca03da5_0
   - python=3.10.14=hb885b13_0
-  - pytorch=1.13.1=py3.10_0
   - readline=8.2=h1a28f6b_0
   - requests=2.31.0=py310hca03da5_1
   - rich=13.3.5=py310hca03da5_0
@@ -63,7 +63,6 @@ dependencies:
   - torchaudio=0.13.1=py310_cpu
   - torchvision=0.14.1=py310_cpu
   - typing_extensions=4.9.0=py310hca03da5_1
-  - tzdata=2024a=h04d1e81_0
   - urllib3=2.1.0=py310hca03da5_1
   - wheel=0.41.2=py310hca03da5_0
   - x264=1!152.20180806=h1a28f6b_0
@@ -75,17 +74,31 @@ dependencies:
       - aiosignal==1.3.1
       - async-timeout==4.0.3
       - attrs==23.2.0
+      - dgl==2.2.0
+      - filelock==3.14.0
       - frozenlist==1.4.1
       - fsspec==2024.3.1
       - jinja2==3.1.3
       - joblib==1.4.0
       - markupsafe==2.1.5
+      - mpmath==1.3.0
       - multidict==6.0.5
+      - networkx==3.3
+      - pandas==2.2.2
       - psutil==5.9.8
+      - pympler==1.0.1
       - pyparsing==3.1.2
+      - python-dateutil==2.9.0.post0
+      - pytz==2024.1
       - scikit-learn==1.4.2
       - scipy==1.13.0
+      - six==1.16.0
+      - sympy==1.12.1
       - threadpoolctl==3.4.0
+      - torch==2.3.1
       - torch-geometric==2.5.3
+      - torchdata==0.7.1
       - tqdm==4.66.2
+      - tree-lstm==0.0.8
+      - tzdata==2024.1
       - yarl==1.9.4

@@ -1,4 +1,6 @@
+import json
 import os
+import random
 from rich.console import Console
 from rich.live import Live
 from rich.layout import Layout
@@ -10,7 +12,13 @@ from utils import script_dir, WaitingSpinner
 from model.gat import GATModel
 from model.gcn import GCNModel
 
-torch.manual_seed(42)
+seed = sys.argv[4]
+
+if seed is None:
+    exit("Please provide the random seed as an argument")
+
+torch.manual_seed(seed)
+random.seed(seed)
 
 train_dataset_file = sys.argv[1]
 validation_dataset_file = sys.argv[2]
@@ -102,13 +110,15 @@ with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=4) as 
         train_dataset=train_dataset,
         validation_dataset=validation_dataset,
         test_dataset=test_dataset,
-    ).fit(
+    )
+    gat.fit(
         train_dataset=train_dataset,
         validation_dataset=validation_dataset,
         num_epochs=num_epochs,
         start_epoch=start_epoch,
         patience=patience,
-    ).evaluate(
+    )
+    gat_report = gat.evaluate(
         train_dataset=train_dataset,
         validation_dataset=validation_dataset,
         test_dataset=test_dataset,
@@ -118,27 +128,39 @@ with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=4) as 
         train_dataset=train_dataset,
         validation_dataset=validation_dataset,
         test_dataset=test_dataset,
-    ).fit(
+    )
+    gcn.fit(
         train_dataset=train_dataset,
         validation_dataset=validation_dataset,
         num_epochs=num_epochs,
         start_epoch=start_epoch,
         patience=patience,
-    ).evaluate(
+    )
+    gcn_report = gcn.evaluate(
         train_dataset=train_dataset,
         validation_dataset=validation_dataset,
         test_dataset=test_dataset,
     )
+
+    output_dir = f"{script_dir}/../../.output/gnn/{seed}"
+
+    def save_report(model_name, report):
+        report_dir = f"{output_dir}/{model_name}"
+        os.makedirs(report_dir, exist_ok=True)
+        for name, value in report.items():
+            serialized = json.dumps(value, indent=4)
+            with open(f"{report_dir}/{name}.json", "w") as file:
+                file.write(serialized)
 
 
     console = Console()
     with console.capture() as capture:
         console.print(layout)
     output = capture.get()
-    output_dir = f"{script_dir}/../../.output"
-    output_file = "gnn"
-    if "NAME" in os.environ:
-        output_file = f"{output_file}_{os.environ['NAME']}"
-    output_path = f"{output_dir}/{output_file}.log"
-    with open(output_path, "w") as file:
+    # ensure out dir exists
+    os.makedirs(output_dir, exist_ok=True)
+    with open(f"{output_dir}/log.txt", "w") as file:
         file.write(output)
+    save_report("gat", gat_report)
+    save_report("gcn", gcn_report)
+

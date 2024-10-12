@@ -7,6 +7,7 @@ from torch_geometric.data import Data
 from dataset import CM2MLDataset
 from layout_proxy import LayoutProxy
 from utils import device, pretty_duration, script_dir, text_padding
+from sklearn.metrics import classification_report
 
 
 def accuracy(logits: torch.Tensor, labels: torch.Tensor) -> tuple[torch.Tensor, int]:
@@ -163,8 +164,12 @@ class BaseModel(torch.nn.Module):
         total_top_n_prediction_count = 0
         total_weighted_correct_predictions = 0
         total_weighted_prediction_count = 0
+        preds = []
+        labels = []
         for data in dataset:
             out = self.forward(data)
+            preds.extend(out.argmax(dim=1).cpu().numpy())
+            labels.extend(data.y.cpu().numpy())
             (
                 correct_predictions,
                 prediction_count,
@@ -196,6 +201,9 @@ class BaseModel(torch.nn.Module):
         self.layout_proxy.print(
             f"{text_padding}{dataset.name}: Acc: {total_accuracy:.2%}, Pred: {total_correct_predictions:.0f}/{total_prediction_count}, Acc@{dataset.top_n}: {total_top_n_accuracy:.2%}, Pred@{dataset.top_n}: {total_top_n_correct_predictions:.0f}/{total_top_n_prediction_count}, Wgth: {total_weighted_accuracy:.2%}"
         )
+        report = classification_report(labels, preds, output_dict=True)
+        return report
+
 
     def evaluate(
         self,
@@ -204,7 +212,4 @@ class BaseModel(torch.nn.Module):
         test_dataset: CM2MLDataset,
     ):
         self.layout_proxy.print("Evaluating...")
-        self.evaluate_dataset(train_dataset)
-        self.evaluate_dataset(validation_dataset)
-        self.evaluate_dataset(test_dataset)
-        return self
+        return { "train": self.evaluate_dataset(train_dataset), "validation": self.evaluate_dataset(validation_dataset), "test": self.evaluate_dataset(test_dataset) }
