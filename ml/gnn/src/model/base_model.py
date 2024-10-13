@@ -204,7 +204,6 @@ class BaseModel(torch.nn.Module):
         report = classification_report(labels, preds, output_dict=True)
         return report
 
-
     def evaluate(
         self,
         train_dataset: CM2MLDataset,
@@ -212,4 +211,8 @@ class BaseModel(torch.nn.Module):
         test_dataset: CM2MLDataset,
     ):
         self.layout_proxy.print("Evaluating...")
-        return { "train": self.evaluate_dataset(train_dataset), "validation": self.evaluate_dataset(validation_dataset), "test": self.evaluate_dataset(test_dataset) }
+        return {
+            "train": self.evaluate_dataset(train_dataset),
+            "validation": self.evaluate_dataset(validation_dataset),
+            "test": self.evaluate_dataset(test_dataset),
+        }

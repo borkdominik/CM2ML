@@ -8,6 +8,8 @@ import random
 import sys
 import time
 from typing import Union
+import numpy as np
+from sklearn.metrics import classification_report
 import torch
 
 from torch import cuda
@@ -17,6 +19,7 @@ import paper.data_utils as data_utils
 import paper.network as network
 from tree_dataset import TreeDataset
 from utils import script_dir
+
 
 def create_model(
     source_vocab: data_utils.Vocab,
@@ -101,7 +104,7 @@ def step_tree2tree(
 
 def evaluate(
     model: network.Tree2TreeModel,
-    test_dataset: data_utils.EncodedDataset,  # TODO/Jan: Type!
+    test_dataset: data_utils.EncodedDataset,
     source_vocab: data_utils.Vocab,
     target_vocab: data_utils.Vocab,
 ):
@@ -112,6 +115,8 @@ def evaluate(
     tot_trees = len(test_dataset)
     res = []
     # model.eval()
+    preds = []
+    labels = []
 
     for idx in range(0, len(test_dataset), args.batch_size):
         encoder_inputs, decoder_inputs = model.get_batch(test_dataset, start_idx=idx)
@@ -158,6 +163,18 @@ def evaluate(
             # print(f"output {current_output_print}")
             # print("---")
 
+            labels.extend(current_target)
+            # extends preds with current_output, but ensure length matches to len(current_target)
+            shortened_output = current_output[: len(current_target)]
+            padded_output = shortened_output + [0] * (
+                len(current_target) - len(shortened_output)
+            )
+            preds.extend(padded_output)
+
+            if len(labels) == 1:
+                print(f"labels: {labels}")
+                print(f"preds: {preds}")
+
             tot_tokens += len(current_target)
             all_correct = len(current_target) == len(current_output)
             wrong_tokens = 0
@@ -178,6 +195,7 @@ def evaluate(
         print("  test: accuracy of tokens %.2f" % (acc_tokens * 1.0 / tot_tokens))
     print("  test: accuracy of programs %.2f" % (acc_trees * 1.0 / tot_trees))
     print(acc_tokens, tot_tokens, acc_trees, tot_trees)
+    print(classification_report(labels, preds, zero_division=np.nan))
 
 
 def train(
@@ -240,7 +258,7 @@ def train(
                     model, encoder_inputs, decoder_inputs, feed_previous=False
                 )
 
-                epoch_time += (time.time() - start_time)
+                epoch_time += time.time() - start_time
                 loss += batch_loss
                 current_step += 1
 
@@ -281,9 +299,7 @@ def train(
             else:
                 remaining_patience -= 1
                 if remaining_patience == 0:
-                    print(
-                        f"Early stopping in epoch {epoch}"
-                    )
+                    print(f"Early stopping in epoch {epoch}")
                     break
             sys.stdout.flush()
         time_training = datetime.datetime.now() - start_datetime

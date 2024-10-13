@@ -70,8 +70,6 @@ with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=4) as 
 
     num_node_features = train_dataset.num_features
     num_edge_features = train_dataset.num_edge_features
-    hidden_channels = max_num_classes * 2
-    out_channels = max_num_classes
 
     if (
         train_dataset.num_features != validation_dataset.num_features
@@ -87,14 +85,14 @@ with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=4) as 
     gat = GATModel(
         num_node_features=num_node_features,
         num_edge_features=num_edge_features,
-        hidden_channels=hidden_channels,
-        out_channels=out_channels,
+        hidden_channels=max_num_classes * 2,
+        out_channels=max_num_classes,
         layout=layout["models"]["gat"],
     )
     gcn = GCNModel(
         num_node_features=num_node_features,
-        hidden_channels=hidden_channels,
-        out_channels=out_channels,
+        hidden_channels=max_num_classes,
+        out_channels=max_num_classes,
         layout=layout["models"]["gcn"],
     )
 
@@ -106,11 +104,11 @@ with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=4) as 
     validation_dataset.print_and_calculate_label_metrics(max_num_classes)
     test_dataset.print_and_calculate_label_metrics(max_num_classes)
 
-    gat.evaluate(
-        train_dataset=train_dataset,
-        validation_dataset=validation_dataset,
-        test_dataset=test_dataset,
-    )
+    # gat.evaluate(
+    #     train_dataset=train_dataset,
+    #     validation_dataset=validation_dataset,
+    #     test_dataset=test_dataset,
+    # )
     gat.fit(
         train_dataset=train_dataset,
         validation_dataset=validation_dataset,
@@ -124,11 +122,11 @@ with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=4) as 
         test_dataset=test_dataset,
     )
 
-    gcn.evaluate(
-        train_dataset=train_dataset,
-        validation_dataset=validation_dataset,
-        test_dataset=test_dataset,
-    )
+    # gcn.evaluate(
+    #     train_dataset=train_dataset,
+    #     validation_dataset=validation_dataset,
+    #     test_dataset=test_dataset,
+    # )
     gcn.fit(
         train_dataset=train_dataset,
         validation_dataset=validation_dataset,
@@ -152,7 +150,6 @@ with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=4) as 
             with open(f"{report_dir}/{name}.json", "w") as file:
                 file.write(serialized)
 
-
     console = Console()
     with console.capture() as capture:
         console.print(layout)
@@ -163,4 +160,3 @@ with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=4) as 
         file.write(output)
     save_report("gat", gat_report)
     save_report("gcn", gcn_report)
-
