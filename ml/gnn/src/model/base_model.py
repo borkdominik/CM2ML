@@ -1,5 +1,6 @@
 import time
 from typing import List
+import numpy as np
 import torch
 from rich.layout import Layout
 from torch_geometric.data import Data
@@ -201,7 +202,7 @@ class BaseModel(torch.nn.Module):
         self.layout_proxy.print(
             f"{text_padding}{dataset.name}: Acc: {total_accuracy:.2%}, Pred: {total_correct_predictions:.0f}/{total_prediction_count}, Acc@{dataset.top_n}: {total_top_n_accuracy:.2%}, Pred@{dataset.top_n}: {total_top_n_correct_predictions:.0f}/{total_top_n_prediction_count}, Wgth: {total_weighted_accuracy:.2%}"
         )
-        report = classification_report(labels, preds, output_dict=True)
+        report = classification_report(labels, preds, output_dict=True, zero_division=np.nan)
         return report
 
     def evaluate(

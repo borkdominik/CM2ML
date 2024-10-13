@@ -1,21 +1,23 @@
 from decimal import Decimal
 import json
 import os
+
+import numpy as np
 from utils import script_dir
 
 report_dir =  f"{script_dir}/../../.output/gnn/"
 
 def dataset_metrics():
     return {
-        "f1-score": 0,
-        "precision": 0,
-        "recall": 0,
-        "support": 0,
+        "f1-score": [],
+        "precision": [],
+        "recall": [],
+        "support": [],
     }
 
 def method_metrics():
     return {
-        "accuracy": 0,
+        "accuracy": [],
         "weighted avg": dataset_metrics(),
         "macro avg": dataset_metrics(),
     }
@@ -55,23 +57,30 @@ for seed_dir in os.listdir(report_dir):
                 serialized = f.read()
                 deserialized = json.loads(serialized)
                 report_name = report_file.replace(".json", "")
-                models[model_dir][report_name]["accuracy"] += deserialized["accuracy"]
+                models[model_dir][report_name]["accuracy"].append(deserialized["accuracy"])
                 for metric in metrics:
                     for method in methods:
-                        models[model_dir][report_name][method][metric] += deserialized[method][metric]
+                        models[model_dir][report_name][method][metric].append(deserialized[method][metric])
+
+def round_dec(value, digits = 3):
+    return float(round(Decimal(value), digits))
 
 for model in models:
     for dataset in models[model]:
-        models[model][dataset]["accuracy"] = float(
-            round(Decimal(models[model][dataset]["accuracy"] / num_seeds), 3)
-        )
+        avg_acc = round_dec(np.mean(models[model][dataset]["accuracy"]))
+        acc_var = round_dec(np.var(models[model][dataset]["accuracy"]), 5)
+        models[model][dataset]["accuracy"] = {
+            "mean": avg_acc,
+            "variance": acc_var,
+        }
         for method in methods:
             for metric in metrics:
-                models[model][dataset][method][metric] = float(
-                    round(
-                        Decimal(models[model][dataset][method][metric] / num_seeds), 3
-                    )
-                )
+                mean = round_dec(np.mean(models[model][dataset][method][metric]))
+                variance = round_dec(np.var(models[model][dataset][method][metric]), 5)
+                models[model][dataset][method][metric] = {
+                    "mean": mean,
+                    "variance": variance,
+                }
 
 final = json.dumps(models, indent=4)
 print(final)
