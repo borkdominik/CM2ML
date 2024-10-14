@@ -24,8 +24,8 @@ def method_metrics():
 
 def model_metrics():
     return {
-        "train": method_metrics(),
-        "validation": method_metrics(),
+        # "train": method_metrics(),
+        # "validation": method_metrics(),
         "test": method_metrics(),
     }
 models = {

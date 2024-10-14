@@ -203,7 +203,11 @@ class BaseModel(torch.nn.Module):
             f"{text_padding}{dataset.name}: Acc: {total_accuracy:.2%}, Pred: {total_correct_predictions:.0f}/{total_prediction_count}, Acc@{dataset.top_n}: {total_top_n_accuracy:.2%}, Pred@{dataset.top_n}: {total_top_n_correct_predictions:.0f}/{total_top_n_prediction_count}, Wgth: {total_weighted_accuracy:.2%}"
         )
         report = classification_report(labels, preds, output_dict=True, zero_division=np.nan)
-        return report
+        return {
+            "accuracy": report["accuracy"],
+            "weighted avg": report["weighted avg"],
+            "macro avg": report["macro avg"],
+        }
 
     def evaluate(
         self,
@@ -213,7 +217,7 @@ class BaseModel(torch.nn.Module):
     ):
         self.layout_proxy.print("Evaluating...")
         return {
-            "train": self.evaluate_dataset(train_dataset),
-            "validation": self.evaluate_dataset(validation_dataset),
+            # "train": self.evaluate_dataset(train_dataset),
+            # "validation": self.evaluate_dataset(validation_dataset),
             "test": self.evaluate_dataset(test_dataset),
         }
