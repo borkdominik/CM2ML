@@ -130,7 +130,7 @@ class BaseModel(torch.nn.Module):
                     remaining_patience = patience
                 else:
                     remaining_patience -= 1
-                    if remaining_patience == 0:
+                    if remaining_patience < 0:
                         self.layout_proxy.print(
                             f"{text_padding}Early stopping in epoch {epoch}"
                         )

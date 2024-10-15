@@ -33,7 +33,7 @@ if (
         "Please provide the train, validation, and test dataset file paths as arguments"
     )
 
-num_epochs = 2000
+num_epochs = 100
 start_epoch = 0
 patience = 10
 

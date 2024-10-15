@@ -298,7 +298,7 @@ def train(
                 remaining_patience = args.patience
             else:
                 remaining_patience -= 1
-                if remaining_patience == 0:
+                if remaining_patience < 0:
                     print(f"Early stopping in epoch {epoch}")
                     break
             sys.stdout.flush()

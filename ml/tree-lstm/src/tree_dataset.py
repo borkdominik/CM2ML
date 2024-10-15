@@ -24,8 +24,6 @@ class TreeDataset(torch.utils.data.Dataset):
         dataset_load_start_time = time.perf_counter()
         if self.is_cached:
             self.data, self.metadata, self.vocabulary = torch.load(self.dataset_cache_file)
-            # TODO?
-            # self.to(device)
         else:
             with open(self.dataset_path, "r") as file:
                 dataset_input = json.load(file)
@@ -42,8 +40,6 @@ class TreeDataset(torch.utils.data.Dataset):
                     (self.data, self.metadata, self.vocabulary),
                     self.dataset_cache_file,
                 )
-                # TODO?
-                # self.to(device)
 
         dataset_load_end_time = time.perf_counter()
         print(
