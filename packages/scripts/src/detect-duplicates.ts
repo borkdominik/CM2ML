@@ -13,7 +13,7 @@ export function detectDuplicates(dir: string, limit: number | undefined) {
     if (files.length < 100 || index % 100 !== 0) {
       return
     }
-    // eslint-disable-next-line no-console
+
     console.log(`${Math.round((index / files.length) * 100)}% (${duplicateFiles.size} duplicates found)`)
   }
 
