@@ -25,6 +25,7 @@ const baseParameters: ResolveParameters<InferParameters<typeof UmlParser>> = {
   randomizedIdPrefix: false,
   nodeTagAsAttribute: false,
   edgeTagAsAttribute: false,
+  unifyTypes: false,
   debug: false,
 }
 

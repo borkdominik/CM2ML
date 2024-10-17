@@ -63,9 +63,9 @@ with Live(layout, screen=False, redirect_stderr=False, refresh_per_second=4) as 
     test_dataset.load()
 
     max_num_classes = max(
-        train_dataset.num_classes,
-        validation_dataset.num_classes,
-        test_dataset.num_classes,
+        train_dataset.actual_num_classes,
+        validation_dataset.actual_num_classes,
+        test_dataset.actual_num_classes,
     )
 
     num_node_features = train_dataset.num_features

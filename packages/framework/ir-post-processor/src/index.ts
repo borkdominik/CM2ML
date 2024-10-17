@@ -1,4 +1,4 @@
-import type { GraphModel, GraphNode } from '@cm2ml/ir'
+import type { GraphModel, GraphNode, ModelMember } from '@cm2ml/ir'
 import { definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
@@ -21,6 +21,12 @@ export const IrPostProcessor = definePlugin({
       defaultValue: false,
       group: 'attributes',
     },
+    unifyTypes: {
+      type: 'boolean',
+      description: 'Unify all types to a single type.',
+      defaultValue: false,
+      group: 'attributes',
+    },
   },
   invoke: (model: GraphModel, parameters) => {
     if (!model.settings.strict) {
@@ -34,6 +40,18 @@ export const IrPostProcessor = definePlugin({
     if (parameters.edgeTagAsAttribute) {
       model.edges.forEach((edge) => {
         edge.addAttribute({ name: TAG_ATTRIBUTE_NAME, type: 'category', value: { literal: edge.tag } })
+      })
+    }
+    if (parameters.unifyTypes) {
+      Stream.from<ModelMember>(model.nodes).concat(model.edges).forEach((member) => {
+        const type = member.type
+        if (type === undefined) {
+          return
+        }
+        model.metamodel.typeAttributes.forEach((typeAttribute) => {
+          member.removeAttribute(typeAttribute)
+        })
+        member.type = type
       })
     }
     validateModel(model)

@@ -10,10 +10,11 @@ input=../models/uml/dataset
 
 parameters=(
   "--strict" "--deduplicate" "--continue-on-error"
+  "--unify-types"
   "--raw-strings" "--only-encoded-features"
   "--relationships-as-edges" "true"
   "--only-containment-associations" "true"
-  "--edge-tag-as-attribute" "false"
+  "--edge-tag-as-attribute" "true"
 )
 
 time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-raw-graph "$input" --start "$train_start" --limit "$train_size" --out .input/graph_train.json "${parameters[@]}" && \

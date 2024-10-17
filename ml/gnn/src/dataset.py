@@ -6,7 +6,7 @@ import time
 import torch
 from torch_geometric.data import InMemoryDataset
 
-from dataset_types import Dataset
+from dataset_types import Dataset, DatasetMetadata
 from feature_transformer import FeatureTransformer
 from layout_proxy import LayoutProxy
 from utils import device, pretty_duration, script_dir, text_padding
@@ -39,7 +39,7 @@ class CM2MLDataset(InMemoryDataset):
     def load(self):
         dataset_load_start_time = time.perf_counter()
         if self.is_cached:
-            self.data, self.slices, self.num_nodes, self.metadata, self.node_counts, self.num_nodes = torch.load(
+            self.data, self.slices, self.num_nodes, self.metadata, self.node_counts, self.num_nodes, self.actual_num_classes = torch.load(
                 self.dataset_cache_file
             )
             self.to(device)
@@ -48,12 +48,13 @@ class CM2MLDataset(InMemoryDataset):
                 dataset_input: Dataset = json.load(file)
                 data = dataset_input["data"]
                 self.metadata = dataset_input["metadata"]
+                self.actual_num_classes = find_actual_num_classes(self.metadata)
                 data_entries = FeatureTransformer().fit_transform(data, self.metadata)
                 base_data, slices = self.collate(data_entries)
                 self.node_counts = [len(data.x) for data in data_entries]
                 self.num_nodes = sum(self.node_counts)
                 torch.save(
-                    (base_data, slices, self.num_nodes, self.metadata, self.node_counts, self.num_nodes),
+                    (base_data, slices, self.num_nodes, self.metadata, self.node_counts, self.num_nodes, self.actual_num_classes),
                     self.dataset_cache_file,
                 )
                 self.data, self.slices = base_data, slices
@@ -70,7 +71,7 @@ class CM2MLDataset(InMemoryDataset):
         self.layout_proxy.print(
             f"{text_padding}# edge features: {self.num_edge_features}"
         )
-        self.layout_proxy.print(f"{text_padding}# classes: {self.num_classes}")
+        self.layout_proxy.print(f"{text_padding}# classes: {self.num_classes} ({self.actual_num_classes})")
         self.layout_proxy.print(f"{text_padding}# nodes: {self.num_nodes}")
         self.layout_proxy.print(
             f"{text_padding}avg nodes/graph: {self.num_nodes / len(self):.2f}"
@@ -140,3 +141,9 @@ class CM2MLDataset(InMemoryDataset):
             if value == index:
                 return key
         raise ValueError(f"No label found for value index {index} of feature {feature[0]}")
+
+def find_actual_num_classes(metadata: DatasetMetadata) -> int:
+    main_type_attribute = metadata["typeAttributes"][0]
+    for feature in metadata["nodeFeatures"]:
+        if feature[0] == main_type_attribute:
+            return len(feature[2]) + 1
