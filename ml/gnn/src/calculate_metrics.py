@@ -63,23 +63,23 @@ for seed_dir in os.listdir(report_dir):
                         models[model_dir][report_name][method][metric].append(deserialized[method][metric])
 
 def round_dec(value, digits = 3):
-    return float(round(Decimal(value), digits))
+    return float(round(Decimal(value * 100), digits))
 
 for model in models:
     for dataset in models[model]:
         avg_acc = round_dec(np.mean(models[model][dataset]["accuracy"]))
-        acc_var = round_dec(np.var(models[model][dataset]["accuracy"]), 5)
+        acc_var = round_dec(np.std(models[model][dataset]["accuracy"]))
         models[model][dataset]["accuracy"] = {
             "mean": avg_acc,
-            "variance": acc_var,
+            "std": acc_var,
         }
         for method in methods:
             for metric in metrics:
                 mean = round_dec(np.mean(models[model][dataset][method][metric]))
-                variance = round_dec(np.var(models[model][dataset][method][metric]), 5)
+                variance = round_dec(np.std(models[model][dataset][method][metric]))
                 models[model][dataset][method][metric] = {
                     "mean": mean,
-                    "variance": variance,
+                    "std": variance,
                 }
 
 final = json.dumps(models, indent=4)
