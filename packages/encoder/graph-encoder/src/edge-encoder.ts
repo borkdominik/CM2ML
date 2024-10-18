@@ -51,7 +51,6 @@ export const EdgeEncoder = defineStructuredPlugin({
   },
 })
 
-// TODO/Jan: Require IDs to be set?
 function getSortedIds(model: GraphModel) {
   return Stream.from(model.nodes)
     .map((node) => node.id)

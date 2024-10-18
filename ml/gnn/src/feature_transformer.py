@@ -30,12 +30,17 @@ class FeatureTransformer:
     def fit_transform(
         self, datasetData: DatasetData, metadata: DatasetMetadata
     ) -> List[Data]:
-        all_node_features_encoded = len(list(
-            filter(
-                lambda feature: not feature[1].startswith("encoded-"),
-                metadata["nodeFeatures"],
+        all_node_features_encoded = (
+            len(
+                list(
+                    filter(
+                        lambda feature: not feature[1].startswith("encoded-"),
+                        metadata["nodeFeatures"],
+                    )
+                )
             )
-        )) == 0
+            == 0
+        )
         if not all_node_features_encoded:
             self.node_feature_fitter.fit(datasetData, metadata["nodeFeatures"])
         all_edge_features_encoded = (
@@ -103,17 +108,6 @@ class FeatureTransformer:
                     break
             actual_types.append(type)
         y = torch.tensor(actual_types, dtype=torch.long)
-        # Select a single training node for each community
-        # (we just use the first one).
-        # train_mask = torch.zeros(y.size(0), dtype=torch.bool)
-        # for i in range(int(y.max()) + 1):
-        #     match = (y == i).nonzero(as_tuple=False)
-        #     if len(match) == 0:
-        #         continue
-        #     train_mask[match[0]] = True
-        # train_mask = torch.tensor(
-        #     [index % 4 == 0 for index, _ in enumerate(node_features)], dtype=torch.bool
-        # )
         edge_index = (
             torch.tensor(edge_index, dtype=torch.long).transpose(0, 1)
             if len(edge_index) > 0
@@ -149,7 +143,6 @@ class FeatureTransformer:
         if feature_type.startswith("encoded-"):
             return feature
         if feature_type == "category" or feature_type == "string":
-            # TODO/Jan: Treat string features as categories for now
             return self.transform_category_feature(feature, feature_index, source)
         elif feature_type == "string":
             return self.transform_string_feature(feature)

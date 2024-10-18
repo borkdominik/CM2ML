@@ -37,7 +37,7 @@ def add_tokens_from_node(node: TreeNode, vocab: list[str]):
         vocab = add_tokens_from_node(child_node, vocab)
     return vocab
 
-# TODO/Jan: Remove duplicates? Comp. to framework output
+
 def build_vocab(
     datasets: list[TreeDataset],
 ) -> tuple[Vocab, Vocab]:
@@ -105,7 +105,6 @@ def serialize_tree_with_vocabulary_aux(tree, reversed_vocabulary):
     return current
 
 
-# TODO/Jan: Only compute this once?
 def reverse_vocab(vocab: Vocab) -> dict[int, str]:
     reversed_vocab = {}
     for token, idx in vocab.items():

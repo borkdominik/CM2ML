@@ -403,7 +403,7 @@ class Tree2TreeModel(nn.Module):
             )
         return prediction
 
-    def predict(self, decoder_output, encoder_outputs, attention_masks):  # TODO/Jan: Type!
+    def predict(self, decoder_output, encoder_outputs, attention_masks):
         if self.no_attention:
             output = decoder_output
             attention_output = decoder_output
@@ -448,12 +448,12 @@ class Tree2TreeModel(nn.Module):
             output_r, encoder_outputs, attention_masks
         )
         return (
-            prediction_l,  # TODO/Jan: Type!
-            prediction_r,  # TODO/Jan: Type!
-            state_l,  # TODO/Jan: Type!
-            state_r,  # TODO/Jan: Type!
-            attention_output_l,  # TODO/Jan: Type!
-            attention_output_r,  # TODO/Jan: Type!
+            prediction_l,
+            prediction_r,
+            state_l,
+            state_r,
+            attention_output_l,
+            attention_output_r,
         )
 
     def forward(
@@ -486,16 +486,16 @@ class Tree2TreeModel(nn.Module):
             queue.append((idx, current_prediction_idx))
 
         head = 0
-        predictions_per_batch = []  # TODO/Jan: Type!
+        predictions_per_batch = []
         EOS_token = torch.LongTensor([data_utils.EOS_ID])
 
         while head < len(queue):
             init_h_states: list[torch.Tensor] = []
             init_c_states: list[torch.Tensor] = []
-            decoder_inputs = []  # TODO/Jan: Type!
+            decoder_inputs = []
             attention_inputs: list[torch.Tensor] = []
-            encoder_outputs = []  # TODO/Jan: Type!
-            attention_masks = []  # TODO/Jan: Type!
+            encoder_outputs = []
+            attention_masks = []
             target_seqs_l: list[torch.Tensor] = []
             target_seqs_r: list[torch.Tensor] = []
             tree_idxes: list[tuple[int, int]] = []
@@ -515,8 +515,12 @@ class Tree2TreeModel(nn.Module):
                     init_h_state = current_node.state[0]
                     init_c_state = current_node.state[1]
                     if init_h_state.shape[0] != self.num_layers:
-                        init_h_state = torch.cat([init_h_state] * self.num_layers, dim=0)
-                        init_c_state = torch.cat([init_c_state] * self.num_layers, dim=0)
+                        init_h_state = torch.cat(
+                            [init_h_state] * self.num_layers, dim=0
+                        )
+                        init_c_state = torch.cat(
+                            [init_c_state] * self.num_layers, dim=0
+                        )
                     init_h_states.append(init_h_state)
                     init_c_states.append(init_c_state)
                     tree_idxes.append((queue[head][0], queue[head][1]))

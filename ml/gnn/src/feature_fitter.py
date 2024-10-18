@@ -51,12 +51,15 @@ class FeatureFitter:
             self.fit_feature(feature_index, feature, feature_type, feature_name)
 
     def fit_feature(
-        self, feature_index: int, feature: Optional[str], feature_type: FeatureType, feature_name: str
+        self,
+        feature_index: int,
+        feature: Optional[str],
+        feature_type: FeatureType,
+        feature_name: str,
     ) -> None:
         if feature_type.startswith("encoded-"):
             return
         if feature_type == "category" or feature_type == "string":
-            # TODO/Jan: Treat string features as categories for now
             self.fit_category_feature(
                 feature,
                 feature_index,
@@ -68,13 +71,11 @@ class FeatureFitter:
         elif feature_type == "integer" or feature_type == "float":
             pass
         else:
-            raise ValueError(f"Unknown type '{feature_type}' for feature '{feature_name}'")
+            raise ValueError(
+                f"Unknown type '{feature_type}' for feature '{feature_name}'"
+            )
 
-    def fit_category_feature(
-        self,
-        feature: Optional[str],
-        feature_index: int
-    ) -> None:
+    def fit_category_feature(self, feature: Optional[str], feature_index: int) -> None:
         encoder = self.get_encoder(feature_index)
         if feature is not None:
             encoder.fit(feature)
