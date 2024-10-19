@@ -5,7 +5,8 @@ import os
 import numpy as np
 from utils import script_dir
 
-report_dir =  f"{script_dir}/../../.output/gnn/"
+report_dir = f"{script_dir}/../../.output/gnn/"
+
 
 def dataset_metrics():
     return {
@@ -15,6 +16,7 @@ def dataset_metrics():
         "support": [],
     }
 
+
 def method_metrics():
     return {
         "accuracy": [],
@@ -22,18 +24,21 @@ def method_metrics():
         "macro avg": dataset_metrics(),
     }
 
+
 def model_metrics():
     return {
         # "train": method_metrics(),
         # "validation": method_metrics(),
         "test": method_metrics(),
     }
+
+
 models = {
     "gcn": model_metrics(),
     "gat": model_metrics(),
 }
 
-metrics = [ "f1-score", "precision", "recall", "support"]
+metrics = ["f1-score", "precision", "recall", "support"]
 methods = ["weighted avg", "macro avg"]
 
 # for every subdir in report_dir
@@ -57,13 +62,19 @@ for seed_dir in os.listdir(report_dir):
                 serialized = f.read()
                 deserialized = json.loads(serialized)
                 report_name = report_file.replace(".json", "")
-                models[model_dir][report_name]["accuracy"].append(deserialized["accuracy"])
+                models[model_dir][report_name]["accuracy"].append(
+                    deserialized["accuracy"]
+                )
                 for metric in metrics:
                     for method in methods:
-                        models[model_dir][report_name][method][metric].append(deserialized[method][metric])
+                        models[model_dir][report_name][method][metric].append(
+                            deserialized[method][metric]
+                        )
 
-def round_dec(value, digits = 3):
+
+def round_dec(value, digits=3):
     return float(round(Decimal(value * 100), digits))
+
 
 for model in models:
     for dataset in models[model]:

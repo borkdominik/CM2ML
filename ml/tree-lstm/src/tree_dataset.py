@@ -16,6 +16,7 @@ class TreeDataset(torch.utils.data.Dataset):
         self.dataset_path = f"{script_dir}/../../.input/{dataset_file}"
         self.dataset_cache_file = f"{script_dir}/../.cache/{dataset_file}.dataset"
         self.data: list[TreeDatasetEntry] = []
+        self.omitted_trees = 0
 
         self.is_cached = os.path.isfile(self.dataset_cache_file)
         self.load()
@@ -48,6 +49,7 @@ class TreeDataset(torch.utils.data.Dataset):
 
     def create_data(self, tree: TreeModel) -> Union[TreeDatasetEntry, None]:
         if tree["numNodes"] > 3000:
+            self.omitted_trees += 1
             return None
         if tree["format"] == "compact":
             return self.create_data_from_compact_tree(tree)

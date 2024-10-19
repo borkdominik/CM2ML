@@ -14,7 +14,9 @@ parameters=(
   "--format" "local"
   "--relationships-as-edges" "true"
   "--only-containment-associations" "true"
-  "--replace-node-ids" "--raw-strings" "--only-encoded-features"
+  "--replace-node-ids"
+  "--verbose-feature-values" "true"
+  "--raw-strings" "--only-encoded-features"
 )
 
 time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-tree "$input" --start "$train_start" --limit "$train_size" --out .input/tree_train.json "${parameters[@]}" && \

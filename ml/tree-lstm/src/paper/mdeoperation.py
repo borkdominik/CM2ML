@@ -195,7 +195,16 @@ def evaluate(
         print("  test: accuracy of tokens %.2f" % (acc_tokens * 1.0 / tot_tokens))
     print("  test: accuracy of programs %.2f" % (acc_trees * 1.0 / tot_trees))
     print(acc_tokens, tot_tokens, acc_trees, tot_trees)
-    print(classification_report(labels, preds, zero_division=np.nan))
+    report = classification_report(
+        labels, preds, output_dict=True, zero_division=np.nan
+    )
+    return {
+        "test": {
+            "accuracy": report["accuracy"],
+            "weighted avg": report["weighted avg"],
+            "macro avg": report["macro avg"],
+        }
+    }
 
 
 def train(
@@ -315,7 +324,7 @@ def train(
 
     print("Evaluating model")
     start_evaluation_datetime = datetime.datetime.now()
-    evaluate(
+    report = evaluate(
         model,
         test_dataset,
         source_vocab,
@@ -327,6 +336,7 @@ def train(
         "Total Evaluation time: %s seconds"
         % (datetime.datetime.now() - start_evaluation_datetime)
     )
+    return report
 
 
 def test(
@@ -339,7 +349,7 @@ def test(
         target_vocab,
         0.0,
     )
-    evaluate(
+    return evaluate(
         model,
         test_dataset,
         source_vocab,
@@ -409,7 +419,6 @@ def run(
     training_dataset: TreeDataset,
     validation_dataset: TreeDataset,
     test_dataset: TreeDataset,
-    vocab: list[str],
 ):
     if args.no_attention:
         args.no_pf = True
@@ -431,13 +440,13 @@ def run(
     test_dataset = data_utils.prepare_data(test_dataset, source_vocab, target_vocab)
     print(f"Data prepared in {datetime.datetime.now() - now}")
     if args.test:
-        test(
+        return test(
             test_dataset,
             source_vocab,
             target_vocab,
         )
     else:
-        train(
+        return train(
             training_dataset,
             validation_dataset,
             test_dataset,
