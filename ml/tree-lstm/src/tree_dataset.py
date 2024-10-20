@@ -24,7 +24,9 @@ class TreeDataset(torch.utils.data.Dataset):
     def load(self):
         dataset_load_start_time = time.perf_counter()
         if self.is_cached:
-            self.data, self.metadata, self.vocabulary = torch.load(self.dataset_cache_file)
+            self.data, self.metadata, self.vocabulary, self.omitted_trees = torch.load(
+                self.dataset_cache_file
+            )
         else:
             with open(self.dataset_path, "r") as file:
                 dataset_input = json.load(file)
@@ -36,16 +38,19 @@ class TreeDataset(torch.utils.data.Dataset):
                         map(lambda entry: self.create_data(data[entry]), data),
                     )
                 )
-                self.vocabulary: list[str] = dataset_input["metadata"]["vocabularies"]["vocabulary"]
+                self.vocabulary: list[str] = dataset_input["metadata"]["vocabularies"][
+                    "vocabulary"
+                ]
                 torch.save(
-                    (self.data, self.metadata, self.vocabulary),
+                    (self.data, self.metadata, self.vocabulary, self.omitted_trees),
                     self.dataset_cache_file,
                 )
 
         dataset_load_end_time = time.perf_counter()
         print(
-            f"Processed in {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
+            f"{self.name} processed in {pretty_duration(dataset_load_end_time - dataset_load_start_time)}"
         )
+        print(f"{self.name} size: {len(self)} ({self.omitted_trees} trees omitted)")
 
     def create_data(self, tree: TreeModel) -> Union[TreeDatasetEntry, None]:
         if tree["numNodes"] > 3000:
@@ -86,7 +91,9 @@ class TreeDataset(torch.utils.data.Dataset):
                     type = attr["children"][0]["value"]
                     break
             if type is None:
-                raise ValueError(f"Type not found for class {name}. Increase the training data size to include samples for every type attribute.")
+                raise ValueError(
+                    f"Type not found for class {name}. Increase the training data size to include samples for every type attribute."
+                )
             output_root_classes[i] = {"value": type, "children": []}
         return {"x": input, "y": output}
 
@@ -122,9 +129,7 @@ class TreeDataset(torch.utils.data.Dataset):
             output_root_classes[i] = {"value": type, "children": []}
         return {"x": input, "y": output}
 
-    def create_data_from_global_tree(
-        self, tree: TreeModel
-    ) -> TreeDatasetEntry:
+    def create_data_from_global_tree(self, tree: TreeModel) -> TreeDatasetEntry:
         input = copy.deepcopy(tree)
         input_root = input["root"]
         input_root_objects = input_root["children"]
@@ -158,8 +163,10 @@ class TreeDataset(torch.utils.data.Dataset):
     def __getitem__(self, idx: int) -> TreeDatasetEntry:
         return self.data[idx]
 
+
 def is_obj_node(treeNode: TreeNode) -> bool:
     return treeNode["value"] == "OBJ"
+
 
 def print_tree(node: TreeNode):
     print(node["value"])

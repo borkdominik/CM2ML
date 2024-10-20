@@ -17,8 +17,9 @@ from torch.nn.utils import clip_grad_norm_
 
 import paper.data_utils as data_utils
 import paper.network as network
-from tree_dataset import TreeDataset
 from utils import script_dir
+
+INVALID_PREDICTION = "INVALID_PREDICTION"
 
 
 def create_model(
@@ -111,7 +112,6 @@ def evaluate(
     test_loss = 0
     acc_tokens = 0
     tot_tokens = 0
-    acc_trees = 0
     tot_trees = len(test_dataset)
     res = []
     # model.eval()
@@ -141,9 +141,9 @@ def evaluate(
                 _current_target_manager,
             ) = test_dataset[idx + i]
 
-            # current_target_print = data_utils.serialize_tree_with_vocabulary(
-            #     current_target, target_vocab
-            # )
+            current_target_print = data_utils.serialize_tree_with_vocabulary(
+                current_target, target_vocab
+            )[1:]
             current_target = data_utils.serialize_tree(current_target)
 
             # _current_source_print = data_utils.serialize_tree_with_vocabulary(
@@ -154,47 +154,42 @@ def evaluate(
             # print("Evaluation time: %s seconds" % (datetime.datetime.now() - start_evaluation_datetime))
             # print((datetime.datetime.now() - start_evaluation_datetime))
             res.append((current_source, current_target, current_output))
-            # current_output_print = data_utils.serialize_seq_with_vocabulary(
-            #     current_output, target_vocab
-            # )
+            current_output_print = data_utils.serialize_seq_with_vocabulary(
+                current_output, target_vocab
+            )[1:]
             # print("--Current source / Current target / Current output--")
             # print(f"source {current_source_print}")
             # print(f"target {current_target_print}")
             # print(f"output {current_output_print}")
             # print("---")
 
-            labels.extend(current_target)
+            # remove first item from current_target, as it's the root note
+            label = current_target_print
+            labels.extend(label)
             # extends preds with current_output, but ensure length matches to len(current_target)
-            shortened_output = current_output[: len(current_target)]
-            padded_output = shortened_output + [0] * (
-                len(current_target) - len(shortened_output)
+            shortened_output = current_output_print[: len(label)]
+            padded_output = shortened_output + [INVALID_PREDICTION] * (
+                len(label) - len(shortened_output)
             )
             preds.extend(padded_output)
 
-            if len(labels) == 1:
-                print(f"labels: {labels}")
-                print(f"preds: {preds}")
-
-            tot_tokens += len(current_target)
-            all_correct = len(current_target) == len(current_output)
+            tot_tokens += len(label)
             wrong_tokens = 0
-            for j in range(len(current_output)):
-                if j >= len(current_target):
+            for j in range(len(padded_output)):
+                if j >= len(label):
                     break
-                if current_output[j] == current_target[j]:
+                if padded_output[j] == label[j]:
                     acc_tokens += 1
                 else:
-                    all_correct = 0
                     wrong_tokens += 1
-            acc_trees += all_correct
 
-    print(acc_tokens, tot_tokens, acc_trees, tot_trees)
+    print(acc_tokens, tot_tokens)
     test_loss /= tot_trees
     print("  test: loss %.2f" % test_loss)
     if tot_tokens != 0:
-        print("  test: accuracy of tokens %.2f" % (acc_tokens * 1.0 / tot_tokens))
-    print("  test: accuracy of programs %.2f" % (acc_trees * 1.0 / tot_trees))
-    print(acc_tokens, tot_tokens, acc_trees, tot_trees)
+        print("  test: accuracy of classification %.2f" % (acc_tokens * 1.0 / tot_tokens))
+    print(acc_tokens, tot_tokens)
+    print(classification_report(labels, preds, output_dict=False, zero_division=np.nan))
     report = classification_report(
         labels, preds, output_dict=True, zero_division=np.nan
     )
@@ -394,7 +389,7 @@ class Args:
 args = Args(
     **{
         "param_init": 0.1,
-        "num_epochs": 50,
+        "num_epochs": 30,
         "learning_rate": 0.005,
         "learning_rate_decay_factor": 0.8,
         "learning_rate_decay_steps": 2000,
@@ -410,46 +405,31 @@ args = Args(
         "no_attention": False,
         "no_pf": False,
         "no_train": False,
-        "patience": 10,
+        "patience": 5,
     }
 )
 
 
 def run(
-    training_dataset: TreeDataset,
-    validation_dataset: TreeDataset,
-    test_dataset: TreeDataset,
+    tokenized_training_dataset: data_utils.EncodedDataset,
+    tokenized_validation_dataset: data_utils.EncodedDataset,
+    tokenized_test_dataset: data_utils.EncodedDataset,
+    source_vocab: data_utils.Vocab,
+    target_vocab: data_utils.Vocab,
 ):
     if args.no_attention:
         args.no_pf = True
-    now = datetime.datetime.now()
-    source_vocab, target_vocab = data_utils.build_vocab(
-        [training_dataset, validation_dataset, test_dataset]
-    )
-
-    print(f"Vocabulary built in {datetime.datetime.now() - now}")
-    print(f"Source vocabulary size: {len(source_vocab)}")
-    print(f"Target vocabulary size: {len(target_vocab)}")
-    now = datetime.datetime.now()
-    training_dataset = data_utils.prepare_data(
-        training_dataset, source_vocab, target_vocab
-    )
-    validation_dataset = data_utils.prepare_data(
-        validation_dataset, source_vocab, target_vocab
-    )
-    test_dataset = data_utils.prepare_data(test_dataset, source_vocab, target_vocab)
-    print(f"Data prepared in {datetime.datetime.now() - now}")
     if args.test:
         return test(
-            test_dataset,
+            tokenized_test_dataset,
             source_vocab,
             target_vocab,
         )
     else:
         return train(
-            training_dataset,
-            validation_dataset,
-            test_dataset,
+            tokenized_training_dataset,
+            tokenized_validation_dataset,
+            tokenized_test_dataset,
             source_vocab,
             target_vocab,
             args.no_train,

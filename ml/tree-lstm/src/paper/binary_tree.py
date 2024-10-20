@@ -3,11 +3,19 @@ import torch
 import paper.data_utils as data_utils
 from tree_dataset_types import TreeNode
 
+value_to_tensor = {}
+
+# Warning: Only use this function for tensors that are never modified
+def _get_immutable_tensor(value) -> torch.Tensor:
+    if value not in value_to_tensor:
+        value_to_tensor[value] = torch.tensor([value], dtype=torch.long)
+    return value_to_tensor[value]
+
 
 class BinaryTreeNode:
     def __init__(self, value: Union[int, torch.Tensor], parent: Union[int, None], depth: int):
         if type(value) == int:  # noqa: E721
-            self.value = torch.LongTensor([value])
+            self.value = _get_immutable_tensor(value)
         else:
             self.value: torch.Tensor = value
         self.lchild: Union[int, None] = None
