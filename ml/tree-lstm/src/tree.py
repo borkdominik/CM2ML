@@ -10,9 +10,11 @@ from paper.mdeoperation import run
 from tree_dataset import TreeDataset
 from utils import script_dir
 
+
 def set_seed(seed):
     torch.manual_seed(seed)
     random.seed(seed)
+
 
 set_seed(7)
 
@@ -36,7 +38,6 @@ validation_dataset = TreeDataset("validation", validation_dataset_file)
 print("-" * 80)
 test_dataset = TreeDataset("test", test_dataset_file)
 print("-" * 80)
-sys.stdout.flush()
 
 vocab_start = datetime.datetime.now()
 source_vocab, target_vocab = data_utils.build_vocab(
@@ -45,7 +46,6 @@ source_vocab, target_vocab = data_utils.build_vocab(
 print(f"Source vocabulary size: {len(source_vocab)}")
 print(f"Target vocabulary size: {len(target_vocab)}")
 print(f"Vocabulary built in {datetime.datetime.now() - vocab_start}")
-sys.stdout.flush()
 
 tokenization_start = datetime.datetime.now()
 tokenized_training_dataset = data_utils.prepare_data(
@@ -59,14 +59,20 @@ tokenized_test_dataset = data_utils.prepare_data(
 )
 print(f"Data tokenized in {datetime.datetime.now() - tokenization_start}")
 print("-" * 80)
-sys.stdout.flush()
 
 for offset in range(0, 3):
     seed = 42 + offset
     set_seed(42 + seed)
     print(f"Running with seed {seed}")
     print("-" * 80)
-    report = run(tokenized_training_dataset, tokenized_validation_dataset, tokenized_test_dataset, source_vocab, target_vocab)
+    report = run(
+        tokenized_training_dataset,
+        tokenized_validation_dataset,
+        tokenized_test_dataset,
+        source_vocab,
+        target_vocab,
+        seed,
+    )
 
     output_dir = f"{script_dir}/../../.output/tree-lstm/{seed}"
     os.makedirs(output_dir, exist_ok=True)

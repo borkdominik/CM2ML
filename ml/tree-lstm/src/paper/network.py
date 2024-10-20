@@ -312,20 +312,21 @@ class Tree2TreeModel(nn.Module):
             self.target_vocab_size, self.embedding_size
         )
 
+        lstm_dropout_rate = self.dropout_rate if self.num_layers > 1 else 0.0
         if self.no_pf:
             self.decoder_l = nn.LSTM(
                 input_size=self.embedding_size,
                 hidden_size=self.hidden_size,
                 num_layers=self.num_layers,
                 batch_first=True,
-                dropout=self.dropout_rate,
+                dropout=lstm_dropout_rate,
             )
             self.decoder_r = nn.LSTM(
                 input_size=self.embedding_size,
                 hidden_size=self.hidden_size,
                 num_layers=self.num_layers,
                 batch_first=True,
-                dropout=self.dropout_rate,
+                dropout=lstm_dropout_rate,
             )
         else:
             self.decoder_l = nn.LSTM(
@@ -333,14 +334,14 @@ class Tree2TreeModel(nn.Module):
                 hidden_size=self.hidden_size,
                 num_layers=self.num_layers,
                 batch_first=True,
-                dropout=self.dropout_rate,
+                dropout=lstm_dropout_rate,
             )
             self.decoder_r = nn.LSTM(
                 input_size=self.embedding_size + self.hidden_size,
                 hidden_size=self.hidden_size,
                 num_layers=self.num_layers,
                 batch_first=True,
-                dropout=self.dropout_rate,
+                dropout=lstm_dropout_rate,
             )
 
         self.attention_linear = nn.Linear(

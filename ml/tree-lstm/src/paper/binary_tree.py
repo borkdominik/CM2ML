@@ -5,6 +5,7 @@ from tree_dataset_types import TreeNode
 
 value_to_tensor = {}
 
+
 # Warning: Only use this function for tensors that are never modified
 def _get_immutable_tensor(value) -> torch.Tensor:
     if value not in value_to_tensor:
@@ -13,7 +14,9 @@ def _get_immutable_tensor(value) -> torch.Tensor:
 
 
 class BinaryTreeNode:
-    def __init__(self, value: Union[int, torch.Tensor], parent: Union[int, None], depth: int):
+    def __init__(
+        self, value: Union[int, torch.Tensor], parent: Union[int, None], depth: int
+    ):
         if type(value) == int:  # noqa: E721
             self.value = _get_immutable_tensor(value)
         else:
@@ -56,7 +59,9 @@ class BinaryTreeManager:
             lchild_id = self.create_node(data_utils.EOS_ID, current_id, depth + 1)
             self.nodes[current_id].lchild = lchild_id
             return current_id
-        first_child_id = self.__from_dict(init_tree["children"][0], current_id, depth + 1)
+        first_child_id = self.__from_dict(
+            init_tree["children"][0], current_id, depth + 1
+        )
         self.nodes[current_id].lchild = first_child_id
         pre_child_id = first_child_id
         for i in range(1, len(init_tree["children"])):

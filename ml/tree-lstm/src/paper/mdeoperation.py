@@ -19,13 +19,50 @@ import paper.data_utils as data_utils
 import paper.network as network
 from utils import script_dir
 
-INVALID_PREDICTION = "INVALID_PREDICTION"
+MISSING_PREDICTION = "MISSING_PREDICTION"
+
+
+@dataclass
+class Args:
+    # Parameters are initialized over uniform distribution in (-param_init, param_init)
+    param_init: float
+    num_epochs: int
+    # early-stopping patience
+    patience: int
+    learning_rate: float
+    # learning rate decays by this much
+    learning_rate_decay_factor: float
+    # decay the learning rate after certain steps
+    learning_rate_decay_steps: int
+    # minimum learning rate
+    learning_rate_floor: float
+    # clip gradients to this norm
+    max_gradient_norm: float
+    batch_size: int
+    # size of each model layer
+    hidden_size: int
+    embedding_size: int
+    dropout_rate: float
+    # number of layers in the model
+    num_layers: int
+    train_dir_checkpoints: str
+    # path to the pretrained tree2tree model
+    load_model: Union[str, None]
+    # set to true for testing
+    test: bool
+    # set to true to disable attention
+    no_attention: bool
+    # set to true to disable parent attention feeding
+    no_pf: bool
+    # set to true to prevent the network from training
+    no_train: bool
+    seed: int
 
 
 def create_model(
     source_vocab: data_utils.Vocab,
     target_vocab: data_utils.Vocab,
-    dropout_rate: float,
+    args: Args,
 ) -> network.Tree2TreeModel:
     model = network.Tree2TreeModel(
         source_vocab,
@@ -36,7 +73,7 @@ def create_model(
         args.max_gradient_norm,
         args.batch_size,
         args.learning_rate,
-        dropout_rate,
+        args.dropout_rate,
         args.no_pf,
         args.no_attention,
     )
@@ -59,6 +96,7 @@ def step_tree2tree(
     encoder_inputs: list[data_utils.BinaryTreeManager],
     init_decoder_inputs: list[data_utils.BinaryTreeManager],
     feed_previous: bool,
+    args: Args,
 ):
     if feed_previous is False:
         model.dropout_rate = args.dropout_rate
@@ -108,24 +146,22 @@ def evaluate(
     test_dataset: data_utils.EncodedDataset,
     source_vocab: data_utils.Vocab,
     target_vocab: data_utils.Vocab,
+    args: Args,
 ):
     test_loss = 0
-    acc_tokens = 0
-    tot_tokens = 0
     tot_trees = len(test_dataset)
     res = []
-    # model.eval()
-    preds = []
+    predictions = []
     labels = []
 
     for idx in range(0, len(test_dataset), args.batch_size):
         encoder_inputs, decoder_inputs = model.get_batch(test_dataset, start_idx=idx)
 
-        eval_loss, raw_outputs = step_tree2tree(
-            model, encoder_inputs, decoder_inputs, feed_previous=True
+        batch_loss, raw_outputs = step_tree2tree(
+            model, encoder_inputs, decoder_inputs, feed_previous=True, args=args
         )
 
-        test_loss += len(encoder_inputs) * eval_loss
+        test_loss += len(encoder_inputs) * batch_loss
         for i in range(len(encoder_inputs)):
             if idx + i >= len(test_dataset):
                 break
@@ -166,32 +202,20 @@ def evaluate(
             # remove first item from current_target, as it's the root note
             label = current_target_print
             labels.extend(label)
-            # extends preds with current_output, but ensure length matches to len(current_target)
+            # extends predictions with current_output, but ensure length matches to len(current_target)
             shortened_output = current_output_print[: len(label)]
-            padded_output = shortened_output + [INVALID_PREDICTION] * (
+            padded_output = shortened_output + [MISSING_PREDICTION] * (
                 len(label) - len(shortened_output)
             )
-            preds.extend(padded_output)
+            predictions.extend(padded_output)
 
-            tot_tokens += len(label)
-            wrong_tokens = 0
-            for j in range(len(padded_output)):
-                if j >= len(label):
-                    break
-                if padded_output[j] == label[j]:
-                    acc_tokens += 1
-                else:
-                    wrong_tokens += 1
-
-    print(acc_tokens, tot_tokens)
     test_loss /= tot_trees
     print("  test: loss %.2f" % test_loss)
-    if tot_tokens != 0:
-        print("  test: accuracy of classification %.2f" % (acc_tokens * 1.0 / tot_tokens))
-    print(acc_tokens, tot_tokens)
-    print(classification_report(labels, preds, output_dict=False, zero_division=np.nan))
     report = classification_report(
-        labels, preds, output_dict=True, zero_division=np.nan
+        labels, predictions, output_dict=True, zero_division=np.nan
+    )
+    print(
+        "  test: accuracy of classification %.2f" % (report["accuracy"] * 100)
     )
     return {
         "test": {
@@ -208,12 +232,10 @@ def train(
     test_dataset: data_utils.EncodedDataset,
     source_vocab: data_utils.Vocab,
     target_vocab: data_utils.Vocab,
-    no_train: bool,
+    args: Args,
 ):
-    train_model = not no_train
+    train_model = not args.no_train
     time_training = 0
-    #    build_from_scratch = True;
-    #    pretrained_model_path = "/home/lola/nn/neuralnetwork.pth";
     if train_model:
         print("Reading training and val data:")
         if not os.path.isdir(args.train_dir_checkpoints):
@@ -222,26 +244,20 @@ def train(
         start_time = time.time()
         start_datetime = datetime.datetime.now()
 
-        #      if (build_from_scratch):
-
         print("Creating %d layers of %d units." % (args.num_layers, args.hidden_size))
         model = create_model(
             source_vocab,
             target_vocab,
-            args.dropout_rate,
+            args,
         )
-        # model.train()
-        #      else:
-        #          print("Loading pretrained model")
-        #          pretrained_model = torch.load(pretrained_model_path)
-        #          model.load_state_dict(pretrained_model)
 
         print("Training model")
-        epoch_time, loss = 0.0, 0.0
+        epoch_time, epoch_loss = 0.0, 0.0
         current_step = 0
         previous_losses = []
 
         training_dataset_size = len(training_dataset)
+        validation_dataset_size = len(validation_dataset)
 
         best_loss = float("inf")
         remaining_patience = args.patience
@@ -259,62 +275,72 @@ def train(
                 )
 
                 batch_loss = step_tree2tree(
-                    model, encoder_inputs, decoder_inputs, feed_previous=False
+                    model,
+                    encoder_inputs,
+                    decoder_inputs,
+                    feed_previous=False,
+                    args=args,
                 )
 
                 epoch_time += time.time() - start_time
-                loss += batch_loss
+                epoch_loss += batch_loss * len(encoder_inputs)
                 current_step += 1
 
                 print("   batch: %d/%d" % (batch, number_of_batches))
 
                 if (
                     current_step % args.learning_rate_decay_steps == 0
-                    and model.learning_rate > 0.0001
+                    and model.learning_rate > args.learning_rate_floor
                 ):
                     model.decay_learning_rate(args.learning_rate_decay_factor)
 
-            loss /= number_of_batches
+            epoch_loss /= training_dataset_size
 
             print(
-                "learning rate %.4f epoch-time %.2f loss "
-                "%.2f" % (model.learning_rate, epoch_time, loss)
+                "learning rate %.4f epoch-time %.2f epoch-loss "
+                "%.2f" % (model.learning_rate, epoch_time, epoch_loss)
             )
-            previous_losses.append(loss)
+            previous_losses.append(epoch_loss)
             ckpt_path = os.path.join(
                 args.train_dir_checkpoints,
                 "translate_" + str(current_step) + ".ckpt",
             )
             ckpt = model.state_dict()
             torch.save(ckpt, ckpt_path)
-            epoch_time, loss = 0.0, 0.0
+            epoch_time, epoch_loss = 0.0, 0.0
 
-            encoder_inputs, decoder_inputs = model.get_batch(
-                validation_dataset, start_idx=0
-            )
+            validation_loss = 0
+            for batch_idx in range(0, validation_dataset_size, args.batch_size):
+                encoder_inputs, decoder_inputs = model.get_batch(
+                    validation_dataset, start_idx=batch_idx
+                )
 
-            eval_loss, decoder_outputs = step_tree2tree(
-                model, encoder_inputs, decoder_inputs, feed_previous=True
-            )
-            print("  eval: loss %.2f" % eval_loss)
-            if eval_loss < best_loss:
-                best_loss = eval_loss
+                validation_batch_loss, decoder_outputs = step_tree2tree(
+                    model, encoder_inputs, decoder_inputs, feed_previous=True, args=args
+                )
+                validation_loss += validation_batch_loss * len(encoder_inputs)
+            validation_loss /= validation_dataset_size
+            print("  validation-loss %.2f" % validation_loss)
+            if validation_loss < best_loss:
+                best_loss = validation_loss
                 remaining_patience = args.patience
             else:
                 remaining_patience -= 1
                 if remaining_patience < 0:
-                    print(f"Early stopping in epoch {epoch}")
+                    print(f"Early stopping in epoch {epoch + 1}")
                     break
             sys.stdout.flush()
         time_training = datetime.datetime.now() - start_datetime
         print("Saving model")
-        torch.save(model.state_dict(), f"{script_dir}/../.cache/neuralnetwork.pth")
+        torch.save(
+            model.state_dict(), f"{script_dir}/../.cache/neuralnetwork-{args.seed}.pth"
+        )
     else:  # not train_model
         print("Loading the pretrained model")
         model = create_model(
             source_vocab,
             target_vocab,
-            args.dropout_rate,
+            args,
         )
 
     print("Evaluating model")
@@ -324,6 +350,7 @@ def train(
         test_dataset,
         source_vocab,
         target_vocab,
+        args,
     )
     if train_model:
         print("Training time: %s seconds" % time_training)
@@ -338,76 +365,16 @@ def test(
     test_dataset: data_utils.EncodedDataset,
     source_vocab: data_utils.Vocab,
     target_vocab: data_utils.Vocab,
+    args: Args,
 ):
-    model = create_model(
-        source_vocab,
-        target_vocab,
-        0.0,
-    )
+    model = create_model(source_vocab, target_vocab, args)
     return evaluate(
         model,
         test_dataset,
         source_vocab,
         target_vocab,
+        args,
     )
-
-
-@dataclass
-class Args:
-    # Parameters are initialized over uniform distribution in (-param_init, param_init)
-    param_init: float
-    num_epochs: int
-    learning_rate: float
-    # learning rate decays by this much
-    learning_rate_decay_factor: float
-    # decay the learning rate after certain steps
-    learning_rate_decay_steps: int
-    # clip gradients to this norm
-    max_gradient_norm: float
-    batch_size: int
-    # size of each model layer
-    hidden_size: int
-    embedding_size: int
-    dropout_rate: float
-    # number of layers in the model
-    num_layers: int
-    train_dir_checkpoints: str
-    # path to the pretrained tree2tree model
-    load_model: Union[str, None]
-    # set to true for testing
-    test: bool
-    # set to true to disable attention
-    no_attention: bool
-    # set to true to disable parent attention feeding
-    no_pf: bool
-    # set to true to prevent the network from training
-    no_train: bool
-    # early-stopping patience
-    patience: int
-
-
-args = Args(
-    **{
-        "param_init": 0.1,
-        "num_epochs": 30,
-        "learning_rate": 0.005,
-        "learning_rate_decay_factor": 0.8,
-        "learning_rate_decay_steps": 2000,
-        "max_gradient_norm": 5.0,
-        "batch_size": 32,
-        "hidden_size": 320,
-        "embedding_size": 320,
-        "dropout_rate": 0.75,
-        "num_layers": 2,
-        "train_dir_checkpoints": f"{script_dir}/../.checkpoints/tree-lstm.pt",
-        "load_model": None,  # f"{script_dir}/../.cache/neuralnetwork.pth",
-        "test": False,
-        "no_attention": False,
-        "no_pf": False,
-        "no_train": False,
-        "patience": 5,
-    }
-)
 
 
 def run(
@@ -416,15 +383,40 @@ def run(
     tokenized_test_dataset: data_utils.EncodedDataset,
     source_vocab: data_utils.Vocab,
     target_vocab: data_utils.Vocab,
+    seed: int,
 ):
+    layer_size = len(source_vocab)
+    batch_size = 32
+    batches_per_epoch = ceil(len(tokenized_training_dataset) / batch_size)
+    args = Args(
+        **{
+            "param_init": 0.1,
+            "num_epochs": 30,
+            "patience": 20,
+            "learning_rate": 0.005,
+            "learning_rate_decay_factor": 0.9,
+            # multiple of number of batches per epoch, i.e., decay after nth epoch
+            "learning_rate_decay_steps": batches_per_epoch * 3,
+            "learning_rate_floor": 0.0001,
+            "max_gradient_norm": 5.0,
+            "batch_size": batch_size,
+            "embedding_size": layer_size,
+            "hidden_size": layer_size,
+            "dropout_rate": 0.75,
+            "num_layers": 1,
+            "train_dir_checkpoints": f"{script_dir}/../.checkpoints/tree-lstm-{seed}.pt",
+            "load_model": None,  # f"{script_dir}/../.cache/neuralnetwork-{seed}.pth",
+            "test": False,
+            "no_attention": False,
+            "no_pf": False,
+            "no_train": False,
+            "seed": seed,
+        }
+    )
     if args.no_attention:
         args.no_pf = True
     if args.test:
-        return test(
-            tokenized_test_dataset,
-            source_vocab,
-            target_vocab,
-        )
+        return test(tokenized_test_dataset, source_vocab, target_vocab, args)
     else:
         return train(
             tokenized_training_dataset,
@@ -432,5 +424,5 @@ def run(
             tokenized_test_dataset,
             source_vocab,
             target_vocab,
-            args.no_train,
+            args,
         )

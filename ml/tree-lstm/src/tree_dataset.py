@@ -9,6 +9,8 @@ import torch.utils
 from tree_dataset_types import TreeDatasetEntry, TreeModel, TreeNode
 from utils import pretty_duration, script_dir
 
+SIZE_LIMIT = 1000
+
 
 class TreeDataset(torch.utils.data.Dataset):
     def __init__(self, name: str, dataset_file: str) -> None:
@@ -53,7 +55,7 @@ class TreeDataset(torch.utils.data.Dataset):
         print(f"{self.name} size: {len(self)} ({self.omitted_trees} trees omitted)")
 
     def create_data(self, tree: TreeModel) -> Union[TreeDatasetEntry, None]:
-        if tree["numNodes"] > 3000:
+        if tree["numNodes"] > SIZE_LIMIT:
             self.omitted_trees += 1
             return None
         if tree["format"] == "compact":
