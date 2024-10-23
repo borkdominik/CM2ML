@@ -79,7 +79,13 @@ def build_vocab(
     return source_vocab_dict, target_vocab_dict, classes
 
 def get_class_name(class_name: str, metadata):
-    attribute_name, _, index_string = class_name.split("_", 2)
+    split = class_name.split("_", 2)
+    encoded_type = split[-1]
+    attribute_name, _, index_string = (
+        [metadata["typeAttributes"][0], "category", encoded_type]
+        if len(split) == 1
+        else split
+    )
     values = [values for name, _, values in metadata["nodeFeatures"] if name == attribute_name][0]
     class_index = int(index_string)
     for value, index in values.items():
