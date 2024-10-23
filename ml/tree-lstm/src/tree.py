@@ -40,12 +40,15 @@ test_dataset = TreeDataset("test", test_dataset_file)
 print("-" * 80)
 
 vocab_start = datetime.datetime.now()
-source_vocab, target_vocab = data_utils.build_vocab(
+source_vocab, target_vocab, classes = data_utils.build_vocab(
     [train_dataset, validation_dataset, test_dataset]
 )
 print(f"Source vocabulary size: {len(source_vocab)}")
 print(f"Target vocabulary size: {len(target_vocab)}")
 print(f"Vocabulary built in {datetime.datetime.now() - vocab_start}")
+print("-" * 80)
+print(f"Number of classes: {len(classes)}")
+data_utils.get_top_n_classes(classes, 10, train_dataset.metadata)
 
 tokenization_start = datetime.datetime.now()
 tokenized_training_dataset = data_utils.prepare_data(
@@ -62,7 +65,7 @@ print("-" * 80)
 
 for offset in range(0, 3):
     seed = 42 + offset
-    set_seed(42 + seed)
+    set_seed(seed)
     print(f"Running with seed {seed}")
     print("-" * 80)
     report = run(

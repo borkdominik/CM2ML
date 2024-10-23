@@ -29,13 +29,27 @@ class EncodedTreeNode(TypedDict):
     children: list["EncodedTreeNode"]
 
 
-def add_tokens_from_node(node: TreeNode, vocab: list[str]):
+def add_tokens_from_source_node(node: TreeNode, vocab: list[str]):
     tok = str(node["value"])
     if tok not in vocab:
         vocab.append(tok)
     for child_node in node["children"]:
-        vocab = add_tokens_from_node(child_node, vocab)
+        vocab = add_tokens_from_source_node(child_node, vocab)
     return vocab
+
+def add_tokens_from_target_node(node: TreeNode, vocab: list[str], classes: dict[str, int], is_root=True):
+    tok = str(node["value"])
+    if tok not in vocab:
+        vocab.append(tok)
+    if not is_root:
+        if tok in classes:
+            classes[tok] += 1
+        else:
+            classes[tok] = 1
+
+    for child_node in node["children"]:
+        vocab, classes = add_tokens_from_target_node(child_node, vocab, classes, False)
+    return vocab, classes
 
 
 def build_vocab(
@@ -43,12 +57,17 @@ def build_vocab(
 ) -> tuple[Vocab, Vocab]:
     source_vocab_list: list[str] = []
     target_vocab_list: list[str] = []
+    classes: dict[str, int] = {}
     for dataset in datasets:
         for entry in dataset.data:
             source_tree = entry["x"]["root"]
             target_tree = entry["y"]["root"]
-            source_vocab_list = add_tokens_from_node(source_tree, source_vocab_list)
-            target_vocab_list = add_tokens_from_node(target_tree, target_vocab_list)
+            source_vocab_list = add_tokens_from_source_node(
+                source_tree, source_vocab_list
+            )
+            target_vocab_list, classes = add_tokens_from_target_node(
+                target_tree, target_vocab_list, classes
+            )
     source_vocab_list = _START_VOCAB[:] + source_vocab_list
     target_vocab_list = _START_VOCAB[:] + target_vocab_list
     source_vocab_dict: Vocab = {}
@@ -57,7 +76,22 @@ def build_vocab(
         source_vocab_dict[token] = idx
     for idx, token in enumerate(target_vocab_list):
         target_vocab_dict[token] = idx
-    return source_vocab_dict, target_vocab_dict
+    return source_vocab_dict, target_vocab_dict, classes
+
+def get_class_name(class_name: str, metadata):
+    attribute_name, _, index_string = class_name.split("_", 2)
+    values = [values for name, _, values in metadata["nodeFeatures"] if name == attribute_name][0]
+    class_index = int(index_string)
+    for value, index in values.items():
+        if index == class_index:
+            return value
+    return None
+
+def get_top_n_classes(classes: dict[str, int], n: int, metadata):
+    top_n = sorted(classes.items(), key=lambda x: x[1], reverse=True)[:n]
+    print(f"Top {n} classes:")
+    for class_name, count in top_n:
+        print(f"{get_class_name(class_name, metadata)}: {count}")
 
 
 def values_to_token_ids(tree_node: TreeNode, vocab: Vocab) -> EncodedTreeNode:
