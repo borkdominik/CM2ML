@@ -11,6 +11,8 @@ import { fastify } from 'fastify'
 class Server extends PluginAdapter<string[], StructuredOutput<unknown[], unknown>> {
   private readonly server = fastify()
 
+  private finalized = false
+
   protected onApply<Parameters extends ParameterMetadata>(
     plugin: Plugin<string[], StructuredOutput<unknown[], unknown>, Parameters>,
   ) {
@@ -19,6 +21,30 @@ class Server extends PluginAdapter<string[], StructuredOutput<unknown[], unknown
   }
 
   protected onStart() {
+    this.finalize()
+
+    this.server.listen(
+      { port: +(process.env.PORT ?? 8080) },
+      (err, address) => {
+        if (err) {
+          console.error(err)
+          process.exit(1)
+        }
+        // eslint-disable-next-line no-console
+        console.log(`Server listening at ${address}`)
+      },
+    )
+  }
+
+  /**
+   * Finalizes the server configuration.
+   * @returns The server instance.
+   */
+  protected finalize() {
+    if (this.finalized) {
+      throw new Error('Server already finalized.')
+    }
+    this.finalized = true
     const plugins = Stream.from(this.plugins.values())
       .map((plugin) => ({
         name: plugin.name,
@@ -36,17 +62,7 @@ class Server extends PluginAdapter<string[], StructuredOutput<unknown[], unknown
       return { appliedPlugins: plugins.length }
     })
 
-    this.server.listen(
-      { port: +(process.env.PORT ?? 8080) },
-      (err, address) => {
-        if (err) {
-          console.error(err)
-          process.exit(1)
-        }
-        // eslint-disable-next-line no-console
-        console.log(`Server listening at ${address}`)
-      },
-    )
+    return this.server
   }
 }
 

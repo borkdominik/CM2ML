@@ -5,10 +5,20 @@ import { Stream } from '@yeger/streams'
 
 export type SupportedPlugin<In, Out> = Plugin<In, Out, ParameterMetadata>
 
+export type PluginAdapterState = 'not-started' | 'starting' | 'started'
+
 export abstract class PluginAdapter<In, Out> {
   protected plugins = new Map<string, Plugin<In, Out, any>>()
 
-  private started = false
+  #state: PluginAdapterState = 'not-started'
+
+  protected get state() {
+    return this.#state
+  }
+
+  private set state(value: PluginAdapterState) {
+    this.#state = value
+  }
 
   /**
    *
@@ -37,14 +47,15 @@ export abstract class PluginAdapter<In, Out> {
 
   public start() {
     this.requireNotStarted()
-    this.started = true
+    this.state = 'starting'
     this.onStart()
+    this.state = 'started'
   }
 
   protected abstract onStart(): void
 
   private requireNotStarted() {
-    if (this.started) {
+    if (this.state !== 'not-started') {
       throw new Error('PluginAdapter has already been started.')
     }
   }
