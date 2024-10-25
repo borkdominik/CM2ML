@@ -14,7 +14,7 @@ class Server extends PluginAdapter<string[], StructuredOutput<unknown[], unknown
   protected onApply<Parameters extends ParameterMetadata>(
     plugin: Plugin<string[], StructuredOutput<unknown[], unknown>, Parameters>,
   ) {
-    this.server.post(`/encoders/${plugin.name}`, async (request, reply) =>
+    this.server.post(`/plugins/${plugin.name}`, async (request, reply) =>
       pluginRequestHandler(plugin, request, reply))
   }
 
@@ -26,7 +26,7 @@ class Server extends PluginAdapter<string[], StructuredOutput<unknown[], unknown
       }))
       .toArray()
 
-    this.server.get('/encoders', async (_request, reply) => {
+    this.server.get('/plugins', async (_request, reply) => {
       reply.statusCode = 200
       return plugins
     })
@@ -50,38 +50,24 @@ class Server extends PluginAdapter<string[], StructuredOutput<unknown[], unknown
   }
 }
 
-type ValidatedRequestBody<Batched> = Record<string, string> & { input: (Batched extends true ? string[] : string) }
+type ValidatedRequestBody = Record<string, string> & { input: string[] }
 
-function isValidRequestBody<Batched extends boolean>(
+function isValidRequestBody(
   body: unknown,
-  batched: Batched,
-): body is ValidatedRequestBody<Batched> {
+): body is ValidatedRequestBody {
   if (typeof body !== 'object' || !body || !('input' in body)) {
     return false
   }
   const input = body.input
-
-  if (typeof input !== 'string') {
-    return false
-  }
-
-  if (!batched) {
-    // If not in batched-mode, the input must be a plain string and we're done
-    return true
-  }
-
-  const parsedInput: unknown = JSON.parse(input)
-  if (!Array.isArray(parsedInput)) {
+  if (!Array.isArray(input)) {
     return false
   }
   if (input.length === 0) {
     return false
   }
-  if (!parsedInput.every((item) => typeof item === 'string')) {
+  if (!input.every((item) => typeof item === 'string')) {
     return false
   }
-  // Store the parsed input in the body object for later use
-  body.input = parsedInput
   return true
 }
 
@@ -92,7 +78,7 @@ function pluginRequestHandler<Parameters extends ParameterMetadata>(
 ) {
   try {
     const body = request.body
-    if (!isValidRequestBody(body, true)) {
+    if (!isValidRequestBody(body)) {
       reply.statusCode = 422
       return {
         error: 'Invalid request body',
@@ -124,7 +110,7 @@ function pluginRequestHandler<Parameters extends ParameterMetadata>(
   }
 }
 
-function getParametersFromBody(body: ValidatedRequestBody<boolean>, parameters: ParameterMetadata) {
+function getParametersFromBody(body: ValidatedRequestBody, parameters: ParameterMetadata) {
   return Stream.fromObject(parameters)
     .map(([key, { defaultValue, type }]) => {
       const typeConstructor = getTypeConstructor(type)
