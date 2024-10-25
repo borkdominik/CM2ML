@@ -2,14 +2,10 @@ time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-bag-of-paths ../models/
   --out .input/bag-of-paths.json \
   --strict --pretty \
   --deduplicate \
-  --continue-on-error --start 1 --limit 100 \
+  --continue-on-error --start 1 --limit 1000 \
   --relationships-as-edges --only-containment-associations \
   --edge-blacklist 'owner' --edge-blacklist 'ownedElement' --edge-blacklist 'association' --edge-blacklist 'associationClass' \
-  --min-path-length 1 --max-path-length 2 \
-  --step-weighting '@type.exists >>> 2000' \
-  --step-weighting '@type.not.exists >>> -9999' \
-  --path-weight step-sum \
-  --min-path-weight 0 \
+  --min-path-length 1 --max-path-length 3 \
   --max-paths 0 \
   --prune-method 'encoding' \
   --node-templates '@name.exists >>> {{name}} $eu.yeger${{type}}$eu.yeger$' \
@@ -36,8 +32,7 @@ time bun node_modules/@cm2ml/cli/bin/cm2ml.mjs batch-uml-bag-of-paths ../models/
   --edge-templates '@tag = substitution >>> substitutes' \
   --edge-templates '@tag = templateBinding >>> binds' \
   --edge-templates '@tag = transition >>> transitions to' \
-  --edge-templates '@tag = usage >>> uses' \
-  --edge-templates '{{tag}}' \
+  --edge-templates '@tag = usage >>> uses'
 
 source scripts/conda-activate.sh
 
