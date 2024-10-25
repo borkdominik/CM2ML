@@ -58,27 +58,6 @@ export function batchTryCatch<In, Out, Parameters extends ParameterMetadata>(plu
   return batch(tryCatch(plugin), name)
 }
 
-/**
- * Composes two plugins into a new plugin that accepts an array of inputs and returns an array of outputs.
- */
-export function batchedCompose<
-  In,
-  I1,
-  P1 extends ParameterMetadata,
-  Out,
-  P2 extends ParameterMetadata,
->(
-  first: Plugin<In, I1, P1>,
-  second: Plugin<I1, Out, P2>,
-  name = `batch-${first.name}-${second.name}`,
-): Plugin<(In | ExecutionError)[], (Out | ExecutionError)[], P1 & P2> {
-  return compose(
-    batchTryCatch(first),
-    batchTryCatch(second),
-    name,
-  )
-}
-
 export function transform<In, Out>(transformer: (input: In) => Out, name = 'transform'): Plugin<In, Out, Record<string, never>> {
   return definePlugin({
     name,
