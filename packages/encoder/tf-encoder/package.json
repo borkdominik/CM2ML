@@ -3,14 +3,14 @@
   "type": "module",
   "version": "0.0.0",
   "author": {
-    "name": "Jan Müller",
+    "name": "Philipp-Lorenz Glaser",
     "url": "https://github.com/DerYeger"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/borkdominik/CM2ML.git",
-    "directory": "packages/tf-encoder"
+    "directory": "packages/encoder/tf-encoder"
   },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"

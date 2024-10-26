@@ -7,7 +7,11 @@
     "url": "https://github.com/plglaser"
   },
   "license": "MIT",
-  "repository": "github:borkdominik/CM2ML",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borkdominik/CM2ML.git",
+    "directory": "packages/languages/archimate"
+  },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"
   },
