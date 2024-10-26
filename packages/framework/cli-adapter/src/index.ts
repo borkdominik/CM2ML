@@ -9,7 +9,8 @@ import type { Command } from 'cac'
 import { cac } from 'cac'
 
 import { batchedPluginActionHandler } from './batched-plugin-action-handler'
-import { loadFromFile, pluginActionHandler } from './plugin-action-handler'
+import { pluginActionHandler } from './plugin-action-handler'
+import { loadFromFile } from './utils'
 
 class CLI extends PluginAdapter<string[], StructuredOutput<unknown[], unknown>> {
   private readonly cli = cac('cm2ml')

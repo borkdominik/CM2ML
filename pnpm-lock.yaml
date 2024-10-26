@@ -369,6 +369,12 @@ importers:
       '@cm2ml/tsconfig':
         specifier: workspace:*
         version: link:../../tsconfig
+      '@types/tmp':
+        specifier: 0.2.6
+        version: 0.2.6
+      tmp:
+        specifier: 0.2.3
+        version: 0.2.3
       typescript:
         specifier: 5.6.3
         version: 5.6.3
@@ -3531,6 +3537,9 @@ packages:
 
   '@types/tinycolor2@1.4.6':
     resolution: {integrity: sha512-iEN8J0BoMnsWBqjVbWH/c0G0Hh7O21lpR2/+PrvAVgWdzL7eexIFm4JN/Wn10PTcmNdtS6U67r499mlWMXOxNw==}
+
+  '@types/tmp@0.2.6':
+    resolution: {integrity: sha512-chhaNf2oKHlRkDGt+tiKE2Z5aJ6qalm7Z9rlLdBwmOiAAf09YQvvoLXjWK4HWPF1xU/fqvMgfNfpVoBscA/tKA==}
 
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
@@ -8213,6 +8222,10 @@ packages:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}
     engines: {node: '>=0.6.0'}
 
+  tmp@0.2.3:
+    resolution: {integrity: sha512-nZD7m9iCPC5g0pYmcaxogYKggSfLsdxl8of3Q/oIbqCqLLIO9IAF0GWjX1z9NZRHPiXv8Wex4yDCaZsgEw0Y8w==}
+    engines: {node: '>=14.14'}
+
   to-data-view@1.1.0:
     resolution: {integrity: sha512-1eAdufMg6mwgmlojAx3QeMnzB/BTVp7Tbndi3U7ftcT2zCZadjxkkmLmd97zmaxWi+sgGcgWrokmpEoy0Dn0vQ==}
 
@@ -11783,6 +11796,8 @@ snapshots:
       '@types/node': 22.7.5
 
   '@types/tinycolor2@1.4.6': {}
+
+  '@types/tmp@0.2.6': {}
 
   '@types/tough-cookie@4.0.5': {}
 
@@ -17623,6 +17638,8 @@ snapshots:
   tmp@0.0.33:
     dependencies:
       os-tmpdir: 1.0.2
+
+  tmp@0.2.3: {}
 
   to-data-view@1.1.0: {}
 

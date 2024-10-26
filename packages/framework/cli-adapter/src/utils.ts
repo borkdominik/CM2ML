@@ -1,10 +1,24 @@
+import { existsSync, readFileSync } from 'node:fs'
+
 import { getTypeConstructor, type ParameterMetadata } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
-import { loadFromFile } from './plugin-action-handler'
-
 export function getResultAsText(result: unknown, pretty: boolean | undefined): string {
   return typeof result === 'string' ? result : `${JSON.stringify(result, null, pretty ? 2 : undefined)}\n`
+}
+
+export function loadFromFile(input: string, processFile: (fileContent: string) => string) {
+  try {
+    // check if the file exists
+    if (!existsSync(input)) {
+      return input
+    }
+    // eslint-disable-next-line unused-imports/no-unused-vars
+  } catch (_error) {
+    return input
+  }
+  const fileContent = readFileSync(input, 'utf8')
+  return processFile(fileContent)
 }
 
 export function normalizeOptions(options: Record<string, unknown>, parameters: ParameterMetadata): Record<string, unknown> & { out?: string, pretty?: boolean } {
