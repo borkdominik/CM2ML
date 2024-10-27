@@ -3,7 +3,7 @@ import type { OnDragEndResponder } from '@hello-pangea/dnd'
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd'
 import { CaretSortIcon, Cross1Icon, DragHandleHorizontalIcon, QuestionMarkCircledIcon, SymbolIcon, TrashIcon } from '@radix-ui/react-icons'
 import { Stream } from '@yeger/streams'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 import { displayName } from '../lib/displayName'
 import { cn, getNewParameters } from '../lib/utils'
@@ -262,24 +262,31 @@ function StringListInput({
   value: values,
 }: ParameterInputProps<'list<string>'>) {
   const [inputValue, setInputValue] = useState('')
+  const enhancedOnChange = useCallback((change: string[]) => {
+    let newValues = [...change]
+    if (parameter.unique) {
+      newValues = [...new Set(newValues)]
+    }
+    if (!parameter.ordered) {
+      newValues = newValues.toSorted()
+    }
+    onChange(newValues)
+  }, [onChange, parameter.ordered, parameter.unique])
+
   const onInputConfirmed = () => {
     const trimmed = inputValue.trim()
     if (trimmed === '') {
       return
     }
     setInputValue('')
-    if (parameter.unique) {
-      onChange([...new Set([...values, trimmed])])
-      return
-    }
-    onChange([...values, trimmed])
+    enhancedOnChange([...values, trimmed])
   }
 
   const input = parameter.allowedValues
     ? (
         <AllowedValueSelect
           allowedValues={parameter.unique ? parameter.allowedValues.filter((allowedValue) => !values.includes(allowedValue)) : parameter.allowedValues}
-          onValueChange={(selectedValue) => onChange([...values, selectedValue])}
+          onValueChange={(selectedValue) => enhancedOnChange([...values, selectedValue])}
         />
       )
     : (
@@ -298,18 +305,18 @@ function StringListInput({
           }}
         />
       )
-  const processedItems = parameter.ordered ? values : values.toSorted()
+
   const onDragEnd: OnDragEndResponder = (result) => {
     if (!result.destination) {
       return
     }
-    const reordered = Array.from(processedItems)
+    const reordered = Array.from(values)
     const [removed] = reordered.splice(result.source.index, 1)
     if (!removed) {
       return
     }
     reordered.splice(result.destination.index, 0, removed)
-    onChange(reordered)
+    enhancedOnChange(reordered)
   }
   return (
     <Collapsible>
@@ -329,7 +336,7 @@ function StringListInput({
         <CollapsibleContent>
           <Container>
             {input}
-            <Button variant="ghost" onClick={() => onChange([])} className="mx-auto flex gap-2 text-primary" disabled={values.length === 0}>
+            <Button variant="ghost" onClick={() => enhancedOnChange([])} className="mx-auto flex gap-2 text-primary" disabled={values.length === 0}>
               Clear
               <TrashIcon className="size-4" />
             </Button>
@@ -342,21 +349,21 @@ function StringListInput({
                     {...provided.droppableProps}
                   >
                     {
-                      processedItems.map((value, index) => (
+                      values.map((value, index) => (
                         (
-                          <Draggable draggableId={parameter.ordered ? value : `${index}`} key={parameter.ordered ? value : index} index={index}>
+                          <Draggable draggableId={parameter.ordered ? value : `${index}-${value}`} key={parameter.ordered ? value : `${index}-${value}`} index={index}>
                             {(provided) => (
                               <div
                                 className="flex items-center gap-2 text-xs"
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                               >
-                                <Button variant="ghost" className="-my-1" size="sm" onClick={() => onChange(values.filter((entry) => entry !== value))}>
+                                <Button variant="ghost" className="-my-1" size="sm" onClick={() => enhancedOnChange(values.filter((entry) => entry !== value))}>
                                   <Cross1Icon className="s-4 text-primary" />
                                 </Button>
                                 {parameter.allowedValues
                                   ? <span className="text-balance font-mono">{value}</span>
-                                  : <InlineInput value={value} values={values} index={index} onChange={onChange} />}
+                                  : <InlineInput value={value} values={values} index={index} onChange={enhancedOnChange} ordered={parameter.ordered} />}
                                 <div className="ml-1 grow" />
                                 <div {...provided.dragHandleProps} style={{ display: parameter.ordered ? 'default' : 'none' }}>
                                   <DragHandleHorizontalIcon />
@@ -385,9 +392,10 @@ interface InlineInputProps {
   values: readonly string[]
   index: number
   onChange: (updated: string[]) => void
+  ordered: boolean | undefined
 }
 
-function InlineInput({ value, values, index, onChange }: InlineInputProps) {
+function InlineInput({ value, values, index, onChange, ordered }: InlineInputProps) {
   const [inputValue, setInputValue] = useState(value)
   const onInputConfirmed = () => {
     const trimmed = inputValue.trim()
@@ -397,7 +405,11 @@ function InlineInput({ value, values, index, onChange }: InlineInputProps) {
     }
     const updated = [...values]
     updated[index] = trimmed
-    onChange(updated)
+    if (ordered) {
+      onChange(updated)
+    } else {
+      onChange(updated.toSorted())
+    }
   }
   return (
     <Input
