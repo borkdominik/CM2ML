@@ -63,14 +63,20 @@ export function prepareEncoder(encoder: Encoder): PreparedEncoder {
   return compose(compose(encoder, liftMetadata()), deduplicate(), encoder.name)
 }
 
-const preparedEncoders: PreparedEncoder[] = encoders.map(prepareEncoder)
-
 export type PreparedPlugin = Plugin<string[], StructuredOutput<(unknown | ExecutionError)[], unknown>, any>
 
-export const plugins: PreparedPlugin[] = Stream
-  .from(parsers)
-  .map((parser) => batchTryCatch(parser, parser.name))
-  .flatMap((parser) =>
-    preparedEncoders.map((encoder) => compose(parser, encoder)),
-  )
-  .toArray()
+/**
+ * Prepare a list of parsers and encoders for use in a plugin adapter.
+ */
+export function preparePlugins(parsers: Parser[], encoders: Encoder[]): PreparedPlugin[] {
+  const preparedEncoders: PreparedEncoder[] = encoders.map(prepareEncoder)
+  return Stream
+    .from(parsers)
+    .map((parser) => batchTryCatch(parser, parser.name))
+    .flatMap((parser) =>
+      preparedEncoders.map((encoder) => compose(parser, encoder)),
+    )
+    .toArray()
+}
+
+export const plugins: PreparedPlugin[] = preparePlugins(parsers, encoders)
