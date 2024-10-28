@@ -138,7 +138,7 @@ function TreeEncodingFlowTreeNode({ data }: { data: TreeEncodingFlowNode }) {
             <Handle type="target" position={Position.Top} isConnectable={false} />
           )}
       <div
-        className="break-normal rounded-sm px-4 py-2 font-mono"
+        className="break-all rounded-sm px-4 py-2 font-mono"
         style={{
           outlineStyle: 'solid',
           outlineColor: data.color,
