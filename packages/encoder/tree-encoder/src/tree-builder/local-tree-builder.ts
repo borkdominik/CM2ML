@@ -75,8 +75,8 @@ export interface LocalAssociationTypeNode extends TreeNode<[]> {
 }
 
 export class LocalTreeBuilder extends TreeBuilder<LocalRootNode> {
-  protected override createTreeModel(rootNode: GraphNode): TreeModel<LocalRootNode> {
-    const root = this.createRootNode(rootNode.model)
+  protected override createTreeModel(model: GraphModel): TreeModel<LocalRootNode> {
+    const root = this.createRootNode(model)
     return {
       root,
       numNodes: this.nodeCount,

@@ -86,8 +86,8 @@ export interface GlobalAssociationTargetNode extends TreeNode<[]> {
 }
 
 export class GlobalTreeBuilder extends TreeBuilder<GlobalRootNode> {
-  protected override createTreeModel(rootNode: GraphNode): TreeModel<GlobalRootNode> {
-    const root = this.createRootNode(rootNode.model)
+  protected override createTreeModel(model: GraphModel): TreeModel<GlobalRootNode> {
+    const root = this.createRootNode(model)
     return {
       root,
       numNodes: this.nodeCount,

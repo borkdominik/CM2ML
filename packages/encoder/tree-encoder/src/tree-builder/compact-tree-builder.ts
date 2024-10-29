@@ -62,8 +62,8 @@ export interface CompactAssociationTypeNode extends TreeNode<[]> {
 }
 
 export class CompactTreeBuilder extends TreeBuilder<CompactRootNode> {
-  protected override createTreeModel(rootNode: GraphNode): TreeModel<CompactRootNode> {
-    const root = this.createRootNode(rootNode.model)
+  protected override createTreeModel(model: GraphModel): TreeModel<CompactRootNode> {
+    const root = this.createRootNode(model)
     return {
       root,
       numNodes: this.nodeCount,

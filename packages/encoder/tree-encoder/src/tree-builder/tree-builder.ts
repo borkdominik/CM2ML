@@ -25,7 +25,7 @@ export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
 
   public constructor(model: GraphModel, private readonly featureContext: FeatureContext, private readonly settings: TreeBuilderSettings) {
     model.nodes.forEach((node) => this.registerNode(node))
-    this.treeModel = this.createTreeModel(model.root)
+    this.treeModel = this.createTreeModel(model)
   }
 
   protected get nodeIdMapping(): NodeIdMapping {
@@ -53,7 +53,7 @@ export abstract class TreeBuilder<Root extends TreeNode<unknown[]>> {
     return typeAttribute
   }
 
-  protected abstract createTreeModel(rootNode: GraphNode): TreeModel<Root>
+  protected abstract createTreeModel(model: GraphModel): TreeModel<Root>
 
   protected mapId(node: GraphNode): string {
     const idAttribute = node.idAttribute
