@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`xmi-parser > should parse 1`] = `
+exports[`xml-parser > should parse 1`] = `
 "<xmi:XMI xmlns:mofext="http://www.omg.org/spec/MOF/20131001" xmlns:uml="http://www.omg.org/spec/UML/20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
   <uml:Package URI="http://www.omg.org/spec/XMI/20131001" name="XMI" xmi:id="_XMI" xmi:type="Package">
     <packagedElement name="Delete" xmi:id="_XMI-Delete" xmi:type="Class">

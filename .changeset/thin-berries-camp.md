@@ -19,7 +19,7 @@
 '@cm2ml/plugin-adapter': major
 '@cm2ml/rest': major
 '@cm2ml/rest-adapter': major
-'@cm2ml/xmi-parser': major
+'@cm2ml/xml-parser': major
 'kernighan-lin': major
 '@cm2ml/uml': major
 'prefixspan': major

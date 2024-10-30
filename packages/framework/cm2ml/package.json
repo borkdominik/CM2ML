@@ -50,7 +50,7 @@
     "@cm2ml/rest": "workspace:*",
     "@cm2ml/rest-adapter": "workspace:*",
     "@cm2ml/utils": "workspace:*",
-    "@cm2ml/xmi-parser": "workspace:*"
+    "@cm2ml/xml-parser": "workspace:*"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

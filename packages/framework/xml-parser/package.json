@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/xmi-parser",
+  "name": "@cm2ml/xml-parser",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/borkdominik/CM2ML.git",
-    "directory": "packages/framework/xmi-parser"
+    "directory": "packages/framework/xml-parser"
   },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"

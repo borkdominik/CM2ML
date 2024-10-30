@@ -9,12 +9,12 @@ import { parseDocument } from 'htmlparser2'
 
 export type TextNodeHandler = (node: GraphNode, text: string) => void
 
-export function createXmiParser(
+export function createXMLParser(
   metamodel: Metamodel<string, string, string>,
   textNodeHandler: TextNodeHandler,
 ) {
   return definePlugin({
-    name: 'xmi',
+    name: 'xml',
     parameters: {
       debug: {
         type: 'boolean',
@@ -33,12 +33,12 @@ export function createXmiParser(
 }
 
 function parse(
-  xmi: string,
+  xml: string,
   metamodel: Metamodel<string, string, string>,
   settings: Settings,
   textNodeHandler: TextNodeHandler,
 ): GraphModel {
-  const document = parseDocument(xmi, {
+  const document = parseDocument(xml, {
     xmlMode: true,
   })
   return mapDocument(document, metamodel, settings, textNodeHandler)
@@ -103,7 +103,7 @@ function initNodeFromElement(
 }
 
 function mapAttribute([name, value]: [string, string]): Attribute {
-  const xmiValue = mapValue(value)
+  const xmlValue = mapValue(value)
   const parsedName = parseNamespace(name)
   if (typeof parsedName === 'object') {
     return {
@@ -111,10 +111,10 @@ function mapAttribute([name, value]: [string, string]): Attribute {
       simpleName: parsedName.name,
       namespace: parsedName.namespace,
       type: 'unknown',
-      value: xmiValue,
+      value: xmlValue,
     }
   }
-  return { name, type: 'unknown', value: xmiValue }
+  return { name, type: 'unknown', value: xmlValue }
 }
 
 function mapValue(value: string): Value {

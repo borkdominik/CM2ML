@@ -2,7 +2,7 @@ import type { GraphModel } from '@cm2ml/ir'
 import { IrPostProcessor } from '@cm2ml/ir-post-processor'
 import { createRefiner } from '@cm2ml/metamodel-refiner'
 import { compose, definePlugin } from '@cm2ml/plugin'
-import { createXmiParser } from '@cm2ml/xmi-parser'
+import { createXMLParser } from '@cm2ml/xml-parser'
 
 import { Ecore } from './metamodel/ecore'
 import { inferEcoreHandler } from './metamodel/ecore-handler-registry'
@@ -22,7 +22,7 @@ const EcoreRefiner = definePlugin({
 })
 
 export const EcoreParser = compose(
-  createXmiParser(Ecore, () => { }),
+  createXMLParser(Ecore, () => { }),
   compose(EcoreRefiner, IrPostProcessor),
   'ecore',
 )

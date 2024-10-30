@@ -1,7 +1,7 @@
 import type { GraphModel, GraphNode } from '@cm2ml/ir'
 import { createRefiner } from '@cm2ml/metamodel-refiner'
 import { compose, definePlugin } from '@cm2ml/plugin'
-import { createXmiParser } from '@cm2ml/xmi-parser'
+import { createXMLParser } from '@cm2ml/xml-parser'
 
 import { isArchiFormat, restructureArchiXml } from './formats/archi-format'
 import { isOpenGroupFormat, restructureOpenGroupXml } from './formats/opengroup-format'
@@ -118,7 +118,7 @@ function handleTextNode(node: GraphNode, textContent: string) {
 }
 
 export const ArchimateParser = compose(
-  createXmiParser(Archimate, handleTextNode),
+  createXMLParser(Archimate, handleTextNode),
   ArchimateRefiner,
   // compose(ArchimateRefiner, IrPostProcessor),
   'archimate',

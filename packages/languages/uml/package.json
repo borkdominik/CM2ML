@@ -43,7 +43,7 @@
     "@cm2ml/metamodel-refiner": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/utils": "workspace:*",
-    "@cm2ml/xmi-parser": "workspace:*",
+    "@cm2ml/xml-parser": "workspace:*",
     "@yeger/streams": "1.2.2",
     "nanoid": "5.0.7"
   },

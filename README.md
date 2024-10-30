@@ -25,7 +25,7 @@
 - [@cm2ml/plugin-adapter](./packages/framework/plugin-adapter)
 - [@cm2ml/rest](./packages/framework/rest)
 - [@cm2ml/rest-adapter](./packages/framework/rest-adapter)
-- [@cm2ml/xmi-parser](./packages/framework/xmi-parser)
+- [@cm2ml/xml-parser](./packages/framework/xml-parser)
 
 ## Languages
 

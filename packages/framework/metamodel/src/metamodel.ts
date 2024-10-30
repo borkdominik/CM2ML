@@ -171,7 +171,7 @@ export class MetamodelElement<
     if (this.metamodel.isValidTag(tag)) {
       return this.#assignableTags.has(tag)
     }
-    // During the transformation, we replace the xmi tags with the UML types, so this additional check is necessary
+    // Some parsers might also treat the tag as a type
     if (this.metamodel.isValidType(tag)) {
       return this.#assignableTypes.has(tag)
     }

@@ -3,7 +3,7 @@ import { GraphNode } from '@cm2ml/ir'
 import { IrPostProcessor } from '@cm2ml/ir-post-processor'
 import { createRefiner } from '@cm2ml/metamodel-refiner'
 import { compose, definePlugin } from '@cm2ml/plugin'
-import { createXmiParser } from '@cm2ml/xmi-parser'
+import { createXMLParser } from '@cm2ml/xml-parser'
 import { nanoid } from 'nanoid'
 
 import { resolveDeployedElements } from './metamodel/resolvers/deployedElements'
@@ -273,7 +273,7 @@ function handleTextNode(node: GraphNode, text: string) {
 }
 
 export const UmlParser = compose(
-  createXmiParser(Uml, handleTextNode),
+  createXMLParser(Uml, handleTextNode),
   compose(UmlRefiner, IrPostProcessor),
   'uml',
 )

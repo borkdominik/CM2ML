@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import { Metamodel } from '@cm2ml/ir'
 import { describe, expect, it } from 'vitest'
 
-import { createXmiParser } from '../src/index'
+import { createXMLParser } from '../src/index'
 
 const metamodel = new Metamodel({
   attributes: ['id', 'type'],
@@ -13,11 +13,11 @@ const metamodel = new Metamodel({
   tags: [],
 })
 
-describe('xmi-parser', () => {
+describe('xml-parser', () => {
   it('should parse', () => {
     const input = fs.readFileSync(`${import.meta.dirname}/../../../../models/xmi-model.xmi`, 'utf-8')
-    const xmiParser = createXmiParser(metamodel, () => { })
-    const output = xmiParser.validateAndInvoke(input, {
+    const xmlParser = createXMLParser(metamodel, () => { })
+    const output = xmlParser.validateAndInvoke(input, {
       debug: false,
       strict: true,
     })

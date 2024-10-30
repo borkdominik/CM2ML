@@ -22,7 +22,7 @@ export * from '@cm2ml/pattern-miner'
 export * from '@cm2ml/tf-encoder'
 export * from '@cm2ml/tree-encoder'
 export * from '@cm2ml/uml'
-export * from '@cm2ml/xmi-parser'
+export * from '@cm2ml/xml-parser'
 
 export type Parser = Plugin<string, GraphModel, any>
 
