@@ -13,7 +13,7 @@ npm install kernighan-lin
 ```ts
 import { type Options, kernighanLin, recursiveKernighanLin } from 'kernighan-lin'
 
-// Bring-your-own-model, as long as vertices are hashable to support Set<Vertex> and Map<Vertex, ...>.
+// Bring-your-own-model, as long as vertices are unique to support Set<Vertex> and Map<Vertex, ...>.
 type Vertex = string
 
 const vertices: Set<Vertex> = new Set(['a', 'b', 'c', 'd', 'e', 'f'])
