@@ -1,17 +1,21 @@
-import type { FeatureContext } from '@cm2ml/feature-encoder'
+import type { FeatureContext, StaticFeatureData } from '@cm2ml/feature-encoder'
 import { FeatureEncoder } from '@cm2ml/feature-encoder'
 import type { GraphModel } from '@cm2ml/ir'
-import type { InferOut } from '@cm2ml/plugin'
+import type { InferOut, StructuredOutput } from '@cm2ml/plugin'
 import { ExecutionError, batchTryCatch, compose, definePlugin, defineStructuredPlugin, getFirstNonError } from '@cm2ml/plugin'
 
 import { CompactTreeBuilder } from './tree-builder/compact-tree-builder'
 import { GlobalTreeBuilder } from './tree-builder/global-tree-builder'
 import { LocalTreeBuilder } from './tree-builder/local-tree-builder'
 import { isValidTreeFormat, treeFormats } from './tree-model'
-import type { RecursiveTreeNode, TreeNodeValue } from './tree-model'
+import type { RecursiveTreeNode, TreeModel, TreeNodeValue } from './tree-model'
+import type { Vocabularies } from './vocabulary'
 import { getVocabularies } from './vocabulary'
 
 export type * from './tree-model'
+export { type Vocabularies } from './vocabulary'
+
+export type TreeBasedData = TreeModel<RecursiveTreeNode>
 
 const treeBuilders = {
   compact: CompactTreeBuilder,
@@ -42,8 +46,8 @@ const TreeTransformer = defineStructuredPlugin({
       group: 'vocabulary',
     },
   },
-  invoke({ data: model, metadata: featureContext }: { data: GraphModel, metadata: FeatureContext }, parameters) {
-    function createTreeModel() {
+  invoke({ data: model, metadata: featureContext }: { data: GraphModel, metadata: FeatureContext }, parameters): StructuredOutput<TreeBasedData, StaticFeatureData> {
+    function createTreeModel(): TreeBasedData {
       if (!isValidTreeFormat(parameters.format)) {
         throw new Error(`Invalid tree format: ${parameters.format}.`)
       }
@@ -58,13 +62,17 @@ const TreeTransformer = defineStructuredPlugin({
   },
 })
 
+interface VocabularyMetadata extends Partial<StaticFeatureData> {
+  vocabularies: Vocabularies
+}
+
 const BuildVocabulary = definePlugin({
   name: 'build-vocabulary',
   parameters: {},
-  invoke(input: (InferOut<typeof TreeTransformer> | ExecutionError)[], _parameters) {
+  invoke(input: (InferOut<typeof TreeTransformer> | ExecutionError)[], _parameters): (StructuredOutput<TreeBasedData, VocabularyMetadata> | ExecutionError)[] {
     const trees = input.filter((item): item is InferOut<typeof TreeTransformer> => !(item instanceof ExecutionError)).map((item) => item.data)
     const vocabularies = getVocabularies(trees)
-    const newMetadata = {
+    const newMetadata: VocabularyMetadata = {
       ...(getFirstNonError(input)?.metadata ?? {}),
       vocabularies,
     }
@@ -86,7 +94,7 @@ export type Word2IdMapping = Record<TreeNodeValue, number>
 
 type BuildVocabularyOutput = InferOut<typeof BuildVocabulary>
 
-type BuildVocabularyMetadata = Exclude<BuildVocabularyOutput[number], ExecutionError>['metadata']
+export type TreeBasedMetadata = VocabularyMetadata & { id2WordMapping: Id2WordMapping }
 
 const WordsToIds = definePlugin({
   name: 'words-to-ids',
@@ -104,9 +112,9 @@ const WordsToIds = definePlugin({
       group: 'vocabulary',
     },
   },
-  invoke(input: BuildVocabularyOutput, parameters) {
+  invoke(input: BuildVocabularyOutput, parameters): (StructuredOutput<TreeBasedData, TreeBasedMetadata> | ExecutionError)[] {
     function alignOutType() {
-      let metadata: BuildVocabularyMetadata & { id2WordMapping: Id2WordMapping } | null = null
+      let metadata: TreeBasedMetadata | null = null
       return input.map((item) => {
         if (item instanceof ExecutionError) {
           return item
@@ -146,7 +154,7 @@ const WordsToIds = definePlugin({
         children: node.children.map(mapNode),
       }
     }
-    const newMetadata = {
+    const newMetadata: TreeBasedMetadata = {
       ...firstValidInput.metadata,
       id2WordMapping,
     }
@@ -166,6 +174,13 @@ const WordsToIds = definePlugin({
   },
 })
 
+/**
+ * Encodes a graph model as a tree.
+ *
+ * **Requirements:**
+ * - Each node must have a unique id.
+ * - Each node must have a type (`global` format only).
+ */
 export const TreeEncoder = compose(
   compose(FeatureEncoder, batchTryCatch(TreeTransformer)),
   compose(BuildVocabulary, WordsToIds),

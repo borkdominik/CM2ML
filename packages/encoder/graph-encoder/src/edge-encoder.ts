@@ -6,6 +6,10 @@ import { Stream } from '@yeger/streams'
 export const formats = ['list', 'matrix'] as const
 export type Format = typeof formats[number]
 
+export type AdjacencyEncoding = (AdjacencyListEncoding | AdjacencyMatrixEncoding) & {
+  nodeFeatureVectors: FeatureVector[]
+}
+
 export const EdgeEncoder = defineStructuredPlugin({
   name: 'edge-encoder',
   parameters: {
@@ -39,11 +43,13 @@ export const EdgeEncoder = defineStructuredPlugin({
       .map(getNodeFeatureVector)
       .toArray()
 
+    const encodedData: AdjacencyEncoding = {
+      ...edgeEncoding,
+      nodeFeatureVectors,
+    }
+
     return {
-      data: {
-        ...edgeEncoding,
-        nodeFeatureVectors,
-      },
+      data: encodedData,
       metadata: staticData,
     }
   },
@@ -59,12 +65,19 @@ function getSortedIds(model: GraphModel) {
 
 export type AdjacencyList = [number, number][] | [number, number, number][]
 
+export interface AdjacencyListEncoding {
+  format: 'list'
+  list: AdjacencyList
+  nodes: string[]
+  edgeFeatureVectors: FeatureVector[]
+}
+
 function encodeAsAdjacencyList(
   edges: ReadonlySet<GraphEdge>,
   sortedIds: string[],
   weighted: boolean,
   getEdgeFeatureVector: (edge: GraphEdge) => FeatureVector,
-) {
+): AdjacencyListEncoding {
   const list = new Array<
     readonly [number, number] | readonly [number, number, number]
   >()
@@ -124,11 +137,18 @@ function sortAdjacencyList(list: AdjacencyList) {
 
 export type AdjacencyMatrix = number[][]
 
+export interface AdjacencyMatrixEncoding {
+  format: 'matrix'
+  matrix: AdjacencyMatrix
+  nodes: string[]
+  edgeFeatureVectors: FeatureVector[]
+}
+
 function encodeAsAdjacencyMatrix(
   edges: ReadonlySet<GraphEdge>,
   sortedIds: string[],
   weighted: boolean,
-) {
+): AdjacencyMatrixEncoding {
   const matrix = createAdjacencyMatrix(sortedIds.length)
   fillAdjacencyMatrix(matrix, edges, sortedIds, weighted)
   return { format: 'matrix' as const, matrix, nodes: sortedIds, edgeFeatureVectors: [] }

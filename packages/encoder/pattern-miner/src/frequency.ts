@@ -4,11 +4,13 @@ import type { MinedPattern } from './mining'
 import type { LabeledEdge, SerializedLabeledEdge } from './normalization'
 import type { FrequencyParameters, PatternOrder } from './pattern-types'
 
+export type PatternData = SerializedLabeledEdge[]
+
 export interface PatternWithFrequency {
   /**
    * The pattern
    */
-  pattern: SerializedLabeledEdge[]
+  pattern: PatternData
   /**
    * A DOT-notation graph of the pattern.
    */

@@ -58,7 +58,24 @@ export interface FeatureDeriverSettings extends FeatureEncoderProviderSettings {
   edgeFeatureOverride: FeatureMetadata | null
 }
 
-export type FeatureContext = ReturnType<typeof deriveFeatures>
+export interface FeatureContext {
+  staticData: StaticFeatureData
+  canEncodeNodeAttribute: (attribute: Attribute) => boolean
+  canEncodeEdgeAttribute: (attribute: Attribute) => boolean
+  mapNodeAttribute: (attribute: Attribute) => number | string | null
+  mapEdgeAttribute: (attribute: Attribute) => number | string | null
+  getNodeFeatureVector: (node: GraphNode) => FeatureVector
+  getEdgeFeatureVector: (edge: GraphEdge) => FeatureVector
+}
+
+export interface StaticFeatureData {
+  nodeFeatures: FeatureMetadata
+  edgeFeatures: FeatureMetadata
+  onlyEncodedFeatures: boolean
+  idAttribute: string | undefined
+  typeAttributes: string[] | undefined
+  nameAttribute: string | undefined
+}
 
 export function deriveFeatures(models: GraphModel[], settings: FeatureDeriverSettings) {
   const nodes = Stream.from(models).flatMap(({ nodes }) => nodes).cache()
@@ -70,15 +87,17 @@ export function deriveFeatures(models: GraphModel[], settings: FeatureDeriverSet
   const edgeFeatures: FeatureMetadata = internalEdgeFeatures.map(([name, type, encoder]) => [name, type, encoder?.export?.() ?? null] as const)
 
   const metamodel = models[0]?.metamodel
+
+  const staticData: StaticFeatureData = {
+    edgeFeatures,
+    nodeFeatures,
+    onlyEncodedFeatures: settings.onlyEncodedFeatures,
+    idAttribute: metamodel?.idAttribute,
+    typeAttributes: metamodel?.typeAttributes,
+    nameAttribute: metamodel?.nameAttribute,
+  }
   return {
-    staticData: {
-      edgeFeatures,
-      nodeFeatures,
-      onlyEncodedFeatures: settings.onlyEncodedFeatures,
-      idAttribute: metamodel?.idAttribute,
-      typeAttributes: metamodel?.typeAttributes,
-      nameAttribute: metamodel?.nameAttribute,
-    },
+    staticData,
     canEncodeNodeAttribute: (attribute: Attribute) => nodeEncoderProvider.canEncodeAttribute(attribute),
     canEncodeEdgeAttribute: (attribute: Attribute) => edgeEncoderProvider.canEncodeAttribute(attribute),
     mapNodeAttribute: createAttributeMapper(nodeEncoderProvider),

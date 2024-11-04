@@ -1,4 +1,4 @@
-import type { PatternWithFrequency } from '@cm2ml/builtin'
+import type { PatternMapping, PatternWithFrequency } from '@cm2ml/builtin'
 import { debounce } from '@yeger/debounce'
 import { Stream } from '@yeger/streams'
 import type { RefObject } from 'react'
@@ -16,7 +16,7 @@ export type Pattern = PatternWithFrequency['pattern']
 
 export interface Props {
   pattern: Pattern
-  mapping: Record<string, string[]>
+  mapping: PatternMapping
 }
 
 export function PatternGraph({ pattern, mapping }: Props) {

@@ -1,3 +1,4 @@
+import type { PatternMapping, PatternWithFrequency, SerializedLabeledEdge } from '@cm2ml/builtin'
 import { PatternMiner } from '@cm2ml/builtin'
 import type { GraphModel } from '@cm2ml/ir'
 import { ExecutionError } from '@cm2ml/plugin'
@@ -56,15 +57,8 @@ export function PatternEncoding({ model, parameters }: Props) {
   )
 }
 
-interface PatternProps {
-  pattern: {
-    source: string
-    target: string
-    tag: string
-  }[]
-  absoluteFrequency: number
-  graph: string
-  mapping: Record<string, string[]>
+interface PatternProps extends Omit<PatternWithFrequency, 'modelFrequency'> {
+  mapping: PatternMapping
 }
 
 function Pattern({ pattern, absoluteFrequency, mapping, graph }: PatternProps) {
@@ -111,12 +105,8 @@ function Pattern({ pattern, absoluteFrequency, mapping, graph }: PatternProps) {
 }
 
 interface LabeledEdgeProps {
-  edge: {
-    source: string
-    target: string
-    tag: string
-  }
-  mapping: Record<string, string[]>
+  edge: SerializedLabeledEdge
+  mapping: PatternMapping
 }
 
 function mapsToGraphNode(patternNodeId: string, mapping: Record<string, string[]>, graphNodeId: string) {
@@ -159,7 +149,7 @@ function LabeledEdge({ edge, mapping }: LabeledEdgeProps) {
 
 interface LabeledNodeProps {
   nodeId: string
-  mapping: Record<string, string[]>
+  mapping: PatternMapping
   isEdgeSelected: boolean
 }
 

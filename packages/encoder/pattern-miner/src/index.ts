@@ -1,16 +1,26 @@
 import type { GraphModel } from '@cm2ml/ir'
-import type { InferOut } from '@cm2ml/plugin'
+import type { InferOut, StructuredOutput } from '@cm2ml/plugin'
 import { ExecutionError, batchTryCatch, compose, definePlugin } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 import { embedPartitions } from './embedding'
+import type { PatternWithFrequency } from './frequency'
 import { calculateFrequencies } from './frequency'
+import type { MinedPattern } from './mining'
 import { minePatterns } from './mining'
+import type { PatternMapping } from './normalization'
 import { normalizePartitions } from './normalization'
 import { partitionNodes } from './partitioning'
 import { restorePartitionEdges } from './restoration'
 
-export type { PatternWithFrequency } from './frequency'
+export type { PatternData, PatternWithFrequency } from './frequency'
+export type { MinedPattern } from './mining'
+export type { PatternMapping, SerializedLabeledEdge } from './normalization'
+
+interface PatternData {
+  patterns: MinedPattern[]
+  mapping: PatternMapping
+}
 
 const ModelPatternMiner = batchTryCatch(definePlugin({
   name: 'patterns',
@@ -65,15 +75,16 @@ const ModelPatternMiner = batchTryCatch(definePlugin({
       group: 'mining',
     },
   },
-  invoke(model: GraphModel, parameters) {
+  invoke(model: GraphModel, parameters): StructuredOutput<PatternData, null> {
     const partitions = partitionNodes(model, parameters)
       .map(restorePartitionEdges)
     const { normalizedPartitions, mapping } = normalizePartitions(partitions, parameters)
     const embedding = embedPartitions(normalizedPartitions)
     const patterns = minePatterns(embedding, parameters)
+    const data: PatternData = { patterns, mapping }
     return {
-      data: { patterns, mapping },
-      metadata: {},
+      data,
+      metadata: null,
     }
   },
 }))
@@ -107,7 +118,7 @@ const PatternFrequencyMiner = definePlugin({
       group: 'filter',
     },
   },
-  invoke(batch: InferOut<typeof ModelPatternMiner>, parameters) {
+  invoke(batch: InferOut<typeof ModelPatternMiner>, parameters): (StructuredOutput<PatternMapping | ExecutionError, PatternWithFrequency[]>)[] {
     const patterns = Stream
       .from(batch)
       .map((result) => result instanceof ExecutionError ? [] : result.data.patterns)
@@ -120,4 +131,10 @@ const PatternFrequencyMiner = definePlugin({
   },
 })
 
+/**
+ * Detects patterns in graph models.
+ *
+ * **Requirements:**
+ * - Each node must have a unique id.
+ */
 export const PatternMiner = compose(ModelPatternMiner, PatternFrequencyMiner, 'pattern-miner')

@@ -2,7 +2,13 @@ import { Stream } from '@yeger/streams'
 
 import type { RecursiveTreeNode, TreeModel, TreeNodeValue } from './tree-model'
 
-export function getVocabularies(trees: TreeModel<RecursiveTreeNode>[]) {
+export interface Vocabularies {
+  staticVocabulary: TreeNodeValue[]
+  dynamicVocabulary: TreeNodeValue[]
+  vocabulary: TreeNodeValue[]
+}
+
+export function getVocabularies(trees: TreeModel<RecursiveTreeNode>[]): Vocabularies {
   const staticVocabulary = getVocabulary(trees, 'static')
   const dynamicVocabulary = getVocabulary(trees, 'dynamic')
   const vocabulary = Stream

@@ -1,9 +1,11 @@
 import type { GraphModel } from '@cm2ml/ir'
+import type { StructuredOutput } from '@cm2ml/plugin'
 import { ExecutionError, batchTryCatch, compose, definePlugin, defineStructuredBatchPlugin, getFirstNonError } from '@cm2ml/plugin'
 import { Stream } from '@yeger/streams'
 
 import type { CompiledTemplates } from './bop-types'
 import { pathWeightTypes, sortOrders } from './bop-types'
+import type { EncodedPath } from './encoding'
 import { encodePaths } from './encoding'
 import { collectPaths } from './paths'
 import type { PruneMethod } from './prune'
@@ -14,11 +16,13 @@ export type { PathWeight } from './bop-types'
 export { pathWeightTypes }
 export type { EncodedModelMember, EncodedPath } from './encoding'
 
+export interface BagOfPathsMetadata {
+  idAttribute: string | undefined
+  typeAttributes: string[] | undefined
+}
+
 interface PrecomputedMetadata {
-  metamodelData: {
-    idAttribute: string | undefined
-    typeAttributes: string[] | undefined
-  }
+  metamodelData: BagOfPathsMetadata
   compiledTemplates: CompiledTemplates
 }
 
@@ -71,6 +75,11 @@ const TemplateCompiler = defineStructuredBatchPlugin({
     return batch.map((data) => ({ data, metadata }))
   },
 })
+
+export interface BagOfPathsData {
+  paths: EncodedPath[]
+  mapping: string[]
+}
 
 const PathBuilder = definePlugin({
   name: 'path-builder',
@@ -134,7 +143,7 @@ const PathBuilder = definePlugin({
       group: 'Paths',
     },
   },
-  invoke: ({ data, metadata }: { data: GraphModel | ExecutionError, metadata: PrecomputedMetadata }, parameters) => {
+  invoke: ({ data, metadata }: { data: GraphModel | ExecutionError, metadata: PrecomputedMetadata }, parameters): StructuredOutput<BagOfPathsData, BagOfPathsMetadata> | ExecutionError => {
     if (data instanceof ExecutionError) {
       return data
     }

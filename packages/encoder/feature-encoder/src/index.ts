@@ -1,13 +1,15 @@
 import { GraphModel } from '@cm2ml/ir'
+import type { StructuredOutput } from '@cm2ml/plugin'
 import { ExecutionError, ValidationError, compose, definePlugin, defineStructuredBatchPlugin, getFirstNonError } from '@cm2ml/plugin'
 import { lazy } from '@cm2ml/utils'
 import { Stream } from '@yeger/streams'
 import { ZodError } from 'zod'
 
 import { getFeatureMetadataFromFile } from './feature-metadata-extractor'
+import type { FeatureContext, FeatureVector, StaticFeatureData } from './features'
 import { FeatureMetadataSchema, deriveFeatures } from './features'
 
-export type { FeatureContext, FeatureMetadata, FeatureName, FeatureType, FeatureVector } from './features'
+export type { FeatureContext, FeatureMetadata, FeatureName, FeatureType, FeatureVector, StaticFeatureData } from './features'
 
 export const FeatureEncoder = defineStructuredBatchPlugin({
   name: 'feature-encoder',
@@ -63,12 +65,12 @@ export const FeatureEncoder = defineStructuredBatchPlugin({
       group: 'features',
     },
   },
-  invoke(input: (GraphModel | ExecutionError)[], parameters) {
+  invoke(input: (GraphModel | ExecutionError)[], parameters): (StructuredOutput<GraphModel, FeatureContext> | ExecutionError)[] {
     try {
       const models = input.filter((item) => item instanceof GraphModel)
       const nodeFeatureOverride = parameters.nodeFeatures !== '' ? FeatureMetadataSchema.parse(JSON.parse(parameters.nodeFeatures)) : null
       const edgeFeatureOverride = parameters.edgeFeatures !== '' ? FeatureMetadataSchema.parse(JSON.parse(parameters.edgeFeatures)) : null
-      const features = lazy(() => deriveFeatures(models, { ...parameters, nodeFeatureOverride, edgeFeatureOverride }))
+      const features: FeatureContext = lazy(() => deriveFeatures(models, { ...parameters, nodeFeatureOverride, edgeFeatureOverride }))
       return input.map((item) => {
         if (item instanceof ExecutionError) {
           return item
@@ -87,10 +89,18 @@ export const FeatureEncoder = defineStructuredBatchPlugin({
   },
 })
 
+export interface EncodedFeatures {
+  nodes: FeatureVector[]
+  edges: FeatureVector[]
+}
+
+/**
+ * Encodes a graph model with feature vectors.
+ */
 export const StandaloneFeatureEncoder = compose(FeatureEncoder, definePlugin({
   name: 'feature-vector-generator',
   parameters: {},
-  invoke(batch, _parameters) {
+  invoke(batch, _parameters): (StructuredOutput<EncodedFeatures, StaticFeatureData | undefined> | ExecutionError)[] {
     const firstNonError = getFirstNonError(batch)
     const metadata = firstNonError?.metadata.staticData
     return batch.map((item) => {

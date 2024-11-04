@@ -2,6 +2,11 @@ import type { GraphEdge, GraphNode } from '@cm2ml/ir'
 
 import type { NormalizationParameters } from './pattern-types'
 
+/**
+ * Maps the ID of a labeled node to the IDs of the nodes in the original graph.
+ */
+export type PatternMapping = Record<string, string[]>
+
 export function normalizePartitions(partitions: Set<GraphNode>[], parameters: NormalizationParameters) {
   const normalizedLabeledNodes: LabeledNode[][] = []
   const crossPartitionMapping: Record<string, Set<string>> = {}
@@ -18,9 +23,12 @@ export function normalizePartitions(partitions: Set<GraphNode>[], parameters: No
       crossPartitionMapping[labeledNodeId].add(graphNodeId)
     })
   })
+  const mapping: PatternMapping = Object
+    .fromEntries(Object.entries(crossPartitionMapping)
+      .map(([key, value]) => [key, Array.from(value)]))
   return {
     normalizedPartitions: normalizedLabeledNodes,
-    mapping: Object.fromEntries(Object.entries(crossPartitionMapping).map(([key, value]) => [key, Array.from(value)])),
+    mapping,
   }
 }
 
