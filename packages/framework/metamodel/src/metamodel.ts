@@ -1,4 +1,4 @@
-import type { Attributable, AttributeType, GraphEdge, GraphNode, Metamodel } from '@cm2ml/ir'
+import type { AttributeType, GraphEdge, GraphNode, Metamodel, ModelMember } from '@cm2ml/ir'
 
 export function inferAndSaveType<AttributeName extends string, Type extends string, Tag extends string>(
   node: GraphNode,
@@ -16,8 +16,19 @@ export function inferAndSaveType<AttributeName extends string, Type extends stri
   node.type = type
 }
 
-export function copyAttributes(source: Attributable, target: Attributable) {
+/**
+ * Copies all attributes from the source to the target, excluding the id attribute.
+ */
+export function copyAttributes(
+  source: ModelMember,
+  target: ModelMember,
+) {
+  let idSkipped = false
   source.attributes.forEach((attribute) => {
+    if (!idSkipped && source.idAttribute === attribute) {
+      idSkipped = true
+      return
+    }
     target.addAttribute(attribute)
   })
 }
@@ -36,6 +47,21 @@ export function transformNodeToEdge(
   targets: GraphNode[],
   tag: string,
 ) {
+  if (node.model.root === node) {
+    throw new Error('Cannot transform root node to edge')
+  }
+  if (sources.length === 0) {
+    throw new Error('Cannot transform node to edge without sources')
+  }
+  if (targets.length === 0) {
+    throw new Error('Cannot transform node to edge without targets')
+  }
+  if (sources.some((source) => source === node)) {
+    throw new Error('Cannot transform node to edge with itself as source')
+  }
+  if (targets.some((target) => target === node)) {
+    throw new Error('Cannot transform node to edge with itself as target')
+  }
   // move children to parent
   const children = node.children
   children.forEach((child) => {
@@ -338,6 +364,9 @@ export function createMetamodel<
       HandlerParameters
     >[]
   ) {
+    if (configuration.isValidType(name)) {
+      throw new Error(`Attempted to create abstract type with existing type ${name}`)
+    }
     return new MetamodelElement(name, undefined, configuration, generalizations)
   }
   return { define, defineAbstract }
