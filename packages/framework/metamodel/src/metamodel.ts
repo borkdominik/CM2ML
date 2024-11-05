@@ -231,6 +231,7 @@ export class MetamodelElement<
       return parent.handle(node, parameters, visited)
     })
     if (typeof callback === 'function') {
+      // Most type-specific callbacks should be called first
       callbacks.unshift(callback)
     }
     return callbacks

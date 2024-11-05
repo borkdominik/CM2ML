@@ -48,6 +48,7 @@ export function createRefiner<
   /** This function strips the model (root) of non-model elements */
   function removeNonModelNodes(model: GraphModel) {
     const newRoot = findModelRoot(model.root)
+
     if (!newRoot) {
       return
     }
