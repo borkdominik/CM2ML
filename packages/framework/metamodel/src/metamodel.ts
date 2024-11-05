@@ -153,7 +153,7 @@ export class MetamodelElement<
       this.#assignableTypes.add(this.type)
     }
     generalizations?.forEach((parent) => {
-      parent.specialize(this)
+      parent.generalize(this)
     })
   }
 
@@ -292,7 +292,22 @@ export class MetamodelElement<
     node.type = this.type
   }
 
-  private specialize(
+  private generalize(
+    specialization: MetamodelElement<
+      AttributeName,
+      Type,
+      AbstractType,
+      Tag,
+      HandlerParameters
+    >,
+  ) {
+    this.registerSpecialization(specialization)
+    this.generalizations.forEach((parent) =>
+      parent.generalize(specialization),
+    )
+  }
+
+  private registerSpecialization(
     specialization: MetamodelElement<
       AttributeName,
       Type,
@@ -302,27 +317,12 @@ export class MetamodelElement<
     >,
   ) {
     this.#specializations.add(specialization)
-    this.registerSubSpecialization(specialization)
-  }
-
-  private registerSubSpecialization(
-    specialization: MetamodelElement<
-      AttributeName,
-      Type,
-      AbstractType,
-      Tag,
-      HandlerParameters
-    >,
-  ) {
     specialization.#generalizations.add(this)
     specialization.allAssignableTags.forEach((tag) =>
       this.#assignableTags.add(tag),
     )
     specialization.allAssignableTypes.forEach((type) =>
       this.#assignableTypes.add(type),
-    )
-    this.generalizations.forEach((parent) =>
-      parent.registerSubSpecialization(specialization),
     )
   }
 }

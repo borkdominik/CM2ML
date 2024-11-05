@@ -36,9 +36,7 @@ describe('MetamodelElement', () => {
     expect(B.generalizations.has(A)).toBe(true)
     expect(A.specializations.has(B)).toBe(true)
 
-    // Transitive generalizations are hidden
-    expect(A.specializations.has(C)).toBe(false)
-    // Transitive specializations are known
+    expect(A.specializations.has(C)).toBe(true)
     expect(C.generalizations.has(A)).toBe(true)
   })
 
