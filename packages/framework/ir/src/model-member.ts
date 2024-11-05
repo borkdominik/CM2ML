@@ -2,14 +2,24 @@ import { type Attributable, type Attribute, type AttributeChangeListener, Attrib
 import type { Show } from './ir-utils'
 import type { GraphModel } from './model'
 
+export type ModelMemberType = 'node' | 'edge'
+
 export abstract class ModelMember implements Attributable, Show {
   public abstract readonly model: GraphModel
   public abstract readonly tag: string
 
   readonly #attributeDelegate: AttributeDelegate
 
-  protected constructor(attributeChangeListener: AttributeChangeListener | undefined) {
+  protected constructor(private readonly modelMemberType: ModelMemberType, attributeChangeListener: AttributeChangeListener | undefined) {
     this.#attributeDelegate = new AttributeDelegate(attributeChangeListener)
+  }
+
+  public get isNode() {
+    return this.modelMemberType === 'node'
+  }
+
+  public get isEdge() {
+    return this.modelMemberType === 'edge'
   }
 
   public get attributes() {

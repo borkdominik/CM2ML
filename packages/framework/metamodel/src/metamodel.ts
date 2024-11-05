@@ -23,10 +23,9 @@ export function copyAttributes(
   source: ModelMember,
   target: ModelMember,
 ) {
-  let idSkipped = false
+  const mustSkipId = source.isNode && target.isNode
   source.attributes.forEach((attribute) => {
-    if (!idSkipped && source.idAttribute === attribute) {
-      idSkipped = true
+    if (mustSkipId && source.idAttribute === attribute) {
       return
     }
     target.addAttribute(attribute)

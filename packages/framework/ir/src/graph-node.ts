@@ -15,7 +15,7 @@ export class GraphNode extends ModelMember {
     public readonly model: GraphModel,
     public tag: string,
   ) {
-    super((attributeName, previousValue) => {
+    super('node', (attributeName, previousValue) => {
       if (attributeName === this.model.metamodel.idAttribute) {
         this.model.updateNodeMap(this, previousValue?.literal)
       }

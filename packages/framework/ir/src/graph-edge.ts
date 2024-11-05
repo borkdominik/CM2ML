@@ -11,7 +11,7 @@ export class GraphEdge extends ModelMember {
     public readonly source: GraphNode,
     public readonly target: GraphNode,
   ) {
-    super(undefined)
+    super('edge', undefined)
   }
 
   public get type(): string | undefined {

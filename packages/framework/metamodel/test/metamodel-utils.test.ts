@@ -35,10 +35,11 @@ describe('metamodel utils', () => {
   })
 
   describe('copyAttributes', () => {
-    it('should copy attributes excluding the id', () => {
+    it('should copy attributes excluding the id for node targets', () => {
       const model = new GraphModel(testMetamodel, { debug: false, strict: true })
       const a = new GraphNode(model, 'a')
       const b = new GraphNode(model, 'b')
+
       a.addAttribute({ name: 'name', type: 'string', value: { literal: 'aName' } })
       a.addAttribute({ name: 'id', type: 'string', value: { literal: 'aId' } })
       a.addAttribute({ name: 'type', type: 'string', value: { literal: 'A' } })
@@ -50,6 +51,25 @@ describe('metamodel utils', () => {
       expect(b.getAttribute('name')?.value.literal).toBe('aName')
       expect(b.getAttribute('id')?.value.literal).toBe(undefined)
       expect(b.getAttribute('type')?.value.literal).toBe('A')
+    })
+
+    it('should copy attributes including the id for edge targets', () => {
+      const model = new GraphModel(testMetamodel, { debug: false, strict: true })
+      const a = new GraphNode(model, 'a')
+      const b = new GraphNode(model, 'b')
+      const edge = model.addEdge('edge', a, b)
+
+      a.addAttribute({ name: 'name', type: 'string', value: { literal: 'aName' } })
+      a.addAttribute({ name: 'id', type: 'string', value: { literal: 'aId' } })
+      a.addAttribute({ name: 'type', type: 'string', value: { literal: 'A' } })
+
+      expect(edge.attributes.size).toBe(0)
+      copyAttributes(a, edge)
+
+      expect(edge.attributes.size).toBe(3)
+      expect(edge.getAttribute('name')?.value.literal).toBe('aName')
+      expect(edge.getAttribute('id')?.value.literal).toBe('aId')
+      expect(edge.getAttribute('type')?.value.literal).toBe('A')
     })
   })
 
