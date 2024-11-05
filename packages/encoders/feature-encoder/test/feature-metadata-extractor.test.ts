@@ -8,7 +8,7 @@ import fixture from './fixture.json'
 
 describe('cli formatter action handler', () => {
   it('formats feature metadata', () => {
-    const fileContent = readFileSync('test/fixture.json', 'utf8')
+    const fileContent = readFileSync(`${import.meta.dirname}/fixture.json`, 'utf8')
     const result = getFeatureMetadataFromFile(fileContent, 'nodeFeatures')
     expect(result).toEqual(JSON.stringify(fixture.metadata.nodeFeatures))
   })

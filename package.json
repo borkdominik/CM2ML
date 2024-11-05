@@ -36,6 +36,7 @@
     "typecheck": "nr turbo run check:tsc",
     "update": "taze major -l -r -w --exclude million",
     "version": "changeset version && pnpm install --no-frozen-lockfile",
+    "vitest": "vitest --coverage",
     "watch": "pnpm turbo watch"
   },
   "devDependencies": {
