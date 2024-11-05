@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@9.12.2",
+  "description": "CM2ML is a framework for encoding the structures and semantics of conceptual models. It decouples concrete modeling languages from encoder implementations through an intermediate representation.",
   "repository": {
     "url": "https://github.com/borkdominik/CM2ML"
   },

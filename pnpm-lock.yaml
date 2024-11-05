@@ -88,7 +88,7 @@ importers:
         specifier: 6.0.1
         version: 6.0.1
 
-  packages/encoder/bag-of-paths-encoder:
+  packages/encoders/bag-of-paths-encoder:
     dependencies:
       '@cm2ml/ir':
         specifier: workspace:*
@@ -119,7 +119,7 @@ importers:
         specifier: 2.1.3
         version: 2.1.3(@types/node@22.8.1)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(terser@5.36.0))
 
-  packages/encoder/feature-encoder:
+  packages/encoders/feature-encoder:
     dependencies:
       '@cm2ml/ir':
         specifier: workspace:*
@@ -150,7 +150,7 @@ importers:
         specifier: 2.1.3
         version: 2.1.3(@types/node@22.8.1)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(terser@5.36.0))
 
-  packages/encoder/graph-encoder:
+  packages/encoders/graph-encoder:
     dependencies:
       '@cm2ml/feature-encoder':
         specifier: workspace:*
@@ -178,38 +178,7 @@ importers:
         specifier: 2.1.3
         version: 2.1.3(@types/node@22.8.1)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(terser@5.36.0))
 
-  packages/encoder/pattern-miner:
-    dependencies:
-      '@cm2ml/ir':
-        specifier: workspace:*
-        version: link:../../framework/ir
-      '@cm2ml/plugin':
-        specifier: workspace:*
-        version: link:../../framework/plugin
-      '@yeger/streams':
-        specifier: 1.2.2
-        version: 1.2.2
-      kernighan-lin:
-        specifier: workspace:*
-        version: link:../../kernighan-lin
-      prefixspan:
-        specifier: workspace:*
-        version: link:../../prefixspan
-    devDependencies:
-      '@cm2ml/tsconfig':
-        specifier: workspace:*
-        version: link:../../tsconfig
-      typescript:
-        specifier: 5.6.3
-        version: 5.6.3
-      vite:
-        specifier: 5.4.10
-        version: 5.4.10(@types/node@22.8.1)(terser@5.36.0)
-      vite-plugin-lib:
-        specifier: 2.1.3
-        version: 2.1.3(@types/node@22.8.1)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(terser@5.36.0))
-
-  packages/encoder/tf-encoder:
+  packages/encoders/tf-encoder:
     dependencies:
       '@cm2ml/feature-encoder':
         specifier: workspace:*
@@ -240,7 +209,7 @@ importers:
         specifier: 2.1.3
         version: 2.1.3(@types/node@22.8.1)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(terser@5.36.0))
 
-  packages/encoder/tree-encoder:
+  packages/encoders/tree-encoder:
     dependencies:
       '@cm2ml/feature-encoder':
         specifier: workspace:*
@@ -275,7 +244,7 @@ importers:
         version: link:../../languages/archimate
       '@cm2ml/bag-of-paths-encoder':
         specifier: workspace:*
-        version: link:../../encoder/bag-of-paths-encoder
+        version: link:../../encoders/bag-of-paths-encoder
       '@cm2ml/deduplicate':
         specifier: workspace:*
         version: link:../deduplicate
@@ -284,25 +253,25 @@ importers:
         version: link:../../languages/ecore
       '@cm2ml/feature-encoder':
         specifier: workspace:*
-        version: link:../../encoder/feature-encoder
+        version: link:../../encoders/feature-encoder
       '@cm2ml/graph-encoder':
         specifier: workspace:*
-        version: link:../../encoder/graph-encoder
+        version: link:../../encoders/graph-encoder
       '@cm2ml/ir':
         specifier: workspace:*
         version: link:../ir
       '@cm2ml/pattern-miner':
         specifier: workspace:*
-        version: link:../../encoder/pattern-miner
+        version: link:../../pattern-mining/pattern-miner
       '@cm2ml/plugin':
         specifier: workspace:*
         version: link:../plugin
       '@cm2ml/tf-encoder':
         specifier: workspace:*
-        version: link:../../encoder/tf-encoder
+        version: link:../../encoders/tf-encoder
       '@cm2ml/tree-encoder':
         specifier: workspace:*
-        version: link:../../encoder/tree-encoder
+        version: link:../../encoders/tree-encoder
       '@cm2ml/uml':
         specifier: workspace:*
         version: link:../../languages/uml
@@ -690,21 +659,6 @@ importers:
         specifier: 2.1.3
         version: 2.1.3(@types/node@22.8.1)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(terser@5.36.0))
 
-  packages/kernighan-lin:
-    devDependencies:
-      '@cm2ml/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      typescript:
-        specifier: 5.6.3
-        version: 5.6.3
-      vite:
-        specifier: 5.4.10
-        version: 5.4.10(@types/node@22.8.1)(terser@5.36.0)
-      vite-plugin-lib:
-        specifier: 2.1.3
-        version: 2.1.3(@types/node@22.8.1)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(terser@5.36.0))
-
   packages/languages/archimate:
     dependencies:
       '@cm2ml/ir':
@@ -825,7 +779,53 @@ importers:
         specifier: 2.1.3
         version: 2.1.3(@types/node@22.8.1)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(terser@5.36.0))
 
-  packages/prefixspan:
+  packages/pattern-mining/kernighan-lin:
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.6.3
+        version: 5.6.3
+      vite:
+        specifier: 5.4.10
+        version: 5.4.10(@types/node@22.8.1)(terser@5.36.0)
+      vite-plugin-lib:
+        specifier: 2.1.3
+        version: 2.1.3(@types/node@22.8.1)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(terser@5.36.0))
+
+  packages/pattern-mining/pattern-miner:
+    dependencies:
+      '@cm2ml/ir':
+        specifier: workspace:*
+        version: link:../../framework/ir
+      '@cm2ml/plugin':
+        specifier: workspace:*
+        version: link:../../framework/plugin
+      '@yeger/streams':
+        specifier: 1.2.2
+        version: 1.2.2
+      kernighan-lin:
+        specifier: workspace:*
+        version: link:../kernighan-lin
+      prefixspan:
+        specifier: workspace:*
+        version: link:../prefixspan
+    devDependencies:
+      '@cm2ml/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: 5.6.3
+        version: 5.6.3
+      vite:
+        specifier: 5.4.10
+        version: 5.4.10(@types/node@22.8.1)(terser@5.36.0)
+      vite-plugin-lib:
+        specifier: 2.1.3
+        version: 2.1.3(@types/node@22.8.1)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(terser@5.36.0))
+
+  packages/pattern-mining/prefixspan:
     dependencies:
       heap-js:
         specifier: 2.5.0
@@ -833,7 +833,7 @@ importers:
     devDependencies:
       '@cm2ml/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       typescript:
         specifier: 5.6.3
         version: 5.6.3

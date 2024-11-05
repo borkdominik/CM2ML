@@ -37,4 +37,4 @@ pnpm check:tsc
 
 ## License
 
-[MIT](https://github.com/borkdominik/CM2ML/blob/main/packages/encoder/bag-of-paths-encoder/LICENSE) - Copyright &copy; Jan Müller
+[MIT](https://github.com/borkdominik/CM2ML/blob/main/packages/encoders/bag-of-paths-encoder/LICENSE) - Copyright &copy; Jan Müller

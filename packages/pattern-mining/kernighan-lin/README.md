@@ -73,4 +73,4 @@ const _manyPartitions = recursiveKernighanLin(vertices, getConnections, { ...opt
 
 ## License
 
-[MIT](https://github.com/borkdominik/CM2ML/blob/main/packages/kernighan-lin/LICENSE) - Copyright &copy; Jan Müller
+[MIT](https://github.com/borkdominik/CM2ML/blob/main/packages/pattern-mining/kernighan-lin/LICENSE) - Copyright &copy; Jan Müller

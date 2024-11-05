@@ -36,4 +36,4 @@ pnpm check:tsc
 
 ## License
 
-[MIT](https://github.com/borkdominik/CM2ML/blob/main/packages/prefixspan/LICENSE) - Copyright &copy; Jan Müller
+[MIT](https://github.com/borkdominik/CM2ML/blob/main/packages/pattern-mining/prefixspan/LICENSE) - Copyright &copy; Jan Müller

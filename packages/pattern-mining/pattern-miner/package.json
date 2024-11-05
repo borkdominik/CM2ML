@@ -1,5 +1,5 @@
 {
-  "name": "prefixspan",
+  "name": "@cm2ml/pattern-miner",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/borkdominik/CM2ML.git",
-    "directory": "packages/prefixspan"
+    "directory": "packages/pattern-mining/pattern-miner"
   },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"
@@ -37,7 +37,11 @@
     "test": "vitest"
   },
   "dependencies": {
-    "heap-js": "2.5.0"
+    "@cm2ml/ir": "workspace:*",
+    "@cm2ml/plugin": "workspace:*",
+    "@yeger/streams": "1.2.2",
+    "kernighan-lin": "workspace:*",
+    "prefixspan": "workspace:*"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

@@ -1,16 +1,16 @@
 {
-  "name": "@cm2ml/tf-encoder",
+  "name": "@cm2ml/feature-encoder",
   "type": "module",
   "version": "0.0.0",
   "author": {
-    "name": "Philipp-Lorenz Glaser",
+    "name": "Jan Müller",
     "url": "https://github.com/DerYeger"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/borkdominik/CM2ML.git",
-    "directory": "packages/encoder/tf-encoder"
+    "directory": "packages/encoders/feature-encoder"
   },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"
@@ -33,14 +33,15 @@
     "check:publish": "publint run --strict",
     "check:tsc": "tsc",
     "dev": "vite build --watch",
-    "lint": "yeger-lint"
+    "lint": "yeger-lint",
+    "test": "vitest"
   },
   "dependencies": {
-    "@cm2ml/feature-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
+    "@cm2ml/utils": "workspace:*",
     "@yeger/streams": "1.2.2",
-    "stemmer": "^2.0.1"
+    "zod": "3.23.8"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",

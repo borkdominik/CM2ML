@@ -1,5 +1,5 @@
 {
-  "name": "@cm2ml/feature-encoder",
+  "name": "@cm2ml/bag-of-paths-encoder",
   "type": "module",
   "version": "0.0.0",
   "author": {
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/borkdominik/CM2ML.git",
-    "directory": "packages/encoder/feature-encoder"
+    "directory": "packages/encoders/bag-of-paths-encoder"
   },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"
@@ -32,6 +32,7 @@
     "build": "vite build",
     "check:publish": "publint run --strict",
     "check:tsc": "tsc",
+    "codegen": "ohm generateBundles --withTypes 'src/*/*.ohm' --esm",
     "dev": "vite build --watch",
     "lint": "yeger-lint",
     "test": "vitest"
@@ -39,12 +40,12 @@
   "dependencies": {
     "@cm2ml/ir": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
-    "@cm2ml/utils": "workspace:*",
     "@yeger/streams": "1.2.2",
-    "zod": "3.23.8"
+    "ohm-js": "17.1.0"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
+    "@ohm-js/cli": "2.0.0",
     "typescript": "5.6.3",
     "vite": "5.4.10",
     "vite-plugin-lib": "2.1.3"

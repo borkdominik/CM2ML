@@ -16,7 +16,7 @@ export async function generateReadme() {
     }
     return dirs[1] ?? fallback
   })
-  const output = Object.entries(packagesByType)
+  const packageList = Object.entries(packagesByType)
     .sort(([a], [b]) => {
       if (a === 'other') {
         return 1
@@ -28,7 +28,7 @@ export async function generateReadme() {
     })
     .map(([type, pkgs]) => createSection(type, pkgs))
     .join('\n\n')
-  const readme = `${disclaimer}\n${createHeader(rootPackage)}\n\n${output}\n`
+  const readme = `${disclaimer}\n${createHeader(rootPackage)}\n\n${packageList}\n`
   await writeFile('README.md', readme)
 }
 
@@ -53,7 +53,8 @@ function createSection(type: string, pkgs: Package[]) {
 }
 
 function toTypeHeader(type: string) {
-  return type[0]!.toUpperCase() + type.slice(1)
+  const segments = type.split('-')
+  return segments.map((segment) => segment[0]!.toUpperCase() + segment.slice(1)).join(' ')
 }
 
 function createPackageLine(pkg: Package) {

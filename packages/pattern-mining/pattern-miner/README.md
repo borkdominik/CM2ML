@@ -37,4 +37,4 @@ pnpm check:tsc
 
 ## License
 
-[MIT](https://github.com/borkdominik/CM2ML/blob/main/packages/encoder/pattern-miner/LICENSE) - Copyright &copy; Jan Müller
+[MIT](https://github.com/borkdominik/CM2ML/blob/main/packages/pattern-mining/pattern-miner/LICENSE) - Copyright &copy; Jan Müller

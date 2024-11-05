@@ -37,4 +37,4 @@ pnpm check:tsc
 
 ## License
 
-[MIT](https://github.com/borkdominik/CM2ML/blob/main/packages/encoder/tree-encoder/LICENSE) - Copyright &copy; Jan Müller
+[MIT](https://github.com/borkdominik/CM2ML/blob/main/packages/encoders/tree-encoder/LICENSE) - Copyright &copy; Jan Müller
