@@ -2,10 +2,36 @@
 
 > Dependency-free implementation of the Kernighan-Lin algorithm for graph partitioning.
 
-## Installation
+## Development
 
-```sh
-npm install kernighan-lin
+### Installation
+
+```bash
+pnpm install
+```
+
+### Build
+
+```bash
+pnpm build
+```
+
+### Test
+
+```bash
+pnpm test
+```
+
+### Lint
+
+```bash
+pnpm lint
+```
+
+### Typecheck
+
+```bash
+pnpm check:tsc
 ```
 
 ## Usage
@@ -44,3 +70,7 @@ const _twoPartitions = kernighanLin(vertices, getConnections, options)
 // OR
 const _manyPartitions = recursiveKernighanLin(vertices, getConnections, { ...options, maxPartitionSize: 2 })
 ```
+
+## License
+
+[MIT](https://github.com/borkdominik/CM2ML/blob/main/packages/kernighan-lin/LICENSE) - Copyright &copy; Jan Müller
