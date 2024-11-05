@@ -126,24 +126,6 @@ describe('metamodel utils', () => {
         .toThrowErrorMatchingInlineSnapshot(`[Error: Cannot transform root node to edge]`)
     })
 
-    it('cannot transform without sources', () => {
-      const model = new GraphModel(testMetamodel, { debug: false, strict: true })
-      const aS = new GraphNode(model, 'a')
-      const bS = new GraphNode(model, 'b')
-      model.root = bS
-      expect(() => transformNodeToEdge(aS, [], [bS], 'edgeTag'))
-        .toThrowErrorMatchingInlineSnapshot(`[Error: Cannot transform node to edge without sources]`)
-    })
-
-    it('cannot transform without targets', () => {
-      const model = new GraphModel(testMetamodel, { debug: false, strict: true })
-      const aS = new GraphNode(model, 'a')
-      const bS = new GraphNode(model, 'b')
-      model.root = bS
-      expect(() => transformNodeToEdge(aS, [bS], [], 'edgeTag'))
-        .toThrowErrorMatchingInlineSnapshot(`[Error: Cannot transform node to edge without targets]`)
-    })
-
     it('cannot transform if sources contain edge to transform', () => {
       const model = new GraphModel(testMetamodel, { debug: false, strict: true })
       const aS = new GraphNode(model, 'a')

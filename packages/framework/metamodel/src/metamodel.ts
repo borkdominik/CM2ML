@@ -49,12 +49,6 @@ export function transformNodeToEdge(
   if (node.model.root === node) {
     throw new Error('Cannot transform root node to edge')
   }
-  if (sources.length === 0) {
-    throw new Error('Cannot transform node to edge without sources')
-  }
-  if (targets.length === 0) {
-    throw new Error('Cannot transform node to edge without targets')
-  }
   if (sources.some((source) => source === node)) {
     throw new Error('Cannot transform node to edge with itself as source')
   }
