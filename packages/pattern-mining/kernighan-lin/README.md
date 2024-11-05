@@ -36,6 +36,10 @@ pnpm check:tsc
 
 ## Usage
 
+```bash
+npm install kernighan-lin
+```
+
 ```ts
 import { type Options, kernighanLin, recursiveKernighanLin } from 'kernighan-lin'
 
