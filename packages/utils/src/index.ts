@@ -2,6 +2,9 @@ export function getMessage(error: unknown): string {
   if (error instanceof Error || containsMessage(error)) {
     return error.message
   }
+  if (typeof error === 'object') {
+    return JSON.stringify(error)
+  }
   return String(error)
 }
 
