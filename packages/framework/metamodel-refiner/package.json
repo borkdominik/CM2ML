@@ -9,7 +9,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/borkdominik/M2ML.git",
+    "url": "git+https://github.com/borkdominik/CM2ML.git",
     "directory": "packages/framework/metamodel-refiner"
   },
   "bugs": {
