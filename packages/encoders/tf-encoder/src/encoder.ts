@@ -67,7 +67,7 @@ export const TermFrequencyEncoder = defineStructuredBatchPlugin({
       displayName: 'Types as terms',
     },
     attributesAsTerms: {
-      type: 'array<string>',
+      type: 'list<string>',
       defaultValue: [],
       description: 'Additional attributes to encode as terms',
       group: 'terms',
@@ -88,7 +88,7 @@ export const TermFrequencyEncoder = defineStructuredBatchPlugin({
       displayName: 'Stem terms',
     },
     stopWords: {
-      type: 'array<string>',
+      type: 'list<string>',
       defaultValue: DEFAULT_STOP_WORDS,
       description: 'List of stop words to remove from the term list',
       group: 'term-normalization',
