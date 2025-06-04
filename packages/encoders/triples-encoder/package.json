@@ -1,7 +1,7 @@
 {
-  "name": "@cm2ml/rest-adapter",
+  "name": "@cm2ml/triples-encoder",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "author": {
     "name": "Jan Müller",
     "url": "https://github.com/DerYeger"
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/borkdominik/CM2ML.git",
-    "directory": "packages/framework/rest-adapter"
+    "directory": "packages/triples-encoder"
   },
   "bugs": {
     "url": "https://github.com/borkdominik/CM2ML/issues"
@@ -33,17 +33,13 @@
     "check:publish": "publint run --strict",
     "check:tsc": "tsc",
     "dev": "vite build --watch",
-    "lint": "yeger-lint",
-    "test": "vitest"
+    "lint": "yeger-lint"
   },
   "dependencies": {
+    "@cm2ml/ir": "workspace:*",
     "@cm2ml/nlp-utils": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
-    "@cm2ml/plugin-adapter": "workspace:*",
-    "@cm2ml/utils": "workspace:*",
-    "@fastify/cors": "^10.0.2",
-    "@yeger/streams": "1.2.2",
-    "fastify": "5.0.0"
+    "@yeger/streams": "1.2.2"
   },
   "devDependencies": {
     "@cm2ml/tsconfig": "workspace:*",
