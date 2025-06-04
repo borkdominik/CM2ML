@@ -8,8 +8,11 @@ import { isOpenGroupFormat, restructureOpenGroupXml } from './formats/opengroup-
 import { Archimate } from './metamodel/archimate'
 import { inferArchimateHandler } from './metamodel/archimate-handler-registry'
 import { validateArchimateModel } from './metamodel/archimate-validations'
+import { pruneEdges, pruneNodes } from './prune'
 
 const refine = createRefiner(Archimate, inferArchimateHandler)
+
+const allowedArchimateTypes = Object.keys(Archimate.Types)
 
 export const ArchimateRefiner = definePlugin({
   name: 'archimate',
@@ -24,12 +27,48 @@ export const ArchimateRefiner = definePlugin({
       defaultValue: false,
       description: 'Include views and link their respective elements',
     },
+    nodeWhitelist: {
+      type: 'list<string>',
+      unique: true,
+      defaultValue: [],
+      description: 'Whitelist of ArchiMate element types to include in the model. Root nodes will never be removed. Ignored if empty.',
+      allowedValues: allowedArchimateTypes,
+      group: 'nodes',
+      displayName: 'Whitelist',
+    },
+    nodeBlacklist: {
+      type: 'list<string>',
+      unique: true,
+      defaultValue: [],
+      description: 'Blacklist of ArchiMate element types to exclude from the model. Root nodes will never be removed.',
+      allowedValues: allowedArchimateTypes,
+      group: 'nodes',
+      displayName: 'Blacklist',
+    },
+    edgeWhitelist: {
+      type: 'list<string>',
+      unique: true,
+      defaultValue: [],
+      description: 'Whitelist of edge types to include in the model. Ignored if empty.',
+      group: 'edges',
+      displayName: 'Whitelist',
+    },
+    edgeBlacklist: {
+      type: 'list<string>',
+      unique: true,
+      defaultValue: [],
+      description: 'Blacklist of edge types to exclude in the model.',
+      group: 'edges',
+      displayName: 'Blacklist',
+    },
   },
   invoke: (input: GraphModel, parameters) => {
     removeUnsupportedNodes(input, parameters.viewsAsNodes)
     preprocess(input)
     renameDeprecatedTypes(input)
     const model = refine(input, parameters)
+    pruneNodes(model, parameters.nodeWhitelist, parameters.nodeBlacklist)
+    pruneEdges(model, parameters.edgeWhitelist, parameters.edgeBlacklist)
     validateArchimateModel(model, parameters)
     return model
   },
