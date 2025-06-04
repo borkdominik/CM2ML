@@ -1,7 +1,6 @@
 /* eslint-disable node/prefer-global/buffer */
 
 import fs from 'node:fs'
-import path from 'node:path'
 
 import { GraphModel } from '@cm2ml/ir'
 import type { ModelTerms2 } from '@cm2ml/nlp-utils'
@@ -48,7 +47,7 @@ export interface EmbeddingsEncoderParameters {
 }
 
 // TODO: parameterize this
-const EMBEDDINGS_BASE_DIR = path.join(import.meta.dirname, '../../../../embeddings/')
+const EMBEDDINGS_BASE_DIR = `${import.meta.dirname}/../../../../embeddings/`
 
 function getEmbeddingPaths(embeddingsModel: string) {
   const modelFileName = {
