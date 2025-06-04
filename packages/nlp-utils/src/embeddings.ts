@@ -1,13 +1,13 @@
 /* eslint-disable node/prefer-global/buffer */
 
 import fs from 'node:fs'
-import path from 'node:path'
 
 import { getMostSimilarWord } from '.'
 
 // TODO: Reuse these functions in embeddings-related plugins (i.e., remove duplicate code)
 
-const EMBEDDINGS_BASE_DIR = path.join(import.meta.dirname, '../../../../embeddings/')
+// TODO: Parameterize this
+const EMBEDDINGS_BASE_DIR = `${import.meta.dirname}/../../../../embeddings/`
 
 export const SUPPORTED_MODELS: Record<string, string> = {
   'glove': 'glove-6B-300d.txt',
