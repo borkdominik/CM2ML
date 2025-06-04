@@ -37,9 +37,11 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@cm2ml/nlp-utils": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/plugin-adapter": "workspace:*",
     "@cm2ml/utils": "workspace:*",
+    "@fastify/cors": "^10.0.2",
     "@yeger/streams": "1.2.2",
     "fastify": "5.0.0"
   },
