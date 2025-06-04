@@ -42,6 +42,16 @@ export function TriplesEncoding({ model, parameters }: Props) {
     }
 
     const fetchEmbeddings = async () => {
+      try {
+        const ping = await fetch('http://localhost:8080/health')
+        if (!ping.ok) {
+          return
+        }
+      } catch {
+        console.error('Embedding server is not available')
+        return
+      }
+
       const triples = encoding?.metadata[0]?.triples
       if (!triples) {
         return
@@ -157,8 +167,9 @@ export function TriplesEncoding({ model, parameters }: Props) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {triples.map((triple) => (
-              <TableRow key={`${triple.sourceId}-${triple.targetName}`}>
+            {triples.map((triple, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <TableRow key={`${triple.sourceId}-${triple.targetName}-${i}`}>
                 <TableCell className="border px-4 py-2">
                   <Button
                     variant="ghost"

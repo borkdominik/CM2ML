@@ -34,7 +34,6 @@ export function EmbeddingsEncoding({ model, parameters }: Props) {
         setServerUnavailable(true)
       }
     }
-
     checkServer()
   }, [])
 
@@ -48,6 +47,16 @@ export function EmbeddingsEncoding({ model, parameters }: Props) {
     setPooledEmbedding(null)
 
     const fetchEmbeddings = async () => {
+      try {
+        const ping = await fetch('http://localhost:8080/health')
+        if (!ping.ok) {
+          return
+        }
+      } catch {
+        console.error('Embedding server is not available')
+        return
+      }
+
       const terms = encoding.metadata.modelEmbeddings?.[0]?.embeddings?.map((e) => e.term) || []
       const newEmbeddings: Record<string, number[]> = {}
       const newTerms: Record<string, string> = {}
@@ -93,7 +102,6 @@ export function EmbeddingsEncoding({ model, parameters }: Props) {
         }
       }
     }
-
     fetchEmbeddings()
   }, [encoding])
 
@@ -165,7 +173,7 @@ export function EmbeddingsEncoding({ model, parameters }: Props) {
               const vector = updatedEmbeddings[term] || embedding
               const missingEmbedding = !updatedEmbeddings[term]
               return (
-                <TableRow key={term} className={missingEmbedding ? 'bg-red-200' : ''}>
+                <TableRow key={`${term}-${nodeId}`} className={missingEmbedding ? 'bg-red-200' : ''}>
                   <TableCell className="border px-4 py-2">
                     <Button
                       variant="ghost"
