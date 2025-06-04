@@ -39,8 +39,10 @@
   "dependencies": {
     "@cm2ml/archimate": "workspace:*",
     "@cm2ml/bag-of-paths-encoder": "workspace:*",
+    "@cm2ml/bag-of-words-encoder": "workspace:*",
     "@cm2ml/deduplicate": "workspace:*",
     "@cm2ml/ecore": "workspace:*",
+    "@cm2ml/embeddings-encoder": "workspace:*",
     "@cm2ml/feature-encoder": "workspace:*",
     "@cm2ml/graph-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
@@ -48,6 +50,7 @@
     "@cm2ml/plugin": "workspace:*",
     "@cm2ml/tf-encoder": "workspace:*",
     "@cm2ml/tree-encoder": "workspace:*",
+    "@cm2ml/triples-encoder": "workspace:*",
     "@cm2ml/uml": "workspace:*",
     "@cm2ml/xml-parser": "workspace:*",
     "@yeger/streams": "1.2.2"

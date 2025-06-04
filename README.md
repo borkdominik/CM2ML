@@ -47,6 +47,8 @@ cm2ml-server
 ### Encoders
 
 - [@cm2ml/bag-of-paths-encoder](./packages/encoders/bag-of-paths-encoder)
+- [@cm2ml/bag-of-words-encoder](./packages/encoders/bag-of-words-encoder)
+- [@cm2ml/embeddings-encoder](./packages/encoders/embeddings-encoder)
 - [@cm2ml/feature-encoder](./packages/encoders/feature-encoder)
 - [@cm2ml/graph-encoder](./packages/encoders/graph-encoder)
 - [@cm2ml/tf-encoder](./packages/encoders/tf-encoder)
@@ -84,7 +86,9 @@ cm2ml-server
 ### Other
 
 - [@cm2ml/ml](./ml)
+- [@cm2ml/nlp-utils](./packages/nlp-utils)
 - [@cm2ml/scripts](./packages/scripts)
+- [@cm2ml/triples-encoder](./packages/triples-encoder)
 - [@cm2ml/tsconfig](./packages/tsconfig)
 - [@cm2ml/utils](./packages/utils)
 - [@cm2ml/visualizer](./packages/visualizer)

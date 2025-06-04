@@ -6,6 +6,7 @@ coverage
 dist
 node_modules
 vite.config.ts.timestamp-*
+embeddings
 
 # local env files
 .env.local
