@@ -15,8 +15,6 @@ jobs:
         uses: DerYeger/pnpm-setup-action@master
         with:
           node-version-file: .node-version
-      - name: Install Playwright dependencies
-        run: cd packages/visualizer && pnpm exec playwright install --with-deps && cd ../../
       - name: Build, Lint, Test, and Typecheck
         run: pnpm run ci:full
       - name: Upload E2E report
