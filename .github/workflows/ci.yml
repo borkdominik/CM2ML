@@ -15,6 +15,15 @@ jobs:
         uses: DerYeger/pnpm-setup-action@master
         with:
           node-version-file: .node-version
+      - name: Cache Playwright binaries
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+      - name: Install Playwright dependencies
+        run: cd packages/visualizer && pnpm exec playwright install --with-deps && cd ../../
       - name: Build, Lint, Test, and Typecheck
         run: pnpm run ci:full
       - name: Upload E2E report
