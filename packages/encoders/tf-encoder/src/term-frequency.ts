@@ -1,47 +1,47 @@
-import type { EncoderParameters, TermDocumentMatrix } from './encoder'
-import type { ExtractedTerm, ModelTerms } from './term-extraction'
+import type { EncoderParameters, ModelTermFrequencies, TermDocumentMatrix } from './encoder'
 
-export function createTermList(modelTerms: ModelTerms[], parameters: EncoderParameters): string[] {
-  const termFrequencies = new Map<string, number>()
-  
-  modelTerms.forEach(({ terms }) => {
-    terms.forEach((term) => {
-      const currentFreq = termFrequencies.get(term.name) ?? 0
-      termFrequencies.set(term.name, currentFreq + term.occurences)
-    })
-  })
-  
-  return Array.from(termFrequencies.entries())
-    .filter(([_, frequency]) => frequency >= parameters.frequencyCutoff)
-    .map(([term, _]) => term)
+export function createTermList(modelTerms: ModelTermFrequencies[], parameters: EncoderParameters): string[] {
+  const globalTermFrequencies = new Map<string, number>()
+
+  for (const { terms } of modelTerms) {
+    for (const term of terms) {
+      globalTermFrequencies.set(term.name, (globalTermFrequencies.get(term.name) ?? 0) + term.frequency)
+    }
+  }
+
+  return Array.from(globalTermFrequencies.entries())
+    .filter(([_, freq]) => freq >= parameters.frequencyCutoff)
+    .map(([term]) => term)
 }
 
-export function createTermDocumentMatrix(modelTerms: ModelTerms[], termList: string[], parameters: EncoderParameters): TermDocumentMatrix {
+export function createTermDocumentMatrix(modelTerms: ModelTermFrequencies[], termList: string[], parameters: EncoderParameters): TermDocumentMatrix {
   const matrix: TermDocumentMatrix = {}
 
-  modelTerms.forEach(({ modelId, terms }) => {
-    const termCounts = countTerms(terms)
-    const totalTerms = terms.reduce((sum, term) => sum + term.occurences, 0)
+  // pre-compute IDF values
+  const idfValues: Record<string, number> = {}
+  if (parameters.tfIdf) {
+    termList.forEach((term) => {
+      idfValues[term] = computeIdf(term, modelTerms)
+    })
+  }
+
+  for (const { modelId, terms } of modelTerms) {
+    const termCounts = Object.fromEntries(terms.map((t) => [t.name, t.frequency]))
+    const totalTerms = terms.reduce((sum, t) => sum + t.frequency, 0)
 
     matrix[modelId] = termList.map((term) => {
-      const termCount = termCounts[term] ?? 0
-      const tf = computeTf(termCount, totalTerms, parameters)
-
+      const tf = computeTf(termCounts[term] ?? 0, totalTerms, parameters)
       if (parameters.tfIdf) {
-        const idf = computeIdf(term, modelTerms)
-        return computeTfIdf(tf, idf)
+        if (!idfValues[term]) {
+          throw new Error(`IDF value for term ${term} is undefined`)
+        }
+        return computeTfIdf(tf, idfValues[term])
       }
       return tf
     })
-  })
-  return matrix
-}
+  }
 
-function countTerms(terms: ExtractedTerm[]): Record<string, number> {
-  return terms.reduce((counts, term) => {
-    counts[term.name] = term.occurences
-    return counts
-  }, {} as Record<string, number>)
+  return matrix
 }
 
 // TF = term count / total number of terms in the document (if normalized)
@@ -51,12 +51,10 @@ function computeTf(termCount: number, totalTerms: number, parameters: EncoderPar
 }
 
 // IDF = log(number of documents / number of documents containing the term)
-function computeIdf(term: string, modelTerms: ModelTerms[]): number {
-  const documentCount = modelTerms.length
-  const documentFrequency = modelTerms.filter((model) =>
-    model.terms.some((t) => t.name === term),
-  ).length
-  return Math.log(documentCount / (documentFrequency || 1))
+function computeIdf(term: string, modelTerms: ModelTermFrequencies[]): number {
+  const docCount = modelTerms.length
+  const docsWithTerm = modelTerms.filter((m) => m.terms.some((t) => t.name === term)).length
+  return Math.log((docCount + 1) / (docsWithTerm + 1)) + 1
 }
 
 // TF-IDF = TF * IDF

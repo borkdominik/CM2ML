@@ -1,31 +1,17 @@
 import { GraphModel } from '@cm2ml/ir'
+import type { BiGramTermType, Term, ModelTerms2 } from '@cm2ml/nlp-utils'
+import { DEFAULT_STOP_WORDS, termExtractor, extractBiGrams, biGramTermTypes, extractNGrams } from '@cm2ml/nlp-utils'
 import { ExecutionError, defineStructuredBatchPlugin } from '@cm2ml/plugin'
 
-import { DEFAULT_STOP_WORDS } from './stop-words'
-import type { ModelTerms } from './term-extraction'
-import { extractModelTerms } from './term-extraction'
 import { createTermDocumentMatrix, createTermList } from './term-frequency'
 
-export const biGramTermTypes = ['name', 'type', 'attribute'] as const
-export type BiGramTermType = typeof biGramTermTypes[number] | string & Record<never, never>
+export interface TermFrequency extends Term {
+  frequency: number
+}
 
-export interface EncoderParameters {
-  namesAsTerms: boolean
-  typesAsTerms: boolean
-  attributesAsTerms: readonly string[]
-  tokenize: boolean
-  stem: boolean
-  stopWords: readonly string[]
-  normalizeTf: boolean
-  tfIdf: boolean
-  frequencyCutoff: number
-  // bi-gram
-  bigramEnabled: boolean
-  bigramSeparator: string
-  bigramFirstTerm: BiGramTermType
-  bigramFirstTermAttribute: string
-  bigramSecondTerm: BiGramTermType
-  bigramSecondTermAttribute: string
+export interface ModelTermFrequencies {
+  modelId: string
+  terms: TermFrequency[]
 }
 
 export interface TermFrequencyEncoding {
@@ -49,50 +35,114 @@ export interface TermFrequencyEncoding {
  */
 export type TermDocumentMatrix = Record<string, number[]>
 
+export interface EncoderParameters {
+  includeNames: boolean
+  includeTypes: boolean
+  includedAttributes: readonly string[]
+
+  minTermLength: number
+  maxTermLength: number
+
+  tokenize: boolean
+  termDelimiters: readonly string[]
+  lowercase: boolean
+  stem: boolean
+  stopWords: readonly string[]
+
+  normalizeTf: boolean
+  tfIdf: boolean
+  frequencyCutoff: number
+
+  // bi-gram
+  bigramEnabled: boolean
+  bigramSeparator: string
+  bigramFirstTerm: BiGramTermType
+  bigramFirstTermAttribute: string
+  bigramSecondTerm: BiGramTermType
+  bigramSecondTermAttribute: string
+
+  // n-gram
+  nGramEnabled: boolean
+  nGramLength: number
+  keepLowerLengthPaths: boolean
+  undirected: boolean
+
+  includeNodeIds: boolean
+  separateViews: boolean
+}
+
 export const TermFrequencyEncoder = defineStructuredBatchPlugin({
   name: 'term-frequency',
   parameters: {
-    namesAsTerms: {
+    includeNames: {
       type: 'boolean',
       defaultValue: true,
       description: 'Encode names as terms',
       group: 'terms',
       displayName: 'Names as terms',
     },
-    typesAsTerms: {
+    includeTypes: {
       type: 'boolean',
       defaultValue: false,
       description: 'Encode types as terms',
       group: 'terms',
       displayName: 'Types as terms',
     },
-    attributesAsTerms: {
+    includedAttributes: {
       type: 'list<string>',
       defaultValue: [],
       description: 'Additional attributes to encode as terms',
       group: 'terms',
       displayName: 'Attributes as terms',
     },
-    tokenize: {
-      type: 'boolean',
-      defaultValue: false,
-      description: 'Split and clean terms into separate tokens',
-      group: 'term-normalization',
-      displayName: 'Tokenize terms',
+    minTermLength: {
+      type: 'number',
+      defaultValue: 1,
+      description: 'Minimum term length',
+      group: 'filtering',
+      displayName: 'Min term length',
     },
-    stem: {
-      type: 'boolean',
-      defaultValue: false,
-      description: 'Apply stemming to terms',
-      group: 'term-normalization',
-      displayName: 'Stem terms',
+    maxTermLength: {
+      type: 'number',
+      defaultValue: 100,
+      description: 'Maximum length of terms',
+      displayName: 'Max term length',
+      group: 'filtering',
     },
     stopWords: {
       type: 'list<string>',
       defaultValue: DEFAULT_STOP_WORDS,
       description: 'List of stop words to remove from the term list',
-      group: 'term-normalization',
+      group: 'filtering',
       displayName: 'Stop words',
+    },
+    tokenize: {
+      type: 'boolean',
+      defaultValue: true,
+      description: 'Split and clean terms into separate tokens',
+      group: 'normalization',
+      displayName: 'Tokenize terms',
+    },
+    termDelimiters: {
+      type: 'list<string>',
+      defaultValue: [' ', '-', '_'],
+      description: 'Delimiters used to split tokens',
+      displayName: 'Term delimiters',
+      group: 'normalization',
+    },
+    lowercase: {
+      type: 'boolean',
+      defaultValue: true,
+      description: 'Convert terms to lowercase',
+      group: 'normalization',
+      displayName: 'Lowercase terms',
+    },
+    stem: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Apply stemming to terms',
+      group: 'normalization',
+      displayName: 'Stem terms',
     },
     normalizeTf: {
       type: 'boolean',
@@ -116,56 +166,129 @@ export const TermFrequencyEncoder = defineStructuredBatchPlugin({
       displayName: 'Frequency Cut-off',
     },
     bigramEnabled: {
-        type: 'boolean',
-        defaultValue: false,
-        description: 'Enable bi-gram extraction',
-        group: 'bi-gram',
-        displayName: 'Enable Bi-grams',
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Enable bi-gram extraction',
+      group: 'bi-gram',
+      displayName: 'Enable Bi-grams',
     },
     bigramSeparator: {
-        type: 'string',
-        defaultValue: '.',
-        description: 'Separator for bi-gram terms',
-        group: 'bi-gram',
-        displayName: 'Bi-gram Separator',
+      type: 'string',
+      defaultValue: '.',
+      description: 'Separator for bi-gram terms',
+      group: 'bi-gram',
+      displayName: 'Bi-gram Separator',
     },
     bigramFirstTerm: {
-        type: 'string',
-        defaultValue: biGramTermTypes[0],
-        allowedValues: biGramTermTypes,
-        description: 'First term of the bi-gram',
-        group: 'bi-gram',
-        displayName: 'Bi-gram First Term',
+      type: 'string',
+      defaultValue: biGramTermTypes[0],
+      allowedValues: biGramTermTypes,
+      description: 'First term of the bi-gram',
+      group: 'bi-gram',
+      displayName: 'Bi-gram First Term',
     },
     bigramFirstTermAttribute: {
-        type: 'string',
-        defaultValue: '',
-        description: 'Attribute name for the first term (if "attribute" is selected)',
-        group: 'bi-gram',
-        displayName: 'Bi-gram First Attribute',
+      type: 'string',
+      defaultValue: '',
+      description: 'Attribute name for the first term (if "attribute" is selected)',
+      group: 'bi-gram',
+      displayName: 'Bi-gram First Attribute',
     },
     bigramSecondTerm: {
-        type: 'string',
-        defaultValue: biGramTermTypes[1],
-        allowedValues: biGramTermTypes,
-        description: 'Second term of the bi-gram',
-        group: 'bi-gram',
-        displayName: 'Bi-gram Second Term',
+      type: 'string',
+      defaultValue: biGramTermTypes[1],
+      allowedValues: biGramTermTypes,
+      description: 'Second term of the bi-gram',
+      group: 'bi-gram',
+      displayName: 'Bi-gram Second Term',
     },
     bigramSecondTermAttribute: {
-        type: 'string',
-        defaultValue: '',
-        description: 'Attribute name for the second term (if "attribute" is selected)',
-        group: 'bi-gram',
-        displayName: 'Bi-gram Second Attribute',
+      type: 'string',
+      defaultValue: '',
+      description: 'Attribute name for the second term (if "attribute" is selected)',
+      group: 'bi-gram',
+      displayName: 'Bi-gram Second Attribute',
+    },
+    nGramEnabled: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Enable N-gram extraction',
+      group: 'n-gram',
+      displayName: 'Enable N-grams',
+    },
+    nGramLength: {
+      type: 'number',
+      defaultValue: 1,
+      description: 'Length of N-gram Paths',
+      group: 'n-gram',
+      displayName: 'N-gram length',
+    },
+    keepLowerLengthPaths: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Keep lower length paths in N-gram extraction',
+      group: 'n-gram',
+      displayName: 'Keep lower length paths',
+    },
+    undirected: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Consider the graph as undirected when extracting N-gram paths',
+      group: 'n-gram',
+      displayName: 'Undirected',
+    },
+    includeNodeIds: {
+      type: 'boolean',
+      defaultValue: true,
+      description: 'Include node IDs in output terms',
+      group: 'output',
+      displayName: 'Include Node IDs',
+    },
+    separateViews: {
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Handle each view separately',
+      displayName: 'Separate Views',
+      group: 'output',
     },
   },
   invoke(input: (GraphModel | ExecutionError)[], parameters: EncoderParameters) {
     const models = filterValidModels(input)
-    const modelTerms = extractModelTerms(models, parameters)
-    const termList = createTermList(modelTerms, parameters)
-    const termDocumentMatrix = createTermDocumentMatrix(modelTerms, termList, parameters)
-    return createOutput(input, termDocumentMatrix, termList, modelTerms)
+    let modelTerms: ModelTerms2[]
+
+    if (parameters.bigramEnabled) {
+      modelTerms = extractBiGrams(models, {
+        bigramSeparator: parameters.bigramSeparator,
+        bigramFirstTerm: parameters.bigramFirstTerm,
+        bigramFirstTermAttribute: parameters.bigramFirstTermAttribute,
+        bigramSecondTerm: parameters.bigramSecondTerm,
+        bigramSecondTermAttribute: parameters.bigramSecondTermAttribute,
+        separateViews: parameters.separateViews,
+      })
+    } else if (parameters.nGramEnabled) {
+      modelTerms = extractNGrams(models, parameters.nGramLength, parameters.keepLowerLengthPaths, parameters.undirected, parameters.separateViews)
+    } else {
+      modelTerms = termExtractor.invoke(models, {
+        includeNames: parameters.includeNames,
+        includeTypes: parameters.includeTypes,
+        includedAttributes: parameters.includedAttributes,
+        minTermLength: parameters.minTermLength,
+        maxTermLength: parameters.maxTermLength,
+        tokenize: parameters.tokenize,
+        termDelimiters: parameters.termDelimiters,
+        lowercase: parameters.lowercase,
+        stem: parameters.stem,
+        stopWords: parameters.stopWords,
+        includeNodeIds: parameters.includeNodeIds,
+        separateViews: parameters.separateViews,
+      })
+    }
+
+    const modelTermsFreq: ModelTermFrequencies[] = convertToTermFrequency(modelTerms)
+    const termList = createTermList(modelTermsFreq, parameters)
+    const termDocumentMatrix = createTermDocumentMatrix(modelTermsFreq, termList, parameters)
+
+    return createOutput(input, termDocumentMatrix, termList, modelTermsFreq)
   },
 })
 
@@ -173,11 +296,26 @@ function filterValidModels(input: (GraphModel | ExecutionError)[]): GraphModel[]
   return input.filter((item) => item instanceof GraphModel)
 }
 
+function convertToTermFrequency(modelTerms: ModelTerms2[]): ModelTermFrequencies[] {
+  return modelTerms.map(({ modelId, terms }) => {
+    const termMap = new Map<string, TermFrequency>()
+    for (const term of terms) {
+      const key = term.name
+      if (termMap.has(key)) {
+        termMap.get(key)!.frequency++
+      } else {
+        termMap.set(key, { nodeId: term.nodeId ?? '', name: key, frequency: 1 })
+      }
+    }
+    return { modelId, terms: Array.from(termMap.values()) }
+  })
+}
+
 function createOutput(
   input: (GraphModel | ExecutionError)[],
   termDocumentMatrix: TermDocumentMatrix,
   termList: string[],
-  modelTerms: ModelTerms[],
+  modelTerms: ModelTermFrequencies[],
 ) {
   const modelIds = modelTerms.map(({ modelId }) => modelId)
   const result: TermFrequencyEncoding = { termDocumentMatrix, termList, modelIds }

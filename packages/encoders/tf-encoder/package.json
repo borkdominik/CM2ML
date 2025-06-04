@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "author": {
     "name": "Philipp-Lorenz Glaser",
-    "url": "https://github.com/DerYeger"
+    "url": "https://github.com/plglaser"
   },
   "license": "MIT",
   "repository": {
@@ -38,6 +38,7 @@
   "dependencies": {
     "@cm2ml/feature-encoder": "workspace:*",
     "@cm2ml/ir": "workspace:*",
+    "@cm2ml/nlp-utils": "workspace:*",
     "@cm2ml/plugin": "workspace:*",
     "@yeger/streams": "1.2.2",
     "stemmer": "^2.0.1"
