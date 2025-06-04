@@ -15,6 +15,9 @@ jobs:
         uses: DerYeger/pnpm-setup-action@master
         with:
           node-version-file: .node-version
+        # explicitly install playwright to reduce chance of hangs 
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
       - name: Build, Lint, Test, and Typecheck
         run: pnpm run ci:full
       - name: Upload E2E report
