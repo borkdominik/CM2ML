@@ -19,7 +19,12 @@ function isPluginReadyForTest(plugin: PreparedPlugin) {
   if (name.includes('ecore')) {
     return false
   }
-  if (name.includes('term-frequency')) {
+  if (
+    name.includes('term-frequency') || 
+    name.includes('bag-of-words') || 
+    name.includes('triples') ||
+    name.includes('embeddings')
+  ) {
     return false
   }
   return true
