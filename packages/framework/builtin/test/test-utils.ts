@@ -20,8 +20,8 @@ function isPluginReadyForTest(plugin: PreparedPlugin) {
     return false
   }
   if (
-    name.includes('term-frequency') || 
-    name.includes('bag-of-words') || 
+    name.includes('term-frequency') ||
+    name.includes('bag-of-words') ||
     name.includes('triples') ||
     name.includes('embeddings')
   ) {
