@@ -3,7 +3,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { getMostSimilarWord } from '@cm2ml/nlp-utils'
+import { getMostSimilarWord } from '.'
 
 // TODO: Reuse these functions in embeddings-related plugins (i.e., remove duplicate code)
 

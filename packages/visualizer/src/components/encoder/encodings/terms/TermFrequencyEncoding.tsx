@@ -38,7 +38,7 @@ export function TermFrequencyEncoding({ model, parameters }: Props) {
       const node = modelTerms.terms.find((node) => node.name === term)
       if (node) {
         setSelectedTerm(term)
-        setSelection({ type: 'nodes', nodes: [node.nodeId], origin: 'graph' })
+        setSelection({ type: 'nodes', nodes: [node.nodeId!], origin: 'graph' })
       }
     }
   }
