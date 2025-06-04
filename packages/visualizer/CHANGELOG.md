@@ -1,5 +1,11 @@
 # @cm2ml/visualizer
 
+## 2.0.0
+
+### Major Changes
+
+- 3c9adf2: include new encoders
+
 ## 1.0.0
 
 ### Major Changes
