@@ -43,6 +43,19 @@ npm install -g @cm2ml/server
 cm2ml-server
 \`\`\``
 
+const usage = `## Usage
+
+Detailed usage documentation is available in [docs/USAGE.md](./docs/USAGE.md).
+
+It covers:
+
+- CLI usage patterns for single and batch processing
+- REST API endpoints and request format
+- Library usage in Node.js/TypeScript
+- Visualization usage
+- Parser parameter reference (UML, ArchiMate, Ecore)
+- Links to encoder-specific documentation`
+
 const development = `## Development
 
 Enable corepack with \`corepack enable\` to automate the installation and selection of the correct package manager.
@@ -68,7 +81,7 @@ export async function generateReadme() {
   const { packages, rootPackage } = await getPackages(process.cwd())
   const header = createHeader(rootPackage)
   const packageList = createPackageList(packages)
-  const body = [header, installation, packageList, development].join('\n\n')
+  const body = [header, installation, usage, packageList, development].join('\n\n')
   await writeFile('README.md', `${disclaimer}\n${body}\n`)
 }
 

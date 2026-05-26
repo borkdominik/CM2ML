@@ -52,7 +52,7 @@ const EMBEDDINGS_BASE_DIR = `${import.meta.dirname}/../../../../embeddings/`
 function getEmbeddingPaths(embeddingsModel: string) {
   const modelFileName = {
     'glove': 'glove-6B-300d.txt',
-    'word2vec-google-news': 'word2vec-google-news-300.txt',
+    'word2vec-google-news': 'vectors.txt',
     'glove-mde': 'glove-mde.txt',
     'word2vec-mde': 'word2vec-mde.txt',
   }[embeddingsModel] ?? 'word2vec-google-news' // Default to 'word2vec-google-news'
@@ -269,6 +269,7 @@ function loadIndex(indexFilePath: string): Map<string, number> {
   } catch (error) {
     throw new Error(`Failed to load embedding index from ${indexFilePath}: ${error}`)
   }
+
   return index
 }
 
@@ -338,6 +339,8 @@ function getFallbackEmbedding(params: EmbeddingsEncoderParameters): number[] {
 function getEmbedding(term: string, index: Map<string, number>, embeddingFilePath: string, params: EmbeddingsEncoderParameters): { embedding: number[] | null, newTerm: string } {
   let newTerm = term
   let offset = index.get(term.toLowerCase())
+
+  // console.log(offset)
   if (offset === undefined && params.oovStrategy === 'most-similar') {
     const similarWord = getMostSimilarWord(term, index)
     if (similarWord) {
